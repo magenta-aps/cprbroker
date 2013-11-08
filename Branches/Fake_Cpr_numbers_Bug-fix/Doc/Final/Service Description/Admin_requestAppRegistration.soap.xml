@@ -1,0 +1,37 @@
+POST /Services/Admin.asmx HTTP/1.1
+Host: localhost
+Content-Type: application/soap+xml; charset=utf-8
+Content-Length: length
+
+<?xml version="1.0" encoding="utf-8"?>
+<soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
+  <soap12:Body>
+    <RequestAppRegistration xmlns="http://dk.itst">
+      <ApplicationName>string</ApplicationName>
+    </RequestAppRegistration>
+  </soap12:Body>
+</soap12:Envelope>
+
+
+
+HTTP/1.1 200 OK
+Content-Type: application/soap+xml; charset=utf-8
+Content-Length: length
+
+<?xml version="1.0" encoding="utf-8"?>
+<soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
+  <soap12:Body>
+    <RequestAppRegistrationResponse xmlns="http://dk.itst">
+      <RequestAppRegistrationResult>
+        <Item>
+          <ApplicationId xmlns="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/">string</ApplicationId>
+          <Token xmlns="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/">string</Token>
+          <Name xmlns="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/">string</Name>
+          <RegistrationDate xmlns="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/">dateTime</RegistrationDate>
+          <IsApproved xmlns="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/">boolean</IsApproved>
+          <ApprovedDate xmlns="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/">dateTime</ApprovedDate>
+        </Item>
+      </RequestAppRegistrationResult>
+    </RequestAppRegistrationResponse>
+  </soap12:Body>
+</soap12:Envelope>

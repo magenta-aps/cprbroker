@@ -1,0 +1,10 @@
+C:\Users\dennis\Documents\Cpr Broker Trunk\Source\CprBroker\Local\bin\Debug\CprBroker.Providers.Local.dll
+C:\Users\dennis\Documents\Cpr Broker Trunk\Source\CprBroker\Local\bin\Debug\CprBroker.Providers.Local.pdb
+C:\Users\dennis\Documents\Cpr Broker Trunk\Source\CprBroker\Local\bin\Debug\CprBroker.Data.dll
+C:\Users\dennis\Documents\Cpr Broker Trunk\Source\CprBroker\Local\bin\Debug\CprBroker.Engine.dll
+C:\Users\dennis\Documents\Cpr Broker Trunk\Source\CprBroker\Local\bin\Debug\CprBroker.Schemas.dll
+C:\Users\dennis\Documents\Cpr Broker Trunk\Source\CprBroker\Local\bin\Debug\CprBroker.Utilities.dll
+C:\Users\dennis\Documents\Cpr Broker Trunk\Source\CprBroker\Local\bin\Debug\CprBroker.Config.dll
+C:\Users\dennis\Documents\Cpr Broker Trunk\Source\CprBroker\Local\obj\Debug\CprBroker.Providers.Local.dll
+C:\Users\dennis\Documents\Cpr Broker Trunk\Source\CprBroker\Local\obj\Debug\CprBroker.Providers.Local.pdb
+C:\Users\dennis\Documents\Cpr Broker Trunk\Source\CprBroker\Local\obj\Debug\Local.csprojResolveAssemblyReference.cache

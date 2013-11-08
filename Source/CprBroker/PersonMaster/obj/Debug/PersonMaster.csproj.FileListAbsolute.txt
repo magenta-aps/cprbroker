@@ -1,0 +1,10 @@
+C:\Users\dennis\Documents\Cpr Broker Trunk\Source\CprBroker\PersonMaster\bin\Debug\CprBroker.Providers.PersonMaster.dll
+C:\Users\dennis\Documents\Cpr Broker Trunk\Source\CprBroker\PersonMaster\bin\Debug\CprBroker.Providers.PersonMaster.pdb
+C:\Users\dennis\Documents\Cpr Broker Trunk\Source\CprBroker\PersonMaster\bin\Debug\CprBroker.Engine.dll
+C:\Users\dennis\Documents\Cpr Broker Trunk\Source\CprBroker\PersonMaster\bin\Debug\CprBroker.Utilities.dll
+C:\Users\dennis\Documents\Cpr Broker Trunk\Source\CprBroker\PersonMaster\bin\Debug\CprBroker.Schemas.dll
+C:\Users\dennis\Documents\Cpr Broker Trunk\Source\CprBroker\PersonMaster\bin\Debug\CprBroker.Data.dll
+C:\Users\dennis\Documents\Cpr Broker Trunk\Source\CprBroker\PersonMaster\bin\Debug\CprBroker.Config.dll
+C:\Users\dennis\Documents\Cpr Broker Trunk\Source\CprBroker\PersonMaster\obj\Debug\CprBroker.Providers.PersonMaster.dll
+C:\Users\dennis\Documents\Cpr Broker Trunk\Source\CprBroker\PersonMaster\obj\Debug\CprBroker.Providers.PersonMaster.pdb
+C:\Users\dennis\Documents\Cpr Broker Trunk\Source\CprBroker\PersonMaster\obj\Debug\PersonMaster.csprojResolveAssemblyReference.cache

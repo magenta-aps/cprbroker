@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
+  <Fragment Id="ConditionsFragment" >
+    <Property Id="Dummy_ConditionsFragmentRefProp" Value="-"/>
+    
+    <!-- Fail on newer versions-->
+    <Condition Message="A newer version of [ProductName] is already installed. Exiting installation.">
+      <![CDATA[Installed OR NOT NEWER_VERSION_DETECTED]]>
+    </Condition>
+
+    <!--.NET Framework-->
+    <PropertyRef Id="NETFRAMEWORK35"/>
+    <PropertyRef Id="NETFRAMEWORK40FULL"/>
+    <Condition Message="This application requires the full version of .NET Framework 3.5 and 4.0. Please install the .NET Framework(s) then run this installer again.">
+      <![CDATA[Installed OR (NETFRAMEWORK35 AND NETFRAMEWORK40FULL) ]]>
+    </Condition>
+
+    <!--IIS-->
+    <PropertyRef Id="IISMAJORVERSION"/>
+    <Condition Message="Install requires IIS 7.">
+      <![CDATA[Installed OR (IISMAJORVERSION AND (IISMAJORVERSION = "#7"))]]>
+    </Condition>
+    <!--
+    <Property Id="IIS7">
+      <RegistrySearch Id="IIS7W3SVC" Root="HKLM" Key="SOFTWARE\Microsoft\InetStp\Components" Type="raw" Name="W3SVC" />
+    </Property>
+    <Condition Message="This application requires IIS version 7. Please install IIS 7 and then run the installer again.">
+      <![CDATA[Installed OR IIS7]]>
+    </Condition>
+    -->
+
+    <!--IIS 6 metabase compatibility-->
+    <Property Id="IIS_METABASE_COMPAT">
+      <RegistrySearch Id="CheckIISMetabase" Root="HKLM" Key="SOFTWARE\Microsoft\InetStp\Components" Name="ADSICompatibility" Type="raw" />
+    </Property>
+    <Condition Message="IIS 6 Metabase Compatibility feature must be installed">
+      <![CDATA[Installed OR NOT IIS7 OR IIS_METABASE_COMPAT]]>
+    </Condition>
+  </Fragment>
+</Wix>

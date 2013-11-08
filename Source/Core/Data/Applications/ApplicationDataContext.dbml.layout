@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="ApplicationDataContext">
+  <DataContextMoniker Name="/ApplicationDataContext" />
+  <nestedChildShapes>
+    <classShape Id="22a1dacc-114e-4ec3-a52e-b654d9cc50ae" absoluteBounds="0.75, 1.625, 2, 1.1939925130208331">
+      <DataClassMoniker Name="/ApplicationDataContext/LogType" />
+      <nestedChildShapes>
+        <elementListCompartment Id="58ae7429-8e65-4074-bf72-37cc704bab1e" absoluteBounds="0.765, 2.085, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="9b96cfb3-8844-4000-ac64-192f87630515" absoluteBounds="0.75, 5.25, 2, 1.9631982421874996">
+      <DataClassMoniker Name="/ApplicationDataContext/Application" />
+      <nestedChildShapes>
+        <elementListCompartment Id="11c33df8-4bec-4066-947f-0ef38c61c238" absoluteBounds="0.765, 5.71, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="e6a48abf-eecd-4b65-b371-d9fda867dc6a" absoluteBounds="3.75, 1.625, 2, 2.9247054036458331">
+      <DataClassMoniker Name="/ApplicationDataContext/LogEntry" />
+      <nestedChildShapes>
+        <elementListCompartment Id="9c785c30-5e7e-4219-8baa-1a6c7c53c43b" absoluteBounds="3.7649999999999997, 2.085, 1.9700000000000002, 2.364705403645833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(2.75 : 6.23159912109375); (4.75 : 6.23159912109375); (4.75 : 4.54970540364583)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/ApplicationDataContext/Application/Application_LogEntry" />
+      <nodes>
+        <classShapeMoniker Id="9b96cfb3-8844-4000-ac64-192f87630515" />
+        <classShapeMoniker Id="e6a48abf-eecd-4b65-b371-d9fda867dc6a" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.75 : 2.22199625651042); (3.75 : 2.22199625651042)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/ApplicationDataContext/LogType/LogType_LogEntry" />
+      <nodes>
+        <classShapeMoniker Id="22a1dacc-114e-4ec3-a52e-b654d9cc50ae" />
+        <classShapeMoniker Id="e6a48abf-eecd-4b65-b371-d9fda867dc6a" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="9c80c0b6-ab7f-4bb8-b079-39c0551c6e26" absoluteBounds="6.75, 1.625, 2, 2.3478011067708335">
+      <DataClassMoniker Name="/ApplicationDataContext/DataProviderCall" />
+      <nestedChildShapes>
+        <elementListCompartment Id="d04fec58-7b45-457e-ab3b-ab2113c51a7b" absoluteBounds="6.765, 2.085, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(6.75 : 2.79890055338542); (5.75 : 2.79890055338542)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/ApplicationDataContext/DataProviderCall/DataProviderCall_LogEntry" />
+      <nodes>
+        <classShapeMoniker Id="9c80c0b6-ab7f-4bb8-b079-39c0551c6e26" />
+        <classShapeMoniker Id="e6a48abf-eecd-4b65-b371-d9fda867dc6a" />
+      </nodes>
+    </associationConnector>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

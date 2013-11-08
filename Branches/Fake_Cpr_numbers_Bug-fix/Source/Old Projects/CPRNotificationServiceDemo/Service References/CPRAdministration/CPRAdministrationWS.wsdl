@@ -1,0 +1,1681 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:s16="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/13/" xmlns:s7="http://rep.oio.dk/itst.dk/xml/schemas/2005/02/22/" xmlns:s15="http://rep.oio.dk/xkom.dk/xml/schemas/2005/03/15/" xmlns:s2="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/" xmlns:s19="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/" xmlns:s13="http://rep.oio.dk/itst.dk/xml/schemas/2005/06/24/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:s12="http://rep.oio.dk/cpr.dk/xml/schemas/core/2006/05/23/" xmlns:s5="http://rep.oio.dk/itst.dk/xml/schemas/2006/01/17/" xmlns:s8="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/11/24/" xmlns:s10="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/09/19/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s17="http://rep.oio.dk/cpr.dk/xml/schemas/core/2006/01/10/" xmlns:s3="http://microsoft.com/wsdl/types/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:s14="http://rep.oio.dk/xkom.dk/xml/schemas/2006/01/06/" xmlns:tns="http://tempuri.org/" xmlns:s18="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/05/19/" xmlns:s20="http://rep.oio.dk/capevo.dk/xml/schemas/2007/08/01/" xmlns:s1="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/" xmlns:s11="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/" xmlns:s6="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/" xmlns:s9="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/03/15/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:s4="http://rep.oio.dk/cpr.dk/xml/schemas/core/2006/01/17/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+                                                Contains methods related to administrative functions
+                                                </wsdl:documentation>
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:import namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/" />
+      <s:import namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/" />
+      <s:import namespace="http://microsoft.com/wsdl/types/" />
+      <s:import namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2006/01/17/" />
+      <s:element name="RequestAppRegistration">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ApplicationName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RequestAppRegistrationResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" ref="s1:Application" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ApplicationHeader" type="tns:ApplicationHeader" />
+      <s:complexType name="ApplicationHeader">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ApplicationToken" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="UserToken" type="s:string" />
+        </s:sequence>
+        <s:anyAttribute />
+      </s:complexType>
+      <s:element name="ApproveAppRegistration">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ApplicationToken" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ApproveAppRegistrationResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ApproveAppRegistrationResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListAppRegistrations">
+        <s:complexType />
+      </s:element>
+      <s:element name="ListAppRegistrationsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ListAppRegistrationsResult" type="tns:ArrayOfApplicationType" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfApplicationType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ApplicationType" nillable="true" type="s1:ApplicationType" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="UnregisterApp">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ApplicationToken" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UnregisterAppResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="UnregisterAppResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCapabilities">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetCapabilitiesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCapabilitiesResult" type="tns:ArrayOfServiceVersionType" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfServiceVersionType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ServiceVersionType" nillable="true" type="s1:ServiceVersionType" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="IsImplementing">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="serviceName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="serviceVersion" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IsImplementingResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="IsImplementingResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDataProviderList">
+        <s:complexType />
+      </s:element>
+      <s:complexType name="ArrayOfDataProviderType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="DataProviderType" nillable="true" type="s1:DataProviderType" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetDataProviderListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDataProviderListResult" type="tns:ArrayOfDataProviderType" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetDataProviderList">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DataProviders" type="tns:ArrayOfDataProviderType" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetDataProviderListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SetDataProviderListResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Subscribe">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="NotificationChannel" type="tns:ChannelBaseType" />
+            <s:element minOccurs="0" maxOccurs="1" name="PersonCivilRegistrationIdentifiers" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ChannelBaseType" abstract="true" />
+      <s:complexType name="GPACChannelType">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:ChannelBaseType">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="ServiceUrl" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="SourceUri" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="ObjectType" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="NotifyType" type="s:int" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="FileShareChannelType">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:ChannelBaseType">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Path" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="WebServiceChannelType">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:ChannelBaseType">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="WebServiceUrl" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="SubscriptionType" abstract="true">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="SubscriptionId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ApplicationToken" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NotificationChannel" type="tns:ChannelBaseType" />
+          <s:element minOccurs="1" maxOccurs="1" name="ForAllPersons" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="PersonCivilRegistrationIdentifiers" type="s2:ArrayOfString" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ChangeSubscriptionType">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:SubscriptionType" />
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="BirthdateSubscriptionType">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:SubscriptionType">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="AgeYears" nillable="true" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="PriorDays" type="s:int" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="SubscribeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SubscribeResult" type="tns:ChangeSubscriptionType" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Unsubscribe">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SubscriptionId" type="s3:guid" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UnsubscribeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="UnsubscribeResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SubscribeOnBirthdate">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="NotificationChannel" type="tns:ChannelBaseType" />
+            <s:element minOccurs="1" maxOccurs="1" name="Years" nillable="true" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="PriorDays" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="PersonCivilRegistrationIdentifiers" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SubscribeOnBirthdateResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SubscribeOnBirthdateResult" type="tns:BirthdateSubscriptionType" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RemoveBirthDateSubscription">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SubscriptionId" type="s3:guid" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RemoveBirthDateSubscriptionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="RemoveBirthDateSubscriptionResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetActiveSubsciptionsList">
+        <s:complexType />
+      </s:element>
+      <s:complexType name="ArrayOfSubscriptionType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="SubscriptionType" nillable="true" type="tns:SubscriptionType" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetActiveSubsciptionsListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetActiveSubsciptionsListResult" type="tns:ArrayOfSubscriptionType" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetLatestNotification">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SubscriptionId" type="s3:guid" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="BirthdateNotificationPersonType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="SimpleCPRPerson" type="s4:SimpleCPRPersonType" />
+          <s:element minOccurs="1" maxOccurs="1" name="Age" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ChangeNotificationPersonType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="SimpleCPRPerson" type="s4:SimpleCPRPersonType" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="BaseNotificationType" abstract="true">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ApplicationToken" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="NotificationDate" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="BirthdateNotificationType">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:BaseNotificationType">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="BirthdateSubscription" type="tns:BirthdateSubscriptionType" />
+              <s:element minOccurs="0" maxOccurs="1" name="Persons" type="tns:ArrayOfBirthdateNotificationPersonType" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfBirthdateNotificationPersonType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Person" type="tns:BirthdateNotificationPersonType" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ChangeNotificationType">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:BaseNotificationType">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="ChangeSubscription" type="tns:ChangeSubscriptionType" />
+              <s:element minOccurs="0" maxOccurs="1" name="Persons" type="tns:ArrayOfChangeNotificationPersonType" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfChangeNotificationPersonType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Person" type="tns:ChangeNotificationPersonType" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetLatestNotificationResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetLatestNotificationResult" type="tns:BaseNotificationType" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Log">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Text" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LogResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="LogResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateTestCitizen">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" ref="s1:PersonFullStructure" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateTestCitizenResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CreateTestCitizenResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Ping">
+        <s:complexType />
+      </s:element>
+      <s:element name="PingResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PingResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/">
+      <s:import namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2006/01/17/" />
+      <s:import namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/09/19/" />
+      <s:import namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/" />
+      <s:import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/" />
+      <s:import namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/11/24/" />
+      <s:element name="Application" type="s1:ApplicationType" />
+      <s:complexType name="ApplicationType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ApplicationId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="RegistrationDate" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="IsApproved" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="ApprovedDate" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ServiceVersionType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Version" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Functions" type="s1:ArrayOfString" />
+          <s:element minOccurs="0" maxOccurs="1" name="Details" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Functions" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="DataProviderType" abstract="true">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Address" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="DprDataProviderType">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:DataProviderType">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="Port" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="ConnectionString" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="KmdDataProviderType">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:DataProviderType">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Username" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="PersonFullStructure" type="s1:PersonFullStructureType" />
+      <s:complexType name="PersonFullStructureType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" ref="s4:RegularCPRPerson" />
+          <s:element minOccurs="1" maxOccurs="1" ref="s10:MaritalStatusCode" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s11:PersonDeathDateStructure" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s6:PersonNationalityCode" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s11:AddressIdentifierCode" />
+          <s:choice minOccurs="1" maxOccurs="1">
+            <s:element minOccurs="0" maxOccurs="1" ref="s11:DanishAddressStructure" />
+            <s:element minOccurs="0" maxOccurs="1" ref="s11:ForeignAddressStructure" />
+          </s:choice>
+          <s:element minOccurs="1" maxOccurs="1" ref="s8:PersonInformationProtectionIndicator" />
+          <s:element minOccurs="0" maxOccurs="1" name="SpouseName" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="NumberOfChildren" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/">
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="PersonCivilRegistrationIdentifier" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="PersonCivilRegistrationIdentifier" type="s:string" />
+      <s:element name="MunicipalityCode" type="s:string" />
+      <s:element name="StreetCode" type="s:string" />
+      <s:element name="StreetNameForAddressingName" type="s:string" />
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://microsoft.com/wsdl/types/">
+      <s:simpleType name="guid">
+        <s:restriction base="s:string">
+          <s:pattern value="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}" />
+        </s:restriction>
+      </s:simpleType>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2006/01/17/">
+      <s:import namespace="http://rep.oio.dk/itst.dk/xml/schemas/2006/01/17/" />
+      <s:import namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/" />
+      <s:import namespace="http://rep.oio.dk/itst.dk/xml/schemas/2005/02/22/" />
+      <s:import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/" />
+      <s:import namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/11/24/" />
+      <s:complexType name="SimpleCPRPersonType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" ref="s5:PersonNameStructure" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s2:PersonCivilRegistrationIdentifier" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="RegularCPRPerson" type="s4:RegularCPRPersonType" />
+      <s:complexType name="RegularCPRPersonType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="SimpleCPRPerson" type="s4:SimpleCPRPersonType" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s7:PersonNameForAddressingName" />
+          <s:element minOccurs="1" maxOccurs="1" ref="s6:PersonGenderCode" />
+          <s:element minOccurs="1" maxOccurs="1" ref="s8:PersonInformationProtectionIndicator" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s8:PersonBirthDateStructure" />
+          <s:element minOccurs="0" maxOccurs="1" name="PersonCivilRegistrationStatusStructure" type="s4:PersonCivilRegistrationStatusStructureType" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="PersonCivilRegistrationStatusStructureType">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" ref="s8:PersonCivilRegistrationStatusCode" />
+          <s:element minOccurs="1" maxOccurs="1" name="PersonCivilRegistrationStatusStartDate" type="s:date" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/itst.dk/xml/schemas/2006/01/17/">
+      <s:import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/" />
+      <s:element name="PersonNameStructure" type="s5:PersonNameStructureType" />
+      <s:complexType name="PersonNameStructureType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" ref="s6:PersonGivenName" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s6:PersonMiddleName" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s6:PersonSurnameName" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/">
+      <s:element name="PersonGivenName" type="s:string" />
+      <s:element name="PersonMiddleName" type="s:string" />
+      <s:element name="PersonSurnameName" type="s:string" />
+      <s:element name="PersonGenderCode" type="s6:PersonGenderCodeType" />
+      <s:simpleType name="PersonGenderCodeType">
+        <s:restriction base="s:string">
+          <s:enumeration value="male" />
+          <s:enumeration value="female" />
+          <s:enumeration value="unknown" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="PersonNationalityCode" type="s:string" />
+      <s:element name="StreetBuildingIdentifier" type="s:string" />
+      <s:element name="MailDeliverySublocationIdentifier" type="s:string" />
+      <s:element name="FloorIdentifier" type="s:string" />
+      <s:element name="SuiteIdentifier" type="s:string" />
+      <s:element name="CountryIdentificationCode" type="s6:CountryIdentificationCodeType" />
+      <s:complexType name="CountryIdentificationCodeType">
+        <s:simpleContent>
+          <s:extension base="s:string">
+            <s:attribute name="scheme" type="s6:_CountryIdentificationSchemeType" use="required" />
+          </s:extension>
+        </s:simpleContent>
+      </s:complexType>
+      <s:simpleType name="_CountryIdentificationSchemeType">
+        <s:restriction base="s:string">
+          <s:enumeration value="iso3166-alpha2" />
+          <s:enumeration value="iso3166-alpha3" />
+          <s:enumeration value="un-numeric3" />
+          <s:enumeration value="imk" />
+        </s:restriction>
+      </s:simpleType>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/itst.dk/xml/schemas/2005/02/22/">
+      <s:element name="PersonNameForAddressingName" type="s:string" />
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/11/24/">
+      <s:import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/03/15/" />
+      <s:element name="PersonInformationProtectionIndicator" type="s:boolean" />
+      <s:element name="PersonBirthDateStructure" type="s8:PersonBirthDateStructureType" />
+      <s:complexType name="PersonBirthDateStructureType">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" ref="s9:BirthDate" />
+          <s:element minOccurs="1" maxOccurs="1" name="BirthDateUncertaintyIndicator" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="PersonCivilRegistrationStatusCode" type="s8:PersonCivilRegistrationStatusCodeType" />
+      <s:simpleType name="PersonCivilRegistrationStatusCodeType">
+        <s:restriction base="s:string">
+          <s:enumeration value="01" />
+          <s:enumeration value="03" />
+          <s:enumeration value="05" />
+          <s:enumeration value="07" />
+          <s:enumeration value="20" />
+          <s:enumeration value="30" />
+          <s:enumeration value="50" />
+          <s:enumeration value="60" />
+          <s:enumeration value="70" />
+          <s:enumeration value="80" />
+          <s:enumeration value="90" />
+        </s:restriction>
+      </s:simpleType>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/03/15/">
+      <s:element name="BirthDate" type="s:date" />
+      <s:element name="StreetName" type="s:string" />
+      <s:element name="DistrictSubdivisionIdentifier" type="s:string" />
+      <s:element name="PostCodeIdentifier" type="s:string" />
+      <s:element name="DistrictName" type="s:string" />
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/09/19/">
+      <s:element name="MaritalStatusCode" type="s10:MaritalStatusCodeType" />
+      <s:simpleType name="MaritalStatusCodeType">
+        <s:restriction base="s:string">
+          <s:enumeration value="married" />
+          <s:enumeration value="divorced" />
+          <s:enumeration value="widow" />
+          <s:enumeration value="registered partnership" />
+          <s:enumeration value="abolition of registrered partnership" />
+          <s:enumeration value="longest living partner" />
+          <s:enumeration value="deceased" />
+          <s:enumeration value="unmarried" />
+        </s:restriction>
+      </s:simpleType>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/">
+      <s:import namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2006/05/23/" />
+      <s:import namespace="http://rep.oio.dk/itst.dk/xml/schemas/2005/06/24/" />
+      <s:import namespace="http://rep.oio.dk/xkom.dk/xml/schemas/2006/01/06/" />
+      <s:import namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/" />
+      <s:import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/" />
+      <s:import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/03/15/" />
+      <s:import namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2006/01/10/" />
+      <s:import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/" />
+      <s:import namespace="http://rep.oio.dk/capevo.dk/xml/schemas/2007/08/01/" />
+      <s:element name="PersonDeathDateStructure" type="s11:PersonDeathDateStructureType" />
+      <s:complexType name="PersonDeathDateStructureType">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="PersonDeathDate" type="s:date" />
+          <s:element minOccurs="1" maxOccurs="1" name="PersonDeathDateUncertaintyIndicator" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="AddressIdentifierCode" type="s11:AddressIdentifierCodeType" />
+      <s:simpleType name="AddressIdentifierCodeType">
+        <s:restriction base="s:string">
+          <s:enumeration value="1" />
+          <s:enumeration value="2" />
+          <s:enumeration value="3" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="DanishAddressStructure" type="s11:DanishAddressStructureType" />
+      <s:complexType name="DanishAddressStructureType">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="AddressStatusCode" type="s11:AddressStatusCodeType" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s12:MunicipalityName" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s13:CareOfName" />
+          <s:choice minOccurs="1" maxOccurs="1">
+            <s:element minOccurs="0" maxOccurs="1" ref="s14:AddressComplete" />
+            <s:element minOccurs="0" maxOccurs="1" name="AddressCompleteGreenland" type="s11:AddressCompleteGreenlandType" />
+            <s:element minOccurs="0" maxOccurs="1" name="AddressNotComplete" type="s11:AddressNotCompleteType" />
+          </s:choice>
+          <s:element minOccurs="0" maxOccurs="1" ref="s17:CompletePostalLabel" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="AddressStatusCodeType">
+        <s:restriction base="s:string">
+          <s:enumeration value="1" />
+          <s:enumeration value="3" />
+          <s:enumeration value="5" />
+          <s:enumeration value="7" />
+          <s:enumeration value="20" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="AddressCompleteGreenlandType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" ref="s2:MunicipalityCode" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s2:StreetCode" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s6:MailDeliverySublocationIdentifier" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s9:StreetName" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s2:StreetNameForAddressingName" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s6:StreetBuildingIdentifier" />
+          <s:element minOccurs="0" maxOccurs="1" name="GreenlandBuildingIdentifier" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s6:SuiteIdentifier" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s6:FloorIdentifier" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s9:DistrictSubdivisionIdentifier" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s9:PostCodeIdentifier" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s9:DistrictName" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s6:CountryIdentificationCode" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="AddressNotCompleteType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" ref="s2:MunicipalityCode" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s2:StreetCode" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s6:MailDeliverySublocationIdentifier" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s9:StreetName" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s2:StreetNameForAddressingName" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s6:StreetBuildingIdentifier" />
+          <s:element minOccurs="0" maxOccurs="1" name="GreenlandBuildingIdentifier" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s6:SuiteIdentifier" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s6:FloorIdentifier" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s9:DistrictSubdivisionIdentifier" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s9:PostCodeIdentifier" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s9:DistrictName" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s6:CountryIdentificationCode" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ForeignAddressStructure" type="s11:ForeignAddressStructureType" />
+      <s:complexType name="ForeignAddressStructureType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" ref="s19:PostalAddressFirstLineText" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s19:PostalAddressSecondLineText" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s19:PostalAddressThirdLineText" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s19:PostalAddressFourthLineText" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s19:PostalAddressFifthLineText" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s6:CountryIdentificationCode" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s20:LocationDescriptionText" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2006/05/23/">
+      <s:element name="MunicipalityName" type="s:string" />
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/itst.dk/xml/schemas/2005/06/24/">
+      <s:element name="CareOfName" type="s:string" />
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/xkom.dk/xml/schemas/2006/01/06/">
+      <s:import namespace="http://rep.oio.dk/xkom.dk/xml/schemas/2005/03/15/" />
+      <s:import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/" />
+      <s:import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/03/15/" />
+      <s:import namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/" />
+      <s:import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/13/" />
+      <s:element name="AddressComplete" type="s14:AddressCompleteType" />
+      <s:complexType name="AddressCompleteType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" ref="s15:AddressAccess" />
+          <s:element minOccurs="0" maxOccurs="1" name="AddressPostal" type="s14:AddressPostalType" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="AddressPostalType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" ref="s6:MailDeliverySublocationIdentifier" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s9:StreetName" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s2:StreetNameForAddressingName" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s6:StreetBuildingIdentifier" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s6:FloorIdentifier" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s6:SuiteIdentifier" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s9:DistrictSubdivisionIdentifier" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s16:PostOfficeBoxIdentifier" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s9:PostCodeIdentifier" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s9:DistrictName" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s6:CountryIdentificationCode" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/xkom.dk/xml/schemas/2005/03/15/">
+      <s:import namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/" />
+      <s:import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/" />
+      <s:element name="AddressAccess" type="s15:AddressAccessType" />
+      <s:complexType name="AddressAccessType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" ref="s2:MunicipalityCode" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s2:StreetCode" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s6:StreetBuildingIdentifier" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/13/">
+      <s:element name="PostOfficeBoxIdentifier" type="s:integer" />
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2006/01/10/">
+      <s:import namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/05/19/" />
+      <s:import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/" />
+      <s:element name="CompletePostalLabel" type="s17:CompletePostalLabelType" />
+      <s:complexType name="CompletePostalLabelType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" ref="s18:AddresseeName" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s19:PostalAddressFirstLineText" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s19:PostalAddressSecondLineText" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s19:PostalAddressThirdLineText" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s19:PostalAddressFourthLineText" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s19:PostalAddressFifthLineText" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s19:PostalAddressSixthLineText" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/05/19/">
+      <s:element name="AddresseeName" type="s:string" />
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/">
+      <s:element name="PostalAddressFirstLineText" type="s:string" />
+      <s:element name="PostalAddressSecondLineText" type="s:string" />
+      <s:element name="PostalAddressThirdLineText" type="s:string" />
+      <s:element name="PostalAddressFourthLineText" type="s:string" />
+      <s:element name="PostalAddressFifthLineText" type="s:string" />
+      <s:element name="PostalAddressSixthLineText" type="s:string" />
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/capevo.dk/xml/schemas/2007/08/01/">
+      <s:element name="LocationDescriptionText" type="s:string" />
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="RequestAppRegistrationSoapIn">
+    <wsdl:part name="parameters" element="tns:RequestAppRegistration" />
+  </wsdl:message>
+  <wsdl:message name="RequestAppRegistrationSoapOut">
+    <wsdl:part name="parameters" element="tns:RequestAppRegistrationResponse" />
+  </wsdl:message>
+  <wsdl:message name="RequestAppRegistrationApplicationHeader">
+    <wsdl:part name="ApplicationHeader" element="tns:ApplicationHeader" />
+  </wsdl:message>
+  <wsdl:message name="ApproveAppRegistrationSoapIn">
+    <wsdl:part name="parameters" element="tns:ApproveAppRegistration" />
+  </wsdl:message>
+  <wsdl:message name="ApproveAppRegistrationSoapOut">
+    <wsdl:part name="parameters" element="tns:ApproveAppRegistrationResponse" />
+  </wsdl:message>
+  <wsdl:message name="ApproveAppRegistrationApplicationHeader">
+    <wsdl:part name="ApplicationHeader" element="tns:ApplicationHeader" />
+  </wsdl:message>
+  <wsdl:message name="ListAppRegistrationsSoapIn">
+    <wsdl:part name="parameters" element="tns:ListAppRegistrations" />
+  </wsdl:message>
+  <wsdl:message name="ListAppRegistrationsSoapOut">
+    <wsdl:part name="parameters" element="tns:ListAppRegistrationsResponse" />
+  </wsdl:message>
+  <wsdl:message name="ListAppRegistrationsApplicationHeader">
+    <wsdl:part name="ApplicationHeader" element="tns:ApplicationHeader" />
+  </wsdl:message>
+  <wsdl:message name="UnregisterAppSoapIn">
+    <wsdl:part name="parameters" element="tns:UnregisterApp" />
+  </wsdl:message>
+  <wsdl:message name="UnregisterAppSoapOut">
+    <wsdl:part name="parameters" element="tns:UnregisterAppResponse" />
+  </wsdl:message>
+  <wsdl:message name="UnregisterAppApplicationHeader">
+    <wsdl:part name="ApplicationHeader" element="tns:ApplicationHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetCapabilitiesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCapabilities" />
+  </wsdl:message>
+  <wsdl:message name="GetCapabilitiesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCapabilitiesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCapabilitiesApplicationHeader">
+    <wsdl:part name="ApplicationHeader" element="tns:ApplicationHeader" />
+  </wsdl:message>
+  <wsdl:message name="IsImplementingSoapIn">
+    <wsdl:part name="parameters" element="tns:IsImplementing" />
+  </wsdl:message>
+  <wsdl:message name="IsImplementingSoapOut">
+    <wsdl:part name="parameters" element="tns:IsImplementingResponse" />
+  </wsdl:message>
+  <wsdl:message name="IsImplementingApplicationHeader">
+    <wsdl:part name="ApplicationHeader" element="tns:ApplicationHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetDataProviderListSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDataProviderList" />
+  </wsdl:message>
+  <wsdl:message name="GetDataProviderListSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDataProviderListResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDataProviderListApplicationHeader">
+    <wsdl:part name="ApplicationHeader" element="tns:ApplicationHeader" />
+  </wsdl:message>
+  <wsdl:message name="SetDataProviderListSoapIn">
+    <wsdl:part name="parameters" element="tns:SetDataProviderList" />
+  </wsdl:message>
+  <wsdl:message name="SetDataProviderListSoapOut">
+    <wsdl:part name="parameters" element="tns:SetDataProviderListResponse" />
+  </wsdl:message>
+  <wsdl:message name="SetDataProviderListApplicationHeader">
+    <wsdl:part name="ApplicationHeader" element="tns:ApplicationHeader" />
+  </wsdl:message>
+  <wsdl:message name="SubscribeSoapIn">
+    <wsdl:part name="parameters" element="tns:Subscribe" />
+  </wsdl:message>
+  <wsdl:message name="SubscribeSoapOut">
+    <wsdl:part name="parameters" element="tns:SubscribeResponse" />
+  </wsdl:message>
+  <wsdl:message name="SubscribeApplicationHeader">
+    <wsdl:part name="ApplicationHeader" element="tns:ApplicationHeader" />
+  </wsdl:message>
+  <wsdl:message name="UnsubscribeSoapIn">
+    <wsdl:part name="parameters" element="tns:Unsubscribe" />
+  </wsdl:message>
+  <wsdl:message name="UnsubscribeSoapOut">
+    <wsdl:part name="parameters" element="tns:UnsubscribeResponse" />
+  </wsdl:message>
+  <wsdl:message name="UnsubscribeApplicationHeader">
+    <wsdl:part name="ApplicationHeader" element="tns:ApplicationHeader" />
+  </wsdl:message>
+  <wsdl:message name="SubscribeOnBirthdateSoapIn">
+    <wsdl:part name="parameters" element="tns:SubscribeOnBirthdate" />
+  </wsdl:message>
+  <wsdl:message name="SubscribeOnBirthdateSoapOut">
+    <wsdl:part name="parameters" element="tns:SubscribeOnBirthdateResponse" />
+  </wsdl:message>
+  <wsdl:message name="SubscribeOnBirthdateApplicationHeader">
+    <wsdl:part name="ApplicationHeader" element="tns:ApplicationHeader" />
+  </wsdl:message>
+  <wsdl:message name="RemoveBirthDateSubscriptionSoapIn">
+    <wsdl:part name="parameters" element="tns:RemoveBirthDateSubscription" />
+  </wsdl:message>
+  <wsdl:message name="RemoveBirthDateSubscriptionSoapOut">
+    <wsdl:part name="parameters" element="tns:RemoveBirthDateSubscriptionResponse" />
+  </wsdl:message>
+  <wsdl:message name="RemoveBirthDateSubscriptionApplicationHeader">
+    <wsdl:part name="ApplicationHeader" element="tns:ApplicationHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetActiveSubsciptionsListSoapIn">
+    <wsdl:part name="parameters" element="tns:GetActiveSubsciptionsList" />
+  </wsdl:message>
+  <wsdl:message name="GetActiveSubsciptionsListSoapOut">
+    <wsdl:part name="parameters" element="tns:GetActiveSubsciptionsListResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetActiveSubsciptionsListApplicationHeader">
+    <wsdl:part name="ApplicationHeader" element="tns:ApplicationHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetLatestNotificationSoapIn">
+    <wsdl:part name="parameters" element="tns:GetLatestNotification" />
+  </wsdl:message>
+  <wsdl:message name="GetLatestNotificationSoapOut">
+    <wsdl:part name="parameters" element="tns:GetLatestNotificationResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetLatestNotificationApplicationHeader">
+    <wsdl:part name="ApplicationHeader" element="tns:ApplicationHeader" />
+  </wsdl:message>
+  <wsdl:message name="LogSoapIn">
+    <wsdl:part name="parameters" element="tns:Log" />
+  </wsdl:message>
+  <wsdl:message name="LogSoapOut">
+    <wsdl:part name="parameters" element="tns:LogResponse" />
+  </wsdl:message>
+  <wsdl:message name="LogApplicationHeader">
+    <wsdl:part name="ApplicationHeader" element="tns:ApplicationHeader" />
+  </wsdl:message>
+  <wsdl:message name="CreateTestCitizenSoapIn">
+    <wsdl:part name="parameters" element="tns:CreateTestCitizen" />
+  </wsdl:message>
+  <wsdl:message name="CreateTestCitizenSoapOut">
+    <wsdl:part name="parameters" element="tns:CreateTestCitizenResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreateTestCitizenApplicationHeader">
+    <wsdl:part name="ApplicationHeader" element="tns:ApplicationHeader" />
+  </wsdl:message>
+  <wsdl:message name="PingSoapIn">
+    <wsdl:part name="parameters" element="tns:Ping" />
+  </wsdl:message>
+  <wsdl:message name="PingSoapOut">
+    <wsdl:part name="parameters" element="tns:PingResponse" />
+  </wsdl:message>
+  <wsdl:portType name="CPRAdministrationWSSoap">
+    <wsdl:operation name="RequestAppRegistration">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+                                                Creates a new un-approved application in the system.
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Signature:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;ApplicationType RequestAppRegisteration(string ApplicationName)
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Parameter Description:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;&lt;table&gt;
+                                                &lt;tr&gt;&lt;td&gt;ApplicationName (input):&lt;/td&gt;&lt;td&gt;Application name that ask for registering.&lt;/td&gt;&lt;/tr&gt;
+                                                &lt;/table&gt;
+
+                                                &lt;br&gt;&lt;b&gt;&lt;u&gt;Return Value:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;return ApplicationType that specify the new appication.
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Review:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;table&gt;
+                                                &lt;tr&gt;&lt;td width='30%'&gt;2009-08-20, CPR Broker &lt;/td&gt;&lt;td width='10%'&gt;&lt;/td&gt;&lt;td width='60%'&gt;First release.&lt;/td&gt;&lt;/tr&gt;
+                                                &lt;/table&gt;
+                                                &lt;br&gt;==============================
+                                                </wsdl:documentation>
+      <wsdl:input message="tns:RequestAppRegistrationSoapIn" />
+      <wsdl:output message="tns:RequestAppRegistrationSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ApproveAppRegistration">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+                                                Approves an application's registeration
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Signature:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;bool ApproveAppRegisteration(string ApplicationToken)
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Parameter Description:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;&lt;table&gt;
+                                                &lt;tr&gt;&lt;td&gt;'ApplicationToken' (input):&lt;/td&gt;&lt;td&gt;Token for the business client application to be approved.&lt;/td&gt;&lt;/tr&gt;
+                                                &lt;/table&gt;
+
+                                                &lt;br&gt;&lt;b&gt;&lt;u&gt;Return Value:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;return bool that represents whether the operation has succeeded.
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Review:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;table&gt;
+                                                &lt;tr&gt;&lt;td width='30%'&gt;2009-08-20, CPR Broker &lt;/td&gt;&lt;td width='10%'&gt;&lt;/td&gt;&lt;td width='60%'&gt;First release.&lt;/td&gt;&lt;/tr&gt;
+                                                &lt;/table&gt;
+                                                &lt;br&gt;==============================
+                                                </wsdl:documentation>
+      <wsdl:input message="tns:ApproveAppRegistrationSoapIn" />
+      <wsdl:output message="tns:ApproveAppRegistrationSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ListAppRegistrations">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+                                                List Application Registeration
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Signature:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;ApplicationType[] ListAppRegisteration()
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Parameter Description:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;&lt;table&gt;
+                                                &lt;/table&gt;
+
+                                                &lt;br&gt;&lt;b&gt;&lt;u&gt;Return Value:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;Array of ApplicationType that represents the existing application registered in the system
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Review:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;table&gt;
+                                                &lt;tr&gt;&lt;td width='30%'&gt;2009-08-20, CPR Broker &lt;/td&gt;&lt;td width='10%'&gt;&lt;/td&gt;&lt;td width='60%'&gt;First release.&lt;/td&gt;&lt;/tr&gt;
+                                                &lt;/table&gt;
+                                                &lt;br&gt;==============================
+                                                </wsdl:documentation>
+      <wsdl:input message="tns:ListAppRegistrationsSoapIn" />
+      <wsdl:output message="tns:ListAppRegistrationsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UnregisterApp">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+                                                Unregister an application registeration
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Signature:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;bool UnregisterApp(string ApplicationToken)
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Parameter Description:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;&lt;table&gt;
+                                                &lt;tr&gt;&lt;td&gt;ApplicationToken (input):&lt;/td&gt;&lt;td&gt;Security Token for the current business client application.&lt;/td&gt;&lt;/tr&gt;
+                                                &lt;/table&gt;
+
+                                                &lt;br&gt;&lt;b&gt;&lt;u&gt;Return Value:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;return bool that represents whether the operation has succeeded.
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Review:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;table&gt;
+                                                &lt;tr&gt;&lt;td width='30%'&gt;2009-08-20, CPR Broker &lt;/td&gt;&lt;td width='10%'&gt;&lt;/td&gt;&lt;td width='60%'&gt;First release.&lt;/td&gt;&lt;/tr&gt;
+                                                &lt;/table&gt;
+                                                &lt;br&gt;==============================
+                                                </wsdl:documentation>
+      <wsdl:input message="tns:UnregisterAppSoapIn" />
+      <wsdl:output message="tns:UnregisterAppSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCapabilities">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+                                                Reads version information for the component to make sure that only features
+                                                supported by the component is returned
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Signature:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;string GetCapabilities(string userToken, string appToken)
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Parameter Description:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;&lt;table&gt;
+                                                &lt;tr&gt;&lt;td&gt;'userToken' (input):&lt;/td&gt;&lt;td&gt;Security Token for authorizing the request.&lt;/td&gt;&lt;/tr&gt;
+                                                &lt;tr&gt;&lt;td&gt;'appToken' (input):&lt;/td&gt;&lt;td&gt;Security Token for the current business client application.&lt;/td&gt;&lt;/tr&gt;
+                                                &lt;/table&gt;
+
+                                                &lt;br&gt;&lt;b&gt;&lt;u&gt;Return Value:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;return the result of the request.
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Notes:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt; P1-P2 It is important that we use any standard or 'best practice' on this area. The sigature for
+                                                this service is important. Syntax and semantic must be invariant over time. Response,
+                                                probably in the form of an appropriate XML document will varie.
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Review:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;table&gt;
+                                                &lt;tr&gt;&lt;td width='30%'&gt;2009-05-11, CPR Broker&lt;/td&gt;&lt;td width='10%'&gt;&lt;/td&gt;&lt;td width='60%'&gt;Initial Method Draft.&lt;/td&gt;&lt;/tr&gt;
+                                                &lt;/table&gt;
+                                                &lt;br&gt;==============================
+                                                </wsdl:documentation>
+      <wsdl:input message="tns:GetCapabilitiesSoapIn" />
+      <wsdl:output message="tns:GetCapabilitiesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="IsImplementing">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+                                                Direct (easier) alternative to GetCapabilities()
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Signature:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;string IsImplementing(string userToken, string appToken,string serviceName,string serviceVersion)
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Parameter Description:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;&lt;table&gt;
+                                                &lt;tr&gt;&lt;td&gt;'userToken' (input):&lt;/td&gt;&lt;td&gt;Security Token for authorizing the user request.&lt;/td&gt;&lt;/tr&gt;
+                                                &lt;tr&gt;&lt;td&gt;'appToken' (input):&lt;/td&gt;&lt;td&gt;Security Token for the current business client application.&lt;/td&gt;&lt;/tr&gt;
+                                                &lt;tr&gt;&lt;td&gt;'serviceName' (input):&lt;/td&gt;&lt;td&gt;Service Name&lt;/td&gt;&lt;/tr&gt;
+                                                &lt;tr&gt;&lt;td&gt;'serviceVersion' (input):&lt;/td&gt;&lt;td&gt;Service Version&lt;/td&gt;&lt;/tr&gt;
+                                                &lt;/table&gt;
+
+                                                &lt;br&gt;&lt;b&gt;&lt;u&gt;Return Value:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;return the result of the request.
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Review:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;table&gt;
+                                                &lt;tr&gt;&lt;td width='30%'&gt;2009-05-11, CPR Broker&lt;/td&gt;&lt;td width='10%'&gt;&lt;/td&gt;&lt;td width='60%'&gt;Initial Method Draft.&lt;/td&gt;&lt;/tr&gt;
+                                                &lt;/table&gt;
+                                                &lt;br&gt;==============================
+                                                </wsdl:documentation>
+      <wsdl:input message="tns:IsImplementingSoapIn" />
+      <wsdl:output message="tns:IsImplementingSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDataProviderList">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+                                                Returns a list of objects that contain information about the data providers that are currently used by the system.
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Signature:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;DataProviderType[] GetDataProviderList()
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Parameter Description:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;&lt;table&gt;
+                                                &lt;/table&gt;
+
+                                                &lt;br&gt;&lt;b&gt;&lt;u&gt;Return Value:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;Array of DataProviderType containing information about the data providers used by the system.
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Review:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;table&gt;
+                                                &lt;tr&gt;&lt;td width='30%'&gt;2009-08-20, CPR Broker &lt;/td&gt;&lt;td width='10%'&gt;&lt;/td&gt;&lt;td width='60%'&gt;First release.&lt;/td&gt;&lt;/tr&gt;
+                                                &lt;/table&gt;
+                                                &lt;br&gt;==============================
+                                                </wsdl:documentation>
+      <wsdl:input message="tns:GetDataProviderListSoapIn" />
+      <wsdl:output message="tns:GetDataProviderListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SetDataProviderList">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+                                                Gives the opportunity to attach one or more data providers,
+                                                e.g., CSC DPR, P-Data, online.
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Signature:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;bool SetDataProviderList(DataProviderType[] dataProviders)
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Parameter Description:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;&lt;table&gt;
+                                                &lt;tr&gt;&lt;td&gt;DataProviders (input):&lt;/td&gt;&lt;td&gt;Array of data providers that the system should use.&lt;/td&gt;&lt;/tr&gt;
+                                                &lt;/table&gt;
+
+                                                &lt;br&gt;&lt;b&gt;&lt;u&gt;Return Value:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;return bool that represents whether the operation has succeeded.
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Review:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;table&gt;
+                                                &lt;tr&gt;&lt;td width='30%'&gt;2009-08-20, CPR Broker &lt;/td&gt;&lt;td width='10%'&gt;&lt;/td&gt;&lt;td width='60%'&gt;First release.&lt;/td&gt;&lt;/tr&gt;
+                                                &lt;/table&gt;
+                                                &lt;br&gt;==============================
+                                                </wsdl:documentation>
+      <wsdl:input message="tns:SetDataProviderListSoapIn" />
+      <wsdl:output message="tns:SetDataProviderListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Subscribe">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+                                                Allows a client business application to be notified when there is a change in one or more person's data
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Signature:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;ChangeSubscriptionType Subscribe(ChannelBaseType NotificationChannel, string[] PersonCivilRegistrationIdentifiers)
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Parameter Description:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;&lt;table&gt;
+                                                &lt;tr&gt;&lt;td&gt;NotificationChannel (input):&lt;/td&gt;&lt;td&gt;Channel to send notification through it (Web service, GPAC, FileShare...) .&lt;/td&gt;&lt;/tr&gt;
+                                                &lt;tr&gt;&lt;td&gt;PersonCivilRegistrationIdentifiers[] (input):&lt;/td&gt;&lt;td&gt;Array of persons number that you want to subscribe the event to them. Null for all persons&lt;/td&gt;&lt;/tr&gt;
+                                                &lt;/table&gt;
+
+                                                &lt;br&gt;&lt;b&gt;&lt;u&gt;Return Value:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;ChangeSubscriptionType that represents the newly created subscription object
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Notes:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt; The component will keep track on any person that has already has been queried
+                                                once. If the user creates a subscription, it will only be changes to the selected list of
+                                                persons the  subscription will return. 
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Review:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;table&gt;
+                                                &lt;tr&gt;&lt;td width='30%'&gt;2009-08-20, CPR Broker &lt;/td&gt;&lt;td width='10%'&gt;&lt;/td&gt;&lt;td width='60%'&gt;First release.&lt;/td&gt;&lt;/tr&gt;
+                                                &lt;/table&gt;
+                                                &lt;br&gt;==============================
+                                                </wsdl:documentation>
+      <wsdl:input message="tns:SubscribeSoapIn" />
+      <wsdl:output message="tns:SubscribeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Unsubscribe">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+                                                Removes a subscription.
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Signature:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;bool Unsubscribe(Guid SubscriptionId)
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Parameter Description:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;&lt;table&gt;
+                                                &lt;tr&gt;&lt;td&gt;SubscriptionId (input):&lt;/td&gt;&lt;td&gt;Subscription Id that you want to remove its subscription.&lt;/td&gt;&lt;/tr&gt;
+                                                &lt;/table&gt;
+
+                                                &lt;br&gt;&lt;b&gt;&lt;u&gt;Return Value:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;return bool that represents whether the operation has succeeded.
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Review:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;table&gt;
+                                                &lt;tr&gt;&lt;td width='30%'&gt;2009-08-20, CPR Broker &lt;/td&gt;&lt;td width='10%'&gt;&lt;/td&gt;&lt;td width='60%'&gt;First release.&lt;/td&gt;&lt;/tr&gt;
+                                                &lt;/table&gt;
+                                                &lt;br&gt;==============================
+                                                </wsdl:documentation>
+      <wsdl:input message="tns:UnsubscribeSoapIn" />
+      <wsdl:output message="tns:UnsubscribeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SubscribeOnBirthdate">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+                                                The user (application) can subscribe to extended birthday events.
+                                                In case the business application needs to send a message to a citizen 3 weeks before
+                                                the 65th. birthday (retirement), the user can subscribe to this event 65 birthday
+                                                minus 3 weeks. This subscription can be created for all persons or for a specific list of persons. 
+                                                It is possible to create several subscriptions
+                                                from the same user application to the same person or list of indiviuals.
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Signature:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;BirthdateSubscriptionType SubscribeOnBirthdate(ChannelBaseType NotificationChannel, Nullable&lt;int&gt; Years, int PriorDays, string[] PersonCivilRegistrationIdentifiers)
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Parameter Description:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;&lt;table&gt;
+                                                &lt;tr&gt;&lt;td&gt;NotificationChannel (input):&lt;/td&gt;&lt;td&gt;Channel to send notification through it (Web service, GPAC, FileShare...) .&lt;/td&gt;&lt;/tr&gt;
+                                                &lt;tr&gt;&lt;td&gt;Years (input):&lt;/td&gt;&lt;td&gt;Years.&lt;/td&gt;&lt;/tr&gt;
+                                                &lt;tr&gt;&lt;td&gt;PriorDays (input):&lt;/td&gt;&lt;td&gt;Prior days.&lt;/td&gt;&lt;/tr&gt;
+                                                &lt;tr&gt;&lt;td&gt;PersonCivilRegistrationIdentifiers[] (input):&lt;/td&gt;&lt;td&gt;Array of persons number that you want to subscribe the event to them.&lt;/td&gt;&lt;/tr&gt;
+                                                &lt;/table&gt;
+
+                                                &lt;br&gt;&lt;b&gt;&lt;u&gt;Return Value:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;BirthdateSubscriptionType that represents the created subscription object.
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Review:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;table&gt;
+                                                &lt;tr&gt;&lt;td width='30%'&gt;2009-08-20, CPR Broker &lt;/td&gt;&lt;td width='10%'&gt;&lt;/td&gt;&lt;td width='60%'&gt;First release.&lt;/td&gt;&lt;/tr&gt;
+                                                &lt;/table&gt;
+                                                &lt;br&gt;==============================
+                                                </wsdl:documentation>
+      <wsdl:input message="tns:SubscribeOnBirthdateSoapIn" />
+      <wsdl:output message="tns:SubscribeOnBirthdateSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RemoveBirthDateSubscription">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+                                                Removes one extended subscription for a user application.
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Signature:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;bool RemoveBirthDateSubscription(Guid SubscriptionId)
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Parameter Description:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;&lt;table&gt;
+                                                &lt;tr&gt;&lt;td&gt;'SubscriptionId' (input):&lt;/td&gt;&lt;td&gt;Subscription Id that you want to remove its subscription.&lt;/td&gt;&lt;/tr&gt;
+                                                &lt;/table&gt;
+
+                                                &lt;br&gt;&lt;b&gt;&lt;u&gt;Return Value:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;return bool that represents whether the operation has succeeded.
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Review:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;table&gt;
+                                                &lt;tr&gt;&lt;td width='30%'&gt;2009-08-20, CPR Broker &lt;/td&gt;&lt;td width='10%'&gt;&lt;/td&gt;&lt;td width='60%'&gt;First release.&lt;/td&gt;&lt;/tr&gt;
+                                                &lt;/table&gt;
+                                                &lt;br&gt;==============================
+                                                </wsdl:documentation>
+      <wsdl:input message="tns:RemoveBirthDateSubscriptionSoapIn" />
+      <wsdl:output message="tns:RemoveBirthDateSubscriptionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetActiveSubscriptionsList">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+                                                Allows a business application to get a list of all subscriptions
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Signature:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;SubscriptionType[] GetActiveSubsciptionsList()
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Parameter Description:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;&lt;table&gt;
+                                                &lt;/table&gt;
+
+                                                &lt;br&gt;&lt;b&gt;&lt;u&gt;Return Value:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;Array of SubscriptionType that represents the current subscriptions
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Review:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;table&gt;
+                                                &lt;tr&gt;&lt;td width='30%'&gt;2009-08-20, CPR Broker &lt;/td&gt;&lt;td width='10%'&gt;&lt;/td&gt;&lt;td width='60%'&gt;First release.&lt;/td&gt;&lt;/tr&gt;
+                                                &lt;/table&gt;
+                                                &lt;br&gt;==============================
+                                                </wsdl:documentation>
+      <wsdl:input name="GetActiveSubsciptionsList" message="tns:GetActiveSubsciptionsListSoapIn" />
+      <wsdl:output name="GetActiveSubsciptionsList" message="tns:GetActiveSubsciptionsListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetLatestNotification">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+                                                Allows a business application to get the latest notification that has been fired for a given subscription
+                                                &lt;br&gt;Usually called as a callback after a notification event is fired
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Signature:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;SubscriptionType[] GetLatestNotification()
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Parameter Description:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;&lt;table&gt;
+                                                &lt;tr&gt;&lt;td&gt;'SubscriptionId' (input):&lt;/td&gt;&lt;td&gt;Subscription Id for which the latest notification is required.&lt;/td&gt;&lt;/tr&gt;
+                                                &lt;/table&gt;
+
+                                                &lt;br&gt;&lt;b&gt;&lt;u&gt;Return Value:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;BaseNotificationType that represents the latest notification fired for the subscription
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Review:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;table&gt;
+                                                &lt;tr&gt;&lt;td width='30%'&gt;2009-08-20, CPR Broker &lt;/td&gt;&lt;td width='10%'&gt;&lt;/td&gt;&lt;td width='60%'&gt;First release.&lt;/td&gt;&lt;/tr&gt;
+                                                &lt;/table&gt;
+                                                &lt;br&gt;==============================
+                                                </wsdl:documentation>
+      <wsdl:input message="tns:GetLatestNotificationSoapIn" />
+      <wsdl:output message="tns:GetLatestNotificationSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Log">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+                                                Writes a text string to the system's log
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Signature:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;bool Log(string Text)
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Parameter Description:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;&lt;table&gt;
+                                                &lt;tr&gt;&lt;td&gt;Text (input):&lt;/td&gt;&lt;td&gt;the text value to be logged.&lt;/td&gt;&lt;/tr&gt;
+                                                &lt;/table&gt;
+
+                                                &lt;br&gt;&lt;b&gt;&lt;u&gt;Return Value:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;return bool that represents whether the operation has succeeded.
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Review:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;table&gt;
+                                                &lt;tr&gt;&lt;td width='30%'&gt;2009-08-20, CPR Broker &lt;/td&gt;&lt;td width='10%'&gt;&lt;/td&gt;&lt;td width='60%'&gt;First release.&lt;/td&gt;&lt;/tr&gt;
+                                                &lt;/table&gt;
+                                                &lt;br&gt;==============================
+                                                </wsdl:documentation>
+      <wsdl:input message="tns:LogSoapIn" />
+      <wsdl:output message="tns:LogSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateTestCitizen">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+                                                Creates a non-existing  citizen (Dummy), so that the services can later return a usable query result. 
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Signature:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;bool CreateTestCitizen(PersonFullStructureType OioPerson)
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Parameter Description:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;&lt;table&gt;
+                                                &lt;tr&gt;&lt;td&gt;OioPerson (input):&lt;/td&gt;&lt;td&gt;PersonFullStructureType that represent the user you want to create as a test citizen&lt;/td&gt;&lt;/tr&gt;
+                                                &lt;/table&gt;
+
+                                                &lt;br&gt;&lt;b&gt;&lt;u&gt;Return Value:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;return bool that represents whether the operation has succeeded.
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Review:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;table&gt;
+                                                &lt;tr&gt;&lt;td width='30%'&gt;2009-08-20, CPR Broker &lt;/td&gt;&lt;td width='10%'&gt;&lt;/td&gt;&lt;td width='60%'&gt;First release.&lt;/td&gt;&lt;/tr&gt;
+                                                &lt;/table&gt;
+                                                &lt;br&gt;==============================
+                                                </wsdl:documentation>
+      <wsdl:input message="tns:CreateTestCitizenSoapIn" />
+      <wsdl:output message="tns:CreateTestCitizenSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Ping">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Ping() returns an appropiate status message (HTML formatted) to confirm connection to this web service class.
+&lt;br&gt;Consider overloading the method to test complete connection in more complex scenarioes, ie. delegation of user credentials etc.
+&lt;br&gt;20070403/SDE
+</wsdl:documentation>
+      <wsdl:input message="tns:PingSoapIn" />
+      <wsdl:output message="tns:PingSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="CPRAdministrationWSSoap" type="tns:CPRAdministrationWSSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="RequestAppRegistration">
+      <soap:operation soapAction="http://tempuri.org/RequestAppRegistration" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:RequestAppRegistrationApplicationHeader" part="ApplicationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ApproveAppRegistration">
+      <soap:operation soapAction="http://tempuri.org/ApproveAppRegistration" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:ApproveAppRegistrationApplicationHeader" part="ApplicationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListAppRegistrations">
+      <soap:operation soapAction="http://tempuri.org/ListAppRegistrations" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:ListAppRegistrationsApplicationHeader" part="ApplicationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UnregisterApp">
+      <soap:operation soapAction="http://tempuri.org/UnregisterApp" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:UnregisterAppApplicationHeader" part="ApplicationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCapabilities">
+      <soap:operation soapAction="http://tempuri.org/GetCapabilities" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetCapabilitiesApplicationHeader" part="ApplicationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsImplementing">
+      <soap:operation soapAction="http://tempuri.org/IsImplementing" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:IsImplementingApplicationHeader" part="ApplicationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDataProviderList">
+      <soap:operation soapAction="http://tempuri.org/GetDataProviderList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetDataProviderListApplicationHeader" part="ApplicationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetDataProviderList">
+      <soap:operation soapAction="http://tempuri.org/SetDataProviderList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:SetDataProviderListApplicationHeader" part="ApplicationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Subscribe">
+      <soap:operation soapAction="http://tempuri.org/Subscribe" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:SubscribeApplicationHeader" part="ApplicationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Unsubscribe">
+      <soap:operation soapAction="http://tempuri.org/Unsubscribe" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:UnsubscribeApplicationHeader" part="ApplicationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SubscribeOnBirthdate">
+      <soap:operation soapAction="http://tempuri.org/SubscribeOnBirthdate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:SubscribeOnBirthdateApplicationHeader" part="ApplicationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RemoveBirthDateSubscription">
+      <soap:operation soapAction="http://tempuri.org/RemoveBirthDateSubscription" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:RemoveBirthDateSubscriptionApplicationHeader" part="ApplicationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetActiveSubscriptionsList">
+      <soap:operation soapAction="http://tempuri.org/GetActiveSubsciptionsList" style="document" />
+      <wsdl:input name="GetActiveSubsciptionsList">
+        <soap:body use="literal" />
+        <soap:header message="tns:GetActiveSubsciptionsListApplicationHeader" part="ApplicationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetActiveSubsciptionsList">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLatestNotification">
+      <soap:operation soapAction="http://tempuri.org/GetLatestNotification" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetLatestNotificationApplicationHeader" part="ApplicationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Log">
+      <soap:operation soapAction="http://tempuri.org/Log" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:LogApplicationHeader" part="ApplicationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateTestCitizen">
+      <soap:operation soapAction="http://tempuri.org/CreateTestCitizen" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:CreateTestCitizenApplicationHeader" part="ApplicationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Ping">
+      <soap:operation soapAction="http://tempuri.org/Ping" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="CPRAdministrationWSSoap12" type="tns:CPRAdministrationWSSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="RequestAppRegistration">
+      <soap12:operation soapAction="http://tempuri.org/RequestAppRegistration" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:RequestAppRegistrationApplicationHeader" part="ApplicationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ApproveAppRegistration">
+      <soap12:operation soapAction="http://tempuri.org/ApproveAppRegistration" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:ApproveAppRegistrationApplicationHeader" part="ApplicationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListAppRegistrations">
+      <soap12:operation soapAction="http://tempuri.org/ListAppRegistrations" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:ListAppRegistrationsApplicationHeader" part="ApplicationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UnregisterApp">
+      <soap12:operation soapAction="http://tempuri.org/UnregisterApp" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:UnregisterAppApplicationHeader" part="ApplicationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCapabilities">
+      <soap12:operation soapAction="http://tempuri.org/GetCapabilities" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetCapabilitiesApplicationHeader" part="ApplicationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsImplementing">
+      <soap12:operation soapAction="http://tempuri.org/IsImplementing" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:IsImplementingApplicationHeader" part="ApplicationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDataProviderList">
+      <soap12:operation soapAction="http://tempuri.org/GetDataProviderList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetDataProviderListApplicationHeader" part="ApplicationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetDataProviderList">
+      <soap12:operation soapAction="http://tempuri.org/SetDataProviderList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:SetDataProviderListApplicationHeader" part="ApplicationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Subscribe">
+      <soap12:operation soapAction="http://tempuri.org/Subscribe" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:SubscribeApplicationHeader" part="ApplicationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Unsubscribe">
+      <soap12:operation soapAction="http://tempuri.org/Unsubscribe" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:UnsubscribeApplicationHeader" part="ApplicationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SubscribeOnBirthdate">
+      <soap12:operation soapAction="http://tempuri.org/SubscribeOnBirthdate" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:SubscribeOnBirthdateApplicationHeader" part="ApplicationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RemoveBirthDateSubscription">
+      <soap12:operation soapAction="http://tempuri.org/RemoveBirthDateSubscription" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:RemoveBirthDateSubscriptionApplicationHeader" part="ApplicationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetActiveSubscriptionsList">
+      <soap12:operation soapAction="http://tempuri.org/GetActiveSubsciptionsList" style="document" />
+      <wsdl:input name="GetActiveSubsciptionsList">
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetActiveSubsciptionsListApplicationHeader" part="ApplicationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetActiveSubsciptionsList">
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLatestNotification">
+      <soap12:operation soapAction="http://tempuri.org/GetLatestNotification" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetLatestNotificationApplicationHeader" part="ApplicationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Log">
+      <soap12:operation soapAction="http://tempuri.org/Log" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:LogApplicationHeader" part="ApplicationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateTestCitizen">
+      <soap12:operation soapAction="http://tempuri.org/CreateTestCitizen" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:CreateTestCitizenApplicationHeader" part="ApplicationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Ping">
+      <soap12:operation soapAction="http://tempuri.org/Ping" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="CPRAdministrationWS">
+    <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+                                                Contains methods related to administrative functions
+                                                </wsdl:documentation>
+    <wsdl:port name="CPRAdministrationWSSoap" binding="tns:CPRAdministrationWSSoap">
+      <soap:address location="http://localhost:1551/Services/CPRAdministrationWS.asmx" />
+    </wsdl:port>
+    <wsdl:port name="CPRAdministrationWSSoap12" binding="tns:CPRAdministrationWSSoap12">
+      <soap12:address location="http://localhost:1551/Services/CPRAdministrationWS.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

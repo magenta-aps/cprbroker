@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Fragment Id="FilesFragment">
+    <Property Id="Dummy_FilesFragmentRefProperty" Value="-"/>
+
+    <ComponentGroup Id="CMPGRP_Root">
+      <Component Id="CMP_Root_Default_Htm" Directory="Website">
+        <File Id="File_Root_Default_Htm" Source="$(var.PersonmasterServiceLibrary.ProjectDir)Default.htm" KeyPath="yes"/>
+      </Component>
+      <Component Id="CMP_Root_BasicOp_Svc" Directory="Website">
+        <File Id="File_Root_BasicOp_Svc" Source="Resources\PersonmasterServiceLibrary.BasicOp.svc" KeyPath="yes"/>
+      </Component>
+      <Component Id="CMP_Root_Web_Config" Directory="Website">
+        <File Id="File_Root_Web_Config" Source="$(var.PersonmasterServiceLibrary.ProjectDir)App.config" Name="Web.config" KeyPath="yes"/>
+      </Component>
+    </ComponentGroup>
+
+    <ComponentGroup Id="CMPGRP_bin">
+      
+      <Component Id="CMP_GKApp2010.dll" Directory="bin">
+        <File Id="FILE_GKApp2010.dll" Source="$(var.PersonmasterServiceLibrary.ProjectDir)bin\$(var.PersonmasterServiceLibrary.Configuration)\GKApp2010.dll" KeyPath="yes"/>
+      </Component>
+      <Component Id="CMP_GKApp2010.pdb" Directory="bin">
+        <File Id="FILE_GKApp2010.pdb" Source="$(var.PersonmasterServiceLibrary.ProjectDir)bin\$(var.PersonmasterServiceLibrary.Configuration)\GKApp2010.pdb" KeyPath="yes"/>
+      </Component>
+      <Component Id="CMP_Microsoft.Practices.EnterpriseLibrary.Common.dll" Directory="bin">
+        <File Id="FILE_Microsoft.Practices.EnterpriseLibrary.Common.dll" Source="$(var.PersonmasterServiceLibrary.ProjectDir)bin\$(var.PersonmasterServiceLibrary.Configuration)\Microsoft.Practices.EnterpriseLibrary.Common.dll" KeyPath="yes"/>
+      </Component>
+      <Component Id="CMP_Microsoft.Practices.EnterpriseLibrary.Common.pdb" Directory="bin">
+        <File Id="FILE_Microsoft.Practices.EnterpriseLibrary.Common.pdb" Source="$(var.PersonmasterServiceLibrary.ProjectDir)bin\$(var.PersonmasterServiceLibrary.Configuration)\Microsoft.Practices.EnterpriseLibrary.Common.pdb" KeyPath="yes"/>
+      </Component>
+      <Component Id="CMP_Microsoft.Practices.EnterpriseLibrary.Data.dll" Directory="bin">
+        <File Id="FILE_Microsoft.Practices.EnterpriseLibrary.Data.dll" Source="$(var.PersonmasterServiceLibrary.ProjectDir)bin\$(var.PersonmasterServiceLibrary.Configuration)\Microsoft.Practices.EnterpriseLibrary.Data.dll" KeyPath="yes"/>
+      </Component>
+      <Component Id="CMP_Microsoft.Practices.EnterpriseLibrary.Data.pdb" Directory="bin">
+        <File Id="FILE_Microsoft.Practices.EnterpriseLibrary.Data.pdb" Source="$(var.PersonmasterServiceLibrary.ProjectDir)bin\$(var.PersonmasterServiceLibrary.Configuration)\Microsoft.Practices.EnterpriseLibrary.Data.pdb" KeyPath="yes"/>
+      </Component>
+      <Component Id="CMP_Microsoft.Practices.EnterpriseLibrary.Logging.dll" Directory="bin">
+        <File Id="FILE_Microsoft.Practices.EnterpriseLibrary.Logging.dll" Source="$(var.PersonmasterServiceLibrary.ProjectDir)bin\$(var.PersonmasterServiceLibrary.Configuration)\Microsoft.Practices.EnterpriseLibrary.Logging.dll" KeyPath="yes"/>
+      </Component>
+      <Component Id="CMP_Microsoft.Practices.EnterpriseLibrary.Logging.pdb" Directory="bin">
+        <File Id="FILE_Microsoft.Practices.EnterpriseLibrary.Logging.pdb" Source="$(var.PersonmasterServiceLibrary.ProjectDir)bin\$(var.PersonmasterServiceLibrary.Configuration)\Microsoft.Practices.EnterpriseLibrary.Logging.pdb" KeyPath="yes"/>
+      </Component>
+      <Component Id="CMP_Microsoft.Practices.EnterpriseLibrary.Logging.xml" Directory="bin">
+        <File Id="FILE_Microsoft.Practices.EnterpriseLibrary.Logging.xml" Source="$(var.PersonmasterServiceLibrary.ProjectDir)bin\$(var.PersonmasterServiceLibrary.Configuration)\Microsoft.Practices.EnterpriseLibrary.Logging.xml" KeyPath="yes"/>
+      </Component>
+      <Component Id="CMP_Microsoft.Practices.ServiceLocation.dll" Directory="bin">
+        <File Id="FILE_Microsoft.Practices.ServiceLocation.dll" Source="$(var.PersonmasterServiceLibrary.ProjectDir)bin\$(var.PersonmasterServiceLibrary.Configuration)\Microsoft.Practices.ServiceLocation.dll" KeyPath="yes"/>
+      </Component>
+      <Component Id="CMP_Microsoft.Practices.Unity.dll" Directory="bin">
+        <File Id="FILE_Microsoft.Practices.Unity.dll" Source="$(var.PersonmasterServiceLibrary.ProjectDir)bin\$(var.PersonmasterServiceLibrary.Configuration)\Microsoft.Practices.Unity.dll" KeyPath="yes"/>
+      </Component>
+      <Component Id="CMP_Microsoft.Practices.Unity.Interception.dll" Directory="bin">
+        <File Id="FILE_Microsoft.Practices.Unity.Interception.dll" Source="$(var.PersonmasterServiceLibrary.ProjectDir)bin\$(var.PersonmasterServiceLibrary.Configuration)\Microsoft.Practices.Unity.Interception.dll" KeyPath="yes"/>
+      </Component>
+      <Component Id="CMP_PersonmasterServiceLibrary.dll" Directory="bin">
+        <File Id="FILE_PersonmasterServiceLibrary.dll" Source="$(var.PersonmasterServiceLibrary.ProjectDir)bin\$(var.PersonmasterServiceLibrary.Configuration)\PersonmasterServiceLibrary.dll" KeyPath="yes"/>
+      </Component>
+      <Component Id="CMP_PersonmasterServiceLibrary.dll.config" Directory="bin">
+        <File Id="FILE_PersonmasterServiceLibrary.dll.config" Source="$(var.PersonmasterServiceLibrary.ProjectDir)bin\$(var.PersonmasterServiceLibrary.Configuration)\PersonmasterServiceLibrary.dll.config" KeyPath="yes"/>
+      </Component>
+      <Component Id="CMP_PersonmasterServiceLibrary.pdb" Directory="bin">
+        <File Id="FILE_PersonmasterServiceLibrary.pdb" Source="$(var.PersonmasterServiceLibrary.ProjectDir)bin\$(var.PersonmasterServiceLibrary.Configuration)\PersonmasterServiceLibrary.pdb" KeyPath="yes"/>
+      </Component>
+      <Component Id="CMP_Properties_AssemblyInfo.cs" Directory="Properties">
+        <File Id="FILE_Properties_AssemblyInfo.cs" Source="$(var.PersonmasterServiceLibrary.ProjectDir)bin\$(var.PersonmasterServiceLibrary.Configuration)\Properties\AssemblyInfo.cs" KeyPath="yes"/>
+      </Component>
+    </ComponentGroup>
+
+    <ComponentGroup Id="CMPGRP_css">
+      <Component Id="CMP_main.css" Directory="css">
+        <File Id="FILE_main.css" Source="$(var.PersonmasterServiceLibrary.ProjectDir)css\main.css" KeyPath="yes"/>
+      </Component>
+    </ComponentGroup>
+
+  </Fragment>
+</Wix>

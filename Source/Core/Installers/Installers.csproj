@@ -1,0 +1,206 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{301C6060-336E-4363-BF63-9ED84A0770FB}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CprBroker.Installers</RootNamespace>
+    <AssemblyName>CprBroker.Installers</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <StartupObject>
+    </StartupObject>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Deployment.WindowsInstaller, Version=3.0.0.0, Culture=neutral, PublicKeyToken=ce35f76fcda82bad, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.SqlServer.ConnectionInfo, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dll\Microsoft.SqlServer.ConnectionInfo.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.Management.Sdk.Sfc, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\..\Dll\Microsoft.SqlServer.Management.Sdk.Sfc.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.Smo, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\..\Dll\Microsoft.SqlServer.Smo.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.SqlEnum, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\..\Dll\Microsoft.SqlServer.SqlEnum.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Configuration.Install" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Installers\ProductCustomActions.cs" />
+    <Compile Include="UI\PatchDatabaseForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\PatchDatabaseForm.Designer.cs">
+      <DependentUpon>PatchDatabaseForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Utilities\BaseSetupInfo.cs" />
+    <Compile Include="Utilities\Constants.cs" />
+    <Compile Include="Utilities\DatabasePatchInfo.cs" />
+    <Compile Include="Utilities\DatabaseSetupInfo.Constants.cs" />
+    <Compile Include="Utilities\Installation.cs" />
+    <Compile Include="Installers\ConnectionStringsInstaller.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Installers\DatabaseCustomAction.Helpers.cs" />
+    <Compile Include="Installers\WebsiteCustomAction.Helpers.cs" />
+    <Compile Include="Installers\DatabaseCustomAction.cs" />
+    <Compile Include="Installers\WebsiteCustomAction.cs" />
+    <Compile Include="UI\BaseForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\CustomTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\DatabaseForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\DatabaseForm.Designer.cs">
+      <DependentUpon>DatabaseForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\DropDatabaseForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\DropDatabaseForm.Designer.cs">
+      <DependentUpon>DropDatabaseForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Utilities\DatabaseSetupInfo.Exchange.cs" />
+    <Compile Include="Utilities\Impersonation.cs" />
+    <Compile Include="UI\LoginInfo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\LoginInfo.Designer.cs">
+      <DependentUpon>LoginInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Utilities\InternetSecurityManager.cs" />
+    <Compile Include="Utilities\Messages.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="UI\BaseForm.resx">
+      <DependentUpon>BaseForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\PatchDatabaseForm.resx">
+      <DependentUpon>PatchDatabaseForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\DatabaseForm.resx">
+      <DependentUpon>DatabaseForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\DropDatabaseForm.resx">
+      <DependentUpon>DropDatabaseForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\LoginInfo.resx">
+      <DependentUpon>LoginInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\WebSiteForm.resx">
+      <DependentUpon>WebSiteForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Utilities\DatabaseSetupInfo.Registry.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Utilities\PatchInfo.cs" />
+    <Compile Include="Utilities\SavedStateWrapper.cs" />
+    <Compile Include="Utilities\DatabaseSetupInfo.cs" />
+    <Compile Include="Utilities\VirtualDirectoryInstallationInfo.cs" />
+    <Compile Include="Utilities\WebInstallationInfo.Constants.cs" />
+    <Compile Include="Utilities\WebInstallationInfo.cs" />
+    <Compile Include="UI\WebSiteForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\WebSiteForm.designer.cs">
+      <DependentUpon>WebSiteForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Utilities\WebInstallationInfo.Exchange.cs" />
+    <Compile Include="Utilities\WebInstallationInfo.Registry.cs" />
+    <Compile Include="Utilities\WebInstallationOptions.cs" />
+    <Compile Include="Utilities\WebPatchInfo.cs" />
+    <Compile Include="Utilities\WebsiteInstallationInfo.cs" />
+    <Compile Include="Utilities\WindowHandleWrapper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Utilities\Utilities.csproj">
+      <Project>{E0D551C1-574F-4B69-8981-CF5F44391E5E}</Project>
+      <Name>Utilities</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\InstallerPicture.JPG" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PostBuildEvent>copy $(TargetFileName) ..\..\..\Output\ /y</PostBuildEvent>
+  </PropertyGroup>
+</Project>

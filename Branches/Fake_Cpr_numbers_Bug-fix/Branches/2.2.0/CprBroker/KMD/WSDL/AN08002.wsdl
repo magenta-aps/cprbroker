@@ -1,0 +1,380 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:spo="http://zsrsoap.kmd.dk/AN08002" xmlns:wsse="http://soap.zsroer.kmd.dk" xmlns:pos="http://zsrsoap.kmd.dk/AN08002" name="AN08002" targetNamespace="http://zsrsoap.kmd.dk/AN08002" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <xsd:schema xmlns:tns="http://zsrsoap.kmd.dk/AN08002" elementFormDefault="unqualified" targetNamespace="http://zsrsoap.kmd.dk/AN08002" version="1.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+      <xsd:element name="AN08002">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="InputRecord" type="tns:PARM" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="AN08002Response">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="OutputRecord" type="tns:GENERELT" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="PARM">
+        <xsd:sequence>
+          <xsd:element name="personnummer">
+            <xsd:annotation>
+              <xsd:documentation>Personnummer</xsd:documentation>
+            </xsd:annotation>
+            <xsd:simpleType>
+              <xsd:restriction base="xsd:string">
+                <xsd:maxLength value="10" />
+              </xsd:restriction>
+            </xsd:simpleType>
+          </xsd:element>
+          <xsd:element name="omraade">
+            <xsd:annotation>
+              <xsd:documentation>Kommunalt: K   Regionalt:  R   Nationalt: C</xsd:documentation>
+            </xsd:annotation>
+            <xsd:simpleType>
+              <xsd:restriction base="xsd:string">
+                <xsd:maxLength value="1" />
+              </xsd:restriction>
+            </xsd:simpleType>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="GENERELT">
+        <xsd:sequence>
+          <xsd:element name="returkode">
+            <xsd:annotation>
+              <xsd:documentation>Returkode</xsd:documentation>
+            </xsd:annotation>
+            <xsd:simpleType>
+              <xsd:restriction base="xsd:string">
+                <xsd:maxLength value="2" />
+              </xsd:restriction>
+            </xsd:simpleType>
+          </xsd:element>
+          <xsd:element name="returtekst">
+            <xsd:annotation>
+              <xsd:documentation>Returtekst</xsd:documentation>
+            </xsd:annotation>
+            <xsd:simpleType>
+              <xsd:restriction base="xsd:string">
+                <xsd:maxLength value="60" />
+              </xsd:restriction>
+            </xsd:simpleType>
+          </xsd:element>
+          <xsd:element name="autoriseret">
+            <xsd:simpleType>
+              <xsd:restriction base="xsd:string">
+                <xsd:maxLength value="1" />
+              </xsd:restriction>
+            </xsd:simpleType>
+          </xsd:element>
+          <xsd:element name="personnummer">
+            <xsd:annotation>
+              <xsd:documentation>Personnummer</xsd:documentation>
+            </xsd:annotation>
+            <xsd:simpleType>
+              <xsd:restriction base="xsd:string">
+                <xsd:maxLength value="10" />
+              </xsd:restriction>
+            </xsd:simpleType>
+          </xsd:element>
+          <xsd:element name="anavn_34">
+            <xsd:annotation>
+              <xsd:documentation>Adresseringsnavn</xsd:documentation>
+            </xsd:annotation>
+            <xsd:simpleType>
+              <xsd:restriction base="xsd:string">
+                <xsd:maxLength value="34" />
+              </xsd:restriction>
+            </xsd:simpleType>
+          </xsd:element>
+          <xsd:element name="alin_1">
+            <xsd:annotation>
+              <xsd:documentation>Adresselinie 1</xsd:documentation>
+            </xsd:annotation>
+            <xsd:simpleType>
+              <xsd:restriction base="xsd:string">
+                <xsd:maxLength value="34" />
+              </xsd:restriction>
+            </xsd:simpleType>
+          </xsd:element>
+          <xsd:element name="alin_2">
+            <xsd:annotation>
+              <xsd:documentation>Adresselinie 2</xsd:documentation>
+            </xsd:annotation>
+            <xsd:simpleType>
+              <xsd:restriction base="xsd:string">
+                <xsd:maxLength value="34" />
+              </xsd:restriction>
+            </xsd:simpleType>
+          </xsd:element>
+          <xsd:element name="alin_3">
+            <xsd:annotation>
+              <xsd:documentation>Adresselinie 3</xsd:documentation>
+            </xsd:annotation>
+            <xsd:simpleType>
+              <xsd:restriction base="xsd:string">
+                <xsd:maxLength value="34" />
+              </xsd:restriction>
+            </xsd:simpleType>
+          </xsd:element>
+          <xsd:element name="alin_4">
+            <xsd:annotation>
+              <xsd:documentation>Adresselinie 4</xsd:documentation>
+            </xsd:annotation>
+            <xsd:simpleType>
+              <xsd:restriction base="xsd:string">
+                <xsd:maxLength value="34" />
+              </xsd:restriction>
+            </xsd:simpleType>
+          </xsd:element>
+          <xsd:element name="alin_5">
+            <xsd:annotation>
+              <xsd:documentation>Adresselinie 5</xsd:documentation>
+            </xsd:annotation>
+            <xsd:simpleType>
+              <xsd:restriction base="xsd:string">
+                <xsd:maxLength value="34" />
+              </xsd:restriction>
+            </xsd:simpleType>
+          </xsd:element>
+          <xsd:element name="astil_34">
+            <xsd:annotation>
+              <xsd:documentation>stillingsbetegnelse</xsd:documentation>
+            </xsd:annotation>
+            <xsd:simpleType>
+              <xsd:restriction base="xsd:string">
+                <xsd:maxLength value="34" />
+              </xsd:restriction>
+            </xsd:simpleType>
+          </xsd:element>
+          <xsd:element name="tilflyttet">
+            <xsd:annotation>
+              <xsd:documentation>tilflytnings-dato</xsd:documentation>
+            </xsd:annotation>
+            <xsd:simpleType>
+              <xsd:restriction base="xsd:string">
+                <xsd:maxLength value="8" />
+              </xsd:restriction>
+            </xsd:simpleType>
+          </xsd:element>
+          <xsd:element name="civilstand">
+            <xsd:annotation>
+              <xsd:documentation>civilstands-kode</xsd:documentation>
+            </xsd:annotation>
+            <xsd:simpleType>
+              <xsd:restriction base="xsd:string">
+                <xsd:maxLength value="13" />
+              </xsd:restriction>
+            </xsd:simpleType>
+          </xsd:element>
+          <xsd:element name="civildato">
+            <xsd:annotation>
+              <xsd:documentation>civilstands-dato</xsd:documentation>
+            </xsd:annotation>
+            <xsd:simpleType>
+              <xsd:restriction base="xsd:string">
+                <xsd:maxLength value="8" />
+              </xsd:restriction>
+            </xsd:simpleType>
+          </xsd:element>
+          <xsd:element name="myndigkode">
+            <xsd:annotation>
+              <xsd:documentation>myndigheds-kode</xsd:documentation>
+            </xsd:annotation>
+            <xsd:simpleType>
+              <xsd:restriction base="xsd:string">
+                <xsd:maxLength value="4" />
+              </xsd:restriction>
+            </xsd:simpleType>
+          </xsd:element>
+          <xsd:element name="myndignavn">
+            <xsd:annotation>
+              <xsd:documentation>myndigheds-navn</xsd:documentation>
+            </xsd:annotation>
+            <xsd:simpleType>
+              <xsd:restriction base="xsd:string">
+                <xsd:maxLength value="20" />
+              </xsd:restriction>
+            </xsd:simpleType>
+          </xsd:element>
+          <xsd:element name="aegtefaelle">
+            <xsd:annotation>
+              <xsd:documentation>personnummer - ægtefælle</xsd:documentation>
+            </xsd:annotation>
+            <xsd:simpleType>
+              <xsd:restriction base="xsd:string">
+                <xsd:maxLength value="10" />
+              </xsd:restriction>
+            </xsd:simpleType>
+          </xsd:element>
+          <xsd:element name="adressebesk">
+            <xsd:annotation>
+              <xsd:documentation>adressebeskyttelse:   B=adressebeskyttelse  L=vejvisebeskyttelse</xsd:documentation>
+            </xsd:annotation>
+            <xsd:simpleType>
+              <xsd:restriction base="xsd:string">
+                <xsd:maxLength value="1" />
+              </xsd:restriction>
+            </xsd:simpleType>
+          </xsd:element>
+          <xsd:element name="kommunekode">
+            <xsd:annotation>
+              <xsd:documentation>kommunenummer</xsd:documentation>
+            </xsd:annotation>
+            <xsd:simpleType>
+              <xsd:restriction base="xsd:string">
+                <xsd:maxLength value="3" />
+              </xsd:restriction>
+            </xsd:simpleType>
+          </xsd:element>
+          <xsd:element name="kommunenavn">
+            <xsd:annotation>
+              <xsd:documentation>kommunenavn</xsd:documentation>
+            </xsd:annotation>
+            <xsd:simpleType>
+              <xsd:restriction base="xsd:string">
+                <xsd:maxLength value="34" />
+              </xsd:restriction>
+            </xsd:simpleType>
+          </xsd:element>
+          <xsd:element name="vejkode">
+            <xsd:annotation>
+              <xsd:documentation>vej-kode</xsd:documentation>
+            </xsd:annotation>
+            <xsd:simpleType>
+              <xsd:restriction base="xsd:string">
+                <xsd:maxLength value="4" />
+              </xsd:restriction>
+            </xsd:simpleType>
+          </xsd:element>
+          <xsd:element name="avej">
+            <xsd:annotation>
+              <xsd:documentation>vej-navn</xsd:documentation>
+            </xsd:annotation>
+            <xsd:simpleType>
+              <xsd:restriction base="xsd:string">
+                <xsd:maxLength value="20" />
+              </xsd:restriction>
+            </xsd:simpleType>
+          </xsd:element>
+          <xsd:element name="ahusnr">
+            <xsd:annotation>
+              <xsd:documentation>hus-nummer</xsd:documentation>
+            </xsd:annotation>
+            <xsd:simpleType>
+              <xsd:restriction base="xsd:string">
+                <xsd:maxLength value="3" />
+              </xsd:restriction>
+            </xsd:simpleType>
+          </xsd:element>
+          <xsd:element name="abogstv">
+            <xsd:annotation>
+              <xsd:documentation>hus-bogstav</xsd:documentation>
+            </xsd:annotation>
+            <xsd:simpleType>
+              <xsd:restriction base="xsd:string">
+                <xsd:maxLength value="1" />
+              </xsd:restriction>
+            </xsd:simpleType>
+          </xsd:element>
+          <xsd:element name="aetage">
+            <xsd:annotation>
+              <xsd:documentation>etage</xsd:documentation>
+            </xsd:annotation>
+            <xsd:simpleType>
+              <xsd:restriction base="xsd:string">
+                <xsd:maxLength value="2" />
+              </xsd:restriction>
+            </xsd:simpleType>
+          </xsd:element>
+          <xsd:element name="asidoer">
+            <xsd:annotation>
+              <xsd:documentation>side-dørnr</xsd:documentation>
+            </xsd:annotation>
+            <xsd:simpleType>
+              <xsd:restriction base="xsd:string">
+                <xsd:maxLength value="4" />
+              </xsd:restriction>
+            </xsd:simpleType>
+          </xsd:element>
+          <xsd:element name="epostnr">
+            <xsd:annotation>
+              <xsd:documentation>post-nr</xsd:documentation>
+            </xsd:annotation>
+            <xsd:simpleType>
+              <xsd:restriction base="xsd:string">
+                <xsd:maxLength value="4" />
+              </xsd:restriction>
+            </xsd:simpleType>
+          </xsd:element>
+          <xsd:element name="apost_20">
+            <xsd:annotation>
+              <xsd:documentation>post-distrikt</xsd:documentation>
+            </xsd:annotation>
+            <xsd:simpleType>
+              <xsd:restriction base="xsd:string">
+                <xsd:maxLength value="20" />
+              </xsd:restriction>
+            </xsd:simpleType>
+          </xsd:element>
+          <xsd:element name="tct_kommune">
+            <xsd:annotation>
+              <xsd:documentation>kørsels-kommune</xsd:documentation>
+            </xsd:annotation>
+            <xsd:simpleType>
+              <xsd:restriction base="xsd:string">
+                <xsd:maxLength value="3" />
+              </xsd:restriction>
+            </xsd:simpleType>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+    <xsd:schema elementFormDefault="unqualified" targetNamespace="http://soap.zsroer.kmd.dk" version="1.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+      <xsd:element name="userinfo">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="userid" type="xsd:string" />
+            <xsd:element name="password" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </types>
+  <message name="SubmitAN08002">
+    <part name="Request" element="pos:AN08002" />
+  </message>
+  <message name="SubmitAN08002Response">
+    <part name="Response" element="pos:AN08002Response" />
+  </message>
+  <message name="KMDSOAPHeaderMessage">
+    <part name="KMDSOAPHeaderPart" element="wsse:userinfo" />
+  </message>
+  <portType name="AN08002Service1">
+    <operation name="SubmitAN08002">
+      <input message="pos:SubmitAN08002" />
+      <output message="pos:SubmitAN08002Response" />
+    </operation>
+  </portType>
+  <binding name="SoapBinding" type="pos:AN08002Service1">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <operation name="SubmitAN08002">
+      <soap:operation soapAction="AN08002" />
+      <input>
+        <soap:body use="literal" />
+        <soap:header d5p1:required="true" message="pos:KMDSOAPHeaderMessage" part="KMDSOAPHeaderPart" use="literal" xmlns:d5p1="http://schemas.xmlsoap.org/wsdl/" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+  </binding>
+  <service name="WS_AN08002">
+    <documentation>Henter P-DATA generelle oplysninger ud fra et Personnummer release 2</documentation>
+    <port name="Soap" binding="pos:SoapBinding">
+      <soap:address location="http://195.50.36.114/bccicste.asp?zservice=AN08002" />
+    </port>
+  </service>
+</definitions>

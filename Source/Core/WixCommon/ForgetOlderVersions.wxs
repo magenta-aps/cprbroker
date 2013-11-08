@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Fragment Id="ForgetOlderVersionFragment">
+    <Property Id="Dummy_ForgetOlderVersionFragmentRefProp" Value="-" />
+
+    <Component Id="CMP_MsiZap" Directory="INSTALLDIR">
+      <File Id="File_MsiZap" Source="$(env.WindowsSDK)Bin\MsiZap.exe" KeyPath="yes"/>
+    </Component>
+    
+    <WixVariable Id="WindowsSDKPath" Value="-" Overridable="yes"/>
+    <WixVariable Id="ForgetOlderVersions" Value="0" Overridable="yes"/>
+
+    <CustomAction Id="AfterInstallInitialize_Product" BinaryKey="InstallersDll" DllEntry="AfterInstallInitialize_Product" Execute="immediate" Return="ignore"/>
+    <CustomAction Id="ForgetOlderVersions" BinaryKey="InstallersDll" DllEntry="ForgetOlderVersions" Execute="commit" Return="ignore"/>
+                  
+    <InstallExecuteSequence>
+      <Custom Action="AfterInstallInitialize_Product" After="Set_CommonProductProperties">!(wix.ForgetOlderVersions)</Custom>
+      <Custom Action="ForgetOlderVersions" Before="InstallFinalize">!(wix.ForgetOlderVersions)</Custom>
+    </InstallExecuteSequence>
+
+    <UI>
+      <ProgressText Action="AfterInstallInitialize_Product">Initializing product properties</ProgressText>
+      <ProgressText Action="ForgetOlderVersions">Forgetting older versions</ProgressText>
+    </UI>
+
+  </Fragment>
+</Wix>

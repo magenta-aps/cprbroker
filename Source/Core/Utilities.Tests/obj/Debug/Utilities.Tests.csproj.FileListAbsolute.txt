@@ -1,0 +1,8 @@
+C:\Users\dennis\Documents\Cpr Broker Trunk\Source\Core\Utilities.Tests\bin\Debug\CprBroker.Tests.Utilities.dll
+C:\Users\dennis\Documents\Cpr Broker Trunk\Source\Core\Utilities.Tests\bin\Debug\CprBroker.Tests.Utilities.pdb
+C:\Users\dennis\Documents\Cpr Broker Trunk\Source\Core\Utilities.Tests\bin\Debug\CprBroker.Utilities.dll
+C:\Users\dennis\Documents\Cpr Broker Trunk\Source\Core\Utilities.Tests\bin\Debug\nunit.framework.dll
+C:\Users\dennis\Documents\Cpr Broker Trunk\Source\Core\Utilities.Tests\bin\Debug\CprBroker.Utilities.pdb
+C:\Users\dennis\Documents\Cpr Broker Trunk\Source\Core\Utilities.Tests\obj\Debug\Utilities.Tests.csprojResolveAssemblyReference.cache
+C:\Users\dennis\Documents\Cpr Broker Trunk\Source\Core\Utilities.Tests\obj\Debug\CprBroker.Tests.Utilities.dll
+C:\Users\dennis\Documents\Cpr Broker Trunk\Source\Core\Utilities.Tests\obj\Debug\CprBroker.Tests.Utilities.pdb

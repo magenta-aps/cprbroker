@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Fragment Id="FilesFragment">
+    <Property Id="Dummy_FilesFragmentRefProperty" Value="-"/>
+
+    <ComponentGroup Id="CMPGRP_bin">
+      <Component Id="CMP_UpdateLib.dll" Directory="bin">
+        <File Id="FILE_UpdateLib.dll" Source="!(wix.ServicePath)bin\Debug\UpdateLib.dll" KeyPath="yes"/>
+      </Component>
+      <Component Id="CMP_UpdateLib.XmlSerializers.dll" Directory="bin">
+        <File Id="FILE_UpdateLib.XmlSerializers.dll" Source="!(wix.ServicePath)bin\Debug\UpdateLib.XmlSerializers.dll" KeyPath="yes"/>
+      </Component>
+      <Component Id="CMP_UpdatesNotificationService.application" Directory="bin">
+        <File Id="FILE_UpdatesNotificationService.application" Source="!(wix.ServicePath)bin\Debug\!(wix.ServiceTargetName).application" KeyPath="yes"/>
+      </Component>
+      <Component Id="CMP_UpdatesNotificationService.exe" Directory="bin">
+        <File Id="FILE_UpdatesNotificationService.exe" Source="!(wix.ServicePath)bin\Debug\!(wix.ServiceTargetName).exe" KeyPath="yes"/>
+      </Component>
+      <Component Id="CMP_UpdatesNotificationService.exe.config" Directory="bin">
+        <File Id="FILE_UpdatesNotificationService.exe.config" Source="!(wix.ServicePath)bin\Debug\!(wix.ServiceTargetName).exe.config" KeyPath="yes"/>
+      </Component>     
+      <Component Id="CMP_GKApp2010.dll" Directory="bin">
+        <File Id="FILE_GKApp2010.dll" Source="!(wix.ServicePath)bin\Debug\GKApp2010.dll" KeyPath="yes"/>
+      </Component>
+      <Component Id="CMP_Microsoft.Practices.EnterpriseLibrary.Common.dll" Directory="bin">
+        <File Id="FILE_Microsoft.Practices.EnterpriseLibrary.Common.dll" Source="!(wix.ServicePath)bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.dll" KeyPath="yes"/>
+      </Component>
+      <Component Id="CMP_Microsoft.Practices.EnterpriseLibrary.Data.dll" Directory="bin">
+        <File Id="FILE_Microsoft.Practices.EnterpriseLibrary.Data.dll" Source="!(wix.ServicePath)bin\Debug\Microsoft.Practices.EnterpriseLibrary.Data.dll" KeyPath="yes"/>
+      </Component>
+      <Component Id="CMP_Microsoft.Practices.EnterpriseLibrary.Logging.dll" Directory="bin">
+        <File Id="FILE_Microsoft.Practices.EnterpriseLibrary.Logging.dll" Source="!(wix.ServicePath)bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.dll" KeyPath="yes"/>
+      </Component>
+      <Component Id="CMP_Microsoft.Practices.ServiceLocation.dll" Directory="bin">
+        <File Id="FILE_Microsoft.Practices.ServiceLocation.dll" Source="!(wix.ServicePath)bin\Debug\Microsoft.Practices.ServiceLocation.dll" KeyPath="yes"/>
+      </Component>
+      <Component Id="CMP_Microsoft.Practices.Unity.dll" Directory="bin">
+        <File Id="FILE_Microsoft.Practices.Unity.dll" Source="!(wix.ServicePath)bin\Debug\Microsoft.Practices.Unity.dll" KeyPath="yes"/>
+      </Component>
+      <Component Id="CMP_Microsoft.Practices.Unity.Interception.dll" Directory="bin">
+        <File Id="FILE_Microsoft.Practices.Unity.Interception.dll" Source="!(wix.ServicePath)bin\Debug\Microsoft.Practices.Unity.Interception.dll" KeyPath="yes"/>
+      </Component>
+
+    </ComponentGroup>
+
+  </Fragment>
+</Wix>

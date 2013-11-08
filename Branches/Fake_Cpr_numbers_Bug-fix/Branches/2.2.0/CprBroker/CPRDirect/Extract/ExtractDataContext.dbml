@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="PART" EntityNamespace="CprBroker.Providers.CPRDirect" ContextNamespace="CprBroker.Providers.CPRDirect" Class="ExtractDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Table Name="dbo.Extract" Member="Extracts">
+    <Type Name="Extract">
+      <Column Name="ExtractId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Filename" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="ExtractDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="ImportDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="StartRecord" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="EndRecord" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="Ready" Type="System.Boolean" DbType="BIT" CanBeNull="false" />
+      <Column Name="ProcessedLines" Type="System.Int64" DbType="BIGINT NULL" CanBeNull="true" />
+      <Association Name="Extract_ExtractItem" Member="ExtractItems" ThisKey="ExtractId" OtherKey="ExtractId" Type="ExtractItem" />
+      <Association Name="Extract_ExtractPersonStaging" Member="ExtractPersonStagings" ThisKey="ExtractId" OtherKey="ExtractId" Type="ExtractPersonStaging" />
+      <Association Name="Extract_ExtractError" Member="ExtractErrors" ThisKey="ExtractId" OtherKey="ExtractId" Type="ExtractError" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ExtractItem" Member="ExtractItems">
+    <Type Name="ExtractItem">
+      <Column Name="ExtractItemId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ExtractId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="PNR" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="RelationPNR" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="RelationPNR2" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="DataTypeCode" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="Contents" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Association Name="Extract_ExtractItem" Member="Extract" ThisKey="ExtractId" OtherKey="ExtractId" Type="Extract" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="ExtractPersonStaging_ExtractItem" Member="ExtractPersonStaging" ThisKey="ExtractId,PNR" OtherKey="ExtractId,PNR" Type="ExtractPersonStaging" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ExtractPersonStaging" Member="ExtractPersonStagings">
+    <Type Name="ExtractPersonStaging">
+      <Column Name="ExtractPersonStagingId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ExtractId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="PNR" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Association Name="ExtractPersonStaging_ExtractItem" Member="ExtractItems" ThisKey="ExtractId,PNR" OtherKey="ExtractId,PNR" Type="ExtractItem" />
+      <Association Name="Extract_ExtractPersonStaging" Member="Extract" ThisKey="ExtractId" OtherKey="ExtractId" Type="Extract" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ExtractError" Member="ExtractErrors">
+    <Type Name="ExtractError">
+      <Column Name="ExtractErrorId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ExtractId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="Contents" Type="System.String" DbType="NVarChar(157) NOT NULL" CanBeNull="false" />
+      <Association Name="Extract_ExtractError" Member="Extract" ThisKey="ExtractId" OtherKey="ExtractId" Type="Extract" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+</Database>

@@ -1,0 +1,753 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project name="EventSubscription" resourceRoot="${projectDir}" soapui-version="3.6.1" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="SubscriptionsSoap12" type="wsdl" bindingName="{http://dk.itst}SubscriptionsSoap12" soapVersion="1_2" anonymous="optional" definition="http://eventbroker20110208/Services/Subscriptions.asmx?WSDL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://eventbroker20110208/Services/Subscriptions.asmx?WSDL"><con:part><con:url>http://eventbroker20110208/Services/Subscriptions.asmx?WSDL</con:url><con:content><![CDATA[<wsdl:definitions targetNamespace="http://dk.itst" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://dk.itst" xmlns:s1="http://microsoft.com/wsdl/types/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:documentation>Subscriptions</wsdl:documentation>
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://dk.itst">
+      <s:import namespace="http://microsoft.com/wsdl/types/"/>
+      <s:element name="Subscribe">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="NotificationChannel" type="tns:ChannelBaseType"/>
+            <s:element minOccurs="0" maxOccurs="1" name="PersonCivilRegistrationIdentifiers" type="tns:ArrayOfGuid"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ChannelBaseType" abstract="true"/>
+      <s:complexType name="FileShareChannelType">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:ChannelBaseType">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Path" type="s:string"/>
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="WebServiceChannelType">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:ChannelBaseType">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="WebServiceUrl" type="s:string"/>
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfGuid">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="guid" type="s1:guid"/>
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SubscribeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SubscribeResult" type="tns:ChangeSubscriptionType"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ChangeSubscriptionType">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:SubscriptionType"/>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="SubscriptionType" abstract="true">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="SubscriptionId" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="ApplicationToken" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="NotificationChannel" type="tns:ChannelBaseType"/>
+          <s:element minOccurs="1" maxOccurs="1" name="ForAllPersons" type="s:boolean"/>
+          <s:element minOccurs="0" maxOccurs="1" name="PersonUuids" type="tns:ArrayOfString"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="BirthdateSubscriptionType">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:SubscriptionType">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="AgeYears" nillable="true" type="s:int"/>
+              <s:element minOccurs="1" maxOccurs="1" name="PriorDays" type="s:int"/>
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="ApplicationHeader" type="tns:ApplicationHeader"/>
+      <s:complexType name="ApplicationHeader">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ApplicationToken" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="UserToken" type="s:string"/>
+        </s:sequence>
+        <s:anyAttribute/>
+      </s:complexType>
+      <s:element name="Unsubscribe">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SubscriptionId" type="s1:guid"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UnsubscribeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="UnsubscribeResult" type="s:boolean"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SubscribeOnBirthdate">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="NotificationChannel" type="tns:ChannelBaseType"/>
+            <s:element minOccurs="1" maxOccurs="1" name="Years" nillable="true" type="s:int"/>
+            <s:element minOccurs="1" maxOccurs="1" name="PriorDays" type="s:int"/>
+            <s:element minOccurs="0" maxOccurs="1" name="PersonCivilRegistrationIdentifiers" type="tns:ArrayOfGuid"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SubscribeOnBirthdateResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SubscribeOnBirthdateResult" type="tns:BirthdateSubscriptionType"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RemoveBirthDateSubscription">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SubscriptionId" type="s1:guid"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RemoveBirthDateSubscriptionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="RemoveBirthDateSubscriptionResult" type="s:boolean"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetActiveSubsciptionsList">
+        <s:complexType/>
+      </s:element>
+      <s:element name="GetActiveSubsciptionsListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetActiveSubsciptionsListResult" type="tns:ArrayOfSubscriptionType"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfSubscriptionType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="SubscriptionType" nillable="true" type="tns:SubscriptionType"/>
+        </s:sequence>
+      </s:complexType>
+      <s:element name="Ping">
+        <s:complexType/>
+      </s:element>
+      <s:element name="PingResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PingResult" type="s:string"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://microsoft.com/wsdl/types/">
+      <s:simpleType name="guid">
+        <s:restriction base="s:string">
+          <s:pattern value="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"/>
+        </s:restriction>
+      </s:simpleType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="SubscribeSoap12In">
+    <wsdl:part name="parameters" element="tns:Subscribe"/>
+  </wsdl:message>
+  <wsdl:message name="SubscribeSoap12Out">
+    <wsdl:part name="parameters" element="tns:SubscribeResponse"/>
+  </wsdl:message>
+  <wsdl:message name="SubscribeApplicationHeader">
+    <wsdl:part name="ApplicationHeader" element="tns:ApplicationHeader"/>
+  </wsdl:message>
+  <wsdl:message name="UnsubscribeSoap12In">
+    <wsdl:part name="parameters" element="tns:Unsubscribe"/>
+  </wsdl:message>
+  <wsdl:message name="UnsubscribeSoap12Out">
+    <wsdl:part name="parameters" element="tns:UnsubscribeResponse"/>
+  </wsdl:message>
+  <wsdl:message name="UnsubscribeApplicationHeader">
+    <wsdl:part name="ApplicationHeader" element="tns:ApplicationHeader"/>
+  </wsdl:message>
+  <wsdl:message name="SubscribeOnBirthdateSoap12In">
+    <wsdl:part name="parameters" element="tns:SubscribeOnBirthdate"/>
+  </wsdl:message>
+  <wsdl:message name="SubscribeOnBirthdateSoap12Out">
+    <wsdl:part name="parameters" element="tns:SubscribeOnBirthdateResponse"/>
+  </wsdl:message>
+  <wsdl:message name="SubscribeOnBirthdateApplicationHeader">
+    <wsdl:part name="ApplicationHeader" element="tns:ApplicationHeader"/>
+  </wsdl:message>
+  <wsdl:message name="RemoveBirthDateSubscriptionSoap12In">
+    <wsdl:part name="parameters" element="tns:RemoveBirthDateSubscription"/>
+  </wsdl:message>
+  <wsdl:message name="RemoveBirthDateSubscriptionSoap12Out">
+    <wsdl:part name="parameters" element="tns:RemoveBirthDateSubscriptionResponse"/>
+  </wsdl:message>
+  <wsdl:message name="RemoveBirthDateSubscriptionApplicationHeader">
+    <wsdl:part name="ApplicationHeader" element="tns:ApplicationHeader"/>
+  </wsdl:message>
+  <wsdl:message name="GetActiveSubsciptionsListSoap12In">
+    <wsdl:part name="parameters" element="tns:GetActiveSubsciptionsList"/>
+  </wsdl:message>
+  <wsdl:message name="GetActiveSubsciptionsListSoap12Out">
+    <wsdl:part name="parameters" element="tns:GetActiveSubsciptionsListResponse"/>
+  </wsdl:message>
+  <wsdl:message name="GetActiveSubsciptionsListApplicationHeader">
+    <wsdl:part name="ApplicationHeader" element="tns:ApplicationHeader"/>
+  </wsdl:message>
+  <wsdl:message name="PingSoap12In">
+    <wsdl:part name="parameters" element="tns:Ping"/>
+  </wsdl:message>
+  <wsdl:message name="PingSoap12Out">
+    <wsdl:part name="parameters" element="tns:PingResponse"/>
+  </wsdl:message>
+  <wsdl:portType name="SubscriptionsSoap12">
+    <wsdl:operation name="Subscribe">
+      <wsdl:documentation><![CDATA[Allows a client business application to be notified when there is a change in one or more person's data
+
+                                                <br><br><b><u>Signature:</u></b>
+                                                <br>ChangeSubscriptionType Subscribe(ChannelBaseType NotificationChannel, string[] PersonCivilRegistrationIdentifiers)
+
+                                                <br><br><b><u>Parameter Description:</u></b>
+                                                <br><table>
+                                                <tr><td>NotificationChannel (input):</td><td>Channel to send notification through it (Web service, FileShare...) .</td></tr>
+                                                <tr><td>PersonCivilRegistrationIdentifiers[] (input):</td><td>Array of persons number that you want to subscribe the event to them. Null for all persons</td></tr>
+                                                </table>
+
+                                                <br><b><u>Return Value:</u></b>
+                                                <br>ChangeSubscriptionType that represents the newly created subscription object
+
+                                                <br><br><b><u>Notes:</u></b>
+                                                <br> The component will keep track on any person that has already has been queried
+                                                once. If the user creates a subscription, it will only be changes to the selected list of
+                                                persons the  subscription will return. 
+
+                                                <br><br><b><u>Review:</u></b>
+                                                <table>
+                                                <tr><td width='30%'>2009-08-20, CPR Broker </td><td width='10%'></td><td width='60%'>First release.</td></tr>
+                                                </table>
+                                                <br>==============================]]]]>><![CDATA[</wsdl:documentation>
+      <wsdl:input message="tns:SubscribeSoap12In"/>
+      <wsdl:output message="tns:SubscribeSoap12Out"/>
+    </wsdl:operation>
+    <wsdl:operation name="Unsubscribe">
+      <wsdl:documentation><![CDATA[Removes a subscription.
+
+                                                <br><br><b><u>Signature:</u></b>
+                                                <br>bool Unsubscribe(Guid SubscriptionId)
+
+                                                <br><br><b><u>Parameter Description:</u></b>
+                                                <br><table>
+                                                <tr><td>SubscriptionId (input):</td><td>Subscription Id that you want to remove its subscription.</td></tr>
+                                                </table>
+
+                                                <br><b><u>Return Value:</u></b>
+                                                <br>return bool that represents whether the operation has succeeded.
+
+                                                <br><br><b><u>Review:</u></b>
+                                                <table>
+                                                <tr><td width='30%'>2009-08-20, CPR Broker </td><td width='10%'></td><td width='60%'>First release.</td></tr>
+                                                </table>
+                                                <br>==============================]]]]>><![CDATA[</wsdl:documentation>
+      <wsdl:input message="tns:UnsubscribeSoap12In"/>
+      <wsdl:output message="tns:UnsubscribeSoap12Out"/>
+    </wsdl:operation>
+    <wsdl:operation name="SubscribeOnBirthdate">
+      <wsdl:documentation><![CDATA[The user (application) can subscribe to extended birthday events.
+                                                In case the business application needs to send a message to a citizen 3 weeks before
+                                                the 65th. birthday (retirement), the user can subscribe to this event 65 birthday
+                                                minus 3 weeks. This subscription can be created for all persons or for a specific list of persons. 
+                                                It is possible to create several subscriptions
+                                                fromDate the same user application to the same person or list of indiviuals.
+
+                                                <br><br><b><u>Signature:</u></b>
+                                                <br>BirthdateSubscriptionType SubscribeOnBirthdate(ChannelBaseType NotificationChannel, Nullable<int> Years, int PriorDays, string[] PersonCivilRegistrationIdentifiers)
+
+                                                <br><br><b><u>Parameter Description:</u></b>
+                                                <br><table>
+                                                <tr><td>NotificationChannel (input):</td><td>Channel to send notification through it (Web service, FileShare...) .</td></tr>
+                                                <tr><td>Years (input):</td><td>Years.</td></tr>
+                                                <tr><td>PriorDays (input):</td><td>Prior days.</td></tr>
+                                                <tr><td>PersonCivilRegistrationIdentifiers[] (input):</td><td>Array of persons number that you want to subscribe the event to them.</td></tr>
+                                                </table>
+
+                                                <br><b><u>Return Value:</u></b>
+                                                <br>BirthdateSubscriptionType that represents the created subscription object.
+
+                                                <br><br><b><u>Review:</u></b>
+                                                <table>
+                                                <tr><td width='30%'>2009-08-20, CPR Broker </td><td width='10%'></td><td width='60%'>First release.</td></tr>
+                                                </table>
+                                                <br>==============================]]]]>><![CDATA[</wsdl:documentation>
+      <wsdl:input message="tns:SubscribeOnBirthdateSoap12In"/>
+      <wsdl:output message="tns:SubscribeOnBirthdateSoap12Out"/>
+    </wsdl:operation>
+    <wsdl:operation name="RemoveBirthDateSubscription">
+      <wsdl:documentation><![CDATA[Removes one extended subscription for a user application.
+
+                                                <br><br><b><u>Signature:</u></b>
+                                                <br>bool RemoveBirthDateSubscription(Guid SubscriptionId)
+
+                                                <br><br><b><u>Parameter Description:</u></b>
+                                                <br><table>
+                                                <tr><td>'SubscriptionId' (input):</td><td>Subscription Id that you want to remove its subscription.</td></tr>
+                                                </table>
+
+                                                <br><b><u>Return Value:</u></b>
+                                                <br>return bool that represents whether the operation has succeeded.
+
+                                                <br><br><b><u>Review:</u></b>
+                                                <table>
+                                                <tr><td width='30%'>2009-08-20, CPR Broker </td><td width='10%'></td><td width='60%'>First release.</td></tr>
+                                                </table>
+                                                <br>==============================]]]]>><![CDATA[</wsdl:documentation>
+      <wsdl:input message="tns:RemoveBirthDateSubscriptionSoap12In"/>
+      <wsdl:output message="tns:RemoveBirthDateSubscriptionSoap12Out"/>
+    </wsdl:operation>
+    <wsdl:operation name="GetActiveSubscriptionsList">
+      <wsdl:documentation><![CDATA[Allows a business application to get a list of all subscriptions
+
+                                                <br><br><b><u>Signature:</u></b>
+                                                <br>SubscriptionType[] GetActiveSubsciptionsList()
+
+                                                <br><br><b><u>Parameter Description:</u></b>
+                                                <br><table>
+                                                </table>
+
+                                                <br><b><u>Return Value:</u></b>
+                                                <br>Array of SubscriptionType that represents the current subscriptions
+
+                                                <br><br><b><u>Review:</u></b>
+                                                <table>
+                                                <tr><td width='30%'>2009-08-20, CPR Broker </td><td width='10%'></td><td width='60%'>First release.</td></tr>
+                                                </table>
+                                                <br>==============================]]]]>><![CDATA[</wsdl:documentation>
+      <wsdl:input name="GetActiveSubsciptionsList" message="tns:GetActiveSubsciptionsListSoap12In"/>
+      <wsdl:output name="GetActiveSubsciptionsList" message="tns:GetActiveSubsciptionsListSoap12Out"/>
+    </wsdl:operation>
+    <wsdl:operation name="Ping">
+      <wsdl:documentation>Ping() returns an appropiate status message (HTML formatted) to confirm connection to this web service class.
+&lt;br>Consider overloading the method to test complete connection in more complex scenarioes, ie. delegation of user credentials etc.
+&lt;br>20070403/SDE</wsdl:documentation>
+      <wsdl:input message="tns:PingSoap12In"/>
+      <wsdl:output message="tns:PingSoap12Out"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="SubscriptionsSoap12" type="tns:SubscriptionsSoap12">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="Subscribe">
+      <soap12:operation soapAction="http://dk.itst/Subscribe" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+        <soap12:header message="tns:SubscribeApplicationHeader" part="ApplicationHeader" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Unsubscribe">
+      <soap12:operation soapAction="http://dk.itst/Unsubscribe" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+        <soap12:header message="tns:UnsubscribeApplicationHeader" part="ApplicationHeader" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SubscribeOnBirthdate">
+      <soap12:operation soapAction="http://dk.itst/SubscribeOnBirthdate" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+        <soap12:header message="tns:SubscribeOnBirthdateApplicationHeader" part="ApplicationHeader" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RemoveBirthDateSubscription">
+      <soap12:operation soapAction="http://dk.itst/RemoveBirthDateSubscription" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+        <soap12:header message="tns:RemoveBirthDateSubscriptionApplicationHeader" part="ApplicationHeader" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetActiveSubscriptionsList">
+      <soap12:operation soapAction="http://dk.itst/GetActiveSubsciptionsList" style="document"/>
+      <wsdl:input name="GetActiveSubsciptionsList">
+        <soap12:body use="literal"/>
+        <soap12:header message="tns:GetActiveSubsciptionsListApplicationHeader" part="ApplicationHeader" use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="GetActiveSubsciptionsList">
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Ping">
+      <soap12:operation soapAction="http://dk.itst/Ping" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Subscriptions">
+    <wsdl:documentation>Subscriptions</wsdl:documentation>
+    <wsdl:port name="SubscriptionsSoap12" binding="tns:SubscriptionsSoap12">
+      <soap12:address location="http://eventbroker20110208/Services/Subscriptions.asmx"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://eventbroker20110208/Services/Subscriptions.asmx</con:endpoint></con:endpoints><con:operation isOneWay="false" action="http://dk.itst/GetActiveSubsciptionsList" name="GetActiveSubscriptionsList" bindingOperationName="GetActiveSubscriptionsList" type="Request-Response" outputName="GetActiveSubsciptionsList" inputName="GetActiveSubsciptionsList" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://eventbroker20110208/Services/Subscriptions.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst">
+   <soap:Header>
+      <dk:ApplicationHeader>
+         <!--Optional:-->
+         <dk:ApplicationToken>1f267ed0-1704-4df1-86b9-b3428945412e</dk:ApplicationToken>
+         <!--Optional:-->
+         <dk:UserToken>eb29494a-187d-481e-87c3-7e4a2472fc58</dk:UserToken>
+      </dk:ApplicationHeader>
+   </soap:Header>
+   <soap:Body>
+      <dk:GetActiveSubsciptionsList/>
+   </soap:Body>
+</soap:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://dk.itst/SubscriptionsSoap12/GetActiveSubsciptionsList"/><con:wsrmConfig version="1.2"/></con:call><con:call name="Request2asDemoApp"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://eventbroker20110208/Services/Subscriptions.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst">
+   <soap:Header>
+      <dk:ApplicationHeader>
+         <!--Optional:-->
+         <dk:ApplicationToken>5f8b7af5-422e-46bb-9273-5e244dc37505</dk:ApplicationToken>
+         <!--Optional:-->
+         <dk:UserToken>4A78A5C8-B39B-41B9-9707-5782DAA56E2A</dk:UserToken>
+      </dk:ApplicationHeader>
+   </soap:Header>
+   <soap:Body>
+      <dk:GetActiveSubsciptionsList/>
+   </soap:Body>
+</soap:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://dk.itst/SubscriptionsSoap12/GetActiveSubsciptionsList"/><con:wsrmConfig version="1.2"/></con:call><con:call name="Request2"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://eventbroker20110208/Services/Subscriptions.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst">
+   <soap:Header>
+      <dk:ApplicationHeader>
+         <!--Optional:-->
+         <dk:ApplicationToken>07059250-E448-4040-B695-9C03F9E59E38</dk:ApplicationToken>
+         <!--Optional:-->
+         <dk:UserToken>eb29494a-187d-481e-87c3-7e4a2472fc58</dk:UserToken>
+      </dk:ApplicationHeader>
+   </soap:Header>
+   <soap:Body>
+      <dk:GetActiveSubsciptionsList/>
+   </soap:Body>
+</soap:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://dk.itst/SubscriptionsSoap12/GetActiveSubsciptionsList"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="http://dk.itst/Ping" name="Ping" bindingOperationName="Ping" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="ping1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://eventbroker20110208/Services/Subscriptions.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst">
+   <soap:Header>
+      <dk:ApplicationHeader>
+         <dk:ApplicationToken>1f267ed0-1704-4df1-86b9-b3428945412e</dk:ApplicationToken>
+
+         <dk:UserToken>eb29494a-187d-481e-87c3-7e4a2472fc58</dk:UserToken>
+      </dk:ApplicationHeader>
+   </soap:Header
+   <soap:Body>
+      <dk:Ping/>
+   </soap:Body>
+</soap:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://dk.itst/SubscriptionsSoap12/PingRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="http://dk.itst/RemoveBirthDateSubscription" name="RemoveBirthDateSubscription" bindingOperationName="RemoveBirthDateSubscription" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://eventbroker20110208/Services/Subscriptions.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst">
+   <soap:Header>
+      <dk:ApplicationHeader>
+         <!--Optional:-->
+         <dk:ApplicationToken>?</dk:ApplicationToken>
+         <!--Optional:-->
+         <dk:UserToken>?</dk:UserToken>
+      </dk:ApplicationHeader>
+   </soap:Header>
+   <soap:Body>
+      <dk:RemoveBirthDateSubscription>
+         <dk:SubscriptionId>?</dk:SubscriptionId>
+      </dk:RemoveBirthDateSubscription>
+   </soap:Body>
+</soap:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://dk.itst/SubscriptionsSoap12/RemoveBirthDateSubscriptionRequest"/></con:call></con:operation><con:operation isOneWay="false" action="http://dk.itst/Subscribe" name="Subscribe" bindingOperationName="Subscribe" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="subScribeWebService"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://eventbroker20110208/Services/Subscriptions.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst">
+   <soap:Header>
+      <dk:ApplicationHeader>
+         <!--Optional:-->
+         <dk:ApplicationToken>1f267ed0-1704-4df1-86b9-b3428945412e</dk:ApplicationToken>
+         <!--Optional:-->
+         <dk:UserToken>eb29494a-187d-481e-87c3-7e4a2472fc58</dk:UserToken>
+      </dk:ApplicationHeader>
+   </soap:Header>
+   <soap:Body>
+      <dk:Subscribe>
+         <!--Optional:-->
+  <dk:NotificationChannel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dk:WebServiceChannelType">
+    <dk:WebServiceUrl>WebServiceUrl1</dk:WebServiceUrl>
+  </dk:NotificationChannel>
+     />
+         <!--Optional:-->
+         <dk:PersonCivilRegistrationIdentifiers>
+            <!--Zero or more repetitions:-->
+            <dk:guid>bc7c0e5e-affe-4020-8cc5-8c51957d741b</dk:guid>
+         </dk:PersonCivilRegistrationIdentifiers>
+      </dk:Subscribe>
+   </soap:Body>
+</soap:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://dk.itst/SubscriptionsSoap12/SubscribeRequest"/><con:wsrmConfig version="1.2"/></con:call><con:call name="subScribeFileShare"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://eventbroker20110208/Services/Subscriptions.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst">
+   <soap:Header>
+      <dk:ApplicationHeader>
+         <dk:ApplicationToken>1f267ed0-1704-4df1-86b9-b3428945412e</dk:ApplicationToken>
+
+         <dk:UserToken>eb29494a-187d-481e-87c3-7e4a2472fc58</dk:UserToken>
+      </dk:ApplicationHeader>
+   </soap:Header>
+   <soap:Body>
+    <dk:Subscribe>
+    <dk:NotificationChannel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dk:FileShareChannelType">
+      <Path>C:\\Users\\mag-nel\\fileshare</Path>
+    </dk:NotificationChannel>
+     <dk:ForAllPersons>false</dk:ForAllPersons>
+     <dk:ApplicationToken>1f267ed0-1704-4df1-86b9-b3428945412e</dk:ApplicationToken>
+     <dk:SubscriptionId>42427ed0-1704-4df1-86b9-b3428945412e</dk:SubscriptionId>
+     <dk:PersonCivilRegistrationIdentifiers>
+            <!--Zero or more repetitions:-->
+      <dk:guid>361d1d32-ed7d-4e8a-bd3c-92f52c2dff</dk:guid>
+   </dk:PersonCivilRegistrationIdentifiers>
+      </dk:Subscribe>
+   </soap:Body>
+</soap:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://dk.itst/SubscriptionsSoap12/SubscribeRequest"/><con:wsrmConfig version="1.2"/></con:call><con:call name="Request3"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://eventbroker20110208/Services/Subscriptions.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst">
+   <soap:Header>
+      <dk:ApplicationHeader>
+         <!--Optional:-->
+         <dk:ApplicationToken>?</dk:ApplicationToken>
+         <!--Optional:-->
+         <dk:UserToken>?</dk:UserToken>
+      </dk:ApplicationHeader>
+   </soap:Header>
+   <soap:Body>
+      <dk:Subscribe>
+         <!--Optional:-->
+         <dk:NotificationChannel/>
+         <!--Optional:-->
+         <dk:PersonCivilRegistrationIdentifiers>
+            <!--Zero or more repetitions:-->
+            <dk:guid>?</dk:guid>
+         </dk:PersonCivilRegistrationIdentifiers>
+      </dk:Subscribe>
+   </soap:Body>
+</soap:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://dk.itst/SubscriptionsSoap12/SubscribeRequest"/><con:wsrmConfig version="1.2"/></con:call><con:call name="subScribeFileShare12"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://eventbroker20110208/Services/Subscriptions.asmx</con:endpoint><con:request><![CDATA[<soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
+  <soap12:Header>
+    <ApplicationHeader xmlns="http://dk.itst">
+      <ApplicationToken>1f267ed0-1704-4df1-86b9-b3428945412e</ApplicationToken>
+      <UserToken>eb29494a-187d-481e-87c3-7e4a2472fc58</UserToken>
+    </ApplicationHeader>
+  </soap12:Header>
+  <soap12:Body>
+    <Subscribe xmlns="http://dk.itst">
+<NotificationChannel xsi:type="FileShareChannelType" xmlns="http://dk.itst">
+   <Path>c:\</Path>
+ </NotificationChannel>
+      <PersonCivilRegistrationIdentifiers>
+        <guid>361d1d32-ed7d-4e8a-bd3c-92f52c2dffff</guid>
+      </PersonCivilRegistrationIdentifiers>
+    </Subscribe>
+  </soap12:Body>
+</soap12:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://dk.itst/SubscriptionsSoap12/SubscribeRequest"/><con:wsrmConfig version="1.2"/></con:call><con:call name="subScribeFileShare12fakeUUID"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://eventbroker20110208/Services/Subscriptions.asmx</con:endpoint><con:request><![CDATA[<soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
+  <soap12:Header>
+    <ApplicationHeader xmlns="http://dk.itst">
+      <ApplicationToken>1f267ed0-1704-4df1-86b9-b3428945412e</ApplicationToken>
+      <UserToken>eb29494a-187d-481e-87c3-7e4a2472fc58</UserToken>
+    </ApplicationHeader>
+  </soap12:Header>
+  <soap12:Body>
+    <Subscribe xmlns="http://dk.itst">
+<NotificationChannel xsi:type="FileShareChannelType" xmlns="http://dk.itst">
+   <Path>c:\elgaard</Path>
+ </NotificationChannel>
+      <PersonCivilRegistrationIdentifiers>
+        <guid>361d1d32-ed7d-4e8a-bd3c-92f52c2d9999</guid>
+      </PersonCivilRegistrationIdentifiers>
+    </Subscribe>
+  </soap12:Body>
+</soap12:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://dk.itst/SubscriptionsSoap12/SubscribeRequest"/><con:wsrmConfig version="1.2"/></con:call><con:call name="subScribeFileShare12Empty"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://eventbroker20110208/Services/Subscriptions.asmx</con:endpoint><con:request><![CDATA[<soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
+  <soap12:Header>
+    <ApplicationHeader xmlns="http://dk.itst">
+      <ApplicationToken>1f267ed0-1704-4df1-86b9-b3428945412e</ApplicationToken>
+      <UserToken>eb29494a-187d-481e-87c3-7e4a2472fc58</UserToken>
+    </ApplicationHeader>
+  </soap12:Header>
+  <soap12:Body>
+    <Subscribe xmlns="http://dk.itst">
+<NotificationChannel xsi:type="FileShareChannelType" xmlns="http://dk.itst">
+   <Path>c:\elgaard</Path>
+ </NotificationChannel>
+      <PersonCivilRegistrationIdentifiers>
+      </PersonCivilRegistrationIdentifiers>
+    </Subscribe>
+  </soap12:Body>
+</soap12:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://dk.itst/SubscriptionsSoap12/SubscribeRequest"/><con:wsrmConfig version="1.2"/></con:call><con:call name="subScribeWS1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://eventbroker20110208/Services/Subscriptions.asmx</con:endpoint><con:request><![CDATA[<soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
+  <soap12:Header>
+    <ApplicationHeader xmlns="http://dk.itst">
+      <ApplicationToken>1f267ed0-1704-4df1-86b9-b3428945412e</ApplicationToken>
+      <UserToken>eb29494a-187d-481e-87c3-7e4a2472fc58</UserToken>
+    </ApplicationHeader>
+  </soap12:Header>
+  <soap12:Body>
+    <Subscribe xmlns="http://dk.itst">
+<NotificationChannel xsi:type="WebServiceChannelType" xmlns="http://dk.itst">
+   <WebServiceUrl>http://10.10.4.111:9999/mockNotificationSoap12</WebServiceUrl>
+ </NotificationChannel>
+      <PersonCivilRegistrationIdentifiers>
+        <guid>46b647a7-9312-4b03-a159-61908eb0a4e0</guid>
+      </PersonCivilRegistrationIdentifiers>
+    </Subscribe>
+  </soap12:Body>
+</soap12:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://dk.itst/SubscriptionsSoap12/SubscribeRequest"/><con:wsrmConfig version="1.2"/></con:call><con:call name="CopysubScribeFileShare12"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://eventbroker20110208/Services/Subscriptions.asmx</con:endpoint><con:request><![CDATA[<soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
+  <soap12:Header>
+    <ApplicationHeader xmlns="http://dk.itst">
+      <ApplicationToken>1f267ed0-1704-4df1-86b9-b3428945412e</ApplicationToken>
+      <UserToken>eb29494a-187d-481e-87c3-7e4a2472fc58</UserToken>
+    </ApplicationHeader>
+  </soap12:Header>
+  <soap12:Body>
+    <Subscribe xmlns="http://dk.itst">
+<NotificationChannel xsi:type="FileShareChannelType" xmlns="http://dk.itst">
+   <Path>c:\</Path>
+ </NotificationChannel>
+      <PersonCivilRegistrationIdentifiers>
+        <guid>361d1d32-ed7d-4e8a-bd3c-92f52c2d3034</guid>
+      </PersonCivilRegistrationIdentifiers>
+    </Subscribe>
+  </soap12:Body>
+</soap12:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://dk.itst/SubscriptionsSoap12/SubscribeRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="http://dk.itst/SubscribeOnBirthdate" name="SubscribeOnBirthdate" bindingOperationName="SubscribeOnBirthdate" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://eventbroker20110208/Services/Subscriptions.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst">
+   <soap:Header>
+      <dk:ApplicationHeader>
+         <!--Optional:-->
+         <dk:ApplicationToken>?</dk:ApplicationToken>
+         <!--Optional:-->
+         <dk:UserToken>?</dk:UserToken>
+      </dk:ApplicationHeader>
+   </soap:Header>
+   <soap:Body>
+      <dk:SubscribeOnBirthdate>
+         <!--Optional:-->
+         <dk:NotificationChannel/>
+         <dk:Years>?</dk:Years>
+         <dk:PriorDays>?</dk:PriorDays>
+         <!--Optional:-->
+         <dk:PersonCivilRegistrationIdentifiers>
+            <!--Zero or more repetitions:-->
+            <dk:guid>?</dk:guid>
+         </dk:PersonCivilRegistrationIdentifiers>
+      </dk:SubscribeOnBirthdate>
+   </soap:Body>
+</soap:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://dk.itst/SubscriptionsSoap12/SubscribeOnBirthdateRequest"/></con:call></con:operation><con:operation isOneWay="false" action="http://dk.itst/Unsubscribe" name="Unsubscribe" bindingOperationName="Unsubscribe" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://eventbroker20110208/Services/Subscriptions.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst">
+   <soap:Header>
+      <dk:ApplicationHeader>
+         <!--Optional:-->
+         <dk:ApplicationToken>?</dk:ApplicationToken>
+         <!--Optional:-->
+         <dk:UserToken>?</dk:UserToken>
+      </dk:ApplicationHeader>
+   </soap:Header>
+   <soap:Body>
+      <dk:Unsubscribe>
+         <dk:SubscriptionId>?</dk:SubscriptionId>
+      </dk:Unsubscribe>
+   </soap:Body>
+</soap:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://dk.itst/SubscriptionsSoap12/UnsubscribeRequest"/></con:call></con:operation></con:interface><con:testSuite name="SubscriptionsSoap12 TestSuite"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="GetActiveSubscriptionsList TestCase" searchProperties="true"><con:settings/><con:testStep type="request" name="GetActiveSubscriptionsList"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>SubscriptionsSoap12</con:interface><con:operation>GetActiveSubscriptionsList</con:operation><con:request name="GetActiveSubscriptionsList"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://eventbroker20110208/Services/Subscriptions.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst">
+   <soap:Header>
+      <dk:ApplicationHeader>
+         <!--Optional:-->
+         <dk:ApplicationToken>?</dk:ApplicationToken>
+         <!--Optional:-->
+         <dk:UserToken>?</dk:UserToken>
+      </dk:ApplicationHeader>
+   </soap:Header>
+   <soap:Body>
+      <dk:GetActiveSubsciptionsList/>
+   </soap:Body>
+</soap:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="http://dk.itst/SubscriptionsSoap12/GetActiveSubsciptionsList" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Ping TestCase" searchProperties="true"><con:settings/><con:testStep type="request" name="Ping"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>SubscriptionsSoap12</con:interface><con:operation>Ping</con:operation><con:request name="Ping"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://eventbroker20110208/Services/Subscriptions.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst">
+   <soap:Header>
+      <dk:ApplicationHeader>
+         <!--Optional:-->
+         <dk:ApplicationToken>?</dk:ApplicationToken>
+         <!--Optional:-->
+         <dk:UserToken>?</dk:UserToken>
+      </dk:ApplicationHeader>
+   </soap:Header>
+   <soap:Body>
+      <dk:Ping/>
+   </soap:Body>
+</soap:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="http://dk.itst/SubscriptionsSoap12/PingRequest" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="RemoveBirthDateSubscription TestCase" searchProperties="true"><con:settings/><con:testStep type="request" name="RemoveBirthDateSubscription"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>SubscriptionsSoap12</con:interface><con:operation>RemoveBirthDateSubscription</con:operation><con:request name="RemoveBirthDateSubscription"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://eventbroker20110208/Services/Subscriptions.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst">
+   <soap:Header>
+      <dk:ApplicationHeader>
+         <!--Optional:-->
+         <dk:ApplicationToken>?</dk:ApplicationToken>
+         <!--Optional:-->
+         <dk:UserToken>?</dk:UserToken>
+      </dk:ApplicationHeader>
+   </soap:Header>
+   <soap:Body>
+      <dk:RemoveBirthDateSubscription>
+         <dk:SubscriptionId>?</dk:SubscriptionId>
+      </dk:RemoveBirthDateSubscription>
+   </soap:Body>
+</soap:Envelope>]]></con:request><con:wsaConfig action="http://dk.itst/SubscriptionsSoap12/RemoveBirthDateSubscriptionRequest"/></con:request></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Subscribe TestCase" searchProperties="true"><con:settings/><con:testStep type="request" name="Subscribe"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>SubscriptionsSoap12</con:interface><con:operation>Subscribe</con:operation><con:request name="Subscribe"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://eventbroker20110208/Services/Subscriptions.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst">
+   <soap:Header>
+      <dk:ApplicationHeader>
+         <!--Optional:-->
+         <dk:ApplicationToken>?</dk:ApplicationToken>
+         <!--Optional:-->
+         <dk:UserToken>?</dk:UserToken>
+      </dk:ApplicationHeader>
+   </soap:Header>
+   <soap:Body>
+      <dk:Subscribe>
+         <!--Optional:-->
+         <dk:NotificationChannel/>
+         <!--Optional:-->
+         <dk:PersonCivilRegistrationIdentifiers>
+            <!--Zero or more repetitions:-->
+            <dk:guid>?</dk:guid>
+         </dk:PersonCivilRegistrationIdentifiers>
+      </dk:Subscribe>
+   </soap:Body>
+</soap:Envelope>]]></con:request><con:wsaConfig action="http://dk.itst/SubscriptionsSoap12/SubscribeRequest"/></con:request></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="SubscribeOnBirthdate TestCase" searchProperties="true"><con:settings/><con:testStep type="request" name="SubscribeOnBirthdate"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>SubscriptionsSoap12</con:interface><con:operation>SubscribeOnBirthdate</con:operation><con:request name="SubscribeOnBirthdate"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://eventbroker20110208/Services/Subscriptions.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst">
+   <soap:Header>
+      <dk:ApplicationHeader>
+         <!--Optional:-->
+         <dk:ApplicationToken>?</dk:ApplicationToken>
+         <!--Optional:-->
+         <dk:UserToken>?</dk:UserToken>
+      </dk:ApplicationHeader>
+   </soap:Header>
+   <soap:Body>
+      <dk:SubscribeOnBirthdate>
+         <!--Optional:-->
+         <dk:NotificationChannel/>
+         <dk:Years>?</dk:Years>
+         <dk:PriorDays>?</dk:PriorDays>
+         <!--Optional:-->
+         <dk:PersonCivilRegistrationIdentifiers>
+            <!--Zero or more repetitions:-->
+            <dk:guid>?</dk:guid>
+         </dk:PersonCivilRegistrationIdentifiers>
+      </dk:SubscribeOnBirthdate>
+   </soap:Body>
+</soap:Envelope>]]></con:request><con:wsaConfig action="http://dk.itst/SubscriptionsSoap12/SubscribeOnBirthdateRequest"/></con:request></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Unsubscribe TestCase" searchProperties="true"><con:settings/><con:testStep type="request" name="Unsubscribe"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>SubscriptionsSoap12</con:interface><con:operation>Unsubscribe</con:operation><con:request name="Unsubscribe"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://eventbroker20110208/Services/Subscriptions.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst">
+   <soap:Header>
+      <dk:ApplicationHeader>
+         <!--Optional:-->
+         <dk:ApplicationToken>?</dk:ApplicationToken>
+         <!--Optional:-->
+         <dk:UserToken>?</dk:UserToken>
+      </dk:ApplicationHeader>
+   </soap:Header>
+   <soap:Body>
+      <dk:Unsubscribe>
+         <dk:SubscriptionId>?</dk:SubscriptionId>
+      </dk:Unsubscribe>
+   </soap:Body>
+</soap:Envelope>]]></con:request><con:wsaConfig action="http://dk.itst/SubscriptionsSoap12/UnsubscribeRequest"/></con:request></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase><con:properties/><con:reportParameters/></con:testSuite><con:properties><con:property><con:name>NotificationChannel</con:name></con:property></con:properties><con:wssContainer/><con:databaseConnectionContainer/><con:reporting><con:xmlTemplates/><con:parameters/></con:reporting></con:soapui-project>

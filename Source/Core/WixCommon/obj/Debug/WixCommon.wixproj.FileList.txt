@@ -1,0 +1,13 @@
+obj\Debug\Database.wixobj
+obj\Debug\DatabaseDialog.wixobj
+obj\Debug\CommonProductProperties.wixobj
+obj\Debug\DatabasePatch.wixobj
+obj\Debug\Elevation.wixobj
+obj\Debug\ForgetOlderVersions.wixobj
+obj\Debug\StandardActionText.wixobj
+obj\Debug\Users.wixobj
+obj\Debug\WebDirectoryDialog.wixobj
+obj\Debug\Website.wixobj
+obj\Debug\WebsiteDialog.wixobj
+obj\Debug\WebSiteOrDirectoryDialog.wixobj
+obj\Debug\WebsitePatch.wixobj

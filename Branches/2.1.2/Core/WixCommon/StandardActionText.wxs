@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Fragment Id="StandardActionTextFragment">
+    <Property Id="Dummy_StandardActionTextFragmentRefProp" Value="-"/>
+
+    <UI>
+      <ProgressText Action="FindRelatedProducts">FindRelatedProducts</ProgressText>
+      <ProgressText Action="AppSearch">AppSearch</ProgressText>
+      <ProgressText Action="LaunchConditions">LaunchConditions</ProgressText>
+      <ProgressText Action="ValidateProductID">ValidateProductID</ProgressText>
+      <ProgressText Action="CostInitialize">CostInitialize</ProgressText>
+      <ProgressText Action="FileCost">FileCost</ProgressText>
+      <ProgressText Action="CostFinalize">CostFinalize</ProgressText>
+      <ProgressText Action="MigrateFeatureStates">MigrateFeatureStates</ProgressText>
+      <ProgressText Action="InstallValidate">InstallValidate</ProgressText>
+      <ProgressText Action="InstallInitialize">InstallInitialize</ProgressText>
+      <ProgressText Action="ProcessComponents">ProcessComponents</ProgressText>
+      <ProgressText Action="UnpublishFeatures">UnpublishFeatures</ProgressText>
+      <ProgressText Action="SchedSecureObjectsRollback">SchedSecureObjectsRollback</ProgressText>
+      <ProgressText Action="RemoveRegistryValues">RemoveRegistryValues</ProgressText>
+      <ProgressText Action="RemoveFiles">RemoveFiles</ProgressText>
+      <ProgressText Action="InstallFiles">InstallFiles</ProgressText>
+      <ProgressText Action="WriteRegistryValues">WriteRegistryValues</ProgressText>
+      <ProgressText Action="InstallServices">InstallServices</ProgressText>
+      <ProgressText Action="SchedSecureObjects">SchedSecureObjects</ProgressText>
+      <ProgressText Action="RegisterUser">RegisterUser</ProgressText>
+      <ProgressText Action="RegisterProduct">RegisterProduct</ProgressText>
+      <ProgressText Action="PublishFeatures">PublishFeatures</ProgressText>
+      <ProgressText Action="PublishProduct">PublishProduct</ProgressText>
+      <ProgressText Action="InstallFinalize">InstallFinalize</ProgressText>
+    </UI>
+  </Fragment>
+</Wix>

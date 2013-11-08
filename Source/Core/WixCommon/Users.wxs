@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Fragment Id="UsersFragment">
+    <Property Id="Dummy_UsersFragmentRefProp" Value="-"/>
+
+    <Property Id="NETWORKSERVICE_USERNAME" Value="-"/>
+
+    <CustomAction Id="SetNetworkServiceUserName" BinaryKey="InstallersDll" DllEntry="SetNetworkServiceUserName"/>
+
+    <InstallUISequence>
+      <Custom Action="SetNetworkServiceUserName" After="LaunchConditions"/>
+    </InstallUISequence>
+
+    <InstallExecuteSequence>
+      <Custom Action="SetNetworkServiceUserName" After="LaunchConditions"/>
+    </InstallExecuteSequence>
+
+  </Fragment>
+</Wix>

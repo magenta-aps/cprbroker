@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Fragment Id="DatabasePatchFragment">
+    <Property Id="Dummy_DatabasePatchFragmentRefProp" Value="-"/>
+
+    <Property Id="PatchDatabase" Hidden="yes"/>
+    <CustomAction Id="PatchDatabase" BinaryKey="InstallersDll" DllEntry="PatchDatabase" Execute="deferred" Impersonate="yes" Return="check" HideTarget="yes"/>
+
+    <InstallExecuteSequence>
+      <Custom Action="PatchDatabase" After="RollbackDatabase">PATCH OR OLDER_VERSION_DETECTED</Custom>
+    </InstallExecuteSequence>
+
+    <UI>
+      <ProgressText Action="PatchDatabase">Patching database</ProgressText>
+    </UI>
+  </Fragment>
+</Wix>

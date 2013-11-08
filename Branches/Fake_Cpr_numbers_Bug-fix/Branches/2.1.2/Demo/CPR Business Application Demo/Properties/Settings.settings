@@ -1,0 +1,36 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="CPR_Business_Application_Demo.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="UserToken" Type="System.String" Scope="User">
+      <Value Profile="(Default)">CPR Business Application Demo</Value>
+    </Setting>
+    <Setting Name="CPRBrokerWebServiceUrl" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://CprBroker/Services/</Value>
+    </Setting>
+    <Setting Name="NotificationMode" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">2</Value>
+    </Setting>
+    <Setting Name="NotificationCallbackWebServiceUrl" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="FirstTime" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="ApplicationName" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">CPR Business Application Demo</Value>
+    </Setting>
+    <Setting Name="AdminAppToken" Type="System.String" Scope="User">
+      <Value Profile="(Default)">07059250-E448-4040-B695-9C03F9E59E38</Value>
+    </Setting>
+    <Setting Name="AppToken" Type="System.String" Scope="User">
+      <Value Profile="(Default)">5f8b7af5-422e-46bb-9273-5e244dc37505</Value>
+    </Setting>
+    <Setting Name="EventBrokerWebServiceUrl" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://EventBroker/Services/</Value>
+    </Setting>
+    <Setting Name="NotificationFileShare" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

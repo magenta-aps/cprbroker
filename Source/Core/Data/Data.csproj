@@ -1,0 +1,278 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{BBD25F50-FA7A-4799-9832-287AF59FB6C4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CprBroker.Data</RootNamespace>
+    <AssemblyName>CprBroker.Data</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\..\..\Build\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|Mono' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;Mono</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|Mono' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\..\..\Build\Release\</OutputPath>
+    <DefineConstants>TRACE;Mono</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>  
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Applications\Application.cs" />
+    <Compile Include="Applications\ApplicationDataContext.cs">
+      <DependentUpon>ApplicationDataContext.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="Applications\ApplicationDataContext.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ApplicationDataContext.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="Applications\LogEntry.cs" />
+    <Compile Include="DataProviders\DataProvidersDataContext.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataProvidersDataContext.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="Events\DataChangeEventDataContext.designer.cs">
+      <DependentUpon>DataChangeEventDataContext.dbml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Part\Address.cs" />
+    <Compile Include="Part\CprData.cs" />
+    <Compile Include="Part\Effect.cs" />
+    <Compile Include="Part\ForeignCitizenData.cs" />
+    <Compile Include="Part\Gender.cs" />
+    <Compile Include="Part\LifecycleStatus.cs" />
+    <Compile Include="Part\LifeStatusType.cs" />
+    <Compile Include="Part\PersonAttribute.cs" />
+    <Compile Include="Part\PersonMapping.cs" />
+    <Compile Include="Part\PersonRegistration.cs" />
+    <Compile Include="Part\PersonRegistrationKey.cs" />
+    <Compile Include="Part\PersonRelationship.cs" />
+    <Compile Include="Part\PersonState.cs" />
+    <Compile Include="Part\UnknownCitizenData.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Statistics\stat.cs" />
+    <Compile Include="Statistics\StatisticsDataContext.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StatisticsDataContext.dbml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Config\Config.csproj">
+      <Project>{3CC541EB-6E9A-4A16-B0E1-AC88AEF969FC}</Project>
+      <Name>Config</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Schemas\Schemas.csproj">
+      <Project>{5B4A9C51-D19A-4F4D-B8D8-FC9B26AA7EF5}</Project>
+      <Name>Schemas</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Utilities\Utilities.csproj">
+      <Project>{E0D551C1-574F-4B69-8981-CF5F44391E5E}</Project>
+      <Name>Utilities</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Part\PartDataContext.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>PartDataContext.designer.cs</LastGenOutput>
+    </None>
+    <None Include="Statistics\StatisticsDataContext.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>StatisticsDataContext.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Part\PartDataContext.dbml.layout">
+      <DependentUpon>PartDataContext.dbml</DependentUpon>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Applications\ApplicationDataContext.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>ApplicationDataContext.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Applications\ApplicationDataContext.dbml.layout">
+      <DependentUpon>ApplicationDataContext.dbml</DependentUpon>
+    </None>
+    <Compile Include="DataProviders\DataProvider.cs" />
+    <Compile Include="DataProviders\DataProvidersDataContext.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Events\DataChangeEventDataContext.cs" />
+    <Compile Include="Part\ActorRef.cs" />
+    <Compile Include="Part\AddressPoint.cs" />
+    <Compile Include="Part\AddressPointStatus.cs" />
+    <Compile Include="Part\PersonCivilState.cs" />
+    <Compile Include="Part\ContactChannel.cs" />
+    <Compile Include="Part\ContactChannelType.cs" />
+    <Compile Include="Part\CountryRef.cs" />
+    <Compile Include="Part\DanishAddress.cs" />
+    <Compile Include="Part\DenmarkAddress.cs" />
+    <Compile Include="Part\ForeignAddress.cs" />
+    <Compile Include="Part\ForeignCitizenCountry.cs" />
+    <Compile Include="Part\GeographicCoorditaneTuple.cs" />
+    <Compile Include="Part\GeographicPointLocation.cs" />
+    <Compile Include="Part\GreenlandicAddress.cs" />
+    <Compile Include="Part\HealthInformation.cs" />
+    <Compile Include="Part\PartDataContext.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Part\PartDataContext.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PartDataContext.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="Part\PersonLifeState.cs" />
+    <Compile Include="Part\PersonName.cs" />
+    <Compile Include="Part\PersonProperties.cs" />
+    <None Include="Events\DataChangeEventDataContext.dbml">
+      <SubType>Designer</SubType>
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>DataChangeEventDataContext.designer.cs</LastGenOutput>
+    </None>
+    <None Include="Events\DataChangeEventDataContext.dbml.layout">
+      <DependentUpon>DataChangeEventDataContext.dbml</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="DataProviders\DataProvidersDataContext.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>DataProvidersDataContext.designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="DataProviders\DataProvidersDataContext.dbml.layout">
+      <DependentUpon>DataProvidersDataContext.dbml</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Applications\Readme.txt" />
+    <Content Include="DataProviders\Readme.txt" />
+    <Content Include="Events\Readme.txt" />
+    <Content Include="Part\Readme.txt" />
+    <Content Include="Readme.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Statistics\StatisticsDataContext.dbml.layout">
+      <DependentUpon>StatisticsDataContext.dbml</DependentUpon>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PostBuildEvent>copy $(TargetFileName) ..\..\..\Output\ /y</PostBuildEvent>
+  </PropertyGroup>
+</Project>

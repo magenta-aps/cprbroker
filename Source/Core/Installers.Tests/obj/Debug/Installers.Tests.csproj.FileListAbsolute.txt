@@ -1,0 +1,14 @@
+C:\Users\dennis\Documents\Cpr Broker Trunk\Source\Core\Installers.Tests\bin\Debug\CprBroker.Tests.Installers.dll
+C:\Users\dennis\Documents\Cpr Broker Trunk\Source\Core\Installers.Tests\bin\Debug\CprBroker.Tests.Installers.pdb
+C:\Users\dennis\Documents\Cpr Broker Trunk\Source\Core\Installers.Tests\bin\Debug\CprBroker.Installers.dll
+C:\Users\dennis\Documents\Cpr Broker Trunk\Source\Core\Installers.Tests\bin\Debug\CprBroker.Utilities.dll
+C:\Users\dennis\Documents\Cpr Broker Trunk\Source\Core\Installers.Tests\bin\Debug\nunit.framework.dll
+C:\Users\dennis\Documents\Cpr Broker Trunk\Source\Core\Installers.Tests\bin\Debug\Microsoft.Deployment.WindowsInstaller.dll
+C:\Users\dennis\Documents\Cpr Broker Trunk\Source\Core\Installers.Tests\bin\Debug\CprBroker.Installers.pdb
+C:\Users\dennis\Documents\Cpr Broker Trunk\Source\Core\Installers.Tests\bin\Debug\CprBroker.Utilities.pdb
+C:\Users\dennis\Documents\Cpr Broker Trunk\Source\Core\Installers.Tests\bin\Debug\Microsoft.Deployment.WindowsInstaller.xml
+C:\Users\dennis\Documents\Cpr Broker Trunk\Source\Core\Installers.Tests\obj\Debug\Installers.Tests.csprojResolveAssemblyReference.cache
+C:\Users\dennis\Documents\Cpr Broker Trunk\Source\Core\Installers.Tests\obj\Debug\CprBroker.Tests.Installers.Properties.Resources.resources
+C:\Users\dennis\Documents\Cpr Broker Trunk\Source\Core\Installers.Tests\obj\Debug\Installers.Tests.csproj.GenerateResource.Cache
+C:\Users\dennis\Documents\Cpr Broker Trunk\Source\Core\Installers.Tests\obj\Debug\CprBroker.Tests.Installers.dll
+C:\Users\dennis\Documents\Cpr Broker Trunk\Source\Core\Installers.Tests\obj\Debug\CprBroker.Tests.Installers.pdb

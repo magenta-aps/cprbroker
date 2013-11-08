@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Fragment Id="CommonProductPropertiesFragment">
+    <Property Id="Dummy_CommonProductPropertiesFragmentRefProp" Value="-"/>
+
+    <Property Id="CommonProductProperties" Value="-"/>
+    <CustomAction Id="Set_CommonProductProperties" Property="CommonProductProperties" Value="INSTALLDIR=[INSTALLDIR];ProductName=[ProductName];Manufacturer=[Manufacturer]"/>
+
+    <InstallExecuteSequence>
+      <Custom Action="Set_CommonProductProperties" After="InstallInitialize">1</Custom>
+    </InstallExecuteSequence>
+
+    <UI>
+      <ProgressText Action="Set_CommonProductProperties">Setting common product properties</ProgressText>
+    </UI>
+  </Fragment>
+</Wix>

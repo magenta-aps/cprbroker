@@ -1,0 +1,12 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="BusinessApplicationDemo.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="BusinessApplicationDemo_CPRPersonWS_CPRPersonWS" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://localhost:1550/services/CPRPersonWS.asmx</Value>
+    </Setting>
+    <Setting Name="BusinessApplicationDemo_CPRAdministrationWS_CPRAdministrationWS" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://localhost:1550/services/CPRAdministrationWS.asmx</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

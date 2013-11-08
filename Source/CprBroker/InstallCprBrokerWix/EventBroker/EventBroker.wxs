@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Fragment Id="EventBrokerFragment">
+    <Property Id="Dummy_EventBrokerFragmentRefProp" Value="-"/>
+
+    <PropertyRef Id="Dummy_EventBrokerDirectoriesFragmentRefProp"/>
+    <PropertyRef Id="Dummy_EventBrokerFilesFragmentRefProp"/>
+    <PropertyRef Id="Dummy_EventBrokerSpecificRefProp"/>
+
+    <Binary Id="EventBrokerInstallersDll" SourceFile="..\..\EventBroker\Output\CprBroker.Installers.EventBrokerInstallers.CA.dll"/>
+
+    <Feature Id="EventBrokerFeature" Title="Event Broker" Level="1">
+      <ComponentGroupRef Id="CMGGRP_EVENT_Root"/>
+      <ComponentGroupRef Id="CMPGRP_EVENT_bin"/>
+      <ComponentGroupRef Id="CMPGRP_EVENT_Backend"/>
+      <ComponentGroupRef Id="CMPGRP_EVENT_Config"/>
+      <ComponentGroupRef Id="CMPGRP_EVENT_Services"/>
+      <ComponentGroupRef Id="CMPGRP_EVENT_Templates"/>
+
+      <!-- Note: The following ComponentGroupRef is required to pull in generated authoring from project references. -->
+      <ComponentGroupRef Id="Product.Generated" />
+    </Feature>
+  </Fragment>
+</Wix>
