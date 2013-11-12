@@ -255,7 +255,45 @@ namespace CprBroker.Utilities
             {
                 return false;
             }
+
+            if (!Strings.IsModulus11OK(cprNumber))
+            {
+                return false;
+            }
             return true;
+        }
+
+        public static bool IsModulus11OK(string cprNumber)
+        {
+            if (cprNumber.Length == 9)
+                cprNumber = "0" + cprNumber;
+            bool result = false;
+            int[] multiplyBy = { 4, 3, 2, 7, 6, 5, 4, 3, 2, 1 };
+            int Sum = 0;
+            // We test if the length of the CPR number is right and if the number does not conatain tailing 0's
+            if (cprNumber.Length == 10 && cprNumber.Substring(6, 4) != "0000")
+            {
+                /*
+                 * We cannot do modulus control on people with birth dates 19650101 or 19660101,
+                 * thus those dates just pass through with no control at all.
+                 */
+                if (cprNumber.Substring(6) == "010165" || cprNumber.Substring(6) == "010166")
+                {
+                    result = true;
+                }
+                else
+                {
+                    for (int i = 0; i < 10; i++)
+                    {
+                        Sum += Convert.ToInt32(cprNumber.Substring(i, 1)) * multiplyBy[i];
+                    }
+                    if ((Sum % 11) == 0)
+                    {
+                        result = true;
+                    }
+                }
+            }
+            return result;
         }
 
         public static DateTime? PersonNumberToDate(string cprNumber)
