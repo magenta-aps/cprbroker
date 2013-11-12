@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-	<Product Id="1968C46D-C070-4A1A-96D9-A8BF605296B2" Name="E&amp;M Updates" Language="1033" Version="1.1.0.0" Manufacturer="ITST" UpgradeCode="81511F81-6A0D-44D4-B976-2560FA604ABB">
+	<Product Id="5A1DD166-DA0D-4E29-8491-9A29BD844CBD" Name="E&amp;M Updates" Language="1033" Version="1.2.0.0" Manufacturer="ITST" UpgradeCode="81511F81-6A0D-44D4-B976-2560FA604ABB">
 		<Package InstallerVersion="200" Compressed="yes" />
 
 		<Media Id="1" Cabinet="media1.cab" EmbedCab="yes" />
@@ -24,10 +24,10 @@
 
     <Upgrade Id="81511F81-6A0D-44D4-B976-2560FA604ABB">
       <!--Detect old version -->
-      <UpgradeVersion Property="OLDER_VERSION_DETECTED" Maximum="1.1.0.0" IncludeMaximum="no" OnlyDetect="yes"></UpgradeVersion>
+      <UpgradeVersion Property="OLDER_VERSION_DETECTED" Maximum="1.2.0.0" IncludeMaximum="no" OnlyDetect="yes"></UpgradeVersion>
 
       <!--Detect newer versions, set a property that triggers a condition failure -->
-      <UpgradeVersion Property="NEWER_VERSION_DETECTED" Minimum="1.1.0.0" IncludeMinimum="no" OnlyDetect="yes"></UpgradeVersion>
+      <UpgradeVersion Property="NEWER_VERSION_DETECTED" Minimum="1.2.0.0" IncludeMinimum="no" OnlyDetect="yes"></UpgradeVersion>
     </Upgrade>
     
     <Feature Id="ProductFeature" Title="E_MUpdatesInstaller" Level="1">
