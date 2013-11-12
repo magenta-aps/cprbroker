@@ -258,14 +258,13 @@ namespace CprBroker.Engine
             //We put a row into the DataProviderCall table
             using (var dataContext = new CprBroker.Data.Applications.ApplicationDataContext())
             {
-                // TODO: Shall we get the ActivityID from BrokerContext.ActivityID?                
                 var call = new CprBroker.Data.Applications.DataProviderCall
                     {
-                        ID = System.Guid.NewGuid(),
-                        ActivityID = BrokerContext.Current.ActivityId,
-                        Time = DateTime.Now,
+                        DataProviderCallId = System.Guid.NewGuid(),
+                        ActivityId = BrokerContext.Current.ActivityId,
+                        CallTime = DateTime.Now,
                         Cost = cost,
-                        ProviderType = provider.GetType().ToString(),
+                        DataProviderType = provider.GetType().ToString(),
                         Operation = operation,
                         Success = success,
                     };
