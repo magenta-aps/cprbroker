@@ -74,9 +74,9 @@ namespace BatchClient
                 CprBroker.Engine.Local.Admin.AddNewLog(System.Diagnostics.TraceEventType.Information, GetType().Name, string.Format("Preparing dummy data for failed PNR: {0}", cprNumberOrUuid), "", "");
                 RegistreringType1 reg = new RegistreringType1();
                 UnikIdType uuid = new UnikIdType();
-                uuid.Item = "286548AA-E177-4EEB-9C5A-ABFF0D30F453";
+                uuid.Item = CprBroker.Utilities.Constants.FakeActorId.ToString();
                 reg.AktoerRef = uuid;
-                reg.Tidspunkt = TidspunktType.Create( new DateTime(2013, 9, 24));
+                reg.Tidspunkt = TidspunktType.Create(new DateTime(2013, 9, 24));
                 var dbReg = CprBroker.Data.Part.PersonRegistration.FromXmlType(reg);
                 dbReg.BrokerUpdateDate = new DateTime(2013, 9, 24);
                 dbReg.UUID = dataContext.PersonMappings.Where(pm => pm.CprNumber == cprNumberOrUuid).First().UUID;
@@ -90,8 +90,11 @@ namespace BatchClient
                         }
                     );
                     CprBroker.Engine.Local.Admin.AddNewLog(System.Diagnostics.TraceEventType.Information, GetType().Name, string.Format("Adding {0} to Person", cprNumberOrUuid), "", "");
-                } else
+                }
+                else
+                {
                     CprBroker.Engine.Local.Admin.AddNewLog(System.Diagnostics.TraceEventType.Information, GetType().Name, string.Format("Ignoring {0} - is in Person", cprNumberOrUuid), "", "");
+                }
                 var persReg = dataContext.PersonRegistrations.Where(p => p.UUID == dbReg.UUID).FirstOrDefault();
                 if (persReg == null)
                 {
@@ -101,7 +104,9 @@ namespace BatchClient
                     CprBroker.Engine.Local.Admin.AddNewLog(System.Diagnostics.TraceEventType.Information, GetType().Name, string.Format("Added dummy data for {0}", cprNumberOrUuid), "", "");
                 }
                 else
+                {
                     CprBroker.Engine.Local.Admin.AddNewLog(System.Diagnostics.TraceEventType.Information, GetType().Name, string.Format("Ignoring {0} - is in PersonRegistration", cprNumberOrUuid), "", "");
+                }
             }
         }
     }

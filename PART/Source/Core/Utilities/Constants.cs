@@ -67,6 +67,8 @@ namespace CprBroker.Utilities
         public static readonly Guid BaseApplicationToken = new Guid("07059250-E448-4040-B695-9C03F9E59E38");
         public static readonly string UserToken = "";
 
+        public static readonly Guid FakeActorId = new Guid("286548AA-E177-4EEB-9C5A-ABFF0D30F453");
+
         public static class Logging
         {
             public static readonly string Category = "General";

@@ -82,7 +82,7 @@ namespace BatchClient
                 var pm = dataContext.PersonMappings.Where(p => p.CprNumber == pnr).Single();
                 var per = dataContext.Persons.Where(p => p.UUID == pm.UUID).SingleOrDefault();
                 PersonRegistration[] regs = null;
-                
+                var actros = new List<ActorRef>();
                 if (per != null)
                 {
                     regs = per.PersonRegistrations.ToArray();
@@ -98,16 +98,19 @@ namespace BatchClient
                         {
                             throw new Exception("Contents not empty");
                         }
+
+                        actros.Add(reg.ActorRef);
                     }
 
 
                     // Now delete the records
-                    /*
-                    dataContext.PersonMappings.DeleteOnSubmit(pm);
-                    dataContext.Persons.DeleteOnSubmit(per);
                     dataContext.PersonRegistrations.DeleteAllOnSubmit(regs);
+                    dataContext.ActorRefs.DeleteAllOnSubmit(actros);
+                    dataContext.Persons.DeleteOnSubmit(per);
+                    dataContext.PersonMappings.DeleteOnSubmit(pm);
+                    
                     dataContext.SubmitChanges();
-                    */
+                    
                 }
             }
         }
