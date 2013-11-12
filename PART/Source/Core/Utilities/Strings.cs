@@ -265,13 +265,11 @@ namespace CprBroker.Utilities
 
         public static bool IsModulus11OK(string cprNumber)
         {
-            if (cprNumber.Length == 9)
-                cprNumber = "0" + cprNumber;
             bool result = false;
             int[] multiplyBy = { 4, 3, 2, 7, 6, 5, 4, 3, 2, 1 };
             int Sum = 0;
             // We test if the length of the CPR number is right and if the number does not conatain tailing 0's
-            if (cprNumber.Length == 10 && cprNumber.Substring(6, 4) != "0000")
+            if (cprNumber.Substring(6, 4) != "0000")
             {
                 /*
                  * We cannot do modulus control on people with birth dates 19650101 or 19660101,
