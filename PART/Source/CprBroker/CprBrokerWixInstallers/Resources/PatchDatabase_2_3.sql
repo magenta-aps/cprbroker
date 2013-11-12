@@ -10,7 +10,7 @@ IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Da
 BEGIN
 CREATE TABLE [dbo].[DataProviderCall](
 	[DataProviderCallId] [uniqueidentifier] NOT NULL,
-	[ActivityI] [uniqueidentifier] NOT NULL,
+	[ActivityId] [uniqueidentifier] NOT NULL,
 	[CallTime] [datetime] NOT NULL,
 	[DataProviderType] [varchar](250) NOT NULL,
 	[Cost] [decimal](18, 4) NOT NULL,
