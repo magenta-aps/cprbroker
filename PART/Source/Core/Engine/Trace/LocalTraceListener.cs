@@ -85,6 +85,7 @@ namespace CprBroker.Engine.Trace
                     dbLogEntry.ApplicationId = BrokerContext.Current.ApplicationId;
                     dbLogEntry.UserToken = BrokerContext.Current.UserToken;
                     dbLogEntry.UserId = BrokerContext.Current.UserName;
+                    dbLogEntry.ActivityID = BrokerContext.Current.ActivityId;
 
                     dbLogEntry.MethodName = Strings.ObjectToString(logEntry.ExtendedProperties[Constants.Logging.MethodName]);
                     dbLogEntry.Text = logEntry.Message;
@@ -92,6 +93,7 @@ namespace CprBroker.Engine.Trace
                     dbLogEntry.DataObjectType = Strings.ObjectToString(logEntry.ExtendedProperties[Constants.Logging.DataObjectType]);
                     dbLogEntry.DataObjectXml = Strings.ObjectToString(logEntry.ExtendedProperties[Constants.Logging.DataObjectXml]);
                     dbLogEntry.LogDate = logEntry.TimeStamp;
+                    
 
                     context.LogEntries.InsertOnSubmit(dbLogEntry);
                     context.SubmitChanges();
