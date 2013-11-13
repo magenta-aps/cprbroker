@@ -112,7 +112,7 @@ namespace CprBroker.Tests.Utilities
             
             [Test]
             public void IsModulus11_Zeros_False(
-                [Values("2311780000", "1608593668")]string pnr)
+                [Values("2311780000", "1608590000")]string pnr)
             {
                 var ret = Strings.IsModulus11OK(pnr);
                 Assert.False(ret);
