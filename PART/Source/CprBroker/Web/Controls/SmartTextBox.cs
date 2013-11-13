@@ -143,6 +143,7 @@ namespace CprBroker.Web.Controls
         public RequiredFieldValidator requiredValidator = new RequiredFieldValidator();
         public RegularExpressionValidator regularExpressionValidator = new RegularExpressionValidator();
         public RegularExpressionValidator intRegularExpressionValidator = new RegularExpressionValidator();
+        public RegularExpressionValidator decimalRegularExpressionValidator = new RegularExpressionValidator();
         public CheckBox booleanCheckBox = new CheckBox();
 
         protected override void CreateChildControls()
@@ -170,11 +171,18 @@ namespace CprBroker.Web.Controls
             intRegularExpressionValidator.ControlToValidate = "txt";
             intRegularExpressionValidator.Enabled = this.Type == DataProviderConfigPropertyInfoTypes.Integer;
             intRegularExpressionValidator.Visible = intRegularExpressionValidator.Enabled;
-            intRegularExpressionValidator.ValidationGroup = ValidationGroup;
-            intRegularExpressionValidator.Text = "Invalid Input";
+            intRegularExpressionValidator.ValidationGroup = ValidationGroup;            
             intRegularExpressionValidator.ValidationExpression = "\\d*";
             intRegularExpressionValidator.Text = "Digits only";            
             Controls.Add(intRegularExpressionValidator);
+
+            decimalRegularExpressionValidator.ControlToValidate = "txt";
+            decimalRegularExpressionValidator.Enabled = this.Type == DataProviderConfigPropertyInfoTypes.Decimal;
+            decimalRegularExpressionValidator.Visible = decimalRegularExpressionValidator.Enabled;
+            decimalRegularExpressionValidator.ValidationGroup = ValidationGroup;            
+            decimalRegularExpressionValidator.ValidationExpression = "\\d*([.,]\\d+)?";
+            decimalRegularExpressionValidator.Text = "Decimal numbers only";
+            Controls.Add(decimalRegularExpressionValidator);
 
             booleanCheckBox.Visible = this.Type == DataProviderConfigPropertyInfoTypes.Boolean;            
             Controls.Add(booleanCheckBox);
