@@ -93,40 +93,10 @@ namespace CprBroker.Engine.Local
                 // Now clear any confidential data
                 foreach (var oioProv in ret)
                 {
-                    var prov = Reflection.CreateInstance<IExternalDataProvider>(oioProv.TypeName);
-                    var paidProv = Reflection.CreateInstance<IPerCallDataProvider>(oioProv.TypeName);
+                    var prov = Reflection.CreateInstance<IExternalDataProvider>(oioProv.TypeName);                    
                     if (prov != null)
                     {
                         foreach (var configKey in prov.ConfigurationKeys)
-                        {
-                            if (configKey.Confidential)
-                            {
-                                var oioAttr = oioProv.Attributes.Where(a => a.Name == configKey.Name).FirstOrDefault();
-                                if (oioAttr != null)
-                                {
-                                    oioAttr.Value = "";
-                                }
-                            }
-                        }
-                    }
-                    else
-                    {
-                        Array.ForEach<AttributeType>(oioProv.Attributes, a => a.Value = "");
-                    }
-                    if (paidProv != null)
-                    {
-                        foreach (var configKey in paidProv.ConfigurationKeys)
-                        {
-                            if (configKey.Confidential)
-                            {
-                                var oioAttr = oioProv.Attributes.Where(a => a.Name == configKey.Name).FirstOrDefault();
-                                if (oioAttr != null)
-                                {
-                                    oioAttr.Value = "";
-                                }
-                            }
-                        }
-                        foreach (var configKey in paidProv.OperationKeys)
                         {
                             if (configKey.Confidential)
                             {
