@@ -42,7 +42,7 @@
     <Reference Include="nunit.framework, Version=2.6.2.12296, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Dll\nunit.framework.dll</HintPath>
-    </Reference>    
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core">
@@ -65,6 +65,7 @@
     <Compile Include="FacadeMethodInfoTests.cs" />
     <Compile Include="Facades\FacadeMethod.Tests.cs" />
     <Compile Include="GetUuidArrayFacadeMethodInfo.Tests.cs" />
+    <Compile Include="IPerCallDataProviderHelperTests.cs" />
     <Compile Include="ListFacadeMethodInfoTests.cs" />
     <Compile Include="Manager.Base.Tests.cs" />
     <Compile Include="MatchRule.Tests.cs" />
