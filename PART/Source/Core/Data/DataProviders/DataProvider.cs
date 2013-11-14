@@ -62,7 +62,6 @@ namespace CprBroker.Data.DataProviders
         public static RijndaelManaged EncryptionAlgorithm;
 
         private readonly List<AttributeType> Properties = new List<AttributeType>();
-        private readonly List<AttributeType> Operations = new List<AttributeType>();
 
         partial void OnLoaded()
         {
@@ -77,14 +76,7 @@ namespace CprBroker.Data.DataProviders
                 {
                     attributes = Encryption.DecryptObject<AttributeType[]>(Data.ToArray(), EncryptionAlgorithm);
                 }
-
-                for (int i = 0; i < attributes.Length; i++)
-                {
-                    if (!attributes[i].Name.Contains("Online "))
-                        Properties.Add(attributes[i]);
-                    else
-                        Operations.Add(attributes[i]);
-                }
+                Properties.AddRange(attributes);
             }
         }
 
@@ -96,11 +88,6 @@ namespace CprBroker.Data.DataProviders
         public AttributeType[] GetProperties()
         {
             return Properties.Select(p => new AttributeType() { Name = p.Name, Value = p.Value }).ToArray();
-        }
-
-        public AttributeType[] GetOperations()
-        {
-            return Operations.Select(p => new AttributeType() { Name = p.Name, Value = p.Value }).ToArray();
         }
 
         public string this[string key]

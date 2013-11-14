@@ -76,7 +76,7 @@ namespace CprBroker.Engine
             {
                 try
                 {
-                    dataProvider.ConfigurationProperties = dbDataProvider.ToPropertiesDictionary(dataProvider.ConfigurationKeys.Select(p => p.Name).ToArray());
+                    dataProvider.ConfigurationProperties = dbDataProvider.ToPropertiesDictionary(dataProvider.ToAllPropertyInfo().Select(p => p.Name).ToArray());
                 }
                 catch (Exception ex)
                 {
@@ -242,34 +242,6 @@ namespace CprBroker.Engine
 
                 default:
                     return new IDataProvider[0];
-            }
-        }
-
-        #endregion
-
-        #region Logging paid calls
-
-        public static void LogAction(IPerCallDataProvider provider, String operation, Boolean success)
-        {
-            //We find the cost for this call
-            decimal cost = 0; // For tests to work out, we give the variable a default value.
-            if (provider.OperationProperties != null)
-                cost = decimal.Parse(provider.OperationProperties["Cost"]);
-            //We put a row into the DataProviderCall table
-            using (var dataContext = new CprBroker.Data.Applications.ApplicationDataContext())
-            {
-                var call = new CprBroker.Data.Applications.DataProviderCall
-                    {
-                        DataProviderCallId = System.Guid.NewGuid(),
-                        ActivityId = BrokerContext.Current.ActivityId,
-                        CallTime = DateTime.Now,
-                        Cost = cost,
-                        DataProviderType = provider.GetType().ToString(),
-                        Operation = operation,
-                        Success = success,
-                    };
-                dataContext.DataProviderCalls.InsertOnSubmit(call);
-                dataContext.SubmitChanges();
             }
         }
 
