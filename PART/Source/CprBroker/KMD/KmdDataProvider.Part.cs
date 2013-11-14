@@ -68,21 +68,25 @@ namespace CprBroker.Providers.KMD
         {
             RegistreringType1 ret = null;
 
-            Admin.AddNewLog(System.Diagnostics.TraceEventType.Information, "KMD.Read", string.Format("Calling AS78207 with PNR <{0}>", uuid.CprNumber), null, null);
-            var detailsResponse = new EnglishAS78207Response(CallAS78207(uuid.CprNumber));
-
-            Admin.AddNewLog(System.Diagnostics.TraceEventType.Information, "KMD.Read", string.Format("Calling AS78205 with PNR <{0}>", uuid.CprNumber), null, null);
-            var addressResponse = CallAS78205(uuid.CprNumber);
-
-            Admin.AddNewLog(System.Diagnostics.TraceEventType.Information, "KMD.Read", string.Format("Converting PNR <{0}>", uuid.CprNumber), null, null);
-
-            var kmdResponse = new KmdResponse()
+            if (IPerCallDataProviderHelper.CanCallOnline(uuid.CprNumber))
             {
-                AS78205Response = addressResponse.InnerResponse,
-                AS78207Response = detailsResponse.InnerResponse
-            };
+                // TODO: Shall we remove this explicit logging after integration of budget control?
+                Admin.AddNewLog(System.Diagnostics.TraceEventType.Information, "KMD.Read", string.Format("Calling AS78207 with PNR <{0}>", uuid.CprNumber), null, null);
+                var detailsResponse = new EnglishAS78207Response(CallAS78207(uuid.CprNumber));
 
-            ret = kmdResponse.ToRegistreringType1(cpr2uuidFunc);
+                Admin.AddNewLog(System.Diagnostics.TraceEventType.Information, "KMD.Read", string.Format("Calling AS78205 with PNR <{0}>", uuid.CprNumber), null, null);
+                var addressResponse = CallAS78205(uuid.CprNumber);
+
+                Admin.AddNewLog(System.Diagnostics.TraceEventType.Information, "KMD.Read", string.Format("Converting PNR <{0}>", uuid.CprNumber), null, null);
+
+                var kmdResponse = new KmdResponse()
+                {
+                    AS78205Response = addressResponse.InnerResponse,
+                    AS78207Response = detailsResponse.InnerResponse
+                };
+
+                ret = kmdResponse.ToRegistreringType1(cpr2uuidFunc);
+            }
             ql = CprBroker.Schemas.QualityLevel.Cpr;
 
             return ret;
