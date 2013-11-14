@@ -101,18 +101,19 @@ namespace CprBroker.Providers.CPRDirect
                 {
                     error = Constants.ErrorCodes[errorCode];
                     // We log the call and set the success parameter to false
-                    DataProviderManager.LogAction(this, "Read", false);
+                    this.LogAction(Constants.OnlineOperationName, pnr.ToPnrDecimalString(), false);
                     return false;
                 }
                 else
                 {
                     // We log the call and set the success parameter to true
-                    DataProviderManager.LogAction(this, "Read", true);
+                    this.LogAction(Constants.OnlineOperationName, pnr.ToPnrDecimalString(), true);
                     return true;
                 }
             }
             catch (Exception ex)
             {
+                // TODO: Shall we also log a call to the data provider?
                 Admin.LogFormattedError("CPR client is not reachable on <{0}>:<{1}>", Address, Port);
                 response = null;
                 return false;

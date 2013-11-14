@@ -115,14 +115,12 @@ namespace CprBroker.Providers.CPRDirect
             }
         }
 
-        public Dictionary<string, string> OperationProperties { get; set; }
-
-        public DataProviderConfigPropertyInfo[] OperationKeys
+        public string[] OperationKeys
         {
             get
             {
-                return new DataProviderConfigPropertyInfo[] { 
-                    new DataProviderConfigPropertyInfo(){Type = DataProviderConfigPropertyInfoTypes.Decimal, Name="Online Cost", Required=true, Confidential=false},
+                return new string[] {
+                    Constants.OnlineOperationName
                 };
             }
         }

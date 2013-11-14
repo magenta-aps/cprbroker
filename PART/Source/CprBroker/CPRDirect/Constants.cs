@@ -215,5 +215,7 @@ namespace CprBroker.Providers.CPRDirect
         }
 
         public static System.Threading.ReaderWriterLockSlim AuthorityLock = new System.Threading.ReaderWriterLockSlim();
+        
+        public const string OnlineOperationName = "Online";
     }
 }
