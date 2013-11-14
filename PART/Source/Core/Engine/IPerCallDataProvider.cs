@@ -66,10 +66,21 @@ namespace CprBroker.Engine
             return string.Format("{0} - cost", operationName);
         }
 
+        public static decimal GetOperationCost(this IPerCallDataProvider provider, string operation)
+        {
+            var ret = 0m;
+            var propName = ToOperationCostPropertyName(operation);
+            if (provider.ConfigurationProperties.ContainsKey(propName))
+            {
+                decimal.TryParse(provider.ConfigurationProperties[propName], out ret);
+            }
+            return ret;
+        }
+
         public static void LogAction(this IPerCallDataProvider provider, String operation, string input, Boolean success)
         {
             //We find the cost for this call
-            decimal cost = decimal.Parse(provider.ConfigurationProperties[ToOperationCostPropertyName(operation)]);
+            decimal cost = provider.GetOperationCost(operation);
 
             //We put a row into the DataProviderCall table
             using (var dataContext = new CprBroker.Data.Applications.ApplicationDataContext())

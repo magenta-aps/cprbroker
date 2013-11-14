@@ -53,9 +53,53 @@ using CprBroker.Engine;
 
 namespace CprBroker.Tests.Engine
 {
-    class IPerCallDataProviderHelperTests
+    namespace IPerCallDataProviderHelperTests
     {
-        
+
+        [TestFixture]
+        public class GetOperationCost
+        {
+            public class DummyPerCallDataProvider : IPerCallDataProvider
+            {
+                public string[] OperationKeys { get; set; }
+
+                public Dictionary<string, string> ConfigurationProperties { get; set; }
+
+                public DataProviderConfigPropertyInfo[] ConfigurationKeys { get; set; }
+
+                public bool IsAlive()
+                { return true; }
+
+                public Version Version
+                { get { return null; } }
+            }
+
+            [Test]
+            [ExpectedException]
+            public void GetOperationCost_NullProv_Exception()
+            {
+                IPerCallDataProviderHelper.GetOperationCost(null, "aklskalfj");
+            }
+
+            [Test]
+            public void GetOperationCost_NonExistingProperty_Zero()
+            {
+                var ret = IPerCallDataProviderHelper.GetOperationCost(new DummyPerCallDataProvider() { ConfigurationProperties = new Dictionary<string, string>() }, Utilities.RandomCprNumber());
+                Assert.AreEqual(0m, ret);
+            }
+
+            [Test]
+            public void GetOperationCost_ExistingProperty_CorrectValue(
+                [Values(-1, 3, 7, 87.34)]decimal cost)
+            {
+                var prov = new DummyPerCallDataProvider() { ConfigurationProperties = new Dictionary<string, string>() };
+                var opName = "OP";
+                prov.ConfigurationProperties[IPerCallDataProviderHelper.ToOperationCostPropertyName(opName)] = cost.ToString();
+                var ret = IPerCallDataProviderHelper.GetOperationCost(prov, opName);
+                Assert.AreEqual(cost, ret);
+            }
+        }
+
         [TestFixture]
         public class CanCallOnline
         {
