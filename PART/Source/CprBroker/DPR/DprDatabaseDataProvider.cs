@@ -87,23 +87,31 @@ namespace CprBroker.Providers.DPR
         {
             if (!this.DisableDiversion)
             {
-                decimal cprNum = Convert.ToDecimal(personIdentifier.CprNumber);
-
-                using (DPRDataContext dataContext = new DPRDataContext(ConnectionString))
+                if (IPerCallDataProviderHelper.CanCallOnline(personIdentifier.CprNumber))
                 {
-                    var exists = (from personTotal in dataContext.PersonTotals
-                                  select personTotal.PNR).Contains(cprNum);
+                    decimal cprNum = Convert.ToDecimal(personIdentifier.CprNumber);
 
-                    if (exists)
+                    using (DPRDataContext dataContext = new DPRDataContext(ConnectionString))
                     {
-                        Engine.Local.Admin.AddNewLog(System.Diagnostics.TraceEventType.Information, "PutSubscription", string.Format("PNR {0} Exists in DPR, DPR Diversion not called", personIdentifier.CprNumber), null, null);
+                        var exists = (from personTotal in dataContext.PersonTotals
+                                      select personTotal.PNR).Contains(cprNum);
+
+                        if (exists)
+                        {
+                            Engine.Local.Admin.AddNewLog(System.Diagnostics.TraceEventType.Information, "PutSubscription", string.Format("PNR {0} Exists in DPR, DPR Diversion not called", personIdentifier.CprNumber), null, null);
+                        }
+                        else
+                        {
+                            Engine.Local.Admin.AddNewLog(System.Diagnostics.TraceEventType.Information, "PutSubscription", string.Format("Calling DPR Diversion : {0}", personIdentifier.CprNumber), null, null);
+                            CallDiversion(InquiryType.DataUpdatedAutomaticallyFromCpr, DetailType.MasterData, personIdentifier.CprNumber);
+                        }
+                        return true;
                     }
-                    else
-                    {
-                        Engine.Local.Admin.AddNewLog(System.Diagnostics.TraceEventType.Information, "PutSubscription", string.Format("Calling DPR Diversion : {0}", personIdentifier.CprNumber), null, null);
-                        CallDiversion(InquiryType.DataUpdatedAutomaticallyFromCpr, DetailType.MasterData, personIdentifier.CprNumber);
-                    }
-                    return true;
+                }
+                else
+                {
+                    Engine.Local.Admin.AddNewLog(System.Diagnostics.TraceEventType.Information, "PutSubscription", string.Format("Invalid PNR: {0}", personIdentifier.CprNumber), null, null);
+                    return false;
                 }
             }
             else
