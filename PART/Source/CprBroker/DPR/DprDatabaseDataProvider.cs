@@ -66,7 +66,10 @@ namespace CprBroker.Providers.DPR
         public RegistreringType1 Read(PersonIdentifier uuid, LaesInputType input, Func<string, Guid> cpr2uuidFunc, out QualityLevel? ql)
         {
             CprBroker.Schemas.Part.RegistreringType1 ret = null;
-            EnsurePersonDataExists(uuid.CprNumber);
+            if (IPerCallDataProviderHelper.CanCallOnline(uuid.CprNumber))
+            {
+                EnsurePersonDataExists(uuid.CprNumber);
+            }
 
             using (var dataContext = new DPRDataContext(this.ConnectionString))
             {
