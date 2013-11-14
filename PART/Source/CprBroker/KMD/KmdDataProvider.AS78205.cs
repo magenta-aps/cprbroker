@@ -86,9 +86,9 @@ namespace CprBroker.Providers.KMD
             Engine.Local.Admin.AddNewLog(System.Diagnostics.TraceEventType.Information, "CallAS78207", string.Format("Calling AS78207 with PNR {0}", cprNumber), null, null);
             var response = service.SubmitAS78205(input);
             var englishResponse = new EnglishAS78205Response(response);
-            ValidateReturnCode(englishResponse.ReturnCode, englishResponse.ReturnText);
+            ValidateReturnCode(ServiceTypes.AS78205, cprNumber, englishResponse.ReturnCode, englishResponse.ReturnText);
             // We log the call and set the success parameter to true
-            DataProviderManager.LogAction(this, "Read", true);
+            this.LogAction(Utilities.GetOperationName(ServiceTypes.AS78205), cprNumber, true);
             return englishResponse;
         }
 

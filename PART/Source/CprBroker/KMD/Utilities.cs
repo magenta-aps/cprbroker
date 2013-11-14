@@ -147,5 +147,10 @@ namespace CprBroker.Providers.KMD
             }
         }
 
+        public static string GetOperationName(KmdDataProvider.ServiceTypes type)
+        {
+            return Enum.GetName(typeof(KmdDataProvider.ServiceTypes), type);
+        }
+
     }
 }
