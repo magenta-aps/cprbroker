@@ -60,18 +60,33 @@ namespace CprBroker.Providers.CPRDirect
         #region IPartReadDataProvider members
         public RegistreringType1 Read(CprBroker.Schemas.PersonIdentifier uuid, LaesInputType input, Func<string, Guid> cpr2uuidFunc, out QualityLevel? ql)
         {
-            IndividualRequestType request = new IndividualRequestType(true, DataType.DefinedByTask, decimal.Parse(uuid.CprNumber));
-            IndividualResponseType response = this.GetResponse(request);
-
             ql = QualityLevel.Cpr;
-            return response.ToRegistreringType1(cpr2uuidFunc);
+
+            if (IPerCallDataProviderHelper.CanCallOnline(uuid.CprNumber))
+            {
+                IndividualRequestType request = new IndividualRequestType(true, DataType.DefinedByTask, decimal.Parse(uuid.CprNumber));
+                IndividualResponseType response = this.GetResponse(request);
+
+                return response.ToRegistreringType1(cpr2uuidFunc);
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public bool PutSubscription(PersonIdentifier personIdentifier)
         {
-            IndividualRequestType request = new IndividualRequestType(true, DataType.NoData, decimal.Parse(personIdentifier.CprNumber));
-            IndividualResponseType response = this.GetResponse(request);
-            return true;
+            if (IPerCallDataProviderHelper.CanCallOnline(uuid.CprNumber))
+            {
+                IndividualRequestType request = new IndividualRequestType(true, DataType.NoData, decimal.Parse(personIdentifier.CprNumber));
+                IndividualResponseType response = this.GetResponse(request);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         #endregion
