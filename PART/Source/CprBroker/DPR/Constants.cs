@@ -73,5 +73,7 @@ namespace CprBroker.Providers.DPR
         //TODO: Add comment text
         public const string CommentText = "";
 
+        public const string DiversionOperationName = "Diversion";
+
     }
 }

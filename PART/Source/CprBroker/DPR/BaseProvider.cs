@@ -68,8 +68,6 @@ namespace CprBroker.Providers.DPR
 
         public Dictionary<string, string> ConfigurationProperties { get; set; }
 
-        public Dictionary<string, string> OperationProperties { get; set; }
-
         public DataProviderConfigPropertyInfo[] ConfigurationKeys
         {
             get
@@ -91,13 +89,13 @@ namespace CprBroker.Providers.DPR
             }
         }
 
-        public DataProviderConfigPropertyInfo[] OperationKeys
+        public string[] OperationKeys
         {
             get
             {
                 // TODO: rename the operation key to something like "Diversion". "Cost" is a bit ambigious.
-                return new DataProviderConfigPropertyInfo[] { 
-                    new DataProviderConfigPropertyInfo(){Type = DataProviderConfigPropertyInfoTypes.Decimal, Name="Online Cost", Required=true, Confidential=false},
+                return new string[] {
+                    Constants.DiversionOperationName
                 };
             }
         }
@@ -191,11 +189,11 @@ namespace CprBroker.Providers.DPR
 
         #region Protected Members
 
-        protected string Send(string message)
+        protected string Send(string message, string cprNumber)
         {
             string response;
             string error;
-            if (Send(message, out response, out error))
+            if (Send(message, cprNumber, out response, out error))
             {
                 return response;
             }
@@ -212,7 +210,7 @@ namespace CprBroker.Providers.DPR
         /// <param name="response">Response to message</param>
         /// <param name="error">Error text (if any)</param>
         /// <returns>True if no error, false otherwise</returns>
-        protected bool Send(string message, out string response, out string error)
+        protected bool Send(string message, string cprNumber, out string response, out string error)
         {
             int bytes = 0;
             error = null;
@@ -237,21 +235,22 @@ namespace CprBroker.Providers.DPR
                 if (ErrorCodes.ContainsKey(errorCode))
                 {
                     // We log the call and set the success parameter to false
-                    DataProviderManager.LogAction(this, "Read", false);
+                    this.LogAction(Constants.DiversionOperationName, cprNumber, false);
                     error = ErrorCodes[errorCode];
                     return false;
                 }
                 else
                 {
                     // We log the call and set the success parameter to true
-                    DataProviderManager.LogAction(this, "Read", true);
+                    this.LogAction(Constants.DiversionOperationName, cprNumber, true);
                     return true;
                 }
             }
             catch (Exception e)
             {
                 // We log the call and set the success parameter to false
-                DataProviderManager.LogAction(this, "Read", false);
+                // TODO: Shall we just rely on the exception logging?
+                this.LogAction(Constants.DiversionOperationName, cprNumber, false);
                 response = null;
                 error = "Exception: " + e.Message;
                 return false;
