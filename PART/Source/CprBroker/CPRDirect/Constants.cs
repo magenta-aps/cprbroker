@@ -113,6 +113,7 @@ namespace CprBroker.Providers.CPRDirect
             _DataObjectMap["030"] = typeof(HistoricalSeparationType);
             _DataObjectMap["099"] = typeof(EventsType);
             _DataObjectMap["910"] = typeof(ErrorRecordType);
+            _DataObjectMap["997"] = typeof(SubscriptionDeletionReceiptType);
             _DataObjectMap["999"] = typeof(EndRecordType);
 
             _RelationshipMap = new Dictionary<string, bool>();
