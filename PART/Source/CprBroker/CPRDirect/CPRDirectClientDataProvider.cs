@@ -77,7 +77,7 @@ namespace CprBroker.Providers.CPRDirect
 
         public bool PutSubscription(PersonIdentifier personIdentifier)
         {
-            if (IPerCallDataProviderHelper.CanCallOnline(uuid.CprNumber))
+            if (IPerCallDataProviderHelper.CanCallOnline(personIdentifier.CprNumber))
             {
                 IndividualRequestType request = new IndividualRequestType(true, DataType.NoData, decimal.Parse(personIdentifier.CprNumber));
                 IndividualResponseType response = this.GetResponse(request);
