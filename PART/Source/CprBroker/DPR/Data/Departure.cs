@@ -69,7 +69,11 @@ namespace CprBroker.Providers.DPR
 
         public bool ToUkendtAdresseIndikator()
         {
-            return !this.ForeignAddressDate.HasValue;
+            var all = string.Format("{0}{1}{2}{3}{4}", ForeignAddressLine1, ForeignAddressLine2, ForeignAddressLine3, ForeignAddressLine4, ForeignAddressLine5);
+            return
+                !this.ForeignAddressDate.HasValue
+                ||
+                string.IsNullOrEmpty(all);
         }
 
         private ForeignAddressStructureType ToForeignAddressStructure()

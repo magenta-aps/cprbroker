@@ -82,6 +82,7 @@
     <Compile Include="CivilStatus.Tests.cs" />
     <Compile Include="CivilStatus.ToPersonRelationType.Tests.cs" />
     <Compile Include="CivilStatus.ToToPersonRelationTypeArray.Tests.cs" />
+    <Compile Include="DepartureTests.cs" />
     <Compile Include="PersonName.Tests.cs" />
     <Compile Include="PersonTotal.ToPersonInfo.Address.Tests.cs" />
     <Compile Include="PersonTotal.ToPersonInfo.Nationality.Tests.cs" />
