@@ -77,7 +77,6 @@ namespace CprBroker.Tests.DPR
             [Test]
             public void ToUkendtAdresseIndikator_AddressDateAndValue_False()
             {
-                System.Diagnostics.Debugger.Launch();
                 var dep = new Departure() { ForeignAddressDate = decimal.Parse(DateTime.Today.ToString("yyyyMMdd")), ForeignAddressLine1 = "S" };
                 var ret = dep.ToUkendtAdresseIndikator();
                 Assert.False(ret);
