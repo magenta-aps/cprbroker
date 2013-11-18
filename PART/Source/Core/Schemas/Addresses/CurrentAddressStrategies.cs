@@ -109,7 +109,7 @@ namespace CprBroker.Schemas.Part
         {
             var ret = new LogicalAddressStrategy().GetCurrentAddressSource(populationAddress, departure, civilRegistrationStatus);
 
-            if (ret is DummyAddressSource)
+            if (ret == null || ret is DummyAddressSource)
             {
                 ret = new AvailableAddressSrategy().GetCurrentAddressSource(populationAddress, departure, civilRegistrationStatus);
             }
