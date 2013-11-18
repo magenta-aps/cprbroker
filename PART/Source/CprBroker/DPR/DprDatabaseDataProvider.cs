@@ -76,7 +76,7 @@ namespace CprBroker.Providers.DPR
                 var db = PersonInfo.GetPersonInfo(dataContext, decimal.Parse(uuid.CprNumber));
                 if (db != null)
                 {
-                    ret = db.ToRegisteringType1(cpr2uuidFunc, dataContext, this);
+                    ret = db.ToRegisteringType1(cpr2uuidFunc, dataContext);
                 }
             }
             ql = QualityLevel.DataProvider;

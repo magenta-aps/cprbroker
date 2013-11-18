@@ -170,13 +170,13 @@ namespace CprBroker.Providers.DPR
             }
         }
 
-        public RegistreringType1 ToRegisteringType1(Func<string, Guid> cpr2uuidConverter, DPRDataContext dataContext, DprDatabaseDataProvider dataProvider)
+        public RegistreringType1 ToRegisteringType1(Func<string, Guid> cpr2uuidConverter, DPRDataContext dataContext)
         {
             Func<decimal, Guid> cpr2uuidFunc = (cpr) => cpr2uuidConverter(cpr.ToPnrDecimalString());
 
             RegistreringType1 ret = new RegistreringType1()
             {
-                AttributListe = ToAttributListeType(dataProvider),
+                AttributListe = ToAttributListeType(),
                 TilstandListe = ToTilstandListeType(),
                 RelationListe = ToRelationListeType(cpr2uuidConverter, cpr2uuidFunc, dataContext),
 
@@ -191,7 +191,7 @@ namespace CprBroker.Providers.DPR
             return ret;
         }
 
-        public AttributListeType ToAttributListeType(DprDatabaseDataProvider dataProvider)
+        public AttributListeType ToAttributListeType()
         {
             return new AttributListeType()
             {
@@ -201,7 +201,7 @@ namespace CprBroker.Providers.DPR
                 },
                 RegisterOplysning = new RegisterOplysningType[]
                 {
-                    ToRegisterOplysningType(dataProvider)
+                    ToRegisterOplysningType()
                 },
 
                 // Health information not implemented
@@ -251,7 +251,7 @@ namespace CprBroker.Providers.DPR
             return ret;
         }
 
-        public RegisterOplysningType ToRegisterOplysningType(DprDatabaseDataProvider dataProvider)
+        public RegisterOplysningType ToRegisterOplysningType()
         {
             return new RegisterOplysningType()
             {

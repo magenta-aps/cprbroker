@@ -32,7 +32,7 @@ namespace BatchClient
             {
                 {
                     var db = PersonInfo.GetPersonInfo(dataContext, decimal.Parse(pnr));
-                    var ret = db.ToRegisteringType1(cpr2uuidFunc, dataContext, null);
+                    var ret = db.ToRegisteringType1(cpr2uuidFunc, dataContext);
                 }
             }
         }

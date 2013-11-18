@@ -63,14 +63,6 @@ namespace CprBroker.Tests.DPR
         class PersonInfoStub : PersonInfo
         { }
 
-        class DprDatabaseDataProviderStub : DprDatabaseDataProvider
-        {
-            public DprDatabaseDataProviderStub()
-            {
-                this.ConfigurationProperties = new Dictionary<string, string>();
-            }
-        }
-
         #region ToRegisterOplysningType
 
         [Test]
@@ -84,7 +76,7 @@ namespace CprBroker.Tests.DPR
                 PersonTotal = new PersonTotalStub() { PNR = cprNumber, Nationality = nationality.ToDecimalString() },
                 Nationality = new Nationality() { CountryCode = nationality }
             };
-            var result = personInfo.ToRegisterOplysningType(new DprDatabaseDataProviderStub());
+            var result = personInfo.ToRegisterOplysningType();
             Assert.IsInstanceOf<CprBorgerType>(result.Item);
         }
 
@@ -98,7 +90,7 @@ namespace CprBroker.Tests.DPR
                 PersonTotal = new PersonTotalStub() { PNR = cprNumber, Nationality = nationality.ToDecimalString() },
                 Nationality = new Nationality() { CountryCode = nationality }
             };
-            var result = personInfo.ToRegisterOplysningType(new DprDatabaseDataProviderStub());
+            var result = personInfo.ToRegisterOplysningType();
             Assert.IsInstanceOf<CprBorgerType>(result.Item);
         }
 
@@ -112,7 +104,7 @@ namespace CprBroker.Tests.DPR
                 PersonTotal = new PersonTotalStub() { PNR = cprNumber, Nationality = nationality.ToDecimalString() },
                 Nationality = new Nationality() { CountryCode = nationality }
             };
-            var result = personInfo.ToRegisterOplysningType(new DprDatabaseDataProviderStub());
+            var result = personInfo.ToRegisterOplysningType();
             Assert.IsInstanceOf<CprBorgerType>(result.Item);
         }
 
