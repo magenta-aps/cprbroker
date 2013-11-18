@@ -141,17 +141,19 @@ namespace CprBroker.Providers.DPR
             return CurrentAddressStrategy.DefaultStrategy.GetCurrentAddressSource(address, dbDeparture, (PersonCivilRegistrationStatusCode)Status);
         }
 
-        public VirkningType ToCprBorgerTypeVirkning(Nationality dbNationality, PersonAddress dbAddress)
+        public VirkningType ToCprBorgerTypeVirkning(Nationality dbNationality, PersonAddress dbAddress, Departure dbDeparture)
         {
             List<decimal?> effects = new List<decimal?>();
             effects.AddRange(new decimal?[] { AddressDate, StatusDate });
             if (dbNationality != null)
             {
-                effects.AddRange(new decimal?[] { dbNationality.NationalityStartDate, dbNationality.NationalityEndDate });
+                effects.AddRange(new decimal?[] { dbNationality.NationalityStartDate });
             }
-            if (dbAddress != null)
+
+            var address = GetFolkeregisterAdresseSource(dbAddress, dbDeparture);
+            if (address != null)
             {
-                effects.AddRange(new decimal?[] { dbAddress.AddressStartDate, dbAddress.CprUpdateDate, dbAddress.LeavingFromMunicipalityDate, dbAddress.MunicipalityArrivalDate });
+                effects.Add(Utilities.DecimalFromDate(address.ToStartTS()));
             }
             return VirkningType.Create(Utilities.GetMaxDate(effects.ToArray()), null);
         }

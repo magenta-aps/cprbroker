@@ -256,7 +256,7 @@ namespace CprBroker.Providers.DPR
             return new RegisterOplysningType()
             {
                 Item = PersonTotal.ToCprBorgerType(Nationality, Address, Departure),
-                Virkning = PersonTotal.ToCprBorgerTypeVirkning(Nationality, Address)
+                Virkning = PersonTotal.ToCprBorgerTypeVirkning(Nationality, Address, Departure)
             };
         }
 
