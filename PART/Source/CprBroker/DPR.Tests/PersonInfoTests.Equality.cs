@@ -87,6 +87,7 @@ namespace CprBroker.Tests.DPR.PersonInfoTests
         }
 
         [Test]
+        [Ignore]
         public void PersonInfoExpressionEqualsGetPersonInfo(
             [ValueSource("AllCprNumbers")] decimal cprNumber)
         {

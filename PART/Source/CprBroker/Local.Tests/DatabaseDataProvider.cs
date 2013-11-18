@@ -60,6 +60,7 @@ namespace CprBroker.Tests.Local
         public class Search
         {
             [Test]
+            [Ignore]
             public void Search_MunicipalityCodeAndSize_10([Values("851", "217", "905")] string municipalityCode)
             {   
                 var searchCriteria = new SoegInputType1()
