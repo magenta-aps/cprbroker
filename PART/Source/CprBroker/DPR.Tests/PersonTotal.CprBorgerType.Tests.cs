@@ -98,7 +98,8 @@ namespace CprBroker.Tests.DPR.PersonTotalTests
         public void ToCprBorgerType_WithAddress_AddressNotNull()
         {
             var personTotal = new PersonTotalStub();
-            var result = personTotal.ToCprBorgerType(null, new PersonAddress(), null);
+            personTotal.PersonAddresses.Add(new PersonAddress());
+            var result = personTotal.ToCprBorgerType(null, personTotal.PersonAddresses.First(), null);
             Assert.NotNull(result.FolkeregisterAdresse);
         }
 
