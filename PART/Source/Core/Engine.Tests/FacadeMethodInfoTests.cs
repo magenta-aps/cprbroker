@@ -13,7 +13,9 @@ namespace CprBroker.Tests.Engine
     [TestFixture]
     class FacadeMethodInfoTests
     {
-        uint[] GuidLargeCounts = new uint[] {100, 200, 300, 400, 500, 600, 700, 800, 900, 1000 };
+        uint[] GuidLargeCounts = new uint[] { 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000 };
+
+        bool GetDataProviderList_Valid_ExecutesFast_Called = false;
 
         [Test]
         public void GetDataProviderList_Valid_ExecutesFast(
@@ -45,6 +47,11 @@ namespace CprBroker.Tests.Engine
 
 
             var expectedDuration = TimeSpan.FromMilliseconds(1 * count);
+            if (!GetDataProviderList_Valid_ExecutesFast_Called)
+            {
+                expectedDuration = TimeSpan.FromSeconds(3);
+                GetDataProviderList_Valid_ExecutesFast_Called = true;
+            }
 
             Console.WriteLine(string.Format("{0} ms for {1} entries - {2} ms/item", watch.Elapsed.TotalMilliseconds, count, watch.Elapsed.TotalMilliseconds / count));
 
