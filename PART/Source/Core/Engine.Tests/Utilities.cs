@@ -91,8 +91,14 @@ namespace CprBroker.Tests.Engine
             var day = Random.Next(1, 29).ToString("00");
             var month = Random.Next(1, 13).ToString("00");
             var year = Random.Next(1, 100).ToString("00");
-            var part1 = Random.Next(1000, 9999).ToString();
-            return day + month + year + part1;
+            var part1 = Random.Next(1000, 9980).ToString();
+            var ret = day + month + year + part1;
+            while (!CprBroker.Utilities.Strings.IsModulus11OK(ret))
+            {
+                part1 = (int.Parse(part1) + 1).ToString();
+                ret = day + month + year + part1;
+            }
+            return ret;
         }
 
         public static string[] RandomCprNumbers(int count)
