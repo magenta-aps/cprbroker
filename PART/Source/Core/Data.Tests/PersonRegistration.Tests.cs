@@ -85,38 +85,6 @@ namespace CprBroker.Tests.Data
         }
 
         [TestFixture]
-        public class GetByCriteria
-        {
-            [Test]
-            public void GetByCriteria_MunicipalityCode_NotZero([Values("851", "217", "905")] string municipalityCode)
-            {
-                var soegObject = new SoegObjektType()
-                {
-                    SoegAttributListe = new SoegAttributListeType()
-                    {
-                        SoegRegisterOplysning = new RegisterOplysningType[] 
-                            { 
-                                new RegisterOplysningType() { 
-                                    Item = new CprBorgerType() { 
-                                        FolkeregisterAdresse = new AdresseType() { 
-                                            Item = new DanskAdresseType() { 
-                                                AddressComplete = new AddressCompleteType() { 
-                                                    AddressAccess = new AddressAccessType() { 
-                                                        MunicipalityCode = municipalityCode 
-                            } } } } } } 
-                        }
-                    }
-                };
-                using (var dataContext = new PartDataContext())
-                {
-                    var ret = PersonRegistration.GetByCriteria(dataContext, soegObject);
-                    var first = ret.First();
-                    Assert.NotNull(first);
-                }
-            }
-        }
-
-        [TestFixture]
         public class GetUuidsByCriteria
         {
             [Test]
@@ -194,7 +162,6 @@ namespace CprBroker.Tests.Data
             [Test]
             public void GetUuidsByCriteria_MunicipalityCode_10([Values("851", "217", "905")] string municipalityCode)
             {
-                System.Diagnostics.Debugger.Launch();
                 var soegObject = new SoegObjektType()
                 {
                     SoegAttributListe = new SoegAttributListeType()

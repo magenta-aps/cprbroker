@@ -234,12 +234,6 @@ namespace CprBroker.Data.Part
             return XQueryCondition.CreateXQueryElements(doc.DocumentElement, "Contents");
         }
 
-        public static IEnumerable<PersonRegistration> GetByCriteria(PartDataContext dataContext, SoegObjektType soegObject)
-        {
-            var elements = CreateXQueryElements(soegObject);
-            return XQueryCondition.GetMatchingObjects<PersonRegistration>(dataContext, elements, "PersonRegistration", new string[] { "*" });
-        }
-
         public static IEnumerable<Guid> GetUuidsByCriteria(PartDataContext dataContext, SoegObjektType soegObject, int startIndex, int maxCount)
         {
             var elements = PersonRegistration.CreateXQueryElements(soegObject);
