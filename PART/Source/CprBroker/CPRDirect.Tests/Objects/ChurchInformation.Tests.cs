@@ -59,8 +59,8 @@ namespace CprBroker.Tests.CPRDirect.Objects
         public class ToFolkekirkeMedlemIndikator
         {
             [Test]
-            public void ToFolkekirkeMedlemIndikator_FM_True(
-                [Values('F', 'M', 'f', 'm')]char churchRelation)
+            public void ToFolkekirkeMedlemIndikator_FMS_True(
+                [Values('F', 'M', 'S', 'f', 'm', 's')]char churchRelation)
             {
                 var info = new ChurchInformationType() { ChurchRelationship = churchRelation };
                 var ret = info.ToFolkekirkeMedlemIndikator();
@@ -68,8 +68,8 @@ namespace CprBroker.Tests.CPRDirect.Objects
             }
 
             [Test]
-            public void ToFolkekirkeMedlemIndikator_ASD_False(
-                [Values('A', 'S', 'U', 'a', 's', 'u')]char churchRelation)
+            public void ToFolkekirkeMedlemIndikator_AU_False(
+                [Values('A', 'U', 'a', 'u')]char churchRelation)
             {
                 var info = new ChurchInformationType() { ChurchRelationship = churchRelation };
                 var ret = info.ToFolkekirkeMedlemIndikator();
