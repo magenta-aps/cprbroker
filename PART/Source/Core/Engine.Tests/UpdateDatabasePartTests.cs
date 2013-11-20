@@ -70,7 +70,6 @@ namespace CprBroker.Tests.Engine
 
                 using (var dataContext = new PartDataContext())
                 {
-
                     var person = CprBroker.Engine.Local.UpdateDatabase.EnsurePersonExists(dataContext, new Schemas.PersonIdentifier() { CprNumber = pnr, UUID = uuid });
                     Assert.NotNull(person);
                     Assert.AreEqual(uuid, person.UUID);
