@@ -109,6 +109,7 @@
     <None Include="Resources\RelationshipType.csv" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\CreatePartDatabaseObjects.ChildObjects.sql" />
     <Content Include="Resources\PatchDatabase_1_3_2.sql" />
     <Content Include="Resources\PatchDatabase_1_4.sql" />
     <Content Include="Resources\PatchDatabase_2_1.sql" />
