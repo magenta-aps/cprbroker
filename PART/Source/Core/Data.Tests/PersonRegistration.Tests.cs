@@ -88,7 +88,7 @@ namespace CprBroker.Tests.Data
         public class GetUuidsByCriteria
         {
             [Test]
-            public void GetUuidsByCriteria_MunicipalityCode_NotZero([Values("851", "905")] string municipalityCode)
+            public void GetUuidsByCriteria_MunicipalityCode_NotZero([Values("851")] string municipalityCode)
             {
                 var soegObject = new SoegObjektType()
                 {
@@ -116,7 +116,7 @@ namespace CprBroker.Tests.Data
             }
 
             [Test]
-            public void GetUuidsByCriteria_MunicipalityCodeAndRandomPersonRegistratioId_Zero([Values("851", "905")] string municipalityCode)
+            public void GetUuidsByCriteria_MunicipalityCodeAndRandomPersonRegistratioId_Zero([Values("851")] string municipalityCode)
             {
                 var soegObject = new SoegObjektType()
                 {
@@ -149,7 +149,8 @@ namespace CprBroker.Tests.Data
 
                 using (var dataContext = new PartDataContext())
                 {
-                    var ret = PersonRegistrationKey.GetByCriteria(dataContext, soegObject, new Guid("CA7436F1-1D05-476B-BB6A-00005E121624"), new Guid("65D228C1-2F19-43BB-837C-00006CEE3D83"));
+                    var pRegIds = dataContext.PersonRegistrations.Select(pr => pr.PersonRegistrationId).Take(2).ToArray();
+                    var ret = PersonRegistrationKey.GetByCriteria(dataContext, soegObject, pRegIds);
                     Assert.IsNotEmpty(ret.ToArray());
                 }
 
@@ -160,7 +161,7 @@ namespace CprBroker.Tests.Data
         public class GetUuidsByCriteriaAndIndexes
         {
             [Test]
-            public void GetUuidsByCriteria_MunicipalityCode_5([Values("851", "905")] string municipalityCode)
+            public void GetUuidsByCriteria_MunicipalityCode_5([Values("851")] string municipalityCode)
             {
                 var soegObject = new SoegObjektType()
                 {
