@@ -58,6 +58,10 @@ namespace CprBroker.Data.Part
     /// </summary>
     public partial class Effect
     {
+        // TODO: Reconnect this ActorRef property to the object in PartDataContext
+        [Obsolete]
+        public ActorRef ActorRef { get; set; }
+        
         public static VirkningType ToVirkningType(Effect db)
         {
             if (db != null)

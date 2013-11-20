@@ -65,7 +65,7 @@
     <DefineConstants>TRACE;Mono</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-  </PropertyGroup>  
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core">
@@ -108,6 +108,11 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Part\Address.cs" />
+    <Compile Include="Part\PartDataContext.Child.designer.cs">
+      <DependentUpon>PartDataContext.Child.dbml</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
     <Compile Include="Part\CprData.cs" />
     <Compile Include="Part\Effect.cs" />
     <Compile Include="Part\ForeignCitizenData.cs" />
@@ -152,6 +157,11 @@
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Part\PartDataContext.Child.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>PartDataContext.Child.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Part\PartDataContext.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <SubType>Designer</SubType>
@@ -262,6 +272,11 @@
   <ItemGroup>
     <None Include="Statistics\StatisticsDataContext.dbml.layout">
       <DependentUpon>StatisticsDataContext.dbml</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Part\PartDataContext.Child.dbml.layout">
+      <DependentUpon>PartDataContext.Child.dbml</DependentUpon>
     </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
