@@ -60,8 +60,7 @@ namespace CprBroker.Tests.Local
         public class Search
         {
             [Test]
-            [Ignore]
-            public void Search_MunicipalityCodeAndSize_10([Values("851", "217", "905")] string municipalityCode)
+            public void Search_MunicipalityCodeAndSize_5([Values("851")] string municipalityCode)
             {   
                 var searchCriteria = new SoegInputType1()
                 {
@@ -82,12 +81,12 @@ namespace CprBroker.Tests.Local
                             }
                          }
                      },
-                     MaksimalAntalKvantitet = "10",
+                     MaksimalAntalKvantitet = "5",
                      FoersteResultatReference="0"
                 };
                 var prov = new DatabaseDataProvider();
                 var ret = prov.Search(searchCriteria);
-                Assert.AreEqual(10, ret.Length);
+                Assert.AreEqual(5, ret.Length);
             }
         }
 
