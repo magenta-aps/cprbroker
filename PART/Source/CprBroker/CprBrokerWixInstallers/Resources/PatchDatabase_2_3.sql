@@ -55,3 +55,112 @@ IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID('LogEntry')
 Begin
 	alter table LogEntry add ActivityId uniqueidentifier
 End
+
+
+----------------------------------------
+-- Now delete the unused child tables --
+----------------------------------------
+
+IF EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'HealthInformation'))
+    DROP TABLE HealthInformation
+GO
+
+IF EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'UnknownCitizenData'))
+    DROP TABLE UnknownCitizenData
+GO
+
+IF EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'PersonRelationship'))
+    DROP TABLE PersonRelationship
+GO
+
+IF EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'GreenlandicAddress'))
+    DROP TABLE GreenlandicAddress
+GO
+
+IF EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'PersonCivilState'))
+    DROP TABLE PersonCivilState
+GO
+
+IF EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'PersonLifeState'))
+    DROP TABLE PersonLifeState
+GO
+
+IF EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'CprData'))
+    DROP TABLE CprData
+GO
+
+IF EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'ForeignAddress'))
+    DROP TABLE ForeignAddress
+GO
+
+IF EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'PersonName'))
+    DROP TABLE PersonName
+GO
+
+IF EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'PersonProperties'))
+    DROP TABLE PersonProperties
+GO
+
+IF EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'ContactChannel'))
+    DROP TABLE ContactChannel
+GO
+
+IF EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'ContactChannelType'))
+    DROP TABLE ContactChannelType
+GO
+
+IF EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'AddressPointStatus'))
+    DROP TABLE AddressPointStatus
+GO
+
+IF EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'ForeignCitizenCountry'))
+    DROP TABLE ForeignCitizenCountry
+GO
+
+IF EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'ForeignCitizenData'))
+    DROP TABLE ForeignCitizenData
+GO
+
+IF EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'Gender'))
+    DROP TABLE Gender
+GO
+
+IF EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'GeographicCoorditaneTuple'))
+    DROP TABLE GeographicCoorditaneTuple
+GO
+
+IF EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'GeographicPointLocation'))
+    DROP TABLE GeographicPointLocation
+GO
+
+IF EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'AddressPoint'))
+    DROP TABLE AddressPoint
+GO
+
+IF EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'DanishAddress'))
+    DROP TABLE DanishAddress
+GO
+
+IF EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'PersonAttributes'))
+    DROP TABLE PersonAttributes
+GO
+
+IF EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'RelationshipType'))
+    DROP TABLE RelationshipType
+GO
+
+IF EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'LifeStatusCodeType'))
+    DROP TABLE LifeStatusCodeType
+GO
+
+IF EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'Effect'))
+    DROP TABLE Effect
+GO
+
+IF EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'PersonState'))
+    DROP TABLE PersonState
+GO
+
+IF EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'CivilStatusCodeType'))
+    DROP TABLE CivilStatusCodeType
+GO
