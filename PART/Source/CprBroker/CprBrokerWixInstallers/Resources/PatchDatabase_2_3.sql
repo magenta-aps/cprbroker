@@ -164,3 +164,23 @@ GO
 IF EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'CivilStatusCodeType'))
     DROP TABLE CivilStatusCodeType
 GO
+
+IF EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'DenmarkAddress'))
+    DROP TABLE DenmarkAddress
+GO
+
+IF EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'Address'))
+    DROP TABLE Address
+GO
+
+IF EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'AddressCoordinateQualityType'))
+    DROP TABLE AddressCoordinateQualityType
+GO
+
+IF EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'CountryRef'))
+    DROP TABLE CountryRef
+GO
+
+IF EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'CountrySchemeType'))
+    DROP TABLE CountrySchemeType
+GO
