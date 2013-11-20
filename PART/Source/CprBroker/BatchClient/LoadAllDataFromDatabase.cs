@@ -91,9 +91,7 @@ namespace BatchClient
                     }
                     return map[cpr];
                 };
-                var prov = new DprDatabaseDataProvider() { ConfigurationProperties = new Dictionary<string, string>() };
-                
-                var xmlObj = expressionPersonInfo.ToRegisteringType1(func, dataContext, prov);
+                var xmlObj = expressionPersonInfo.ToRegisteringType1(func, dataContext);
                 WriteObject(pnr, xmlObj);
 
             }
