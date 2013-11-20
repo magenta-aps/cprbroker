@@ -97,10 +97,19 @@ namespace CprBroker.Tests.CPRDirect.Objects
             }
 
             [Test]
-            public void ToPersonRelationType_PnrWithStartDate_CorrectStartDate(
+            public void ToPersonRelationType_PnrWithStartDate_NullStartDate(
             [Values("1234567890", "0123456789")]string pnr)
             {
                 var auth = new ParentalAuthorityType() { RelationPNR = pnr, RelationPNRStartDate = DateTime.Today, RelationshipType = 5 };
+                var ret = auth.ToPersonRelationType(new ParentsInformationType(), cpr => Guid.NewGuid());
+                Assert.IsNull(ret.Virkning.FraTidspunkt.ToDateTime());
+            }
+
+            [Test]
+            public void ToPersonRelationType_PnrWithCustodyStartDate_CorrectStartDate(
+            [Values("1234567890", "0123456789")]string pnr)
+            {
+                var auth = new ParentalAuthorityType() { RelationPNR = pnr, CustodyStartDate = DateTime.Today, RelationshipType = 5 };
                 var ret = auth.ToPersonRelationType(new ParentsInformationType(), cpr => Guid.NewGuid());
                 Assert.AreEqual(DateTime.Today, ret.Virkning.FraTidspunkt.ToDateTime());
             }

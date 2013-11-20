@@ -28,7 +28,7 @@ namespace CprBroker.Tests.CPRDirect.Objects
             }
 
             [Test]
-            public void ToFoedestedNavn_NameWithDate_NotNull(
+            public void ToFoedestedNavn_NameWithDate_Null(
                 [Values(0, 1, 2, 10, 14)]int dayOffset)
             {
                 string pnr = Utilities.RandomCprNumberString();
@@ -42,7 +42,7 @@ namespace CprBroker.Tests.CPRDirect.Objects
                 };
 
                 var ret = res.ToFoedestedNavn();
-                Assert.IsNotNullOrEmpty(ret);
+                Assert.IsNullOrEmpty(ret);
             }
 
             [Test]
