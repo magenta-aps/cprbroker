@@ -84,15 +84,15 @@ namespace CprBrokerWixInstallers.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to /****** Object:  User [DDD]    Script Date: 11/20/2013 17:42:52 ******/
+        ///   Looks up a localized string similar to /****** Object:  User [DDD]    Script Date: 11/21/2013 10:16:50 ******/
         ///IF NOT EXISTS (SELECT * FROM sys.database_principals WHERE name = N&apos;DDD&apos;)
         ///CREATE USER [DDD] WITHOUT LOGIN WITH DEFAULT_SCHEMA=[dbo]
         ///GO
-        ////****** Object:  User [cpr]    Script Date: 11/20/2013 17:42:52 ******/
+        ////****** Object:  User [cpr]    Script Date: 11/21/2013 10:16:50 ******/
         ///IF NOT EXISTS (SELECT * FROM sys.database_principals WHERE name = N&apos;cpr&apos;)
         ///CREATE USER [cpr] FOR LOGIN [cpr] WITH DEFAULT_SCHEMA=[dbo]
         ///GO
-        ////****** Object:  Table [dbo].[Country]    Script Date: 11/20/2013 17:42:53 ******/
+        ////****** Object:  Table [dbo].[Extract]    Script Date: 11/21/2013 10:16:51 ******/
         ///SET  [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string CreatePartDatabaseObjects {
@@ -234,6 +234,28 @@ namespace CprBrokerWixInstallers.Properties {
         internal static string PatchDatabase_2_2 {
             get {
                 return ResourceManager.GetString("PatchDatabase_2_2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -- Create table DataProviderCall to keep track of calls made to dataproviders
+        ////****** Object:  Table [dbo].[DataProviderCall]    Script Date: 11/12/2013 14:07:02 ******/
+        ///SET ANSI_NULLS ON
+        ///GO
+        ///SET QUOTED_IDENTIFIER ON
+        ///GO
+        ///SET ANSI_PADDING ON
+        ///GO
+        ///IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N&apos;[dbo].[DataProviderCall]&apos;) AND type in (N&apos;U&apos;))
+        ///BEGIN
+        ///CREATE TABLE [dbo].[DataProviderCall](
+        ///	[DataProviderCallId] [uniqueidentifier] NOT NULL,
+        ///	[ActivityId] [uniqueidentifier] NOT NULL,
+        /// [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string PatchDatabase_2_2_1 {
+            get {
+                return ResourceManager.GetString("PatchDatabase_2_2_1", resourceCulture);
             }
         }
     }
