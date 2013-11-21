@@ -1,0 +1,4 @@
+﻿Ansi padding : false
+Include descriptive headers: False
+Include IF NOT EXISTS: True
+Script USE DATABASE: False

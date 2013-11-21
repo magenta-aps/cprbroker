@@ -118,38 +118,17 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="AddressCoordinateQualityType" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\AddressCoordinateQualityType.csv;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1256</value>
-  </data>
   <data name="Application" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Application.csv;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
-  </data>
-  <data name="CivilStatusCodeType" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\CivilStatusCodeType.csv;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="ContactChannelType" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ContactChannelType.csv;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1256</value>
-  </data>
-  <data name="CountrySchemeType" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\CountrySchemeType.csv;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1256</value>
   </data>
   <data name="CreatePartDatabaseObjects" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\CreatePartDatabaseObjects.sql;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
   </data>
-  <data name="Gender" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Gender.csv;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1256</value>
-  </data>
   <data name="LifecycleStatus" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\LifecycleStatus.csv;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1256</value>
   </data>
-  <data name="LifeStatusCodeType" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\LifeStatusCodeType.csv;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1256</value>
-  </data>
   <data name="LogType" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\LogType.csv;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
-  </data>
-  <data name="RelationshipType" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\RelationshipType.csv;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1256</value>
   </data>
   <data name="PatchDatabase_1_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\PatchDatabase_1_3.sql;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1256</value>
@@ -166,7 +145,6 @@
   <data name="PatchDatabase_2_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\PatchDatabase_2_1.sql;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="PatchDatabase_2_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\PatchDatabase_2_2.sql;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>

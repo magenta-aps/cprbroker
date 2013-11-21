@@ -175,17 +175,10 @@ namespace CprBrokerWixInstallers
                 var lookupDataArray = new Dictionary<string, KeyValuePair<string, string>[]>();
 
                 List<KeyValuePair<string, string>> cprLookups = new List<KeyValuePair<string, string>>();
-                cprLookups.Add(new KeyValuePair<string, string>(typeof(CprBroker.Data.Part.AddressCoordinateQualityType).Name, Properties.Resources.AddressCoordinateQualityType));
                 cprLookups.Add(new KeyValuePair<string, string>(typeof(CprBroker.Data.Applications.Application).Name, Properties.Resources.Application));
-                cprLookups.Add(new KeyValuePair<string, string>(typeof(CivilStatusCodeType).Name, Properties.Resources.CivilStatusCodeType));
-                cprLookups.Add(new KeyValuePair<string, string>(typeof(ContactChannelType).Name, Properties.Resources.ContactChannelType));
-                cprLookups.Add(new KeyValuePair<string, string>(typeof(CountrySchemeType).Name, Properties.Resources.CountrySchemeType));
-                cprLookups.Add(new KeyValuePair<string, string>(typeof(Gender).Name, Properties.Resources.Gender));
                 cprLookups.Add(new KeyValuePair<string, string>(typeof(LifecycleStatus).Name, Properties.Resources.LifecycleStatus));
-                cprLookups.Add(new KeyValuePair<string, string>(typeof(LifeStatusCodeType).Name, Properties.Resources.LifeStatusCodeType));
                 cprLookups.Add(new KeyValuePair<string, string>(typeof(LogType).Name, Properties.Resources.LogType));
-                cprLookups.Add(new KeyValuePair<string, string>(typeof(RelationshipType).Name, Properties.Resources.RelationshipType));
-
+                
                 lookupDataArray["CPR"] = cprLookups.ToArray();
 
                 List<KeyValuePair<string, string>> eventLookups = new List<KeyValuePair<string, string>>();

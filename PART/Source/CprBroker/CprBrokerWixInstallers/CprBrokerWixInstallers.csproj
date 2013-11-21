@@ -96,19 +96,13 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\AddressCoordinateQualityType.csv" />
     <None Include="Resources\Application.csv" />
-    <None Include="Resources\CivilStatusCodeType.csv" />
-    <None Include="Resources\ContactChannelType.csv" />
-    <None Include="Resources\CountrySchemeType.csv" />
     <None Include="Resources\CreatePartDatabaseObjects.sql" />
-    <None Include="Resources\Gender.csv" />
     <None Include="Resources\LifecycleStatus.csv" />
-    <None Include="Resources\LifeStatusCodeType.csv" />
     <None Include="Resources\LogType.csv" />
-    <None Include="Resources\RelationshipType.csv" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\Script generation.txt" />
     <None Include="Resources\CreatePartDatabaseObjects.ChildObjects.sql" />
     <Content Include="Resources\PatchDatabase_1_3_2.sql" />
     <Content Include="Resources\PatchDatabase_1_4.sql" />
