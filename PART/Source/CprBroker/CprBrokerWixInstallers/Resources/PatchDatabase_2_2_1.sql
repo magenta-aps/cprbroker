@@ -24,6 +24,12 @@ CREATE TABLE [dbo].[DataProviderCall](
 ) ON [PRIMARY]
 END
 GO
+IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[dbo].[DataProviderCall]') AND name = N'IX_DataProviderCall_CallTime')
+CREATE CLUSTERED INDEX [IX_DataProviderCall_CallTime] ON [dbo].[DataProviderCall] 
+(
+	[CallTime] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+GO
 SET ANSI_PADDING ON
 GO
 /****** Object:  Default [DF__DataProviderCall_DataProviderCallId]    Script Date: 11/12/2013 14:07:02 ******/
