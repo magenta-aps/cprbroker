@@ -128,6 +128,7 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="SortContentsByDate.cs" />
+    <Compile Include="SyncDPR.cs" />
     <Compile Include="TestDPRConversion.cs" />
     <Compile Include="Utilities.cs" />
     <Compile Include="Web References\Part\Reference.cs">
@@ -209,6 +210,10 @@
     <ProjectReference Include="..\KMD\KMD.csproj">
       <Project>{47B58366-342A-4699-9CF5-E13FB8F8B413}</Project>
       <Name>KMD</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Local\Local.csproj">
+      <Project>{74212D20-BB98-401F-A5F7-03669B2CD07A}</Project>
+      <Name>Local</Name>
     </ProjectReference>
     <ProjectReference Include="..\PersonMaster\PersonMaster.csproj">
       <Project>{51186183-BEEA-4B6D-8865-B7070EFCA126}</Project>
