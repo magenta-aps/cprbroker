@@ -101,6 +101,7 @@ namespace CprBroker.Engine.Local
             {
                 // Load possible equal registrations
                 bool dataChanged;
+                personRegistrationId = null;
                 var existingInDb = MatchPersonRegistration(personIdentifier, oioRegistration, dataContext, out dataChanged);
                 Func<PersonRegistration[], Guid?> latestRegistrationFunc = (dbRegs) =>
                     {
