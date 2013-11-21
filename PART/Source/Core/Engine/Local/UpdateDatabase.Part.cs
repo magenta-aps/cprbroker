@@ -71,14 +71,15 @@ namespace CprBroker.Engine.Local
         public static void UpdatePersonRegistration(PersonIdentifier personIdentifier, Schemas.Part.RegistreringType1 personRegistraion)
         {
             // TODO: differentiate the 'true' returned between cases when new data is inserted or just SourceObjects is updated
-            if (MergePersonRegistration(personIdentifier, personRegistraion))
+            Guid? personRegistrationId = null;
+            if (MergePersonRegistration(personIdentifier, personRegistraion, out personRegistrationId))
             {
                 // TODO: move this call to a separate phase in request processing
-                NotifyPersonRegistrationUpdate(personIdentifier.UUID.Value);
+                NotifyPersonRegistrationUpdate(personIdentifier.UUID.Value, personRegistrationId.Value);
             }
         }
 
-        private static void NotifyPersonRegistrationUpdate(Guid personUuid)
+        private static void NotifyPersonRegistrationUpdate(Guid personUuid, Guid personRegistrationId)
         {
             using (var dataContext = new DataChangeEventDataContext())
             {
@@ -86,6 +87,7 @@ namespace CprBroker.Engine.Local
                 {
                     DataChangeEventId = Guid.NewGuid(),
                     PersonUuid = personUuid,
+                    PersonRegistrationId = personRegistrationId,
                     ReceivedDate = DateTime.Now
                 };
                 dataContext.DataChangeEvents.InsertOnSubmit(pp);
@@ -93,13 +95,21 @@ namespace CprBroker.Engine.Local
             }
         }
 
-        public static bool MergePersonRegistration(PersonIdentifier personIdentifier, Schemas.Part.RegistreringType1 oioRegistration)
+        public static bool MergePersonRegistration(PersonIdentifier personIdentifier, Schemas.Part.RegistreringType1 oioRegistration, out Guid? personRegistrationId)
         {
             using (var dataContext = new PartDataContext())
             {
                 // Load possible equal registrations
                 bool dataChanged;
                 var existingInDb = MatchPersonRegistration(personIdentifier, oioRegistration, dataContext, out dataChanged);
+                Func<PersonRegistration[], Guid?> latestRegistrationFunc = (dbRegs) =>
+                    {
+                        if (dbRegs.Count() > 0)
+                        {
+                            return dbRegs.OrderByDescending(db => db.RegistrationDate).ThenByDescending(db => db.BrokerUpdateDate).Select(db => db.PersonRegistrationId).FirstOrDefault();
+                        }
+                        return null;
+                    };
 
                 // If key & contents match was not found
                 if (existingInDb.Length == 0)
@@ -107,6 +117,8 @@ namespace CprBroker.Engine.Local
                     var dbPerson = EnsurePersonExists(dataContext, personIdentifier);
                     var dbReg = InsertPerson(dataContext, dbPerson, oioRegistration);
                     dataContext.SubmitChanges();
+
+                    personRegistrationId = dbReg.PersonRegistrationId;
                     return true;
                 }
                 else // key & content match found
@@ -115,7 +127,10 @@ namespace CprBroker.Engine.Local
                     {
                         // No need to update anything - just commit if needed
                         if (dataChanged)
+                        {
                             dataContext.SubmitChanges();
+                            personRegistrationId = latestRegistrationFunc(existingInDb);
+                        }
                         return dataChanged;
                     }
                     else
@@ -129,6 +144,7 @@ namespace CprBroker.Engine.Local
                                 existinginDbWithoutSource,
                                 db => db.SourceObjects = XElement.Parse(oioRegistration.SourceObjectsXml));
                             dataContext.SubmitChanges();
+                            personRegistrationId = latestRegistrationFunc(existinginDbWithoutSource);
                             return true;
                         }
                         else
@@ -146,7 +162,10 @@ namespace CprBroker.Engine.Local
                             {
                                 // Already up to date - just save updated records if needed
                                 if (dataChanged)
+                                {
                                     dataContext.SubmitChanges();
+                                    personRegistrationId = latestRegistrationFunc(existinginDbWithEqualSource);
+                                }
                                 return dataChanged;
                             }
                             else
@@ -155,6 +174,7 @@ namespace CprBroker.Engine.Local
                                 var dbPerson = EnsurePersonExists(dataContext, personIdentifier);
                                 var dbReg = InsertPerson(dataContext, dbPerson, oioRegistration);
                                 dataContext.SubmitChanges();
+                                personRegistrationId = dbReg.PersonRegistrationId;
                                 return true;
                             }
                         }
