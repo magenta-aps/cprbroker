@@ -113,8 +113,7 @@ namespace CprBroker.Providers.Local
                     && (!fromRegistrationDate.HasValue || personReg.RegistrationDate >= fromRegistrationDate)
                     && (!toRegistrationDate.HasValue || personReg.RegistrationDate <= toRegistrationDate)
                     // TODO: Filter by effect date
-                    orderby personReg.RegistrationDate descending
-                    orderby personReg.BrokerUpdateDate descending
+                    orderby personReg.RegistrationDate descending, personReg.BrokerUpdateDate descending
                     select Data.Part.PersonRegistration.ToXmlType(personReg)
                 ).FirstOrDefault();
             }
@@ -122,7 +121,7 @@ namespace CprBroker.Providers.Local
             return ret;
         }
 
-       
+
         #endregion
 
         #region IPartPersonMappingDataProvider Members
