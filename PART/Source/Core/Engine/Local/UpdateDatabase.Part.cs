@@ -279,21 +279,28 @@ namespace CprBroker.Engine.Local
         {
             using (var dataContext = new PartDataContext())
             {
-                var all = new List<PersonMapping>(cprNumbers.Length);
+                var all = new Dictionary<string, Guid>(cprNumbers.Length);
+
                 for (int i = 0; i < cprNumbers.Length; i++)
                 {
                     var uuid = uuids[i];
                     if (uuid.HasValue)
                     {
-                        all.Add(new PersonMapping()
-                            {
-                                CprNumber = cprNumbers[i],
-                                UUID = uuid.Value
-                            });
+                        var cprNumber = cprNumbers[i];
+                        if (!all.ContainsKey(cprNumber))
+                        {
+                            all[cprNumber] = uuid.Value;
+                        }
                     }
                 }
+                var mappings = all
+                    .Select(kvp => new PersonMapping()
+                    {
+                        CprNumber = kvp.Key,
+                        UUID = kvp.Value
+                    });
 
-                dataContext.PersonMappings.InsertAllOnSubmit(all);
+                dataContext.PersonMappings.InsertAllOnSubmit(mappings);
                 dataContext.SubmitChanges();
             }
         }
