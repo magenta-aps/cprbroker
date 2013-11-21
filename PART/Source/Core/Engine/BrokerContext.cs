@@ -84,7 +84,7 @@ namespace CprBroker.Engine
                 BrokerContext ret = CallContext.GetData(ContextKey) as BrokerContext;
                 return ret;
             }
-            internal set
+            set
             {
                 CallContext.SetData(ContextKey, value);
             }
