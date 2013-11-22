@@ -167,11 +167,14 @@ namespace CprBroker.Installers
                         {
                             if (neededTables == null || neededTables.Length == 0)
                             {
-                                permissionsCommand.CommandText = "sp_addrolemember";
-                                permissionsCommand.CommandType = System.Data.CommandType.StoredProcedure;
-                                permissionsCommand.Parameters.Add("@rolename", System.Data.SqlDbType.VarChar).Value = "db_owner";
-                                permissionsCommand.Parameters.Add("@membername", System.Data.SqlDbType.VarChar).Value = userName;
-                                permissionsCommand.ExecuteNonQuery();
+                                if (!databaseSetupInfo.IsDatabaseRoleMember("db_owner", userName, adminConnectionWithDb))
+                                {
+                                    permissionsCommand.CommandText = "sp_addrolemember";
+                                    permissionsCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                                    permissionsCommand.Parameters.Add("@rolename", System.Data.SqlDbType.VarChar).Value = "db_owner";
+                                    permissionsCommand.Parameters.Add("@membername", System.Data.SqlDbType.VarChar).Value = userName;
+                                    permissionsCommand.ExecuteNonQuery();
+                                }
                             }
                             else
                             {
