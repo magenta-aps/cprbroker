@@ -504,16 +504,16 @@ namespace CprBroker.Installers
 
         public static Version GetDetectedOlderVersion(this Microsoft.Deployment.WindowsInstaller.Session session)
         {
-            var olderVersionProductCode = session.GetPropertyValue(PropertyNames.OlderVersionDetected);
-            if (!string.IsNullOrEmpty(olderVersionProductCode))
+            var olderVersionProductCodeProp = session.GetPropertyValue(PropertyNames.OlderVersionDetected);
+            if (!string.IsNullOrEmpty(olderVersionProductCodeProp))
             {
-                var product = Microsoft.Deployment.WindowsInstaller.ProductInstallation
-                    .AllProducts
-                    .Where(p => p.ProductCode == olderVersionProductCode)
-                    .FirstOrDefault();
-                if (product != null)
+                var productCodes = olderVersionProductCodeProp.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+                var versions = from code in productCodes
+                               join prod in Microsoft.Deployment.WindowsInstaller.ProductInstallation.AllProducts.AsQueryable()  on code equals prod.ProductCode
+                               select prod.ProductVersion;
+                if (versions.Count() > 0)
                 {
-                    return product.ProductVersion;
+                    return versions.Max();
                 }
             }
             return null;
