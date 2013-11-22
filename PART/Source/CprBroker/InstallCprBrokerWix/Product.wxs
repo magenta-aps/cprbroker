@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension" >
-  <Product Id="B7B04971-4A23-4387-8C78-1702FAEE9D72" Name="Cpr Broker" Language="1033" Version="2.2.0.0" Manufacturer="ITST" UpgradeCode="FF0F6556-3323-43A8-9AB3-E567BEF13F6A">
+  <Product Id="31606C1F-5887-4AA6-883A-B5A2989924C6" Name="Cpr Broker" Language="1033" Version="2.2.1.0" Manufacturer="ITST" UpgradeCode="FF0F6556-3323-43A8-9AB3-E567BEF13F6A">
     <Package InstallerVersion="200" Compressed="yes" />
     <Media Id="1" Cabinet="media1.cab" EmbedCab="yes" />
 
@@ -19,10 +19,10 @@
 
     <Upgrade Id="FF0F6556-3323-43A8-9AB3-E567BEF13F6A">
       <!--Detect old version -->
-      <UpgradeVersion Maximum="2.2.0.0" IncludeMaximum="no" Property="OLDER_VERSION_DETECTED" OnlyDetect="yes" MigrateFeatures="yes" />
+      <UpgradeVersion Maximum="2.2.1.0" IncludeMaximum="no" Property="OLDER_VERSION_DETECTED" OnlyDetect="yes" MigrateFeatures="yes" />
 
       <!--Detect newer versions, set a property that triggers a condition failure -->
-      <UpgradeVersion Minimum="2.2.0.0" IncludeMinimum="no" Property="NEWER_VERSION_DETECTED" OnlyDetect="yes" />
+      <UpgradeVersion Minimum="2.2.1.0" IncludeMinimum="no" Property="NEWER_VERSION_DETECTED" OnlyDetect="yes" />
     </Upgrade>
 
   </Product>
