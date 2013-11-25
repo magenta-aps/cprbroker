@@ -83,29 +83,7 @@ namespace BatchClient
                 ret = Utilities.LoadCprNumbersOneByOne(SourceFile);
             }
 
-            var allPnrs = new List<string>();
-            using (var dataContext = new DPRDataContext(OtherConnectionString))
-            {
-                allPnrs.AddRange(ret);
-                allPnrs.AddRange(dataContext.CivilStatus.Where(civ => civ.SpousePNR.HasValue).Select(civ => civ.SpousePNR).ToArray().Select(pnr => pnr.Value.ToPnrDecimalString()));
-                allPnrs.AddRange(dataContext.Childs.Where(ch => ch.ChildPNR.HasValue).Select(ch => ch.ChildPNR).ToArray().Select(pnr => pnr.Value.ToPnrDecimalString()));
-                allPnrs.AddRange(dataContext.PersonTotals.Select(t => t.FatherPersonalOrBirthdate).ToArray());
-                allPnrs.AddRange(dataContext.PersonTotals.Select(t => t.MotherPersonalOrBirthDate).ToArray());
-                allPnrs = allPnrs.Where(pnr => Strings.IsValidPersonNumber(pnr)).Distinct().ToList();
-
-                // fill by 1000 at a time
-                int startIndex = 0;
-                int batchSize = 500;
-                while (startIndex < allPnrs.Count)
-                {
-                    Log(string.Format("Getting UUIDs, starting at index <{0}>", startIndex));
-                    int lastIndex = startIndex + batchSize;
-                    lastIndex = Math.Min(lastIndex, allPnrs.Count);
-
-                    UuidCache.FillCache(allPnrs.Skip(startIndex).Take(lastIndex - startIndex).ToArray());
-                    startIndex += batchSize;
-                }
-            }
+            UuidCache.PreLoadExistingMappings();
             return ret;
         }
 
@@ -114,6 +92,7 @@ namespace BatchClient
             BrokerContext.Current = brokerContext;
             try
             {
+                CprBroker.Engine.Local.Admin.LogFormattedSuccess("Converting person <{0}> from DPR",pnr);
                 using (var dprDataContext = new DPRDataContext(OtherConnectionString))
                 {
                     var pId = new PersonIdentifier() { CprNumber = pnr, UUID = UuidCache.GetUuid(pnr) };
