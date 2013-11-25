@@ -152,6 +152,11 @@ namespace CprBroker.Utilities.ConsoleApps
 
         }
 
+        public virtual void Initialize()
+        {
+
+        }
+
         public virtual string[] LoadCprNumbers()
         {
             return new string[0];
@@ -160,6 +165,7 @@ namespace CprBroker.Utilities.ConsoleApps
 
         public void Run()
         {
+            Initialize();
             var cprNumbers = LoadCprNumbers();
             count = cprNumbers.Count();
             Console.WriteLine(string.Format("Found <{0}> citizens", count));
