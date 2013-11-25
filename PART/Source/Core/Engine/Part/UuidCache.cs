@@ -136,6 +136,25 @@ namespace CprBroker.Engine.Part
             }
         }
 
+        public void PreLoadExistingMappings()
+        {
+            using (var dataContext = new CprBroker.Data.Part.PartDataContext())
+            {
+                var all = dataContext.PersonMappings.Select(pm => new KeyValuePair<string, Guid>(pm.CprNumber, pm.UUID)).ToArray();                
+                int count = all.Length;                
+                Console.WriteLine("Found <{0}> mappings", count);
+                for (int i = 0; i < count; i++)
+                {
+                    _Cache[all[i].Key] = all[i].Value;
+                    if (i % 10000 == 9999)
+                    {
+                        Console.WriteLine("UUID Cache : <{0}> rows loaded", _Cache.Count);
+                    }
+
+                }
+            }
+        }
+
         public Guid GetUuid(string pnr)
         {
             if (this._Cache.ContainsKey(pnr))
