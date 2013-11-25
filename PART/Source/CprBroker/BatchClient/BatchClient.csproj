@@ -131,6 +131,7 @@
     <Compile Include="SyncDPR.cs" />
     <Compile Include="TestDPRConversion.cs" />
     <Compile Include="Utilities.cs" />
+    <Compile Include="ValidateCprNumbers.cs" />
     <Compile Include="Web References\Part\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
