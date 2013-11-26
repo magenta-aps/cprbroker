@@ -3,6 +3,7 @@
 
 <%@ Register Assembly="CprBroker.Web" Namespace="CprBroker.Web.Controls" TagPrefix="cc" %>
 <%@ Register Src="~/Controls/PeriodSelector.ascx" TagPrefix="uc" TagName="PeriodSelector" %>
+<%@ Register Src="~/Controls/Pager.ascx" TagPrefix="uc" TagName="Pager" %>
 
 <asp:Content ID="Content1" runat="server" ContentPlaceHolderID="Contents">
     <table width="100%" border="0" cellpadding="3px">
@@ -69,27 +70,8 @@
         OrderBy="LogDate desc" TableName="LogEntries" AutoPage="False" OnSelected="logEntriesLinqDataSource_Selected"
         OnSelecting="logEntriesLinqDataSource_Selecting">
     </asp:LinqDataSource>
-    <table>
-        <tr>
-            <td style="padding-right: 20px;">
-                <b style="vertical-align: middle;">Go to page</b>
-            </td>
-            <td nowrap="nowrap">
-                <asp:DataPager runat="server" ID="pager" QueryStringField="Page" PagedControlID="dlLogEntries"
-                    PageSize="20">
-                    <Fields>
-                        <asp:NextPreviousPagerField FirstPageText="&nbsp;&nbsp;&lt;&lt; First&nbsp;&nbsp;...&nbsp;&nbsp;" ShowFirstPageButton="True" ShowPreviousPageButton="false"
-                            ShowNextPageButton="false" ButtonType="Link" ButtonCssClass="PagerPage" RenderDisabledButtonsAsLabels="false" />
-                        <asp:NumericPagerField ButtonType="Image" CurrentPageLabelCssClass="PagerCurrent"
-                            NumericButtonCssClass="PagerPage" NextPreviousButtonCssClass="PagerPage" PreviousPageText="<"
-                            NextPageText=">" ButtonCount="10" />
-                        <asp:NextPreviousPagerField LastPageText="&nbsp;&nbsp;...&nbsp;Last&nbsp;&gt;&gt;&nbsp;&nbsp;" ShowLastPageButton="True" ShowPreviousPageButton="false"
-                            ShowNextPageButton="false" ButtonType="Link" ButtonCssClass="PagerPage" />
-                    </Fields>
-                </asp:DataPager>
-            </td>
-        </tr>
-    </table>
+    <uc:Pager id="pager" runat="server" PagedControlID="dlLogEntries" />
+    
     <asp:ListView runat="server" ID="dlLogEntries" ExtractTemplateRows="true" DataSourceID="logEntriesLinqDataSource">
         <LayoutTemplate>
             <table id="Table1" runat="server" width="100%">

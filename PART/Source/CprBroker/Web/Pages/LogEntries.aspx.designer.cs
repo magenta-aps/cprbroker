@@ -64,7 +64,7 @@ namespace CprBroker.Web.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DataPager pager;
+        protected global::CprBroker.Web.Controls.Pager pager;
         
         /// <summary>
         /// dlLogEntries control.

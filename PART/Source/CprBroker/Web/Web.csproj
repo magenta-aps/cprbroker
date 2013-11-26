@@ -101,10 +101,18 @@
     <Reference Include="System.Web.Mobile" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Controls\Pager.ascx" />
     <Content Include="Controls\PeriodSelector.ascx" />
     <Content Include="web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\Pager.ascx.cs">
+      <DependentUpon>Pager.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Pager.ascx.designer.cs">
+      <DependentUpon>Pager.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Controls\PeriodSelector.ascx.cs">
       <DependentUpon>PeriodSelector.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
