@@ -71,95 +71,7 @@ namespace CprBroker.Web.Pages
                 Page = page;
             }
 
-            public LogPeriod CurrentPeriod
-            {
-                get
-                {
-                    LogPeriod period = LogPeriod.Day;
-                    try
-                    {
-                        period = (LogPeriod)Enum.Parse(typeof(LogPeriod), Page.Request.Params["period"]);
-                    }
-                    catch { }
-                    return period;
-                }
-            }
-
-            public DateTime? CurrentFromDate
-            {
-                get
-                {
-                    DateTime ret;
-                    if (DateTime.TryParse(Page.txtFrom.Text, out ret))
-                        return ret.Date;
-                    else
-                        return null;
-                }
-            }
-
-            public DateTime? CurrentToDate
-            {
-                get
-                {
-                    DateTime ret;
-                    if (DateTime.TryParse(Page.txtTo.Text, out ret))
-                        return ret.Date;
-                    else
-                        return null;
-                }
-            }
-
-            public DateTime EffectiveFromDate
-            {
-                get
-                {
-                    if (this.IsInPeriodMode)
-                    {
-                        switch (CurrentPeriod)
-                        {
-                            case LogPeriod.Hour:
-                                return DateTime.Now.AddHours(-1);
-
-                            case LogPeriod.Day:
-                                return DateTime.Now.AddDays(-1);
-
-                            case LogPeriod.Week:
-                                return DateTime.Now.AddDays(-7);
-
-                            case LogPeriod.Month:
-                                return DateTime.Now.AddMonths(-1);
-                        }
-                        return DateTime.Now.AddDays(-1);
-                    }
-                    else
-                    {
-                        return CurrentFromDate.Value;
-                    }
-                }
-            }
-
-            public DateTime? EffectiveToDate
-            {
-                get
-                {
-                    if (IsInPeriodMode)
-                    {
-                        return null;
-                    }
-                    else
-                    {
-                        return CurrentToDate;
-                    }
-                }
-            }
-
-            public bool IsInPeriodMode
-            {
-                get
-                {
-                    return !(CurrentFromDate.HasValue && CurrentToDate.HasValue);
-                }
-            }
+            
 
             public TraceEventType? CurrentType
             {
@@ -193,45 +105,12 @@ namespace CprBroker.Web.Pages
         {
             if (!IsPostBack)
             {
-                txtFrom.Text = Request.Params["From"];
-                txtTo.Text = Request.Params["To"];
-
-                lvPeriod.DataBind();
+                
+                periodSelector.DataBind();
+                
                 lvType.DataBind();
-                lnkGoDate.HRef = this.Request.Url.ToString();
+                
             }
-        }
-
-        protected void txtFrom_TextChanged(object sender, EventArgs e)
-        {
-            CreateDateLink(txtFrom, "From");
-        }
-
-        protected void txtTo_TextChanged(object sender, EventArgs e)
-        {
-            CreateDateLink(txtTo, "To");
-        }
-
-        protected void CreateDateLink(TextBox txt, string name)
-        {
-            DateTime date = DateTime.MinValue;
-            if (DateTime.TryParse(txt.Text, out date))
-            {
-                lnkGoDate.HRef = CreateLink(name, txt.Text, new Uri(lnkGoDate.HRef), "Period");
-            }
-            else if (string.IsNullOrEmpty(txt.Text.Trim()))
-            {
-                lnkGoDate.HRef = CreateLink(name, "", new Uri(lnkGoDate.HRef), "Period");
-            }
-            if (!this.CurrentOptions.IsInPeriodMode)
-            {
-                Response.Redirect(lnkGoDate.HRef);
-            }
-        }
-
-        protected void lvPeriod_DataBinding(object sender, EventArgs e)
-        {
-            lvPeriod.DataSource = Enum.GetNames(typeof(LogPeriod));
         }
 
         protected void lvType_DataBinding(object sender, EventArgs e)
@@ -239,46 +118,14 @@ namespace CprBroker.Web.Pages
             lvType.DataSource = Enum.GetNames(typeof(LogType));
         }
 
-        protected string CreatePeriodLink(object period)
-        {
-            return CreateLink("Period", period.ToString(), Request.Url, "From", "To");
-        }
-
         protected string CreateTypeLink(object type)
         {
-            return CreateLink("Type", type.ToString(), Request.Url);
+            return WebUtils.CreateLink("Type", type.ToString(), Request.Url);
         }
 
         protected string CreateAppLink(object appName)
         {
-            return CreateLink("App", appName.ToString(), Request.Url);
-        }
-
-        protected string UrlWithoutQuery(string url)
-        {
-            var full = url;
-            var ind = full.IndexOf('?');
-            var urlWithoutQuery = ind >= 0 ? full.Substring(0, ind) : full;
-            return urlWithoutQuery;
-        }
-
-        protected string CreateLink(string name, string value, Uri baseUrl, params string[] namesToRemove)
-        {
-            var parameters = HttpUtility.ParseQueryString(baseUrl.Query);
-
-            if (string.IsNullOrEmpty(value))
-                parameters.Remove(name);
-            else
-                parameters[name] = value;
-
-            foreach (var nameToRemove in namesToRemove)
-                parameters.Remove(nameToRemove);
-
-            var urlWithoutQuery = UrlWithoutQuery(baseUrl.ToString());
-            if (parameters.Count > 0)
-                return urlWithoutQuery + "?" + parameters.ToString();
-            else
-                return urlWithoutQuery;
+            return WebUtils.CreateLink("App", appName.ToString(), Request.Url);
         }
 
         protected void logEntriesLinqDataSource_Selected(object sender, LinqDataSourceStatusEventArgs e)
@@ -299,8 +146,8 @@ namespace CprBroker.Web.Pages
 
         protected void logEntriesLinqDataSource_Selecting(object sender, LinqDataSourceSelectEventArgs e)
         {
-            e.Arguments.TotalRowCount = Data.Applications.LogEntry.CountRows(CurrentOptions.EffectiveFromDate, CurrentOptions.EffectiveToDate, CurrentOptions.CurrentType, CurrentOptions.CurrentAppName);
-            var logs = Data.Applications.LogEntry.LoadByPage(CurrentOptions.EffectiveFromDate, CurrentOptions.CurrentToDate, CurrentOptions.CurrentType, CurrentOptions.CurrentAppName, pager.StartRowIndex, pager.PageSize).ToList();
+            e.Arguments.TotalRowCount = Data.Applications.LogEntry.CountRows(periodSelector.EffectiveFromDate, periodSelector.EffectiveToDate, CurrentOptions.CurrentType, CurrentOptions.CurrentAppName);
+            var logs = Data.Applications.LogEntry.LoadByPage(periodSelector.EffectiveFromDate, periodSelector.CurrentToDate, CurrentOptions.CurrentType, CurrentOptions.CurrentAppName, pager.StartRowIndex, pager.PageSize).ToList();
             foreach (var log in logs)
             {
                 log.Text = log.Text.Replace("<", "&lt;").Replace(">", "&gt;");

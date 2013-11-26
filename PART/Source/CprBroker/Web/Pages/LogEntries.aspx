@@ -2,38 +2,16 @@
     MasterPageFile="~/Pages/Site.Master" Title="Log" %>
 
 <%@ Register Assembly="CprBroker.Web" Namespace="CprBroker.Web.Controls" TagPrefix="cc" %>
-<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
+<%@ Register Src="~/Controls/PeriodSelector.ascx" TagPrefix="uc" TagName="PeriodSelector" %>
+
 <asp:Content ID="Content1" runat="server" ContentPlaceHolderID="Contents">
     <table width="100%" border="0" cellpadding="3px">
         <tr>
             <td rowspan="2" class="LogCriteriaHeader">
                 <b>Date</b>
             </td>
-            <td style="width: 5%">
-                in the last
-            </td>
-            <td nowrap="nowrap" style="width: 20%">
-                <asp:ListView runat="server" ID="lvPeriod" ExtractTemplateColumns="True" OnDataBinding="lvPeriod_DataBinding">
-                    <LayoutTemplate>
-                        <table width="35%">
-                            <tr>
-                                <td runat="server" id="itemPlaceholder">
-                                </td>
-                                <td>
-                                </td>
-                                <td>
-                                </td>
-                            </tr>
-                        </table>
-                    </LayoutTemplate>
-                    <ItemTemplate>
-                        <td id="Td1" runat="server">
-                            <a href="<%# CreatePeriodLink(Container.DataItem) %>" class='<%# CurrentOptions.IsInPeriodMode && Container.DataItem.ToString().Equals(Enum.GetName(typeof(CprBroker.Web.LogPeriod), CurrentOptions.CurrentPeriod), StringComparison.InvariantCultureIgnoreCase)? "CurrentCriteriaButton": "CriteriaButton" %>'
-                                style="width: 100px">
-                                <%# Container.DataItem %></a>
-                        </td>
-                    </ItemTemplate>
-                </asp:ListView>
+            <td style="width: 25%" nowrap="nowrap">
+                <uc:PeriodSelector runat="server" id="periodSelector" />
             </td>
             <td rowspan="2" class="LogCriteriaHeader">
                 <b>Type</b>
@@ -53,25 +31,7 @@
                 </asp:DataList>
             </td>
         </tr>
-        <tr>
-            <td>
-                between
-            </td>
-            <td>
-                <asp:UpdatePanel ID="UpdatePanel1" RenderMode="Inline" runat="server">
-                    <ContentTemplate>
-                        <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server" />
-                        <asp:TextBox ID="txtFrom" runat="server" Width="75px" AutoPostBack="true" OnTextChanged="txtFrom_TextChanged"></asp:TextBox>
-                        <asp:CalendarExtender ID="calexFrom" TargetControlID="txtFrom" runat="server" Format="d/M/yyyy" />
-                        and
-                        <asp:TextBox ID="txtTo" runat="server" Width="75px" AutoPostBack="true" OnTextChanged="txtTo_TextChanged"></asp:TextBox>
-                        <asp:CalendarExtender ID="calexTo" runat="server" TargetControlID="txtTo" Format="d/M/yyyy" />
-                        <a runat="server" id="lnkGoDate" name="lnkGoDate" class="CommandButton" visible="false">
-                            GO</a>
-                    </ContentTemplate>
-                </asp:UpdatePanel>
-            </td>
-        </tr>
+        
         <tr>
             <td colspan="4">
             </td>

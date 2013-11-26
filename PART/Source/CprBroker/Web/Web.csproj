@@ -101,9 +101,17 @@
     <Reference Include="System.Web.Mobile" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Controls\PeriodSelector.ascx" />
     <Content Include="web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\PeriodSelector.ascx.cs">
+      <DependentUpon>PeriodSelector.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\PeriodSelector.ascx.designer.cs">
+      <DependentUpon>PeriodSelector.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Controls\SmartTextBox.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
@@ -167,6 +175,7 @@
     <Compile Include="Services\PartService.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="WebUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Themes\DefaultTheme\Default.skin" />
