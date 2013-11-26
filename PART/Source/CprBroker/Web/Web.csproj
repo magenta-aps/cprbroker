@@ -103,6 +103,7 @@
   <ItemGroup>
     <Content Include="Controls\Pager.ascx" />
     <Content Include="Controls\PeriodSelector.ascx" />
+    <Content Include="Pages\ExternalCalls.aspx" />
     <Content Include="web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -152,6 +153,13 @@
     </Compile>
     <Compile Include="Pages\Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ExternalCalls.aspx.cs">
+      <DependentUpon>ExternalCalls.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\ExternalCalls.aspx.designer.cs">
+      <DependentUpon>ExternalCalls.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\LogEntries.aspx.cs">
       <DependentUpon>LogEntries.aspx</DependentUpon>

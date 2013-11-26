@@ -13,6 +13,8 @@ namespace CprBroker.Web.Controls
         {
             if (!IsPostBack)
             {
+                this.DataBind();
+
                 txtFrom.Text = Request.Params["From"];
                 txtTo.Text = Request.Params["To"];
                 lnkGoDate.HRef = this.Request.Url.ToString();

@@ -104,12 +104,8 @@ namespace CprBroker.Web.Pages
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
-            {
-                
-                periodSelector.DataBind();
-                
-                lvType.DataBind();
-                
+            {   
+                lvType.DataBind();                
             }
         }
 
