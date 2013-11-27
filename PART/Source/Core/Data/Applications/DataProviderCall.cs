@@ -98,6 +98,19 @@ namespace CprBroker.Data.Applications
             }
         }
 
+        public static decimal SumCost(DateTime fromDate, DateTime? toDate, string provider, string operation)
+        {
+            using (ApplicationDataContext dataContext = new ApplicationDataContext())
+            {
+                var pred = CreatePredicate(dataContext, fromDate, toDate, provider, operation);
+                var ret= dataContext.DataProviderCalls
+                    .Where(pred)
+                    .Select(le => le.Cost);
+                var s = ret.ToArray();
+                    return s.Sum();
+            }
+        }
+
         public static List<DataProviderCall> LoadByPage(DateTime fromDate, DateTime? toDate, string provider, string operation, int startRow, int pageSize)
         {
             using (ApplicationDataContext dataContext = new ApplicationDataContext())
