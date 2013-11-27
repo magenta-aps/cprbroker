@@ -113,11 +113,16 @@
         <RemoveFile Id="Remove_CPR_LogEntries_ASPX" Name="LogEntries.aspx" On="install" />
         <File Id="FILE_CPR_Pages_LogEntries_ASPX" Source="$(var.SitePath)Pages\LogEntries.aspx" KeyPath="yes"/>
       </Component>
+      <Component Id="CMP_CPR_ExternalCalls_ASPX" Directory="CPR_Pages">
+        <RemoveFile Id="Remove_CPR_ExternalCalls_ASPX" Name="ExternalCalls.aspx" On="install" />
+        <File Id="FILE_CPR_Pages_ExternalCalls_ASPX" Source="$(var.SitePath)Pages\ExternalCalls.aspx" KeyPath="yes"/>
+      </Component>
       <Component Id="CMP_CPR_Applications_ASPX" Directory="CPR_Pages">
         <File Id="FILE_CPR_Pages_Applications_ASPX" Source="$(var.SitePath)Pages\Applications.aspx" KeyPath="yes"/>
       </Component>
 
       <Component Id="CMP_CPR_CSS" Directory="CPR_CSS">
+        <RemoveFile Id="Remove_CPR_CSS" Name="style.css" On="install" />
         <File Id="FILE_CPR_CSS" Source="$(var.SitePath)Pages\CSS\style.css" KeyPath="yes"/>
       </Component>
       <Component Id="CMP_CPR_IMAGES_Down" Directory="CPR_Images">
