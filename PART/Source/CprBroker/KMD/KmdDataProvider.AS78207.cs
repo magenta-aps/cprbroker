@@ -84,11 +84,14 @@ namespace CprBroker.Providers.KMD
                 }
             };
             Engine.Local.Admin.AddNewLog(System.Diagnostics.TraceEventType.Information, "CallAS78207", string.Format("Calling AS78207 with PNR {0}", cprNumber), null, null);
-            var resp = service.SubmitAS78207(param);
-            ValidateReturnCode(ServiceTypes.AS78207, cprNumber, resp.OutputRecord.RETURKODE, resp.OutputRecord.RETURTEXT);
-            // We log the call and set the success parameter to true
-            this.LogAction(Utilities.GetOperationName(ServiceTypes.AS78207), cprNumber, true);
-            return resp;
+            using (var callContext = this.BeginCall(Utilities.GetOperationName(ServiceTypes.AS78207), cprNumber))
+            {
+                var resp = service.SubmitAS78207(param);
+                ValidateReturnCode(callContext, resp.OutputRecord.RETURKODE, resp.OutputRecord.RETURTEXT);
+                // We log the call and set the success parameter to true
+                callContext.Succeed();
+                return resp;
+            }
         }
     }
     namespace WS_AS78207

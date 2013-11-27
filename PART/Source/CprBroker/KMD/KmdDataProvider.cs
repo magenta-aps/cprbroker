@@ -88,7 +88,7 @@ namespace CprBroker.Providers.KMD
         /// </summary>
         /// <param name="returnCode">Code returned fromDate web service</param>
         /// <param name="returnText">Text returned fromDate the web service, used as the Exception's message if thrown</param>
-        private void ValidateReturnCode(ServiceTypes serviceType, string cprNumber, string returnCode, string returnText)
+        private void ValidateReturnCode(PerCallContext callContext, string returnCode, string returnText)
         {
             string[] errorCodes = new string[] 
             {
@@ -115,7 +115,7 @@ namespace CprBroker.Providers.KMD
             {
                 Engine.Local.Admin.AddNewLog(System.Diagnostics.TraceEventType.Error, "KMD data provider", "Request failed", null, null);
                 // We log the call and set the success parameter to false
-                this.LogAction(Utilities.GetOperationName(serviceType), cprNumber, false);
+                callContext.Fail();
                 throw new Exception(returnText);
             }
         }
