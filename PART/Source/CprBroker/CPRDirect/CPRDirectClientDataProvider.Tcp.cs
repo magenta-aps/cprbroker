@@ -117,7 +117,7 @@ namespace CprBroker.Providers.CPRDirect
                 {
                     // TODO: Shall we also log a call to the data provider?
                     callContext.Fail();
-                    Admin.LogFormattedError("CPR client is not reachable on <{0}>:<{1}>", Address, Port);
+                    Admin.LogFormattedError("CPR client is not reachable on <{0}>:<{1}>, Error = <{2}>", Address, Port, ex.ToString());
                     response = null;
                     return false;
                 }
