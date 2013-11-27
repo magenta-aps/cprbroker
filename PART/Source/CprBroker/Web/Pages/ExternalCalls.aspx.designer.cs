@@ -22,13 +22,13 @@ namespace CprBroker.Web.Pages {
         protected global::CprBroker.Web.Controls.PeriodSelector periodSelector;
         
         /// <summary>
-        /// callsLinqDataSource control.
+        /// summaryTable control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinqDataSource callsLinqDataSource;
+        protected global::System.Web.UI.HtmlControls.HtmlTable summaryTable;
         
         /// <summary>
         /// pager control.
@@ -38,6 +38,15 @@ namespace CprBroker.Web.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::CprBroker.Web.Controls.Pager pager;
+        
+        /// <summary>
+        /// callsLinqDataSource control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinqDataSource callsLinqDataSource;
         
         /// <summary>
         /// grdCalls control.

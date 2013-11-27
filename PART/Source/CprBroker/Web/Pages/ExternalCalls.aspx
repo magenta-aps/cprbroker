@@ -15,10 +15,38 @@
             </td>
         </tr>
     </table>
+    <br />
+    <table width="100%">
+        <tr>
+            <td align="left" style="width: 50%">
+                <table runat="server" id="summaryTable">
+                    <tr>
+                        <td class="SummaryTitle">
+                            Totals
+                        </td>
+                        <td class="SummaryName">
+                            calls:
+                        </td>
+                        <td class="SummaryValue">
+                            <%# this.RowCount %>
+                        </td>
+                        <td class="SummaryName">
+                            cost:
+                        </td>
+                        <td class="SummaryValue">
+                            <%# this.Cost %>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            <td align="right">
+                <uc:Pager runat="server" ID="pager" PagedControlID="grdCalls" />
+            </td>
+        </tr>
+    </table>
     <asp:LinqDataSource ID="callsLinqDataSource" runat="server" ContextTypeName="CprBroker.Data.Applications.ApplicationDataContext"
         TableName="DataProviderCalls" AutoPage="False" OnSelecting="callsLinqDataSource_Selecting">
     </asp:LinqDataSource>
-    <uc:Pager runat="server" ID="pager" PagedControlID="grdCalls" />
     <asp:ListView runat="server" ID="grdCalls" DataSourceID="callsLinqDataSource" AutoGenerateColumns="false"
         ExtractTemplateRows="true">
         <LayoutTemplate>

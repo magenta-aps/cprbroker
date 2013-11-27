@@ -199,5 +199,24 @@ h3
 }
 table
 {
-	border-collapse:collapse;
+	border-collapse:collapse;	
+}
+
+.SummaryTitle
+{
+    background-color: #6699FF;
+    color: White;
+    font-weight: bold;
+    font-size: larger;
+}
+.SummaryName
+{
+    text-indent: 10px;
+    font-size:large;
+    text-align:right;
+    width:60px;
+}
+.SummaryValue
+{
+    text-indent:10px;
 }
