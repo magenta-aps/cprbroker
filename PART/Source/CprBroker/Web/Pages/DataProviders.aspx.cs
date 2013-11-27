@@ -160,7 +160,18 @@ namespace CprBroker.Web.Pages
                 foreach (DataListItem item in valuesDataList.Items)
                 {
                     SmartTextBox smartTextBox = item.FindControl("SmartTextBox") as SmartTextBox;
-                    dbPrrov[valuesDataList.DataKeys[item.ItemIndex].ToString()] = smartTextBox.Text;
+                    if (smartTextBox.Confidential)
+                    {
+                        // Only update the password if something is entered to avoid erasing the password by mistake
+                        if (!string.IsNullOrEmpty(smartTextBox.Text))
+                        {
+                            dbPrrov[valuesDataList.DataKeys[item.ItemIndex].ToString()] = smartTextBox.Text;
+                        }
+                    }
+                    else
+                    {
+                        dbPrrov[valuesDataList.DataKeys[item.ItemIndex].ToString()] = smartTextBox.Text;
+                    }
                 }
                 dataContext.SubmitChanges();
                 dataProvidersGridView.EditIndex = -1;
