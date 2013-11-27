@@ -5,13 +5,30 @@
 <%@ Register Src="~/Controls/PeriodSelector.ascx" TagPrefix="uc" TagName="PeriodSelector" %>
 <%@ Register Src="~/Controls/Pager.ascx" TagPrefix="uc" TagName="Pager" %>
 <asp:Content runat="server" ContentPlaceHolderID="Contents">
-    <table>
+    <table width="100%" border="0" cellpadding="3px">
         <tr>
             <td class="LogCriteriaHeader">
-                Date
+                <b>Date</b>
             </td>
             <td>
                 <uc:PeriodSelector runat="server" ID="periodSelector" />
+            </td>
+            <td>
+                <b>Provider</b>
+            </td>
+            <td>
+                <asp:DataList runat="server" ID="providerListView" ExtractTemplateColumns="True"
+                    OnDataBinding="providerListView_DataBinding" RepeatDirection="Horizontal">
+                    <HeaderTemplate>
+                        <a id="A1" runat="server" href='<%# CreateTypeLink("") %>' class='<%# string.IsNullOrEmpty(Request.Params["Type"])? "CurrentCriteriaButton": "CriteriaButton" %>'
+                            style="width: 100%">All types</a>
+                    </HeaderTemplate>
+                    <ItemTemplate>
+                        <a href="<%# CreateTypeLink(Container.DataItem) %>" class='<%# Container.DataItem.ToString().Equals(Request.Params["Prov"], StringComparison.InvariantCultureIgnoreCase)? "CurrentCriteriaButton": "CriteriaButton" %>'
+                            style="width: 100px">
+                            <%# Container.DataItem %></a>
+                    </ItemTemplate>
+                </asp:DataList>
             </td>
         </tr>
     </table>
@@ -62,6 +79,9 @@
                         Operation
                     </th>
                     <th>
+                        Input
+                    </th>
+                    <th>
                         Cost
                     </th>
                     <th>
@@ -88,6 +108,9 @@
                 </td>
                 <td>
                     <%# Eval("Operation") %>
+                </td>
+                <td>
+                    <%# Eval("Input") %>
                 </td>
                 <td>
                     <%# Eval("Cost") %>
