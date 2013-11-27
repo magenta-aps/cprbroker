@@ -96,6 +96,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ApplicationDataContext.dbml</DependentUpon>
     </Compile>
+    <Compile Include="Applications\DataProviderCall.cs" />
     <Compile Include="Applications\LogEntry.cs" />
     <Compile Include="DataProviders\DataProvidersDataContext.designer.cs">
       <AutoGen>True</AutoGen>
