@@ -48,6 +48,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using CprBroker.Data.Applications;
 
 namespace CprBroker.Engine
 {
@@ -83,9 +84,9 @@ namespace CprBroker.Engine
             decimal cost = provider.GetOperationCost(operation);
 
             //We put a row into the DataProviderCall table
-            using (var dataContext = new CprBroker.Data.Applications.ApplicationDataContext())
+            using (var dataContext = new ApplicationDataContext())
             {
-                var call = new CprBroker.Data.Applications.DataProviderCall
+                var call = new DataProviderCall
                 {
                     DataProviderCallId = System.Guid.NewGuid(),
                     ActivityId = BrokerContext.Current.ActivityId,
