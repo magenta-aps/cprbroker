@@ -81,42 +81,46 @@ namespace CprBroker.Providers.CPRDirect
             error = null;
             NetworkStream stream = null;
 
-            try
+            using (var callContext = this.BeginCall(Constants.OnlineOperationName, pnr.ToPnrDecimalString()))
             {
-                TcpClient client = new TcpClient(Address, Port);
-                Byte[] data = Constants.TcpClientEncoding.GetBytes(message);
-
-                stream = client.GetStream();
-                stream.Write(data, 0, data.Length);
-
-                data = new Byte[Constants.ResponseLengths.MaxResponseLength];
-
-                int bytes = stream.Read(data, 0, data.Length);
-                response = Constants.TcpClientEncoding.GetString(data, 0, bytes);
-
-                string errorCode = response.Substring(Constants.ResponseLengths.ErrorCodeIndex, Constants.ResponseLengths.ErrorCodeLength);
-                Admin.LogFormattedSuccess("CPR client: PNR <{0}>, status code <{1}>", pnr.ToPnrDecimalString(), errorCode);
-
-                if (Constants.ErrorCodes.ContainsKey(errorCode))
+                try
                 {
-                    error = Constants.ErrorCodes[errorCode];
-                    // We log the call and set the success parameter to false
-                    this.LogAction(Constants.OnlineOperationName, pnr.ToPnrDecimalString(), false);
+                    TcpClient client = new TcpClient(Address, Port);
+                    Byte[] data = Constants.TcpClientEncoding.GetBytes(message);
+
+                    stream = client.GetStream();
+                    stream.Write(data, 0, data.Length);
+
+                    data = new Byte[Constants.ResponseLengths.MaxResponseLength];
+
+                    int bytes = stream.Read(data, 0, data.Length);
+                    response = Constants.TcpClientEncoding.GetString(data, 0, bytes);
+
+                    string errorCode = response.Substring(Constants.ResponseLengths.ErrorCodeIndex, Constants.ResponseLengths.ErrorCodeLength);
+                    Admin.LogFormattedSuccess("CPR client: PNR <{0}>, status code <{1}>", pnr.ToPnrDecimalString(), errorCode);
+
+                    if (Constants.ErrorCodes.ContainsKey(errorCode))
+                    {
+                        error = Constants.ErrorCodes[errorCode];
+                        // We log the call and set the success parameter to false
+                        callContext.Fail();
+                        return false;
+                    }
+                    else
+                    {
+                        // We log the call and set the success parameter to true
+                        callContext.Succeed();
+                        return true;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // TODO: Shall we also log a call to the data provider?
+                    callContext.Fail();
+                    Admin.LogFormattedError("CPR client is not reachable on <{0}>:<{1}>", Address, Port);
+                    response = null;
                     return false;
                 }
-                else
-                {
-                    // We log the call and set the success parameter to true
-                    this.LogAction(Constants.OnlineOperationName, pnr.ToPnrDecimalString(), true);
-                    return true;
-                }
-            }
-            catch (Exception ex)
-            {
-                // TODO: Shall we also log a call to the data provider?
-                Admin.LogFormattedError("CPR client is not reachable on <{0}>:<{1}>", Address, Port);
-                response = null;
-                return false;
             }
         }
     }
