@@ -43,7 +43,7 @@
       <Column Name="Cost" Type="System.Decimal" DbType="Decimal(18,4) NOT NULL" CanBeNull="false" />
       <Column Name="Operation" Type="System.String" DbType="VarChar(250) NOT NULL" CanBeNull="false" />
       <Column Name="Input" Type="System.String" DbType="VarChar(250) NOT NULL" CanBeNull="false" />
-      <Column Name="Success" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Success" Type="System.Boolean" DbType="Bit NULL" CanBeNull="true" />
     </Type>
   </Table>
 </Database>

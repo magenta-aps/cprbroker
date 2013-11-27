@@ -147,5 +147,64 @@ namespace CprBroker.Engine
 
             return configKeys;
         }
+
+        public static PerCallContext BeginCall(this IPerCallDataProvider provider, string operation, string input)
+        {
+            return PerCallContext.Begin(provider, operation, input);
+        }
+    }
+
+    public class PerCallContext : IDisposable
+    {
+        //Guid CallId = Guid.NewGuid();
+        DataProviderCall Call;
+        ApplicationDataContext DataContext;
+
+        private PerCallContext()
+        { }
+
+        public static PerCallContext Begin(IPerCallDataProvider provider, string operation, string input)
+        {
+            var ret = new PerCallContext();
+
+            //We find the cost for this call
+            decimal cost = provider.GetOperationCost(operation);
+
+
+            //We put a row into the DataProviderCall table
+            ret.Call = new DataProviderCall
+            {
+                DataProviderCallId = Guid.NewGuid(),
+                ActivityId = BrokerContext.Current.ActivityId,
+                CallTime = DateTime.Now,
+                Cost = cost,
+                Input = input,
+                DataProviderType = provider.GetType().ToString(),
+                Operation = operation,
+                Success = null,
+            };
+
+            ret.DataContext = new ApplicationDataContext();
+            ret.DataContext.DataProviderCalls.InsertOnSubmit(ret.Call);
+            ret.DataContext.SubmitChanges();
+
+            return ret;
+        }
+
+        public void Succeed()
+        {
+            Call.Success = true;
+        }
+
+        public void Fail()
+        {
+            Call.Success = false;
+        }
+
+        public void Dispose()
+        {
+            DataContext.SubmitChanges();
+            DataContext.Dispose();
+        }
     }
 }
