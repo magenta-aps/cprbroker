@@ -1,0 +1,1 @@
+﻿ALTER TABLE DataProviderCall ALTER COLUMN Success bit NULL

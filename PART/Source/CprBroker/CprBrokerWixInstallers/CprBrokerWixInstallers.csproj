@@ -102,6 +102,7 @@
     <None Include="Resources\LogType.csv" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\PatchDatabase_2_2_2.sql" />
     <Content Include="Resources\Script generation.txt" />
     <None Include="Resources\CreatePartDatabaseObjects.ChildObjects.sql" />
     <Content Include="Resources\PatchDatabase_1_3_2.sql" />
