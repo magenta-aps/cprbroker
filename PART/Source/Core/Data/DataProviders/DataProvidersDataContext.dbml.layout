@@ -2,10 +2,16 @@
 <ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="DataProvidersDataContext">
   <DataContextMoniker Name="/DataProvidersDataContext" />
   <nestedChildShapes>
-    <classShape Id="2ada1fa0-2c76-4035-b0fa-cf486b51d35a" absoluteBounds="3, 1.5, 2, 1.75354248046875">
+    <classShape Id="2ada1fa0-2c76-4035-b0fa-cf486b51d35a" absoluteBounds="3, 1.5, 2, 1.9631982421875">
       <DataClassMoniker Name="/DataProvidersDataContext/DataProvider" />
       <nestedChildShapes>
-        <elementListCompartment Id="6959e5d3-7946-46e9-8675-538a0366afc2" absoluteBounds="3.015, 1.96, 1.9700000000000002, 1.19354248046875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="6959e5d3-7946-46e9-8675-538a0366afc2" absoluteBounds="3.015, 1.96, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="fd774ec2-9e7e-4f6b-ba02-381eb0e3e983" absoluteBounds="8, 1.625, 2, 1.7708968098958331">
+      <DataClassMoniker Name="/DataProvidersDataContext/BudgetInterval" />
+      <nestedChildShapes>
+        <elementListCompartment Id="2b634dd8-91b0-4522-af50-75d45bbb723b" absoluteBounds="8.015, 2.085, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>

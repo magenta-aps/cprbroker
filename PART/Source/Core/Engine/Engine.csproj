@@ -87,6 +87,7 @@
   <ItemGroup>
     <Compile Include="BatchFacadeMethodInfo.cs" />
     <Compile Include="BrokerContext.cs" />
+    <Compile Include="Budget\BudgetController.cs" />
     <Compile Include="IPerCallDataProvider.cs" />
     <Compile Include="Manager.Period.cs" />
     <Compile Include="Facades\FacadeMethod.cs" />

@@ -98,6 +98,7 @@
     </Compile>
     <Compile Include="Applications\DataProviderCall.cs" />
     <Compile Include="Applications\LogEntry.cs" />
+    <Compile Include="DataProviders\BudgetInterval.cs" />
     <Compile Include="DataProviders\DataProvidersDataContext.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -158,6 +159,7 @@
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="Part\PartDataContext.Child.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>PartDataContext.Child.designer.cs</LastGenOutput>
