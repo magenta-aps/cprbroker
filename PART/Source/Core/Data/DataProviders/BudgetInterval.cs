@@ -58,6 +58,11 @@ namespace CprBroker.Data.DataProviders
             get { return this.LastChecked.HasValue ? this.LastChecked.Value : DateTime.MinValue; }
         }
 
+        public bool CanRunAt(DateTime checkTime)
+        {
+            return CanRunAt(checkTime, 0);
+        }
+
         public bool CanRunAt(DateTime checkTime, int allowancePercentage)
         {
             if (allowancePercentage < 0 || allowancePercentage > 100)
