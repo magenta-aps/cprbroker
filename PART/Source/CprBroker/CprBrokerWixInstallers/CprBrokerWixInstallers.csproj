@@ -97,6 +97,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Application.csv" />
+    <None Include="Resources\BudgetEntry.csv" />
     <None Include="Resources\CreatePartDatabaseObjects.sql" />
     <None Include="Resources\LifecycleStatus.csv" />
     <None Include="Resources\LogType.csv" />

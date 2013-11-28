@@ -178,6 +178,7 @@ namespace CprBrokerWixInstallers
                 cprLookups.Add(new KeyValuePair<string, string>(typeof(CprBroker.Data.Applications.Application).Name, Properties.Resources.Application));
                 cprLookups.Add(new KeyValuePair<string, string>(typeof(LifecycleStatus).Name, Properties.Resources.LifecycleStatus));
                 cprLookups.Add(new KeyValuePair<string, string>(typeof(LogType).Name, Properties.Resources.LogType));
+                cprLookups.Add(new KeyValuePair<string, string>(typeof(CprBroker.Data.DataProviders.BudgetInterval).Name, Properties.Resources.BudgetEntry));
 
                 lookupDataArray["CPR"] = cprLookups.ToArray();
 
@@ -266,6 +267,11 @@ namespace CprBrokerWixInstallers
                         Version = new Version(2,2,1),
                         SqlScript = Properties.Resources.PatchDatabase_2_2_1,
                         PatchAction = null
+                    },
+                    new DatabasePatchInfo(){ 
+                        Version = new Version(2,2,2),
+                        SqlScript = Properties.Resources.PatchDatabase_2_2_2,
+                        PatchAction = conn=> DatabaseCustomAction.InsertLookup(typeof(CprBroker.Data.DataProviders.BudgetInterval).Name, Properties.Resources.BudgetEntry, conn) 
                     },
                 };
 
