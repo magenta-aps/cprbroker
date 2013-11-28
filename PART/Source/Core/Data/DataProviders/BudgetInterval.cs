@@ -57,5 +57,24 @@ namespace CprBroker.Data.DataProviders
         {
             get { return this.LastChecked.HasValue ? this.LastChecked.Value : DateTime.MinValue; }
         }
+
+        public bool CanRunAt(DateTime checkTime, int allowancePercentage)
+        {
+            if (allowancePercentage < 0 || allowancePercentage > 100)
+            {
+                throw new ArgumentOutOfRangeException("allowancePercentage", allowancePercentage, "Should be between 0 and 100");
+            }
+
+            var intervalFactor = (100d - allowancePercentage) / 100d;
+            return (checkTime - this.EffectiveLastCheckedTime) >= TimeSpan.FromMilliseconds(this.IntervalMillisecods * intervalFactor);
+        }
+
+        public DateTime SuggestedStartTime(DateTime checkTime)
+        {
+            return this.LastChecked.HasValue ?
+                this.LastChecked.Value
+                : 
+                checkTime - TimeSpan.FromMilliseconds(this.IntervalMillisecods);
+        }
     }
 }

@@ -57,6 +57,7 @@ namespace CprBroker.Engine.Budget
 {
     public class BudgetController
     {
+        public const int IntervalAllowancePercentage = 10;
 
         public static void CheckAllIntervals()
         {
@@ -81,14 +82,12 @@ namespace CprBroker.Engine.Budget
         {
             var checkTime = DateTime.Now;
 
-            if ((checkTime - be.EffectiveLastCheckedTime) >= TimeSpan.FromMilliseconds(be.IntervalMillisecods))
+            if (be.CanRunAt(checkTime, IntervalAllowancePercentage))
             {
                 using (var appDataContext = new ApplicationDataContext())
                 {
-                    // Set start time. For simplicity, we ignore periods in the past when the check was not run
-                    var startTime = checkTime.AddMilliseconds(-be.IntervalMillisecods);
-
-                    var intervalEntries = appDataContext.DataProviderCalls.Where(dce => dce.CallTime >= startTime && dce.CallTime < checkTime);
+                    var intervalEntries = appDataContext.DataProviderCalls
+                        .Where(dce => dce.CallTime >= be.SuggestedStartTime(checkTime) && dce.CallTime < checkTime);
 
                     CheckInterval<decimal>(be.Name, () => intervalEntries.Sum(dpe => dpe.Cost), be.CostThreshold, "cost");
                     CheckInterval<int>(be.Name, () => intervalEntries.Count(), be.CallThreshold, "calls");
@@ -107,12 +106,12 @@ namespace CprBroker.Engine.Budget
                 var value = evaluator();
                 if (value.CompareTo(threshold.Value) >= 0)
                 {
-                    string msg = string.Format("Overbudget alarm: interval={0}, type={1}, threshold={2}, value={3}", intervalName, type, threshold.Value, value);
+                    string msg = string.Format("Overbudget alarm for {0}: interval <{1}>, threshold <{2}>, value <{3}>", type, intervalName, threshold.Value, value);
                     Admin.AddNewLog(System.Diagnostics.TraceEventType.Warning, "CheckInterval", msg, null, null);
                 }
                 else
                 {
-                    string msg = string.Format("Budget OK: interval={0}, type={1}, threshold={2}, value={3}", intervalName, type, threshold.Value, value);
+                    string msg = string.Format("Budget OK for {0}: interval <{1}>, threshold <{2}>, value <{3}>", type, intervalName, threshold.Value, value);
                     Admin.AddNewLog(System.Diagnostics.TraceEventType.Information, "CheckInterval", msg, null, null);
                 }
             }
