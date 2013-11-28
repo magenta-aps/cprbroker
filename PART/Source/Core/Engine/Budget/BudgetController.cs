@@ -63,12 +63,12 @@ namespace CprBroker.Engine.Budget
         {
             using (var dataContext = new DataProvidersDataContext())
             {
-                foreach (var be in dataContext.BudgetIntervals.OrderBy(be => be.IntervalMillisecods).ToArray())
+                foreach (var budgetInterval in dataContext.BudgetIntervals.OrderBy(be => be.IntervalMillisecods).ToArray())
                 {
                     // Check each interval in a separate try/catch block
                     try
                     {
-                        CheckInterval(dataContext, be);
+                        CheckInterval(dataContext, budgetInterval);
                     }
                     catch (Exception ex)
                     {
@@ -78,21 +78,21 @@ namespace CprBroker.Engine.Budget
             }
         }
 
-        public static void CheckInterval(DataProvidersDataContext dataContext, BudgetInterval be)
+        public static void CheckInterval(DataProvidersDataContext dataContext, BudgetInterval budgetInterval)
         {
             var checkTime = DateTime.Now;
 
-            if (be.CanRunAt(checkTime, IntervalAllowancePercentage))
+            if (budgetInterval.CanRunAt(checkTime, IntervalAllowancePercentage))
             {
                 using (var appDataContext = new ApplicationDataContext())
                 {
                     var intervalEntries = appDataContext.DataProviderCalls
-                        .Where(dce => dce.CallTime >= be.SuggestedStartTime(checkTime) && dce.CallTime < checkTime);
+                        .Where(dce => dce.CallTime >= budgetInterval.SuggestedStartTime(checkTime) && dce.CallTime < checkTime);
 
-                    CheckInterval<decimal>(be.Name, () => intervalEntries.Sum(dpe => dpe.Cost), be.CostThreshold, "cost");
-                    CheckInterval<int>(be.Name, () => intervalEntries.Count(), be.CallThreshold, "calls");
+                    CheckInterval<decimal>(budgetInterval.Name, () => intervalEntries.Sum(dpe => dpe.Cost), budgetInterval.CostThreshold, "cost");
+                    CheckInterval<int>(budgetInterval.Name, () => intervalEntries.Count(), budgetInterval.CallThreshold, "calls");
 
-                    be.LastChecked = checkTime;
+                    budgetInterval.LastChecked = checkTime;
                     dataContext.SubmitChanges();
                 }
             }
