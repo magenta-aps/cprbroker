@@ -191,39 +191,41 @@ namespace CprBroker.Installers
             }
         }
 
-        private static void InsertLookups(KeyValuePair<string, string>[] lookupDataArray, DatabaseSetupInfo databaseSetupInfo)
+        public static void InsertLookups(KeyValuePair<string, string>[] lookupDataArray, DatabaseSetupInfo databaseSetupInfo)
         {
             foreach (var lookupData in lookupDataArray)
             {
-                string tableName = lookupData.Key;
-                string csv = lookupData.Value;
-
-                string[] lines = csv.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
-                string[] columnNames = lines[0].Split(';');
-                columnNames = columnNames.Select(c => string.Format("[{0}]", c)).ToArray();
-
-                string sql = "";
-                for (int i = 1; i < lines.Length; i++)
-                {
-                    sql += string.Format("INSERT INTO [{0}] (", tableName);
-                    sql += string.Join(",", columnNames);
-                    sql += ") VALUES (";
-
-                    string[] values = lines[i].Split(';');
-                    values = values.Select(v => string.Format("'{0}'", v)).ToArray();
-                    sql += string.Join(",", values);
-                    sql += ")" + Environment.NewLine;
-                }
-
                 using (SqlConnection conn = new SqlConnection(databaseSetupInfo.CreateConnectionString(true, true)))
                 {
                     conn.Open();
-                    using (SqlCommand command = new SqlCommand(sql, conn))
-                    {
-                        int result = command.ExecuteNonQuery();
-                        object o = "";
-                    }
+                    InsertLookup(lookupData.Key, lookupData.Value, conn);
                 }
+            }
+        }
+
+        public static void InsertLookup(string tableName, string csv, SqlConnection conn)
+        {
+            string[] lines = csv.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+            string[] columnNames = lines[0].Split(';');
+            columnNames = columnNames.Select(c => string.Format("[{0}]", c)).ToArray();
+
+            string sql = "";
+            for (int i = 1; i < lines.Length; i++)
+            {
+                sql += string.Format("INSERT INTO [{0}] (", tableName);
+                sql += string.Join(",", columnNames);
+                sql += ") VALUES (";
+
+                string[] values = lines[i].Split(';');
+                values = values.Select(v => string.Format("'{0}'", v)).ToArray();
+                sql += string.Join(",", values);
+                sql += ")" + Environment.NewLine;
+            }
+
+            using (SqlCommand command = new SqlCommand(sql, conn))
+            {
+                int result = command.ExecuteNonQuery();
+                object o = "";
             }
         }
 
