@@ -120,6 +120,43 @@ namespace CprBroker.Tests.Data
                 var ret = bi.CanRunAt(bi.LastChecked.Value.AddMilliseconds(checkTimeOffset), allowancePercentage);
                 Assert.True(ret);
             }
+
+            [Test]
+            [ExpectedException(typeof(ArgumentOutOfRangeException))]
+            public void CanRunAt_InvalidAllowance_Exception(
+                [Values(1000)]int interval,
+                [Values(-100, -1, 101)] int allowancePercentage,
+                [Values(1000)] int checkTimeOffset)
+            {
+                var bi = new BudgetInterval() { IntervalMillisecods = interval, LastChecked = DateTime.Now };
+                var ret = bi.CanRunAt(bi.LastChecked.Value.AddMilliseconds(checkTimeOffset), allowancePercentage);
+            }
+        }
+
+        [TestFixture]
+        public class SuggestedStartTime
+        {
+            [Test]
+            public void SuggestedStartTime_NeverRun_NowMinusInterval(
+                [Values(19, 100, 87636)]int interval)
+            {
+                var bi = new BudgetInterval() { LastChecked = null, IntervalMillisecods = interval };
+                var now = DateTime.Now;
+                var ret = bi.SuggestedStartTime(now);
+                Assert.AreEqual((double)interval, (now - ret).TotalMilliseconds);
+            }
+
+            [Test]
+            public void SuggestedStartTime_RunToday_Today(
+                [Values(19, 100, 87636, int.MaxValue)]int interval,
+                [Values(545456,0,87895465)]int nowOffset)
+            {
+                var now = DateTime.Now;
+                var bi = new BudgetInterval() { LastChecked = now, IntervalMillisecods = interval };
+                var ret = bi.SuggestedStartTime(now.AddMilliseconds(nowOffset));
+
+                Assert.AreEqual(now, ret);
+            }
         }
     }
 }
