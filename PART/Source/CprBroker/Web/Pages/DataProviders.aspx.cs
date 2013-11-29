@@ -156,7 +156,7 @@ namespace CprBroker.Web.Pages
 
             using (var dataContext = new CprBroker.Data.DataProviders.DataProvidersDataContext())
             {
-                DataProvider dbPrrov = (from dp in dataContext.DataProviders where dp.DataProviderId == id select dp).Single();
+                DataProvider dbProv = (from dp in dataContext.DataProviders where dp.DataProviderId == id select dp).Single();
                 foreach (DataListItem item in valuesDataList.Items)
                 {
                     SmartTextBox smartTextBox = item.FindControl("SmartTextBox") as SmartTextBox;
@@ -165,12 +165,12 @@ namespace CprBroker.Web.Pages
                         // Only update the password if something is entered to avoid erasing the password by mistake
                         if (!string.IsNullOrEmpty(smartTextBox.Text))
                         {
-                            dbPrrov[valuesDataList.DataKeys[item.ItemIndex].ToString()] = smartTextBox.Text;
+                            dbProv[valuesDataList.DataKeys[item.ItemIndex].ToString()] = smartTextBox.Text;
                         }
                     }
                     else
                     {
-                        dbPrrov[valuesDataList.DataKeys[item.ItemIndex].ToString()] = smartTextBox.Text;
+                        dbProv[valuesDataList.DataKeys[item.ItemIndex].ToString()] = smartTextBox.Text;
                     }
                 }
                 dataContext.SubmitChanges();
