@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.UI;
 
 namespace CprBroker.Web
 {
@@ -32,6 +33,14 @@ namespace CprBroker.Web
                 return urlWithoutQuery + "?" + parameters.ToString();
             else
                 return urlWithoutQuery;
+        }
+
+        public static T FromViewstate<T>(this StateBag ViewState, string key)
+        {
+            var obj = ViewState[key];
+            if (obj == null)
+                ViewState[key] = default(T);
+            return (T)ViewState[key];
         }
     }
 }

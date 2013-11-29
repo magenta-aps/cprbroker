@@ -103,6 +103,7 @@
   <ItemGroup>
     <Content Include="Controls\Pager.ascx" />
     <Content Include="Controls\PeriodSelector.ascx" />
+    <Content Include="Pages\Budget.aspx" />
     <Content Include="Pages\ExternalCalls.aspx" />
     <Content Include="web.config" />
   </ItemGroup>
@@ -139,6 +140,13 @@
     </Compile>
     <Compile Include="Pages\Applications.aspx.designer.cs">
       <DependentUpon>Applications.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Budget.aspx.cs">
+      <DependentUpon>Budget.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Budget.aspx.designer.cs">
+      <DependentUpon>Budget.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\DataProviders.aspx.cs">
       <DependentUpon>DataProviders.aspx</DependentUpon>

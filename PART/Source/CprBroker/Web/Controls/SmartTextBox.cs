@@ -69,10 +69,7 @@ namespace CprBroker.Web.Controls
     {
         public T FromViewstate<T>(string key)
         {
-            var obj = ViewState[key];
-            if (obj == null)
-                ViewState[key] = default(T);
-            return (T)ViewState[key];
+            return ViewState.FromViewstate<T>(key);
         }
 
         [DefaultValue(false)]
@@ -117,7 +114,7 @@ namespace CprBroker.Web.Controls
         {
             get
             {
-                return Utilities.Web.ObjectFromViewState<string>(ViewState, "ValidationGroup");
+                return ViewState.FromViewstate<string>("ValidationGroup");
             }
             set
             {
@@ -156,7 +153,7 @@ namespace CprBroker.Web.Controls
             requiredValidator.ControlToValidate = "txt";
             requiredValidator.Text = "Required";
             requiredValidator.ValidationGroup = ValidationGroup;
-            requiredValidator.Enabled = Required && Type!= DataProviderConfigPropertyInfoTypes.Boolean;
+            requiredValidator.Enabled = Required && Type != DataProviderConfigPropertyInfoTypes.Boolean;
             requiredValidator.Visible = requiredValidator.Enabled;
             Controls.Add(requiredValidator);
 
@@ -171,20 +168,20 @@ namespace CprBroker.Web.Controls
             intRegularExpressionValidator.ControlToValidate = "txt";
             intRegularExpressionValidator.Enabled = this.Type == DataProviderConfigPropertyInfoTypes.Integer;
             intRegularExpressionValidator.Visible = intRegularExpressionValidator.Enabled;
-            intRegularExpressionValidator.ValidationGroup = ValidationGroup;            
+            intRegularExpressionValidator.ValidationGroup = ValidationGroup;
             intRegularExpressionValidator.ValidationExpression = "\\d*";
-            intRegularExpressionValidator.Text = "Digits only";            
+            intRegularExpressionValidator.Text = "Digits only";
             Controls.Add(intRegularExpressionValidator);
 
             decimalRegularExpressionValidator.ControlToValidate = "txt";
             decimalRegularExpressionValidator.Enabled = this.Type == DataProviderConfigPropertyInfoTypes.Decimal;
             decimalRegularExpressionValidator.Visible = decimalRegularExpressionValidator.Enabled;
-            decimalRegularExpressionValidator.ValidationGroup = ValidationGroup;            
+            decimalRegularExpressionValidator.ValidationGroup = ValidationGroup;
             decimalRegularExpressionValidator.ValidationExpression = "\\d*([.,]\\d+)?";
             decimalRegularExpressionValidator.Text = "Decimal numbers only";
             Controls.Add(decimalRegularExpressionValidator);
 
-            booleanCheckBox.Visible = this.Type == DataProviderConfigPropertyInfoTypes.Boolean;            
+            booleanCheckBox.Visible = this.Type == DataProviderConfigPropertyInfoTypes.Boolean;
             Controls.Add(booleanCheckBox);
 
         }
@@ -221,7 +218,32 @@ namespace CprBroker.Web.Controls
                 }
             }
         }
+
+        public object Value
+        {
+            get 
+            {
+                switch (this.Type)
+                {
+                    case DataProviderConfigPropertyInfoTypes.Boolean:
+                        return this.booleanCheckBox.Checked;
+
+                    case DataProviderConfigPropertyInfoTypes.Decimal:
+                        decimal d;
+                        return decimal.TryParse(Text, out d) ? d : null as decimal?;
+
+                    case DataProviderConfigPropertyInfoTypes.Integer:
+                        int i;
+                        return int.TryParse(Text, out i) ? i : null as int?;
+
+                    default:
+                        return Text;
+
+                }
+            }
+        }
     }
+
 
     /// <summary>
     /// Designer class to show the SmartTextBox in design view
@@ -249,4 +271,87 @@ namespace CprBroker.Web.Controls
 
     }
 
+
+    public class SmartTextField : BoundField
+    {
+        public bool Required
+        {
+            get { return ViewState.FromViewstate<bool>("Required"); }
+            set { ViewState["Required"] = value; }
+        }
+
+        public bool Confidential
+        {
+            get { return ViewState.FromViewstate<bool>("Confidential"); }
+            set { ViewState["Confidential"] = value; }
+        }
+
+        public DataProviderConfigPropertyInfoTypes Type
+        {
+            get { return ViewState.FromViewstate<DataProviderConfigPropertyInfoTypes>("Type"); }
+            set { ViewState["Type"] = value; }
+        }
+
+        [DefaultValue(null)]
+        public string ValidationGroup
+        {
+            get { return ViewState.FromViewstate<string>("ValidationGroup"); }
+            set { ViewState["ValidationGroup"] = value; }
+        }
+
+        [DefaultValue("")]
+        public string ValidationExpression
+        {
+            get { return ViewState.FromViewstate<string>("ValidationExpression"); }
+            set { ViewState["ValidationExpression"] = value; }
+        }
+
+        public SmartTextField()
+        {
+            ValidationExpression = "";
+            ValidationGroup = "";
+        }
+
+        protected override DataControlField CreateField()
+        {
+            return new SmartTextField();
+        }
+        protected override void InitializeDataCell(DataControlFieldCell cell, DataControlRowState rowState)
+        {
+            if ((rowState & DataControlRowState.Edit) > 0)
+            {
+                var txt = new SmartTextBox
+                {
+                    Required = Required,
+                    Type = Type,
+                    Confidential = Confidential,
+                    ValidationExpression = ValidationExpression,
+                    ValidationGroup = ValidationGroup
+                };
+                txt.DataBinding += new EventHandler(txt_DataBinding);
+                cell.Controls.Add(txt);
+            }
+            else
+            {
+                base.InitializeDataCell(cell, rowState);
+            }
+        }
+
+        void txt_DataBinding(object sender, EventArgs e)
+        {
+            var txt = sender as SmartTextBox;
+            var dataItem = DataBinder.GetDataItem(txt.NamingContainer);
+            txt.Text = string.Format("{0}", DataBinder.GetPropertyValue(dataItem, this.DataField));
+        }
+
+        public override void ExtractValuesFromCell(System.Collections.Specialized.IOrderedDictionary dictionary, DataControlFieldCell cell, DataControlRowState rowState, bool includeReadOnly)
+        {
+            var txt = cell.Controls[0] as SmartTextBox;
+            dictionary[DataField] = txt.Value;
+
+        }
+
+
+
+    }
 }
