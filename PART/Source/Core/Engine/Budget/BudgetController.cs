@@ -90,7 +90,7 @@ namespace CprBroker.Engine.Budget
                         .Where(dce => dce.CallTime >= budgetInterval.SuggestedStartTime(checkTime) && dce.CallTime < checkTime);
 
                     CheckInterval<decimal>(budgetInterval.Name, () => intervalEntries.Sum(dpe => dpe.Cost), budgetInterval.CostThreshold, "cost");
-                    CheckInterval<int>(budgetInterval.Name, () => intervalEntries.Count(), budgetInterval.CallThreshold, "calls");
+                    CheckInterval<int>(budgetInterval.Name, () => intervalEntries.Count(), budgetInterval.CallThreshold, "number of calls");
 
                     budgetInterval.LastChecked = checkTime;
                     dataContext.SubmitChanges();
