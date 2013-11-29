@@ -11,7 +11,7 @@ SET ANSI_PADDING ON
 GO
 
 CREATE TABLE [dbo].[BudgetInterval](
-	[IntervalMillisecods] [bigint] NOT NULL,
+	[IntervalMilliseconds] [bigint] NOT NULL,
 	[Name] [varchar](50) NOT NULL,
 	[CallThreshold] [int] NULL,
 	[CostThreshold] [decimal](18, 4) NULL,

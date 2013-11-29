@@ -1,4 +1,4 @@
-﻿IntervalMillisecods;Name;CallThreshold;CostThreshold;LastChecked
+﻿IntervalMilliseconds;Name;CallThreshold;CostThreshold;LastChecked
 3600000;Hour;;;
 86400000;Day;;;
 604800000;Week;;;
