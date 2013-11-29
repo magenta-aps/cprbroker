@@ -106,12 +106,12 @@ namespace CprBroker.Engine.Budget
                 var value = evaluator();
                 if (value.CompareTo(threshold.Value) >= 0)
                 {
-                    string msg = string.Format("Overbudget alarm for {0}: interval <{1}>, threshold <{2}>, value <{3}>", type, intervalName, threshold.Value, value);
+                    string msg = string.Format("Overbudget alarm for {0}: interval <{1}>, threshold <{2}>, found <{3}>", type, intervalName, threshold.Value, value);
                     Admin.AddNewLog(System.Diagnostics.TraceEventType.Warning, "CheckInterval", msg, null, null);
                 }
                 else
                 {
-                    string msg = string.Format("Budget OK for {0}: interval <{1}>, threshold <{2}>, value <{3}>", type, intervalName, threshold.Value, value);
+                    string msg = string.Format("Budget OK for {0}: interval <{1}>, threshold <{2}>, found <{3}>", type, intervalName, threshold.Value, value);
                     Admin.AddNewLog(System.Diagnostics.TraceEventType.Information, "CheckInterval", msg, null, null);
                 }
             }
