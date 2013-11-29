@@ -98,6 +98,9 @@
     <Compile Include="Data\EventNotification.cs" />
     <Compile Include="Data\Subscription.cs" />
     <Compile Include="Data\SubscriptionType.cs" />
+    <Compile Include="Notifications\BudgetChecker.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Notifications\CPRDirectDownloader.cs">
       <SubType>Component</SubType>
     </Compile>

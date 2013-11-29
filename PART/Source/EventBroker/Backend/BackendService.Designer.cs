@@ -35,6 +35,7 @@
             this.CprDirectExtractor = new CprBroker.EventBroker.Notifications.CPRDirectExtractor();
             this.CprDirectPersonConverter = new CprBroker.EventBroker.Notifications.CPRDirectPersonConverter();
             this.CprDirectDownloader = new CprBroker.EventBroker.Notifications.CPRDirectDownloader();
+            this.BudgetChecker = new CprBroker.EventBroker.Notifications.BudgetChecker();
             // 
             // BackendService
             // 
@@ -50,5 +51,6 @@
         private Notifications.CPRDirectExtractor CprDirectExtractor;
         private Notifications.CPRDirectPersonConverter CprDirectPersonConverter;
         private Notifications.CPRDirectDownloader CprDirectDownloader;
+        private Notifications.BudgetChecker BudgetChecker;
     }
 }

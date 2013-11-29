@@ -46,82 +46,24 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
 using System.Linq;
-using System.ServiceProcess;
 using System.Text;
+
 using CprBroker.Engine;
-using CprBroker.Utilities;
-using CprBroker.EventBroker.Notifications;
+using CprBroker.Engine.Budget;
 
-namespace CprBroker.EventBroker.Backend
+namespace CprBroker.EventBroker.Notifications
 {
-    /// <summary>
-    /// This service is responsible for the scheduling of publishing events to subscribers
-    /// </summary>
-    public partial class BackendService : System.ServiceProcess.ServiceBase
+    public class BudgetChecker:PeriodicTaskExecuter
     {
-        public BackendService()
+        protected override TimeSpan CalculateActionTimerInterval(TimeSpan currentInterval)
         {
-            InitializeComponent();
-            foreach (var queue in this.InstalledQueues)
-                queue.EventLog = this.EventLog;
+            return TimeSpan.FromHours(1);
         }
 
-        PeriodicTaskExecuter[] InstalledQueues
+        protected override void PerformTimerAction()
         {
-            get
-            {
-                return new PeriodicTaskExecuter[]{
-                    this.BirthdateEventEnqueuer,
-                    this.DataChangeEventEnqueuer,
-                    this.NotificationSender,
-                    this.CprDirectDownloader,
-                    this.CprDirectExtractor,
-                    this.CprDirectPersonConverter,
-                    this.BudgetChecker
-                };
-            }
+            BudgetController.CheckAllIntervals();
         }
-
-        private void StartQueues()
-        {
-            foreach (var queue in this.InstalledQueues)
-                queue.Start();
-        }
-
-        private void StopQueues()
-        {
-            foreach (var queue in this.InstalledQueues)
-                queue.Stop();
-        }
-
-        protected override void OnStart(string[] args)
-        {
-            BrokerContext.Initialize(Constants.EventBrokerApplicationToken.ToString(), Constants.UserToken);
-            CprBroker.Engine.Local.Admin.LogSuccess(TextMessages.BackendServiceStarting);
-            StartQueues();
-            CprBroker.Engine.Local.Admin.LogSuccess(TextMessages.BackendServiceStarted);
-        }
-
-        protected override void OnStop()
-        {
-            StopQueues();
-        }
-
-        protected override void OnContinue()
-        {
-            StartQueues();
-        }
-
-        protected override void OnPause()
-        {
-            StopQueues();
-        }
-
-
-
     }
 }
