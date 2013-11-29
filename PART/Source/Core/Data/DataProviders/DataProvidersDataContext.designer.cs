@@ -281,8 +281,8 @@ namespace CprBroker.Data.DataProviders
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
-    partial void OnIntervalMillisecodsChanging(long value);
-    partial void OnIntervalMillisecodsChanged();
+    partial void OnIntervalMillisecondsChanging(long value);
+    partial void OnIntervalMillisecondsChanged();
     partial void OnNameChanging(string value);
     partial void OnNameChanged();
     partial void OnCallThresholdChanging(System.Nullable<int> value);
@@ -299,7 +299,7 @@ namespace CprBroker.Data.DataProviders
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IntervalMillisecods", DbType="BigInt NOT NULL", IsPrimaryKey=true)]
-		public long IntervalMillisecods
+		public long IntervalMilliseconds
 		{
 			get
 			{
@@ -309,11 +309,11 @@ namespace CprBroker.Data.DataProviders
 			{
 				if ((this._IntervalMillisecods != value))
 				{
-					this.OnIntervalMillisecodsChanging(value);
+					this.OnIntervalMillisecondsChanging(value);
 					this.SendPropertyChanging();
 					this._IntervalMillisecods = value;
-					this.SendPropertyChanged("IntervalMillisecods");
-					this.OnIntervalMillisecodsChanged();
+					this.SendPropertyChanged("IntervalMilliseconds");
+					this.OnIntervalMillisecondsChanged();
 				}
 			}
 		}

@@ -63,7 +63,7 @@ namespace CprBroker.Engine.Budget
         {
             using (var dataContext = new DataProvidersDataContext())
             {
-                foreach (var budgetInterval in dataContext.BudgetIntervals.OrderBy(be => be.IntervalMillisecods).ToArray())
+                foreach (var budgetInterval in dataContext.BudgetIntervals.OrderBy(be => be.IntervalMilliseconds).ToArray())
                 {
                     // Check each interval in a separate try/catch block
                     try

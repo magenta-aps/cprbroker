@@ -71,7 +71,7 @@ namespace CprBroker.Data.DataProviders
             }
 
             var intervalFactor = (100d - allowancePercentage) / 100d;
-            return (checkTime - this.EffectiveLastCheckedTime) >= TimeSpan.FromMilliseconds(this.IntervalMillisecods * intervalFactor);
+            return (checkTime - this.EffectiveLastCheckedTime) >= TimeSpan.FromMilliseconds(this.IntervalMilliseconds * intervalFactor);
         }
 
         public DateTime SuggestedStartTime(DateTime checkTime)
@@ -79,7 +79,7 @@ namespace CprBroker.Data.DataProviders
             return this.LastChecked.HasValue ?
                 this.LastChecked.Value
                 : 
-                checkTime - TimeSpan.FromMilliseconds(this.IntervalMillisecods);
+                checkTime - TimeSpan.FromMilliseconds(this.IntervalMilliseconds);
         }
     }
 }

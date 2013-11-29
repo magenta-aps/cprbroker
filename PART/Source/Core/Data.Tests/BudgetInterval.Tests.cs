@@ -85,7 +85,7 @@ namespace CprBroker.Tests.Data
             public void CanRunAt_Now_NeverRun_True(
                 [Values(0, 10000, 25695454)]int interval)
             {
-                var bi = new BudgetInterval() { IntervalMillisecods = interval };
+                var bi = new BudgetInterval() { IntervalMilliseconds = interval };
                 var ret = bi.CanRunAt(DateTime.Now);
                 Assert.True(ret);
             }
@@ -94,7 +94,7 @@ namespace CprBroker.Tests.Data
             public void CanRunAt_Now_RunNow_CanRunYesterday_False(
                 [Values(0, 10000, 25695454)]int interval)
             {
-                var bi = new BudgetInterval() { IntervalMillisecods = interval, LastChecked = DateTime.Now };
+                var bi = new BudgetInterval() { IntervalMilliseconds = interval, LastChecked = DateTime.Now };
                 var ret = bi.CanRunAt(DateTime.Now.AddDays(-1));
                 Assert.False(ret);
             }
@@ -105,7 +105,7 @@ namespace CprBroker.Tests.Data
                 [Values(10)] int allowancePercentage,
                 [Values(0, 100, 899)] int checkTimeOffset)
             {
-                var bi = new BudgetInterval() { IntervalMillisecods = interval, LastChecked = DateTime.Now };
+                var bi = new BudgetInterval() { IntervalMilliseconds = interval, LastChecked = DateTime.Now };
                 var ret = bi.CanRunAt(bi.LastChecked.Value.AddMilliseconds(checkTimeOffset), allowancePercentage);
                 Assert.False(ret);
             }
@@ -116,7 +116,7 @@ namespace CprBroker.Tests.Data
                 [Values(10)] int allowancePercentage,
                 [Values(900, 1000, 1100, 1285744)] int checkTimeOffset)
             {
-                var bi = new BudgetInterval() { IntervalMillisecods = interval, LastChecked = DateTime.Now };
+                var bi = new BudgetInterval() { IntervalMilliseconds = interval, LastChecked = DateTime.Now };
                 var ret = bi.CanRunAt(bi.LastChecked.Value.AddMilliseconds(checkTimeOffset), allowancePercentage);
                 Assert.True(ret);
             }
@@ -128,7 +128,7 @@ namespace CprBroker.Tests.Data
                 [Values(-100, -1, 101)] int allowancePercentage,
                 [Values(1000)] int checkTimeOffset)
             {
-                var bi = new BudgetInterval() { IntervalMillisecods = interval, LastChecked = DateTime.Now };
+                var bi = new BudgetInterval() { IntervalMilliseconds = interval, LastChecked = DateTime.Now };
                 var ret = bi.CanRunAt(bi.LastChecked.Value.AddMilliseconds(checkTimeOffset), allowancePercentage);
             }
         }
@@ -140,7 +140,7 @@ namespace CprBroker.Tests.Data
             public void SuggestedStartTime_NeverRun_NowMinusInterval(
                 [Values(19, 100, 87636)]int interval)
             {
-                var bi = new BudgetInterval() { LastChecked = null, IntervalMillisecods = interval };
+                var bi = new BudgetInterval() { LastChecked = null, IntervalMilliseconds = interval };
                 var now = DateTime.Now;
                 var ret = bi.SuggestedStartTime(now);
                 Assert.AreEqual((double)interval, (now - ret).TotalMilliseconds);
@@ -152,7 +152,7 @@ namespace CprBroker.Tests.Data
                 [Values(545456,0,87895465)]int nowOffset)
             {
                 var now = DateTime.Now;
-                var bi = new BudgetInterval() { LastChecked = now, IntervalMillisecods = interval };
+                var bi = new BudgetInterval() { LastChecked = now, IntervalMilliseconds = interval };
                 var ret = bi.SuggestedStartTime(now.AddMilliseconds(nowOffset));
 
                 Assert.AreEqual(now, ret);
