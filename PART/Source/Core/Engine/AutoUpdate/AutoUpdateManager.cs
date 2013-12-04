@@ -54,6 +54,11 @@ namespace CprBroker.Engine
 {
     public class AutoUpdateManager
     {
+        public int BatchSize
+        {
+            get { return 1; }
+        }
+
         public void Run()
         {
             foreach (var facadeType in Facade.AllTypes)
@@ -70,42 +75,36 @@ namespace CprBroker.Engine
         }
 
         public void Run(Facade facade, IEnumerable<IDataProvider> providers)
-        { 
-            int batchSize = 1;
-
+        {
             foreach (var prov in providers)
             {
-                var keys = facade.GetChanges(prov, batchSize);
+                var keys = facade.GetChanges(prov, BatchSize);
                 while (keys.Length > 0)
                 {
                     var values = facade.GetObjects(prov, keys);
                     facade.UpdateLocal(keys, values);
                     facade.DeleteChanges(prov, keys);
-
-                    keys = facade.GetChanges(prov, batchSize);
+                    keys = facade.GetChanges(prov, BatchSize);
                 }
             }
         }
 
-        public void Run( IEnumerable<IDataProvider> providers)
+        public void Run(IEnumerable<IDataProvider> providers)
         {
-            int batchSize = 1;
-
-
             foreach (var prov in providers)
             {
                 var tProv = prov.GetType();
                 var getChangesMethod = tProv.GetMethod("GetChanges");
-                var keys = getChangesMethod.Invoke(prov, new object[] { batchSize }) as Array;
-
-
-                var getValuesMethod = tProv.GetMethod("GetValues");
-                var values = getValuesMethod.Invoke(prov, new object[] { keys, null }) as Array;
-
-                // TODO: add Update logic here
-
-                var deleteChangesMethod = tProv.GetMethod("DeleteChanges");
-                deleteChangesMethod.Invoke(prov, new object[] { keys });
+                var keys = getChangesMethod.Invoke(prov, new object[] { BatchSize }) as Array;
+                while (keys.Length > 0)
+                {
+                    var getValuesMethod = tProv.GetMethod("GetValues");
+                    var values = getValuesMethod.Invoke(prov, new object[] { keys, null }) as Array;
+                    // TODO: add Update logic here
+                    var deleteChangesMethod = tProv.GetMethod("DeleteChanges");
+                    deleteChangesMethod.Invoke(prov, new object[] { keys });
+                    keys = getChangesMethod.Invoke(prov, new object[] { BatchSize }) as Array;
+                }
             }
         }
 
