@@ -197,9 +197,14 @@ namespace CprBroker.Engine
                     try
                     {
                         Type providerType = Type.GetType(dbProv.TypeName);
-                        if (providerType != null && interfaceType.IsAssignableFrom(providerType) && typeof(IExternalDataProvider).IsAssignableFrom(providerType))
+                        if (providerType != null && typeof(IExternalDataProvider).IsAssignableFrom(providerType))
                         {
-                            dataProvider = CreateDataProvider(dbProv) as IDataProvider;
+                            if (interfaceType.IsAssignableFrom(providerType)
+                                || providerType.GetInterface(interfaceType.Name) != null
+                                )
+                            {
+                                dataProvider = CreateDataProvider(dbProv) as IDataProvider;
+                            }
                         }
                     }
                     catch (Exception ex)
