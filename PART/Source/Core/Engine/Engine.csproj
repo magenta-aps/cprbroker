@@ -90,7 +90,7 @@
     <Compile Include="BatchFacadeMethodInfo.cs" />
     <Compile Include="BrokerContext.cs" />
     <Compile Include="Budget\BudgetController.cs" />
-    <Compile Include="Facades\IAutoUpdateDataProvider.cs" />
+    <Compile Include="AutoUpdate\IAutoUpdateDataProvider.cs" />
     <Compile Include="IPerCallDataProvider.cs" />
     <Compile Include="Manager.Period.cs" />
     <Compile Include="Facades\ClientMethod.cs" />
