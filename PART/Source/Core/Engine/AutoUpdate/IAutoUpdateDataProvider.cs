@@ -52,12 +52,24 @@ using System.Reflection;
 
 namespace CprBroker.Engine
 {
-    public interface IAutoUpdateDataProvider<TKey, TObject, TContext> : IExternalDataProvider
+    public interface IDataProvider<TKey, TObject, TContext>
+    {
+        TObject[] GetValues(TKey[] keys, TContext context);
+    }
+
+    public interface IAutoUpdateDataProvider<TKey, TObject, TContext> : IDataProvider<TKey, TObject, TContext>, IExternalDataProvider
     {
         TKey[] GetChanges(int c = 1);
-        TObject[] GetValues(TKey[] keys, TContext context);
         void DeleteChanges(TKey[] keys);
+    }
 
+    public interface IDataTarget<TKey, TObject, TContext> : IDataProvider<TKey, TObject, TContext>
+    {
+        void UpdateLocal(TKey[] keys, TObject values);
+    }
+
+    public interface IAutoUpdateInstallationDataProvider : IDataProvider
+    {
         bool IsAutoUpdateInstalled();
         bool InstallAutoUpdate();
     }
