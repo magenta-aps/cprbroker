@@ -53,6 +53,13 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Engine
 {
+    /// <summary>
+    /// This class represents one type/aspect of data that is returned from a data provider
+    /// This data is retrieves as one block from a data provider
+    /// More than one data provider can implement the needed methods, and the same provider can support more than one facade
+    /// But the point is that this data aspect is treated as independent unit that is moved across the broker
+    /// Examples could be CPR data, UUID data, GeoLocationData
+    /// </summary>
     public abstract class Facade
     {
         public abstract Type AutoUpdateType { get; }
