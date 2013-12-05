@@ -58,7 +58,7 @@ using System.Diagnostics;
 namespace CprBroker.Engine
 {
 
-    public partial class FacadeMethod<TInterface, TInputElement, TOutputElement>
+    public partial class ClientMethod<TInterface, TInputElement, TOutputElement>
         where TInterface : class,ISingleDataProvider<TInputElement, TOutputElement>
     {
 

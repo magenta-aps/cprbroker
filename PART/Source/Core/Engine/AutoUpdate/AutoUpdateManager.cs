@@ -61,20 +61,20 @@ namespace CprBroker.Engine
 
         public void Run()
         {
-            foreach (var facadeType in Facade.AllTypes)
+            foreach (var facadeType in DataComponentFacade.AllTypes)
             {
-                Run(Utilities.Reflection.CreateInstance<Facade>(facadeType));
+                Run(Utilities.Reflection.CreateInstance<DataComponentFacade>(facadeType));
             }
         }
 
-        public void Run(Facade facade)
+        public void Run(DataComponentFacade facade)
         {
             var dbProv = DataProviderManager.ReadDatabaseDataProviders();
             var providers = DataProviderManager.LoadExternalDataProviders(dbProv, facade.AutoUpdateType);
             Run(providers);
         }
 
-        public void Run(Facade facade, IEnumerable<IDataProvider> providers)
+        public void Run(DataComponentFacade facade, IEnumerable<IDataProvider> providers)
         {
             foreach (var prov in providers)
             {

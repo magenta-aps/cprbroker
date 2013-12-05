@@ -51,7 +51,7 @@ using System.Text;
 
 namespace CprBroker.Engine
 {
-    public partial class FacadeMethod<TInterface, TInputElement, TOutputElement>
+    public partial class ClientMethod<TInterface, TInputElement, TOutputElement>
     {
         /// <summary>
         /// Represents the status of a method input element, containing input, output, and other fields

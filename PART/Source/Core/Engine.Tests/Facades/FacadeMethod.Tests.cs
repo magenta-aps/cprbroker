@@ -60,7 +60,7 @@ namespace CprBroker.Tests.Engine.Facades
         [TestFixture]
         public class Aggregate
         {
-            class FacadeStub : FacadeMethod<ISingleDataProvider<string, string>, string, string>
+            class FacadeStub : ClientMethod<ISingleDataProvider<string, string>, string, string>
             {
                 public override bool IsElementSucceeded(Element element)
                 {
@@ -136,7 +136,7 @@ namespace CprBroker.Tests.Engine.Facades
         [TestFixture]
         public class BaseUpdateDatabase
         {
-            class FacadeStub : FacadeMethod<ISingleDataProvider<string, string>, string, string>
+            class FacadeStub : ClientMethod<ISingleDataProvider<string, string>, string, string>
             {
                 public string[] inputs, outputs;
                 public override void UpdateDatabase(string[] input, string[] output)
@@ -160,7 +160,7 @@ namespace CprBroker.Tests.Engine.Facades
         [TestFixture]
         public class CallSingle
         {
-            public class FacadeStub : FacadeMethod<ISingleDataProvider<string, string>, string, string>
+            public class FacadeStub : ClientMethod<ISingleDataProvider<string, string>, string, string>
             {
                 public class ElementStub : Element
                 {
@@ -168,12 +168,12 @@ namespace CprBroker.Tests.Engine.Facades
                     public bool Succeeded;
                 }
 
-                public override bool IsElementSucceeded(FacadeMethod<ISingleDataProvider<string, string>, string, string>.Element element)
+                public override bool IsElementSucceeded(ClientMethod<ISingleDataProvider<string, string>, string, string>.Element element)
                 {
                     return (element as ElementStub).Succeeded;
                 }
 
-                public override bool IsElementUpdatable(FacadeMethod<ISingleDataProvider<string, string>, string, string>.Element element)
+                public override bool IsElementUpdatable(ClientMethod<ISingleDataProvider<string, string>, string, string>.Element element)
                 {
                     return (element as ElementStub).Updatable;
                 }
@@ -384,7 +384,7 @@ namespace CprBroker.Tests.Engine.Facades
         [TestFixture]
         public class CallDataProviders
         {
-            public class FacadeStub : FacadeMethod<ISingleDataProvider<string, string>, string, string>
+            public class FacadeStub : ClientMethod<ISingleDataProvider<string, string>, string, string>
             {
                 public class ProviderStub : IBatchDataProvider<string, string>
                 {
@@ -484,7 +484,7 @@ namespace CprBroker.Tests.Engine.Facades
                     get { throw new NotImplementedException(); }
                 }
             }
-            class FacadeStub : FacadeMethod<FunkyDataProvider, string, string>
+            class FacadeStub : ClientMethod<FunkyDataProvider, string, string>
             { }
 
             [Test]

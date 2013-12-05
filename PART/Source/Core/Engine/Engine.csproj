@@ -86,16 +86,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutoUpdate\AutoUpdateManager.cs" />
-    <Compile Include="Facades\Facade.cs" />
+    <Compile Include="Facades\DataComponentFacade.cs" />
     <Compile Include="BatchFacadeMethodInfo.cs" />
     <Compile Include="BrokerContext.cs" />
     <Compile Include="Budget\BudgetController.cs" />
     <Compile Include="Facades\IAutoUpdateDataProvider.cs" />
     <Compile Include="IPerCallDataProvider.cs" />
     <Compile Include="Manager.Period.cs" />
-    <Compile Include="Facades\FacadeMethod.cs" />
+    <Compile Include="Facades\ClientMethod.cs" />
     <Compile Include="Exceptions\InvalidTokenException.cs" />
-    <Compile Include="Facades\FacadeMethod.Element.cs" />
+    <Compile Include="Facades\ClientMethod.Element.cs" />
     <Compile Include="Facades\IDataProvider.cs" />
     <Compile Include="Facades\MethodHeader.cs" />
     <Compile Include="Local\AdminDataProvider.cs" />
@@ -192,7 +192,7 @@
     <Compile Include="Ping\Manager.Ping.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Facades\FacadeMethod.Overridables.cs" />
+    <Compile Include="Facades\ClientMethod.Overridables.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

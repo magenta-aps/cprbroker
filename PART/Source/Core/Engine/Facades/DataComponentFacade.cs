@@ -60,7 +60,7 @@ namespace CprBroker.Engine
     /// But the point is that this data aspect is treated as independent unit that is moved across the broker
     /// Examples could be CPR data, UUID data, GeoLocationData
     /// </summary>
-    public abstract class Facade
+    public abstract class DataComponentFacade
     {
         public abstract Type AutoUpdateType { get; }
         public abstract Array GetChanges(IDataProvider prov, int c);
@@ -74,7 +74,7 @@ namespace CprBroker.Engine
         }
     }
 
-    public abstract class Facade<TKey, TObject> : Facade
+    public abstract class Facade<TKey, TObject> : DataComponentFacade
     {
         public override Type AutoUpdateType
         {
