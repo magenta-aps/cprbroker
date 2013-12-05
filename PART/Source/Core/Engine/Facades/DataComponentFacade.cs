@@ -74,50 +74,50 @@ namespace CprBroker.Engine
         }
     }
 
-    public abstract class Facade<TKey, TObject> : DataComponentFacade
+    public abstract class Facade<TInputElement, TOutputElement> : DataComponentFacade
     {
         public override Type InterfaceType
         {
-            get { return typeof(IAutoUpdateDataProvider<TKey, TObject>); }
+            get { return typeof(IAutoUpdateDataProvider<TInputElement, TOutputElement>); }
         }
         public override Array GetChanges(IDataProvider prov, int c)
         {
-            return GetChanges(prov as IAutoUpdateDataProvider<TKey, TObject>, c);
+            return GetChanges(prov as IAutoUpdateDataProvider<TInputElement, TOutputElement>, c);
         }
 
-        public TKey[] GetChanges(IAutoUpdateDataProvider<TKey, TObject> dataProvider, int c)
+        public TInputElement[] GetChanges(IAutoUpdateDataProvider<TInputElement, TOutputElement> dataProvider, int c)
         {
             return dataProvider.GetChanges(c);
         }
 
         public override Array GetObjects(IDataProvider prov, Array keys)
         {
-            return GetObjects(prov as IAutoUpdateDataProvider<TKey, TObject>, keys as TKey[]);
+            return GetObjects(prov as IAutoUpdateDataProvider<TInputElement, TOutputElement>, keys as TInputElement[]);
         }
 
-        public Array GetObjects(IAutoUpdateDataProvider<TKey, TObject> prov, TKey[] keys)
+        public Array GetObjects(IAutoUpdateDataProvider<TInputElement, TOutputElement> prov, TInputElement[] keys)
         {
             return prov.GetBatch(keys);
         }
 
         public override void DeleteChanges(IDataProvider prov, Array keys)
         {
-            DeleteChanges(prov as IAutoUpdateDataProvider<TKey, TObject>, keys);
+            DeleteChanges(prov as IAutoUpdateDataProvider<TInputElement, TOutputElement>, keys);
         }
 
-        public void DeleteChanges(IAutoUpdateDataProvider<TKey, TObject> prov, Array keys)
+        public void DeleteChanges(IAutoUpdateDataProvider<TInputElement, TOutputElement> prov, Array keys)
         {
-            prov.DeleteChanges(keys as TKey[]);
+            prov.DeleteChanges(keys as TInputElement[]);
         }
 
         public override void UpdateLocal(Array keys, Array values)
         {
-            var keys2 = keys.OfType<TKey>().ToArray();
-            var values2 = values.OfType<TObject>().ToArray();
+            var keys2 = keys.OfType<TInputElement>().ToArray();
+            var values2 = values.OfType<TOutputElement>().ToArray();
             UpdateLocal(keys2, values2);
         }
 
-        public virtual void UpdateLocal(TKey[] keys, TObject[] values)
+        public virtual void UpdateLocal(TInputElement[] keys, TOutputElement[] values)
         {
             for (int i = 0; i < keys.Length; i++)
             {
@@ -125,7 +125,7 @@ namespace CprBroker.Engine
             }
         }
 
-        public abstract void UpdateLocal(TKey key, TObject value);
+        public abstract void UpdateLocal(TInputElement key, TOutputElement value);
     }
 
     public class CprFacade : Facade<PersonIdentifier, RegistreringType1>
