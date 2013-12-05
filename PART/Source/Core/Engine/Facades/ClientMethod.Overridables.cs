@@ -52,7 +52,7 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Engine
 {
-    public partial class ClientMethod<TInterface, TInputElement, TOutputElement>
+    public partial class ClientMethod<TInterface, TInputElement, TIntermediateElement, TOutputElement>
     {
 
         public virtual StandardReturType Validate(TInputElement[] input)

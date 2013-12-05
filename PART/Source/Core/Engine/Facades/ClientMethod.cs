@@ -58,8 +58,9 @@ using System.Diagnostics;
 namespace CprBroker.Engine
 {
 
-    public partial class ClientMethod<TInterface, TInputElement, TOutputElement>
+    public partial class ClientMethod<TInterface, TInputElement, TIntermediateElement, TOutputElement>
         where TInterface : class,ISingleDataProvider<TInputElement, TOutputElement>
+        where TIntermediateElement : ClientMethod<TInterface, TInputElement, TIntermediateElement, TOutputElement>.Element
     {
 
         public SourceUsageOrder LocalDataProviderOption = SourceUsageOrder.LocalThenExternal;
