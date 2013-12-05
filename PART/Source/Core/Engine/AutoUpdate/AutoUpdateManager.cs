@@ -70,7 +70,7 @@ namespace CprBroker.Engine
         public void Run(DataComponentFacade facade)
         {
             var dbProv = DataProviderManager.ReadDatabaseDataProviders();
-            var providers = DataProviderManager.LoadExternalDataProviders(dbProv, facade.AutoUpdateType);
+            var providers = DataProviderManager.LoadExternalDataProviders(dbProv, facade.InterfaceType);
             Run(providers);
         }
 
