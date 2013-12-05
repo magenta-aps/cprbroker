@@ -74,39 +74,38 @@ namespace CprBroker.Engine
         }
     }
 
-    public abstract class Facade<TKey, TObject, TContext> : Facade
+    public abstract class Facade<TKey, TObject> : Facade
     {
         public override Type AutoUpdateType
         {
-            get { return typeof(IAutoUpdateDataProvider<TKey, TObject, TContext>); }
+            get { return typeof(IAutoUpdateDataProvider<TKey, TObject>); }
         }
         public override Array GetChanges(IDataProvider prov, int c)
         {
-            return GetChanges(prov as IAutoUpdateDataProvider<TKey, TObject, TContext>, c);
+            return GetChanges(prov as IAutoUpdateDataProvider<TKey, TObject>, c);
         }
 
-        public TKey[] GetChanges(IAutoUpdateDataProvider<TKey, TObject, TContext> dataProvider, int c)
+        public TKey[] GetChanges(IAutoUpdateDataProvider<TKey, TObject> dataProvider, int c)
         {
             return dataProvider.GetChanges(c);
         }
 
         public override Array GetObjects(IDataProvider prov, Array keys)
         {
-            return GetObjects(prov as IAutoUpdateDataProvider<TKey, TObject, TContext>, keys as TKey[]);
+            return GetObjects(prov as IAutoUpdateDataProvider<TKey, TObject>, keys as TKey[]);
         }
 
-        public Array GetObjects(IAutoUpdateDataProvider<TKey, TObject, TContext> prov, TKey[] keys)
+        public Array GetObjects(IAutoUpdateDataProvider<TKey, TObject> prov, TKey[] keys)
         {
-            TContext context = default(TContext);
-            return prov.GetValues(keys, context);
+            return prov.GetBatch(keys);
         }
 
         public override void DeleteChanges(IDataProvider prov, Array keys)
         {
-            DeleteChanges(prov as IAutoUpdateDataProvider<TKey, TObject, TContext>, keys);
+            DeleteChanges(prov as IAutoUpdateDataProvider<TKey, TObject>, keys);
         }
 
-        public void DeleteChanges(IAutoUpdateDataProvider<TKey, TObject, TContext> prov, Array keys)
+        public void DeleteChanges(IAutoUpdateDataProvider<TKey, TObject> prov, Array keys)
         {
             prov.DeleteChanges(keys as TKey[]);
         }
@@ -129,7 +128,7 @@ namespace CprBroker.Engine
         public abstract void UpdateLocal(TKey key, TObject value);
     }
 
-    public class CprFacade : Facade<PersonIdentifier, RegistreringType1, object>
+    public class CprFacade : Facade<PersonIdentifier, RegistreringType1>
     {
         public override void UpdateLocal(PersonIdentifier key, RegistreringType1 value)
         {

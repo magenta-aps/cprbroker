@@ -52,18 +52,13 @@ using System.Reflection;
 
 namespace CprBroker.Engine
 {
-    public interface IDataProvider<TKey, TObject, TContext>
-    {
-        TObject[] GetValues(TKey[] keys, TContext context);
-    }
-
-    public interface IAutoUpdateDataProvider<TKey, TObject, TContext> : IDataProvider<TKey, TObject, TContext>, IExternalDataProvider
+    public interface IAutoUpdateDataProvider<TKey, TObject> : IBatchDataProvider<TKey, TObject>, IExternalDataProvider
     {
         TKey[] GetChanges(int c = 1);
         void DeleteChanges(TKey[] keys);
     }
 
-    public interface IDataTarget<TKey, TObject, TContext> : IDataProvider<TKey, TObject, TContext>
+    public interface IDataTarget<TKey, TObject> : IBatchDataProvider<TKey, TObject>
     {
         void UpdateLocal(TKey[] keys, TObject values);
     }
