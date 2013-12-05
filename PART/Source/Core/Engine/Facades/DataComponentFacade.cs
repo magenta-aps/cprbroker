@@ -62,7 +62,7 @@ namespace CprBroker.Engine
     /// </summary>
     public abstract class DataComponentFacade
     {
-        public abstract Type AutoUpdateType { get; }
+        public abstract Type InterfaceType { get; }
         public abstract Array GetChanges(IDataProvider prov, int c);
         public abstract Array GetObjects(IDataProvider prov, Array keys);
         public abstract void UpdateLocal(Array keys, Array values);
@@ -76,7 +76,7 @@ namespace CprBroker.Engine
 
     public abstract class Facade<TKey, TObject> : DataComponentFacade
     {
-        public override Type AutoUpdateType
+        public override Type InterfaceType
         {
             get { return typeof(IAutoUpdateDataProvider<TKey, TObject>); }
         }
