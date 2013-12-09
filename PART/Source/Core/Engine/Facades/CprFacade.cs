@@ -48,14 +48,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using CprBroker.Schemas;
+using CprBroker.Schemas.Part;
 
 namespace CprBroker.Engine
 {
-    public partial class ClientMethod<TInterface, TInputElement, TIntermediateElement, TOutputElement>
+    public class CprFacade : DataComponentFacade<PersonIdentifier, RegistreringType1>
     {
-        public class Element : Element<TInputElement, TOutputElement>
+        public override void UpdateLocal(PersonIdentifier key, RegistreringType1 value)
         {
-
+            Local.UpdateDatabase.UpdatePersonRegistration(key, value);
         }
     }
 }

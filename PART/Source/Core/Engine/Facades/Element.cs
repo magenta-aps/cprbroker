@@ -51,11 +51,14 @@ using System.Text;
 
 namespace CprBroker.Engine
 {
-    public partial class ClientMethod<TInterface, TInputElement, TIntermediateElement, TOutputElement>
+    /// <summary>
+    /// Represents the status of a method input element, containing input, output, and other fields
+    /// Replacement for both SubMethodInfo and SubMethodRunState
+    /// </summary>        
+    public class Element<TInputElement, TOutputElement>
     {
-        public class Element : Element<TInputElement, TOutputElement>
-        {
-
-        }
+        public TInputElement Input;
+        public TOutputElement Output;
+        public string PossibleErrorReason = Schemas.Part.StandardReturType.DataProviderFailedText;
     }
 }

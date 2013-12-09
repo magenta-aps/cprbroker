@@ -48,14 +48,34 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
+using System.Diagnostics;
+using CprBroker.Schemas;
+using CprBroker.Schemas.Part;
+using CprBroker.Data.DataProviders;
+using CprBroker.Engine;
+using CprBroker.Utilities;
 
 namespace CprBroker.Engine
 {
-    public partial class ClientMethod<TInterface, TInputElement, TIntermediateElement, TOutputElement>
+    /// <summary>
+    /// This class represents one type/aspect of data that is returned from a data provider
+    /// This data is retrieves as one block from a data provider
+    /// More than one data provider can implement the needed methods, and the same provider can support more than one facade
+    /// But the point is that this data aspect is treated as independent unit that is moved across the broker
+    /// Examples could be CPR data, UUID data, GeoLocationData
+    /// </summary>
+    public abstract class DataComponentFacade
     {
-        public class Element : Element<TInputElement, TOutputElement>
-        {
+        public abstract Type InterfaceType { get; }
+        public abstract Array GetChanges(IDataProvider prov, int c);
+        public abstract Array GetObjects(IDataProvider prov, Array keys);
+        public abstract void UpdateLocal(Array keys, Array values);
+        public abstract void DeleteChanges(IDataProvider prov, Array keys);
 
+        public static Type[] AllTypes
+        {
+            get { return new Type[] { typeof(CprFacade) }; }
         }
     }
 }

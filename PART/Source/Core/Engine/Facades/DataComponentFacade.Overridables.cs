@@ -48,14 +48,32 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
+using System.Diagnostics;
+using CprBroker.Schemas;
+using CprBroker.Schemas.Part;
+using CprBroker.Data.DataProviders;
+using CprBroker.Engine;
+using CprBroker.Utilities;
 
 namespace CprBroker.Engine
 {
-    public partial class ClientMethod<TInterface, TInputElement, TIntermediateElement, TOutputElement>
+    public abstract partial class DataComponentFacade<TInputElement, TOutputElement> : DataComponentFacade
     {
-        public class Element : Element<TInputElement, TOutputElement>
+        public virtual bool IsElementSucceeded(Element element)
+        {
+            return !Object.Equals(element.Output, default(TOutputElement));
+        }
+
+        public virtual bool IsElementUpdatable(Element element)
+        {
+            return !Object.Equals(element.Output, default(TOutputElement));
+        }
+
+        public virtual void UpdateDatabase(TInputElement[] input, TOutputElement[] output)
         {
 
         }
     }
+
 }

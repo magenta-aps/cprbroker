@@ -48,38 +48,163 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
+using System.Diagnostics;
 using CprBroker.Schemas;
 using CprBroker.Schemas.Part;
+using CprBroker.Data.DataProviders;
+using CprBroker.Engine;
+using CprBroker.Utilities;
 
 namespace CprBroker.Engine
 {
-    /// <summary>
-    /// This class represents one type/aspect of data that is returned from a data provider
-    /// This data is retrieves as one block from a data provider
-    /// More than one data provider can implement the needed methods, and the same provider can support more than one facade
-    /// But the point is that this data aspect is treated as independent unit that is moved across the broker
-    /// Examples could be CPR data, UUID data, GeoLocationData
-    /// </summary>
-    public abstract class DataComponentFacade
-    {
-        public abstract Type InterfaceType { get; }
-        public abstract Array GetChanges(IDataProvider prov, int c);
-        public abstract Array GetObjects(IDataProvider prov, Array keys);
-        public abstract void UpdateLocal(Array keys, Array values);
-        public abstract void DeleteChanges(IDataProvider prov, Array keys);
-
-        public static Type[] AllTypes
-        {
-            get { return new Type[] { typeof(CprFacade) }; }
-        }
-    }
-
-    public abstract class Facade<TInputElement, TOutputElement> : DataComponentFacade
+    public abstract partial class DataComponentFacade<TInputElement, TOutputElement> : DataComponentFacade
     {
         public override Type InterfaceType
         {
-            get { return typeof(IAutoUpdateDataProvider<TInputElement, TOutputElement>); }
+            get { return typeof(ISingleDataProvider<TInputElement, TOutputElement>); }
         }
+
+        public StandardReturType CreateDataProviders(out IEnumerable<ISingleDataProvider<TInputElement, TOutputElement>> dataProviders, SourceUsageOrder sourceUsageOrder)
+        {
+            DataProvidersConfigurationSection section = DataProvidersConfigurationSection.GetCurrent();
+            DataProvider[] dbProviders = DataProviderManager.ReadDatabaseDataProviders();
+
+            dataProviders = DataProviderManager.GetDataProviderList(section, dbProviders, InterfaceType, sourceUsageOrder)
+                .Select(p => p as ISingleDataProvider<TInputElement, TOutputElement>);
+            if (dataProviders.FirstOrDefault() == null)
+            {
+                Local.Admin.AddNewLog(TraceEventType.Warning, BrokerContext.Current.WebMethodMessageName, TextMessages.NoDataProvidersFound, null, null);
+                return StandardReturType.Create(HttpErrorCode.DATASOURCE_UNAVAILABLE);
+            }
+            return StandardReturType.OK();
+        }
+
+        public Element[] CallDataProviders(IEnumerable<ISingleDataProvider<TInputElement, TOutputElement>> dataProviders, TInputElement[] input)
+        {
+            var allElements = input
+                .Select(inp => new Element() { Input = inp })
+                .ToArray();
+
+            foreach (var prov in dataProviders)
+            {
+                var currentElements = allElements
+                    .Where(s => !IsElementSucceeded(s)).ToArray();
+
+                if (currentElements.Length == 0)
+                    break;
+
+                Element[] elementsToUpdate = null;
+
+                if (prov is IBatchDataProvider<TInputElement, TOutputElement>)
+                {
+                    CallBatch(prov as IBatchDataProvider<TInputElement, TOutputElement>, currentElements, out elementsToUpdate);
+                }
+                else
+                {
+                    CallSingle(prov, currentElements, out elementsToUpdate);
+                }
+
+                // Exceptions here are logged separately
+                if (prov is IExternalDataProvider && elementsToUpdate.Length > 0)
+                {
+                    BaseUpdateDatabase(elementsToUpdate.ToArray());
+                }
+            }
+            return allElements;
+        }
+
+        public void CallBatch(IBatchDataProvider<TInputElement, TOutputElement> prov, Element[] currentElements, out Element[] elementsToUpdate)
+        {
+            var elementsToUpdateList = new List<Element>();
+
+            try
+            {
+                // Exceptions here will cause going to next data provider
+                var currentOutput = prov.GetBatch(currentElements.Select(elm => elm.Input).ToArray());
+
+                if (currentOutput.Length != currentElements.Length)
+                    throw new Exception(string.Format("Output count mismatch when calling <{0}>, expected=<{1}, found=<{2}>>", prov.GetType().Name, currentElements.Length, currentOutput.Length));
+
+                // Smooth code, no exceptions expected
+                for (int i = 0; i < currentElements.Length; i++)
+                {
+                    var elm = currentElements[i];
+                    elm.Output = currentOutput[i];
+
+                    if (IsElementUpdatable(elm))
+                    {
+                        elementsToUpdateList.Add(elm);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Local.Admin.LogException(ex);
+            }
+            elementsToUpdate = elementsToUpdateList.ToArray();
+        }
+
+        public void CallSingle(ISingleDataProvider<TInputElement, TOutputElement> prov, Element[] currentElements, out Element[] elementsToUpdate)
+        {
+            var elementsToUpdateList = new List<Element>();
+
+            using (var elemnetLock = new ReaderWriterLockSlim(LockRecursionPolicy.NoRecursion))
+            {
+                var threadStarts = currentElements.Select(elm => new ThreadStart(() =>
+                {
+                    try
+                    {
+                        elm.Output = prov.GetOne(elm.Input);
+
+                        if (IsElementUpdatable(elm))
+                        {
+                            if (prov is IExternalDataProvider && prov.ImmediateUpdatePreferred)
+                            {
+                                // TODO: Shall this be removed to avoid thread abortion in data update phase?
+                                BaseUpdateDatabase(new Element[] { elm });
+                            }
+                            else
+                            {
+                                try
+                                {
+                                    elemnetLock.EnterWriteLock();
+                                    elementsToUpdateList.Add(elm);
+                                }
+                                finally
+                                {
+                                    elemnetLock.ExitWriteLock();
+                                }
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Local.Admin.LogException(ex);
+                    }
+                })).ToArray();
+
+                ThreadRunner.RunThreads(threadStarts, TimeSpan.FromMilliseconds(Config.Properties.Settings.Default.DataProviderMillisecondsTimeout));
+            }
+            elementsToUpdate = elementsToUpdateList.ToArray();
+        }
+
+        public void BaseUpdateDatabase(Element[] elementsToUpdate)
+        {
+            try
+            {
+                UpdateDatabase(
+                    elementsToUpdate.Select(s => s.Input).ToArray(),
+                    elementsToUpdate.Select(s => s.Output).ToArray()
+                    );
+            }
+            catch (Exception updateException)
+            {
+                string xml = Strings.SerializeObject(elementsToUpdate);
+                Local.Admin.LogException(updateException);
+            }
+        }
+
         public override Array GetChanges(IDataProvider prov, int c)
         {
             return GetChanges(prov as IAutoUpdateDataProvider<TInputElement, TOutputElement>, c);
@@ -128,11 +253,4 @@ namespace CprBroker.Engine
         public abstract void UpdateLocal(TInputElement key, TOutputElement value);
     }
 
-    public class CprFacade : Facade<PersonIdentifier, RegistreringType1>
-    {
-        public override void UpdateLocal(PersonIdentifier key, RegistreringType1 value)
-        {
-            Local.UpdateDatabase.UpdatePersonRegistration(key, value);
-        }
-    }
 }

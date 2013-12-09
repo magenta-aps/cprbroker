@@ -86,11 +86,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutoUpdate\AutoUpdateManager.cs" />
+    <Compile Include="Facades\CprFacade.cs" />
+    <Compile Include="Facades\DataComponentFacade.Base.cs" />
+    <Compile Include="Facades\DataComponentFacade.Element.cs" />
+    <Compile Include="Facades\DataComponentFacade.Overridables.cs" />
     <Compile Include="Facades\DataComponentFacade.cs" />
     <Compile Include="BatchFacadeMethodInfo.cs" />
     <Compile Include="BrokerContext.cs" />
     <Compile Include="Budget\BudgetController.cs" />
     <Compile Include="AutoUpdate\IAutoUpdateDataProvider.cs" />
+    <Compile Include="Facades\Element.cs" />
     <Compile Include="IPerCallDataProvider.cs" />
     <Compile Include="Manager.Period.cs" />
     <Compile Include="Facades\ClientMethod.cs" />
