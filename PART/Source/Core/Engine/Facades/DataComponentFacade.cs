@@ -193,7 +193,7 @@ namespace CprBroker.Engine
         {
             try
             {
-                UpdateDatabase(
+                UpdateLocal(
                     elementsToUpdate.Select(s => s.Input).ToArray(),
                     elementsToUpdate.Select(s => s.Output).ToArray()
                     );
@@ -235,22 +235,13 @@ namespace CprBroker.Engine
             prov.DeleteChanges(keys as TInputElement[]);
         }
 
-        public override void UpdateLocal(Array keys, Array values)
+        public override sealed void UpdateLocal(Array keys, Array values)
         {
             var keys2 = keys.OfType<TInputElement>().ToArray();
             var values2 = values.OfType<TOutputElement>().ToArray();
             UpdateLocal(keys2, values2);
         }
 
-        public virtual void UpdateLocal(TInputElement[] keys, TOutputElement[] values)
-        {
-            for (int i = 0; i < keys.Length; i++)
-            {
-                UpdateLocal(keys[i], values[i]);
-            }
-        }
-
-        public abstract void UpdateLocal(TInputElement key, TOutputElement value);
     }
 
 }

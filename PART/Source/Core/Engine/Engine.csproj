@@ -86,7 +86,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutoUpdate\AutoUpdateManager.cs" />
-    <Compile Include="Facades\CprFacade.cs" />
+    <Compile Include="Facades\ComponentFacades\CprFacade.cs" />
+    <Compile Include="Facades\ComponentFacades\UuidFacade.cs" />
     <Compile Include="Facades\DataComponentFacade.Base.cs" />
     <Compile Include="Facades\DataComponentFacade.Element.cs" />
     <Compile Include="Facades\DataComponentFacade.Overridables.cs" />

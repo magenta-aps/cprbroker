@@ -48,39 +48,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading;
-using System.Diagnostics;
-using CprBroker.Schemas;
-using CprBroker.Schemas.Part;
-using CprBroker.Data.DataProviders;
-using CprBroker.Engine;
-using CprBroker.Utilities;
 
 namespace CprBroker.Engine
 {
-    public abstract partial class DataComponentFacade<TInputElement, TOutputElement> : DataComponentFacade
+    public class UuidFacade : DataComponentFacade<string, Guid?>
     {
-        public virtual bool IsElementSucceeded(Element element)
+        public override void UpdateLocal(string[] keys, Guid?[] values)
         {
-            return !Object.Equals(element.Output, default(TOutputElement));
-        }
-
-        public virtual bool IsElementUpdatable(Element element)
-        {
-            return !Object.Equals(element.Output, default(TOutputElement));
-        }
-
-        public virtual void UpdateLocal(TInputElement[] keys, TOutputElement[] values)
-        {
-            for (int i = 0; i < keys.Length; i++)
-            {
-                UpdateLocal(keys[i], values[i]);
-            }
-        }
-
-        public virtual void UpdateLocal(TInputElement key, TOutputElement value)
-        {
+            Local.UpdateDatabase.UpdatePersonUuidArray(keys, values);
         }
     }
-
 }
