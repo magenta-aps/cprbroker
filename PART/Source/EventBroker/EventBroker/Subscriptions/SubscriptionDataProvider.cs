@@ -82,7 +82,7 @@ namespace CprBroker.EventBroker.Subscriptions
             subscription.SubscriptionId = Guid.NewGuid();
             subscription.SubscriptionTypeId = (int)subscriptionType;
             subscription.ApplicationId = applicationId;
-            subscription.Created = DateTime.Today;
+            subscription.Created = DateTime.Now;
             if (soegObject != null)
             {
                 var xml = Strings.SerializeObject(soegObject);
