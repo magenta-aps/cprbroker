@@ -114,7 +114,7 @@ namespace CprBroker.EventBroker.Subscriptions
             {
                 dataContext.SubscriptionPersons.InsertAllOnSubmit(
                     from PersonUuid in personUuids
-                    select new SubscriptionPerson() { SubscriptionPersonId = Guid.NewGuid(), SubscriptionId = subscription.SubscriptionId, PersonUuid = PersonUuid }
+                    select new SubscriptionPerson() { SubscriptionPersonId = Guid.NewGuid(), SubscriptionId = subscription.SubscriptionId, PersonUuid = PersonUuid, Created = subscription.Created }
                     );
             }
             dataContext.Channels.InsertOnSubmit(dbChannel);
