@@ -63,7 +63,6 @@
     <Compile Include="DataProviderManager.CreateDataProvider.Tests.cs" />
     <Compile Include="DataProviderManagerTests.cs" />
     <Compile Include="FacadeMethodInfoTests.cs" />
-    <Compile Include="Facades\FacadeMethod.Tests.cs" />
     <Compile Include="GetUuidArrayFacadeMethodInfo.Tests.cs" />
     <Compile Include="IPerCallDataProviderHelperTests.cs" />
     <Compile Include="ListFacadeMethodInfoTests.cs" />
@@ -103,6 +102,9 @@
     </None>
     <Compile Include="Manager.Part.Tests.cs" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Facades\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
