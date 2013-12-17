@@ -95,9 +95,12 @@ namespace CprBroker.EventBroker.Data
             }
             else if (this.Criteria == null)
             {
-                ret.Persons.Item = this.SubscriptionPersons
-                    .Select(sp => sp.PersonUuid.Value.ToString())
-                    .ToArray();
+                ret.Persons.Item = new PersonUuidsType()
+                {
+                    UUID = this.SubscriptionPersons
+                        .Select(sp => sp.PersonUuid.Value.ToString())
+                        .ToArray()
+                };
             }
             else
             {
