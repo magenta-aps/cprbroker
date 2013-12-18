@@ -138,13 +138,14 @@ namespace CprBroker.EventBroker.Subscriptions
                 dataContext.LoadOptions = loadOptions;
 
                 var subscription = (from sub in dataContext.Subscriptions
-                                    where sub.SubscriptionId == subscriptionId && sub.SubscriptionTypeId == (int)subscriptionType
+                                    where sub.SubscriptionId == subscriptionId && ! sub.Deactivated.HasValue && sub.SubscriptionTypeId == (int)subscriptionType
                                     select sub
                                     ).SingleOrDefault();
 
                 if (subscription != null)
                 {
                     subscription.Deactivated = DateTime.Now;
+                    dataContext.SubmitChanges();
                     return true;
                 }
                 else
