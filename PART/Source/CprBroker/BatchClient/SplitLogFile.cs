@@ -58,13 +58,13 @@ namespace BatchClient
 
         static void Run()
         {
-            var th = new System.Threading.Thread(new System.Threading.ThreadStart(SplitLogFile));
+            var th = new System.Threading.Thread(new System.Threading.ThreadStart(SplitFile));
             th.Start();
 
             Code = Console.Read();
         }
 
-        static void SplitLogFile()
+        static void SplitFile()
         {
             string path = "C:\\Cpr Broker.log";
             int partSize = 10 * 1024 * 1024;
