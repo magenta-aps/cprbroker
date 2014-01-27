@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="PART" Class="PartSearchDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Table Name="dbo.PersonSearchCache" Member="PersonSearchCaches">
+    <Type Name="PersonSearchCache">
+      <Column Name="PersonRegistrationId" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="UUID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="UserInterfaceKeyText" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="Birthdate" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="NickName" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="Note" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="AddressingName" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="PersonGivenName" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="PersonMiddleName" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="PersonSurnameName" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="PersonGenderCode" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="LivscyklusKode" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+    </Type>
+  </Table>
+</Database>
