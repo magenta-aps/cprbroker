@@ -36,15 +36,16 @@ BEGIN
 	CREATE TABLE [dbo].[PersonSearchCache](
 		[PersonRegistrationId] [uniqueidentifier] NULL,
 		[UUID] [uniqueidentifier] NOT NULL,
-		[Birthdate] [varchar](50) NULL,
-		[CalledName] [varchar](50) NULL,
-		[Note] [varchar](50) NULL,
-		[AddressingName] [varchar](50) NULL,
-		[PersonGivenName] [varchar](50) NULL,
-		[PersonMiddleName] [varchar](50) NULL,
-		[PersonSurnameName] [varchar](50) NULL,
-		[PersonGenderCode] [varchar](50) NULL,
-		[LivscyklusKode] [varchar](50) NULL,
+		[UserInterfaceKeyText] [varchar](max) NULL,
+		[Birthdate] [varchar](max) NULL,
+		[NickName] [varchar](max) NULL,
+		[Note] [varchar](max) NULL,
+		[AddressingName] [varchar](max) NULL,
+		[PersonGivenName] [varchar](max) NULL,
+		[PersonMiddleName] [varchar](max) NULL,
+		[PersonSurnameName] [varchar](max) NULL,
+		[PersonGenderCode] [varchar](max) NULL,
+		[LivscyklusKode] [varchar](max) NULL,
 	 CONSTRAINT [PK_PersonSearchCache] PRIMARY KEY CLUSTERED 
 	(
 		[UUID] ASC
