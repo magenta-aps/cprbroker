@@ -96,16 +96,16 @@ BEGIN
 		UPDATE  PersonSearchCache
 		SET 
 			PersonRegistrationId = @PersonRegistrationId,
-			UserInterfaceKeyText = Convert(VARCHAR, tmp_UserInterfaceKeyText.Value.query('text()')),
-			BirthDate = Convert(VARCHAR, tmp_BirthDate.Value.query('text()')),
-			NickName = Convert(VARCHAR, tmp_NickName.Value.query('text()')),
-			Note = Convert(VARCHAR, tmp_Note.Value.query('text()')),
-			AddressingName = Convert(VARCHAR, tmp_AddressingName.Value.query('text()')),
-			PersonGivenName = CONVERT(VARCHAR, tmp_PersonGivenName.Value.query('text()')), 
-			PersonMiddleName = CONVERT(VARCHAR, tmp_PersonMiddleName.Value.query('text()')), 
-			PersonSurnameName = CONVERT(VARCHAR, tmp_PersonSurnameName.Value.query('text()')), 
-			PersonGenderCode = CONVERT(VARCHAR, tmp_PersonGenderCode.Value.query('text()')), 
-			LivscyklusKode = CONVERT(VARCHAR, tmp_LivscyklusKode.Value.query('text()'))
+			UserInterfaceKeyText = Convert(VARCHAR(MAX), tmp_UserInterfaceKeyText.Value.query('text()')),
+			BirthDate = Convert(VARCHAR(MAX), tmp_BirthDate.Value.query('text()')),
+			NickName = Convert(VARCHAR(MAX), tmp_NickName.Value.query('text()')),
+			Note = Convert(VARCHAR(MAX), tmp_Note.Value.query('text()')),
+			AddressingName = Convert(VARCHAR(MAX), tmp_AddressingName.Value.query('text()')),
+			PersonGivenName = CONVERT(VARCHAR(MAX), tmp_PersonGivenName.Value.query('text()')), 
+			PersonMiddleName = CONVERT(VARCHAR(MAX), tmp_PersonMiddleName.Value.query('text()')), 
+			PersonSurnameName = CONVERT(VARCHAR(MAX), tmp_PersonSurnameName.Value.query('text()')), 
+			PersonGenderCode = CONVERT(VARCHAR(MAX), tmp_PersonGenderCode.Value.query('text()')), 
+			LivscyklusKode = CONVERT(VARCHAR(MAX), tmp_LivscyklusKode.Value.query('text()'))
 
 		FROM 
 			PersonSearchCache
