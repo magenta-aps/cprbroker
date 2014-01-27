@@ -111,6 +111,7 @@
     <Compile Include="LoadDummyData.cs" />
     <Compile Include="LogFileAnalyzer.cs" />
     <Compile Include="Part.cs" />
+    <Compile Include="PopulateSearchCache.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Read.cs" />
     <Compile Include="RefreshData.cs" />
