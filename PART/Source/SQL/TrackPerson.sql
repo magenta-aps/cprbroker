@@ -18,7 +18,7 @@ SET @ToDate = GETDATE()
 
 /*	
 	=========================================================
-	=====  Get Calls made after installation of 2.2.2  =====
+	=====  Get Calls made after installation of 2.2.1  =====
 	=========================================================
 */
 SELECT * 
@@ -44,7 +44,7 @@ WHERE
 
 /*	
 	=========================================================
-	=====  Get Calls made before installation of 2.2.2  =====
+	=====  Get Calls made before installation of 2.2.1  =====
 	=========================================================
 */
 
