@@ -58,7 +58,7 @@ namespace CprBroker.Providers.DPR
     /// <summary>
     /// Used as a link between miscellaneous person tables & person information
     /// </summary>
-    public partial class PersonInfo
+    public partial class PersonInfo : IPersonRelatedPnrSource
     {
         #region Properties & database expressions
 
@@ -172,13 +172,11 @@ namespace CprBroker.Providers.DPR
 
         public RegistreringType1 ToRegisteringType1(Func<string, Guid> cpr2uuidConverter, DPRDataContext dataContext)
         {
-            Func<decimal, Guid> cpr2uuidFunc = (cpr) => cpr2uuidConverter(cpr.ToPnrDecimalString());
-
             RegistreringType1 ret = new RegistreringType1()
             {
                 AttributListe = ToAttributListeType(),
                 TilstandListe = ToTilstandListeType(),
-                RelationListe = ToRelationListeType(cpr2uuidConverter, cpr2uuidFunc, dataContext),
+                RelationListe = ToRelationListeType(cpr2uuidConverter, dataContext),
 
                 AktoerRef = Constants.Actor,
                 CommentText = Constants.CommentText,
@@ -283,8 +281,10 @@ namespace CprBroker.Providers.DPR
             };
         }
 
-        public RelationListeType ToRelationListeType(Func<string, Guid> cpr2uuidConverter, Func<decimal, Guid> cpr2uuidFunc, DPRDataContext dataContext)
+        public RelationListeType ToRelationListeType(Func<string, Guid> cpr2uuidConverter, DPRDataContext dataContext)
         {
+            Func<decimal, Guid> cpr2uuidFunc = (cpr) => cpr2uuidConverter(cpr.ToPnrDecimalString());
+
             var ret = new RelationListeType();
             // Now fill the relations
             var fatherPnr = Utilities.ToParentPnr(this.PersonTotal.FatherPersonalOrBirthdate);
@@ -334,5 +334,22 @@ namespace CprBroker.Providers.DPR
             return ret;
         }
 
+
+        public string[] RelatedPnrs
+        {
+            get
+            {
+                var decimalPnrs = new List<decimal?>();
+                decimalPnrs.Add(Utilities.ToParentPnr(this.PersonTotal.FatherPersonalOrBirthdate));
+                decimalPnrs.Add(Utilities.ToParentPnr(this.PersonTotal.FatherPersonalOrBirthdate));
+                decimalPnrs.AddRange(Children.Select(ch => ch.ChildPNR));
+                
+                var ret = new List<string>();
+                ret.AddRange(decimalPnrs.Where(pnr=>pnr.HasValue).Select(pnr=>pnr.Value.ToPnrDecimalString()));
+                ret.AddRange(this.CivilStatesAsInterface.Select(civ=>civ.ToSpousePnr()));
+
+                return ret.Where(pnr => Strings.IsValidPersonNumber(pnr)).ToArray();
+            }
+        }
     }
 }

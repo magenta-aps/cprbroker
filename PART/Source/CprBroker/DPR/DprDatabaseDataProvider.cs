@@ -53,6 +53,7 @@ using CprBroker.Schemas;
 using CprBroker.Schemas.Part;
 using CprBroker.Schemas.Util;
 using System.Linq.Expressions;
+using CprBroker.Engine.Part;
 
 
 namespace CprBroker.Providers.DPR
@@ -76,7 +77,10 @@ namespace CprBroker.Providers.DPR
                 var db = PersonInfo.GetPersonInfo(dataContext, decimal.Parse(uuid.CprNumber));
                 if (db != null)
                 {
-                    ret = db.ToRegisteringType1(cpr2uuidFunc, dataContext);
+                    UuidCache cache = new UuidCache();
+                    cache.FillCache(db.RelatedPnrs);
+
+                    ret = db.ToRegisteringType1(cache.GetUuid, dataContext);
                 }
             }
             ql = QualityLevel.DataProvider;
