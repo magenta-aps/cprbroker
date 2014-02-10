@@ -69,8 +69,8 @@ namespace CprBroker.Providers.DPR
 
         public enum DetailType
         {
-            MasterData = 0,
-            ExtendedData = 1
+            MasterData = 0, // Only to client
+            ExtendedData = 1 // Put to DPR database
         }
 
         static ClientDataProvider()
@@ -84,11 +84,18 @@ namespace CprBroker.Providers.DPR
             ErrorCodes["07"] = "Timeout - New LOGON necessary";
             ErrorCodes["08"] = "DEAD-LOCK when read in the CPR system";
             ErrorCodes["09"] = "Errors in CPR's reply application. Contact supplier";
+            ErrorCodes["10"] = "Unknown subscription type";
+            ErrorCodes["11"] = "Unknown data type";
+            ErrorCodes["16"] = "Incorrect IP Address";
             ErrorCodes["20"] = "Unforeseen error in database update";
             ErrorCodes["21"] = "Login information for database missing";
             ErrorCodes["22"] = "Error login to database";
             ErrorCodes["30"] = "Error connection to CPR." + Environment.NewLine + "Check the port number and IP address ";
             ErrorCodes["31"] = "Communication Error";
+            ErrorCodes["40"] = "Incorrect PNR. Call rejected";
+            //ErrorCodes["41"] = "Person data already updated. Call rejected"; -- Not an error
+            ErrorCodes["42"] = "New downloaded in advance. Call rejected.";
+            ErrorCodes["43"] = "Subscription call without data retrieval. Call rejected.";
         }
 
         /// <summary>
