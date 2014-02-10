@@ -101,7 +101,7 @@
     <Compile Include="Intervals\Interval.cs" />
     <Compile Include="Intervals\RegisteredIntervalVirkningWrapper.cs" />
     <Compile Include="Intervals\TimedTypeWrapper.cs" />
-    <Compile Include="IPersonRelationType.cs" />
+    <Compile Include="Relations\IPersonRelationType.cs" />
     <Compile Include="LaesInputType.cs" />
     <Compile Include="CivilStatus\MaritalStatus.cs" />
     <Compile Include="DataProviderSequenceOptionHeader.cs" />
@@ -115,11 +115,12 @@
     <Compile Include="Part\Events\EventInfoStructureType.cs" />
     <Compile Include="Part\Events\EventObjectStructureType.cs" />
     <Compile Include="Part\Events\ExtensionStructureType.cs" />
-    <Compile Include="PersonFlerRelationType.cs" />
-    <Compile Include="PersonRelationType.cs" />
-    <Compile Include="PersonRelationTypeHelper.cs" />
+    <Compile Include="Relations\PersonFlerRelationType.cs" />
+    <Compile Include="Relations\PersonRelationType.cs" />
+    <Compile Include="Relations\PersonRelationTypeHelper.cs" />
     <Compile Include="RegistreringType1.cs" />
     <Compile Include="RelationListeType.cs" />
+    <Compile Include="Relations\IPersonRelatedPnrSource.cs" />
     <Compile Include="ServiceDescription\Admin.cs" />
     <Compile Include="ServiceDescription\Events.cs" />
     <Compile Include="ServiceDescription\Notification.cs" />
