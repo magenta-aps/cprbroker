@@ -61,7 +61,7 @@ namespace CprBroker.Data.DataProviders
     {
         public static RijndaelManaged EncryptionAlgorithm;
 
-        private readonly List<AttributeType> Properties = new List<AttributeType>();
+        public readonly List<AttributeType> Properties = new List<AttributeType>();
 
         partial void OnLoaded()
         {
