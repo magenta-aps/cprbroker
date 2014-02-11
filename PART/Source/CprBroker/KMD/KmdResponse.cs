@@ -53,15 +53,14 @@ using CprBroker.Schemas.Part;
 using CprBroker.Providers.KMD.WS_AS78205;
 using CprBroker.Providers.KMD.WS_AS78207;
 
-
 namespace CprBroker.Providers.KMD
 {
-    public class KmdResponse
+    public class KmdResponse : IPersonRelatedPnrSource
     {
         public AS78205Response AS78205Response { get; set; }
         public WS_AS78207.AS78207Response AS78207Response { get; set; }
 
-        
+
         public RegistreringType1 ToRegistreringType1(Func<string, Guid> cpr2uuidFunc)
         {
             var addressResponse = new WS_AS78205.EnglishAS78205Response(AS78205Response);
@@ -130,6 +129,24 @@ namespace CprBroker.Providers.KMD
             }
             // TODO: Fill other relationships such as custody
             return ret;
+        }
+
+        public string[] RelatedPnrs
+        {
+            get
+            {
+                var details = new EnglishAS78207Response(this.AS78207Response);
+                var ret = new List<string>(new string[]{
+                    details.FatherPNR,
+                    details.MotherPNR,
+                    details.SpousePNR,
+                });
+                if (details.ChildrenPNRs != null)
+                {
+                    ret.AddRange(details.ChildrenPNRs);
+                }
+                return ret.Where(pnr => CprBroker.Utilities.Strings.IsValidPersonNumber(pnr)).ToArray();
+            }
         }
     }
 }

@@ -54,6 +54,7 @@ using CprBroker.Providers.KMD.WS_AS78207;
 using CprBroker.Schemas.Part;
 using CprBroker.Utilities;
 using CprBroker.Engine.Local;
+using CprBroker.Engine.Part;
 
 namespace CprBroker.Providers.KMD
 {
@@ -84,8 +85,11 @@ namespace CprBroker.Providers.KMD
                     AS78205Response = addressResponse.InnerResponse,
                     AS78207Response = detailsResponse.InnerResponse
                 };
+                
+                UuidCache cache = new UuidCache();
+                cache.FillCache(kmdResponse.RelatedPnrs);
 
-                ret = kmdResponse.ToRegistreringType1(cpr2uuidFunc);
+                ret = kmdResponse.ToRegistreringType1(cache.GetUuid);
             }
             ql = CprBroker.Schemas.QualityLevel.Cpr;
 
