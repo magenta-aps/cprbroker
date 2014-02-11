@@ -75,6 +75,9 @@
     <Compile Include="Converters.cs" />
     <Compile Include="CitizenReadyAddress.cs" />
     <Compile Include="Constants.cs" />
+    <Compile Include="E_MDataContext.cs">
+      <DependentUpon>E_MDataContext.dbml</DependentUpon>
+    </Compile>
     <Compile Include="E_MDataContext.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

@@ -49,6 +49,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using CprBroker.Engine;
+using CprBroker.Engine.Part;
 using CprBroker.Schemas;
 using CprBroker.Schemas.Part;
 using System.Data.SqlClient;
@@ -67,12 +68,17 @@ namespace CprBroker.Providers.E_M
 
             using (var dataContext = new E_MDataContext(ConnectionString))
             {
+                dataContext.SetCitizenLoadOptions();
+
                 var dbCitizen = dataContext.Citizens
                     .Where(cit => cit.PNR == decimal.Parse(uuid.CprNumber))
                      .FirstOrDefault();
                 if (dbCitizen != null)
                 {
-                    return dbCitizen.ToRegistreringType1(effectDate, cpr2uuidFunc);
+                    var cache = new UuidCache();
+                    cache.FillCache(dbCitizen.RelatedPnrs);
+
+                    return dbCitizen.ToRegistreringType1(effectDate, cache.GetUuid);
                 }
             }
 

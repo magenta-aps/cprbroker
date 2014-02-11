@@ -50,10 +50,11 @@ using System.Linq;
 using System.Text;
 using CprBroker.Schemas;
 using CprBroker.Schemas.Part;
+using CprBroker.Utilities;
 
 namespace CprBroker.Providers.E_M
 {
-    public partial class Citizen
+    public partial class Citizen : IPersonRelatedPnrSource
     {
         public virtual RelationListeType ToRelationListeType(Func<string, Guid> cpr2uuidFunc)
         {
@@ -202,5 +203,24 @@ namespace CprBroker.Providers.E_M
             return new PersonRelationType[0];
         }
 
+
+        public string[] RelatedPnrs
+        {
+            get
+            {
+                var ret = new List<decimal>(new decimal[] {
+                    this.FatherPNR,
+                    this.MotherPNR,
+                    this.SpousePNR
+                });
+                ret.AddRange(this.ChildrenAsFather.Select(ch => ch.PNR));
+                ret.AddRange(this.ChildrenAsMother.Select(ch => ch.PNR));
+
+                return ret
+                    .Select(pnr => pnr.ToPnrDecimalString())
+                    .Where(pnr => Strings.IsValidPersonNumber(pnr))
+                    .ToArray();
+            }
+        }
     }
 }
