@@ -77,6 +77,7 @@
     <Compile Include="Stubs\GuidMethodInfo.cs" />
     <Compile Include="UpdateDatabasePartTests.cs" />
     <Compile Include="Utilities.cs" />
+    <Compile Include="UuidCacheTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Data\Data.csproj">
