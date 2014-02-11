@@ -52,7 +52,7 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Providers.CPRDirect
 {
-    public partial class IndividualResponseType
+    public partial class IndividualResponseType : IPersonRelatedPnrSource
     {
         public RelationListeType ToRelationListeType(Func<string, Guid> cpr2uuidFunc)
         {
@@ -119,6 +119,24 @@ namespace CprBroker.Providers.CPRDirect
         {
             // Parental authority owner
             return ParentalAuthorityType.ToPersonRelationType(this.ParentalAuthority, this.ParentsInformation, cpr2uuidFunc);
+        }
+
+        public string[] RelatedPnrs
+        {
+            get
+            {
+                var ret = new List<string>(new string[]{
+                    this.PersonInformation.CurrentCprNumber,
+                    this.CurrentCivilStatus.ToRelationPNROrNull(),
+                    this.Disempowerment.ToRelationPNROrNull()
+                });
+                ret.AddRange(this.ParentsInformation.ToRelationPNRsOrNull());
+                ret.AddRange(this.Child.Select(ch => ch.ChildPNR));
+                ret.AddRange(this.HistoricalCivilStatus.Select(civ => civ.SpousePNR));
+                ret.AddRange(ParentalAuthority.Select(pa => pa.RelationPNR));
+
+                return ret.Where(pnr => Utilities.Strings.IsValidPersonNumber(pnr)).ToArray();
+            }
         }
     }
 }

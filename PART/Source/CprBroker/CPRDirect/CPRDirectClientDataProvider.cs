@@ -49,6 +49,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using CprBroker.Engine;
+using CprBroker.Engine.Part;
 using CprBroker.Schemas;
 using CprBroker.Schemas.Part;
 using CprBroker.Utilities;
@@ -66,6 +67,9 @@ namespace CprBroker.Providers.CPRDirect
             {
                 IndividualRequestType request = new IndividualRequestType(true, DataType.DefinedByTask, decimal.Parse(uuid.CprNumber));
                 IndividualResponseType response = this.GetResponse(request);
+
+                UuidCache cache = new UuidCache();
+                cache.FillCache(response.RelatedPnrs);
 
                 return response.ToRegistreringType1(cpr2uuidFunc);
             }

@@ -55,6 +55,7 @@ using CprBroker.Utilities;
 using System.IO;
 using System.Net;
 using CprBroker.Engine.Local;
+using CprBroker.Engine.Part;
 
 namespace CprBroker.Providers.CPRDirect
 {
@@ -70,7 +71,10 @@ namespace CprBroker.Providers.CPRDirect
 
             if (response != null)
             {
-                return response.ToRegistreringType1(cpr2uuidFunc);
+                UuidCache cache = new UuidCache();
+                cache.FillCache(response.RelatedPnrs);
+
+                return response.ToRegistreringType1(cache.GetUuid);
             }
             return null;
         }

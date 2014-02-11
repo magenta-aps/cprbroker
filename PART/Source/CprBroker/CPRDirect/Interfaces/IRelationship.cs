@@ -62,10 +62,31 @@ namespace CprBroker.Providers.CPRDirect
     {
 
     }
-    
+
     public interface IMultipleRelationship
     {
         string PNR { get; }
         string[] RelationPNRs { get; }
+    }
+
+    public static class IRelationshipHelper
+    {
+        public static string ToRelationPNROrNull(this IRelationship rel)
+        {
+            if (rel != null)
+            {
+                return Converters.ToPnrStringOrNull(rel.RelationPNR);
+            }
+            return null;
+        }
+
+        public static string[] ToRelationPNRsOrNull(this IMultipleRelationship rel)
+        {
+            if (rel != null && rel.RelationPNRs != null)
+            {
+                return rel.RelationPNRs.Select(pnr => Converters.ToPnrStringOrNull(pnr)).ToArray();
+            }
+            return null;
+        }
     }
 }
