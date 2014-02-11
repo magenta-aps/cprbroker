@@ -90,7 +90,7 @@ namespace CprBroker.Engine.Part
             {
                 return StandardReturType.InvalidUuid(Input.SoegObjekt.UUID);
             }
-            // Start index & ax results
+            // Start index & max results
             if (!string.IsNullOrEmpty(Input.FoersteResultatReference))
             {
                 int startResult;
