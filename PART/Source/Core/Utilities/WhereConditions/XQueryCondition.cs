@@ -77,7 +77,7 @@ namespace CprBroker.Utilities.WhereConditions
                 }
             }
             // TODO: only use [last()] on the elements that have effect periods
-            string path = string.Format("{0}/{1}:{2}[last()]", basePath, nsMgr[element.NamespaceURI], element.Name);
+            string path = string.Format("{0}/{1}:{2}", basePath, nsMgr[element.NamespaceURI], element.Name);
 
             var arr = new List<WhereCondition>();
 
@@ -128,11 +128,12 @@ namespace CprBroker.Utilities.WhereConditions
         public override string ToString(string valueExpression)
         {
             string namespaces = string.Join(Environment.NewLine, Namespaces.Select(kvp => string.Format("declare namespace {0}=\"{1}\";", kvp.Value, kvp.Key)).ToArray());
-            return string.Format("{0}.value('{1}{2}({3})[1]','varchar(max)') = {4}",
+            return string.Format("{0}.value('{1}{2}({3})[{4}]','varchar(max)') = {5}",
                            ColumnName,
                            namespaces,
                            Environment.NewLine,
                            Path,
+                           CprBroker.Config.Properties.Settings.Default.CprDirectReturnsNewestFirst ? "1" : "last()",
                            valueExpression
                            );
         }
