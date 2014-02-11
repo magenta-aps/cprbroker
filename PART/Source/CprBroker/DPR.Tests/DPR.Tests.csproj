@@ -38,6 +38,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CprBroker.Config, Version=2.2.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Core\Output\CprBroker.Config.dll</HintPath>
+    </Reference>
     <Reference Include="CprBroker.Data, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Core\Output\CprBroker.Data.dll</HintPath>
@@ -82,6 +86,7 @@
     <Compile Include="CivilStatus.ToPersonRelationType.Tests.cs" />
     <Compile Include="CivilStatus.ToToPersonRelationTypeArray.Tests.cs" />
     <Compile Include="DepartureTests.cs" />
+    <Compile Include="PersonInfoTests.cs" />
     <Compile Include="PersonName.Tests.cs" />
     <Compile Include="PersonTotal.ToPersonInfo.Address.Tests.cs" />
     <Compile Include="PersonTotal.ToPersonInfo.Nationality.Tests.cs" />
