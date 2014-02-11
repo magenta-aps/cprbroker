@@ -86,10 +86,7 @@ namespace CprBroker.Tests.DPR.PersonInfoTests
                         }
                     }
                 }
-                else
-                {
-                    return _PNRs;
-                }
+                return _PNRs;
             }
         }
 
