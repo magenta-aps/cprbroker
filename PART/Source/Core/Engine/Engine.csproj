@@ -98,7 +98,6 @@
     <Compile Include="AutoUpdate\IAutoUpdateDataProvider.cs" />
     <Compile Include="Facades\Element.cs" />
     <Compile Include="IPerCallDataProvider.cs" />
-    <Compile Include="Manager.Period.cs" />
     <Compile Include="Facades\ClientMethod.cs" />
     <Compile Include="Exceptions\InvalidTokenException.cs" />
     <Compile Include="Facades\ClientMethod.Element.cs" />
@@ -107,14 +106,6 @@
     <Compile Include="Local\AdminDataProvider.cs" />
     <Compile Include="Local\Admin.Log.cs" />
     <Compile Include="IDataProvider.cs" />
-    <Compile Include="Part\CityNameMapping.cs" />
-    <Compile Include="Part\GetUuidArrayFacadeMethodInfo.cs" />
-    <Compile Include="Part\PutSubscriptionFacadeMethodInfo.cs" />
-    <Compile Include="Part\UuidCache.cs" />
-    <Compile Include="Period\ReadPeriodLookupFacadeMethodInfo.cs" />
-    <Compile Include="Period\ListPeriodLookupFacadeMethodInfo.cs" />
-    <Compile Include="Period\PeriodLookupInput.cs" />
-    <Compile Include="Period\PeriodLookupSubMethodInfo.cs" />
     <Compile Include="SubMethodRunState.cs" />
     <Compile Include="ThreadRunner.cs" />
     <Compile Include="UpdateRules\AddressingNameMatchRule.cs" />
@@ -155,12 +146,6 @@
     <Compile Include="FacadeMethodInfo.cs" />
     <Compile Include="Local\ApplicationDataProvider.cs" />
     <Compile Include="Local\UpdateDatabase.Part.cs" />
-    <Compile Include="Manager.Part.cs" />
-    <Compile Include="Part\ListFacadeMethodInfo.cs" />
-    <Compile Include="Part\ReadFacadeMethodInfo.cs" />
-    <Compile Include="Part\ReadSubMethodInfo.cs" />
-    <Compile Include="Part\SearchFacadeMethodInfo.cs" />
-    <Compile Include="Part\SearchSubMethodInfo.cs" />
     <Compile Include="SubMethodInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -184,7 +169,6 @@
     <Compile Include="Ping\PingDataProvider.cs" />
     <Compile Include="Ping\PingFacadeMethod.cs" />
     <Compile Include="Manager.Events.cs" />
-    <Compile Include="Part\GetUuidFacadeMethodInfo.cs" />
     <Compile Include="SchemaSoapExtension.cs" />
   </ItemGroup>
   <ItemGroup>

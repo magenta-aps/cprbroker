@@ -63,21 +63,14 @@
     <Compile Include="DataProviderManager.CreateDataProvider.Tests.cs" />
     <Compile Include="DataProviderManagerTests.cs" />
     <Compile Include="FacadeMethodInfoTests.cs" />
-    <Compile Include="GetUuidArrayFacadeMethodInfo.Tests.cs" />
     <Compile Include="IPerCallDataProviderHelperTests.cs" />
-    <Compile Include="ListFacadeMethodInfoTests.cs" />
-    <Compile Include="Manager.Base.Tests.cs" />
     <Compile Include="MatchRule.Tests.cs" />
-    <Compile Include="Period\PeriodLookupInputTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ReadFacadeMethodInfoTests.cs" />
-    <Compile Include="ReadSubMethodInfoTests.cs" />
     <Compile Include="Stubs\GuidDataProvider.cs" />
     <Compile Include="Stubs\GuidFacade.cs" />
     <Compile Include="Stubs\GuidMethodInfo.cs" />
     <Compile Include="UpdateDatabasePartTests.cs" />
     <Compile Include="Utilities.cs" />
-    <Compile Include="UuidCacheTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Data\Data.csproj">
@@ -101,7 +94,6 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-    <Compile Include="Manager.Part.Tests.cs" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

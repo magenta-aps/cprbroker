@@ -74,7 +74,7 @@ namespace CprBroker.Engine.Part
         public Func<string[], Guid?[]> GetUuidArrayMethod = 
             (pnrs) =>
             {
-                var result = Manager.Part.GetUuidArray(BrokerContext.Current.UserToken, BrokerContext.Current.ApplicationToken, pnrs);
+                var result = PartManager.GetUuidArray(BrokerContext.Current.UserToken, BrokerContext.Current.ApplicationToken, pnrs);
                 if (StandardReturType.IsSucceeded(result.StandardRetur))
                 {
                     return result.UUID.Select(uuid => Strings.IsGuid(uuid) ? new Guid(uuid) : null as Guid?).ToArray();

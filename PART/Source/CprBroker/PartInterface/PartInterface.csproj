@@ -31,14 +31,46 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CprBroker.Config">
+      <HintPath>..\..\Core\Output\CprBroker.Config.dll</HintPath>
+    </Reference>
+    <Reference Include="CprBroker.Data">
+      <HintPath>..\..\Core\Output\CprBroker.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="CprBroker.Engine">
+      <HintPath>..\..\Core\Output\CprBroker.Engine.dll</HintPath>
+    </Reference>
+    <Reference Include="CprBroker.Schemas">
+      <HintPath>..\..\Core\Output\CprBroker.Schemas.dll</HintPath>
+    </Reference>
+    <Reference Include="CprBroker.Utilities">
+      <HintPath>..\..\Core\Output\CprBroker.Utilities.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PartManager.cs" />
+    <Compile Include="PartManager.Period.cs" />
+    <Compile Include="Part\CityNameMapping.cs" />
+    <Compile Include="Part\GetUuidArrayFacadeMethodInfo.cs" />
+    <Compile Include="Part\GetUuidFacadeMethodInfo.cs" />
+    <Compile Include="Part\ListFacadeMethodInfo.cs" />
+    <Compile Include="Part\PutSubscriptionFacadeMethodInfo.cs" />
+    <Compile Include="Part\ReadFacadeMethodInfo.cs" />
+    <Compile Include="Part\ReadSubMethodInfo.cs" />
+    <Compile Include="Part\SearchFacadeMethodInfo.cs" />
+    <Compile Include="Part\SearchSubMethodInfo.cs" />
+    <Compile Include="Part\UuidCache.cs" />
+    <Compile Include="Period\ListPeriodLookupFacadeMethodInfo.cs" />
+    <Compile Include="Period\PeriodLookupInput.cs" />
+    <Compile Include="Period\PeriodLookupSubMethodInfo.cs" />
+    <Compile Include="Period\ReadPeriodLookupFacadeMethodInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
