@@ -62,7 +62,7 @@ namespace CprBroker.Engine
         public static bool CanCallOnline(bool modulus11Enabled, string pnr)
         {
             return !modulus11Enabled
-                || Utilities.Strings.IsModulus11OK(pnr);
+                || PartInterface.Strings.IsModulus11OK(pnr);
         }
     }
     

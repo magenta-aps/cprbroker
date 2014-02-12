@@ -145,7 +145,7 @@ namespace CprBroker.Providers.KMD
                 {
                     ret.AddRange(details.ChildrenPNRs);
                 }
-                return ret.Where(pnr => CprBroker.Utilities.Strings.IsValidPersonNumber(pnr)).ToArray();
+                return ret.Where(pnr => PartInterface.Strings.IsValidPersonNumber(pnr)).ToArray();
             }
         }
     }

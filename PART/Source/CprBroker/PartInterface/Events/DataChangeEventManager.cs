@@ -119,7 +119,7 @@ namespace CprBroker.Engine.Events
                     {
                         PersonUuid = p.UUID,
                         // TODO: Handle invalid Cpr numbers that will return null here
-                        Birthdate = Strings.PersonNumberToDate(p.CprNumber),
+                        Birthdate = PartInterface.Strings.PersonNumberToDate(p.CprNumber),
                     }
                 );
             }

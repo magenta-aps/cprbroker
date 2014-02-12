@@ -348,7 +348,7 @@ namespace CprBroker.Providers.DPR
                 ret.AddRange(decimalPnrs.Where(pnr=>pnr.HasValue).Select(pnr=>pnr.Value.ToPnrDecimalString()));
                 ret.AddRange(this.CivilStatesAsInterface.Select(civ=>civ.ToSpousePnr()));
 
-                return ret.Where(pnr => Strings.IsValidPersonNumber(pnr)).ToArray();
+                return ret.Where(pnr => PartInterface.Strings.IsValidPersonNumber(pnr)).ToArray();
             }
         }
     }

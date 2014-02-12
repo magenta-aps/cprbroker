@@ -81,7 +81,7 @@ namespace CprBroker.Engine.Part
                 }
             }
 
-            var invalidPnrs = (from pnr in input where !Strings.IsValidPersonNumber(pnr) select pnr).ToArray();
+            var invalidPnrs = (from pnr in input where !PartInterface.Strings.IsValidPersonNumber(pnr) select pnr).ToArray();
             if (invalidPnrs.Length > 0)
             {
                 return StandardReturType.Create(HttpErrorCode.BAD_CLIENT_REQUEST, String.Join(",", invalidPnrs));

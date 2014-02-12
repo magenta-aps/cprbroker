@@ -55,8 +55,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Events\DataChangeEventManager.cs" />
+    <Compile Include="Events\DequeueDataChangeEventsFacadeMethod.cs" />
+    <Compile Include="Events\DequeueDataChangeEventSubMethodInfo.cs" />
+    <Compile Include="Events\GetPersonBirthdatesFacadeMethodInfo.cs" />
+    <Compile Include="Events\GetPersonBirthdatesSubmethodInfo.cs" />
+    <Compile Include="Events\IDataChangeEventManager.cs" />
+    <Compile Include="Extensions.cs" />
     <Compile Include="IDataProvider.cs" />
     <Compile Include="IPerCallDataProvider.cs" />
+    <Compile Include="Manager.Events.cs" />
     <Compile Include="PartManager.cs" />
     <Compile Include="PartManager.Period.cs" />
     <Compile Include="Part\CityNameMapping.cs" />
@@ -74,6 +82,14 @@
     <Compile Include="Period\PeriodLookupSubMethodInfo.cs" />
     <Compile Include="Period\ReadPeriodLookupFacadeMethodInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Strings.cs" />
+    <Compile Include="UpdateDatabase.Part.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Events\Readme.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Facades\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

@@ -48,33 +48,32 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using CprBroker.Data.Part;
-using CprBroker.Utilities;
-using CprBroker.Utilities.ConsoleApps;
+using CprBroker.Schemas.Part;
+using CprBroker.Schemas.Part.Events;
 
-namespace BatchClient
+namespace CprBroker.Engine
 {
-    public class ValidateCprNumbers : ConsoleEnvironment
+
+    /// <summary>
+    /// Contains methods for getting event information
+    /// </summary>
+    public class EventsManager
     {
-        public override void Initialize()
+        public static BasicOutputType<TItem> GetMethodOutput<TItem>(GenericFacadeMethodInfo<TItem> facade)
         {
-            Utilities.UpdateConnectionString(BrokerConnectionString);
+            return CprBroker.Engine.Manager.GetMethodOutput<TItem>(facade);
         }
 
-        public override string[] LoadCprNumbers()
+        public static BasicOutputType<DataChangeEventInfo[]> DequeueDataChangeEvents(string userToken, string appToken, int maxCount)
         {
-            using (var dataContext = new PartDataContext())
-            {
-                return dataContext.PersonMappings.OrderBy(pm => pm.CprNumber).Select(pm => pm.CprNumber).ToArray();
-            }
+            var methodInfo = new CprBroker.Engine.Events.DequeueDataChangeEventsFacadeMethod(maxCount, appToken, userToken);
+            return GetMethodOutput<DataChangeEventInfo[]>(methodInfo);
         }
 
-        public override void ProcessPerson(string pnr)
+        public static BasicOutputType<PersonBirthdate[]> GetPersonBirthdates(string userToken, string appToken, Guid? personUuidToStartAfter, int maxCount)
         {
-            if (!PartInterface.Strings.IsValidPersonNumber(pnr))
-            {
-                throw new Exception("Invaild PNR");
-            }
+            var methodInfo = new CprBroker.Engine.Events.GetPersonBirthdatesFacadeMethodInfo(personUuidToStartAfter, maxCount, appToken, userToken);
+            return GetMethodOutput<PersonBirthdate[]>(methodInfo);
         }
     }
 }

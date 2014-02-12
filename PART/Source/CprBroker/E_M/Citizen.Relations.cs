@@ -218,7 +218,7 @@ namespace CprBroker.Providers.E_M
 
                 return ret
                     .Select(pnr => pnr.ToPnrDecimalString())
-                    .Where(pnr => Strings.IsValidPersonNumber(pnr))
+                    .Where(pnr => PartInterface.Strings.IsValidPersonNumber(pnr))
                     .ToArray();
             }
         }

@@ -135,7 +135,7 @@ namespace CprBroker.Providers.CPRDirect
                 ret.AddRange(this.HistoricalCivilStatus.Select(civ => civ.SpousePNR));
                 ret.AddRange(ParentalAuthority.Select(pa => pa.RelationPNR));
 
-                return ret.Where(pnr => Utilities.Strings.IsValidPersonNumber(pnr)).ToArray();
+                return ret.Where(pnr => PartInterface.Strings.IsValidPersonNumber(pnr)).ToArray();
             }
         }
     }

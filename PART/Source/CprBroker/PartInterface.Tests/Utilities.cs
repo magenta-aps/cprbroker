@@ -49,28 +49,69 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using CprBroker.Schemas.Part;
-using CprBroker.Schemas.Part.Events;
 
-namespace CprBroker.Engine
+namespace CprBroker.Tests.Engine
 {
-    public partial class Manager
+    public static class Utilities
     {
-        /// <summary>
-        /// Contains methods for getting event information
-        /// </summary>
-        public class Events
+        public static readonly Random Random = new Random();
+        public static string RandomCprNumber()
         {
-            public static BasicOutputType<DataChangeEventInfo[]> DequeueDataChangeEvents(string userToken, string appToken, int maxCount)
+            var day = Random.Next(1, 29).ToString("00");
+            var month = Random.Next(1, 13).ToString("00");
+            var year = Random.Next(1, 100).ToString("00");
+            var part1 = Random.Next(1000, 9980).ToString();
+            var ret = day + month + year + part1;
+            while (!CprBroker.Utilities.Strings.IsModulus11OK(ret))
             {
-                var methodInfo = new CprBroker.Engine.Events.DequeueDataChangeEventsFacadeMethod(maxCount, appToken, userToken);
-                return GetMethodOutput<DataChangeEventInfo[]>(methodInfo);
+                part1 = (int.Parse(part1) + 1).ToString();
+                ret = day + month + year + part1;
             }
-
-            public static BasicOutputType<PersonBirthdate[]> GetPersonBirthdates(string userToken, string appToken, Guid? personUuidToStartAfter, int maxCount)
-            {
-                var methodInfo = new CprBroker.Engine.Events.GetPersonBirthdatesFacadeMethodInfo(personUuidToStartAfter, maxCount, appToken, userToken);
-                return GetMethodOutput<PersonBirthdate[]>(methodInfo);
-            }
+            return ret;
         }
+
+        public static string[] RandomCprNumbers(int count)
+        {
+            var ret = new string[count];
+            for (int i = 0; i < count; i++)
+            {
+                ret[i] = RandomCprNumber();
+            }
+            return ret;
+        }
+
+		public static RegistreringType1 CreateFakePerson()
+		{
+			return CreateFakePerson (false);
+		}
+
+        public static RegistreringType1 CreateFakePerson(bool addSourceObject)
+        {
+            var ret = new RegistreringType1()
+            {
+                AttributListe = new AttributListeType()
+                {
+                    Egenskab = new EgenskabType[] { },
+                    LokalUdvidelse = null,
+                    RegisterOplysning = new RegisterOplysningType[] { },
+                    SundhedOplysning = null,
+                },
+                RelationListe = new RelationListeType(),
+                TilstandListe = new TilstandListeType(),
+                AktoerRef = UnikIdType.Create(Guid.NewGuid()),
+                LivscyklusKode = LivscyklusKodeType.Rettet,
+                CommentText = "",
+                Virkning = new VirkningType[] { },
+                SourceObjectsXml = null,
+                Tidspunkt = TidspunktType.Create(DateTime.Today)
+            };
+            if (addSourceObject)
+            {
+                var o = new object[] { Guid.NewGuid(), Guid.NewGuid() };
+                ret.SourceObjectsXml = CprBroker.Utilities.Strings.SerializeObject(o);
+            }
+            return ret;
+        }
+
     }
 }

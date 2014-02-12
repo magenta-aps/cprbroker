@@ -75,7 +75,7 @@ namespace CprBroker.Engine
 
         public static Type[] AllTypes
         {
-            get { return new Type[] { typeof(CprFacade) }; }
+            get { return new Type[] { }; }
         }
     }
 }

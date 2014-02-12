@@ -48,6 +48,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReadFacadeMethodInfoTests.cs" />
     <Compile Include="ReadSubMethodInfoTests.cs" />
+    <Compile Include="StringsTests.cs" />
+    <Compile Include="UpdateDatabasePartTests.cs" />
+    <Compile Include="Utilities.cs" />
     <Compile Include="UuidCacheTests.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

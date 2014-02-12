@@ -71,7 +71,7 @@ namespace CprBroker.Providers.DPR
 
             // If failed, get it from PNR
             if (!ret.HasValue)
-                ret = CprBroker.Utilities.Strings.PersonNumberToDate(this.PNR.ToPnrDecimalString());
+                ret = PartInterface.Strings.PersonNumberToDate(this.PNR.ToPnrDecimalString());
 
             return ret;
         }

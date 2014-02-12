@@ -78,12 +78,12 @@ namespace CprBroker.Providers.CPRDirect
                 return val;
 
             // Now try the current CPR number - it should be more recent than PNR
-            val = Utilities.Strings.PersonNumberToDate(this.CurrentCprNumber);
+            val = PartInterface.Strings.PersonNumberToDate(this.CurrentCprNumber);
             if (val.HasValue)
                 return val;
 
             // Finally, use PNR
-            val = Utilities.Strings.PersonNumberToDate(this.ToPnr());
+            val = PartInterface.Strings.PersonNumberToDate(this.ToPnr());
             return val;
         }
 

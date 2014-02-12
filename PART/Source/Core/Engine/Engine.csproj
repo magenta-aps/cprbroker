@@ -86,9 +86,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutoUpdate\AutoUpdateManager.cs" />
-    <Compile Include="Facades\ComponentFacades\CprFacade.cs" />
-    <Compile Include="Facades\ComponentFacades\UuidFacade.cs" />
-    <Compile Include="Facades\DataComponentFacade.Base.cs" />
+    <Compile Include="Facades\DataComponentFacade.Base.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Facades\DataComponentFacade.Element.cs" />
     <Compile Include="Facades\DataComponentFacade.Overridables.cs" />
     <Compile Include="Facades\DataComponentFacade.cs" />
@@ -145,7 +145,6 @@
     <Compile Include="DataProviderManager.cs" />
     <Compile Include="FacadeMethodInfo.cs" />
     <Compile Include="Local\ApplicationDataProvider.cs" />
-    <Compile Include="Local\UpdateDatabase.Part.cs" />
     <Compile Include="SubMethodInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -160,22 +159,14 @@
     <Compile Include="GenericFacadeMethodInfo.cs" />
     <Compile Include="DataProviders\GetDataProviderListFacadeMethodInfo.cs" />
     <Compile Include="DataProviders\SetDataProvidersFacadeMethodInfo.cs" />
-    <Compile Include="Events\DataChangeEventManager.cs" />
-    <Compile Include="Events\DequeueDataChangeEventsFacadeMethod.cs" />
-    <Compile Include="Events\DequeueDataChangeEventSubMethodInfo.cs" />
-    <Compile Include="Events\GetPersonBirthdatesFacadeMethodInfo.cs" />
-    <Compile Include="Events\GetPersonBirthdatesSubmethodInfo.cs" />
-    <Compile Include="Events\IDataChangeEventManager.cs" />
     <Compile Include="Ping\PingDataProvider.cs" />
     <Compile Include="Ping\PingFacadeMethod.cs" />
-    <Compile Include="Manager.Events.cs" />
     <Compile Include="SchemaSoapExtension.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Applications\Readme.txt" />
     <Content Include="Capabilites\Readme.txt" />
     <Content Include="DataProviders\Readme.txt" />
-    <Content Include="Events\Readme.txt" />
     <Content Include="Readme.txt" />
   </ItemGroup>
   <ItemGroup>

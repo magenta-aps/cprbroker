@@ -69,7 +69,7 @@ namespace CprBroker.Providers.E_M
             }
             else
             {
-                return CprBroker.Utilities.Strings.PersonNumberToDate(Converters.ToCprNumber(this.PNR)).Value;
+                return PartInterface.Strings.PersonNumberToDate(Converters.ToCprNumber(this.PNR)).Value;
             }
         }
 

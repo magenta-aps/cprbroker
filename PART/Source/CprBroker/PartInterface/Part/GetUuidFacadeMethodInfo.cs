@@ -75,7 +75,7 @@ namespace CprBroker.Engine.Part
                 return StandardReturType.NullInput();
             }
 
-            if (!Strings.IsValidPersonNumber(Input))
+            if (!PartInterface.Strings.IsValidPersonNumber(Input))
             {
                 return StandardReturType.InvalidCprNumber(Input);
             }
