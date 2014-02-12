@@ -70,7 +70,7 @@ namespace CprBroker.Tests.Engine
 
                 using (var dataContext = new PartDataContext())
                 {
-                    var person = CprBroker.Engine.Local.UpdateDatabase.EnsurePersonExists(dataContext, new Schemas.PersonIdentifier() { CprNumber = pnr, UUID = uuid });
+                    var person = CprBroker.Engine.Local.UpdateDatabase.EnsurePersonExists(dataContext, new CprBroker.Schemas.PersonIdentifier() { CprNumber = pnr, UUID = uuid });
                     Assert.NotNull(person);
                     Assert.AreEqual(uuid, person.UUID);
                     Assert.AreEqual(pnr, person.UserInterfaceKeyText);
@@ -101,7 +101,7 @@ namespace CprBroker.Tests.Engine
                     var uuid = dbPerson.UUID;
                     var pnr = dbPerson.UserInterfaceKeyText;
 
-                    var person = CprBroker.Engine.Local.UpdateDatabase.EnsurePersonExists(dataContext, new Schemas.PersonIdentifier() { CprNumber = pnr, UUID = uuid });
+                    var person = CprBroker.Engine.Local.UpdateDatabase.EnsurePersonExists(dataContext, new CprBroker.Schemas.PersonIdentifier() { CprNumber = pnr, UUID = uuid });
                     Assert.NotNull(person);
                     Assert.AreEqual(uuid, person.UUID);
                     Assert.AreEqual(pnr, person.UserInterfaceKeyText);

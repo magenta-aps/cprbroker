@@ -82,7 +82,7 @@ namespace CprBroker.Tests.Engine
         class ListFacadeMethodInfoStub : ListFacadeMethodInfo
         {
             public ListFacadeMethodInfoStub(string[] uuids)
-                : base(new ListInputType() { UUID = uuids }, Schemas.SourceUsageOrder.LocalThenExternal, Utilities.AppToken, "")
+                : base(new ListInputType() { UUID = uuids }, CprBroker.Schemas.SourceUsageOrder.LocalThenExternal, Utilities.AppToken, "")
             { }
 
             public ListFacadeMethodInfoStub()
@@ -102,14 +102,13 @@ namespace CprBroker.Tests.Engine
 
             public RegistreringType1 Read(CprBroker.Schemas.PersonIdentifier uuid, LaesInputType input, Func<string, Guid> cpr2uuidFunc, out CprBroker.Schemas.QualityLevel? ql)
             {
-                ql = Schemas.QualityLevel.DataProvider;
+                ql = CprBroker.Schemas.QualityLevel.DataProvider;
                 if (knownCprNumbers.Contains(uuid.CprNumber))
                 {
                     return new RegistreringType1();
                 }
                 return null;
             }
-
 
             #region IDataProvider Members
 
@@ -193,7 +192,7 @@ namespace CprBroker.Tests.Engine
         [RequiresThread]
         public void List_InvalidAppToken_ReturnsBadRequest()
         {
-            Schemas.QualityLevel? ql;
+            CprBroker.Schemas.QualityLevel? ql;
             var ret = PartManager.List("jkhfkjahkfj", "ahsdfkhkajh", new ListInputType(), SourceUsageOrder.LocalThenExternal, out ql);
             Assert.AreEqual("400", ret.StandardRetur.StatusKode);
         }
@@ -202,7 +201,7 @@ namespace CprBroker.Tests.Engine
         [RequiresThread]
         public void List_InvalidAppToken_StatusTextContainsToken()
         {
-            Schemas.QualityLevel? ql;
+            CprBroker.Schemas.QualityLevel? ql;
             var ret = PartManager.List("jkhfkjahkfj", "ahsdfkhkajh", new ListInputType(), SourceUsageOrder.LocalThenExternal, out ql);
             StringAssert.Contains("token", ret.StandardRetur.FejlbeskedTekst);
         }

@@ -61,7 +61,7 @@ namespace CprBroker.Tests.Engine
         [Test]
         public void ValidateInput_Null_Fails()
         {
-            var facade = new ListFacadeMethodInfo(null, Schemas.SourceUsageOrder.LocalThenExternal, "", "");
+            var facade = new ListFacadeMethodInfo(null, CprBroker.Schemas.SourceUsageOrder.LocalThenExternal, "", "");
             var result = facade.ValidateInput();
             Assert.AreEqual("400", result.StatusKode);
         }
@@ -69,7 +69,7 @@ namespace CprBroker.Tests.Engine
         [Test]
         public void ValidateInput_NullUuidArray_Fails()
         {
-            var facade = new ListFacadeMethodInfo(new ListInputType(), Schemas.SourceUsageOrder.LocalThenExternal, "", "");
+            var facade = new ListFacadeMethodInfo(new ListInputType(), CprBroker.Schemas.SourceUsageOrder.LocalThenExternal, "", "");
             var result = facade.ValidateInput();
             Assert.AreEqual("400", result.StatusKode);
         }
@@ -77,7 +77,7 @@ namespace CprBroker.Tests.Engine
         [Test]
         public void ValidateInput_ZeroUuids_Fails()
         {
-            var facade = new ListFacadeMethodInfo(new ListInputType() { UUID = new string[0] }, Schemas.SourceUsageOrder.LocalThenExternal, "", "");
+            var facade = new ListFacadeMethodInfo(new ListInputType() { UUID = new string[0] }, CprBroker.Schemas.SourceUsageOrder.LocalThenExternal, "", "");
             var result = facade.ValidateInput();
             Assert.AreEqual("400", result.StatusKode);
         }
@@ -88,7 +88,7 @@ namespace CprBroker.Tests.Engine
             [ValueSource(typeof(Utilities), "RandomGuids5")]string validUuid,
             [Values(null, "", "kalskldjas", "2610802222", "Data kljaslkj")]string inValidUuid)
         {
-            var facade = new ListFacadeMethodInfo(new ListInputType() { UUID = new string[] { validUuid, inValidUuid } }, Schemas.SourceUsageOrder.LocalThenExternal, "", "");
+            var facade = new ListFacadeMethodInfo(new ListInputType() { UUID = new string[] { validUuid, inValidUuid } }, CprBroker.Schemas.SourceUsageOrder.LocalThenExternal, "", "");
             var result = facade.ValidateInput();
             Assert.AreEqual("400", result.StatusKode);
         }
@@ -99,7 +99,7 @@ namespace CprBroker.Tests.Engine
             [ValueSource(typeof(Utilities), "RandomGuids5")]string validUuid,
             [Values("kalskldjas", "2610802222", "Data kljaslkj")]string inValidUuid)
         {
-            var facade = new ListFacadeMethodInfo(new ListInputType() { UUID = new string[] { validUuid, inValidUuid } }, Schemas.SourceUsageOrder.LocalThenExternal, "", "");
+            var facade = new ListFacadeMethodInfo(new ListInputType() { UUID = new string[] { validUuid, inValidUuid } }, CprBroker.Schemas.SourceUsageOrder.LocalThenExternal, "", "");
             var result = facade.ValidateInput();
             StringAssert.Contains(inValidUuid, result.FejlbeskedTekst);
         }
@@ -109,7 +109,7 @@ namespace CprBroker.Tests.Engine
         public void ValidateInput_RandomValidUuids_OK(
             [Values(10, 20, 200)]int count)
         {
-            var facade = new ListFacadeMethodInfo(new ListInputType() { UUID = Utilities.RandomGuidStrings(count) }, Schemas.SourceUsageOrder.LocalThenExternal, "", "");
+            var facade = new ListFacadeMethodInfo(new ListInputType() { UUID = Utilities.RandomGuidStrings(count) }, CprBroker.Schemas.SourceUsageOrder.LocalThenExternal, "", "");
             var result = facade.ValidateInput();
             Assert.AreEqual("200", result.StatusKode);
         }
@@ -119,7 +119,7 @@ namespace CprBroker.Tests.Engine
         public void ValidateInput_RandomValidUuids_EmptyStatusText(
             [Values(10, 20, 200)]int count)
         {
-            var facade = new ListFacadeMethodInfo(new ListInputType() { UUID = Utilities.RandomGuidStrings(count) }, Schemas.SourceUsageOrder.LocalThenExternal, "", "");
+            var facade = new ListFacadeMethodInfo(new ListInputType() { UUID = Utilities.RandomGuidStrings(count) }, CprBroker.Schemas.SourceUsageOrder.LocalThenExternal, "", "");
             var result = facade.ValidateInput();
             Assert.AreEqual("OK", result.FejlbeskedTekst);
         }
@@ -128,7 +128,7 @@ namespace CprBroker.Tests.Engine
         public void Initialize_Valid_CorrectCount(
             [Values(10, 20, 200)]int count)
         {
-            var facade = new ListFacadeMethodInfo(new ListInputType() { UUID = Utilities.RandomGuidStrings(count) }, Schemas.SourceUsageOrder.LocalThenExternal, "", "");
+            var facade = new ListFacadeMethodInfo(new ListInputType() { UUID = Utilities.RandomGuidStrings(count) }, CprBroker.Schemas.SourceUsageOrder.LocalThenExternal, "", "");
             facade.Initialize();
             Assert.AreEqual(count, facade.SubMethodInfos.Length);
         }
@@ -137,7 +137,7 @@ namespace CprBroker.Tests.Engine
         public void Initialize_Valid_CorrectSubMethodTypes(
             [Values(10, 20, 200)]int count)
         {
-            var facade = new ListFacadeMethodInfo(new ListInputType() { UUID = Utilities.RandomGuidStrings(count) }, Schemas.SourceUsageOrder.LocalThenExternal, "", "");
+            var facade = new ListFacadeMethodInfo(new ListInputType() { UUID = Utilities.RandomGuidStrings(count) }, CprBroker.Schemas.SourceUsageOrder.LocalThenExternal, "", "");
             facade.Initialize();
             CollectionAssert.AllItemsAreInstancesOfType(facade.SubMethodInfos, typeof(ReadSubMethodInfo));
         }

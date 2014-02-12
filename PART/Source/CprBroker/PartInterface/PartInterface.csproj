@@ -55,6 +55,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CivilStatus\CivilStatusLookupMap.cs" />
+    <Compile Include="CivilStatus\CivilStatusWrapper.cs" />
+    <Compile Include="CivilStatus\ICivilStatus.cs" />
+    <Compile Include="CivilStatus\MaritalStatus.cs" />
     <Compile Include="Data\ActorRef.cs" />
     <Compile Include="Data\Address.cs" />
     <Compile Include="Data\AddressPoint.cs" />

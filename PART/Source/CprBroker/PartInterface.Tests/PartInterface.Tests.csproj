@@ -57,6 +57,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CivilStatusWrapperTests.cs" />
     <Compile Include="GetUuidArrayFacadeMethodInfo.Tests.cs" />
     <Compile Include="IPerCallDataProviderHelperTests.cs" />
     <Compile Include="ListFacadeMethodInfoTests.cs" />

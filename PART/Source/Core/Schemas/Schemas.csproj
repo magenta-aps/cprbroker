@@ -82,8 +82,6 @@
     <Compile Include="Addresses\DummyAddressSource.cs" />
     <Compile Include="Addresses\IAddressSource.cs" />
     <Compile Include="ApplicationHeader.cs" />
-    <Compile Include="CivilStatus\CivilStatusLookupMap.cs" />
-    <Compile Include="CivilStatus\CivilStatusWrapper.cs" />
     <Compile Include="CountryIdentificationCodeType.cs" />
     <Compile Include="FiltreretOejebliksbilledeType.cs" />
     <Compile Include="Intervals\CannotCloseOpenEndIntervalsAttribute.cs" />
@@ -95,7 +93,6 @@
     <Compile Include="Events\DataChangeEventInfo.cs" />
     <Compile Include="Events\PersonBirthdate.cs" />
     <Compile Include="IBasicOutput.cs" />
-    <Compile Include="CivilStatus\ICivilStatus.cs" />
     <Compile Include="Intervals\DataTypeTags.cs" />
     <Compile Include="Intervals\Interfaces.cs" />
     <Compile Include="Intervals\Interval.cs" />
@@ -103,7 +100,6 @@
     <Compile Include="Intervals\TimedTypeWrapper.cs" />
     <Compile Include="Relations\IPersonRelationType.cs" />
     <Compile Include="LaesInputType.cs" />
-    <Compile Include="CivilStatus\MaritalStatus.cs" />
     <Compile Include="DataProviderSequenceOptionHeader.cs" />
     <Compile Include="PersonCivilRegistrationStatusCode.cs" />
     <Compile Include="PersonNameStructureType.cs" />
