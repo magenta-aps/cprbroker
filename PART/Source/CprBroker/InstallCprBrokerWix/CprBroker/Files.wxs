@@ -54,6 +54,9 @@
       <Component Id="CMP_CPR_Utilities_Dll" Directory="CPR_bin">
         <File Id="FILE_CPR_bin_Utilities_DLL" Source="$(var.SitePath)bin\CprBroker.Utilities.dll" KeyPath="yes"/>
       </Component>
+      <Component Id="CMP_CPR_PartInterface_Dll" Directory="CPR_bin">
+        <File Id="FILE_CPR_bin_PartInterface_DLL" Source="$(var.SitePath)bin\CprBroker.PartInterface.dll" KeyPath="yes"/>
+      </Component>
       <Component Id="CMP_CPR_Web_Dll" Directory="CPR_bin">
         <File Id="FILE_CPR_bin_Web_DLL" Source="$(var.SitePath)bin\CprBroker.Web.dll" KeyPath="yes"/>
       </Component>
@@ -71,6 +74,9 @@
       </Component>
       <Component Id="CMP_CPR_Local_Dll" Directory="CPR_bin">
         <File Id="FILE_CPR_bin_Local_DLL" Source="$(var.SitePath)bin\CprBroker.Providers.Local.dll" KeyPath="yes"/>
+      </Component>
+      <Component Id="CMP_CPR_LocalSearch_Dll" Directory="CPR_bin">
+        <File Id="FILE_CPR_bin_LocalSearch_DLL" Source="$(var.SitePath)bin\CprBroker.Providers.Local.Search.dll" KeyPath="yes"/>
       </Component>
       <Component Id="CMP_CPR_PersonMaster_Dll" Directory="CPR_bin">
         <File Id="FILE_CPR_bin_PersonMaster_DLL" Source="$(var.SitePath)bin\CprBroker.Providers.PersonMaster.dll" KeyPath="yes"/>
