@@ -106,7 +106,7 @@ namespace CprBroker.Tests.Utilities
                 [Values("2311783656","1608593655")]string pnr)
             {
                 //System.Diagnostics.Debugger.Launch();
-                var ret = Strings.IsModulus11OK(pnr);
+                var ret = PartInterface.Strings.IsModulus11OK(pnr);
                 Assert.True(ret);
             }
             
@@ -114,7 +114,7 @@ namespace CprBroker.Tests.Utilities
             public void IsModulus11_Zeros_False(
                 [Values("2311780000", "1608590000")]string pnr)
             {
-                var ret = Strings.IsModulus11OK(pnr);
+                var ret = PartInterface.Strings.IsModulus11OK(pnr);
                 Assert.False(ret);
             }
 
@@ -122,7 +122,7 @@ namespace CprBroker.Tests.Utilities
             public void IsModulus11_Wrong_False(
                 [Values("2311783650", "1608593667")]string pnr)
             {
-                var ret = Strings.IsModulus11OK(pnr);
+                var ret = PartInterface.Strings.IsModulus11OK(pnr);
                 Assert.False(ret);
             }
 

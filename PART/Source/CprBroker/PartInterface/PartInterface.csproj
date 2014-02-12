@@ -55,6 +55,51 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\ActorRef.cs" />
+    <Compile Include="Data\Address.cs" />
+    <Compile Include="Data\AddressPoint.cs" />
+    <Compile Include="Data\AddressPointStatus.cs" />
+    <Compile Include="Data\ContactChannel.cs" />
+    <Compile Include="Data\ContactChannelType.cs" />
+    <Compile Include="Data\CountryRef.cs" />
+    <Compile Include="Data\CprData.cs" />
+    <Compile Include="Data\DanishAddress.cs" />
+    <Compile Include="Data\DenmarkAddress.cs" />
+    <Compile Include="Data\Effect.cs" />
+    <Compile Include="Data\ForeignAddress.cs" />
+    <Compile Include="Data\ForeignCitizenCountry.cs" />
+    <Compile Include="Data\ForeignCitizenData.cs" />
+    <Compile Include="Data\Gender.cs" />
+    <Compile Include="Data\GeographicCoorditaneTuple.cs" />
+    <Compile Include="Data\GeographicPointLocation.cs" />
+    <Compile Include="Data\GreenlandicAddress.cs" />
+    <Compile Include="Data\HealthInformation.cs" />
+    <Compile Include="Data\LifecycleStatus.cs" />
+    <Compile Include="Data\LifeStatusType.cs" />
+    <Compile Include="Data\PartDataContext.Child.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PartDataContext.Child.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="Data\PartDataContext.cs">
+      <DependentUpon>PartDataContext.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="Data\PartDataContext.designer.cs">
+      <DependentUpon>PartDataContext.dbml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\PersonAttribute.cs" />
+    <Compile Include="Data\PersonCivilState.cs" />
+    <Compile Include="Data\PersonLifeState.cs" />
+    <Compile Include="Data\PersonMapping.cs" />
+    <Compile Include="Data\PersonName.cs" />
+    <Compile Include="Data\PersonProperties.cs" />
+    <Compile Include="Data\PersonRegistration.cs" />
+    <Compile Include="Data\PersonRegistrationKey.cs" />
+    <Compile Include="Data\PersonRelationship.cs" />
+    <Compile Include="Data\PersonState.cs" />
+    <Compile Include="Data\UnknownCitizenData.cs" />
     <Compile Include="Events\DataChangeEventManager.cs" />
     <Compile Include="Events\DequeueDataChangeEventsFacadeMethod.cs" />
     <Compile Include="Events\DequeueDataChangeEventSubMethodInfo.cs" />
@@ -84,12 +129,41 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Strings.cs" />
     <Compile Include="UpdateDatabase.Part.cs" />
+    <Compile Include="UpdateRules\AddressingNameMatchRule.cs" />
+    <Compile Include="UpdateRules\CityNameMatchRule.cs" />
+    <Compile Include="UpdateRules\MatchRule%28Of T%29.cs" />
+    <Compile Include="UpdateRules\MatchRule.cs" />
+    <Compile Include="UpdateRules\SpecielVejkodeIndikatorMatchRule.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Data\Readme.txt" />
     <Content Include="Events\Readme.txt" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Facades\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Data\PartDataContext.Child.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>PartDataContext.Child1.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Data\PartDataContext.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>PartDataContext.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Data\PartDataContext.Child.dbml.layout">
+      <DependentUpon>PartDataContext.Child.dbml</DependentUpon>
+    </None>
+    <None Include="Data\PartDataContext.dbml.layout">
+      <DependentUpon>PartDataContext.dbml</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

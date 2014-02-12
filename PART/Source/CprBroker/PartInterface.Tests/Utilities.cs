@@ -62,7 +62,7 @@ namespace CprBroker.Tests.Engine
             var year = Random.Next(1, 100).ToString("00");
             var part1 = Random.Next(1000, 9980).ToString();
             var ret = day + month + year + part1;
-            while (!CprBroker.Utilities.Strings.IsModulus11OK(ret))
+            while (!PartInterface.Strings.IsModulus11OK(ret))
             {
                 part1 = (int.Parse(part1) + 1).ToString();
                 ret = day + month + year + part1;
@@ -112,6 +112,37 @@ namespace CprBroker.Tests.Engine
             }
             return ret;
         }
+
+        public static Guid[] RandomGuids(int count)
+        {
+            var ret = new Guid[count];
+            for (int i = 0; i < count; i++)
+            {
+                ret[i] = Guid.NewGuid();
+            }
+            return ret;
+        }
+
+        public static string[] RandomGuidStrings(int count)
+        {
+            return Utilities.RandomGuids(count).Select(id => id.ToString()).ToArray();
+        }
+
+        public static string[] RandomGuids5
+        {
+            get
+            {
+                return Utilities.RandomGuidStrings(5);
+            }
+        }
+
+        public static string AppToken
+        {
+            get
+            {
+                return CprBroker.Utilities.Constants.BaseApplicationToken.ToString();
+            }
+        }       
 
     }
 }

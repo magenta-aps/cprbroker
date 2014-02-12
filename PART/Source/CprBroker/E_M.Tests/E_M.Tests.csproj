@@ -114,6 +114,10 @@
       <Project>{24E1E816-D9CD-47B8-96B6-619EAF3379C6}</Project>
       <Name>E_M</Name>
     </ProjectReference>
+    <ProjectReference Include="..\PartInterface\PartInterface.csproj">
+      <Project>{DA42D8BB-24D3-4416-A0BD-B98857F249AD}</Project>
+      <Name>PartInterface</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

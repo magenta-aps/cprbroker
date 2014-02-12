@@ -112,7 +112,7 @@ namespace CprBroker.Tests.Engine
                 [ValueSource("CorrectPNRs")]string pnr)
             {
 
-                var ret = IPerCallDataProviderHelper.CanCallOnline(true, pnr);
+                var ret = IPartPerCallDataProviderHelper.CanCallOnline(true, pnr);
                 Assert.True(ret);
             }
 
@@ -121,7 +121,7 @@ namespace CprBroker.Tests.Engine
                 [ValueSource("WrongPNRs")]string pnr)
             {
 
-                var ret = IPerCallDataProviderHelper.CanCallOnline(true, pnr);
+                var ret = IPartPerCallDataProviderHelper.CanCallOnline(true, pnr);
                 Assert.False(ret);
             }
 
@@ -129,7 +129,7 @@ namespace CprBroker.Tests.Engine
             public void CanCallOnline_Mod11Disabled_CorrectPNR_True(
                 [ValueSource("CorrectPNRs")]string pnr)
             {
-                var ret = IPerCallDataProviderHelper.CanCallOnline(false, pnr);
+                var ret = IPartPerCallDataProviderHelper.CanCallOnline(false, pnr);
                 Assert.True(ret);
             }
 
@@ -137,7 +137,7 @@ namespace CprBroker.Tests.Engine
             public void CanCallOnline_Mod11Disabled_WrongPNR_True(
                 [ValueSource("WrongPNRs")]string pnr)
             {
-                var ret = IPerCallDataProviderHelper.CanCallOnline(false, pnr);
+                var ret = IPartPerCallDataProviderHelper.CanCallOnline(false, pnr);
                 Assert.True(ret);
             }
         }

@@ -32,7 +32,7 @@ namespace CprBroker.Tests.CPRDirect.Objects
                 [Values(0, 1, 2, 10, 14)]int dayOffset)
             {
                 string pnr = Utilities.RandomCprNumberString();
-                DateTime birthDate = CprBroker.Utilities.Strings.PersonNumberToDate(pnr).Value;
+                DateTime birthDate = PartInterface.Strings.PersonNumberToDate(pnr).Value;
                 DateTime nameDate = birthDate.AddDays(dayOffset);
                 var res = new EgenskabInterval()
                 {
@@ -50,7 +50,7 @@ namespace CprBroker.Tests.CPRDirect.Objects
                 [Values(15, 20, 30)]int dayOffset)
             {
                 string pnr = Utilities.RandomCprNumberString();
-                DateTime birthDate = CprBroker.Utilities.Strings.PersonNumberToDate(pnr).Value;
+                DateTime birthDate = PartInterface.Strings.PersonNumberToDate(pnr).Value;
                 DateTime nameDate = birthDate.AddDays(dayOffset);
                 var res = new EgenskabInterval()
                 {

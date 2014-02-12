@@ -31,8 +31,26 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CprBroker.Data">
+      <HintPath>..\..\Core\Output\CprBroker.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="CprBroker.Engine">
+      <HintPath>..\..\Core\Output\CprBroker.Engine.dll</HintPath>
+    </Reference>
+    <Reference Include="CprBroker.Schemas">
+      <HintPath>..\..\Core\Output\CprBroker.Schemas.dll</HintPath>
+    </Reference>
+    <Reference Include="CprBroker.Utilities">
+      <HintPath>..\..\Core\Output\CprBroker.Utilities.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework, Version=2.6.2.12296, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dll\nunit.framework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
@@ -44,14 +62,25 @@
     <Compile Include="ListFacadeMethodInfoTests.cs" />
     <Compile Include="Manager.Base.Tests.cs" />
     <Compile Include="Manager.Part.Tests.cs" />
+    <Compile Include="MatchRule.Tests.cs" />
     <Compile Include="Period\PeriodLookupInputTests.cs" />
+    <Compile Include="PersonRegistration.Tests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReadFacadeMethodInfoTests.cs" />
     <Compile Include="ReadSubMethodInfoTests.cs" />
     <Compile Include="StringsTests.cs" />
+    <Compile Include="Stubs\GuidDataProvider.cs" />
+    <Compile Include="Stubs\GuidFacade.cs" />
+    <Compile Include="Stubs\GuidMethodInfo.cs" />
     <Compile Include="UpdateDatabasePartTests.cs" />
     <Compile Include="Utilities.cs" />
     <Compile Include="UuidCacheTests.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PartInterface\PartInterface.csproj">
+      <Project>{DA42D8BB-24D3-4416-A0BD-B98857F249AD}</Project>
+      <Name>PartInterface</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

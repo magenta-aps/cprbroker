@@ -109,25 +109,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Part\Address.cs" />
-    <Compile Include="Part\PartDataContext.Child.designer.cs">
-      <DependentUpon>PartDataContext.Child.dbml</DependentUpon>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
-    <Compile Include="Part\CprData.cs" />
-    <Compile Include="Part\Effect.cs" />
-    <Compile Include="Part\ForeignCitizenData.cs" />
-    <Compile Include="Part\Gender.cs" />
-    <Compile Include="Part\LifecycleStatus.cs" />
-    <Compile Include="Part\LifeStatusType.cs" />
-    <Compile Include="Part\PersonAttribute.cs" />
-    <Compile Include="Part\PersonMapping.cs" />
-    <Compile Include="Part\PersonRegistration.cs" />
-    <Compile Include="Part\PersonRegistrationKey.cs" />
-    <Compile Include="Part\PersonRelationship.cs" />
-    <Compile Include="Part\PersonState.cs" />
-    <Compile Include="Part\UnknownCitizenData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -160,16 +141,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="Part\PartDataContext.Child.dbml">
-      <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>PartDataContext.Child.designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Part\PartDataContext.dbml">
-      <Generator>MSLinqToSQLGenerator</Generator>
-      <SubType>Designer</SubType>
-      <LastGenOutput>PartDataContext.designer.cs</LastGenOutput>
-    </None>
     <None Include="Statistics\StatisticsDataContext.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>StatisticsDataContext.designer.cs</LastGenOutput>
@@ -177,9 +148,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Part\PartDataContext.dbml.layout">
-      <DependentUpon>PartDataContext.dbml</DependentUpon>
-    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -201,32 +169,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Events\DataChangeEventDataContext.cs" />
-    <Compile Include="Part\ActorRef.cs" />
-    <Compile Include="Part\AddressPoint.cs" />
-    <Compile Include="Part\AddressPointStatus.cs" />
-    <Compile Include="Part\PersonCivilState.cs" />
-    <Compile Include="Part\ContactChannel.cs" />
-    <Compile Include="Part\ContactChannelType.cs" />
-    <Compile Include="Part\CountryRef.cs" />
-    <Compile Include="Part\DanishAddress.cs" />
-    <Compile Include="Part\DenmarkAddress.cs" />
-    <Compile Include="Part\ForeignAddress.cs" />
-    <Compile Include="Part\ForeignCitizenCountry.cs" />
-    <Compile Include="Part\GeographicCoorditaneTuple.cs" />
-    <Compile Include="Part\GeographicPointLocation.cs" />
-    <Compile Include="Part\GreenlandicAddress.cs" />
-    <Compile Include="Part\HealthInformation.cs" />
-    <Compile Include="Part\PartDataContext.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Part\PartDataContext.designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>PartDataContext.dbml</DependentUpon>
-    </Compile>
-    <Compile Include="Part\PersonLifeState.cs" />
-    <Compile Include="Part\PersonName.cs" />
-    <Compile Include="Part\PersonProperties.cs" />
     <None Include="Events\DataChangeEventDataContext.dbml">
       <SubType>Designer</SubType>
       <Generator>MSLinqToSQLGenerator</Generator>
@@ -252,7 +194,6 @@
     <Content Include="Applications\Readme.txt" />
     <Content Include="DataProviders\Readme.txt" />
     <Content Include="Events\Readme.txt" />
-    <Content Include="Part\Readme.txt" />
     <Content Include="Readme.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -275,11 +216,6 @@
   <ItemGroup>
     <None Include="Statistics\StatisticsDataContext.dbml.layout">
       <DependentUpon>StatisticsDataContext.dbml</DependentUpon>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Part\PartDataContext.Child.dbml.layout">
-      <DependentUpon>PartDataContext.Child.dbml</DependentUpon>
     </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

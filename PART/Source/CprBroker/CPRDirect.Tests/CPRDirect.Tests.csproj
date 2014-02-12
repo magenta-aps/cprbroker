@@ -135,6 +135,10 @@
       <Project>{74212D20-BB98-401F-A5F7-03669B2CD07A}</Project>
       <Name>Local</Name>
     </ProjectReference>
+    <ProjectReference Include="..\PartInterface\PartInterface.csproj">
+      <Project>{DA42D8BB-24D3-4416-A0BD-B98857F249AD}</Project>
+      <Name>PartInterface</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PersonMaster\PersonMaster.csproj">
       <Project>{51186183-BEEA-4B6D-8865-B7070EFCA126}</Project>
       <Name>PersonMaster</Name>

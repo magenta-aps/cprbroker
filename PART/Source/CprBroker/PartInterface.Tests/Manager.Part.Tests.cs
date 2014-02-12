@@ -194,7 +194,7 @@ namespace CprBroker.Tests.Engine
         public void List_InvalidAppToken_ReturnsBadRequest()
         {
             Schemas.QualityLevel? ql;
-            var ret = Manager.Part.List("jkhfkjahkfj", "ahsdfkhkajh", new ListInputType(), SourceUsageOrder.LocalThenExternal, out ql);
+            var ret = PartManager.List("jkhfkjahkfj", "ahsdfkhkajh", new ListInputType(), SourceUsageOrder.LocalThenExternal, out ql);
             Assert.AreEqual("400", ret.StandardRetur.StatusKode);
         }
 
@@ -203,7 +203,7 @@ namespace CprBroker.Tests.Engine
         public void List_InvalidAppToken_StatusTextContainsToken()
         {
             Schemas.QualityLevel? ql;
-            var ret = Manager.Part.List("jkhfkjahkfj", "ahsdfkhkajh", new ListInputType(), SourceUsageOrder.LocalThenExternal, out ql);
+            var ret = PartManager.List("jkhfkjahkfj", "ahsdfkhkajh", new ListInputType(), SourceUsageOrder.LocalThenExternal, out ql);
             StringAssert.Contains("token", ret.StandardRetur.FejlbeskedTekst);
         }
 

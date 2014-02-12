@@ -20,10 +20,10 @@
         <elementListCompartment Id="0c444f3f-2dfa-4273-8b3e-80f4f78d9455" absoluteBounds="5.265, 1.21, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="31d8c08b-e1e2-4d01-a16c-d57b1465bea8" absoluteBounds="8.75, 0.5, 2, 1.3862939453125">
+    <classShape Id="31d8c08b-e1e2-4d01-a16c-d57b1465bea8" absoluteBounds="8.5, 0.75, 2, 1.3862939453125">
       <DataClassMoniker Name="/PartDataContext/ActorRef" />
       <nestedChildShapes>
-        <elementListCompartment Id="bbd0e256-6a6d-499a-8645-fbe8fd242e66" absoluteBounds="8.765, 0.96, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="bbd0e256-6a6d-499a-8645-fbe8fd242e66" absoluteBounds="8.515, 1.21, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
     <classShape Id="9bf2c69e-c958-48c5-98fd-958a36e1848b" absoluteBounds="3.25, 2.75, 2, 2.5401025390624996">
@@ -32,7 +32,7 @@
         <elementListCompartment Id="19b8e6dc-bc0d-4293-82e0-21459eba54b9" absoluteBounds="3.2649999999999997, 3.21, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(9.867186875 : 1.8862939453125); (9.867186875 : 4.34940123027992); (5.25 : 4.34940123027992)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(8.5 : 2.07139322916667); (6.36458333333333 : 2.07139322916667 : JumpStart); (6.19791666666667 : 2.07139322916667 : JumpEnd); (5 : 2.07139322916667); (5 : 2.75)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/PartDataContext/ActorRef/ActorRef_PersonRegistration" />
       <nodes>
         <classShapeMoniker Id="31d8c08b-e1e2-4d01-a16c-d57b1465bea8" />
