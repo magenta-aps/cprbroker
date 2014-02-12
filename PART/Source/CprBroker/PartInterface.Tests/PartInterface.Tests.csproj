@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GetUuidArrayFacadeMethodInfo.Tests.cs" />
+    <Compile Include="IPerCallDataProviderHelperTests.cs" />
     <Compile Include="ListFacadeMethodInfoTests.cs" />
     <Compile Include="Manager.Base.Tests.cs" />
     <Compile Include="Manager.Part.Tests.cs" />

@@ -63,7 +63,7 @@ namespace CprBroker.Providers.CPRDirect
         {
             ql = QualityLevel.Cpr;
 
-            if (IPerCallDataProviderHelper.CanCallOnline(uuid.CprNumber))
+            if (IPartPerCallDataProviderHelper.CanCallOnline(uuid.CprNumber))
             {
                 IndividualRequestType request = new IndividualRequestType(true, DataType.DefinedByTask, decimal.Parse(uuid.CprNumber));
                 IndividualResponseType response = this.GetResponse(request);
@@ -81,7 +81,7 @@ namespace CprBroker.Providers.CPRDirect
 
         public bool PutSubscription(PersonIdentifier personIdentifier)
         {
-            if (IPerCallDataProviderHelper.CanCallOnline(personIdentifier.CprNumber))
+            if (IPartPerCallDataProviderHelper.CanCallOnline(personIdentifier.CprNumber))
             {
                 IndividualRequestType request = new IndividualRequestType(true, DataType.NoData, decimal.Parse(personIdentifier.CprNumber));
                 IndividualResponseType response = this.GetResponse(request);

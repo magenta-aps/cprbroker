@@ -226,45 +226,10 @@ namespace CprBroker.Engine
     }
 
     /// <summary>
-    /// Contains methods of the Part interface that need an existing UUID
-    /// </summary>
-    public interface IPartReadDataProvider : IDataProvider
-    {
-        RegistreringType1 Read(PersonIdentifier uuid, LaesInputType input, Func<string, Guid> cpr2uuidFunc, out QualityLevel? ql);
-    }
-
-    public interface IPartPeriodDataProvider : IDataProvider
-    {
-        FiltreretOejebliksbilledeType ReadPeriod(DateTime fromDate, DateTime toDate, PersonIdentifier pId, Func<string, Guid> cpr2uuidFunc);
-    }
-
-    /// <summary>
-    /// Contains the Search method of the Part interface
-    /// </summary>
-    public interface IPartSearchDataProvider : IDataProvider
-    {
-        Guid[] Search(SoegInputType1 searchCriteria);
-    }
-
-    /// <summary>
-    /// Allows retrieval of person UUID from his CPR number
-    /// </summary>
-    public interface IPartPersonMappingDataProvider : IDataProvider
-    {
-        Guid? GetPersonUuid(string cprNumber);
-        Guid?[] GetPersonUuidArray(string[] cprNumberArray);
-    }
-
-    /// <summary>
     /// Allows external systems to ping this system
     /// </summary>
     public interface IPingDataProvider : IDataProvider
     {
         bool Ping();
-    }
-
-    public interface IPutSubscriptionDataProvider : IDataProvider
-    {
-        bool PutSubscription(PersonIdentifier personIdentifier);
     }
 }

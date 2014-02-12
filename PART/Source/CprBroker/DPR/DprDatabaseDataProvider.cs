@@ -67,7 +67,7 @@ namespace CprBroker.Providers.DPR
         public RegistreringType1 Read(PersonIdentifier uuid, LaesInputType input, Func<string, Guid> cpr2uuidFunc, out QualityLevel? ql)
         {
             CprBroker.Schemas.Part.RegistreringType1 ret = null;
-            if (IPerCallDataProviderHelper.CanCallOnline(uuid.CprNumber))
+            if (IPartPerCallDataProviderHelper.CanCallOnline(uuid.CprNumber))
             {
                 EnsurePersonDataExists(uuid.CprNumber);
             }
@@ -91,7 +91,7 @@ namespace CprBroker.Providers.DPR
         {
             if (!this.DisableDiversion)
             {
-                if (IPerCallDataProviderHelper.CanCallOnline(personIdentifier.CprNumber))
+                if (IPartPerCallDataProviderHelper.CanCallOnline(personIdentifier.CprNumber))
                 {
                     decimal cprNum = Convert.ToDecimal(personIdentifier.CprNumber);
 

@@ -55,6 +55,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IDataProvider.cs" />
+    <Compile Include="IPerCallDataProvider.cs" />
     <Compile Include="PartManager.cs" />
     <Compile Include="PartManager.Period.cs" />
     <Compile Include="Part\CityNameMapping.cs" />

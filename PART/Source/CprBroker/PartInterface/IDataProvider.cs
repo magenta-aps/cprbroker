@@ -48,61 +48,44 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Xml;
-using CprBroker.Engine;
-using CprBroker.Providers.KMD.WS_AS78207;
+using CprBroker.Schemas;
 using CprBroker.Schemas.Part;
-using CprBroker.Utilities;
-using CprBroker.Engine.Local;
-using CprBroker.Engine.Part;
+using CprBroker.Data;
 
-namespace CprBroker.Providers.KMD
+namespace CprBroker.Engine
 {
     /// <summary>
-    /// Implements the Read operation of the Part standard
+    /// Contains methods of the Part interface that need an existing UUID
     /// </summary>
-    public partial class KmdDataProvider : IPartReadDataProvider, IPerCallDataProvider
+    public interface IPartReadDataProvider : IDataProvider
     {
-        #region IPartReadDataProvider Members
+        RegistreringType1 Read(PersonIdentifier uuid, LaesInputType input, Func<string, Guid> cpr2uuidFunc, out QualityLevel? ql);
+    }
 
-        public RegistreringType1 Read(CprBroker.Schemas.PersonIdentifier uuid, LaesInputType input, Func<string, Guid> cpr2uuidFunc, out CprBroker.Schemas.QualityLevel? ql)
-        {
-            RegistreringType1 ret = null;
+    public interface IPartPeriodDataProvider : IDataProvider
+    {
+        FiltreretOejebliksbilledeType ReadPeriod(DateTime fromDate, DateTime toDate, PersonIdentifier pId, Func<string, Guid> cpr2uuidFunc);
+    }
 
-            if (IPartPerCallDataProviderHelper.CanCallOnline(uuid.CprNumber))
-            {
-                // TODO: Shall we remove this explicit logging after integration of budget control?
-                Admin.AddNewLog(System.Diagnostics.TraceEventType.Information, "KMD.Read", string.Format("Calling AS78207 with PNR <{0}>", uuid.CprNumber), null, null);
-                var detailsResponse = new EnglishAS78207Response(CallAS78207(uuid.CprNumber));
+    /// <summary>
+    /// Contains the Search method of the Part interface
+    /// </summary>
+    public interface IPartSearchDataProvider : IDataProvider
+    {
+        Guid[] Search(SoegInputType1 searchCriteria);
+    }
 
-                Admin.AddNewLog(System.Diagnostics.TraceEventType.Information, "KMD.Read", string.Format("Calling AS78205 with PNR <{0}>", uuid.CprNumber), null, null);
-                var addressResponse = CallAS78205(uuid.CprNumber);
+    /// <summary>
+    /// Allows retrieval of person UUID from his CPR number
+    /// </summary>
+    public interface IPartPersonMappingDataProvider : IDataProvider
+    {
+        Guid? GetPersonUuid(string cprNumber);
+        Guid?[] GetPersonUuidArray(string[] cprNumberArray);
+    }
 
-                Admin.AddNewLog(System.Diagnostics.TraceEventType.Information, "KMD.Read", string.Format("Converting PNR <{0}>", uuid.CprNumber), null, null);
-
-                var kmdResponse = new KmdResponse()
-                {
-                    AS78205Response = addressResponse.InnerResponse,
-                    AS78207Response = detailsResponse.InnerResponse
-                };
-                
-                UuidCache cache = new UuidCache();
-                cache.FillCache(kmdResponse.RelatedPnrs);
-
-                ret = kmdResponse.ToRegistreringType1(cache.GetUuid);
-            }
-            ql = CprBroker.Schemas.QualityLevel.Cpr;
-
-            return ret;
-        }
-
-        #endregion
-
-        #region Utility methods
-
-
-        
-
-        #endregion
+    public interface IPutSubscriptionDataProvider : IDataProvider
+    {
+        bool PutSubscription(PersonIdentifier personIdentifier);
     }
 }

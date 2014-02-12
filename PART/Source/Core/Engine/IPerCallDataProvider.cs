@@ -102,17 +102,6 @@ namespace CprBroker.Engine
             }
         }
 
-        public static bool CanCallOnline(string pnr)
-        {
-            return CanCallOnline(Config.Properties.Settings.Default.Modulus11LowLevelEnabled, pnr);
-        }
-
-        public static bool CanCallOnline(bool modulus11Enabled, string pnr)
-        {
-            return !modulus11Enabled
-                || Utilities.Strings.IsModulus11OK(pnr);
-        }
-
         public static DataProviderConfigPropertyInfo ToDataProviderConfigPropertyInfo(string operationName)
         {
             return new DataProviderConfigPropertyInfo()
