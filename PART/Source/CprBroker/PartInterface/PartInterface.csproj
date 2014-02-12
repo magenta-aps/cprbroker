@@ -66,6 +66,14 @@
     <Compile Include="Data\DanishAddress.cs" />
     <Compile Include="Data\DenmarkAddress.cs" />
     <Compile Include="Data\Effect.cs" />
+    <Compile Include="Data\Events\DataChangeEventDataContext.cs">
+      <DependentUpon>DataChangeEventDataContext.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Events\DataChangeEventDataContext.designer.cs">
+      <DependentUpon>DataChangeEventDataContext.dbml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Data\ForeignAddress.cs" />
     <Compile Include="Data\ForeignCitizenCountry.cs" />
     <Compile Include="Data\ForeignCitizenData.cs" />
@@ -136,6 +144,7 @@
     <Compile Include="UpdateRules\SpecielVejkodeIndikatorMatchRule.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Data\Events\Readme.txt" />
     <Content Include="Data\Readme.txt" />
     <Content Include="Events\Readme.txt" />
   </ItemGroup>
@@ -143,6 +152,11 @@
     <Folder Include="Facades\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Data\Events\DataChangeEventDataContext.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>DataChangeEventDataContext.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Data\PartDataContext.Child.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>PartDataContext.Child1.designer.cs</LastGenOutput>
@@ -164,6 +178,11 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Data\Events\DataChangeEventDataContext.dbml.layout">
+      <DependentUpon>DataChangeEventDataContext.dbml</DependentUpon>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
