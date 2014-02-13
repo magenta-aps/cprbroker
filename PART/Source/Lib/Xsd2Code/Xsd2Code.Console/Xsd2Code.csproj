@@ -177,9 +177,7 @@
   <PropertyGroup>
     <PreBuildEvent>
     </PreBuildEvent>
-    <PostBuildEvent>copy Xsd2Code.exe "$(ProjectDir)..\..\..\Dll\" /y
-copy Xsd2Code.pdb "$(ProjectDir)..\..\..\Dll\" /y
-copy Xsd2Code.Library.dll "$(ProjectDir)..\..\..\Dll\" /y
-copy Xsd2Code.Library.pdb "$(ProjectDir)..\..\..\Dll\" /y</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
 </Project>
