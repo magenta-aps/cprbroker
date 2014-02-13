@@ -196,7 +196,8 @@ namespace Xsd2Code.Library.Extensions
             //fallback: Check if the namespace attribute of the type equals the namespace of the file.
             //first, find the XmlType attribute.
 
-            foreach (CodeAttributeDeclaration attribute in type.CustomAttributes)
+            // BEEMEN COMMENTED THIS
+            /*foreach (CodeAttributeDeclaration attribute in type.CustomAttributes)
             {
                 if (attribute.Name == "System.Xml.Serialization.XmlTypeAttribute")
                 {
@@ -213,7 +214,7 @@ namespace Xsd2Code.Library.Extensions
                 }
 
             }
-
+            */
             return false;
         }
         #endregion
