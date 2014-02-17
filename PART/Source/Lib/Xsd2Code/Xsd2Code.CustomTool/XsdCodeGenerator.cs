@@ -5,7 +5,6 @@ using System.Text;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell.Interop;
 using Xsd2Code.Library;
-using System.IO;
 using System.Runtime.InteropServices;
 using Microsoft.Win32;
 
@@ -38,12 +37,10 @@ namespace Xsd2Code.CustomTool
             var generator = new GeneratorFacade(generatorParams);
 
             // Generate code
-            var result = generator.Generate();
+            var result = generator.GenerateBytes();
             if (result.Success)
             {
-                var bytes = File.ReadAllBytes(generatorParams.OutputFilePath);
-                File.Delete(generatorParams.OutputFilePath);
-
+                var bytes = result.Entity;
                 rgbOutputFileContents[0] = Marshal.AllocCoTaskMem(bytes.Length);
                 Marshal.Copy(bytes, 0, rgbOutputFileContents[0], bytes.Length);
 

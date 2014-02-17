@@ -21,7 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <RegisterForComInterop>false</RegisterForComInterop>
+    <RegisterForComInterop>true</RegisterForComInterop>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -71,7 +71,8 @@ copy Xsd2Code.Library.pdb "$(ProjectDir)..\..\..\Dll\" /y
 copy Xsd2Code.CustomTool.dll "$(ProjectDir)..\..\..\Dll\" /y
 copy Xsd2Code.CustomTool.pdb "$(ProjectDir)..\..\..\Dll\" /y
 
-regasm.exe "$(ProjectDir)..\..\..\Dll\Xsd2Code.CustomTool.dll"</PostBuildEvent>
+REM regasm.exe "$(ProjectDir)..\..\..\Dll\Xsd2Code.CustomTool.dll"
+REM regasm.exe "$(ProjectDir)..\..\..\Dll\Xsd2Code.Library.dll"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
