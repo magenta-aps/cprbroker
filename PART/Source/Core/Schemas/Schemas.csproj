@@ -261,6 +261,7 @@
     <None Include="OIOXSD\XSD.xsd" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="GenerateCode.xslt" />
     <Content Include="OIOXSD\XSD.txt" />
     <Content Include="Part\Events\Readme.txt" />
   </ItemGroup>
@@ -281,5 +282,8 @@
   -->
   <PropertyGroup>
     <PostBuildEvent>copy $(TargetFileName) ..\..\..\Output\ /y</PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent>"$(ProjectDir)..\..\Dll\msxsl.exe" "$(ProjectDir)OIOXSD\Person.xsd" "$(ProjectDir)GenerateCode.xslt" -o "$(ProjectDir)Person.designer.cs"</PreBuildEvent>
   </PropertyGroup>
 </Project>
