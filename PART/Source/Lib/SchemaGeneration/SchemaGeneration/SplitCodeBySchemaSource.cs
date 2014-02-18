@@ -5,6 +5,7 @@ using System.Text;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Diagnostics;
+using System.Xml;
 
 namespace SchemaGeneration
 {
@@ -78,14 +79,30 @@ namespace SchemaGeneration
                 + @"^\s{4}\}\r\n"
                 + @"";
 
-            var typeMatches = Regex.Matches(text, typePattern, RegexOptions.Multiline);
+            var typeMatches = Regex.Matches(text, typePattern, RegexOptions.Multiline).OfType<Match>().ToArray();
 
             var files = Directory.GetFiles(partialSchemaDir, "*.xsd");
 
             foreach (var file in files)
             {
                 var fileTypes = ByCompileAndGenerate.GetTypesInFile(file);
-                var relevantTypes = typeMatches.OfType<Match>().Where(m => fileTypes.Contains(m.Groups["typeName"].Value)).ToArray();
+                var fileNamespace = GetNamespace(file);
+
+                var relevantTypes = typeMatches.Where(
+                    m =>
+                    {
+                        var className = m.Groups["typeName"].Value;
+                        var withSameClassName = fileTypes.Where(t => className.StartsWith(t) && className.Length <= t.Length + 1).SingleOrDefault();
+                        if (withSameClassName != null)
+                        {
+                            string nsPattern = @"\[System\.Xml\.Serialization\.Xml(Type|Root)Attribute\(.*Namespace=""(?<ns>[^""]+)""";
+                            var nsMatch = Regex.Match(m.Value, nsPattern);
+                            var ns = nsMatch.Groups["ns"].Value;
+                            return ns.Equals(fileNamespace);
+                        }
+                        return fileTypes.Contains(className);
+                    }
+                    ).ToArray();
 
                 string codeFileName = file.Replace(".xsd", ".designer.cs");
                 using (var rd = new StreamWriter(codeFileName))
@@ -99,6 +116,23 @@ namespace SchemaGeneration
                 }
 
             }
+        }
+
+        public static string GetNamespace(string file)
+        {
+            var doc = new XmlDocument();
+            doc.Load(file);
+
+            var nsMgr = new XmlNamespaceManager(doc.NameTable);
+            nsMgr.AddNamespace("xsd", "http://www.w3.org/2001/XMLSchema");
+
+            var nodes = doc.SelectSingleNode("//xsd:schema", nsMgr);
+            var attr = nodes.Attributes["targetNamespace"];
+            if (attr != null)
+                return attr.Value;
+            else
+                return null;
+
         }
     }
 }
