@@ -98,6 +98,7 @@ namespace Xsd2Code.Library.Extensions
             this.ImportNamespaces(code);
             var types = new CodeTypeDeclaration[code.Types.Count];
             code.Types.CopyTo(types, 0);
+            types = types.OrderBy(t => t.Name).ToArray();
 
             // Generate generic base class
             if (GeneratorContext.GeneratorParams.Language == GenerationLanguage.CSharp && GeneratorContext.GeneratorParams.TrackingChanges.Enabled)
@@ -122,22 +123,21 @@ namespace Xsd2Code.Library.Extensions
                              where p.IsEnum
                              select p.Name).ToList();
 
+            var directTypes = GetTypeNames(schema);
+
             foreach (var type in types)
             {
                 CollectionTypes.Clear();
                 LazyLoadingFields.Clear();
                 CollectionTypesFields.Clear();
 
-                // Fixes http://xsd2code.codeplex.com/WorkItem/View.aspx?WorkItemId=8781
-                // and http://xsd2code.codeplex.com/WorkItem/View.aspx?WorkItemId=6944
                 if (GeneratorContext.GeneratorParams.Miscellaneous.ExcludeIncludedTypes)
                 {
-                    //if the typeName is NOT defined in the current schema, skip it.
-                    if (!ContainsTypeName(schema, type))
+                    if (!directTypes.Contains(type.Name))
                     {
                         code.Types.Remove(type);
                         continue;
-                    }
+                    }                   
                 }
 
 
@@ -170,6 +170,7 @@ namespace Xsd2Code.Library.Extensions
         /// 	<c>true</c> if the specified schema contains the type; otherwise, <c>false</c>.
         /// </returns>
         /// <remarks>Used to Exclude Included Types from Schema</remarks>
+        [Obsolete]
         private bool ContainsTypeName(XmlSchema schema, CodeTypeDeclaration type)
         {
             foreach (var item in schema.Items)
@@ -178,6 +179,14 @@ namespace Xsd2Code.Library.Extensions
                 if (complexItem != null)
                 {
                     if (complexItem.Name == type.Name)
+                    {
+                        return true;
+                    }
+                }
+                var simpleItem = item as XmlSchemaSimpleType;
+                if (simpleItem != null)
+                {
+                    if (simpleItem.Name == type.Name)
                     {
                         return true;
                     }
@@ -2327,5 +2336,22 @@ namespace Xsd2Code.Library.Extensions
             return null;
         }
         #endregion
+
+        #region Extra methods
+        private static string[] GetTypeNames(XmlSchema schema)
+        {
+            XmlDocument doc = new XmlDocument();
+            var bytes = new System.Net.WebClient().DownloadData(schema.SourceUri);
+            doc.Load(new MemoryStream(bytes));
+
+            var nsMgr = new XmlNamespaceManager(doc.NameTable);
+            nsMgr.AddNamespace("xsd", "http://www.w3.org/2001/XMLSchema");
+
+            var nodes = doc.SelectNodes("//xsd:complexType", nsMgr).OfType<XmlElement>().ToArray();
+            return nodes.Select(nd => nd.Attributes["name"].Value).ToArray();
+
+        }
+        #endregion
+
     }
 }
