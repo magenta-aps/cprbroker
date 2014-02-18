@@ -88,21 +88,7 @@ namespace SchemaGeneration
                 var fileTypes = GetTypesInFile(file);
                 var fileNamespace = GetNamespace(file);
 
-                var relevantTypes = typeMatches.Where(
-                    m =>
-                    {
-                        var className = m.Groups["typeName"].Value;
-                        var withSameClassName = fileTypes.Where(t => className.StartsWith(t) && className.Length <= t.Length + 1).SingleOrDefault();
-                        if (withSameClassName != null)
-                        {
-                            string nsPattern = @"\[System\.Xml\.Serialization\.Xml(Type|Root)Attribute\(.*Namespace=""(?<ns>[^""]+)""";
-                            var nsMatch = Regex.Match(m.Value, nsPattern);
-                            var ns = nsMatch.Groups["ns"].Value;
-                            return ns.Equals(fileNamespace);
-                        }
-                        return fileTypes.Contains(className);
-                    }
-                    ).ToArray();
+                var relevantTypes = typeMatches.Where(m => TypeDefinedInFile(m, fileNamespace, fileTypes)).ToArray();
 
                 string codeFileName = file.Replace(".xsd", ".designer.cs");
                 using (var rd = new StreamWriter(codeFileName))
@@ -116,6 +102,20 @@ namespace SchemaGeneration
                 }
 
             }
+        }
+
+        public static bool TypeDefinedInFile(Match typeMatch, string fileNamespace, string[] fileTypes)
+        {
+            var className = typeMatch.Groups["typeName"].Value;
+            var withSameClassName = fileTypes.Where(t => className.StartsWith(t) && className.Length <= t.Length + 1).SingleOrDefault();
+            if (withSameClassName != null)
+            {
+                string nsPattern = @"\[System\.Xml\.Serialization\.Xml(Type|Root)Attribute\(.*Namespace=""(?<ns>[^""]+)""";
+                var nsMatch = Regex.Match(typeMatch.Value, nsPattern);
+                var ns = nsMatch.Groups["ns"].Value;
+                return ns.Equals(fileNamespace);
+            }
+            return fileTypes.Contains(className);
         }
 
         public static string[] GetTypesInFile(string file)
