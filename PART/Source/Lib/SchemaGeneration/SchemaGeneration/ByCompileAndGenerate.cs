@@ -43,7 +43,7 @@ namespace SchemaGeneration
 
                 foreach (var file in files)
                 {
-                    var fileTypes = GetTypesInFile(file);
+                    var fileTypes = SplitCodeBySchemaSource.GetTypesInFile(file);
                     var typesToInclude = allTypes.Where(t => fileTypes.Contains(t.Name)).ToArray();
 
                     CodeNamespace localCodeNamespace = new CodeNamespace(nameSpace);
@@ -62,20 +62,6 @@ namespace SchemaGeneration
             }
         }
 
-        public static string[] GetTypesInFile(string file)
-        {
-            var doc = new XmlDocument();
-            doc.Load(file);
-
-            var nsMgr = new XmlNamespaceManager(doc.NameTable);
-            nsMgr.AddNamespace("xsd", "http://www.w3.org/2001/XMLSchema");
-
-            var nodes = doc.SelectNodes("//xsd:complexType[@name]", nsMgr).OfType<XmlElement>()
-                .Union(doc.SelectNodes("//xsd:simpleType[@name]", nsMgr).OfType<XmlElement>())
-                .ToArray();
-            var fileTypes = nodes.Select(nd => nd.Attributes["name"].Value).ToArray();
-            return fileTypes;
-        }
         public static CodeTypeDeclaration FromType(Type type)
         {
             var ret = new CodeTypeDeclaration()
