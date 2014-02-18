@@ -40,10 +40,13 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="xsd">
+      <HintPath>..\..\..\Dll\xsd.exe</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ByCompileAndGenerate.cs" />
-    <Compile Include="ByRegex.cs" />
+    <Compile Include="SplitCodeBySchemaSource.cs" />
     <Compile Include="GroupByNamespace.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -55,6 +58,9 @@
     <Content Include="GenerateCode.xslt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy "$(TargetPath)" "$(ProjectDir)..\..\..\Dll\" /y</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

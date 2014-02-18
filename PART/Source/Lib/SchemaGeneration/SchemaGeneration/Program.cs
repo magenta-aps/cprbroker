@@ -15,9 +15,7 @@ namespace SchemaGeneration
     {
         static void Main(string[] args)
         {
-            //ByCompileAndGenerate.Run();
-            ByRegex.Run();
-
+            SplitCodeBySchemaSource.Run(args[0]);
         }
 
         
