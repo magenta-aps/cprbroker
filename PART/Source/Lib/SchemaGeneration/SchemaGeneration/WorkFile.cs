@@ -8,7 +8,7 @@ using System.IO;
 
 namespace SchemaGeneration
 {
-    class WorkFile
+    public class WorkFile
     {
         public WorkFile(string xsdPath)
         {
@@ -70,9 +70,9 @@ namespace SchemaGeneration
             return fileTypes.Contains(className);
         }
 
-        public void WriteCodeFile(Match headerMatch, WorkFile file)
+        public void WriteCodeFile(Match headerMatch)
         {
-            using (var rd = new StreamWriter(file.CodeFullPath))
+            using (var rd = new StreamWriter(this.CodeFullPath))
             {
                 rd.Write(headerMatch.Value);
                 foreach (var m in Types)

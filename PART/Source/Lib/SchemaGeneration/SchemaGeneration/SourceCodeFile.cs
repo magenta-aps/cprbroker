@@ -28,5 +28,19 @@ namespace SchemaGeneration
                 .Select(m => new TypeDef(m))
                 .ToArray();
         }
+
+        public WorkFile[] ToWorkFiles(string partialSchemaDir)
+        {
+            var files = Directory.GetFiles(partialSchemaDir, "*.xsd").Select(f => new WorkFile(f)).ToArray();
+
+            foreach (var file in files)
+            {
+                var fileTypes = file.DefinedTypeNames;
+                var fileNamespace = file.TargetNamespace;
+
+                file.Types.AddRange(this.Types.Where(m => file.TypeDefinedInFile(m, fileNamespace, fileTypes)));
+            }
+            return files;
+        }
     }
 }

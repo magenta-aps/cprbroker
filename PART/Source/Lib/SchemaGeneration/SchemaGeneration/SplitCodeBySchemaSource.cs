@@ -59,16 +59,10 @@ namespace SchemaGeneration
         public static void SplitByFileSource(string allCodeFile, string partialSchemaDir)
         {
             var sourceFile = new SourceCodeFile(allCodeFile);
-
-            var files = Directory.GetFiles(partialSchemaDir, "*.xsd").Select(f => new WorkFile(f)).ToArray();
-
-            foreach (var file in files)
+            var generatedFiles = sourceFile.ToWorkFiles(partialSchemaDir);
+            foreach(var f in generatedFiles)
             {
-                var fileTypes = file.DefinedTypeNames;
-                var fileNamespace = file.TargetNamespace;
-
-                file.Types.AddRange(sourceFile.Types.Where(m => file.TypeDefinedInFile(m, fileNamespace, fileTypes)));
-                file.WriteCodeFile(sourceFile.HeaderMatch, file);
+                f.WriteCodeFile(sourceFile.HeaderMatch);
             }
         }
 
