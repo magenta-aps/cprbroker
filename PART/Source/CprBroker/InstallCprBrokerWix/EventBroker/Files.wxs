@@ -54,6 +54,12 @@
           <CopyFile Id="FILE_EVENT_bin_Backend_CprBroker.Utilities.dll" DestinationDirectory="EVENT_Backend"/>
         </File>
       </Component>
+      <Component Id="CMP_EVENT_bin_CprBroker.PartInterface.Dll" Directory="EVENT_bin">
+        <File Id="FILE_EVENT_bin_CprBroker.PartInterface.Dll" Source="$(var.EventSitePath)bin\CprBroker.PartInterface.dll" KeyPath="yes">
+          <CopyFile Id="FILE_EVENT_bin_BackendCprBroker.PartInterface.Dll" DestinationDirectory="EVENT_Backend"/>
+        </File>
+      </Component>
+
       <Component Id="CMP_EVENT_bin_CprBroker.Providers.CPRDirect.dll" Directory="EVENT_bin">
         <File Id="FILE_EVENT_bin_CprBroker.Providers.CPRDirect.dll" Source="$(var.SitePath)bin\CprBroker.Providers.CPRDirect.dll" KeyPath="yes">
           <CopyFile Id="FILE_EVENT_bin_BackendCprBroker.Providers.CPRDirect.dll" DestinationDirectory="EVENT_Backend"/>
