@@ -64,10 +64,8 @@ namespace SchemaGeneration
             // Get header
             string headerPattern = ""
                 + @"\A"
-                + @"(^((//.*)|(\s*)|(\s*(namespace|using).*))\r\n)*"
-                + @""
-                + @""
-                + @"";
+                + @"(^((//.*)|(\s*)|(\s*(namespace|using).*))\r\n)*";
+
             var headerMatch = Regex.Match(text, headerPattern, RegexOptions.Multiline);
 
             // Get types (classes/enums)
@@ -79,75 +77,22 @@ namespace SchemaGeneration
                 + @"^\s{4}\}\r\n"
                 + @"";
 
-            var typeMatches = Regex.Matches(text, typePattern, RegexOptions.Multiline).OfType<Match>().ToArray();
+            var generatedTypes = Regex.Matches(text, typePattern, RegexOptions.Multiline)
+                .OfType<Match>()
+                .Select(m => new TypeDef(m))
+                .ToArray();
 
-            var files = Directory.GetFiles(partialSchemaDir, "*.xsd");
+            var files = Directory.GetFiles(partialSchemaDir, "*.xsd").Select(f => new WorkFile(f)).ToArray();
 
             foreach (var file in files)
             {
-                var fileTypes = GetTypesInFile(file);
-                var fileNamespace = GetNamespace(file);
+                var fileTypes = file.GetDefinedTypeNames();
+                var fileNamespace = file.GetTargetNamespace();
 
-                var relevantTypes = typeMatches.Where(m => TypeDefinedInFile(m, fileNamespace, fileTypes)).ToArray();
-
-                string codeFileName = file.Replace(".xsd", ".designer.cs");
-                using (var rd = new StreamWriter(codeFileName))
-                {
-                    rd.Write(headerMatch.Value);
-                    foreach (var m in relevantTypes)
-                    {
-                        rd.Write(m.Value);
-                    }
-                    rd.Write("}");
-                }
-
+                file.Types.AddRange(generatedTypes.Where(m => file.TypeDefinedInFile(m, fileNamespace, fileTypes)));
+                file.WriteCodeFile(headerMatch, file);
             }
         }
 
-        public static bool TypeDefinedInFile(Match typeMatch, string fileNamespace, string[] fileTypes)
-        {
-            var className = typeMatch.Groups["typeName"].Value;
-            var withSameClassName = fileTypes.Where(t => className.StartsWith(t) && className.Length <= t.Length + 1).SingleOrDefault();
-            if (withSameClassName != null)
-            {
-                string nsPattern = @"\[System\.Xml\.Serialization\.Xml(Type|Root)Attribute\(.*Namespace=""(?<ns>[^""]+)""";
-                var nsMatch = Regex.Match(typeMatch.Value, nsPattern);
-                var ns = nsMatch.Groups["ns"].Value;
-                return ns.Equals(fileNamespace);
-            }
-            return fileTypes.Contains(className);
-        }
-
-        public static string[] GetTypesInFile(string file)
-        {
-            var doc = new XmlDocument();
-            doc.Load(file);
-
-            var nsMgr = new XmlNamespaceManager(doc.NameTable);
-            nsMgr.AddNamespace("xsd", "http://www.w3.org/2001/XMLSchema");
-
-            var nodes = doc.SelectNodes("//xsd:complexType[@name]", nsMgr).OfType<XmlElement>()
-                .Union(doc.SelectNodes("//xsd:simpleType[@name]", nsMgr).OfType<XmlElement>())
-                .ToArray();
-            var fileTypes = nodes.Select(nd => nd.Attributes["name"].Value).ToArray();
-            return fileTypes;
-        }
-
-        public static string GetNamespace(string file)
-        {
-            var doc = new XmlDocument();
-            doc.Load(file);
-
-            var nsMgr = new XmlNamespaceManager(doc.NameTable);
-            nsMgr.AddNamespace("xsd", "http://www.w3.org/2001/XMLSchema");
-
-            var nodes = doc.SelectSingleNode("//xsd:schema", nsMgr);
-            var attr = nodes.Attributes["targetNamespace"];
-            if (attr != null)
-                return attr.Value;
-            else
-                return null;
-
-        }
     }
 }

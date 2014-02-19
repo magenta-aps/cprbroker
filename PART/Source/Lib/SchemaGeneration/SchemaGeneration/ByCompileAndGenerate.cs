@@ -43,7 +43,7 @@ namespace SchemaGeneration
 
                 foreach (var file in files)
                 {
-                    var fileTypes = SplitCodeBySchemaSource.GetTypesInFile(file);
+                    var fileTypes = new WorkFile(file).GetDefinedTypeNames();
                     var typesToInclude = allTypes.Where(t => fileTypes.Contains(t.Name)).ToArray();
 
                     CodeNamespace localCodeNamespace = new CodeNamespace(nameSpace);
