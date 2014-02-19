@@ -69,7 +69,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="WorkFile.Unused.cs" />
     <Compile Include="CurrentDirectoryContext.cs" />
     <Compile Include="CustomToolAttribute.cs" />
     <Compile Include="FieldDef.cs" />
