@@ -52,7 +52,6 @@ using System.Linq;
 using System.Text;
 using CprBroker.Utilities;
 using CprBroker.Schemas.Part;
-using CprBroker.Data.Part;
 using CprBroker.Engine.Local;
 
 namespace CprBroker.EventBroker.Notifications
