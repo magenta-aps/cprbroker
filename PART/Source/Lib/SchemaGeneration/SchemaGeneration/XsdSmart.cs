@@ -25,34 +25,22 @@ namespace SchemaGeneration
 
         public int Generate(string wszInputFilePath, string bstrInputFileContents, string wszDefaultNamespace, IntPtr[] rgbOutputFileContents, out uint pcbOutput, IVsGeneratorProgress pGenerateProgress)
         {
-            var ss = 
-            GeneratorParams generatorParams = new GeneratorParams()
-            {
-                NameSpace = wszDefaultNamespace,
-                InputFilePath = wszInputFilePath,
-                OutputFilePath = wszInputFilePath + ".designer.cs.temp"
-            };
-            generatorParams.Miscellaneous.ExcludeIncludedTypes = true;
+            var file = new WorkFile(wszInputFilePath);
+            var NameSpace = wszDefaultNamespace;
 
-            // Create an instance of Generator
-            var generator = new GeneratorFacade(generatorParams);
+            // Generate code            
+            var bytes = new byte[0];
+            
+            // OK
+            rgbOutputFileContents[0] = Marshal.AllocCoTaskMem(bytes.Length);
+            Marshal.Copy(bytes, 0, rgbOutputFileContents[0], bytes.Length);
 
-            // Generate code
-            var result = generator.GenerateBytes();
-            if (result.Success)
-            {
-                var bytes = result.Entity;
-                rgbOutputFileContents[0] = Marshal.AllocCoTaskMem(bytes.Length);
-                Marshal.Copy(bytes, 0, rgbOutputFileContents[0], bytes.Length);
+            pcbOutput = (uint)bytes.Length;
+            return Microsoft.VisualStudio.VSConstants.S_OK;
 
-                pcbOutput = (uint)bytes.Length;
-                return Microsoft.VisualStudio.VSConstants.S_OK;
-            }
-            else
-            {
-                pcbOutput = 0;
-                return Microsoft.VisualStudio.VSConstants.S_FALSE;
-            }
+            // Error
+            pcbOutput = 0;
+            return Microsoft.VisualStudio.VSConstants.S_FALSE;
 
         }
 
