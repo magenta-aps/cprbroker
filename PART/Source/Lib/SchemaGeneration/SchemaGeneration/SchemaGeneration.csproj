@@ -34,6 +34,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.VisualStudio.Shell, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.VisualStudio.Shell.Interop, Version=7.1.40304.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -46,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ByCompileAndGenerate.cs" />
+    <Compile Include="CustomToolAttribute.cs" />
     <Compile Include="FieldDef.cs" />
     <Compile Include="SourceCodeFile.cs" />
     <Compile Include="TypeDef.cs" />
@@ -54,6 +57,7 @@
     <Compile Include="GroupByNamespace.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="XsdSmart.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
