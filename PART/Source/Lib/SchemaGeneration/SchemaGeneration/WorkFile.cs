@@ -13,22 +13,26 @@ namespace SchemaGeneration
         public WorkFile(string xsdPath)
         {
             XsdFullPath = xsdPath;
+
+            var doc = new XmlDocument();
+            doc.Load(XsdFullPath);
+
+            TargetNamespace = GetTargetNamespace(doc);
+            DefinedTypeNames = GetDefinedTypeNames(doc);
         }
 
         public string XsdFullPath { get; private set; }
+        public List<TypeDef> Types = new List<TypeDef>();
+        public string TargetNamespace { get; private set; }
+        public string[] DefinedTypeNames { get; private set; }
 
         public string CodeFullPath
         {
             get { return XsdFullPath.Replace(".xsd", ".designer.cs"); }
         }
 
-        public List<TypeDef> Types = new List<TypeDef>();
-
-        public string GetTargetNamespace()
+        private string GetTargetNamespace(XmlDocument doc)
         {
-            var doc = new XmlDocument();
-            doc.Load(XsdFullPath);
-
             var nsMgr = new XmlNamespaceManager(doc.NameTable);
             nsMgr.AddNamespace("xsd", "http://www.w3.org/2001/XMLSchema");
 
@@ -40,11 +44,8 @@ namespace SchemaGeneration
                 return null;
         }
 
-        public string[] GetDefinedTypeNames()
+        private string[] GetDefinedTypeNames(XmlDocument doc)
         {
-            var doc = new XmlDocument();
-            doc.Load(XsdFullPath);
-
             var nsMgr = new XmlNamespaceManager(doc.NameTable);
             nsMgr.AddNamespace("xsd", "http://www.w3.org/2001/XMLSchema");
 
@@ -55,14 +56,14 @@ namespace SchemaGeneration
             return fileTypes;
         }
 
-        public bool TypeDefinedInFile(TypeDef typeMatch, string fileNamespace, string[] fileTypes)
+        public bool TypeDefinedInFile(TypeDef typeDef, string fileNamespace, string[] fileTypes)
         {
-            var className = typeMatch.Name;
+            var className = typeDef.Name;
             var withSameClassName = fileTypes.Where(t => className.StartsWith(t) && className.Length <= t.Length + 1).SingleOrDefault();
             if (withSameClassName != null)
             {
                 string nsPattern = @"\[System\.Xml\.Serialization\.Xml(Type|Root)Attribute\(.*Namespace=""(?<ns>[^""]+)""";
-                var nsMatch = Regex.Match(typeMatch.Match.Value, nsPattern);
+                var nsMatch = Regex.Match(typeDef.Match.Value, nsPattern);
                 var ns = nsMatch.Groups["ns"].Value;
                 return ns.Equals(fileNamespace);
             }
@@ -83,6 +84,6 @@ namespace SchemaGeneration
         }
     }
 
-    
+
 
 }

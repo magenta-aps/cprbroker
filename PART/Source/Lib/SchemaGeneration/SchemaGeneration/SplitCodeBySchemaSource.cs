@@ -64,8 +64,8 @@ namespace SchemaGeneration
 
             foreach (var file in files)
             {
-                var fileTypes = file.GetDefinedTypeNames();
-                var fileNamespace = file.GetTargetNamespace();
+                var fileTypes = file.DefinedTypeNames;
+                var fileNamespace = file.TargetNamespace;
 
                 file.Types.AddRange(sourceFile.Types.Where(m => file.TypeDefinedInFile(m, fileNamespace, fileTypes)));
                 file.WriteCodeFile(sourceFile.HeaderMatch, file);
