@@ -8,7 +8,7 @@ using System.IO;
 
 namespace SchemaGeneration
 {
-    public class WorkFile
+    public partial class WorkFile
     {
         public WorkFile(string xsdPath)
         {
@@ -22,6 +22,8 @@ namespace SchemaGeneration
         }
 
         public string XsdFullPath { get; private set; }
+        public DirectoryInfo DirectoryInfo { get { return new FileInfo(this.XsdFullPath).Directory; } }
+        public string XsdLocalName { get { return new FileInfo(XsdFullPath).Name; } }
         public List<TypeDef> Types = new List<TypeDef>();
         public string TargetNamespace { get; private set; }
         public string[] DefinedTypeNames { get; private set; }
@@ -29,6 +31,10 @@ namespace SchemaGeneration
         public string CodeFullPath
         {
             get { return XsdFullPath.Replace(".xsd", ".designer.cs"); }
+        }
+        public string CodeLocalName
+        {
+            get { return XsdLocalName.Replace(".xsd", ".designer.cs"); }
         }
 
         private string GetTargetNamespace(XmlDocument doc)
@@ -82,8 +88,25 @@ namespace SchemaGeneration
                 rd.Write("}");
             }
         }
+
+        public DirectoryInfo CreateTempDir()
+        {
+            // Copy files to temp directory
+
+            string tempDir = Guid.NewGuid().ToString().Replace("-", "").Substring(0, 7);
+            var fileInfo = new FileInfo(this.XsdFullPath);
+            var dirPath = fileInfo.Directory.FullName + @"\\" + tempDir + @"\";
+            Directory.CreateDirectory(dirPath);
+
+            Func<string, string> mapper = (s) => dirPath + new FileInfo(s).Name;
+            foreach (var f in fileInfo.Directory.GetFiles("*.xsd"))
+            {
+                File.Copy(f.FullName, mapper(f.FullName));
+            }
+            return new DirectoryInfo(dirPath);
+        }
+
+        
     }
-
-
 
 }

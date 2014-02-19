@@ -11,56 +11,53 @@ namespace SchemaGeneration
 {
     class SplitCodeBySchemaSource
     {
-        public static void Run(string partialSchemaDir)
+        public static void BuildCodeFile(string xsdFilePath, string ns)
         {
-            if (!partialSchemaDir.EndsWith("\\"))
-                partialSchemaDir += "\\";
-
-            var allCodeFileName = GenerateCode(partialSchemaDir);
-
-            SplitByFileSource(allCodeFileName, partialSchemaDir);
-
-            File.Delete(allCodeFileName);
-            File.Delete(allCodeFileName.Replace(".cs", ".xsd"));
-            File.Delete(allCodeFileName.Replace(".cs", ".designer.cs"));
+            var f = new WorkFile(xsdFilePath);
+            var tmpDir = f.CreateTempDir();
+            var allCode = GenerateCode(tmpDir.FullName, ns);
+            SplitByFileSource(allCode, tmpDir.FullName);
+            File.Copy(tmpDir + f.CodeLocalName, f.CodeFullPath, true);
+            Directory.Delete(tmpDir.FullName, true);
         }
 
-        public static string GenerateCode(string partialSchemaDir)
+        public static string GenerateCode(string partialSchemaDir, string ns)
         {
-            Environment.CurrentDirectory = partialSchemaDir;
-
-            var args = new List<string>();
-            args.Add("/classes");
-            args.Add("/n:CprBroker.Schemas.Part");
-
-            foreach (var f in Directory.GetFiles(partialSchemaDir, "*.xsd"))
+            using (var dirContext = new TempCurrentDirectoryContext(partialSchemaDir))
             {
-                args.Add(string.Format("{0}", new FileInfo(f).Name));
-            }
+                var args = new List<string>();
+                args.Add("/classes");
+                args.Add("/n:" + ns);
 
-            var tmpFile = partialSchemaDir + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 7) + ".xsd";
-            using (var w = new StreamWriter(tmpFile))
-            {
-                w.Write("<?xml version=\"1.0\" encoding=\"UTF-8\"?><schema xmlns=\"http://www.w3.org/2001/XMLSchema\"></schema>");
-            }
-            args.Add(string.Format(".\\{0}", new FileInfo(tmpFile).Name));
+                foreach (var f in Directory.GetFiles(partialSchemaDir, "*.xsd"))
+                {
+                    args.Add(string.Format("{0}", new FileInfo(f).Name));
+                }
 
-            var all = string.Join(" ", args.ToArray());
-            Console.WriteLine(all);
-            var ret = XsdTool.Xsd.Main(args.ToArray());
+                var tmpFile = partialSchemaDir + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 7) + ".xsd";
+                using (var w = new StreamWriter(tmpFile))
+                {
+                    w.Write("<?xml version=\"1.0\" encoding=\"UTF-8\"?><schema xmlns=\"http://www.w3.org/2001/XMLSchema\"></schema>");
+                }
+                args.Add(string.Format(".\\{0}", new FileInfo(tmpFile).Name));
 
-            if (ret != 0)
-            {
-                throw new Exception("XSD.exe failed");
+                var all = string.Join(" ", args.ToArray());
+                Console.WriteLine(all);
+                var ret = XsdTool.Xsd.Main(args.ToArray());
+
+                if (ret != 0)
+                {
+                    throw new Exception("XSD.exe failed");
+                }
+                return tmpFile.Replace(".xsd", ".cs");
             }
-            return tmpFile.Replace(".xsd", ".cs");
         }
 
         public static void SplitByFileSource(string allCodeFile, string partialSchemaDir)
         {
             var sourceFile = new SourceCodeFile(allCodeFile);
             var generatedFiles = sourceFile.ToWorkFiles(partialSchemaDir);
-            foreach(var f in generatedFiles)
+            foreach (var f in generatedFiles)
             {
                 f.WriteCodeFile(sourceFile.HeaderMatch);
             }
