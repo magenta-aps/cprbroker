@@ -16,7 +16,7 @@ namespace SchemaGeneration
                 + @"(^\s{8}.*\r\n)*"
                 + @"^\s{4}\}\r\n"
                 + @"";
-            
+
         private TypeDef()
         { }
 
@@ -30,6 +30,12 @@ namespace SchemaGeneration
         public string Name
         {
             get { return Match.Groups["typeName"].Value; }
+        }
+
+        // Fields are not always needed, so we only find them if needed
+        public FieldDef[] ParseFields()
+        {
+            return Regex.Matches(Match.Value, FieldDef.FieldPattern, RegexOptions.Multiline).OfType<Match>().Select(m => new FieldDef(m)).ToArray();
         }
     }
 }

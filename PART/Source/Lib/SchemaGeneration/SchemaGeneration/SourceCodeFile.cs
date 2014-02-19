@@ -32,13 +32,28 @@ namespace SchemaGeneration
         public WorkFile[] ToWorkFiles(string partialSchemaDir)
         {
             var files = Directory.GetFiles(partialSchemaDir, "*.xsd").Select(f => new WorkFile(f)).ToArray();
+            var remainingTypes = new List<TypeDef>(this.Types);
 
             foreach (var file in files)
             {
                 var fileTypes = file.DefinedTypeNames;
                 var fileNamespace = file.TargetNamespace;
 
-                file.Types.AddRange(this.Types.Where(m => file.TypeDefinedInFile(m, fileNamespace, fileTypes)));
+                file.Types.AddRange(remainingTypes.Where(m => file.TypeDefinedInFile(m, fileNamespace, fileTypes)));
+                remainingTypes = remainingTypes.Except(file.Types).ToList();
+            }
+
+            foreach (var orphan in remainingTypes)
+            {
+                foreach (var file in files)
+                {
+                    var fileFields = file.Types.SelectMany(f => f.ParseFields()).ToArray();
+                    if (fileFields.Where(field => field.TypeName.Equals(orphan.Name)).FirstOrDefault() != null)
+                    {
+                        file.Types.Add(orphan);
+                        break;;
+                    }
+                }
             }
             return files;
         }
