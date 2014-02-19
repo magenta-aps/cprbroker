@@ -19,6 +19,7 @@ using System.Runtime.InteropServices;
 // COM, set the ComVisible attribute to true on that type.
 [assembly: ComVisible(true)]
 
+[assembly:AssemblyKeyFile("XsdSmart.snk")]
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("979db8a8-36b2-4e7b-8837-c1cf98b6806a")]
 
