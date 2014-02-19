@@ -58,29 +58,7 @@ namespace SchemaGeneration
 
         public static void SplitByFileSource(string allCodeFile, string partialSchemaDir)
         {
-
-            string text = File.ReadAllText(allCodeFile);
-
-            // Get header
-            string headerPattern = ""
-                + @"\A"
-                + @"(^((//.*)|(\s*)|(\s*(namespace|using).*))\r\n)*";
-
-            var headerMatch = Regex.Match(text, headerPattern, RegexOptions.Multiline);
-
-            // Get types (classes/enums)
-            string typePattern = ""
-                + @"(^\s{4}///.+\r\n)*" // XML doc line
-                + @"(^\s{4}\[.+\]\r\n)*"
-                + @"^\s{4}public ((abstract|partial)\s)*(class|enum)\s+(?<typeName>\w+).+\r\n"
-                + @"(^\s{8}.*\r\n)*"
-                + @"^\s{4}\}\r\n"
-                + @"";
-
-            var generatedTypes = Regex.Matches(text, typePattern, RegexOptions.Multiline)
-                .OfType<Match>()
-                .Select(m => new TypeDef(m))
-                .ToArray();
+            var sourceFile = new SourceCodeFile(allCodeFile);
 
             var files = Directory.GetFiles(partialSchemaDir, "*.xsd").Select(f => new WorkFile(f)).ToArray();
 
@@ -89,8 +67,8 @@ namespace SchemaGeneration
                 var fileTypes = file.GetDefinedTypeNames();
                 var fileNamespace = file.GetTargetNamespace();
 
-                file.Types.AddRange(generatedTypes.Where(m => file.TypeDefinedInFile(m, fileNamespace, fileTypes)));
-                file.WriteCodeFile(headerMatch, file);
+                file.Types.AddRange(sourceFile.Types.Where(m => file.TypeDefinedInFile(m, fileNamespace, fileTypes)));
+                file.WriteCodeFile(sourceFile.HeaderMatch, file);
             }
         }
 

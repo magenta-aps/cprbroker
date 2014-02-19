@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ByCompileAndGenerate.cs" />
+    <Compile Include="SourceCodeFile.cs" />
     <Compile Include="TypeDef.cs" />
     <Compile Include="WorkFile.cs" />
     <Compile Include="SplitCodeBySchemaSource.cs" />
