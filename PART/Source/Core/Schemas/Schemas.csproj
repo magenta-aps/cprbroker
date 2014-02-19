@@ -98,14 +98,562 @@
     <Compile Include="Intervals\Interval.cs" />
     <Compile Include="Intervals\RegisteredIntervalVirkningWrapper.cs" />
     <Compile Include="Intervals\TimedTypeWrapper.cs" />
+    <Compile Include="OIOXSD\Application.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Application.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\BasicOutput.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BasicOutput.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\BBR_AddressCoordinateQualityClassCode.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BBR_AddressCoordinateQualityClassCode.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\BBR_AddressPoint.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BBR_AddressPoint.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\BBR_AddressPointIdentifier.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BBR_AddressPointIdentifier.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\BBR_AddressPointRevisionDateTime.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BBR_AddressPointRevisionDateTime.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\BBR_AddressPointStatusStructure.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BBR_AddressPointStatusStructure.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\BBR_AddressPointValidEndDateTime.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BBR_AddressPointValidEndDateTime.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\BBR_AddressPointValidStartDateTime.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BBR_AddressPointValidStartDateTime.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\BBR_GeographicCoordinateTuple.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BBR_GeographicCoordinateTuple.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\BBR_GeographicEastingMeasure.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BBR_GeographicEastingMeasure.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\BBR_GeographicHeightMeasure.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BBR_GeographicHeightMeasure.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\BBR_GeographicNorthingMeasure.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BBR_GeographicNorthingMeasure.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\BBR_GeographicPointLocation.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BBR_GeographicPointLocation.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\BrugervendtNoegleTekst.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BrugervendtNoegleTekst.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\CAPEVO_LocationDescriptionText.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CAPEVO_LocationDescriptionText.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\CPR_AddressCompleteGreenland.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CPR_AddressCompleteGreenland.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\CPR_AuthorityCode.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CPR_AuthorityCode.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\CPR_BirthDateUncertaintyIndicator.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CPR_BirthDateUncertaintyIndicator.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\CPR_CompletePostalLabelText.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CPR_CompletePostalLabelText.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\CPR_ForeignAddressStructure.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CPR_ForeignAddressStructure.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\CPR_GreenlandBuildingIdentifier.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CPR_GreenlandBuildingIdentifier.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\CPR_MunicipalityCode.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CPR_MunicipalityCode.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\CPR_PersonBirthDateStructure.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CPR_PersonBirthDateStructure.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\CPR_PersonCivilRegistrationCurrentIdentifier.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CPR_PersonCivilRegistrationCurrentIdentifier.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\CPR_PersonCivilRegistrationIdentifier.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CPR_PersonCivilRegistrationIdentifier.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\CPR_PersonCivilRegistrationReplacementIdentifier.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CPR_PersonCivilRegistrationReplacementIdentifier.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\CPR_StreetCode.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CPR_StreetCode.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\CPR_StreetNameForAddressingName.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CPR_StreetNameForAddressingName.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\DataProviders.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataProviders.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\DKCC_BirthDate.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DKCC_BirthDate.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\DKCC_CountryIdentificationCode.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DKCC_CountryIdentificationCode.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\DKCC_DistrictName.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DKCC_DistrictName.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\DKCC_DistrictSubdivisionIdentifier.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DKCC_DistrictSubdivisionIdentifier.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\DKCC_FloorIdentifier.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DKCC_FloorIdentifier.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\DKCC_MailDeliverySublocationIdentifier.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DKCC_MailDeliverySublocationIdentifier.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\DKCC_PersonGenderCode.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DKCC_PersonGenderCode.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\DKCC_PersonGivenName.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DKCC_PersonGivenName.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\DKCC_PersonMiddleName.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DKCC_PersonMiddleName.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\DKCC_PersonNationalityCode.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DKCC_PersonNationalityCode.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\DKCC_PersonSurnameName.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DKCC_PersonSurnameName.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\DKCC_PostalAddressFifthLineText.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DKCC_PostalAddressFifthLineText.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\DKCC_PostalAddressFirstLineText.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DKCC_PostalAddressFirstLineText.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\DKCC_PostalAddressFourthLineText.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DKCC_PostalAddressFourthLineText.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\DKCC_PostalAddressSecondLineText.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DKCC_PostalAddressSecondLineText.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\DKCC_PostalAddressThirdLineText.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DKCC_PostalAddressThirdLineText.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\DKCC_PostCodeIdentifier.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DKCC_PostCodeIdentifier.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\DKCC_PostOfficeBoxIdentifier.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DKCC_PostOfficeBoxIdentifier.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\DKCC_StreetBuildingIdentifier.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DKCC_StreetBuildingIdentifier.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\DKCC_StreetName.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DKCC_StreetName.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\DKCC_SuiteIdentifier.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DKCC_SuiteIdentifier.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\FejlbeskedTekst.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FejlbeskedTekst.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\FlerRelation.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FlerRelation.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\FoersteResultatReference.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FoersteResultatReference.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\FraTidspunkt.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FraTidspunkt.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\GraenseIndikator.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GraenseIndikator.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\Idliste.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Idliste.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\ImportInput.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ImportInput.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\ITST_PersonNameForAddressingName.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ITST_PersonNameForAddressingName.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\ITST_PersonNameStructure.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ITST_PersonNameStructure.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\ITST_TelephoneNumberIdentifier.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ITST_TelephoneNumberIdentifier.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\KaldenavnTekst.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>KaldenavnTekst.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\LaesFiltreretOutput.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LaesFiltreretOutput.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\LaesInput.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LaesInput.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\ListInput.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ListInput.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\ListOutput.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ListOutput.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\LivscyklusKode.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LivscyklusKode.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\LokalUdvidelse.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LokalUdvidelse.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\MaksimalAntalKvantitet.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MaksimalAntalKvantitet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\NoteTekst.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NoteTekst.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\OpretInput.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OpretInput.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\OtherOperations.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OtherOperations.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\Part.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Part.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\Person.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Person.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\PersonFlerRelation.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PersonFlerRelation.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\PersonOperationer.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PersonOperationer.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\PersonPeriodOperationer.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PersonPeriodOperationer.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\ReferenceID.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReferenceID.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\Registrering.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Registrering.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\RegistreringFraFilter.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RegistreringFraFilter.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\RegistreringTilFilter.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RegistreringTilFilter.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\Relation.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Relation.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\RetInput.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RetInput.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\SagDokObjekt.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SagDokObjekt.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\SoegInput.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SoegInput.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\SoegOutput.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SoegOutput.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\SoegRegistrering.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SoegRegistrering.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\SoegRelation.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SoegRelation.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\SoegSagDokObjekt.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SoegSagDokObjekt.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\SoegVirkning.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SoegVirkning.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\StandardRetur.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StandardRetur.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\StatusKode.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StatusKode.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\Subscription.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Subscription.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\Tidspunkt.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Tidspunkt.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\TidsstempelDatoTid.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TidsstempelDatoTid.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\TilstandVirkning.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TilstandVirkning.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\TilTidspunkt.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TilTidspunkt.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\UnikId.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UnikId.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\URNIdentifikator.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>URNIdentifikator.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\UUID.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UUID.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\UuidNoteInput.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UuidNoteInput.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\VEJSEKTOREN_CommentText.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>VEJSEKTOREN_CommentText.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\Version.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Version.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\Virkning.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Virkning.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\VirkningFraFilter.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>VirkningFraFilter.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\VirkningTilFilter.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>VirkningTilFilter.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\XKOM_AddressAccess.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>XKOM_AddressAccess.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\XKOM_AddressComplete.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>XKOM_AddressComplete.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\XKOM_AddressPostal.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>XKOM_AddressPostal.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OIOXSD\XKOM_EmailAddressIdentifier.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>XKOM_EmailAddressIdentifier.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Relations\IPersonRelationType.cs" />
     <Compile Include="LaesInputType.cs" />
     <Compile Include="DataProviderSequenceOptionHeader.cs" />
     <Compile Include="PersonCivilRegistrationStatusCode.cs" />
     <Compile Include="PersonNameStructureType.cs" />
     <Compile Include="NavnStrukturType.cs" />
-    <Compile Include="OIOXSD\Version.Designer.cs" />
-    <Compile Include="OIOXSD\XSD.cs" />
     <Compile Include="Part\Events\CommonEventStructureType.cs" />
     <Compile Include="Part\Events\EventDetailStructureType.cs" />
     <Compile Include="Part\Events\EventInfoStructureType.cs" />
@@ -123,8 +671,6 @@
     <Compile Include="ServiceDescription\Part.cs" />
     <Compile Include="ServiceDescription\Subscriptions.cs" />
     <Compile Include="ServiceNames.cs" />
-    <Compile Include="OIOXSD\Application.Designer.cs" />
-    <Compile Include="OIOXSD\DataProviders.Designer.cs" />
     <Compile Include="OIOXSD\DataProviderTypes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QualityHeader.cs" />
@@ -145,119 +691,562 @@
     <None Include="Diagrams\Operations.cd" />
     <None Include="Diagrams\Search.cd" />
     <None Include="Diagrams\Static.cd" />
-    <None Include="OIOXSD\AktoerRef.xsd" />
-    <None Include="OIOXSD\Application.xsd" />
-    <None Include="OIOXSD\BasicOutput.xsd" />
-    <None Include="OIOXSD\BBR_AddressCoordinateQualityClassCode.xsd" />
-    <None Include="OIOXSD\BBR_AddressPoint.xsd" />
-    <None Include="OIOXSD\BBR_AddressPointIdentifier.xsd" />
-    <None Include="OIOXSD\BBR_AddressPointRevisionDateTime.xsd" />
-    <None Include="OIOXSD\BBR_AddressPointStatusStructure.xsd" />
-    <None Include="OIOXSD\BBR_AddressPointValidEndDateTime.xsd" />
-    <None Include="OIOXSD\BBR_AddressPointValidStartDateTime.xsd" />
-    <None Include="OIOXSD\BBR_GeographicCoordinateTuple.xsd" />
-    <None Include="OIOXSD\BBR_GeographicEastingMeasure.xsd" />
-    <None Include="OIOXSD\BBR_GeographicHeightMeasure.xsd" />
-    <None Include="OIOXSD\BBR_GeographicNorthingMeasure.xsd" />
-    <None Include="OIOXSD\BBR_GeographicPointLocation.xsd" />
-    <None Include="OIOXSD\BrugervendtNoegleTekst.xsd" />
-    <None Include="OIOXSD\CAPEVO_LocationDescriptionText.xsd" />
-    <None Include="OIOXSD\CPR_AddressCompleteGreenland.xsd" />
-    <None Include="OIOXSD\CPR_AuthorityCode.xsd" />
-    <None Include="OIOXSD\CPR_BirthDateUncertaintyIndicator.xsd" />
-    <None Include="OIOXSD\CPR_CompletePostalLabelText.xsd" />
-    <None Include="OIOXSD\CPR_ForeignAddressStructure.xsd" />
-    <None Include="OIOXSD\CPR_GreenlandBuildingIdentifier.xsd" />
-    <None Include="OIOXSD\CPR_MunicipalityCode.xsd" />
-    <None Include="OIOXSD\CPR_PersonBirthDateStructure.xsd" />
-    <None Include="OIOXSD\CPR_PersonCivilRegistrationCurrentIdentifier.xsd" />
-    <None Include="OIOXSD\CPR_PersonCivilRegistrationIdentifier.xsd" />
-    <None Include="OIOXSD\CPR_PersonCivilRegistrationReplacementIdentifier.xsd" />
-    <None Include="OIOXSD\CPR_StreetCode.xsd" />
-    <None Include="OIOXSD\CPR_StreetNameForAddressingName.xsd" />
-    <None Include="OIOXSD\DataProviders.xsd" />
-    <None Include="OIOXSD\DKCC_BirthDate.xsd" />
-    <None Include="OIOXSD\DKCC_CountryIdentificationCode.xsd" />
-    <None Include="OIOXSD\DKCC_DistrictName.xsd" />
-    <None Include="OIOXSD\DKCC_DistrictSubdivisionIdentifier.xsd" />
-    <None Include="OIOXSD\DKCC_FloorIdentifier.xsd" />
-    <None Include="OIOXSD\DKCC_MailDeliverySublocationIdentifier.xsd" />
-    <None Include="OIOXSD\DKCC_PersonGenderCode.xsd" />
-    <None Include="OIOXSD\DKCC_PersonGivenName.xsd" />
-    <None Include="OIOXSD\DKCC_PersonMiddleName.xsd" />
-    <None Include="OIOXSD\DKCC_PersonNationalityCode.xsd" />
-    <None Include="OIOXSD\DKCC_PersonSurnameName.xsd" />
-    <None Include="OIOXSD\DKCC_PostalAddressFifthLineText.xsd" />
-    <None Include="OIOXSD\DKCC_PostalAddressFirstLineText.xsd" />
-    <None Include="OIOXSD\DKCC_PostalAddressFourthLineText.xsd" />
-    <None Include="OIOXSD\DKCC_PostalAddressSecondLineText.xsd" />
-    <None Include="OIOXSD\DKCC_PostalAddressThirdLineText.xsd" />
-    <None Include="OIOXSD\DKCC_PostCodeIdentifier.xsd" />
-    <None Include="OIOXSD\DKCC_PostOfficeBoxIdentifier.xsd" />
-    <None Include="OIOXSD\DKCC_StreetBuildingIdentifier.xsd" />
-    <None Include="OIOXSD\DKCC_StreetName.xsd" />
-    <None Include="OIOXSD\DKCC_SuiteIdentifier.xsd" />
-    <None Include="OIOXSD\FejlbeskedTekst.xsd" />
-    <None Include="OIOXSD\FlerRelation.xsd" />
-    <None Include="OIOXSD\FoersteResultatReference.xsd" />
-    <None Include="OIOXSD\FraTidspunkt.xsd" />
-    <None Include="OIOXSD\GraenseIndikator.xsd" />
-    <None Include="OIOXSD\Idliste.xsd" />
-    <None Include="OIOXSD\ImportInput.xsd" />
-    <None Include="OIOXSD\ITST_PersonNameForAddressingName.xsd" />
-    <None Include="OIOXSD\ITST_PersonNameStructure.xsd" />
-    <None Include="OIOXSD\ITST_TelephoneNumberIdentifier.xsd" />
-    <None Include="OIOXSD\KaldenavnTekst.xsd" />
-    <None Include="OIOXSD\LaesFiltreretOutput.xsd" />
-    <None Include="OIOXSD\LaesInput.xsd" />
-    <None Include="OIOXSD\ListInput.xsd" />
-    <None Include="OIOXSD\ListOutput.xsd" />
-    <None Include="OIOXSD\LivscyklusKode.xsd" />
-    <None Include="OIOXSD\LokalUdvidelse.xsd" />
-    <None Include="OIOXSD\MaksimalAntalKvantitet.xsd" />
-    <None Include="OIOXSD\NoteTekst.xsd" />
-    <None Include="OIOXSD\OpretInput.xsd" />
-    <None Include="OIOXSD\OtherOperations.xsd" />
-    <None Include="OIOXSD\Part.xsd" />
-    <None Include="OIOXSD\Person.xsd" />
-    <None Include="OIOXSD\PersonFlerRelation.xsd" />
-    <None Include="OIOXSD\PersonOperationer.xsd" />
+    <None Include="OIOXSD\AktoerRef.xsd">
+      <Generator>XsdSmart</Generator>
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+    </None>
+    <None Include="OIOXSD\Application.xsd">
+      <Generator>XsdSmart</Generator>
+      <CustomToolNamespace>CprBroker.Schemas</CustomToolNamespace>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Application1.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\BasicOutput.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>BasicOutput.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\BBR_AddressCoordinateQualityClassCode.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>BBR_AddressCoordinateQualityClassCode.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\BBR_AddressPoint.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>BBR_AddressPoint.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\BBR_AddressPointIdentifier.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>BBR_AddressPointIdentifier.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\BBR_AddressPointRevisionDateTime.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>BBR_AddressPointRevisionDateTime.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\BBR_AddressPointStatusStructure.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>BBR_AddressPointStatusStructure.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\BBR_AddressPointValidEndDateTime.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>BBR_AddressPointValidEndDateTime.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\BBR_AddressPointValidStartDateTime.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>BBR_AddressPointValidStartDateTime.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\BBR_GeographicCoordinateTuple.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>BBR_GeographicCoordinateTuple.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\BBR_GeographicEastingMeasure.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>BBR_GeographicEastingMeasure.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\BBR_GeographicHeightMeasure.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>BBR_GeographicHeightMeasure.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\BBR_GeographicNorthingMeasure.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>BBR_GeographicNorthingMeasure.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\BBR_GeographicPointLocation.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>BBR_GeographicPointLocation.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\BrugervendtNoegleTekst.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>BrugervendtNoegleTekst.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\CAPEVO_LocationDescriptionText.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>CAPEVO_LocationDescriptionText.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\CPR_AddressCompleteGreenland.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>CPR_AddressCompleteGreenland.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\CPR_AuthorityCode.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>CPR_AuthorityCode.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\CPR_BirthDateUncertaintyIndicator.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>CPR_BirthDateUncertaintyIndicator.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\CPR_CompletePostalLabelText.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>CPR_CompletePostalLabelText.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\CPR_ForeignAddressStructure.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>CPR_ForeignAddressStructure.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\CPR_GreenlandBuildingIdentifier.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>CPR_GreenlandBuildingIdentifier.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\CPR_MunicipalityCode.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>CPR_MunicipalityCode.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\CPR_PersonBirthDateStructure.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>CPR_PersonBirthDateStructure.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\CPR_PersonCivilRegistrationCurrentIdentifier.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>CPR_PersonCivilRegistrationCurrentIdentifier.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\CPR_PersonCivilRegistrationIdentifier.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>CPR_PersonCivilRegistrationIdentifier.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\CPR_PersonCivilRegistrationReplacementIdentifier.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>CPR_PersonCivilRegistrationReplacementIdentifier.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\CPR_StreetCode.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>CPR_StreetCode.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\CPR_StreetNameForAddressingName.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>CPR_StreetNameForAddressingName.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\DataProviders.xsd">
+      <CustomToolNamespace>CprBroker.Schemas</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>DataProviders.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\DKCC_BirthDate.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>DKCC_BirthDate.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\DKCC_CountryIdentificationCode.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>DKCC_CountryIdentificationCode.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\DKCC_DistrictName.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>DKCC_DistrictName.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\DKCC_DistrictSubdivisionIdentifier.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>DKCC_DistrictSubdivisionIdentifier.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\DKCC_FloorIdentifier.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>DKCC_FloorIdentifier.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\DKCC_MailDeliverySublocationIdentifier.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>DKCC_MailDeliverySublocationIdentifier.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\DKCC_PersonGenderCode.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>DKCC_PersonGenderCode.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\DKCC_PersonGivenName.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>DKCC_PersonGivenName.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\DKCC_PersonMiddleName.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>DKCC_PersonMiddleName.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\DKCC_PersonNationalityCode.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>DKCC_PersonNationalityCode.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\DKCC_PersonSurnameName.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>DKCC_PersonSurnameName.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\DKCC_PostalAddressFifthLineText.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>DKCC_PostalAddressFifthLineText.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\DKCC_PostalAddressFirstLineText.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>DKCC_PostalAddressFirstLineText.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\DKCC_PostalAddressFourthLineText.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>DKCC_PostalAddressFourthLineText.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\DKCC_PostalAddressSecondLineText.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>DKCC_PostalAddressSecondLineText.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\DKCC_PostalAddressThirdLineText.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>DKCC_PostalAddressThirdLineText.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\DKCC_PostCodeIdentifier.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>DKCC_PostCodeIdentifier.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\DKCC_PostOfficeBoxIdentifier.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>DKCC_PostOfficeBoxIdentifier.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\DKCC_StreetBuildingIdentifier.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>DKCC_StreetBuildingIdentifier.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\DKCC_StreetName.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>DKCC_StreetName.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\DKCC_SuiteIdentifier.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>DKCC_SuiteIdentifier.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\FejlbeskedTekst.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>FejlbeskedTekst.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\FlerRelation.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>FlerRelation.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\FoersteResultatReference.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>FoersteResultatReference.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\FraTidspunkt.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>FraTidspunkt.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\GraenseIndikator.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>GraenseIndikator.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\Idliste.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>Idliste.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\ImportInput.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>ImportInput.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\ITST_PersonNameForAddressingName.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>ITST_PersonNameForAddressingName.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\ITST_PersonNameStructure.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>ITST_PersonNameStructure.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\ITST_TelephoneNumberIdentifier.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>ITST_TelephoneNumberIdentifier.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\KaldenavnTekst.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>KaldenavnTekst.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\LaesFiltreretOutput.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>LaesFiltreretOutput.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\LaesInput.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>LaesInput.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\ListInput.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>ListInput.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\ListOutput.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>ListOutput.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\LivscyklusKode.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>LivscyklusKode.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\LokalUdvidelse.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>LokalUdvidelse.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\MaksimalAntalKvantitet.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>MaksimalAntalKvantitet.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\NoteTekst.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>NoteTekst.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\OpretInput.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>OpretInput.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\OtherOperations.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>OtherOperations.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\Part.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>Part.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\Person.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>Person.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\PersonFlerRelation.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>PersonFlerRelation.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\PersonOperationer.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>PersonOperationer.designer.cs</LastGenOutput>
+    </None>
     <None Include="OIOXSD\PersonPeriodOperationer.xsd">
       <SubType>Designer</SubType>
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>PersonPeriodOperationer.designer.cs</LastGenOutput>
     </None>
-    <None Include="OIOXSD\ReferenceID.xsd" />
-    <None Include="OIOXSD\Registrering.xsd" />
-    <None Include="OIOXSD\RegistreringFraFilter.xsd" />
-    <None Include="OIOXSD\RegistreringTilFilter.xsd" />
-    <None Include="OIOXSD\Relation.xsd" />
-    <None Include="OIOXSD\RetInput.xsd" />
-    <None Include="OIOXSD\SagDokObjekt.xsd" />
-    <None Include="OIOXSD\SoegInput.xsd" />
-    <None Include="OIOXSD\SoegOutput.xsd" />
-    <None Include="OIOXSD\SoegRegistrering.xsd" />
-    <None Include="OIOXSD\SoegRelation.xsd" />
-    <None Include="OIOXSD\SoegSagDokObjekt.xsd" />
-    <None Include="OIOXSD\SoegVirkning.xsd" />
-    <None Include="OIOXSD\StandardRetur.xsd" />
-    <None Include="OIOXSD\StatusKode.xsd" />
-    <None Include="OIOXSD\Subscription.xsd" />
-    <None Include="OIOXSD\Tidspunkt.xsd" />
-    <None Include="OIOXSD\TidsstempelDatoTid.xsd" />
-    <None Include="OIOXSD\TilstandVirkning.xsd" />
-    <None Include="OIOXSD\TilTidspunkt.xsd" />
-    <None Include="OIOXSD\UnikId.xsd" />
-    <None Include="OIOXSD\URNIdentifikator.xsd" />
-    <None Include="OIOXSD\UUID.xsd" />
-    <None Include="OIOXSD\UuidNoteInput.xsd" />
-    <None Include="OIOXSD\VEJSEKTOREN_CommentText.xsd" />
-    <None Include="OIOXSD\Version.xsd" />
-    <None Include="OIOXSD\Virkning.xsd" />
-    <None Include="OIOXSD\VirkningFraFilter.xsd" />
-    <None Include="OIOXSD\VirkningTilFilter.xsd" />
-    <None Include="OIOXSD\XKOM_AddressAccess.xsd" />
-    <None Include="OIOXSD\XKOM_AddressComplete.xsd" />
-    <None Include="OIOXSD\XKOM_AddressPostal.xsd" />
-    <None Include="OIOXSD\XKOM_EmailAddressIdentifier.xsd" />
+    <None Include="OIOXSD\ReferenceID.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>ReferenceID.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\Registrering.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>Registrering.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\RegistreringFraFilter.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>RegistreringFraFilter.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\RegistreringTilFilter.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>RegistreringTilFilter.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\Relation.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>Relation.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\RetInput.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>RetInput.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\SagDokObjekt.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>SagDokObjekt.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\SoegInput.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>SoegInput.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\SoegOutput.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>SoegOutput.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\SoegRegistrering.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>SoegRegistrering.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\SoegRelation.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>SoegRelation.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\SoegSagDokObjekt.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>SoegSagDokObjekt.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\SoegVirkning.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>SoegVirkning.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\StandardRetur.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>StandardRetur.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\StatusKode.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>StatusKode.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\Subscription.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>Subscription.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\Tidspunkt.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>Tidspunkt.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\TidsstempelDatoTid.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>TidsstempelDatoTid.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\TilstandVirkning.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>TilstandVirkning.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\TilTidspunkt.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>TilTidspunkt.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\UnikId.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>UnikId.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\URNIdentifikator.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>URNIdentifikator.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\UUID.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>UUID.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\UuidNoteInput.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>UuidNoteInput.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\VEJSEKTOREN_CommentText.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>VEJSEKTOREN_CommentText.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\Version.xsd">
+      <CustomToolNamespace>CprBroker.Schemas</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>Version.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\Virkning.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>Virkning.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\VirkningFraFilter.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>VirkningFraFilter.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\VirkningTilFilter.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>VirkningTilFilter.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\XKOM_AddressAccess.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>XKOM_AddressAccess.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\XKOM_AddressComplete.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>XKOM_AddressComplete.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\XKOM_AddressPostal.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>XKOM_AddressPostal.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\XKOM_EmailAddressIdentifier.xsd">
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <Generator>XsdSmart</Generator>
+      <LastGenOutput>XKOM_EmailAddressIdentifier.designer.cs</LastGenOutput>
+    </None>
     <None Include="OIOXSD\XSD.xsd" />
   </ItemGroup>
   <ItemGroup>

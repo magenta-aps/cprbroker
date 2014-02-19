@@ -164,7 +164,7 @@ namespace CprBroker.Engine.Local
             ServiceVersionType cprVersion = new ServiceVersionType();
 
             cprVersion.Version = string.Format("{0}.{1}", Constants.Versioning.Major, Constants.Versioning.Minor);
-            cprVersion.Functions.AddRange(GetMethodNames());
+            cprVersion.Functions = GetMethodNames().ToArray();
 
             return new ServiceVersionType[] { cprVersion };
         }
