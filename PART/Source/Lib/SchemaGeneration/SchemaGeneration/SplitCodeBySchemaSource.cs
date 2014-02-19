@@ -13,12 +13,19 @@ namespace SchemaGeneration
     {
         public static void BuildCodeFile(string xsdFilePath, string ns)
         {
+            var bytes = GetCodeFileBytes(xsdFilePath, ns);
+            File.WriteAllBytes(new WorkFile(xsdFilePath).CodeFullPath, bytes);
+        }
+
+        public static byte[] GetCodeFileBytes(string xsdFilePath, string ns)
+        {
             var f = new WorkFile(xsdFilePath);
             var tmpDir = f.CreateTempDir();
             var allCode = GenerateCode(tmpDir.FullName, ns);
             SplitByFileSource(allCode, tmpDir.FullName);
-            File.Copy(tmpDir + f.CodeLocalName, f.CodeFullPath, true);
+            var bytes = File.ReadAllBytes(tmpDir + f.CodeLocalName);
             Directory.Delete(tmpDir.FullName, true);
+            return bytes;
         }
 
         public static string GenerateCode(string partialSchemaDir, string ns)

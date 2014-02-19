@@ -25,12 +25,12 @@ namespace SchemaGeneration
 
         public int Generate(string wszInputFilePath, string bstrInputFileContents, string wszDefaultNamespace, IntPtr[] rgbOutputFileContents, out uint pcbOutput, IVsGeneratorProgress pGenerateProgress)
         {
-            var file = new WorkFile(wszInputFilePath);
+            var file = wszInputFilePath;
             var NameSpace = wszDefaultNamespace;
 
             // Generate code            
-            var bytes = new byte[0];
-            
+            var bytes = SplitCodeBySchemaSource.GetCodeFileBytes(file, NameSpace);
+
             // OK
             rgbOutputFileContents[0] = Marshal.AllocCoTaskMem(bytes.Length);
             Marshal.Copy(bytes, 0, rgbOutputFileContents[0], bytes.Length);
@@ -49,12 +49,14 @@ namespace SchemaGeneration
         {
             GuidAttribute guidAttribute = getGuidAttribute(t);
             CustomToolAttribute customToolAttribute = getCustomToolAttribute(t);
-            using (RegistryKey key = Registry.LocalMachine.CreateSubKey(
-              GetKeyName(CSharpCategoryGuid, customToolAttribute.Name)))
+            foreach (var k in GetKeyNames(CSharpCategoryGuid, customToolAttribute.Name))
             {
-                key.SetValue("", customToolAttribute.Description);
-                key.SetValue("CLSID", "{" + guidAttribute.Value + "}");
-                key.SetValue("GeneratesDesignTimeSource", 1);
+                using (RegistryKey key = Registry.LocalMachine.CreateSubKey(k))
+                {
+                    key.SetValue("", customToolAttribute.Description);
+                    key.SetValue("CLSID", "{" + guidAttribute.Value + "}");
+                    key.SetValue("GeneratesDesignTimeSource", 1);
+                }
             }
         }
 
@@ -62,8 +64,10 @@ namespace SchemaGeneration
         public static void UnregisterClass(Type t)
         {
             CustomToolAttribute customToolAttribute = getCustomToolAttribute(t);
-            Registry.LocalMachine.DeleteSubKey(GetKeyName(
-              CSharpCategoryGuid, customToolAttribute.Name), false);
+            foreach (var k in GetKeyNames(CSharpCategoryGuid, customToolAttribute.Name))
+            {
+                Registry.LocalMachine.DeleteSubKey(k, false);
+            }
         }
 
         internal static GuidAttribute getGuidAttribute(Type t)
@@ -86,11 +90,48 @@ namespace SchemaGeneration
             return (Attribute)attributes[0];
         }
 
-        internal static string GetKeyName(Guid categoryGuid, string toolName)
+        internal static string[] GetKeyNames(Guid categoryGuid, string toolName)
         {
-            return
-              String.Format("SOFTWARE\\Microsoft\\VisualStudio\\" + VisualStudioVersion +
-                "\\Generators\\{{{0}}}\\{1}\\", categoryGuid, toolName);
+            var ret = new List<string>();
+            ret.Add(GetKeyName(categoryGuid, toolName, false));
+            if (Is64Bit())
+                ret.Add(GetKeyName(categoryGuid, toolName, true));
+            return ret.ToArray();
+        }
+
+        internal static string GetKeyName(Guid categoryGuid, string toolName, bool is64Bit)
+        {
+            return String.Format(
+                "SOFTWARE\\{0}Microsoft\\VisualStudio\\{1}\\Generators\\{{{2}}}\\{3}\\",
+                is64Bit ? "Wow6432Node\\" : "",
+                VisualStudioVersion,
+                categoryGuid,
+                toolName);
+        }
+
+        [DllImport("kernel32.dll", SetLastError = true, CallingConvention = CallingConvention.Winapi)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool IsWow64Process([In] IntPtr hProcess, [Out] out bool lpSystemInfo);
+
+        public static bool Is64Bit()
+        {
+            if (IntPtr.Size == 8 || (IntPtr.Size == 4 && Is32BitProcessOn64BitProcessor()))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private static bool Is32BitProcessOn64BitProcessor()
+        {
+            bool retVal;
+
+            IsWow64Process(System.Diagnostics.Process.GetCurrentProcess().Handle, out retVal);
+
+            return retVal;
         }
     }
 }
