@@ -697,9 +697,9 @@
     </None>
     <None Include="OIOXSD\Application.xsd">
       <Generator>XsdSmart</Generator>
-      <CustomToolNamespace>CprBroker.Schemas</CustomToolNamespace>
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
       <SubType>Designer</SubType>
-      <LastGenOutput>Application1.designer.cs</LastGenOutput>
+      <LastGenOutput>Application.Designer.cs</LastGenOutput>
     </None>
     <None Include="OIOXSD\BasicOutput.xsd">
       <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
