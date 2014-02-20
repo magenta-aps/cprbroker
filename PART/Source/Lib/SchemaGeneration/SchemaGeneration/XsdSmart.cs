@@ -37,11 +37,6 @@ namespace SchemaGeneration
 
             pcbOutput = (uint)bytes.Length;
             return Microsoft.VisualStudio.VSConstants.S_OK;
-
-            // Error
-            pcbOutput = 0;
-            return Microsoft.VisualStudio.VSConstants.S_FALSE;
-
         }
 
         [ComRegisterFunction]
