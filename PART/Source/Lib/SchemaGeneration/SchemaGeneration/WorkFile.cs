@@ -76,14 +76,14 @@ namespace SchemaGeneration
             return fileTypes.Contains(className);
         }
 
-        public void WriteCodeFile(Match headerMatch)
+        public void WriteCodeFile(FileHeader header, string[] includedNamespaces)
         {
             using (var rd = new StreamWriter(this.CodeFullPath))
             {
-                rd.Write(headerMatch.Value);
-                foreach (var m in Types)
+                rd.Write(header.HeaderMatch.Value);
+                foreach (var typeDef in Types)
                 {
-                    rd.Write(m.Match.Value);
+                    rd.Write(typeDef.Match.Value);
                 }
                 rd.Write("}");
             }
@@ -106,7 +106,7 @@ namespace SchemaGeneration
             return new DirectoryInfo(dirPath);
         }
 
-        
+
     }
 
 }

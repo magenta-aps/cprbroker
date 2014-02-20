@@ -26,10 +26,12 @@ namespace SchemaGeneration
         public int Generate(string wszInputFilePath, string bstrInputFileContents, string wszDefaultNamespace, IntPtr[] rgbOutputFileContents, out uint pcbOutput, IVsGeneratorProgress pGenerateProgress)
         {
             var file = wszInputFilePath;
-            var NameSpace = wszDefaultNamespace;
+            var namespaces = wszDefaultNamespace.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+            var NameSpace = namespaces.FirstOrDefault();
+            var includedNamespaces = namespaces.Skip(1).ToArray();
 
             // Generate code            
-            var bytes = SplitCodeBySchemaSource.GetCodeFileBytes(file, NameSpace);
+            var bytes = SplitCodeBySchemaSource.GetCodeFileBytes(file, NameSpace, includedNamespaces);
 
             // OK
             rgbOutputFileContents[0] = Marshal.AllocCoTaskMem(bytes.Length);

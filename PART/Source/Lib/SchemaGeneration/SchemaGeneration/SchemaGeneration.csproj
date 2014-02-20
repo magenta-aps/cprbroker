@@ -91,6 +91,7 @@
     <Compile Include="CurrentDirectoryContext.cs" />
     <Compile Include="CustomToolAttribute.cs" />
     <Compile Include="FieldDef.cs" />
+    <Compile Include="FileHeader.cs" />
     <Compile Include="SourceCodeFile.cs" />
     <Compile Include="TypeDef.cs" />
     <Compile Include="WorkFile.cs" />

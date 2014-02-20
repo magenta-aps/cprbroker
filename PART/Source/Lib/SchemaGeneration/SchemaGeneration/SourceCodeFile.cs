@@ -9,19 +9,13 @@ namespace SchemaGeneration
 {
     public class SourceCodeFile
     {
-
-        public const string HeaderPattern = ""
-                + @"\A"
-                + @"(^((//.*)|(\s*)|(\s*(namespace|using).*))\r\n)*";
-
-        public Match HeaderMatch { get; private set; }
-
+        public FileHeader Header { get; private set; }
         public TypeDef[] Types { get; private set; }
 
         public SourceCodeFile(string path)
         {
             var text = File.ReadAllText(path);
-            HeaderMatch = Regex.Match(text, HeaderPattern, RegexOptions.Multiline);
+            Header = new FileHeader(Regex.Match(text, FileHeader.HeaderPattern, RegexOptions.Multiline));
 
             Types = Regex.Matches(text, TypeDef.TypePattern, RegexOptions.Multiline)
                 .OfType<Match>()
@@ -51,7 +45,7 @@ namespace SchemaGeneration
                     if (fileFields.Where(field => field.TypeName.Equals(orphan.Name)).FirstOrDefault() != null)
                     {
                         file.Types.Add(orphan);
-                        break;;
+                        break; ;
                     }
                 }
             }

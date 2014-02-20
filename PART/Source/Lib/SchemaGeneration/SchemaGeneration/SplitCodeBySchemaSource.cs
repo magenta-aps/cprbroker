@@ -11,18 +11,18 @@ namespace SchemaGeneration
 {
     class SplitCodeBySchemaSource
     {
-        public static void BuildCodeFile(string xsdFilePath, string ns)
+        public static void BuildCodeFile(string xsdFilePath, string ns, string[] includedNamespaces)
         {
-            var bytes = GetCodeFileBytes(xsdFilePath, ns);
+            var bytes = GetCodeFileBytes(xsdFilePath, ns, includedNamespaces);
             File.WriteAllBytes(new WorkFile(xsdFilePath).CodeFullPath, bytes);
         }
 
-        public static byte[] GetCodeFileBytes(string xsdFilePath, string ns)
+        public static byte[] GetCodeFileBytes(string xsdFilePath, string ns, string[] includedNamespaces)
         {
             var f = new WorkFile(xsdFilePath);
             var tmpDir = f.CreateTempDir();
             var allCode = GenerateCode(tmpDir.FullName, ns);
-            SplitByFileSource(allCode, tmpDir.FullName);
+            SplitByFileSource(allCode, tmpDir.FullName, includedNamespaces);
             var bytes = File.ReadAllBytes(tmpDir + f.CodeLocalName);
             Directory.Delete(tmpDir.FullName, true);
             return bytes;
@@ -60,13 +60,13 @@ namespace SchemaGeneration
             }
         }
 
-        public static void SplitByFileSource(string allCodeFile, string partialSchemaDir)
+        public static void SplitByFileSource(string allCodeFile, string partialSchemaDir, string[] includedNamespaces)
         {
             var sourceFile = new SourceCodeFile(allCodeFile);
             var generatedFiles = sourceFile.ToWorkFiles(partialSchemaDir);
             foreach (var f in generatedFiles)
             {
-                f.WriteCodeFile(sourceFile.HeaderMatch);
+                f.WriteCodeFile(sourceFile.Header, includedNamespaces);
             }
         }
 

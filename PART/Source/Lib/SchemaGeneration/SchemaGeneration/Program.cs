@@ -15,7 +15,7 @@ namespace SchemaGeneration
     {
         static void Main(string[] args)
         {
-            SplitCodeBySchemaSource.BuildCodeFile(args[0], args[1]);
+            SplitCodeBySchemaSource.BuildCodeFile(args[0], args[1], new string[0]);
         }
     }
 }
