@@ -80,7 +80,7 @@ namespace SchemaGeneration
         {
             using (var rd = new StreamWriter(this.CodeFullPath))
             {
-                rd.Write(header.HeaderMatch.Value);
+                header.Write(rd, includedNamespaces);
                 foreach (var typeDef in Types)
                 {
                     rd.Write(typeDef.Match.Value);

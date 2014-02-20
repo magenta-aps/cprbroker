@@ -94,6 +94,7 @@
     <Compile Include="FileHeader.cs" />
     <Compile Include="SourceCodeFile.cs" />
     <Compile Include="TypeDef.cs" />
+    <Compile Include="UsingStatement.cs" />
     <Compile Include="WorkFile.cs" />
     <Compile Include="SplitCodeBySchemaSource.cs" />
     <Compile Include="Program.cs" />
