@@ -154,6 +154,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Facades\" />
+    <Folder Include="Schemas\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Data\Events\DataChangeEventDataContext.dbml">
