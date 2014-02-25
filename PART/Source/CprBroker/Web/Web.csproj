@@ -101,28 +101,28 @@
     <Reference Include="System.Web.Mobile" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Controls\Pager.ascx" />
-    <Content Include="Controls\PeriodSelector.ascx" />
+    <Content Include="Pages\Controls\Pager.ascx" />
+    <Content Include="Pages\Controls\PeriodSelector.ascx" />
     <Content Include="Pages\Budget.aspx" />
     <Content Include="Pages\ExternalCalls.aspx" />
     <Content Include="web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controls\Pager.ascx.cs">
+    <Compile Include="Pages\Controls\Pager.ascx.cs">
       <DependentUpon>Pager.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Controls\Pager.ascx.designer.cs">
+    <Compile Include="Pages\Controls\Pager.ascx.designer.cs">
       <DependentUpon>Pager.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\PeriodSelector.ascx.cs">
+    <Compile Include="Pages\Controls\PeriodSelector.ascx.cs">
       <DependentUpon>PeriodSelector.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Controls\PeriodSelector.ascx.designer.cs">
+    <Compile Include="Pages\Controls\PeriodSelector.ascx.designer.cs">
       <DependentUpon>PeriodSelector.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\SmartTextBox.cs" />
+    <Compile Include="Pages\Controls\SmartTextBox.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

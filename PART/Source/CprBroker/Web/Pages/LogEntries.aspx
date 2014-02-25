@@ -2,8 +2,8 @@
     MasterPageFile="~/Pages/Site.Master" Title="Log" %>
 
 <%@ Register Assembly="CprBroker.Web" Namespace="CprBroker.Web.Controls" TagPrefix="cc" %>
-<%@ Register Src="~/Controls/PeriodSelector.ascx" TagPrefix="uc" TagName="PeriodSelector" %>
-<%@ Register Src="~/Controls/Pager.ascx" TagPrefix="uc" TagName="Pager" %>
+<%@ Register Src="~/Pages/Controls/PeriodSelector.ascx" TagPrefix="uc" TagName="PeriodSelector" %>
+<%@ Register Src="~/Pages/Controls/Pager.ascx" TagPrefix="uc" TagName="Pager" %>
 
 <asp:Content ID="Content1" runat="server" ContentPlaceHolderID="Contents">
     <table width="100%" border="0" cellpadding="3px">
