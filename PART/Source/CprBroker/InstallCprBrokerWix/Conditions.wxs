@@ -8,6 +8,9 @@
       <![CDATA[Installed OR NOT NEWER_VERSION_DETECTED]]>
     </Condition>
 
+    <!--
+      PUT condition for Web Server/ApplicationDevelopment/.NET 3.5 in Windows 2012 features
+    -->
     <!--.NET Framework-->
     <PropertyRef Id="NETFRAMEWORK35"/>
     <Condition Message="This application requires .NET Framework 3.5. Please install the .NET Framework then run this installer again.">
