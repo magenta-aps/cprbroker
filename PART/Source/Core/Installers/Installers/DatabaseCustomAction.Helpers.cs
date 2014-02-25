@@ -97,7 +97,16 @@ namespace CprBroker.Installers
                             if (!string.IsNullOrEmpty(sqlBatch))
                             {
                                 createObjectsCommand.CommandText = sqlBatch;
-                                createObjectsCommand.ExecuteNonQuery();
+                                try
+                                {
+                                    createObjectsCommand.ExecuteNonQuery();
+                                }
+                                catch
+                                {
+                                    // TODO: Include parent window ID here
+                                    MessageBox.Show(sqlBatch);
+                                    throw;
+                                }
                             }
                             sqlBatch = string.Empty;
                         }
@@ -217,14 +226,32 @@ namespace CprBroker.Installers
                 sql += ") VALUES (";
 
                 string[] values = lines[i].Split(';');
-                values = values.Select(v => string.Format("'{0}'", v)).ToArray();
+                values = values.Select(v =>
+                    {
+                        long l;
+                        if (string.IsNullOrEmpty(v))
+                            return "NULL";
+                        else if (long.TryParse(v, out l))
+                            return v;
+                        else
+                            return string.Format("'{0}'", v);
+                    }).ToArray();
                 sql += string.Join(",", values);
                 sql += ")" + Environment.NewLine;
             }
 
             using (SqlCommand command = new SqlCommand(sql, conn))
             {
-                int result = command.ExecuteNonQuery();
+                try
+                {
+                    int result = command.ExecuteNonQuery();
+                }
+                catch
+                {
+                    // TODO: Include parent window ID here
+                    MessageBox.Show(sql);
+                    throw;
+                }
                 object o = "";
             }
         }
