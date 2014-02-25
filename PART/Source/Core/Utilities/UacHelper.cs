@@ -105,6 +105,11 @@ namespace CprBroker.Utilities
             }
         }
 
+        struct _TOKEN_ELEVATION
+        {
+            public UInt32 TokenIsElevated;
+        }
+
         private static bool? _isProcessElevated;
         public static bool IsProcessElevated
         {
@@ -122,53 +127,24 @@ namespace CprBroker.Utilities
                             throw new ApplicationException("Could not get process token.  Win32 Error Code: " + Marshal.GetLastWin32Error());
                         }
 
-                        var elevationResult = TOKEN_ELEVATION_TYPE.TokenElevationTypeDefault;
+                        var elevationResult = new _TOKEN_ELEVATION();
 
-                        var elevationResultSize = Marshal.SizeOf((int)elevationResult);
+                        var elevationResultSize = Marshal.SizeOf(elevationResult);
                         uint returnedSize;
                         var elevationTypePtr = Marshal.AllocHGlobal(elevationResultSize);
 
-                        var success = GetTokenInformation(tokenHandle, TOKEN_INFORMATION_CLASS.TokenElevationType, elevationTypePtr, (uint)elevationResultSize, out returnedSize);
+                        var success = GetTokenInformation(tokenHandle, TOKEN_INFORMATION_CLASS.TokenElevation, elevationTypePtr, (uint)elevationResultSize, out returnedSize);
                         if (!success)
                         {
                             Marshal.FreeHGlobal(elevationTypePtr);
                             throw new ApplicationException("Unable to determine the current elevation.");
                         }
 
-                        elevationResult = (TOKEN_ELEVATION_TYPE)Marshal.ReadInt32(elevationTypePtr);
+                        elevationResult = (_TOKEN_ELEVATION)Marshal.PtrToStructure(elevationTypePtr, typeof(_TOKEN_ELEVATION));
                         Marshal.FreeHGlobal(elevationTypePtr);
 
-                        // 28.08.2012, Andritzky:
-                        // Special test for TokenElevationTypeDefault.
-                        // If the current user is the default Administrator, then the
-                        // process is also assumed to run elevated. This is assumed 
-                        // because by default the default Administrator (which is disabled by default) 
-                        //  gets all access rights even without showing a UAC prompt.
-                        switch (elevationResult)
-                        {
-                            case TOKEN_ELEVATION_TYPE.TokenElevationTypeFull:
-                                _isProcessElevated = true;
-                                break;
-                            case TOKEN_ELEVATION_TYPE.TokenElevationTypeLimited:
-                                _isProcessElevated = false;
-                                break;
-                            default:
-                                // Will come here if either
-                                // 1. We are running as the default Administrator.
-                                // 2. We were started using "Run as administrator" from a non-admin
-                                //    account and logged on as the default Administrator account from
-                                //    the list of available Administrator accounts.
-                                //
-                                // Note: By default the default Administrator account always behaves 
-                                //       as if UAC was turned off. 
-                                //
-                                // This can be controlled through the Local Security Policy editor 
-                                // (secpol.msc) using the 
-                                // "User Account Control: Use Admin Approval Mode for the built-in Administrator account"
-                                // option of the Security Settings\Local Policies\Security Options branch.
-                                _isProcessElevated = IsAdministrator;
-                                break;
-                        }
+                        _isProcessElevated = elevationResult.TokenIsElevated > 0;
+                        
                     }
                     else
                     {
