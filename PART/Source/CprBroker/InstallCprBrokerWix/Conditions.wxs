@@ -10,6 +10,7 @@
 
     <!--
       PUT condition for Web Server/ApplicationDevelopment/.NET 3.5 in Windows 2012 features
+      http://www.iis.net/learn/get-started/whats-new-in-iis-8/iis-80-using-aspnet-35-and-aspnet-45
     -->
     <!--.NET Framework-->
     <PropertyRef Id="NETFRAMEWORK35"/>
