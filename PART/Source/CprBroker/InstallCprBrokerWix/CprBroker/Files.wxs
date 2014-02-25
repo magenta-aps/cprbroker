@@ -119,18 +119,35 @@
         <RemoveFile Id="Remove_CPR_LogEntries_ASPX" Name="LogEntries.aspx" On="install" />
         <File Id="FILE_CPR_Pages_LogEntries_ASPX" Source="$(var.SitePath)Pages\LogEntries.aspx" KeyPath="yes"/>
       </Component>
+      <Component Id="CMP_CPR_Applications_ASPX" Directory="CPR_Pages">
+        <File Id="FILE_CPR_Pages_Applications_ASPX" Source="$(var.SitePath)Pages\Applications.aspx" KeyPath="yes"/>
+      </Component>
+      <Component Id="CMP_CPR_Budget_ASPX" Directory="CPR_Pages">
+        <RemoveFile Id="Remove_CPR_Budget_ASPX" Name="Budget.aspx" On="install" />
+        <File Id="FILE_CPR_Pages_Budget_ASPX" Source="$(var.SitePath)Pages\Budget.aspx" KeyPath="yes"/>
+      </Component>
       <Component Id="CMP_CPR_ExternalCalls_ASPX" Directory="CPR_Pages">
         <RemoveFile Id="Remove_CPR_ExternalCalls_ASPX" Name="ExternalCalls.aspx" On="install" />
         <File Id="FILE_CPR_Pages_ExternalCalls_ASPX" Source="$(var.SitePath)Pages\ExternalCalls.aspx" KeyPath="yes"/>
       </Component>
-      <Component Id="CMP_CPR_Applications_ASPX" Directory="CPR_Pages">
-        <File Id="FILE_CPR_Pages_Applications_ASPX" Source="$(var.SitePath)Pages\Applications.aspx" KeyPath="yes"/>
+
+      <!-- Controls folder -->
+      <Component Id="CMP_CPR_Controls_Pager_ASCX" Directory="CPR_Controls">
+        <RemoveFile Id="Remove_CPR_Controls_Pager_ASCX" Name="Pager.ascx" On="install" />
+        <File Id="FILE_CPR_Controls_Pager_ASCX" Source="$(var.SitePath)Pages\Controls\Pager.ascx" KeyPath="yes"/>
+      </Component>
+      <Component Id="CMP_CPR_Controls_PeriodSelector_ASCX" Directory="CPR_Controls">
+        <RemoveFile Id="Remove_CPR_Controls_PeriodSelector_ASCX" Name="PeriodSelector.ascx" On="install" />
+        <File Id="FILE_CPR_Controls_PeriodSelector_ASCX" Source="$(var.SitePath)Pages\Controls\PeriodSelector.ascx" KeyPath="yes"/>
       </Component>
 
+      <!-- Css folder -->
       <Component Id="CMP_CPR_CSS" Directory="CPR_CSS">
         <RemoveFile Id="Remove_CPR_CSS" Name="style.css" On="install" />
         <File Id="FILE_CPR_CSS" Source="$(var.SitePath)Pages\CSS\style.css" KeyPath="yes"/>
       </Component>
+
+      <!-- Images folder -->
       <Component Id="CMP_CPR_IMAGES_Down" Directory="CPR_Images">
         <File Id="FILE_CPR_IMAGES_Down" Source="$(var.SitePath)Pages\Images\Down.jpg" KeyPath="yes"/>
       </Component>

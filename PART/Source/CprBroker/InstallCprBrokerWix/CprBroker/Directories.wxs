@@ -11,6 +11,7 @@
           <Directory Id="CPR_Config" Name="Config" />
           <Directory Id="CPR_Pages" Name="Pages">
             <Directory Id="CPR_CSS" Name="CSS"/>
+            <Directory Id="CPR_Controls" Name="Controls"/>
             <Directory Id="CPR_Images" Name="Images"/>
           </Directory>
           <Directory Id="CPR_Services" Name="Services" />
