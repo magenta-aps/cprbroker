@@ -27,6 +27,7 @@
           <s:element minOccurs="1" maxOccurs="1" name="EventRegistrationDateTime" type="s:dateTime" />
           <s:element minOccurs="0" maxOccurs="1" name="EventObjectStructure" type="tns:EventObjectStructureType" />
           <s:element minOccurs="0" maxOccurs="1" name="ExtensionStructure" type="tns:ExtensionStructureType" />
+          <s:element minOccurs="0" maxOccurs="1" name="IsLastNotification" nillable="true" type="s:boolean" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="EventObjectStructureType">
