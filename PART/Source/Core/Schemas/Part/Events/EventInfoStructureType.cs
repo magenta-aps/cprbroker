@@ -48,6 +48,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
 
 namespace CprBroker.Schemas.Part.Events
 {
@@ -58,6 +59,8 @@ namespace CprBroker.Schemas.Part.Events
         public DateTime EventRegistrationDateTime { get; set; }
         public EventObjectStructureType EventObjectStructure { get; set; }
         public ExtensionStructureType ExtensionStructure { get; set; }
-        public Boolean IsLastNotification { get; set; }
+        public Boolean? IsLastNotification { get; set; }
+        [XmlIgnore]
+        public Boolean IsLastNotificationSpecified { get; set; }
     }
 }
