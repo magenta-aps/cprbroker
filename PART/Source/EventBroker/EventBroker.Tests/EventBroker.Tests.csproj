@@ -67,6 +67,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Core\Output\CprBroker.Engine.dll</HintPath>
     </Reference>
+    <Reference Include="CprBroker.PartInterface">
+      <HintPath>..\..\CprBroker\Output\CprBroker.PartInterface.dll</HintPath>
+    </Reference>
     <Reference Include="CprBroker.Schemas">
       <HintPath>..\..\Core\Output\CprBroker.Schemas.dll</HintPath>
     </Reference>
