@@ -60,8 +60,6 @@ namespace CprBroker.EventBroker.Data
     {
         public CprBroker.Schemas.Part.Events.CommonEventStructureType ToOioNotification()
         {
-            // Dennis: please add the new IsLastNotification column to this table, and also change the filling logic here and in the stored procedure EnqueueDataChangeEventNotifications.sql
-            
             //TODO: Fill urls
             var ret = new Schemas.Part.Events.CommonEventStructureType()
             {
