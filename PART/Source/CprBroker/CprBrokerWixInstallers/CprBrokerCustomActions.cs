@@ -69,6 +69,12 @@ namespace CprBrokerWixInstallers
         }
 
         [CustomAction]
+        public static ActionResult ReEvaluateLaunchConditions(Session session)
+        {
+            return ProductCustomActions.ReEvaluateLaunchConditions(session);
+        }
+
+        [CustomAction]
         public static ActionResult SetNetworkServiceUserName(Session session)
         {
             return ProductCustomActions.SetNetworkServiceUserName(session);
