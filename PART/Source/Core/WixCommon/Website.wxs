@@ -71,7 +71,7 @@
 
     <InstallUISequence >
       <Custom Action="AppSearch_WEB" After="LaunchConditions"><![CDATA[!(wix.WEB_CreateWeb) = True]]></Custom>
-      <Custom Action="PopulateWebsites" After="RecallLaunchConditions"><![CDATA[!(wix.WEB_CreateWeb) = True AND NOT REMOVE]]></Custom>
+      <Custom Action="PopulateWebsites" After="ReEvaluateLaunchConditions"><![CDATA[!(wix.WEB_CreateWeb) = True AND NOT REMOVE]]></Custom>
       <Custom Action="InitializeWebPropertiesFromProductName" After="CostFinalize"><![CDATA[!(wix.WEB_CreateWeb) = True AND NOT REMOVE AND NOT PATCH AND NOT OLDER_VERSION_DETECTED]]></Custom>
     </InstallUISequence>
 

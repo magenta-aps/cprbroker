@@ -8,16 +8,16 @@
     <WixVariable Id="ElevationRequired" Value="0" Overridable="yes"/>
 
     <CustomAction Id="CalculateExecutionElevated" BinaryKey="InstallersDll" DllEntry="CalculateExecutionElevated" Execute="immediate"/>
-    <CustomAction Id="RecallLaunchConditions" BinaryKey="InstallersDll" DllEntry="RecallLaunchConditions" Execute="immediate" />
+    <CustomAction Id="ReEvaluateLaunchConditions" BinaryKey="InstallersDll" DllEntry="ReEvaluateLaunchConditions" Execute="immediate" />
 
     <InstallUISequence>
       <Custom Action="CalculateExecutionElevated" After="LaunchConditions">!(wix.ElevationRequired)</Custom>
-      <Custom Action="RecallLaunchConditions" Before="ValidateProductID"/>
+      <Custom Action="ReEvaluateLaunchConditions" Before="ValidateProductID"/>
     </InstallUISequence>
 
     <InstallExecuteSequence>
       <Custom Action="CalculateExecutionElevated" After="LaunchConditions">!(wix.ElevationRequired)</Custom>
-      <Custom Action="RecallLaunchConditions" Before="ValidateProductID"/>
+      <Custom Action="ReEvaluateLaunchConditions" Before="ValidateProductID"/>
     </InstallExecuteSequence>
 
     <UI>
