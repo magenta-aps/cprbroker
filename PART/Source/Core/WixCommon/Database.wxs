@@ -72,7 +72,7 @@
     </CustomAction>
 
     <InstallUISequence>
-      <Custom Action="AppSearch_DB" After="AppSearch"><![CDATA[!(wix.DB_CreateDatabase) = True]]></Custom>
+      <Custom Action="AppSearch_DB" After="LaunchConditions"><![CDATA[!(wix.DB_CreateDatabase) = True]]></Custom>
       <Custom Action="InitializeDatabasePropertiesFromProductName" After="CostFinalize"><![CDATA[!(wix.DB_CreateDatabase) = True AND NOT REMOVE AND NOT PATCH AND NOT OLDER_VERSION_DETECTED]]></Custom>
       <Custom Action="InitializeDatabasePropertiesByRemovingConflicts" After="CostFinalize"><![CDATA[!(wix.DB_CreateDatabase) = True AND NOT REMOVE]]></Custom>
     </InstallUISequence>
@@ -100,7 +100,7 @@
     <CustomAction Id="RemoveDatabase" BinaryKey="InstallersDll" DllEntry="RemoveDatabase" Execute="deferred" Return="check" Impersonate="yes"/>
 
     <InstallExecuteSequence>
-      <Custom Action="AppSearch_DB" After="AppSearch"><![CDATA[!(wix.DB_CreateDatabase) = True]]></Custom>
+      <Custom Action="AppSearch_DB" After="LaunchConditions"><![CDATA[!(wix.DB_CreateDatabase) = True]]></Custom>
 
       <Custom Action="AfterInstallInitialize_DB" After="Set_CommonProductProperties">!(wix.DB_CreateDatabase) = True</Custom>
 

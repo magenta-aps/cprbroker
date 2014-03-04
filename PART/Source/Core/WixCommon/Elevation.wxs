@@ -2,16 +2,22 @@
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
   <Fragment Id="ElevationFragment">
     <Property Id="Dummy_ElevationFragmentRefProp" Value="-"/>
+
+    <!-- Default is set to 1 to pass the first execution of LaunchCondition -->
+    <Property Id="ExecutionElevated" Value="1" />
     <WixVariable Id="ElevationRequired" Value="0" Overridable="yes"/>
 
     <CustomAction Id="CalculateExecutionElevated" BinaryKey="InstallersDll" DllEntry="CalculateExecutionElevated" Execute="immediate"/>
+    <CustomAction Id="RecallLaunchConditions" BinaryKey="InstallersDll" DllEntry="RecallLaunchConditions" Execute="immediate" />
 
     <InstallUISequence>
-      <Custom Action="CalculateExecutionElevated" Before="LaunchConditions">!(wix.ElevationRequired)</Custom>
+      <Custom Action="CalculateExecutionElevated" After="LaunchConditions">!(wix.ElevationRequired)</Custom>
+      <Custom Action="RecallLaunchConditions" Before="ValidateProductID"/>
     </InstallUISequence>
 
     <InstallExecuteSequence>
-      <Custom Action="CalculateExecutionElevated" Before="LaunchConditions">!(wix.ElevationRequired)</Custom>
+      <Custom Action="CalculateExecutionElevated" After="LaunchConditions">!(wix.ElevationRequired)</Custom>
+      <Custom Action="RecallLaunchConditions" Before="ValidateProductID"/>
     </InstallExecuteSequence>
 
     <UI>

@@ -81,6 +81,13 @@ namespace CprBroker.Installers
         }
 
         [CustomAction]
+        public static ActionResult RecallLaunchConditions(Session session)
+        {
+            session.DoAction("LaunchConditions");
+            return ActionResult.Success;
+        }
+
+        [CustomAction]
         public static ActionResult AfterInstallInitialize_Product(Session session)
         {
             var props = BaseSetupInfo.GetCustomActionData(session).ToString();

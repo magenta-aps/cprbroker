@@ -13,5 +13,8 @@
     <UI>
       <ProgressText Action="Set_CommonProductProperties">Setting common product properties</ProgressText>
     </UI>
+
+    
+    
   </Fragment>
 </Wix>

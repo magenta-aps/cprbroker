@@ -70,13 +70,13 @@
     <CustomAction Id="RemoveWebsite" BinaryKey="InstallersDll" DllEntry="RemoveWebsite" Execute="deferred" Return="check" Impersonate="no"></CustomAction>
 
     <InstallUISequence >
-      <Custom Action="AppSearch_WEB" After="AppSearch"><![CDATA[!(wix.WEB_CreateWeb) = True]]></Custom>
-      <Custom Action="PopulateWebsites" After="CostFinalize"><![CDATA[!(wix.WEB_CreateWeb) = True AND NOT REMOVE]]></Custom>
+      <Custom Action="AppSearch_WEB" After="LaunchConditions"><![CDATA[!(wix.WEB_CreateWeb) = True]]></Custom>
+      <Custom Action="PopulateWebsites" After="RecallLaunchConditions"><![CDATA[!(wix.WEB_CreateWeb) = True AND NOT REMOVE]]></Custom>
       <Custom Action="InitializeWebPropertiesFromProductName" After="CostFinalize"><![CDATA[!(wix.WEB_CreateWeb) = True AND NOT REMOVE AND NOT PATCH AND NOT OLDER_VERSION_DETECTED]]></Custom>
     </InstallUISequence>
 
     <InstallExecuteSequence>
-      <Custom Action="AppSearch_WEB" After="AppSearch"><![CDATA[!(wix.WEB_CreateWeb) = True]]></Custom>
+      <Custom Action="AppSearch_WEB" After="LaunchConditions"><![CDATA[!(wix.WEB_CreateWeb) = True]]></Custom>
 
       <Custom Action="AfterInstallInitialize_WEB" After="AfterInstallInitialize_DB">!(wix.WEB_CreateWeb) = True</Custom>
 
