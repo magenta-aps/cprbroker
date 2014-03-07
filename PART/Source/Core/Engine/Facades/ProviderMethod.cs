@@ -11,6 +11,11 @@ using System.Diagnostics;
 
 namespace CprBroker.Engine
 {
+    public interface IStep<TInputElement, TOutputElement>
+    {
+        Element<TInputElement, TOutputElement>[] CallDataProviders2(IEnumerable<IDataProvider> allProviders, TInputElement[] input);
+    }
+
     /// <summary>
     /// Contains the logic for calling available data providers from a certain type
     /// </summary>
@@ -20,6 +25,7 @@ namespace CprBroker.Engine
     /// <typeparam name="TContext"></typeparam>
     /// <typeparam name="TInterface"></typeparam>
     public partial class ProviderMethod<TInputElement, TOutputElement, TElement, TContext, TInterface>
+        : IStep<TInputElement, TOutputElement>
         where TInterface : class, ISingleDataProvider<TInputElement, TOutputElement, TContext>
         where TElement : Element<TInputElement, TOutputElement>, new()
     {
@@ -166,6 +172,24 @@ namespace CprBroker.Engine
                 string xml = Strings.SerializeObject(elementsToUpdate);
                 Local.Admin.LogException(updateException);
             }
+        }
+
+        public Element<TOutputElement, TNextOutputElement>[] Cascade<TNextOutputElement>(TInputElement[] input, IDataProvider[] allDataProviders, IStep<TOutputElement, TNextOutputElement> nextStep)
+        {
+            return Cascade<TOutputElement, TNextOutputElement>(input, allDataProviders, nextStep, o => o);
+        }
+
+        public Element<TNextInputElement, TNextOutputElement>[] Cascade<TNextInputElement, TNextOutputElement>(TInputElement[] input, IDataProvider[] allDataProviders, IStep<TNextInputElement, TNextOutputElement> nextStep, Func<TOutputElement, TNextInputElement> connector)
+        {
+            var myRet = CallDataProviders2(allDataProviders, input);
+            
+            var nextInput = myRet.Select(elm => connector(elm.Output)).ToArray();
+            return nextStep.CallDataProviders2(allDataProviders, nextInput);
+        }
+
+        public Element<TInputElement, TOutputElement>[] CallDataProviders2(IEnumerable<IDataProvider> allProviders, TInputElement[] input)
+        {
+            return CallDataProviders(allProviders.OfType<TInterface>(), input);
         }
     }
 }
