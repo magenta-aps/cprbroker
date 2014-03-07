@@ -106,14 +106,15 @@ namespace CprBroker.Engine
 
                 // Data providers
                 IEnumerable<TInterface> dataProviders;
-
-                ret = CreateDataProviders(out dataProviders);
+                // TODO: Create an execution plan here
+                var providerMethod = new ProviderMethod<TInputElement, TOutputElement, Element, object, TInterface>();
+                
+                ret = CreateDataProviders(providerMethod, out dataProviders);
 
                 if (!StandardReturType.IsSucceeded(ret))
                     return new TOutput() { StandardRetur = ret };
 
                 // Call data providers
-                var providerMethod = new ProviderMethod<TInputElement, TOutputElement, Element, object, TInterface>();
                 var allElements = providerMethod.CallDataProviders(dataProviders, input);
 
                 // Aggregate
@@ -153,14 +154,10 @@ namespace CprBroker.Engine
             return ret;
         }
 
-        public StandardReturType CreateDataProviders(out IEnumerable<TInterface> dataProviders)
+        public StandardReturType CreateDataProviders(ProviderMethod<TInputElement, TOutputElement, Element, object, TInterface> providerMethod, out IEnumerable<TInterface> dataProviders)
         {
-            DataProvidersConfigurationSection section = DataProvidersConfigurationSection.GetCurrent();
-            DataProvider[] dbProviders = DataProviderManager.ReadDatabaseDataProviders();
-
-            dataProviders = DataProviderManager.GetDataProviderList(section, dbProviders, typeof(TInterface), this.LocalDataProviderOption)
-                .Select(p => p as TInterface);
-            if (dataProviders.FirstOrDefault() == null)
+            dataProviders = providerMethod.CreateDataProviders(this.LocalDataProviderOption);
+            if (dataProviders == null || dataProviders.FirstOrDefault() == null)
             {
                 Local.Admin.AddNewLog(TraceEventType.Warning, BrokerContext.Current.WebMethodMessageName, TextMessages.NoDataProvidersFound, null, null);
                 return StandardReturType.Create(HttpErrorCode.DATASOURCE_UNAVAILABLE);

@@ -4,11 +4,23 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using CprBroker.Utilities;
+using CprBroker.Data.DataProviders;
+using CprBroker.Schemas;
+using CprBroker.Schemas.Part;
+using System.Diagnostics;
 
 namespace CprBroker.Engine
 {
+    /// <summary>
+    /// Contains the logic for calling available data providers from a certain type
+    /// </summary>
+    /// <typeparam name="TInputElement"></typeparam>
+    /// <typeparam name="TOutputElement"></typeparam>
+    /// <typeparam name="TElement"></typeparam>
+    /// <typeparam name="TContext"></typeparam>
+    /// <typeparam name="TInterface"></typeparam>
     public partial class ProviderMethod<TInputElement, TOutputElement, TElement, TContext, TInterface>
-        where TInterface : ISingleDataProvider<TInputElement, TOutputElement, TContext>
+        where TInterface : class, ISingleDataProvider<TInputElement, TOutputElement, TContext>
         where TElement : Element<TInputElement, TOutputElement>, new()
     {
         public TContext Context { get; private set; }
@@ -19,6 +31,16 @@ namespace CprBroker.Engine
         public ProviderMethod(TContext context)
         {
             this.Context = context;
+        }
+
+        public IEnumerable<TInterface> CreateDataProviders(SourceUsageOrder sourceUsageOrder)
+        {
+            DataProvidersConfigurationSection section = DataProvidersConfigurationSection.GetCurrent();
+            DataProvider[] dbProviders = DataProviderManager.ReadDatabaseDataProviders();
+
+            var dataProviders = DataProviderManager.GetDataProviderList(section, dbProviders, typeof(TInterface), sourceUsageOrder)
+                .Select(p => p as TInterface);
+            return dataProviders;
         }
 
         public TElement[] CallDataProviders(IEnumerable<TInterface> dataProviders, TInputElement[] input)
