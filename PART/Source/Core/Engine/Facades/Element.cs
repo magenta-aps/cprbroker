@@ -59,6 +59,8 @@ namespace CprBroker.Engine
     {
         public TInputElement Input;
         public TOutputElement Output;
+        public bool Succeeded = false;
         public string PossibleErrorReason = Schemas.Part.StandardReturType.DataProviderFailedText;
+
     }
 }

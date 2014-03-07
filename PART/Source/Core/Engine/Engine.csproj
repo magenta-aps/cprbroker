@@ -85,6 +85,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Facades\ClientMethodPlan.cs" />
     <Compile Include="Facades\DataComponentFacade.Base.cs">
       <SubType>Code</SubType>
     </Compile>
