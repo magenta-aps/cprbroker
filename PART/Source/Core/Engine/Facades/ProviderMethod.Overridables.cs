@@ -6,8 +6,6 @@ using System.Text;
 namespace CprBroker.Engine
 {
     public partial class ProviderMethod<TInputElement, TOutputElement, TElement, TContext, TInterface>
-        where TInterface : class, ISingleDataProvider<TInputElement, TOutputElement, TContext>
-        where TElement : Element<TInputElement, TOutputElement>, new()
     {
         public virtual bool IsElementSucceeded(TElement element)
         {
