@@ -7,14 +7,19 @@ using CprBroker.Utilities;
 
 namespace CprBroker.Engine
 {
-    public class ProviderMethod<TInputElement, TOutputElement, TInterface> : ProviderMethod<TInputElement, TOutputElement, Element<TInputElement, TOutputElement>, TInterface>
-        where TInterface : ISingleDataProvider<TInputElement, TOutputElement>
-    { }
-
-    public partial class ProviderMethod<TInputElement, TOutputElement, TElement, TInterface>
-        where TInterface : ISingleDataProvider<TInputElement, TOutputElement>
+    public partial class ProviderMethod<TInputElement, TOutputElement, TElement, TContext, TInterface>
+        where TInterface : ISingleDataProvider<TInputElement, TOutputElement, TContext>
         where TElement : Element<TInputElement, TOutputElement>, new()
     {
+        public TContext Context { get; private set; }
+
+        public ProviderMethod()
+        { }
+
+        public ProviderMethod(TContext context)
+        {
+            this.Context = context;
+        }
 
         public TElement[] CallDataProviders(IEnumerable<TInterface> dataProviders, TInputElement[] input)
         {
@@ -32,9 +37,9 @@ namespace CprBroker.Engine
 
                 TElement[] elementsToUpdate = null;
 
-                if (prov is IBatchDataProvider<TInputElement, TOutputElement>)
+                if (prov is IBatchDataProvider<TInputElement, TOutputElement, TContext>)
                 {
-                    CallBatch(prov as IBatchDataProvider<TInputElement, TOutputElement>, currentElements, out elementsToUpdate);
+                    CallBatch(prov as IBatchDataProvider<TInputElement, TOutputElement, TContext>, currentElements, out elementsToUpdate);
                 }
                 else
                 {
@@ -50,14 +55,14 @@ namespace CprBroker.Engine
             return allElements;
         }
 
-        public void CallBatch(IBatchDataProvider<TInputElement, TOutputElement> prov, TElement[] currentElements, out TElement[] elementsToUpdate)
+        public void CallBatch(IBatchDataProvider<TInputElement, TOutputElement, TContext> prov, TElement[] currentElements, out TElement[] elementsToUpdate)
         {
             var elementsToUpdateList = new List<TElement>();
 
             try
             {
                 // Exceptions here will cause going to next data provider
-                var currentOutput = prov.GetBatch(currentElements.Select(elm => elm.Input).ToArray());
+                var currentOutput = prov.GetBatch(currentElements.Select(elm => elm.Input).ToArray(), Context);
 
                 if (currentOutput.Length != currentElements.Length)
                     throw new Exception(string.Format("Output count mismatch when calling <{0}>, expected=<{1}, found=<{2}>>", prov.GetType().Name, currentElements.Length, currentOutput.Length));
@@ -91,7 +96,7 @@ namespace CprBroker.Engine
                 {
                     try
                     {
-                        elm.Output = prov.GetOne(elm.Input);
+                        elm.Output = prov.GetOne(elm.Input, Context);
 
                         if (IsElementUpdatable(elm))
                         {

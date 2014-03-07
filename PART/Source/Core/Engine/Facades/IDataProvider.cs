@@ -51,14 +51,14 @@ using System.Text;
 
 namespace CprBroker.Engine
 {
-    public interface ISingleDataProvider<TKey, TObject>
+    public interface ISingleDataProvider<TKey, TObject, TContext>
     {
-        TObject GetOne(TKey input);
+        TObject GetOne(TKey input, TContext context);
         bool ImmediateUpdatePreferred { get; }
     }
 
-    public interface IBatchDataProvider<TKey, TObject> : ISingleDataProvider<TKey, TObject>
+    public interface IBatchDataProvider<TKey, TObject, TContext> : ISingleDataProvider<TKey, TObject, TContext>
     {
-        TObject[] GetBatch(TKey[] inputs);
+        TObject[] GetBatch(TKey[] inputs, TContext context);
     }
 }

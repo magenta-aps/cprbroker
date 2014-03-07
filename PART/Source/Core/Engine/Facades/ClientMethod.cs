@@ -58,7 +58,7 @@ namespace CprBroker.Engine
 {
 
     public partial class ClientMethod<TInterface, TInputElement, TIntermediateElement, TOutputElement>
-        where TInterface : class,ISingleDataProvider<TInputElement, TOutputElement>
+        where TInterface : class,ISingleDataProvider<TInputElement, TOutputElement, object>
         where TIntermediateElement : ClientMethod<TInterface, TInputElement, TIntermediateElement, TOutputElement>.Element
     {
 
@@ -113,7 +113,7 @@ namespace CprBroker.Engine
                     return new TOutput() { StandardRetur = ret };
 
                 // Call data providers
-                var providerMethod = new ProviderMethod<TInputElement, TOutputElement, Element, TInterface>();
+                var providerMethod = new ProviderMethod<TInputElement, TOutputElement, Element, object, TInterface>();
                 var allElements = providerMethod.CallDataProviders(dataProviders, input);
 
                 // Aggregate
