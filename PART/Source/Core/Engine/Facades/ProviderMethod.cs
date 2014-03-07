@@ -14,6 +14,7 @@ namespace CprBroker.Engine
     public interface IStep<TInputElement, TOutputElement>
     {
         Element<TInputElement, TOutputElement>[] CallDataProviders(IEnumerable<IDataProvider> allProviders, TInputElement[] input);
+        bool IsElementSucceeded(Element<TInputElement, TOutputElement> element);
     }
 
     /// <summary>
@@ -174,22 +175,47 @@ namespace CprBroker.Engine
             }
         }
 
-        public Element<TOutputElement, TNextOutputElement>[] Cascade<TNextOutputElement>(TInputElement[] input, IDataProvider[] allDataProviders, IStep<TOutputElement, TNextOutputElement> nextStep)
+        public Element<TInputElement, TNextOutputElement>[] Cascade<TNextOutputElement>(TInputElement[] input, IDataProvider[] allDataProviders, IStep<TOutputElement, TNextOutputElement> nextStep)
         {
             return Cascade<TOutputElement, TNextOutputElement>(input, allDataProviders, nextStep, o => o);
         }
 
-        public Element<TNextInputElement, TNextOutputElement>[] Cascade<TNextInputElement, TNextOutputElement>(TInputElement[] input, IDataProvider[] allDataProviders, IStep<TNextInputElement, TNextOutputElement> nextStep, Func<TOutputElement, TNextInputElement> connector)
+        public Element<TInputElement, TNextOutputElement>[] Cascade<TNextInputElement, TNextOutputElement>(TInputElement[] input, IDataProvider[] allDataProviders, IStep<TNextInputElement, TNextOutputElement> nextStep, Func<TOutputElement, TNextInputElement> connector)
         {
+            var ret = input.Select(inp => new Element<TInputElement, TNextOutputElement>() { Input = inp }).ToArray();
+
             var myRet = CallDataProviders(allDataProviders, input);
+
+            var mySucceededIndecies = Enumerable
+                .Range(0, input.Length)
+                .Where(i => IsElementSucceeded(myRet[i] as TElement))
+                .ToArray();
             
-            var nextInput = myRet.Select(elm => connector(elm.Output)).ToArray();
-            return nextStep.CallDataProviders(allDataProviders, nextInput);
+            var nextInput = mySucceededIndecies.Select(ind => connector(myRet[ind].Output)).ToArray();
+            var nextRet = nextStep.CallDataProviders(allDataProviders, nextInput);
+
+            for (int iNext = 0; iNext < nextInput.Length; iNext++)
+            {
+                if (nextStep.IsElementSucceeded(nextRet[iNext]))
+                {
+                    ret[mySucceededIndecies[iNext]].Output = nextRet[iNext].Output;
+                }
+                else
+                {
+                    ret[mySucceededIndecies[iNext]].PossibleErrorReason = nextRet[iNext].PossibleErrorReason;
+                }
+            }
+            return ret;
         }
 
         public Element<TInputElement, TOutputElement>[] CallDataProviders(IEnumerable<IDataProvider> allProviders, TInputElement[] input)
         {
             return CallDataProviders(allProviders.OfType<TInterface>(), input);
+        }
+
+        public bool IsElementSucceeded(Element<TInputElement, TOutputElement> element)
+        {
+            return this.IsElementSucceeded(element as TElement);
         }
     }
 }
