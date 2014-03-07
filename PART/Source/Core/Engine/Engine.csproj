@@ -85,18 +85,14 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AutoUpdate\AutoUpdateManager.cs" />
     <Compile Include="Facades\DataComponentFacade.Base.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Facades\DataComponentFacade.Element.cs" />
-    <Compile Include="Facades\DataComponentFacade.Overridables.cs" />
-    <Compile Include="Facades\DataComponentFacade.cs" />
     <Compile Include="BatchFacadeMethodInfo.cs" />
     <Compile Include="BrokerContext.cs" />
     <Compile Include="Budget\BudgetController.cs" />
-    <Compile Include="AutoUpdate\IAutoUpdateDataProvider.cs" />
     <Compile Include="Facades\Element.cs" />
+    <Compile Include="Facades\ProviderMethod.cs" />
     <Compile Include="IPerCallDataProvider.cs" />
     <Compile Include="Facades\ClientMethod.cs" />
     <Compile Include="Exceptions\InvalidTokenException.cs" />
@@ -170,7 +166,12 @@
   <ItemGroup>
     <Compile Include="Facades\ClientMethod.Overridables.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="AutoUpdate\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Facades\ProviderMethod.Overridables.cs" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
