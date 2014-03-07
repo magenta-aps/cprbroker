@@ -58,7 +58,7 @@ namespace CprBroker.Engine
 {
 
     public partial class ClientMethod<TInterface, TInputElement, TOutputElement>
-        where TInterface : class,ISingleDataProvider<TInputElement, TOutputElement, object>        
+        where TInterface : class, ISingleDataProvider<TInputElement, TOutputElement, object>
     {
 
         public SourceUsageOrder LocalDataProviderOption = SourceUsageOrder.LocalThenExternal;
@@ -107,7 +107,7 @@ namespace CprBroker.Engine
                 IEnumerable<TInterface> dataProviders;
                 // TODO: Create an execution plan here
                 var providerMethod = new ProviderMethod<TInputElement, TOutputElement, Element, object, TInterface>();
-                
+
                 ret = CreateDataProviders(providerMethod, out dataProviders);
 
                 if (!StandardReturType.IsSucceeded(ret))
