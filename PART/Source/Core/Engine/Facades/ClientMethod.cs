@@ -126,7 +126,6 @@ namespace CprBroker.Engine
             }
         }
 
-
         public virtual StandardReturType BaseValidate<TOutput>(MethodHeader header, TInputElement[] input)
         {
             // Initialize context
@@ -169,8 +168,6 @@ namespace CprBroker.Engine
             return StandardReturType.OK();
         }
 
-
-
         public TOutput Aggregate<TOutput>(Element[] elements)
             where TOutput : IBasicOutput<TOutputElement[]>, new()
         {
@@ -209,5 +206,4 @@ namespace CprBroker.Engine
         }
 
     }
-
 }
