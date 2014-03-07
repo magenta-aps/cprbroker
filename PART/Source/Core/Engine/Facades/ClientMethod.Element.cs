@@ -51,7 +51,7 @@ using System.Text;
 
 namespace CprBroker.Engine
 {
-    public partial class ClientMethod<TInterface, TInputElement, TIntermediateElement, TOutputElement>
+    public partial class ClientMethod<TInterface, TInputElement, TOutputElement>
     {
         public class Element : Element<TInputElement, TOutputElement>
         {
