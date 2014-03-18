@@ -54,7 +54,6 @@ using CprBroker.Schemas.Part;
 using CprBroker.Utilities;
 using CprBroker.Engine.Local;
 using System.IO;
-using FtpLib;
 using System.Net;
 
 namespace CprBroker.Providers.CPRDirect

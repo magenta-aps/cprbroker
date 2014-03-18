@@ -49,9 +49,6 @@
     <Reference Include="CprBroker.Utilities">
       <HintPath>..\..\Core\Output\CprBroker.Utilities.dll</HintPath>
     </Reference>
-    <Reference Include="ftplib">
-      <HintPath>..\..\Dll\ftplib.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Linq" />
