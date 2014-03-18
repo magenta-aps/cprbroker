@@ -79,7 +79,7 @@ namespace CprBroker.Providers.DPR
             ErrorCodes["02"] = "UserID / pwd is not correct";
             ErrorCodes["03"] = "pwd expired NEWPWD required";
             ErrorCodes["04"] = "NEWPWD does not meet the format" + Environment.NewLine + "(6-8 digits and letters and not previously used) ";
-            ErrorCodes["05"] = "Not access to CPR";
+            ErrorCodes["05"] = "No access to CPR";
             ErrorCodes["06"] = "Unknown bruid";
             ErrorCodes["07"] = "Timeout - New LOGON necessary";
             ErrorCodes["08"] = "DEAD-LOCK when read in the CPR system";
