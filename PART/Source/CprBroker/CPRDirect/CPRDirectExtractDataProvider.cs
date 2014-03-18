@@ -160,8 +160,7 @@ namespace CprBroker.Providers.CPRDirect
                 return new DataProviderConfigPropertyInfo[] { 
                     new DataProviderConfigPropertyInfo(){ Name=Constants.PropertyNames.ExtractsFolder, Type= DataProviderConfigPropertyInfoTypes.String, Required=true, Confidential=false},
                     new DataProviderConfigPropertyInfo(){ Name=Constants.PropertyNames.HasFtpSource, Type= DataProviderConfigPropertyInfoTypes.Boolean, Required=true, Confidential=false},
-                    new DataProviderConfigPropertyInfo(){ Name=Constants.PropertyNames.FtpAddress, Type= DataProviderConfigPropertyInfoTypes.String, Required=false, Confidential=false},
-                    new DataProviderConfigPropertyInfo(){ Name=Constants.PropertyNames.FtpPort, Type= DataProviderConfigPropertyInfoTypes.Integer, Required=false, Confidential=false},
+                    new DataProviderConfigPropertyInfo(){ Name=Constants.PropertyNames.FtpAddress, Type= DataProviderConfigPropertyInfoTypes.String, Required=false, Confidential=false},                    
                     new DataProviderConfigPropertyInfo(){ Name=Constants.PropertyNames.FtpUser, Type= DataProviderConfigPropertyInfoTypes.String, Required=false, Confidential=false},
                     new DataProviderConfigPropertyInfo(){ Name=Constants.PropertyNames.FtpPassword, Type= DataProviderConfigPropertyInfoTypes.String, Required=false, Confidential=true}
                 };
@@ -194,18 +193,6 @@ namespace CprBroker.Providers.CPRDirect
             set { ConfigurationProperties[Constants.PropertyNames.FtpAddress] = value.ToString(); }
         }
 
-        public int? FtpPort
-        {
-            get
-            {
-                int ret;
-                if (int.TryParse(ConfigurationProperties[Constants.PropertyNames.FtpPort], out ret))
-                    return ret;
-                return null;
-            }
-            set { ConfigurationProperties[Constants.PropertyNames.FtpPort] = string.Format("{0}", value); }
-        }
-
         public string FtpUser
         {
             get { return ConfigurationProperties[Constants.PropertyNames.FtpUser]; }
@@ -218,6 +205,11 @@ namespace CprBroker.Providers.CPRDirect
             set { ConfigurationProperties[Constants.PropertyNames.FtpPassword] = value.ToString(); }
         }
 
+
+        public string FtpOutPath
+        {
+            get { return "ud"; }
+        }
         #endregion
 
 

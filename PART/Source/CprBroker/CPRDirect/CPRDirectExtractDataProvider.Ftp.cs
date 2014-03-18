@@ -55,31 +55,21 @@ using CprBroker.Utilities;
 using CprBroker.Engine.Local;
 using System.IO;
 using FtpLib;
+using System.Net;
 
 namespace CprBroker.Providers.CPRDirect
 {
     public partial class CPRDirectExtractDataProvider : IPartReadDataProvider, IExternalDataProvider
     {
 
-		public string GetFtpUrl()
-		{
-			return GetFtpUrl (null);
-		}
+        public string GetFtpUrl()
+        {
+            return GetFtpUrl(null);
+        }
 
         public string GetFtpUrl(string subPath)
         {
             string url = FtpAddress;
-            url = Strings.EnsureStartString(url, "ftp://", false, StringComparison.CurrentCultureIgnoreCase);
-
-            if (FtpPort.HasValue)
-                url += ":" + FtpPort;
-
-            if (!string.IsNullOrEmpty(FtpUser) || !string.IsNullOrEmpty(FtpPassword))
-            {
-                //Admin.LogFormattedSuccess("Adding credentials");
-                url = string.Format("{0}:{1}@{2}", FtpUser, FtpPassword, url);
-                //ftpRequest.Credentials = new NetworkCredential(FtpUser, FtpPassword);
-            }
 
             url = Strings.EnsureStartString(url, "ftp://", true, StringComparison.CurrentCultureIgnoreCase);
 
@@ -97,64 +87,103 @@ namespace CprBroker.Providers.CPRDirect
             return url;
         }
 
-		public FtpConnection CreateFtpConnection()
-		{
-			return CreateFtpConnection (false);
-		}
-
-        public FtpConnection CreateFtpConnection(bool open)
+        public FtpWebRequest CreateFtpConnection(string subPath)
         {
-            var ret = new FtpConnection(FtpAddress, FtpUser, FtpPassword);
-            if (open)
-            {
-                ret.Open();
-                ret.Login();
-                ret.SetCurrentDirectory(string.Format("'{0}'",this.FtpUser.Substring(1)));
-            }
-            return ret;
+            FtpWebRequest req = WebRequest.Create(GetFtpUrl(subPath)) as FtpWebRequest;
+            req.EnableSsl = true;
+            req.Credentials = new NetworkCredential(FtpUser, FtpPassword);
+            return req;
         }
 
-		public FtpFileInfo[] ListFtpContents()
-		{
-			return ListFtpContents ("");
-		}
-
-        public FtpFileInfo[] ListFtpContents(string mask)
+        public string[] ListFtpContents()
         {
-            using (var request = CreateFtpConnection(true))
+            return ListFtpContents("");
+        }
+
+        public string[] ListFtpContents(string mask)
+        {
+            var req = CreateFtpConnection(this.FtpOutPath);
+            req.Method = WebRequestMethods.Ftp.ListDirectory;
+
+            using (var response = req.GetResponse() as FtpWebResponse)
             {
-                return request.GetFiles(mask);
+                using (var rd = new StreamReader(response.GetResponseStream()))
+                {
+                    string txt = rd.ReadToEnd();
+                    var lines = txt.Split(Environment.NewLine.ToArray(), StringSplitOptions.RemoveEmptyEntries);
+                    return lines;
+                }
             }
         }
 
         public string PutTempFileOnFtp()
         {
-            using (var request = CreateFtpConnection(true))
+            var filePath = CprBroker.Utilities.Strings.NewUniquePath(this.ExtractsFolder, "txt");
+            var inf = new FileInfo(filePath);
+
+            byte[] data = Encoding.ASCII.GetBytes("ABC");
+
+            var path = this.FtpOutPath + "/" + inf.Name;
+            var req = CreateFtpConnection(path);
+            req.Method = WebRequestMethods.Ftp.UploadFile;
+
+            using (var requestStream = req.GetRequestStream())
             {
-                var filePath = CprBroker.Utilities.Strings.NewUniquePath(this.ExtractsFolder, "txt");
-                File.WriteAllText(filePath, "ABC");
-                request.PutFile(filePath);
-                File.Delete(filePath);
-                return new FileInfo(filePath).Name;
+                requestStream.Write(data, 0, data.Length);
             }
+            using (var resp = req.GetResponse() as FtpWebResponse)
+            {
+                // Do nothing
+            }
+            return path;
         }
 
         public void DeleteFile(string subPath)
         {
-            using (var request = CreateFtpConnection(true))
+            var req = CreateFtpConnection(subPath);
+            req.Method = WebRequestMethods.Ftp.DeleteFile;
+            using (var resp = req.GetResponse() as FtpWebResponse)
             {
-                request.RemoveFile(subPath);
+                // Do nothing
             }
         }
 
-        public void DownloadFile(string subPath)
+
+        public void DownloadFile(string subPath, long length)
         {
-            string localFileName = ExtractsFolder + "\\" + subPath;
-            using (var request = CreateFtpConnection(true))
+            string localFileName = ExtractsFolder + "\\" + subPath.Split(new char[] { '\\', '/' }).Last();
+            Console.WriteLine(localFileName);
+            long readSoFar = 0;
+            var request = CreateFtpConnection(subPath);
+            using (var resp = request.GetResponse())
             {
-                request.GetFile(subPath, localFileName, true);
+                using (var responseStream = resp.GetResponseStream())
+                {
+                    using (var localFileStream = new FileStream(localFileName, FileMode.CreateNew))
+                    {
+                        var data = new byte[1024 * 1024];
+                        while (readSoFar < length)
+                        {
+                            var read = responseStream.Read(data, 0, data.Length);
+                            readSoFar += read;
+                            localFileStream.Write(data, 0, read);
+                        }
+                    }
+                }
             }
         }
 
+        public long GetLength(string subPath)
+        {
+            var request = CreateFtpConnection(subPath);
+            request.Method = WebRequestMethods.Ftp.GetFileSize;
+            using (var response = request.GetResponse() as FtpWebResponse)
+            {
+                using (var rd = new StreamReader(response.GetResponseStream()))
+                {
+                    return response.ContentLength;
+                }
+            }
+        }
     }
 }

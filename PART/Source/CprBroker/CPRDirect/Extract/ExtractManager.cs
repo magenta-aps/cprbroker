@@ -65,10 +65,10 @@ namespace CprBroker.Providers.CPRDirect
             ImportText(text, path);
         }
 
-		public static void ImportText(string text)
-		{
-			ImportText (text, "");
-		}
+        public static void ImportText(string text)
+        {
+            ImportText(text, "");
+        }
 
         public static void ImportText(string text, string sourceFileName)
         {
@@ -226,13 +226,14 @@ namespace CprBroker.Providers.CPRDirect
                 {
                     try
                     {
-                        string name = ftpFile.Name;
+                        string name = ftpFile;
                         Admin.LogFormattedSuccess("Found FTP file <{0}>", name);
                         name = name.Substring(name.LastIndexOf('D'));
 
                         Admin.LogFormattedSuccess("Downloading FTP file <{0}>", name);
-                        prov.DownloadFile(name);
-                        Admin.LogFormattedSuccess("Deleting FTP file <{0}> ", ftpFile.Name);
+                        var len = prov.GetLength(name);
+                        prov.DownloadFile(name, len);
+                        Admin.LogFormattedSuccess("Deleting FTP file <{0}> ", ftpFile);
                         prov.DeleteFile(name);
                     }
                     catch (Exception ex)
@@ -287,10 +288,10 @@ namespace CprBroker.Providers.CPRDirect
             return targetFilePath;
         }
 
-		public static void ConvertPersons()
-		{
-			ConvertPersons (1);
-		}
+        public static void ConvertPersons()
+        {
+            ConvertPersons(1);
+        }
 
         public static void ConvertPersons(int batchSize)
         {
@@ -308,12 +309,12 @@ namespace CprBroker.Providers.CPRDirect
 
                 var conversionExtracts = ExtractConversion.CreateFromPersonStagings(persons);
                 ExtractConversion.FillExtractItems(conversionExtracts, dataContext);
-                
+
                 // Preload UUIDs
                 var pnrs = ExtractConversion.AllPNRs(conversionExtracts);
                 var cache = new UuidCache();
                 cache.FillCache(pnrs);
-                
+
                 int personIndex = 0;
                 foreach (var personGroup in conversionExtracts)
                 {

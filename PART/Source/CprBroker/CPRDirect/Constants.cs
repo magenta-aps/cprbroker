@@ -203,7 +203,6 @@ namespace CprBroker.Providers.CPRDirect
             public static readonly string ExtractsFolder = "Extracts folder";
             public static readonly string HasFtpSource = "Has FTP Source";
             public static readonly string FtpAddress = "FTP Address";
-            public static readonly string FtpPort = "FTP Port";
             public static readonly string FtpUser = "FTP User";
             public static readonly string FtpPassword = "FTP Password";
         }
