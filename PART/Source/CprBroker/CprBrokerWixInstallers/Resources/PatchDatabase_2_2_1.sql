@@ -24,6 +24,19 @@ CREATE TABLE [dbo].[DataProviderCall](
 ) ON [PRIMARY]
 END
 GO
+
+IF Exists (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[dbo].[DataProviderCall]') AND name = 'Id')
+	exec sp_rename 'dbo.DataProviderCall.Id', 'DataProviderCallId', 'COLUMN'
+GO
+
+IF Exists (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[dbo].[DataProviderCall]') AND name = 'Time')
+	exec sp_rename 'dbo.DataProviderCall.Time', 'CallTime', 'COLUMN'
+GO
+
+IF Exists (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[dbo].[ProviderType]') AND name = 'ProviderType')
+	exec sp_rename 'dbo.DataProviderCall.ProviderType', 'DataProviderType', 'COLUMN'
+GO
+
 IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[dbo].[DataProviderCall]') AND name = N'IX_DataProviderCall_CallTime')
 CREATE CLUSTERED INDEX [IX_DataProviderCall_CallTime] ON [dbo].[DataProviderCall] 
 (
