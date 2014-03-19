@@ -227,9 +227,6 @@ namespace CprBroker.Providers.CPRDirect
                     try
                     {
                         string name = ftpFile;
-                        Admin.LogFormattedSuccess("Found FTP file <{0}>", name);
-                        name = name.Substring(name.LastIndexOf('D'));
-
                         Admin.LogFormattedSuccess("Downloading FTP file <{0}>", name);
                         var len = prov.GetLength(name);
                         prov.DownloadFile(name, len);
