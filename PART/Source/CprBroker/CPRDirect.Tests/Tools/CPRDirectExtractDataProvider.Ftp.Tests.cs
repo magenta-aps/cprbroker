@@ -95,7 +95,6 @@ namespace CprBroker.Tests.CPRDirect.Tools
             {
                 var dp = CreateDataProvider();
                 dp.FtpAddress = address;
-                dp.FtpPort = port;
                 var adr = dp.GetFtpUrl();
                 Assert.AreEqual(expected, adr);
             }
