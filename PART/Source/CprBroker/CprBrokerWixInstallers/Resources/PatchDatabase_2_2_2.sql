@@ -10,18 +10,20 @@ GO
 SET ANSI_PADDING ON
 GO
 
-CREATE TABLE [dbo].[BudgetInterval](
-	[IntervalMilliseconds] [bigint] NOT NULL,
-	[Name] [varchar](50) NOT NULL,
-	[CallThreshold] [int] NULL,
-	[CostThreshold] [decimal](18, 4) NULL,
-	[LastChecked] [datetime] NULL,
- CONSTRAINT [PK_BudgetInterval] PRIMARY KEY CLUSTERED 
-(
-	[IntervalMilliseconds] ASC
-)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
-) ON [PRIMARY]
-
+IF NOT EXISTS (SELECT * FROM sys.tables WHERE Name = 'BudgetInterval')
+BEGIN
+	CREATE TABLE [dbo].[BudgetInterval](
+		[IntervalMilliseconds] [bigint] NOT NULL,
+		[Name] [varchar](50) NOT NULL,
+		[CallThreshold] [int] NULL,
+		[CostThreshold] [decimal](18, 4) NULL,
+		[LastChecked] [datetime] NULL,
+	 CONSTRAINT [PK_BudgetInterval] PRIMARY KEY CLUSTERED 
+	(
+		[IntervalMilliseconds] ASC
+	)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+	) ON [PRIMARY]
+END
 GO
 
 SET ANSI_PADDING ON
