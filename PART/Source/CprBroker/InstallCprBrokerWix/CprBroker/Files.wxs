@@ -100,8 +100,8 @@
       <Component Id="CMP_CPR_EntLib_Interception_Dll" Directory="CPR_bin">
         <File Id="FILE_CPR_bin_EntLib_Interception_DLL" Source="$(var.SitePath)bin\Microsoft.Practices.Unity.Interception.dll" KeyPath="yes"/>
       </Component>
-      <Component Id="CMP_CPR_FtpLib__Dll" Directory="CPR_bin">
-        <File Id="FILE_CPR_bin_FtpLib__DLL" Source="$(var.SitePath)bin\ftplib.dll" KeyPath="yes"/>
+      <Component Id="CMP_CPR_FtpLib__Dll" Directory="CPR_bin" Guid="45F81753-9EDB-48FB-A184-3469CA5E2D50">
+        <RemoveFile Id="Remove_CPR_FtpLib__Dll" Name="ftplib.dll" On="both"/>
       </Component>
       <Component Id="CMP_CPR_AjaxControlToolkit__Dll" Directory="CPR_bin">
         <File Id="FILE_CPR_bin_AjaxControlToolkit__DLL" Source="$(var.SitePath)bin\AjaxControlToolkit.dll" KeyPath="yes"/>

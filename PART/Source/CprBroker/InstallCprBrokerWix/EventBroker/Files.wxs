@@ -77,11 +77,11 @@
         </File>
       </Component>
 
-      <Component Id="CMP_EVENT_bin_FtpLib.dll" Directory="EVENT_bin">
-        <File Id="FILE_EVENT_bin_FtpLib.dll" Source="$(var.SitePath)bin\ftplib.dll" KeyPath="yes">
-          <CopyFile Id="FILE_EVENT_bin_Backend_FtpLib.dll" DestinationDirectory="EVENT_Backend"/>
-        </File>
+      <Component Id="CMP_EVENT_bin_FtpLib.dll" Directory="EVENT_bin" Guid="16720E88-28C3-4131-85AE-C97E6C0A5C55">
+        <RemoveFile Id="Remove_EVENT_bin_FtpLib.dll" Name="ftplib.dll" On="both"/>
+        <RemoveFile Id="Remove_EVENT_Backend_FtpLib.dll" Name="ftplib.dll" On="both" Directory="EVENT_Backend"/>
       </Component>
+
       <Component Id="CMP_EVENT_bin_Microsoft.Practices.EnterpriseLibrary.Common.dll" Directory="EVENT_bin">
         <File Id="FILE_EVENT_bin_Microsoft.Practices.EnterpriseLibrary.Common.dll" Source="$(var.EventSitePath)bin\Microsoft.Practices.EnterpriseLibrary.Common.dll" KeyPath="yes">
           <CopyFile Id="FILE_EVENT_bin_Backend_Microsoft.Practices.EnterpriseLibrary.Common.dll" DestinationDirectory="EVENT_Backend"/>
