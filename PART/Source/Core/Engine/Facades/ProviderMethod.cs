@@ -239,21 +239,22 @@ namespace CprBroker.Engine
         {
             return () => CallDataProviders(allProviders, input);
         }
+
     }
 
     public static class Extensions
     {
-        public static Expression<Func<Element<TInputElement, TNextOutputElement>[]>> 
+        public static Expression<Func<Element<TInputElement, TNextOutputElement>[]>>
             Cascade<TInputElement, TOutputElement, TNextInputElement, TNextOutputElement>(
-                this Expression<Func<Element<TInputElement, TOutputElement>[]>> thisExpression,                
-                IDataProvider[] allDataProviders, 
-                IStep<TNextInputElement, TNextOutputElement> nextStep, 
+                this Expression<Func<Element<TInputElement, TOutputElement>[]>> thisExpression,
+                IDataProvider[] allDataProviders,
+                IStep<TNextInputElement, TNextOutputElement> nextStep,
                 Func<TOutputElement, TNextInputElement> connector)
         {
 
             Func<Element<TInputElement, TNextOutputElement>[]> retFunc = () =>
                 {
-                    
+
 
                     // TODO: Replace with deferred execution
                     var myRet = thisExpression.Compile()().ToArray();// CallDataProviders(allDataProviders, input);
