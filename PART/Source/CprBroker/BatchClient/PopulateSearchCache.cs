@@ -22,7 +22,10 @@ namespace BatchClient
         {
             using (var dataContext = new CprBroker.Data.Part.PartDataContext(BrokerConnectionString))
             {
-                var reg = dataContext.PersonRegistrations.Where(pr => pr.UUID == new Guid(uuid)).OrderByDescending(pr => pr.RegistrationDate).First();
+                var reg = dataContext.PersonRegistrations.Where(pr => pr.UUID == new Guid(uuid))
+                    .OrderByDescending(pr => pr.RegistrationDate)
+                    .ThenByDescending(pr => pr.BrokerUpdateDate)
+                    .First();
                 dataContext.ExecuteCommand("UPDATE PersonRegistration SET Contents = Contents WHERE UUID={0} AND PersonRegistrationId = {1}", uuid, reg.PersonRegistrationId);
             }
         }
