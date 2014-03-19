@@ -37,8 +37,7 @@ namespace CprBroker.Engine
 
             var ret2 = uuidCaller
                 .MethodExpression(dataProviders, input)
-                .Cascade<string,  PersonIdentifier,   PersonIdentifier,   RegistreringType1>(dataProviders, readCaller, s => s);
-            var ret3 = ret2
+                .Cascade<string,  PersonIdentifier,   PersonIdentifier,   RegistreringType1>(dataProviders, readCaller, s => s)            
                 .Cascade<string,  RegistreringType1,  RegistreringType1,  RegistreringType1>(dataProviders, nonCaller, s => s);
 
             return null;
