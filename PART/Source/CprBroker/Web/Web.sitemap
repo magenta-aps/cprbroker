@@ -4,7 +4,7 @@
     <siteMapNode url="~/Pages/Applications.aspx" title="Applications"  description="" />
     <siteMapNode url="~/Pages/DataProviders.aspx" title="Data providers"  description="" />
     <siteMapNode url="~/Pages/LogEntries.aspx" title="View log"  description="" />
-    <siteMapNode url="~/Pages/ExternalCalls.aspx" title="External calls"  description="" />
-    <siteMapNode url="~/Pages/Budget.aspx" title="Budget"  description="" />
+    <!--<siteMapNode url="~/Pages/ExternalCalls.aspx" title="External calls"  description="" />
+    <siteMapNode url="~/Pages/Budget.aspx" title="Budget"  description="" />-->
   </siteMapNode>
 </siteMap>
