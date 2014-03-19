@@ -49,10 +49,12 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using Microsoft.Deployment.WindowsInstaller;
+using System.Management;
 using CprBroker.Utilities;
 using CprBroker.Installers;
 using CprBroker.Engine;
 using CprBroker.EventBroker.Data;
+using CprBroker.EventBroker.Backend;
 
 namespace CprBroker.Installers.EventBrokerInstallers
 {
@@ -81,6 +83,20 @@ namespace CprBroker.Installers.EventBrokerInstallers
         private static Version GetServiceExeFrameworkVersion()
         {
             return new Version(2, 0);
+        }
+
+        private static string GetExistingServiceExePath()
+        {
+            var serciceName = new BackendService().ServiceName;
+            ManagementClass mc = new ManagementClass("Win32_Service");
+            foreach (ManagementObject mo in mc.GetInstances())
+            {
+                if (mo.GetPropertyValue("Name").ToString() == serciceName)
+                {
+                    return mo.GetPropertyValue("PathName").ToString().Trim('"');
+                }
+            }
+            return null;
         }
 
         [CustomAction]
@@ -202,27 +218,37 @@ namespace CprBroker.Installers.EventBrokerInstallers
 
         public static void MoveBackendServiceToNewLocation(Session session)
         {
-            var oldConfigPath = GetOldServiceExeConfigFullFileName(session);
-            var newConfigPath = GetServiceExeConfigFullFileName(session);
+            System.Diagnostics.Debugger.Launch();
+            var currentExePath = GetExistingServiceExePath();
+            var newExePath = GetServiceExeFullFileName(session);
 
-            // Uninstall service at old location
-            try
+            if (currentExePath != null
+                && !currentExePath.Trim().ToLower().Equals(newExePath.Trim().ToLower()))
             {
-                UninstallService(GetOldServiceExeFullFileName(session), GetServiceExeFrameworkVersion());
+
+                var oldConfigPath = GetOldServiceExeConfigFullFileName(session);
+                var newConfigPath = GetServiceExeConfigFullFileName(session);
+
+                // Uninstall service at old location
+                try
+                {
+                    UninstallService(GetOldServiceExeFullFileName(session), GetServiceExeFrameworkVersion());
+                }
+                catch { }
+
+                // Copy old config file
+                if (File.Exists(oldConfigPath))
+                {
+                    if (File.Exists(newConfigPath))
+                        File.Delete(newConfigPath);
+
+                    File.Move(oldConfigPath, newConfigPath);
+                }
+
+                // Install service at new location
+
+                InstallService(GetServiceExeFullFileName(session), GetServiceExeFrameworkVersion());
             }
-            catch { }
-
-            // Copy old config file
-            if (File.Exists(oldConfigPath))
-            {
-                if (File.Exists(newConfigPath))
-                    File.Delete(newConfigPath);
-
-                File.Move(oldConfigPath, newConfigPath);
-            }
-
-            // Install service at new location
-            InstallService(GetServiceExeFullFileName(session), GetServiceExeFrameworkVersion());
         }
     }
 }
