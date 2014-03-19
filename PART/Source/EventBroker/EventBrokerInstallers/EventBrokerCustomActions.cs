@@ -218,7 +218,6 @@ namespace CprBroker.Installers.EventBrokerInstallers
 
         public static void MoveBackendServiceToNewLocation(Session session)
         {
-            System.Diagnostics.Debugger.Launch();
             var currentExePath = GetExistingServiceExePath();
             var newExePath = GetServiceExeFullFileName(session);
 
