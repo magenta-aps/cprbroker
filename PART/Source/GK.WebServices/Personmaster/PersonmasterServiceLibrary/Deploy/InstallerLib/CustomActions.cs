@@ -62,6 +62,12 @@ namespace PersonMasterInstallers
         }
 
         [CustomAction]
+        public static ActionResult ReEvaluateLaunchConditions(Session session)
+        {
+            return ProductCustomActions.ReEvaluateLaunchConditions(session);
+        }
+
+        [CustomAction]
         public static ActionResult AfterInstallInitialize_Product(Session session)
         {
             try

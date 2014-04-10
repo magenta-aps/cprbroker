@@ -15,26 +15,23 @@
       <![CDATA[Installed OR (NETFRAMEWORK35 AND NETFRAMEWORK40FULL) ]]>
     </Condition>
 
+    <!-- //TODO: Add condition to ensure HTTP Activation for WCF Services on IIS 8 -->
+    
     <!--IIS-->
     <PropertyRef Id="IISMAJORVERSION"/>
-    <Condition Message="Install requires IIS 7.">
-      <![CDATA[Installed OR (IISMAJORVERSION AND (IISMAJORVERSION = "#7"))]]>
+    <Condition Message="Install requires IIS 7 or 8.">
+      <![CDATA[Installed OR (IISMAJORVERSION AND (IISMAJORVERSION = "#7" OR IISMAJORVERSION = "#8"))]]>
     </Condition>
-    <!--
-    <Property Id="IIS7">
-      <RegistrySearch Id="IIS7W3SVC" Root="HKLM" Key="SOFTWARE\Microsoft\InetStp\Components" Type="raw" Name="W3SVC" />
-    </Property>
-    <Condition Message="This application requires IIS version 7. Please install IIS 7 and then run the installer again.">
-      <![CDATA[Installed OR IIS7]]>
-    </Condition>
-    -->
-
+    
     <!--IIS 6 metabase compatibility-->
-    <Property Id="IIS_METABASE_COMPAT">
-      <RegistrySearch Id="CheckIISMetabase" Root="HKLM" Key="SOFTWARE\Microsoft\InetStp\Components" Name="ADSICompatibility" Type="raw" />
+    <Property Id="IIS_METABASE_COMPAT_X86">
+      <RegistrySearch Id="CheckIISMetabase_X86" Root="HKLM" Key="SOFTWARE\Microsoft\InetStp\Components" Name="ADSICompatibility" Type="raw" Win64="no" />
+    </Property>
+    <Property Id="IIS_METABASE_COMPAT_X64">
+      <RegistrySearch Id="CheckIISMetabase_X64" Root="HKLM" Key="SOFTWARE\Microsoft\InetStp\Components" Name="ADSICompatibility" Type="raw" Win64="yes" />
     </Property>
     <Condition Message="IIS 6 Metabase Compatibility feature must be installed">
-      <![CDATA[Installed OR NOT IIS7 OR IIS_METABASE_COMPAT]]>
+      <![CDATA[IIS_METABASE_COMPAT_X86 OR IIS_METABASE_COMPAT_X64]]>
     </Condition>
   </Fragment>
 </Wix>

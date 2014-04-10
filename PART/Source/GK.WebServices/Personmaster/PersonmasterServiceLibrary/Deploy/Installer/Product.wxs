@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-  <Product Id="9980A898-4BB5-459C-B107-67335139FDD8" Name="Person Master" Language="1033" Version="2.1.0.0" Manufacturer="ITST" UpgradeCode="016e932b-5404-4626-ba78-7347a4cb9cc1">
+  <Product Id="64C3D18E-EFB2-462E-9705-D89327C6B34A" Name="Person Master" Language="1033" Version="2.1.1.0" Manufacturer="ITST" UpgradeCode="016e932b-5404-4626-ba78-7347a4cb9cc1">
     <Package InstallerVersion="200" Compressed="yes" />
 
     <Media Id="1" Cabinet="media1.cab" EmbedCab="yes" />
@@ -22,10 +22,10 @@
 
     <Upgrade Id="016e932b-5404-4626-ba78-7347a4cb9cc1">
       <!--Detect old version -->
-      <UpgradeVersion Property="OLDER_VERSION_DETECTED" Maximum="2.1.0.0" IncludeMaximum="no" OnlyDetect="yes"></UpgradeVersion>
+      <UpgradeVersion Property="OLDER_VERSION_DETECTED" Maximum="2.1.1.0" IncludeMaximum="no" OnlyDetect="yes"></UpgradeVersion>
 
       <!--Detect newer versions, set a property that triggers a condition failure -->
-      <UpgradeVersion Property="NEWER_VERSION_DETECTED" Minimum="2.1.0.0" IncludeMinimum="no" OnlyDetect="yes"></UpgradeVersion>
+      <UpgradeVersion Property="NEWER_VERSION_DETECTED" Minimum="2.1.1.0" IncludeMinimum="no" OnlyDetect="yes"></UpgradeVersion>
     </Upgrade>
 
     <Feature Id="ProductFeature" Title="PersonMasterInstaller" Level="1">
