@@ -157,17 +157,14 @@ namespace CprBroker.Installers
             return node;
         }
 
-        public static XmlNode AppendChildNodeIfNotExists(string nodeName, XmlNode parentNode)
+        private static XmlNode AppendChildNodeIfNotExists(string nodeName, string existingXPath, XmlNode parentNode)
         {
             XmlNode newNode = null;
-            foreach (XmlNode childNode in parentNode.ChildNodes)
-            {
-                if (childNode.Name == nodeName)
-                {
-                    newNode = childNode;
-                    break;
-                }
-            }
+
+            // Search for existing node
+            newNode = parentNode.SelectSingleNode(existingXPath);
+
+            // If not found, create a new one
             if (newNode == null)
             {
                 newNode = parentNode.OwnerDocument.CreateElement(nodeName);
@@ -176,14 +173,14 @@ namespace CprBroker.Installers
             return newNode;
         }
 
-        public static bool AddSectionNode(string nodeName, Dictionary<string, string> attributes, string configFileName, string parentNodeName)
+        public static bool AddSectionNode(string nodeName, Dictionary<string, string> attributes,string existingXPath, string configFileName, string parentNodeXPath)
         {
             XmlDocument doc = new XmlDocument();
             doc.Load(configFileName);
-            XmlNode parentNode = doc.SelectSingleNode("//" + parentNodeName);
+            XmlNode parentNode = doc.SelectSingleNode(parentNodeXPath);
             if (parentNode != null)
             {
-                var newNode = AppendChildNodeIfNotExists(nodeName, parentNode);
+                var newNode = AppendChildNodeIfNotExists(nodeName,existingXPath, parentNode);
                 foreach (var attr in attributes)
                 {
                     var at = newNode.Attributes[attr.Key];
@@ -200,20 +197,19 @@ namespace CprBroker.Installers
             return false;
         }
 
-        public static bool AddSectionNode(XmlNode node, string configFileName, string parentNodeName)
+        public static void AddKnownDataProviderTypes(Type[] types, string configFilePath)
         {
-            XmlDocument doc = new XmlDocument();
-            doc.Load(configFileName);
-            XmlNode parentNode = doc.SelectSingleNode("//" + parentNodeName);
-            if (parentNode != null)
-            {
-                var newNode = AppendChildNodeIfNotExists(node.Name, parentNode);
-                newNode.InnerXml = node.InnerXml;
-                doc.Save(configFileName);
-                return true;
-            }
-            return false;
+            Array.ForEach<Type>(
+                types,
+                type =>
+                {
+                    var dic = new Dictionary<string, string>();
+                    dic["type"] = string.Format("{0}, {1}", type.FullName, type.Assembly.GetName().Name);
+                    CprBroker.Installers.Installation.AddSectionNode("add", dic, String.Format("add[contains(@type,'{0}')]", type.Name), configFilePath, "dataProviders/knownTypes");
+                }
+            );
         }
+
 
         public static void SetApplicationSettingInConfigFile(string configFileName, Type settingsType, string settingName, string value)
         {
@@ -509,7 +505,7 @@ namespace CprBroker.Installers
             {
                 var productCodes = olderVersionProductCodeProp.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
                 var versions = from code in productCodes
-                               join prod in Microsoft.Deployment.WindowsInstaller.ProductInstallation.AllProducts.AsQueryable()  on code equals prod.ProductCode
+                               join prod in Microsoft.Deployment.WindowsInstaller.ProductInstallation.AllProducts.AsQueryable() on code equals prod.ProductCode
                                select prod.ProductVersion;
                 if (versions.Count() > 0)
                 {

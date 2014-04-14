@@ -234,7 +234,7 @@ namespace CprBroker.Installers
                         dic["name"] = section.SectionName;
                         dic["type"] = section.SectionType.AssemblyQualifiedName;
 
-                        Installation.AddSectionNode("section", dic, configFilePath, string.Format("sectionGroup[@name='{0}']", sectionGroup.ConfigSectionGroupName));
+                        Installation.AddSectionNode("section", dic, "section", configFilePath, string.Format("//sectionGroup[@name='{0}']", sectionGroup.ConfigSectionGroupName));
                     }
                     DeleteTypeAssemblyFileFromNetFramework(section.SectionType, frameworkVersion);
                 }

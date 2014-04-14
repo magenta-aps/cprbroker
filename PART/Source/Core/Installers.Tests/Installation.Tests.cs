@@ -42,7 +42,7 @@ namespace CprBroker.Tests.Installers
                 System.IO.File.WriteAllText(fileName, Properties.Resources.WebConfig);
 
                 Dictionary<string, string> dic = new Dictionary<string, string>();
-                Installation.AddSectionNode(nodeName, dic, fileName, "configuration");
+                Installation.AddSectionNode(nodeName, dic, "klfajsklj", fileName, "//configuration");
 
                 System.Xml.XmlDocument doc = new System.Xml.XmlDocument();
                 doc.Load(fileName);
@@ -64,12 +64,12 @@ namespace CprBroker.Tests.Installers
 
                 Dictionary<string, string> dic = new Dictionary<string, string>();
                 dic["ddd"] = "dddfff";
-                Installation.AddSectionNode(nodeName, dic, fileName, "configuration");
+                Installation.AddSectionNode(nodeName, dic, nodeName, fileName, "//configuration");
 
                 doc.Load(fileName);
                 var node = doc.SelectSingleNode("//" + nodeName + "/@ddd");
                 Assert.NotNull(node);
-                Assert.AreEqual("dddfff",node.Value);
+                Assert.AreEqual("dddfff", node.Value);
                 File.Delete(fileName);
             }
 
@@ -86,12 +86,55 @@ namespace CprBroker.Tests.Installers
 
                 Dictionary<string, string> dic = new Dictionary<string, string>();
                 dic["configProtectionProvider"] = "dddfff";
-                Installation.AddSectionNode(nodeName, dic, fileName, "dataProvidersGroup");
+                Installation.AddSectionNode(nodeName, dic, nodeName, fileName, "//dataProvidersGroup");
 
                 doc.Load(fileName);
                 var node = doc.SelectSingleNode("//" + nodeName + "/@configProtectionProvider");
                 Assert.NotNull(node);
                 Assert.AreEqual("dddfff", node.Value);
+                File.Delete(fileName);
+            }
+
+            [Test]
+            public void AddSectionNode_ExistingNameDiffValue_NewNodeAdded()
+            {
+                System.Xml.XmlDocument doc = new System.Xml.XmlDocument();
+                doc.LoadXml(Properties.Resources.WebConfig);
+
+                var nodeName = "add";
+
+                string fileName = "F" + Guid.NewGuid().ToString();
+                System.IO.File.WriteAllText(fileName, Properties.Resources.WebConfig);
+
+                Dictionary<string, string> dic = new Dictionary<string, string>();
+                dic["type"] = "dddfff";
+                Installation.AddSectionNode(nodeName, dic, nodeName, fileName, "//dataProviders");
+
+                doc.Load(fileName);
+                var node = doc.SelectSingleNode(string.Format("//dataProviders/add[@type='{0}']", dic["type"]));
+                Assert.NotNull(node);
+                File.Delete(fileName);
+            }
+
+            [Test]
+            public void AddSectionNode_AddedTwice_OneExists()
+            {
+                System.Xml.XmlDocument doc = new System.Xml.XmlDocument();
+                doc.LoadXml(Properties.Resources.WebConfig);
+
+                var nodeName = "add";
+
+                string fileName = "F" + Guid.NewGuid().ToString();
+                System.IO.File.WriteAllText(fileName, Properties.Resources.WebConfig);
+
+                Dictionary<string, string> dic = new Dictionary<string, string>();
+                dic["type"] = "dddfff";
+                Installation.AddSectionNode(nodeName, dic, nodeName, fileName, "//dataProviders");
+                Installation.AddSectionNode(nodeName, dic, nodeName, fileName, "//dataProviders");
+
+                doc.Load(fileName);
+                var nodes = doc.SelectNodes(string.Format("//dataProviders/add[@type='{0}']", dic["type"]));
+                Assert.AreEqual(1,nodes.Count);
                 File.Delete(fileName);
             }
         }
