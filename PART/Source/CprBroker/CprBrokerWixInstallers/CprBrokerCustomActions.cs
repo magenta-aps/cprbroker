@@ -483,7 +483,11 @@ namespace CprBrokerWixInstallers
                     },
                     new WebPatchInfo(){
                         Version = new Version(2,1,1),
-                        PatchAction = () => PatcWebsite_2_1_1(session)
+                        PatchAction = () => PatchWebsite_2_1_1(session)
+                    },
+                    new WebPatchInfo(){
+                        Version = new Version(2,2,2),
+                        PatchAction = () => PatchWebsite_2_2_2(session)
                     }
                 };
 

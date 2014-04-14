@@ -119,6 +119,10 @@
       <Project>{EDDB494D-782D-4D45-8599-633057B9B203}</Project>
       <Name>CPRDirect</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Local.Search\Local.Search.csproj">
+      <Project>{700C3C48-4833-4136-B6B4-6B6D8890AA13}</Project>
+      <Name>Local.Search</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PartInterface\PartInterface.csproj">
       <Project>{DA42D8BB-24D3-4416-A0BD-B98857F249AD}</Project>
       <Name>PartInterface</Name>

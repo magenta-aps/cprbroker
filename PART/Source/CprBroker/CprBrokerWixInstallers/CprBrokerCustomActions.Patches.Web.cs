@@ -69,18 +69,10 @@ namespace CprBrokerWixInstallers
             var configFilePath = webInstallationInfo.GetWebConfigFilePath(EventBrokerCustomActions.PathConstants.CprBrokerWebsiteDirectoryRelativePath);
 
             // Add new node(s) for data providers
-            Array.ForEach<Type>(
-                types,
-                type =>
-                {
-                    var dic = new Dictionary<string, string>();
-                    dic["type"] = string.Format("{0}, {1}", type.FullName, type.Assembly.GetName().Name);
-                    CprBroker.Installers.Installation.AddSectionNode("add", dic, configFilePath, "dataProviders/knownTypes");
-                }
-            );
+            CprBroker.Installers.Installation.AddKnownDataProviderTypes(types, configFilePath);
         }
 
-        private static void PatcWebsite_2_1_1(Session session)
+        private static void PatchWebsite_2_1_1(Session session)
         {
             // This patch adds /PersonMasterService12 to the address of existing person master data providers for versions prior to 2.1.1
             try
@@ -125,5 +117,24 @@ namespace CprBrokerWixInstallers
                 DataProvider.EncryptionAlgorithm = null;
             }
         }
+
+        private static void PatchWebsite_2_2_2(Session session)
+        {
+            var types = new Type[]
+            {
+                typeof(CprBroker.Engine.Events.DataChangeEventManager),
+                typeof(CprBroker.Providers.Local.Search.LocalSearchDataProvider)
+            };
+            var webInstallationInfo = WebInstallationInfo.CreateFromFeature(session, "CPR");
+            var configFilePath = webInstallationInfo.GetWebConfigFilePath(EventBrokerCustomActions.PathConstants.CprBrokerWebsiteDirectoryRelativePath);
+
+
+            // Remove node for data provider: DataChangeEventManager under Engine.dll
+            CprBroker.Installers.Installation.RemoveSectionNode(configFilePath, "dataProviders/knownTypes/add[contains(@type, 'DataChangeEventManager') and contains(@type, 'Engine')]");
+
+            // Add new node(s) for data providers
+            CprBroker.Installers.Installation.AddKnownDataProviderTypes(types, configFilePath);
+        }
+
     }
 }
