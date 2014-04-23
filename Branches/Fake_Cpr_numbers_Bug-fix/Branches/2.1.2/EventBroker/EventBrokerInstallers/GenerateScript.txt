@@ -1,4 +1,0 @@
-﻿"C:\Program Files\Microsoft SQL Server\90\Tools\Publishing\SqlPubWiz" script -d PartEventBroker -S SqlServer CreateEventBrokerDatabaseObjects.sql -schemaonly
-
-bcp PartEventBroker.dbo.ChannelType out ChannelType.csv /S SqlServer /c /T
-bcp PartEventBroker.dbo.SubscriptionType out SubscriptionType.csv /S SqlServer /c /T

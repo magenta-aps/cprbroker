@@ -1,5 +1,0 @@
-C:\Users\dennis\Documents\Cpr Broker Trunk\Source\Core\Config\bin\Debug\CprBroker.Config.dll.config
-C:\Users\dennis\Documents\Cpr Broker Trunk\Source\Core\Config\bin\Debug\CprBroker.Config.dll
-C:\Users\dennis\Documents\Cpr Broker Trunk\Source\Core\Config\bin\Debug\CprBroker.Config.pdb
-C:\Users\dennis\Documents\Cpr Broker Trunk\Source\Core\Config\obj\Debug\CprBroker.Config.dll
-C:\Users\dennis\Documents\Cpr Broker Trunk\Source\Core\Config\obj\Debug\CprBroker.Config.pdb

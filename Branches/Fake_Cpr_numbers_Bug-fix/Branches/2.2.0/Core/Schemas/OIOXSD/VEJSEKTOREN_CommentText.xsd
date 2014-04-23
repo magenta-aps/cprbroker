@@ -1,1 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:vejsektoren="http://rep.oio.dk/vejsektoren.dk/core/schemas/xml/2007/03/31/" elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/vejsektoren.dk/core/schemas/xml/2007/03/31/"><element name="CommentText" type="string"/></schema>

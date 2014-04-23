@@ -1,7 +1,0 @@
-C:\Users\dennis\Documents\Cpr Broker Trunk\Source\Core\Schemas\bin\Debug\CprBroker.Schemas.dll
-C:\Users\dennis\Documents\Cpr Broker Trunk\Source\Core\Schemas\bin\Debug\CprBroker.Schemas.pdb
-C:\Users\dennis\Documents\Cpr Broker Trunk\Source\Core\Schemas\bin\Debug\CprBroker.Utilities.dll
-C:\Users\dennis\Documents\Cpr Broker Trunk\Source\Core\Schemas\bin\Debug\CprBroker.Utilities.pdb
-C:\Users\dennis\Documents\Cpr Broker Trunk\Source\Core\Schemas\obj\Debug\Schemas.csprojResolveAssemblyReference.cache
-C:\Users\dennis\Documents\Cpr Broker Trunk\Source\Core\Schemas\obj\Debug\CprBroker.Schemas.dll
-C:\Users\dennis\Documents\Cpr Broker Trunk\Source\Core\Schemas\obj\Debug\CprBroker.Schemas.pdb
