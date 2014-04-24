@@ -1,1 +1,0 @@
-﻿"$(ProjectDir)..\..\Dll\msxsl.exe" "$(ProjectDir)XML\Definitions.xml" "$(ProjectDir)XML\ClassTransform.xslt" -o "$(ProjectDir)XML\Definitions.cs"
