@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:dkal="urn:oio:dkal:1.0.0" targetNamespace="urn:oio:dkal:1.0.0" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="EN">
-	<element name="UUID" type="dkal:UUIDtype" />
-	<simpleType name="UUIDtype">
-		<restriction base="string">
-			<pattern value="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}" />
-		</restriction>
-	</simpleType>
-</schema>
