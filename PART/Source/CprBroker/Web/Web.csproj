@@ -105,7 +105,9 @@
     <Content Include="Pages\Controls\PeriodSelector.ascx" />
     <Content Include="Pages\Budget.aspx" />
     <Content Include="Pages\ExternalCalls.aspx" />
-    <Content Include="web.config" />
+    <Content Include="web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Pages\Controls\Pager.ascx.cs">
