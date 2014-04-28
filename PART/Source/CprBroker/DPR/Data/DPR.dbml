@@ -1,5 +1,4 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="DPR7" EntityNamespace="CprBroker.Providers.DPR" ContextNamespace="CprBroker.Providers.DPR" Class="DPRDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=localhost\sqlexpress;Initial Catalog=DPR7;Integrated Security=True" SettingsObjectName="CprBroker.Providers.DPR.Properties.Settings" SettingsPropertyName="DPR7ConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.DTNAVNE" Member="PersonNames">
     <Type Name="PersonName">
       <Column Name="PNR" Type="System.Decimal" DbType="Decimal(11,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
@@ -317,8 +316,8 @@
       <Column Name="BEMAERK" Member="ConditionComments" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
     </Type>
   </Table>
-  <Table Name="dbo.DTRELPNR_PNR" Member="Relations">
-    <Type Name="Relation">
+  <Table Name="dbo.DTRELPNR_PNR" Member="GuardianAndParentalAuthorityRelations">
+    <Type Name="GuardianAndParentalAuthorityRelation">
       <Column Name="PNR" Type="System.Decimal" DbType="Decimal(11,0) NOT NULL" CanBeNull="false" />
       <Column Name="RELPNR" Member="RelationPnr" Type="System.Decimal" DbType="Decimal(11,0) NOT NULL" CanBeNull="false" />
       <Column Name="RELTYP" Member="RelationType" Type="System.Decimal" DbType="Decimal(4,0) NOT NULL" CanBeNull="false" />

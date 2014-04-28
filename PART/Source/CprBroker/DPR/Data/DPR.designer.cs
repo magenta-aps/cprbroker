@@ -59,12 +59,6 @@ namespace CprBroker.Providers.DPR
     partial void DeleteContactAddress(ContactAddress instance);
     #endregion
 		
-		public DPRDataContext() : 
-				base(global::CprBroker.Providers.DPR.Properties.Settings.Default.DPR7ConnectionString, mappingSource)
-		{
-			OnCreated();
-		}
-		
 		public DPRDataContext(string connection) : 
 				base(connection, mappingSource)
 		{
@@ -217,11 +211,11 @@ namespace CprBroker.Providers.DPR
 			}
 		}
 		
-		public System.Data.Linq.Table<Relation> Relations
+		public System.Data.Linq.Table<GuardianAndParentalAuthorityRelation> GuardianAndParentalAuthorityRelations
 		{
 			get
 			{
-				return this.GetTable<Relation>();
+				return this.GetTable<GuardianAndParentalAuthorityRelation>();
 			}
 		}
 		
@@ -6448,7 +6442,7 @@ namespace CprBroker.Providers.DPR
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DTRELPNR_PNR")]
-	public partial class Relation
+	public partial class GuardianAndParentalAuthorityRelation
 	{
 		
 		private decimal _PNR;
@@ -6465,7 +6459,7 @@ namespace CprBroker.Providers.DPR
 		
 		private decimal _AuthorityCode;
 		
-		public Relation()
+		public GuardianAndParentalAuthorityRelation()
 		{
 		}
 		
