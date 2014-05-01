@@ -110,6 +110,16 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Queues\Queue.cs" />
+    <Compile Include="Queues\QueueDataContext.cs">
+      <DependentUpon>QueueDataContext.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="Queues\QueueDataContext.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>QueueDataContext.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="Queues\QueueItem.cs" />
     <Compile Include="Statistics\stat.cs" />
     <Compile Include="Statistics\StatisticsDataContext.designer.cs">
       <AutoGen>True</AutoGen>
@@ -136,6 +146,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="Queues\QueueDataContext.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>QueueDataContext.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Statistics\StatisticsDataContext.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>StatisticsDataContext.designer.cs</LastGenOutput>
@@ -201,6 +216,11 @@
   <ItemGroup>
     <None Include="Statistics\StatisticsDataContext.dbml.layout">
       <DependentUpon>StatisticsDataContext.dbml</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Queues\QueueDataContext.dbml.layout">
+      <DependentUpon>QueueDataContext.dbml</DependentUpon>
     </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
