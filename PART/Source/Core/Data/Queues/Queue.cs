@@ -60,10 +60,34 @@ namespace CprBroker.Data.Queues
                     trans.Commit();
                 }
             }
-            
         }
 
-        
+        public virtual IEnumerable<QueueItem> Handle(IEnumerable<QueueItem> items)
+        {
+            return items;
+        }
+
+        public virtual int BatchSize
+        {
+            get { return 10; }
+        }
+
+        public virtual int MaxRetry
+        {
+            get { return 1; }
+        }
+
+        public void Run()
+        {
+            var items = GetNext(BatchSize);
+            while (items.FirstOrDefault() != null)
+            {
+                var succeeded = Handle(items);
+                Remove(succeeded);
+                items = GetNext(BatchSize);
+            }
+        }
+
 
     }
 }
