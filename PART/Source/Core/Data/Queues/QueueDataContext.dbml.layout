@@ -14,7 +14,7 @@
         <elementListCompartment Id="9ef536ce-19f4-4843-a1c0-f2fb0166d893" absoluteBounds="2.265, 2.46, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(4.25 : 3.28929768880208); (7.125 : 3.28929768880208)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(4.25 : 3.28929768880208); (7.125 : 3.28929768880208)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/QueueDataContext/Queue/Queue_QueueItem" />
       <nodes>
         <classShapeMoniker Id="7c7bee57-df44-4f35-9d51-3e840c3736f8" />

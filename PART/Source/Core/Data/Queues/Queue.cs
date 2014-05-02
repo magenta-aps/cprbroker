@@ -7,6 +7,16 @@ namespace CprBroker.Data.Queues
 {
     public partial class Queue
     {
+        public static Queue GetById(Guid queueId)
+        {
+            using (var dataContext = new QueueDataContext())
+            {
+                return dataContext.Queues
+                    .Where(q => q.QueueId == queueId)
+                    .FirstOrDefault();
+            }
+        }
+
         public IEnumerable<QueueItem> GetNext(int maxCount)
         {
             return this.QueueItems
@@ -50,32 +60,7 @@ namespace CprBroker.Data.Queues
             }
         }
 
-        public virtual IEnumerable<QueueItem> Handle(IEnumerable<QueueItem> items)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Run()
-        {
-            var items = GetNext(BatchSize);
-            while (items.FirstOrDefault() != null)
-            {
-                var succeeded = Handle(items);
-                Remove(succeeded);
-                var failedItems = items.Except(succeeded);
-                foreach (var failedItem in failedItems)
-                {
-                    failedItem.AttemptCount++;
-                }
-                using (var dataContext = new QueueDataContext())
-                {
-                    dataContext.QueueItems.AttachAll(failedItems);
-                    dataContext.SubmitChanges();
-                }
-                items = GetNext(BatchSize);
-            }
-        }
-
-
+        
+        
     }
 }

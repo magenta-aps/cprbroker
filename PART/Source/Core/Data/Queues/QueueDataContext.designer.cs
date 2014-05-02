@@ -87,7 +87,7 @@ namespace CprBroker.Data.Queues
 		
 		private int _QueueItemId;
 		
-		private int _QueueId;
+		private System.Guid _QueueId;
 		
 		private string _ItemKey;
 		
@@ -103,7 +103,7 @@ namespace CprBroker.Data.Queues
     partial void OnCreated();
     partial void OnQueueItemIdChanging(int value);
     partial void OnQueueItemIdChanged();
-    partial void OnQueueIdChanging(int value);
+    partial void OnQueueIdChanging(System.Guid value);
     partial void OnQueueIdChanged();
     partial void OnItemKeyChanging(string value);
     partial void OnItemKeyChanged();
@@ -139,8 +139,8 @@ namespace CprBroker.Data.Queues
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_QueueId", DbType="Int NOT NULL")]
-		public int QueueId
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_QueueId", DbType="uniqueidentifier NOT NULL")]
+		public System.Guid QueueId
 		{
 			get
 			{
@@ -250,7 +250,7 @@ namespace CprBroker.Data.Queues
 					}
 					else
 					{
-						this._QueueId = default(int);
+						this._QueueId = default(System.Guid);
 					}
 					this.SendPropertyChanged("Queue");
 				}
@@ -284,7 +284,7 @@ namespace CprBroker.Data.Queues
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private int _QueueId;
+		private System.Guid _QueueId;
 		
 		private string _Name;
 		
@@ -298,7 +298,7 @@ namespace CprBroker.Data.Queues
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
-    partial void OnQueueIdChanging(int value);
+    partial void OnQueueIdChanging(System.Guid value);
     partial void OnQueueIdChanged();
     partial void OnNameChanging(string value);
     partial void OnNameChanged();
@@ -314,8 +314,8 @@ namespace CprBroker.Data.Queues
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_QueueId", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int QueueId
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_QueueId", DbType="uniqueidentifier NOT NULL", IsPrimaryKey=true)]
+		public System.Guid QueueId
 		{
 			get
 			{
