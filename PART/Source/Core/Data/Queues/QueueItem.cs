@@ -7,6 +7,13 @@ namespace CprBroker.Data.Queues
 {
     public partial class QueueItem
     {
+        public QueueItem(string key, Queue queue)
+        {
+            this.QueueId = queue.QueueId;
+            this.ItemKey = key;
+            this.CreatedTS = DateTime.Now;
+        }
+        
         public QueueItem Clone(Queue newQueue)
         {
             return new QueueItem() { 
@@ -16,5 +23,7 @@ namespace CprBroker.Data.Queues
                 CreatedTS = DateTime.Now,                
             };
         }
+
+        
     }
 }

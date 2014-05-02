@@ -7,9 +7,38 @@ namespace CprBroker.Data.Queues
 {
     public partial class Queue
     {
-        private IEnumerable<QueueItem> GetNext(int maxCount)
+        public IEnumerable<QueueItem> GetNext(int maxCount)
         {
             return this.QueueItems.OrderBy(qi => qi.QueueItemId).Take(maxCount);
+        }
+
+        public void Remove(IEnumerable<QueueItem> items)
+        {
+            using (var dataContext = new QueueDataContext())
+            {
+                dataContext.QueueItems.DeleteAllOnSubmit(items);
+                using (var trans = dataContext.Connection.BeginTransaction())
+                {
+                    dataContext.Transaction = trans;
+                    dataContext.SubmitChanges();
+                    trans.Commit();
+                }
+            }
+        }
+
+        public void Enqueue(IEnumerable<string> itemKeys)
+        {
+            var items = itemKeys.Select(ik => new QueueItem(ik, this));
+            using (var dataContext = new QueueDataContext())
+            {
+                dataContext.QueueItems.InsertAllOnSubmit(items);
+                using (var trans = dataContext.Connection.BeginTransaction())
+                {
+                    dataContext.Transaction = trans;
+                    dataContext.SubmitChanges();
+                    trans.Commit();
+                }
+            }
         }
 
         public void Distribute(IEnumerable<Queue> targetQueues, int maxCount)
@@ -23,19 +52,18 @@ namespace CprBroker.Data.Queues
                     q.QueueItems.AddRange(items.Select(i => i.Clone(q)));
                 }
 
-                foreach (var i in items)
-                {
-                    this.QueueItems.Remove(i);
-                }
-
+                dataContext.QueueItems.DeleteAllOnSubmit(items);
                 using (var trans = dataContext.Connection.BeginTransaction())
                 {
+                    dataContext.Transaction = trans;
                     dataContext.SubmitChanges();
                     trans.Commit();
                 }
             }
             
         }
+
+        
 
     }
 }
