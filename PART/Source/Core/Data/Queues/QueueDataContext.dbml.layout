@@ -2,22 +2,22 @@
 <ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="QueueDataContext">
   <DataContextMoniker Name="/QueueDataContext" />
   <nestedChildShapes>
-    <classShape Id="e3cea33a-1fce-46da-81a5-66bcdd11980b" absoluteBounds="0.75, 1, 2, 1.1939925130208335">
-      <DataClassMoniker Name="/QueueDataContext/Queue" />
-      <nestedChildShapes>
-        <elementListCompartment Id="b465be2c-688a-4a35-9f26-e229036d6617" absoluteBounds="0.765, 1.46, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
-    <classShape Id="936eef32-ed42-449a-88e9-1a23b0a6b97f" absoluteBounds="7.125, 3, 2, 1.5785953776041666">
+    <classShape Id="936eef32-ed42-449a-88e9-1a23b0a6b97f" absoluteBounds="7.125, 3, 2, 1.7708968098958327">
       <DataClassMoniker Name="/QueueDataContext/QueueItem" />
       <nestedChildShapes>
-        <elementListCompartment Id="c900b4f2-94d0-4cd9-967d-b17650645b70" absoluteBounds="7.14, 3.46, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="c900b4f2-94d0-4cd9-967d-b17650645b70" absoluteBounds="7.14, 3.46, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(1.75 : 2.19399251302083); (1.75 : 3.78929768880208); (7.125 : 3.78929768880208)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <classShape Id="7c7bee57-df44-4f35-9d51-3e840c3736f8" absoluteBounds="2.25, 2, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/QueueDataContext/Queue" />
+      <nestedChildShapes>
+        <elementListCompartment Id="9ef536ce-19f4-4843-a1c0-f2fb0166d893" absoluteBounds="2.265, 2.46, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(4.25 : 3.28929768880208); (7.125 : 3.28929768880208)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/QueueDataContext/Queue/Queue_QueueItem" />
       <nodes>
-        <classShapeMoniker Id="e3cea33a-1fce-46da-81a5-66bcdd11980b" />
+        <classShapeMoniker Id="7c7bee57-df44-4f35-9d51-3e840c3736f8" />
         <classShapeMoniker Id="936eef32-ed42-449a-88e9-1a23b0a6b97f" />
       </nodes>
     </associationConnector>

@@ -30,12 +30,12 @@ namespace CprBroker.Data.Queues
 		
     #region Extensibility Method Definitions
     partial void OnCreated();
-    partial void InsertQueue(Queue instance);
-    partial void UpdateQueue(Queue instance);
-    partial void DeleteQueue(Queue instance);
     partial void InsertQueueItem(QueueItem instance);
     partial void UpdateQueueItem(QueueItem instance);
     partial void DeleteQueueItem(QueueItem instance);
+    partial void InsertQueue(Queue instance);
+    partial void UpdateQueue(Queue instance);
+    partial void DeleteQueue(Queue instance);
     #endregion
 		
 		public QueueDataContext(string connection) : 
@@ -62,14 +62,6 @@ namespace CprBroker.Data.Queues
 			OnCreated();
 		}
 		
-		public System.Data.Linq.Table<Queue> Queues
-		{
-			get
-			{
-				return this.GetTable<Queue>();
-			}
-		}
-		
 		public System.Data.Linq.Table<QueueItem> QueueItems
 		{
 			get
@@ -77,119 +69,13 @@ namespace CprBroker.Data.Queues
 				return this.GetTable<QueueItem>();
 			}
 		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Queue")]
-	public partial class Queue : INotifyPropertyChanging, INotifyPropertyChanged
-	{
 		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _QueueId;
-		
-		private string _Name;
-		
-		private EntitySet<QueueItem> _QueueItems;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnQueueIdChanging(int value);
-    partial void OnQueueIdChanged();
-    partial void OnNameChanging(string value);
-    partial void OnNameChanged();
-    #endregion
-		
-		public Queue()
-		{
-			this._QueueItems = new EntitySet<QueueItem>(new Action<QueueItem>(this.attach_QueueItems), new Action<QueueItem>(this.detach_QueueItems));
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_QueueId", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int QueueId
+		public System.Data.Linq.Table<Queue> Queues
 		{
 			get
 			{
-				return this._QueueId;
+				return this.GetTable<Queue>();
 			}
-			set
-			{
-				if ((this._QueueId != value))
-				{
-					this.OnQueueIdChanging(value);
-					this.SendPropertyChanging();
-					this._QueueId = value;
-					this.SendPropertyChanged("QueueId");
-					this.OnQueueIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string Name
-		{
-			get
-			{
-				return this._Name;
-			}
-			set
-			{
-				if ((this._Name != value))
-				{
-					this.OnNameChanging(value);
-					this.SendPropertyChanging();
-					this._Name = value;
-					this.SendPropertyChanged("Name");
-					this.OnNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Queue_QueueItem", Storage="_QueueItems", ThisKey="QueueId", OtherKey="QueueId")]
-		internal EntitySet<QueueItem> QueueItems
-		{
-			get
-			{
-				return this._QueueItems;
-			}
-			set
-			{
-				this._QueueItems.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_QueueItems(QueueItem entity)
-		{
-			this.SendPropertyChanging();
-			entity.Queue = this;
-		}
-		
-		private void detach_QueueItems(QueueItem entity)
-		{
-			this.SendPropertyChanging();
-			entity.Queue = null;
 		}
 	}
 	
@@ -207,6 +93,8 @@ namespace CprBroker.Data.Queues
 		
 		private System.DateTime _CreatedTS;
 		
+		private int _AttemptCount;
+		
 		private EntityRef<Queue> _Queue;
 		
     #region Extensibility Method Definitions
@@ -221,6 +109,8 @@ namespace CprBroker.Data.Queues
     partial void OnItemKeyChanged();
     partial void OnCreatedTSChanging(System.DateTime value);
     partial void OnCreatedTSChanged();
+    partial void OnAttemptCountChanging(int value);
+    partial void OnAttemptCountChanged();
     #endregion
 		
 		public QueueItem()
@@ -313,8 +203,28 @@ namespace CprBroker.Data.Queues
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AttemptCount", DbType="Int")]
+		public int AttemptCount
+		{
+			get
+			{
+				return this._AttemptCount;
+			}
+			set
+			{
+				if ((this._AttemptCount != value))
+				{
+					this.OnAttemptCountChanging(value);
+					this.SendPropertyChanging();
+					this._AttemptCount = value;
+					this.SendPropertyChanged("AttemptCount");
+					this.OnAttemptCountChanged();
+				}
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Queue_QueueItem", Storage="_Queue", ThisKey="QueueId", OtherKey="QueueId", IsForeignKey=true)]
-		internal Queue Queue
+		public Queue Queue
 		{
 			get
 			{
@@ -365,6 +275,168 @@ namespace CprBroker.Data.Queues
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Queue")]
+	public partial class Queue : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _QueueId;
+		
+		private string _Name;
+		
+		private int _BatchSize;
+		
+		private int _MaxRetry;
+		
+		private EntitySet<QueueItem> _QueueItems;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnQueueIdChanging(int value);
+    partial void OnQueueIdChanged();
+    partial void OnNameChanging(string value);
+    partial void OnNameChanged();
+    partial void OnBatchSizeChanging(int value);
+    partial void OnBatchSizeChanged();
+    partial void OnMaxRetryChanging(int value);
+    partial void OnMaxRetryChanged();
+    #endregion
+		
+		public Queue()
+		{
+			this._QueueItems = new EntitySet<QueueItem>(new Action<QueueItem>(this.attach_QueueItems), new Action<QueueItem>(this.detach_QueueItems));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_QueueId", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int QueueId
+		{
+			get
+			{
+				return this._QueueId;
+			}
+			set
+			{
+				if ((this._QueueId != value))
+				{
+					this.OnQueueIdChanging(value);
+					this.SendPropertyChanging();
+					this._QueueId = value;
+					this.SendPropertyChanged("QueueId");
+					this.OnQueueIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this.OnNameChanging(value);
+					this.SendPropertyChanging();
+					this._Name = value;
+					this.SendPropertyChanged("Name");
+					this.OnNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BatchSize", DbType="Int NOT NULL")]
+		public int BatchSize
+		{
+			get
+			{
+				return this._BatchSize;
+			}
+			set
+			{
+				if ((this._BatchSize != value))
+				{
+					this.OnBatchSizeChanging(value);
+					this.SendPropertyChanging();
+					this._BatchSize = value;
+					this.SendPropertyChanged("BatchSize");
+					this.OnBatchSizeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MaxRetry", DbType="Int NOT NULL")]
+		public int MaxRetry
+		{
+			get
+			{
+				return this._MaxRetry;
+			}
+			set
+			{
+				if ((this._MaxRetry != value))
+				{
+					this.OnMaxRetryChanging(value);
+					this.SendPropertyChanging();
+					this._MaxRetry = value;
+					this.SendPropertyChanged("MaxRetry");
+					this.OnMaxRetryChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Queue_QueueItem", Storage="_QueueItems", ThisKey="QueueId", OtherKey="QueueId")]
+		public EntitySet<QueueItem> QueueItems
+		{
+			get
+			{
+				return this._QueueItems;
+			}
+			set
+			{
+				this._QueueItems.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_QueueItems(QueueItem entity)
+		{
+			this.SendPropertyChanging();
+			entity.Queue = this;
+		}
+		
+		private void detach_QueueItems(QueueItem entity)
+		{
+			this.SendPropertyChanging();
+			entity.Queue = null;
 		}
 	}
 }

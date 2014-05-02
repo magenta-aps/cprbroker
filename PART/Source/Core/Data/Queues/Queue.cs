@@ -9,7 +9,10 @@ namespace CprBroker.Data.Queues
     {
         public IEnumerable<QueueItem> GetNext(int maxCount)
         {
-            return this.QueueItems.OrderBy(qi => qi.QueueItemId).Take(maxCount);
+            return this.QueueItems
+                .Where(qi => qi.AttemptCount < this.MaxRetry)
+                .OrderBy(qi => qi.QueueItemId)
+                .Take(maxCount);
         }
 
         public void Remove(IEnumerable<QueueItem> items)
@@ -17,12 +20,7 @@ namespace CprBroker.Data.Queues
             using (var dataContext = new QueueDataContext())
             {
                 dataContext.QueueItems.DeleteAllOnSubmit(items);
-                using (var trans = dataContext.Connection.BeginTransaction())
-                {
-                    dataContext.Transaction = trans;
-                    dataContext.SubmitChanges();
-                    trans.Commit();
-                }
+                dataContext.SubmitChanges();
             }
         }
 
@@ -32,12 +30,7 @@ namespace CprBroker.Data.Queues
             using (var dataContext = new QueueDataContext())
             {
                 dataContext.QueueItems.InsertAllOnSubmit(items);
-                using (var trans = dataContext.Connection.BeginTransaction())
-                {
-                    dataContext.Transaction = trans;
-                    dataContext.SubmitChanges();
-                    trans.Commit();
-                }
+                dataContext.SubmitChanges();
             }
         }
 
@@ -53,28 +46,13 @@ namespace CprBroker.Data.Queues
                 }
 
                 dataContext.QueueItems.DeleteAllOnSubmit(items);
-                using (var trans = dataContext.Connection.BeginTransaction())
-                {
-                    dataContext.Transaction = trans;
-                    dataContext.SubmitChanges();
-                    trans.Commit();
-                }
+                dataContext.SubmitChanges();
             }
         }
 
         public virtual IEnumerable<QueueItem> Handle(IEnumerable<QueueItem> items)
         {
-            return items;
-        }
-
-        public virtual int BatchSize
-        {
-            get { return 10; }
-        }
-
-        public virtual int MaxRetry
-        {
-            get { return 1; }
+            throw new NotImplementedException();
         }
 
         public void Run()
@@ -84,6 +62,16 @@ namespace CprBroker.Data.Queues
             {
                 var succeeded = Handle(items);
                 Remove(succeeded);
+                var failedItems = items.Except(succeeded);
+                foreach (var failedItem in failedItems)
+                {
+                    failedItem.AttemptCount++;
+                }
+                using (var dataContext = new QueueDataContext())
+                {
+                    dataContext.QueueItems.AttachAll(failedItems);
+                    dataContext.SubmitChanges();
+                }
                 items = GetNext(BatchSize);
             }
         }

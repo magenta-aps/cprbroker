@@ -12,6 +12,7 @@ namespace CprBroker.Data.Queues
             this.QueueId = queue.QueueId;
             this.ItemKey = key;
             this.CreatedTS = DateTime.Now;
+            AttemptCount = 0;
         }
         
         public QueueItem Clone(Queue newQueue)
@@ -21,6 +22,7 @@ namespace CprBroker.Data.Queues
                 
                 QueueId = newQueue.QueueId,
                 CreatedTS = DateTime.Now,                
+                AttemptCount = 0,
             };
         }
 
