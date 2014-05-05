@@ -55,7 +55,7 @@ namespace CprBroker.Providers.CPRDirect
     {
         public Extract Extract;
         public PersonConversion[] Persons;
-
+        
         public static ExtractConversion[] CreateFromPersonStagings(ExtractPersonStaging[] persons)
         {
             return persons
@@ -65,7 +65,11 @@ namespace CprBroker.Providers.CPRDirect
                     {
                         Extract = g.Key,
                         Persons = g
-                        .Select(eps => new PersonConversion { ExtractPersonStaging = eps })
+                        .Select(eps => new PersonConversion { 
+                            ExtractPersonStagingId = eps.ExtractPersonStagingId,
+                            Extract = eps.Extract,
+                            PNR = eps.PNR
+                        })
                         .ToArray()
                     })
                 .OrderBy(g => g.Extract.ExtractDate)
@@ -82,12 +86,12 @@ namespace CprBroker.Providers.CPRDirect
 
         public void FillExtractItems(ExtractDataContext dataContext)
         {
-            var groupPnrs = this.Persons.Select(p => p.ExtractPersonStaging.PNR).ToArray();
+            var groupPnrs = this.Persons.Select(p => p.PNR).ToArray();
             var groupExtractItems = dataContext.ExtractItems.Where(ei => groupPnrs.Contains(ei.PNR) && ei.ExtractId == this.Extract.ExtractId).ToArray();
 
             foreach (var person in this.Persons)
             {
-                person.ExtractItems = groupExtractItems.Where(ei => ei.PNR == person.ExtractPersonStaging.PNR).ToArray();
+                person.ExtractItems = groupExtractItems.Where(ei => ei.PNR == person.PNR).ToArray();
             }
         }
 

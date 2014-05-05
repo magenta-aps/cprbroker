@@ -321,19 +321,19 @@ namespace CprBroker.Providers.CPRDirect
                         personIndex++;
                         try
                         {
-                            Admin.LogFormattedSuccess("ExtractManager.ConvertPersons() - processing PNR <{0}>, person <{1}> of <{2}>", person.ExtractPersonStaging.PNR, personIndex, persons.Length);
-                            var uuid = cache.GetUuid(person.ExtractPersonStaging.PNR);
-                            var response = Extract.ToIndividualResponseType(person.ExtractPersonStaging.Extract, person.ExtractItems.AsQueryable(), Constants.DataObjectMap);
+                            Admin.LogFormattedSuccess("ExtractManager.ConvertPersons() - processing PNR <{0}>, person <{1}> of <{2}>", person.PNR, personIndex, persons.Length);
+                            var uuid = cache.GetUuid(person.PNR);
+                            var response = Extract.ToIndividualResponseType(person.Extract, person.ExtractItems.AsQueryable(), Constants.DataObjectMap);
                             var oioPerson = response.ToRegistreringType1(cache.GetUuid);
-                            var personIdentifier = new Schemas.PersonIdentifier() { CprNumber = person.ExtractPersonStaging.PNR, UUID = uuid };
+                            var personIdentifier = new Schemas.PersonIdentifier() { CprNumber = person.PNR, UUID = uuid };
                             UpdateDatabase.UpdatePersonRegistration(personIdentifier, oioPerson);
 
-                            succeeded.Add(person.ExtractPersonStaging.ExtractPersonStagingId);
-                            Admin.LogFormattedSuccess("ExtractManager.ConvertPersons() - finished PNR <{0}>, person <{1}> of <{2}>", person.ExtractPersonStaging.PNR, personIndex, persons.Length);
+                            succeeded.Add(person.ExtractPersonStagingId);
+                            Admin.LogFormattedSuccess("ExtractManager.ConvertPersons() - finished PNR <{0}>, person <{1}> of <{2}>", person.PNR, personIndex, persons.Length);
                         }
                         catch (Exception ex)
                         {
-                            failed.Add(person.ExtractPersonStaging.ExtractPersonStagingId);
+                            failed.Add(person.ExtractPersonStagingId);
                             Admin.LogException(ex);
                         }
                     }

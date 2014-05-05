@@ -53,7 +53,9 @@ namespace CprBroker.Providers.CPRDirect
 {
     public class PersonConversion
     {
-        public ExtractPersonStaging ExtractPersonStaging;
+        public string PNR;
+        public Extract Extract;
+        public Guid ExtractPersonStagingId;
         public ExtractItem[] ExtractItems;
     }
 }
