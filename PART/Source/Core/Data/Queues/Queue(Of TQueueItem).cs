@@ -45,17 +45,14 @@ namespace CprBroker.Data.Queues
         /// </summary>
         /// <param name="items">The queue items</param>
         /// <returns>A subset if the input that was processed successfully</returns>
-        public virtual IEnumerable<TQueueItem> Handle(IEnumerable<TQueueItem> items)
-        {
-            throw new NotImplementedException();
-        }
+        public abstract IEnumerable<TQueueItem> Process(IEnumerable<TQueueItem> items);
 
         public void Run()
         {
             var items = GetNext(Impl.BatchSize);
             while (items.FirstOrDefault() != null)
             {
-                var succeeded = Handle(items);
+                var succeeded = Process(items);
                 Remove(succeeded);
                 var failedItems = items.Except(succeeded);
                 foreach (var failedItem in failedItems)

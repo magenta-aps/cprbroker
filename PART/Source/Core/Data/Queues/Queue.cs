@@ -44,7 +44,7 @@ namespace CprBroker.Data.Queues
             }
         }
 
-        public void Distribute(IEnumerable<Queue> targetQueues, int maxCount)
+        public void MultiplyTo(IEnumerable<Queue> targetQueues, int maxCount)
         {
             using (var dataContext = new QueueDataContext())
             {
