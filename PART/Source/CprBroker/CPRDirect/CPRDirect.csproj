@@ -58,9 +58,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extract\CprDirectExtractQueueItem.cs" />
+    <Compile Include="Extract\DbrQueue.cs" />
     <Compile Include="Extract\ExtractPersonStaging.cs" />
     <Compile Include="Extract\ExtrcatConversion.cs" />
     <Compile Include="Extract\PersonConversion.cs" />
+    <Compile Include="Extract\PersonExtractionQueue.cs" />
+    <Compile Include="Extract\PersonStagingQueue.cs" />
     <Compile Include="Interfaces\IParentalAuthority.cs" />
     <Compile Include="Interfaces\IProtection.cs" />
     <Compile Include="Interfaces\IRelationship.cs" />
