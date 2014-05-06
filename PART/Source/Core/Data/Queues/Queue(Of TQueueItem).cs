@@ -17,25 +17,36 @@ namespace CprBroker.Data.Queues
             this.Impl = Queue.GetById(queueId);
         }
 
-        public IEnumerable<TQueueItem> GetNext(int maxCount)
+        public TQueueItem[] GetNext(int maxCount)
         {
-            return Impl.GetNext(maxCount).Select(
+            return Impl.GetNext(maxCount)
+                .Select(
                 (qi) =>
                 {
                     var ret = new TQueueItem() { Impl = qi };
                     ret.DeserializeFromKey(qi.ItemKey);
                     return ret;
-                });
+                })
+                .ToArray();
         }
 
-        public void Remove(IEnumerable<TQueueItem> items)
+        public void Remove(TQueueItem[] items)
         {
-            Impl.Remove(items.Select(i => i.Impl));
+            Impl.Remove(items.Select(i => i.Impl).ToArray());
         }
 
-        public void Enqueue(IEnumerable<TQueueItem> items)
+        public void MarkFailure(TQueueItem[] items)
         {
-            var itemKeys = items.Select(it => it.SerializeToKey());
+            Impl.MarkFailure(items.Select(i => i.Impl).ToArray());
+        }
+
+        public void Enqueue(TQueueItem item)
+        {
+            Enqueue(new TQueueItem[] { item });
+        }
+        public void Enqueue(TQueueItem[] items)
+        {
+            var itemKeys = items.Select(it => it.SerializeToKey()).ToArray();
             Impl.Enqueue(itemKeys);
         }
 
@@ -45,7 +56,7 @@ namespace CprBroker.Data.Queues
         /// </summary>
         /// <param name="items">The queue items</param>
         /// <returns>A subset if the input that was processed successfully</returns>
-        public abstract IEnumerable<TQueueItem> Process(IEnumerable<TQueueItem> items);
+        public abstract TQueueItem[] Process(TQueueItem[] items);
 
         public void Run()
         {
@@ -54,16 +65,9 @@ namespace CprBroker.Data.Queues
             {
                 var succeeded = Process(items);
                 Remove(succeeded);
-                var failedItems = items.Except(succeeded);
-                foreach (var failedItem in failedItems)
-                {
-                    failedItem.Impl.AttemptCount++;
-                }
-                using (var dataContext = new QueueDataContext())
-                {
-                    dataContext.QueueItems.AttachAll(failedItems.Select(fi => fi.Impl));
-                    dataContext.SubmitChanges();
-                }
+
+                var failedItems = items.Except(succeeded).ToArray();
+                MarkFailure(failedItems);
                 items = GetNext(Impl.BatchSize);
             }
         }

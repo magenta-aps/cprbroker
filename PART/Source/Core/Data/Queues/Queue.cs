@@ -17,24 +17,44 @@ namespace CprBroker.Data.Queues
             }
         }
 
-        public IEnumerable<QueueItem> GetNext(int maxCount)
-        {
-            return this.QueueItems
-                .Where(qi => qi.AttemptCount < this.MaxRetry)
-                .OrderBy(qi => qi.QueueItemId)
-                .Take(maxCount);
-        }
-
-        public void Remove(IEnumerable<QueueItem> items)
+        public QueueItem[] GetNext(int maxCount)
         {
             using (var dataContext = new QueueDataContext())
             {
-                dataContext.QueueItems.DeleteAllOnSubmit(items);
+                return dataContext.QueueItems
+                    .Where(qi => qi.QueueId == this.QueueId && qi.AttemptCount < this.MaxRetry)
+                    .OrderBy(qi => qi.QueueItemId)
+                    .Take(maxCount)
+                    .ToArray();
+            }
+        }
+
+        public void Remove(QueueItem[] items)
+        {
+            using (var dataContext = new QueueDataContext())
+            {
+                var ids = items.Select(it => it.QueueItemId).ToArray();
+                var itemsToDelete = dataContext.QueueItems.Where(it => ids.Contains(it.QueueItemId));
+                dataContext.QueueItems.DeleteAllOnSubmit(itemsToDelete);
                 dataContext.SubmitChanges();
             }
         }
 
-        public void Enqueue(IEnumerable<string> itemKeys)
+        public void MarkFailure(QueueItem[] items)
+        {
+            using (var dataContext = new QueueDataContext())
+            {
+                var ids = items.Select(it => it.QueueItemId).ToArray();
+                var itemsToMark = dataContext.QueueItems.Where(it => ids.Contains(it.QueueItemId));
+                foreach (var item in itemsToMark)
+                {
+                    item.AttemptCount++;
+                }
+                dataContext.SubmitChanges();
+            }
+        }
+
+        public void Enqueue(string[] itemKeys)
         {
             var items = itemKeys.Select(ik => new QueueItem(ik, this));
             using (var dataContext = new QueueDataContext())
@@ -60,7 +80,7 @@ namespace CprBroker.Data.Queues
             }
         }
 
-        
-        
+
+
     }
 }
