@@ -93,7 +93,7 @@ namespace CprBroker.Providers.CPRDirect
 
         public void AddLines(List<Wrapper> wrappers)
         {
-            var wrappersAndLines = wrappers.Select(w => new { Wrapper = w, Line = new LineWrapper(w.Contents), ParseGroupType = GetParseGroup(w)}).ToArray();
+            var wrappersAndLines = wrappers.Select(w => new { Wrapper = w, Line = new LineWrapper(w.Contents), ParseGroupType = GetParseGroup(w) }).ToArray();
 
             // Isolate error lines
             this.ErrorLines.AddRange(wrappersAndLines.Where(wl => wl.ParseGroupType == WrapperParseGroup.Error).Select(wl => wl.Line));
@@ -173,6 +173,27 @@ namespace CprBroker.Providers.CPRDirect
                    pnr => new ExtractPersonStaging()
                    {
                        ExtractPersonStagingId = Guid.NewGuid(),
+                       ExtractId = extractId,
+                       PNR = pnr
+                   })
+               .ToList();
+        }
+
+        public List<CprDirectExtractQueueItem> ToQueueItems(Guid extractId, List<string> skipPnrs = null)
+        {
+            var pnrs = this.Lines
+                .GroupBy(line => line.PNR)
+                .Select(line => line.Key);
+            if (skipPnrs != null)
+            {
+                pnrs = pnrs.Except(skipPnrs).ToArray();
+                skipPnrs.AddRange(pnrs);
+            }
+
+            return pnrs
+               .Select(
+                   pnr => new CprDirectExtractQueueItem()
+                   {
                        ExtractId = extractId,
                        PNR = pnr
                    })

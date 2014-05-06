@@ -54,6 +54,7 @@ using CprBroker.Engine;
 using CprBroker.Engine.Local;
 using CprBroker.Engine.Part;
 using CprBroker.Data.DataProviders;
+using System.Transactions;
 
 namespace CprBroker.Providers.CPRDirect
 {
@@ -70,33 +71,52 @@ namespace CprBroker.Providers.CPRDirect
             ImportText(text, "");
         }
 
+        public static TransactionScope CreateTransactionScope()
+        {
+            return new System.Transactions.TransactionScope(
+                System.Transactions.TransactionScopeOption.Required,
+                new System.Transactions.TransactionOptions()
+                {
+                    IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted,
+                    Timeout = System.Transactions.TransactionManager.MaximumTimeout
+                });
+        }
+
         public static void ImportText(string text, string sourceFileName)
         {
             var parseResult = new ExtractParseResult(text, Constants.DataObjectMap);
             var extract = parseResult.ToExtract(sourceFileName);
             var extractItems = parseResult.ToExtractItems(extract.ExtractId, Constants.DataObjectMap, Constants.RelationshipMap, Constants.MultiRelationshipMap);
             var extractStaging = parseResult.ToExtractPersonStagings(extract.ExtractId);
+            var queueItems = parseResult.ToQueueItems(extract.ExtractId);
             var extractErrors = parseResult.ToExtractErrors(extract.ExtractId);
 
-            using (var conn = new SqlConnection(CprBroker.Config.Properties.Settings.Default.CprBrokerConnectionString))
+            using (var transactionScope = CreateTransactionScope())
             {
-                conn.Open();
-
-                using (var trans = conn.BeginTransaction(System.Data.IsolationLevel.ReadUncommitted))
+                using (var conn = new SqlConnection(CprBroker.Config.Properties.Settings.Default.CprBrokerConnectionString))
                 {
-                    conn.BulkInsertAll<Extract>(new Extract[] { extract }, trans);
-                    conn.BulkInsertAll<ExtractItem>(extractItems, trans);
-                    conn.BulkInsertAll<ExtractPersonStaging>(extractStaging, trans);
-                    conn.BulkInsertAll<ExtractError>(extractErrors, trans);
-                    trans.Commit();
-                }
+                    conn.Open();
 
-                using (var dataContext = new ExtractDataContext())
-                {
-                    extract = dataContext.Extracts.Where(ex => ex.ExtractId == extract.ExtractId).First();
-                    extract.Ready = true;
-                    dataContext.SubmitChanges();
+                    using (var trans = conn.BeginTransaction(System.Data.IsolationLevel.ReadUncommitted))
+                    {
+                        conn.BulkInsertAll<Extract>(new Extract[] { extract });
+                        conn.BulkInsertAll<ExtractItem>(extractItems);
+                        //conn.BulkInsertAll<ExtractPersonStaging>(extractStaging);
+                        conn.BulkInsertAll<ExtractError>(extractErrors);
+                        trans.Commit();
+                    }
+
+                    var stagingQueue = new PersonStagingQueue();
+                    stagingQueue.Enqueue(queueItems);
+
+                    using (var dataContext = new ExtractDataContext())
+                    {
+                        extract = dataContext.Extracts.Where(ex => ex.ExtractId == extract.ExtractId).First();
+                        extract.Ready = true;
+                        dataContext.SubmitChanges();
+                    }
                 }
+                transactionScope.Complete();
             }
         }
 
@@ -150,9 +170,8 @@ namespace CprBroker.Providers.CPRDirect
 
                             Admin.LogFormattedSuccess("Batch read, records found <{0}>, total so far <{1}>", batchReadLinesCount, totalReadLinesCount);
 
-                            using (var trans = conn.BeginTransaction(System.Data.IsolationLevel.ReadUncommitted))
+                            using (var transactionScope = CreateTransactionScope())
                             {
-                                dataContext.Transaction = trans;
                                 extractResult.ClearArrays();
                                 var uninsertedLinesCount = totalReadLinesCount - extract.ProcessedLines.Value;
 
@@ -175,10 +194,13 @@ namespace CprBroker.Providers.CPRDirect
                                     }
 
                                     // Child records
-                                    conn.BulkInsertAll<ExtractItem>(extractResult.ToExtractItems(extract.ExtractId, Constants.DataObjectMap, Constants.RelationshipMap, Constants.MultiRelationshipMap), trans);
-                                    conn.BulkInsertAll<ExtractError>(extractResult.ToExtractErrors(extract.ExtractId), trans);
+                                    conn.BulkInsertAll<ExtractItem>(extractResult.ToExtractItems(extract.ExtractId, Constants.DataObjectMap, Constants.RelationshipMap, Constants.MultiRelationshipMap));
+                                    conn.BulkInsertAll<ExtractError>(extractResult.ToExtractErrors(extract.ExtractId));
                                     // TODO: (Extract) In case some records have been skipped in a previous import attempt, make sure that allPnrs contains their PNR's
-                                    conn.BulkInsertAll<ExtractPersonStaging>(extractResult.ToExtractPersonStagings(extract.ExtractId, allPnrs), trans);
+                                    //conn.BulkInsertAll<ExtractPersonStaging>(extractResult.ToExtractPersonStagings(extract.ExtractId, allPnrs));
+
+                                    var stagingQueue = new PersonStagingQueue();
+                                    stagingQueue.Enqueue(extractResult.ToQueueItems(extract.ExtractId));
 
                                     // Update counts
                                     extract.ProcessedLines = totalReadLinesCount;
@@ -197,7 +219,9 @@ namespace CprBroker.Providers.CPRDirect
                                 {
                                     Admin.LogFormattedSuccess("Batch already inserted, skipping");
                                 }
-                                trans.Commit();
+
+                                
+                                transactionScope.Complete();
                             }
                         }
                     }

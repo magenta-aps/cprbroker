@@ -57,18 +57,20 @@ namespace CprBroker.Providers.CPRDirect
 {
     public static class Extensions
     {
-        public static void BulkInsertAll<T>(this SqlConnection conn, IEnumerable<T> entities, SqlTransaction trans)
+        public static void BulkInsertAll<T>(this SqlConnection conn, IEnumerable<T> entities, SqlTransaction trans = null)
         {
             entities = entities.ToArray();
 
             Type t = typeof(T);
 
             var tableAttribute = (TableAttribute)t.GetCustomAttributes(typeof(TableAttribute), false).Single();
-            var bulkCopy = new SqlBulkCopy(conn, SqlBulkCopyOptions.Default, trans)
-            {
-                DestinationTableName = tableAttribute.Name,
-                BatchSize = 100
-            };
+
+            SqlBulkCopy bulkCopy = trans == null ?
+                new SqlBulkCopy(conn)
+                : new SqlBulkCopy(conn, SqlBulkCopyOptions.Default, trans);
+
+            bulkCopy.DestinationTableName = tableAttribute.Name;
+            bulkCopy.BatchSize = 100;
 
             var properties = t.GetProperties().Where(EventTypeFilter).ToArray();
             var table = new DataTable();
