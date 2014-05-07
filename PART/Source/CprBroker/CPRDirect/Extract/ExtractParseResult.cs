@@ -179,7 +179,7 @@ namespace CprBroker.Providers.CPRDirect
                .ToList();
         }
 
-        public List<CprDirectExtractQueueItem> ToQueueItems(Guid extractId, List<string> skipPnrs = null)
+        public CprDirectExtractQueueItem[] ToQueueItems(Guid extractId, List<string> skipPnrs = null)
         {
             var pnrs = this.Lines
                 .GroupBy(line => line.PNR)
@@ -197,7 +197,7 @@ namespace CprBroker.Providers.CPRDirect
                        ExtractId = extractId,
                        PNR = pnr
                    })
-               .ToList();
+               .ToArray();
         }
 
         public List<ExtractError> ToExtractErrors(Guid extractId)

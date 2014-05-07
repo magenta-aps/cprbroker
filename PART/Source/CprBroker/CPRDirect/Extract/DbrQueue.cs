@@ -15,7 +15,7 @@ namespace CprBroker.Providers.CPRDirect
             : base(FixedQueueId)
         { }
 
-        public override IEnumerable<CprDirectExtractQueueItem> Process(IEnumerable<CprDirectExtractQueueItem> items)
+        public override CprDirectExtractQueueItem[] Process(CprDirectExtractQueueItem[] items)
         {
             throw new NotImplementedException();
         }

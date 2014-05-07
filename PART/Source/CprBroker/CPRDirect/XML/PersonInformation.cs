@@ -53,7 +53,7 @@ using CprBroker.Schemas.Util;
 
 namespace CprBroker.Providers.CPRDirect
 {
-    public partial class PersonInformationType : IBasicInformation
+    public partial class PersonInformationType : IBasicInformation, IRelationship
     {
         public LivStatusType ToLivStatusType()
         {
@@ -65,10 +65,10 @@ namespace CprBroker.Providers.CPRDirect
             };
         }
 
-		public DateTime? ToBirthdate()
-		{
-			return ToBirthdate (false);
-		}
+        public DateTime? ToBirthdate()
+        {
+            return ToBirthdate(false);
+        }
 
         public DateTime? ToBirthdate(bool tryPnr)
         {
@@ -130,6 +130,11 @@ namespace CprBroker.Providers.CPRDirect
         public bool ToEndTSCertainty()
         {
             return Converters.ToDateTimeUncertainty(PersonEndDateUncertainty);
+        }
+
+        public string RelationPNR
+        {
+            get { return Converters.ToPnrStringOrNull(CurrentCprNumber); }
         }
 
         public PersonRelationType[] ToReplacedByRelationType(Func<string, Guid> cpr2UuidFunc)

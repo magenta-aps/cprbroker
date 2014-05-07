@@ -16,14 +16,14 @@ namespace CprBroker.Providers.CPRDirect
 
         }
 
-        public override IEnumerable<CprDirectExtractQueueItem> Process(IEnumerable<CprDirectExtractQueueItem> items)
+        public override CprDirectExtractQueueItem[] Process(CprDirectExtractQueueItem[] items)
         {
             var dbr = new DbrQueue();
             var cpr = new PersonExtractionQueue();
 
             dbr.Enqueue(items);
             cpr.Enqueue(items);
-            return items;
+            return items.ToArray();
         }
     }    
 }
