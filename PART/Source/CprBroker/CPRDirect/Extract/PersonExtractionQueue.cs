@@ -24,19 +24,12 @@ namespace CprBroker.Providers.CPRDirect
             var pnrs = items.Select(i => i.PNR).ToArray();
             using (var dataContext = new ExtractDataContext())
             {
-                var allPersons = items.Select(queueItem =>
-                    new
-                    {
-                        QueueItem = queueItem,
-                        Extract = dataContext.Extracts.Where(ex => ex.ExtractId == queueItem.ExtractId).Single(),
-                        ExtractItems = dataContext.ExtractItems.Where(ei => ei.ExtractId == queueItem.ExtractId && ei.PNR == queueItem.PNR)
-                    })
-                    .ToArray();
+                items.LoadExtractAndItems(dataContext);
 
                 // Cahce UUIDS
                 var allPnrs = items.Select(qi => qi.PNR).ToList();
-                allPnrs.AddRange(allPersons.SelectMany(qi => qi.ExtractItems.Select(ei => ei.RelationPNR)));
-                allPnrs.AddRange(allPersons.SelectMany(qi => qi.ExtractItems.Select(ei => ei.RelationPNR2)));
+                allPnrs.AddRange(items.SelectMany(qi => qi.ExtractItems.Select(ei => ei.RelationPNR)));
+                allPnrs.AddRange(items.SelectMany(qi => qi.ExtractItems.Select(ei => ei.RelationPNR2)));
                 allPnrs = allPnrs
                     .Distinct()
                     .Select(pnr => CprBroker.Providers.CPRDirect.Converters.ToPnrStringOrNull(pnr))
@@ -44,17 +37,17 @@ namespace CprBroker.Providers.CPRDirect
                     .ToList();
                 cache.FillCache(allPnrs.ToArray());
 
-                foreach (var person in allPersons)
+                foreach (var person in items)
                 {
                     try
                     {
-                        var uuid = cache.GetUuid(person.QueueItem.PNR);
+                        var uuid = cache.GetUuid(person.PNR);
                         var response = Extract.ToIndividualResponseType(person.Extract, person.ExtractItems.AsQueryable(), Constants.DataObjectMap);
                         var oioPerson = response.ToRegistreringType1(cache.GetUuid);
-                        var personIdentifier = new Schemas.PersonIdentifier() { CprNumber = person.QueueItem.PNR, UUID = uuid };
+                        var personIdentifier = new Schemas.PersonIdentifier() { CprNumber = person.PNR, UUID = uuid };
                         UpdateDatabase.UpdatePersonRegistration(personIdentifier, oioPerson);
 
-                        succeeded.Add(person.QueueItem);
+                        succeeded.Add(person);
                     }
                     catch (Exception ex)
                     {

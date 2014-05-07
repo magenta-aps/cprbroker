@@ -9,7 +9,7 @@ namespace CPRDirectToDPR
 {
     public class CprConverter
     {
-        public void AppendPerson(IndividualResponseType person, DPRDataContext dataContext)
+        public static void AppendPerson(IndividualResponseType person, DPRDataContext dataContext)
         {
             dataContext.PersonTotals.InsertOnSubmit(person.ToPersonTotal());
             dataContext.Persons.InsertOnSubmit(person.ToPerson());

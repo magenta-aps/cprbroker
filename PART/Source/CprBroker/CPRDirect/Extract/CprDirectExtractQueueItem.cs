@@ -11,6 +11,9 @@ namespace CprBroker.Providers.CPRDirect
         public Guid ExtractId { get; set; }
         public string PNR { get; set; }
 
+        public Extract Extract { get; internal set; }
+        public IQueryable<ExtractItem> ExtractItems { get; internal set; }
+
 
         public override string SerializeToKey()
         {
@@ -23,6 +26,18 @@ namespace CprBroker.Providers.CPRDirect
             ExtractId = new Guid(arr[0]);
             PNR = arr[1];
         }
+    }
 
+    public static class CprDirectExtractQueueItemExtensions
+    {
+
+        public static void LoadExtractAndItems(this CprDirectExtractQueueItem[] items, ExtractDataContext dataContext)
+        {
+            foreach (var item in items)
+            {
+                item.Extract = dataContext.Extracts.Where(ex => ex.ExtractId == item.ExtractId).Single();
+                item.ExtractItems = dataContext.ExtractItems.Where(ei => ei.ExtractId == item.ExtractId && ei.PNR == item.PNR);
+            }
+        }
     }
 }
