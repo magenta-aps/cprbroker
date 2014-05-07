@@ -74,15 +74,17 @@ namespace CprBroker.EventBroker.Backend
         {
             get
             {
-                return new PeriodicTaskExecuter[]{
+                var explicitQueues = new PeriodicTaskExecuter[]{
                     this.BirthdateEventEnqueuer,
                     this.DataChangeEventEnqueuer,
                     this.NotificationSender,
                     this.CprDirectDownloader,
                     this.CprDirectExtractor,
-                    this.CprDirectPersonConverter,
                     this.BudgetChecker
                 };
+                var databaseQueues = Notifications.QueueExecuter.GetQueues();
+
+                return explicitQueues.Concat(databaseQueues).ToArray();
             }
         }
 
