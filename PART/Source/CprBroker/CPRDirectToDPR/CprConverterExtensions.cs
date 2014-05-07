@@ -31,12 +31,112 @@ namespace CPRDirectToDPR
             pt.Floor = resp.CurrentAddressInformation.Floor;
             pt.Door = resp.CurrentAddressInformation.Door;
             pt.ConstructionNumber = resp.CurrentAddressInformation.BuildingNumber;
+            pt.AddressProtectionMarker = null; //TODO: Find origin for AddressProtectionMarker
+            pt.DirectoryProtectionMarker = null; //TODO: Find origin for DirectoryProtectionMarker
+            pt.ArrivalDateMarker = null; //TODO: Find origin for ArrivalDateMarker
+            pt.AddressDate = CprBroker.Utilities.Dates.DateToDecimal(resp.CurrentAddressInformation.RelocationDate.Value, 12);
+            pt.MunicipalityArrivalDate = CprBroker.Utilities.Dates.DateToDecimal(resp.CurrentAddressInformation.MunicipalityArrivalDate.Value, 12);
+            pt.MunicipalityLeavingDate = CprBroker.Utilities.Dates.DateToDecimal(resp.CurrentAddressInformation.LeavingMunicipalityDepartureDate.Value, 12);
+            pt.ChristianMark = resp.ChurchInformation.ChurchRelationship;
+            pt.BirthPlaceOfRegistration = resp.BirthRegistrationInformation.AdditionalBirthRegistrationText; //TODO: validate whether this is correct...
+            pt.PnrMarkingDate = null; //TODO: Find origin for PnrMarkingDate
+            pt.MotherPersonalOrBirthDate = null; //TODO: Find origin for MotherPersonalOrBirthDate
+            pt.MotherMarker = null; //TODO: Find origin for MotherMarker
+            pt.FatherPersonalOrBirthdate = null; //TODO: Find origin for FatherPersonalOrBirthDate
+            pt.FatherMarker = null; //TODO: Find origin for FatherMarker
+            pt.ExitEntryMarker = null; //TODO: Find origin for ExitEntryMarker
+            pt.DisappearedMarker = null; //TODO: Find origin for DisappearedMarker
+            pt.UnderGuardianshipDate = CprBroker.Utilities.Dates.DateToDecimal(resp.Disempowerment.DisempowermentStartDate.Value, 8);
+            pt.PaternityDate = null; //TODO: Find origin for PaternityDate
+            pt.MaritalStatus = resp.CurrentCivilStatus.CivilStatusCode;
+            pt.MaritalStatusDate = CprBroker.Utilities.Dates.DateToDecimal(resp.CurrentCivilStatus.CivilStatusStartDate.Value, 12);
+            pt.SpousePersonalOrBirthdate = null; //TODO: Find origin for SpousePersonalOrBirthdate
+            pt.SpouseMarker = null; //TODO: Find origin for SpouseMarker
+            pt.PostCode = resp.ClearWrittenAddress.PostCode;
+            pt.PostDistrictName = resp.ClearWrittenAddress.PostDistrictText;
+            pt.VotingDate = CprBroker.Utilities.Dates.DateToDecimal(resp.ElectionInformation.VotingDate.value, 8);
+            pt.ChildMarker = null; //TODO: Find origin for ChildMarker
+            pt.SupplementaryAddressMarker = null; //TODO: Find origin for SupplementaryAddressMarker
+            pt.MunicipalRelationMarker = null; //TODO: Find origin for MunicipalRelationMarker
+            pt.NationalMemoMarker = null; //TODO: Find origin for NationalMemoMarker
+            pt.FormerPersonalMarker = null; //TODO: Find origin for FormerPersonalMarker
+            pt.PaternityAuthorityName = null; //TODO: Find origin for PaternityAuthorityName
+            pt.MaritalAuthorityName = null; //TODO: Find origin for MaritalAuthorityName
+            pt.BirthPlaceOfRegistration = resp.BirthRegistrationInformation.AdditionalBirthRegistrationText; //TODO: validate that this is correct
+            pt.Occupation = resp.PersonInformation.Job;
+            pt.CareOfName = resp.CurrentAddressInformation.CareOfName;
+            pt.CityName = resp.ClearWrittenAddress.CityName;
+            pt.NationalityRight = null; //TODO: Find origin for NationalityRight
+            pt.PreviousAddress = null; //TODO: Find origin for PreviousAddress
+            pt.PreviousMunicipalityName = null; //TODO: Find origin for PreviousMunicipalityName
+            pt.SearchName = null; //TODO: Find origin for SearchName
+            pt.AddressingName = resp.ClearWrittenAddress.AddressingName;
+            pt.StandardAddress = null; //TODO: Find origin for StandardAddress
+            pt.Location = resp.ClearWrittenAddress.Location;
+            pt.ContactAddressMarker = null; //TODO: Find origin for ContactAddressMarker
             //return pt;
             throw new NotImplementedException();
         }
 
         public static Person ToPerson(this IndividualResponseType person)
         {
+            Person p = new Person();
+            p.PNR = decimal.Parse(person.PersonInformation.PNR);
+            p.CprUpdateDate = CprBroker.Utilities.Dates.DateToDecimal(person.RegistrationDate, 12);
+            p.Birthdate = CprBroker.Utilities.Dates.DateToDecimal(person.PersonInformation.Birthdate.Value, 8);
+            p.Gender = person.PersonInformation.Gender.ToString();
+            p.CustomerNumber = null; //TODO: Find origin for CustomerNumber
+            /*
+             * Birth date related
+             */
+            p.BirthRegistrationAuthorityCode = decimal.Parse(person.BirthRegistrationInformation.BirthRegistrationAuthorityCode);
+            p.BirthRegistrationDate = CprBroker.Utilities.Dates.DateToDecimal(person.BirthRegistrationInformation.Registration.RegistrationDate, 12);
+            p.BirthRegistrationPlaceUpdateDate = 0; //TODO: Find origin for BirthRegistrationPlaceUpdateDate
+            p.BirthplaceTextUpdateDate = null; //TODO: Find origin for BirthplaceTextUpdateDate
+            p.BirthplaceText = person.BirthRegistrationInformation.AdditionalBirthRegistrationText; //TODO: validate that this is correct
+            /*
+             * Religious related
+             */
+            p.ChristianMark = person.ChurchInformation.ChurchRelationship.ToString();
+            p.ChurchRelationUpdateDate = CprBroker.Utilities.Dates.DateToDecimal(person.ChurchInformation.Registration.RegistrationDate, 12);
+            p.ChurchAuthorityCode = 0; //TODO: Find origin for ChurchAuthorityCode
+            p.ChurchDate = CprBroker.Utilities.Dates.DateToDecimal(person.ChurchInformation.StartDate.Value, 8);
+            /*
+             * Guardianship related
+             */
+            p.UnderGuardianshipAuthprityCode = 0; //TODO: Find origin for UnderGuardianshipAuthprityCode
+            p.GuardianshipUpdateDate = CprBroker.Utilities.Dates.DateToDecimal(person.Disempowerment.Registration.RegistrationDate, 12);
+            p.UnderGuardianshipDate = CprBroker.Utilities.Dates.DateToDecimal(person.Disempowerment.DisempowermentStartDate.Value, 8);
+            /*
+             * PNR related
+             */
+            p.PnrMarkingDate = null; //TODO: Find origin for PnrMarkingDate
+            p.PnrDate = 0; //TODO: Find origin for PnrDate
+            p.CurrentPnrUpdateDate = null; //TODO: Find origin for CurrentPnrUpdateDate
+            p.CurrentPnr = decimal.Parse(person.PersonInformation.CurrentCprNumber);
+            p.PnrDeletionDate = null; //TODO: Find origin for PnrDeletionDate
+            /*
+             * Position related
+             */
+            p.JobDate = null; //TODO: Find origin for JobDate
+            p.Job = person.PersonInformation.Job;
+            /*
+             * Relations related
+             */
+            p.KinshipUpdateDate = 0; //TODO: Find origin for KinshipUpdateDate
+            p.MotherPnr = decimal.Parse(person.ParentsInformation.MotherPNR);
+            p.MotherBirthdate = CprBroker.Utilities.Dates.DateToDecimal(person.ParentsInformation.MotherBirthDate.Value, 8);
+            p.MotherDocumentation = null; //TODO: Find origin for MotherDocumentation
+            p.FatherPnr = decimal.Parse(person.ParentsInformation.FatherPNR);
+            p.FatherBirthdate = CprBroker.Utilities.Dates.DateToDecimal(person.ParentsInformation.FatherBirthDate.Value, 8);
+            p.FatherDocumentation = null; //TODO: Find origin for FatherDocumentation
+            p.PaternityDate = null; //TODO: Find origin for PaternityDate
+            p.PaternityAuthorityCode = null; //TODO: Find origin for PaternityAuthorityCode
+            p.MotherName = person.ParentsInformation.MotherName;
+            p.FatherName = person.ParentsInformation.FatherName;
+            p.UnderGuardianshipDeleteDate = person.Disempowerment.DisempowermentEndDate.Value;
+            p.UnderGuardianshipRelationType = person.Disempowerment.GuardianRelationType;
+            //return p;
             throw new NotImplementedException();
         }
 

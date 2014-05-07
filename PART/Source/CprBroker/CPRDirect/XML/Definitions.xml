@@ -264,12 +264,15 @@
       <Attribute name="NoteText" danishName="NOTATLINIE" format="Alpha" length="40" position="16" description="Note text"/>
       <Attribute name="StartDate" danishName="START_DT-NOTAT" format="Alpha" length="10" position="56" description="Note start date YYYY-MM-DD" dateFormat="yyyy-MM-dd"/>
       <Attribute name="EndDate" danishName="SLET_DT-NOTAT" format="Alpha" length="10" position="66" description="Note deletion date YYYY-MM-DD" dateFormat="yyyy-MM-dd"/>
-      <!--MORE FIELDS-->
     </Object>
 
     <Object name="ElectionInformation" base="PersonRecordWrapper" danishName="P12170-020" length="47" description="Election information" minOccurs="0" maxOccurs="1000000" recordTypeCode="020">
       <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
-      <!--MORE FIELDS-->
+      <Attribute name="PNR" danishName="PNR" format="Numeric" length="10" position="4" description="CPR Number"/>
+      <Attribute name="ElectionCode" danishName="VALGKODE" format="Numeric" length="4" position="14" description="Election code"/>
+      <Attribute name="VotingDate" danishName="VALGRET_DT" format="Alpha" length="10" position="18" description="Voting date YYYY-MM-DD" dateFormat="yyyy-MM-dd"/>
+      <Attribute name="ElectionInfoStartDate" danishName="START_DT-VALGOPLYSNINGER" format="Numeric" length="10" position="28" description="Election info start date YYYY-MM-DD" dateFormat="yyyy-MM-dd"/>
+      <Attribute name="ElectionInfoDeletionDate" danishName="SLET_DT-VALGOPLYSNINGER" format="Numeric" length="3" position="1" description="Election info deletion date YYYY-MM-DD" dateFormat="yyyy-MM-dd"/>
     </Object>
 
     <Object name="RelocationOrder" base="PersonRecordWrapper" danishName="P12170-021" length="63" description="Relocation order" minOccurs="0" recordTypeCode="021">
