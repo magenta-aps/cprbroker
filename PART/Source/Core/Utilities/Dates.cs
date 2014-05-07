@@ -87,5 +87,22 @@ namespace CprBroker.Utilities
                 return startDateRange && endDateRange;
             }
         }
+        public static Decimal DateToDecimal(DateTime date, int length)
+        {
+            String decimalValue = "";
+            decimalValue += date.Year;
+            decimalValue += date.Month;
+            decimalValue += date.Day;
+            if (length > 8)
+            {
+                decimalValue += date.Hour;
+                decimalValue += date.Minute;
+            }
+            if (length > 12)
+            {
+                decimalValue += date.Second;
+            }
+            return Decimal.Parse(decimalValue);
+        }
     }
 }

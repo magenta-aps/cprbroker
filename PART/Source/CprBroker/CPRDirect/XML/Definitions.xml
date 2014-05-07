@@ -259,6 +259,11 @@
 
     <Object name="Notes" base="PersonRecordWrapper" danishName="P12170-019" length="75" description="Notes" minOccurs="0" maxOccurs="1000000" recordTypeCode="019">
       <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
+      <Attribute name="PNR" danishName="PNR" format="Alpha" length="10" position="4" description="CPR Number"/>
+      <Attribute name="NoteNumber" danishName="NOTATNR" format="Numeric" length="2" position="14" description="Note number"/>
+      <Attribute name="NoteText" danishName="NOTATLINIE" format="Alpha" length="40" position="16" description="Note text"/>
+      <Attribute name="StartDate" danishName="START_DT-NOTAT" format="Alpha" length="10" position="56" description="Note start date YYYY-MM-DD" dateFormat="yyyy-MM-dd"/>
+      <Attribute name="EndDate" danishName="SLET_DT-NOTAT" format="Alpha" length="10" position="66" description="Note deletion date YYYY-MM-DD" dateFormat="yyyy-MM-dd"/>
       <!--MORE FIELDS-->
     </Object>
 
@@ -393,6 +398,10 @@
 
     <Object name="Events" base="PersonRecordWrapper" danishName="P12170-099" length="45" description="Events" minOccurs="0" maxOccurs="1000000" recordTypeCode="099">
       <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
+      <Attribute name="PNR" danishName="PNR" format="Alpha" length="10" position="4" description="CPR Number"/>
+      <Attribute name="CprUpdateDate" danishName="TIMESTAMPU" format="Numeric" length="12" position="14" description="Update date and time" dateFormat="yyyyMMddHHmm"/>
+      <Attribute name="Event_" danishName="HAENDELSE" format="Alpha" length="3" position="26" description="The event"/>
+      <Attribute name="DerivedMark" danishName="AFLEDTMRK" format="Alpha" length="2" position="29" description="Derived mark"/>
       <!--MORE FIELDS-->
     </Object>
 

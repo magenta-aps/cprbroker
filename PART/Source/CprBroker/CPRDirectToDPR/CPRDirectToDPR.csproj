@@ -34,6 +34,10 @@
     <Reference Include="CprBroker.Schemas">
       <HintPath>..\..\Core\Output\CprBroker.Schemas.dll</HintPath>
     </Reference>
+    <Reference Include="CprBroker.Utilities, Version=2.2.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Core\Output\CprBroker.Utilities.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Linq" />
