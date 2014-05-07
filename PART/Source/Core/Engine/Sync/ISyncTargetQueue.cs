@@ -6,11 +6,7 @@ using CprBroker.Data.Queues;
 
 namespace CprBroker.Engine.Sync
 {
-    public class SyncManager
+    public interface ISyncTargetQueue
     {
-        public static ISyncTargetQueue[] GetAllTargets()
-        {
-            return QueueBase.GetQueues<ISyncTargetQueue>();
-        }
     }
 }

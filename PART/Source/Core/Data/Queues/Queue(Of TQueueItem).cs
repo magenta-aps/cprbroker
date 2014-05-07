@@ -5,12 +5,12 @@ using System.Text;
 
 namespace CprBroker.Data.Queues
 {
-
-    public abstract class Queue<TQueueItem>
+    public abstract class Queue<TQueueItem> : QueueBase
         where TQueueItem : IQueueItem, new()
     {
-        public Queue Impl { get; private set; }
-
+        public Queue()
+        {
+        }
 
         public Queue(Guid queueId)
         {
@@ -58,7 +58,7 @@ namespace CprBroker.Data.Queues
         /// <returns>A subset if the input that was processed successfully</returns>
         public abstract TQueueItem[] Process(TQueueItem[] items);
 
-        public void Run()
+        public override void Run()
         {
             var items = GetNext(Impl.BatchSize);
             while (items.FirstOrDefault() != null)

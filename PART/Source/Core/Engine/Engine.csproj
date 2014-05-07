@@ -104,7 +104,7 @@
     <Compile Include="Local\Admin.Log.cs" />
     <Compile Include="IDataProvider.cs" />
     <Compile Include="SubMethodRunState.cs" />
-    <Compile Include="Sync\Interfaces.cs" />
+    <Compile Include="Sync\ISyncTargetQueue.cs" />
     <Compile Include="Sync\SyncManager.cs" />
     <Compile Include="ThreadRunner.cs" />
     <Compile Include="Manager.Admin.cs" />

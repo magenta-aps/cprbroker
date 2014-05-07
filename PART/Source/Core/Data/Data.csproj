@@ -113,6 +113,7 @@
     <Compile Include="Queues\IQueueItem.cs" />
     <Compile Include="Queues\Queue%28Of TQueueItem%29.cs" />
     <Compile Include="Queues\Queue.cs" />
+    <Compile Include="Queues\QueueBase.cs" />
     <Compile Include="Queues\QueueDataContext.cs">
       <DependentUpon>QueueDataContext.dbml</DependentUpon>
     </Compile>
@@ -226,6 +227,7 @@
       <DependentUpon>QueueDataContext.dbml</DependentUpon>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

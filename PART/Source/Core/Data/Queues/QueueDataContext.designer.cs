@@ -292,6 +292,8 @@ namespace CprBroker.Data.Queues
 		
 		private int _MaxRetry;
 		
+		private System.Data.Linq.Binary _EncryptedData;
+		
 		private EntitySet<QueueItem> _QueueItems;
 		
     #region Extensibility Method Definitions
@@ -300,12 +302,14 @@ namespace CprBroker.Data.Queues
     partial void OnCreated();
     partial void OnQueueIdChanging(System.Guid value);
     partial void OnQueueIdChanged();
-    partial void OnNameChanging(string value);
-    partial void OnNameChanged();
+    partial void OnTypeNameChanging(string value);
+    partial void OnTypeNameChanged();
     partial void OnBatchSizeChanging(int value);
     partial void OnBatchSizeChanged();
     partial void OnMaxRetryChanging(int value);
     partial void OnMaxRetryChanged();
+    partial void OnEncryptedDataChanging(System.Data.Linq.Binary value);
+    partial void OnEncryptedDataChanged();
     #endregion
 		
 		public Queue()
@@ -334,8 +338,8 @@ namespace CprBroker.Data.Queues
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string Name
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="VarChar(250) NOT NULL", CanBeNull=false)]
+		public string TypeName
 		{
 			get
 			{
@@ -345,11 +349,11 @@ namespace CprBroker.Data.Queues
 			{
 				if ((this._Name != value))
 				{
-					this.OnNameChanging(value);
+					this.OnTypeNameChanging(value);
 					this.SendPropertyChanging();
 					this._Name = value;
-					this.SendPropertyChanged("Name");
-					this.OnNameChanged();
+					this.SendPropertyChanged("TypeName");
+					this.OnTypeNameChanged();
 				}
 			}
 		}
@@ -390,6 +394,26 @@ namespace CprBroker.Data.Queues
 					this._MaxRetry = value;
 					this.SendPropertyChanged("MaxRetry");
 					this.OnMaxRetryChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="image", Storage="_EncryptedData", DbType="EncrtptedData")]
+		public System.Data.Linq.Binary EncryptedData
+		{
+			get
+			{
+				return this._EncryptedData;
+			}
+			set
+			{
+				if ((this._EncryptedData != value))
+				{
+					this.OnEncryptedDataChanging(value);
+					this.SendPropertyChanging();
+					this._EncryptedData = value;
+					this.SendPropertyChanged("EncryptedData");
+					this.OnEncryptedDataChanged();
 				}
 			}
 		}
