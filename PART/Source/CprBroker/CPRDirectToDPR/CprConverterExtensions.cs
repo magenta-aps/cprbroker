@@ -25,55 +25,56 @@ namespace CPRDirectToDPR
              * RESIDENTIAL DETAILS
              */
             pt.MunicipalityCode = resp.CurrentAddressInformation.MunicipalityCode;
-            //pt.MunicipalityName = TODO: Find municipality name based on the municipality code
+            pt.MunicipalityName = null; //TODO: Find municipality name based on the municipality name - DPR SPECIFIC
             pt.StreetCode = resp.CurrentAddressInformation.StreetCode;
             pt.HouseNumber = resp.CurrentAddressInformation.HouseNumber;
             pt.Floor = resp.CurrentAddressInformation.Floor;
             pt.Door = resp.CurrentAddressInformation.Door;
             pt.ConstructionNumber = resp.CurrentAddressInformation.BuildingNumber;
-            pt.AddressProtectionMarker = null; //TODO: Find origin for AddressProtectionMarker
-            pt.DirectoryProtectionMarker = null; //TODO: Find origin for DirectoryProtectionMarker
-            pt.ArrivalDateMarker = null; //TODO: Find origin for ArrivalDateMarker
+            pt.AddressProtectionMarker = null; //TODO: Find origin for AddressProtectionMarker - DPR SPECIFIC
+            pt.DirectoryProtectionMarker = null; //TODO: Find origin for DirectoryProtectionMarker - DPR SPECIFIC
+            pt.ArrivalDateMarker = null; //TODO: Find origin for ArrivalDateMarker - DPR SPECIFIC
             pt.AddressDate = CprBroker.Utilities.Dates.DateToDecimal(resp.CurrentAddressInformation.RelocationDate.Value, 12);
             pt.MunicipalityArrivalDate = CprBroker.Utilities.Dates.DateToDecimal(resp.CurrentAddressInformation.MunicipalityArrivalDate.Value, 12);
             pt.MunicipalityLeavingDate = CprBroker.Utilities.Dates.DateToDecimal(resp.CurrentAddressInformation.LeavingMunicipalityDepartureDate.Value, 12);
             pt.ChristianMark = resp.ChurchInformation.ChurchRelationship;
             pt.BirthPlaceOfRegistration = resp.BirthRegistrationInformation.AdditionalBirthRegistrationText; //TODO: validate whether this is correct...
-            pt.PnrMarkingDate = null; //TODO: Find origin for PnrMarkingDate
-            pt.MotherPersonalOrBirthDate = null; //TODO: Find origin for MotherPersonalOrBirthDate
-            pt.MotherMarker = null; //TODO: Find origin for MotherMarker
-            pt.FatherPersonalOrBirthdate = null; //TODO: Find origin for FatherPersonalOrBirthDate
-            pt.FatherMarker = null; //TODO: Find origin for FatherMarker
-            pt.ExitEntryMarker = null; //TODO: Find origin for ExitEntryMarker
-            pt.DisappearedMarker = null; //TODO: Find origin for DisappearedMarker
+            pt.PnrMarkingDate = null; //TODO: Find origin for PnrMarkingDate - SHOULD BE IN CPR...
+            pt.MotherPersonalOrBirthDate = null; //TODO: Find origin for MotherPersonalOrBirthDate - DPR SPECIFIC
+            pt.MotherMarker = null; //TODO: Find origin for MotherMarker - DPR SPECIFIC
+            pt.FatherPersonalOrBirthdate = null; //TODO: Find origin for FatherPersonalOrBirthDate - DPR SPECIFIC
+            pt.FatherMarker = null; //TODO: Find origin for FatherMarker - DPR SPECIFIC
+            pt.ExitEntryMarker = null; //TODO: Find origin for ExitEntryMarker - DPR SPECIFIC
+            pt.DisappearedMarker = null; //TODO: Find origin for DisappearedMarker - DPR SPECIFIC
             pt.UnderGuardianshipDate = CprBroker.Utilities.Dates.DateToDecimal(resp.Disempowerment.DisempowermentStartDate.Value, 8);
-            pt.PaternityDate = null; //TODO: Find origin for PaternityDate
+            pt.PaternityDate = null; //TODO: Find origin for PaternityDate - SHOULD BE IN CPR...
             pt.MaritalStatus = resp.CurrentCivilStatus.CivilStatusCode;
             pt.MaritalStatusDate = CprBroker.Utilities.Dates.DateToDecimal(resp.CurrentCivilStatus.CivilStatusStartDate.Value, 12);
-            pt.SpousePersonalOrBirthdate = null; //TODO: Find origin for SpousePersonalOrBirthdate
-            pt.SpouseMarker = null; //TODO: Find origin for SpouseMarker
+            pt.SpousePersonalOrBirthdate = null; //TODO: Find origin for SpousePersonalOrBirthdate - DPR SPECIFIC
+            pt.SpouseMarker = null; //TODO: Find origin for SpouseMarker - DPR SPECIFIC
             pt.PostCode = resp.ClearWrittenAddress.PostCode;
             pt.PostDistrictName = resp.ClearWrittenAddress.PostDistrictText;
             pt.VotingDate = CprBroker.Utilities.Dates.DateToDecimal(resp.ElectionInformation.VotingDate.value, 8);
-            pt.ChildMarker = null; //TODO: Find origin for ChildMarker
-            pt.SupplementaryAddressMarker = null; //TODO: Find origin for SupplementaryAddressMarker
-            pt.MunicipalRelationMarker = null; //TODO: Find origin for MunicipalRelationMarker
-            pt.NationalMemoMarker = null; //TODO: Find origin for NationalMemoMarker
-            pt.FormerPersonalMarker = null; //TODO: Find origin for FormerPersonalMarker
-            pt.PaternityAuthorityName = null; //TODO: Find origin for PaternityAuthorityName
-            pt.MaritalAuthorityName = null; //TODO: Find origin for MaritalAuthorityName
+            pt.ChildMarker = null; //TODO: Find origin for ChildMarker - DPR SPECIFIC
+            pt.SupplementaryAddressMarker = null; //TODO: Find origin for SupplementaryAddressMarker - DPR SPECIFIC
+            pt.MunicipalRelationMarker = null; //TODO: Find origin for MunicipalRelationMarker - DPR SPECIFIC
+            pt.NationalMemoMarker = null; //TODO: Find origin for NationalMemoMarker - DPR SPECIFIC
+            pt.FormerPersonalMarker = null; //TODO: Find origin for FormerPersonalMarker - DPR SPECIFIC
+            pt.PaternityAuthorityName = null; //TODO: Find origin for PaternityAuthorityName - DPR SPECIFIC
+            pt.MaritalAuthorityName = null; //TODO: Find origin for MaritalAuthorityName - DPR SPECIFIC
             pt.BirthPlaceOfRegistration = resp.BirthRegistrationInformation.AdditionalBirthRegistrationText; //TODO: validate that this is correct
             pt.Occupation = resp.PersonInformation.Job;
             pt.CareOfName = resp.CurrentAddressInformation.CareOfName;
             pt.CityName = resp.ClearWrittenAddress.CityName;
-            pt.NationalityRight = null; //TODO: Find origin for NationalityRight
-            pt.PreviousAddress = null; //TODO: Find origin for PreviousAddress
-            pt.PreviousMunicipalityName = null; //TODO: Find origin for PreviousMunicipalityName
-            pt.SearchName = null; //TODO: Find origin for SearchName
+            pt.NationalityRight = null; //TODO: Find origin for NationalityRight - DPR SPECIFIC
+            pt.PreviousAddress = null; //TODO: Find origin for PreviousAddress - DPR SPECIFIC
+            pt.PreviousMunicipalityName = null; //TODO: Find origin for PreviousMunicipalityName - DPR SPECIFIC
+            pt.SearchName = null; //TODO: Find origin for SearchName - DPR SPECIFIC
+            pt.SearchSurname = null; //TODO: Find origin for SearchSurname - DPR SPECIFIC
             pt.AddressingName = resp.ClearWrittenAddress.AddressingName;
-            pt.StandardAddress = null; //TODO: Find origin for StandardAddress
+            pt.StandardAddress = null; //TODO: Find origin for StandardAddress - DPR SPECIFIC
             pt.Location = resp.ClearWrittenAddress.Location;
-            pt.ContactAddressMarker = null; //TODO: Find origin for ContactAddressMarker
+            pt.ContactAddressMarker = null; //TODO: Find origin for ContactAddressMarker - DPR SPECIFIC
             //return pt;
             throw new NotImplementedException();
         }
@@ -82,56 +83,56 @@ namespace CPRDirectToDPR
         {
             Person p = new Person();
             p.PNR = decimal.Parse(person.PersonInformation.PNR);
-            p.CprUpdateDate = CprBroker.Utilities.Dates.DateToDecimal(person.RegistrationDate, 12);
+            p.CprUpdateDate = null; //TODO: Find origin for CprUpdateDate - DPR SPECIFIC
             p.Birthdate = CprBroker.Utilities.Dates.DateToDecimal(person.PersonInformation.Birthdate.Value, 8);
             p.Gender = person.PersonInformation.Gender.ToString();
-            p.CustomerNumber = null; //TODO: Find origin for CustomerNumber
+            p.CustomerNumber = null; //TODO: Find origin for CustomerNumber - DPR SPECIFIC
             /*
              * Birth date related
              */
             p.BirthRegistrationAuthorityCode = decimal.Parse(person.BirthRegistrationInformation.BirthRegistrationAuthorityCode);
             p.BirthRegistrationDate = CprBroker.Utilities.Dates.DateToDecimal(person.BirthRegistrationInformation.Registration.RegistrationDate, 12);
-            p.BirthRegistrationPlaceUpdateDate = 0; //TODO: Find origin for BirthRegistrationPlaceUpdateDate
-            p.BirthplaceTextUpdateDate = null; //TODO: Find origin for BirthplaceTextUpdateDate
+            p.BirthRegistrationPlaceUpdateDate = 0; //TODO: Find origin for BirthRegistrationPlaceUpdateDate - SHOULD BE IN CPR...
+            p.BirthplaceTextUpdateDate = null; //TODO: Find origin for BirthplaceTextUpdateDate - SHOULD BE IN CPR...
             p.BirthplaceText = person.BirthRegistrationInformation.AdditionalBirthRegistrationText; //TODO: validate that this is correct
             /*
              * Religious related
              */
             p.ChristianMark = person.ChurchInformation.ChurchRelationship.ToString();
             p.ChurchRelationUpdateDate = CprBroker.Utilities.Dates.DateToDecimal(person.ChurchInformation.Registration.RegistrationDate, 12);
-            p.ChurchAuthorityCode = 0; //TODO: Find origin for ChurchAuthorityCode
+            p.ChurchAuthorityCode = 0; //TODO: Find origin for ChurchAuthorityCode -SHOULD BE IN CPR...
             p.ChurchDate = CprBroker.Utilities.Dates.DateToDecimal(person.ChurchInformation.StartDate.Value, 8);
             /*
              * Guardianship related
              */
-            p.UnderGuardianshipAuthprityCode = 0; //TODO: Find origin for UnderGuardianshipAuthprityCode
-            p.GuardianshipUpdateDate = CprBroker.Utilities.Dates.DateToDecimal(person.Disempowerment.Registration.RegistrationDate, 12);
+            p.UnderGuardianshipAuthprityCode = 0; //TODO: Find origin for UnderGuardianshipAuthprityCode - SHOULD BE IN CPR...
+            p.GuardianshipUpdateDate = null; //TODO: Find origin for GuardianshipUpdateDate - DPR SPECIFIC
             p.UnderGuardianshipDate = CprBroker.Utilities.Dates.DateToDecimal(person.Disempowerment.DisempowermentStartDate.Value, 8);
             /*
              * PNR related
              */
-            p.PnrMarkingDate = null; //TODO: Find origin for PnrMarkingDate
-            p.PnrDate = 0; //TODO: Find origin for PnrDate
-            p.CurrentPnrUpdateDate = null; //TODO: Find origin for CurrentPnrUpdateDate
+            p.PnrMarkingDate = null; //TODO: Find origin for PnrMarkingDate - SHOULD BE IN CPR...
+            p.PnrDate = 0; //TODO: Find origin for PnrDate - SHOULD BE IN CPR...
+            p.CurrentPnrUpdateDate = null; //TODO: Find origin for CurrentPnrUpdateDate - DPR SPECIFIC
             p.CurrentPnr = decimal.Parse(person.PersonInformation.CurrentCprNumber);
-            p.PnrDeletionDate = null; //TODO: Find origin for PnrDeletionDate
+            p.PnrDeletionDate = null; //TODO: Find origin for PnrDeletionDate - SHOULD BE IN CPR...
             /*
              * Position related
              */
-            p.JobDate = null; //TODO: Find origin for JobDate
+            p.JobDate = null; //TODO: Find origin for JobDate - SHOULD BE IN CPR...
             p.Job = person.PersonInformation.Job;
             /*
              * Relations related
              */
-            p.KinshipUpdateDate = 0; //TODO: Find origin for KinshipUpdateDate
+            p.KinshipUpdateDate = 0; //TODO: Find origin for KinshipUpdateDate - DPR SPECIFIC
             p.MotherPnr = decimal.Parse(person.ParentsInformation.MotherPNR);
             p.MotherBirthdate = CprBroker.Utilities.Dates.DateToDecimal(person.ParentsInformation.MotherBirthDate.Value, 8);
-            p.MotherDocumentation = null; //TODO: Find origin for MotherDocumentation
+            p.MotherDocumentation = null; //TODO: Find origin for MotherDocumentation - SHOULD BE IN CPR...
             p.FatherPnr = decimal.Parse(person.ParentsInformation.FatherPNR);
             p.FatherBirthdate = CprBroker.Utilities.Dates.DateToDecimal(person.ParentsInformation.FatherBirthDate.Value, 8);
-            p.FatherDocumentation = null; //TODO: Find origin for FatherDocumentation
-            p.PaternityDate = null; //TODO: Find origin for PaternityDate
-            p.PaternityAuthorityCode = null; //TODO: Find origin for PaternityAuthorityCode
+            p.FatherDocumentation = null; //TODO: Find origin for FatherDocumentation - SHOULD BE IN CPR...
+            p.PaternityDate = null; //TODO: Find origin for PaternityDate - SHOULD BE IN CPR...
+            p.PaternityAuthorityCode = null; //TODO: Find origin for PaternityAuthorityCode - SHOULD BE IN CPR...
             p.MotherName = person.ParentsInformation.MotherName;
             p.FatherName = person.ParentsInformation.FatherName;
             p.UnderGuardianshipDeleteDate = person.Disempowerment.DisempowermentEndDate.Value;
@@ -143,9 +144,9 @@ namespace CPRDirectToDPR
         public static Child ToDpr(this ChildType child)
         {
             Child ch = new Child();
-            ch.ChildPNR = Decimal.Parse(child.ChildPNR);
             ch.ParentPNR = Decimal.Parse(child.PNR);
-            //ch.MotherOrFatherDocumentation = TODO: find origin for childrens mother or father documentation.
+            ch.ChildPNR = null; //TODO: find origin for ChildPNR - DPR SPECIFIC
+            ch.MotherOrFatherDocumentation = null; //TODO: find origin for MotherOrFatherDocumentation - DPR SPECIFIC
             //return ch;
             throw new NotImplementedException();
         }
@@ -154,25 +155,24 @@ namespace CPRDirectToDPR
         {
             PersonName pn = new PersonName();
             pn.PNR = Decimal.Parse(currentName.PNR);
-            //TODO: Figure out where the 'CprUpdateDate' originates.
-            pn.CprUpdateDate = CprBroker.Utilities.Dates.DateToDecimal(currentName.Registration.RegistrationDate, 12);
-            pn.NameAuthorityCode = null; //TODO: Find origin for NameAuthorityCode
-            pn.Status = null; //TODO: Find origin for Status
-            pn.StatusDate = null; //TODO: Find origin for StatusDate
+            pn.CprUpdateDate = 0; //TODO: Find origin for CprUpdateDate - DPR SPECIFIC
+            pn.NameAuthorityCode = null; //TODO: Find origin for NameAuthorityCode - SHOULD BE IN CPR...
+            pn.Status = null; //TODO: Find origin for Status - SHOULD BE IN CPR...
+            pn.StatusDate = null; //TODO: Find origin for StatusDate - SHOULD BE IN CPR...
             pn.FirstNameMarker = currentName.FirstNameMarker;
             pn.SurnameMarker = currentName.LastNameMarker;
             pn.NameStartDate = CprBroker.Utilities.Dates.DateToDecimal(currentName.NameStartDate.Value ,12);
-            pn.NameTerminationDate = null; //TODO: Find origin for NameTerminationDate
-            pn.AddressingNameDate = null; //TODO: Find origin for AddressingNameDate
-            pn.CorrectionMarker = null; //TODO: Find origin for CorrectionMarker
-            pn.AddressingNameReportingMarker = null; //TODO: Find origin for AddressingNameReportingMarker
-            pn.AuthorityTextUpdateDate = null; //TODO: Find origin for AuthorityTextUpdateDate
-            pn.SearchNameDate = null; //TODO: Find origin for SearchNameDate
+            pn.NameTerminationDate = null; //TODO: Find origin for NameTerminationDate - SHOULD BE IN CPR...
+            pn.AddressingNameDate = null; //TODO: Find origin for AddressingNameDate - SHOULD BE IN CPR...
+            pn.CorrectionMarker = null; //TODO: Find origin for CorrectionMarker - SHOULD BE IN CPR...
+            pn.AddressingNameReportingMarker = null; //TODO: Find origin for AddressingNameReportingMarker - SHOULD BE IN CPR...
+            pn.AuthorityTextUpdateDate = null; //TODO: Find origin for AuthorityTextUpdateDate - DPR SPECIFIC
+            pn.SearchNameDate = 0; //Said to be always 0
             pn.FirstName = currentName.FirstName_s;
             pn.LastName = currentName.LastName;
             pn.AddressingName = currentName.AddressingName;
-            pn.SearchName = null; //TODO: Find origin for SearchName
-            pn.NameAuthorityText = null; //TODO: Find origin for NameAuthorityText
+            pn.SearchName = ""; //Said to be always blank
+            pn.NameAuthorityText = null; //TODO: Find origin for NameAuthorityText - SHOULD BE IN CPR...
             //return pn;
             throw new NotImplementedException();
         }
@@ -181,25 +181,24 @@ namespace CPRDirectToDPR
         {
             PersonName pn = new PersonName();
             pn.PNR = Decimal.Parse(historicalName.PNR);
-            //TODO: Figure out where the 'CprUpdateDate' originates.
-            pn.CprUpdateDate = CprBroker.Utilities.Dates.DateToDecimal(historicalName.Registration.RegistrationDate, 12);
-            pn.NameAuthorityCode = null; //TODO: Find origin for NameAuthorityCode
-            pn.Status = null; //TODO: Find origin for Status
-            pn.StatusDate = null; //TODO: Find origin for StatusDate
+            pn.CprUpdateDate = 0; //TODO: Find origin for CprUpdateDate - DPR SPECIFIC
+            pn.NameAuthorityCode = null; //TODO: Find origin for NameAuthorityCode - SHOULD BE IN CPR...
+            pn.Status = null; //TODO: Find origin for Status - SHOULD BE IN CPR...
+            pn.StatusDate = null; //TODO: Find origin for StatusDate - SHOULD BE IN CPR...
             pn.FirstNameMarker = historicalName.FirstNameMarker;
             pn.SurnameMarker = historicalName.LastNameMarker;
             pn.NameStartDate = CprBroker.Utilities.Dates.DateToDecimal(historicalName.NameStartDate.Value, 12);
             pn.NameTerminationDate = CprBroker.Utilities.Dates.DateToDecimal(historicalName.NameEndDate.Value, 12);
-            pn.AddressingNameDate = null; //TODO: Find origin for AddressingNameDate
-            pn.CorrectionMarker = null; //TODO: Find origin for CorrectionMarker
-            pn.AddressingNameReportingMarker = null; //TODO: Find origin for AddressingNameReportingMarker
-            pn.AuthorityTextUpdateDate = null; //TODO: Find origin for AuthorityTextUpdateDate
-            pn.SearchNameDate = null; //TODO: Find origin for SearchNameDate
+            pn.AddressingNameDate = null; //TODO: Find origin for AddressingNameDate - SHOULD BE IN CPR...
+            pn.CorrectionMarker = null; //TODO: Find origin for CorrectionMarker - SHOULD BE IN CPR...
+            pn.AddressingNameReportingMarker = null; //TODO: Find origin for AddressingNameReportingMarker - SHOULD BE IN CPR...
+            pn.AuthorityTextUpdateDate = null; //TODO: Find origin for AuthorityTextUpdateDate - DPR SPECIFIC
+            pn.SearchNameDate = 0; //Said to be always 0
             pn.FirstName = historicalName.FirstName_s;
             pn.LastName = historicalName.LastName;
-            pn.AddressingName = null; //TODO: Find origin for AddressingName
-            pn.SearchName = null; //TODO: Find origin for SearchName
-            pn.NameAuthorityText = null; //TODO: Find origin for NameAuthorityText
+            pn.AddressingName = null; //TODO: Find origin for AddressingName - SHOULD BE IN CPR...
+            pn.SearchName = ""; //Said to be always blank
+            pn.NameAuthorityText = null; //TODO: Find origin for NameAuthorityText - SHOULD BE IN CPR...
             //return pn;
             throw new NotImplementedException();
         }
@@ -208,17 +207,17 @@ namespace CPRDirectToDPR
         {
             CivilStatus cs = new CivilStatus();
             cs.PNR = Decimal.Parse(currentCivilStatus.PNR);
-            cs.UpdateDateOfCpr = CprBroker.Utilities.Dates.DateToDecimal(currentCivilStatus.Registration.RegistrationDate, 12);
+            cs.UpdateDateOfCpr = 0; //TODO: Find origin for UpdateDateOfCpr - DPR SPECIFIC
             cs.MaritalStatus = currentCivilStatus.CivilStatusCode;
-            cs.MaritalStatusAuthorityCode = null; //TODO: Find origin for MaritalStatusAuthorityCode
+            cs.MaritalStatusAuthorityCode = null; //TODO: Find origin for MaritalStatusAuthorityCode - SHOULD BE IN CPR...
             cs.SpousePNR = Decimal.Parse(currentCivilStatus.SpousePNR);
             cs.SpouseBirthdate = CprBroker.Utilities.Dates.DateToDecimal(currentCivilStatus.SpouseBirthDate.Value, 8);
-            cs.SpouseDocumentation = null; //TODO: Find origin for SpouseDocumentation
+            cs.SpouseDocumentation = null; //TODO: Find origin for SpouseDocumentation - SHOULD BE IN CPR...
             cs.MaritalStatusDate = CprBroker.Utilities.Dates.DateToDecimal(currentCivilStatus.CivilStatusStartDate.Value, 12);
             cs.MaritalEndDate = null; //This is the current status
-            cs.CorrectionMarker = null; //TODO: Find origin for CorrectionMarker
-            cs.AuthorityTextUpdateDate = null; //TODO: Find origin for AuthorityTextUpdateDate
-            cs.MaritalStatusAuthorityText = null; //TODO: Find origin for MaritalStatusAuthorityText
+            cs.CorrectionMarker = null; //TODO: Find origin for CorrectionMarker - SHOULD BE IN CPR...
+            cs.AuthorityTextUpdateDate = null; //TODO: Find origin for AuthorityTextUpdateDate - DPR SPECIFIC
+            cs.MaritalStatusAuthorityText = null; //TODO: Find origin for MaritalStatusAuthorityText - SHOULD BE IN CPR...
             cs.SpouseName = currentCivilStatus.SpouseName;
             cs.SeparationReferralTimestamp = currentCivilStatus.ReferenceToAnySeparation.Value.ToString();
             //return cs;
@@ -231,15 +230,15 @@ namespace CPRDirectToDPR
             cs.PNR = Decimal.Parse(historicalCivilStatus.PNR);
             cs.UpdateDateOfCpr = CprBroker.Utilities.Dates.DateToDecimal(historicalCivilStatus.Registration.RegistrationDate, 12);
             cs.MaritalStatus = historicalCivilStatus.CivilStatusCode;
-            cs.MaritalStatusAuthorityCode = null; //TODO: Find origin for MaritalStatusAuthorityText
+            cs.MaritalStatusAuthorityCode = null; //TODO: Find origin for MaritalStatusAuthorityText - SHOULD BE IN CPR...
             cs.SpousePNR = Decimal.Parse(historicalCivilStatus.SpousePNR);
             cs.SpouseBirthdate = CprBroker.Utilities.Dates.DateToDecimal(historicalCivilStatus.SpouseBirthdate.Value, 8);
-            cs.SpouseDocumentation = null; //TODO: Find origin for SpouseDocumentation
+            cs.SpouseDocumentation = null; //TODO: Find origin for SpouseDocumentation - SHOULD BE IN CPR...
             cs.MaritalStatusDate = CprBroker.Utilities.Dates.DateToDecimal(historicalCivilStatus.CivilStatusStartDate.Value, 12);
             cs.MaritalEndDate = CprBroker.Utilities.Dates.DateToDecimal(historicalCivilStatus.CivilStatusEndDate.Value, 12);
-            cs.CorrectionMarker = null; //TODO: Find origin for CorrectionMarker
-            cs.AuthorityTextUpdateDate = null; //TODO: Find origin for AuthorityTextUpdateDate
-            cs.MaritalStatusAuthorityText = null; //TODO: Find origin for MaritalStatusAuthorityText
+            cs.CorrectionMarker = null; //TODO: Find origin for CorrectionMarker - SHOULD BE IN CPR...
+            cs.AuthorityTextUpdateDate = null; //TODO: Find origin for AuthorityTextUpdateDate - DPR SPECIFIC
+            cs.MaritalStatusAuthorityText = null; //TODO: Find origin for MaritalStatusAuthorityText - SHOULD BE IN CPR...
             cs.SpouseName = historicalCivilStatus.SpouseName;
             cs.SeparationReferralTimestamp = historicalCivilStatus.ReferenceToAnySeparation.Value.ToString();
             //return cs;
@@ -250,11 +249,10 @@ namespace CPRDirectToDPR
         {
             Separation s = new Separation();
             s.PNR = Decimal.Parse(currentSeparation.PNR);
-            //TODO: Figure out where the 'CprUpdateDate' originates.
-            s.CprUpdateDate = CprBroker.Utilities.Dates.DateToDecimal(currentSeparation.Registration.RegistrationDate, 12);
+            s.CprUpdateDate = 0; //TODO: Find origin for UpdateDateOfCpr - DPR SPECIFIC
             s.SeparationReferalTimestamp = currentSeparation.ReferenceToAnyMaritalStatus.Value.ToString();
-            s.CorrectionMarker = null; //TODO: Find origin for CorrectionMarker
-            s.StartAuthorityCode = 0; //TODO: Find origin for StartAuthorityCode
+            s.CorrectionMarker = null; //TODO: Find origin for CorrectionMarker - SHOULD BE IN CPR...
+            s.StartAuthorityCode = 0; //TODO: Find origin for StartAuthorityCode - SHOULD BE IN CPR...
             s.StartDate = currentSeparation.SeparationStartDate.Value;
             s.StartDateMarker = currentSeparation.SeparationStartDateUncertainty;
             s.EndAuthorityCode = null; //This is the current separation
@@ -268,14 +266,13 @@ namespace CPRDirectToDPR
         {
             Separation s = new Separation();
             s.PNR = Decimal.Parse(historicalSeparation.PNR);
-            //TODO: Figure out where the 'CprUpdateDate' originates.
-            s.CprUpdateDate = CprBroker.Utilities.Dates.DateToDecimal(historicalSeparation.Registration.RegistrationDate, 12);
+            s.CprUpdateDate = 0; //TODO: Find origin for UpdateDateOfCpr - DPR SPECIFIC
             s.SeparationReferalTimestamp = historicalSeparation.ReferenceToAnyMaritalStatus.Value.ToString();
-            s.CorrectionMarker = null; //TODO: Find origin for CorrectionMarker
-            s.StartAuthorityCode = 0; //TODO: Find origin for StartAuthorityCode
+            s.CorrectionMarker = null; //TODO: Find origin for CorrectionMarker - SHOULD BE IN CPR...
+            s.StartAuthorityCode = 0; //TODO: Find origin for StartAuthorityCode - SHOULD BE IN CPR...
             s.StartDate = historicalSeparation.SeparationStartDate.Value;
             s.StartDateMarker = historicalSeparation.SeparationStartDateUncertainty;
-            s.EndAuthorityCode = 0; //TODO: Find origin for EndAuthorityCode
+            s.EndAuthorityCode = 0; //TODO: Find origin for EndAuthorityCode - SHOULD BE IN CPR...
             s.EndDate = historicalSeparation.SeparationEndDate.Value;
             s.EndDateMarker = historicalSeparation.SeparationEndDateUncertainty;
             //return s;
@@ -286,12 +283,11 @@ namespace CPRDirectToDPR
         {
             Nationality n = new Nationality();
             n.PNR = Decimal.Parse(currentCitizenship.PNR);
-            //TODO: Figure out where the 'CprUpdateDate' originates.
-            n.CprUpdateDate = CprBroker.Utilities.Dates.DateToDecimal(currentCitizenship.Registration.RegistrationDate, 12);
+            n.CprUpdateDate = 0; //TODO: Find origin for UpdateDateOfCpr - DPR SPECIFIC
             n.CountryCode = currentCitizenship.CountryCode;
             n.NationalityStartDate = CprBroker.Utilities.Dates.DateToDecimal(currentCitizenship.CitizenshipStartDate.Value, 12);
             n.NationalityEndDate = null; // This is the current nationality
-            n.CorrectionMarker = null; //TODO: Find origin for CorrectionMarker
+            n.CorrectionMarker = null; //TODO: Find origin for CorrectionMarker - SHOULD BE IN CPR...
             //return n;
             throw new NotImplementedException();
         }
@@ -300,12 +296,11 @@ namespace CPRDirectToDPR
         {
             Nationality n = new Nationality();
             n.PNR = Decimal.Parse(historicalCitizenship.PNR);
-            //TODO: Figure out where the 'CprUpdateDate' originates.
-            n.CprUpdateDate = CprBroker.Utilities.Dates.DateToDecimal(historicalCitizenship.Registration.RegistrationDate, 12);
+            n.CprUpdateDate = 0; //TODO: Find origin for UpdateDateOfCpr - DPR SPECIFIC
             n.CountryCode = historicalCitizenship.CountryCode;
             n.NationalityStartDate = CprBroker.Utilities.Dates.DateToDecimal(historicalCitizenship.CitizenshipStartDate.Value, 12);
             n.NationalityEndDate = CprBroker.Utilities.Dates.DateToDecimal(historicalCitizenship.CitizenshipEndDate.Value, 12);
-            n.CorrectionMarker = null; //TODO: Find origin for CorrectionMarker
+            n.CorrectionMarker = null; //TODO: Find origin for CorrectionMarker - SHOULD BE IN CPR...
             //return n;
             throw new NotImplementedException();
         }
@@ -314,17 +309,16 @@ namespace CPRDirectToDPR
         {
             Departure d = new Departure();
             d.PNR = Decimal.Parse(currentDeparture.PNR);
-            //TODO: Figure out where the 'CprUpdateDate' originates.
-            d.CprUpdateDate = CprBroker.Utilities.Dates.DateToDecimal(currentDeparture.Registration.RegistrationDate, 12);
+            d.CprUpdateDate = 0; //TODO: Find origin for UpdateDateOfCpr - DPR SPECIFIC
             d.ExitCountryCode = currentDeparture.ExitCountryCode;
             d.ExitDate = CprBroker.Utilities.Dates.DateToDecimal(currentDeparture.ExitDate.Value, 12);
-            d.ExitUpdateDate = null; //TODO: Find origin for ExitUpdateDate
-            d.ForeignAddressDate = null; //TODO: Find origin for ForeignAddressDate
-            d.VotingDate = null; //TODO: Find origin for VotingDate
-            d.EntryCountryCode = null; //TODO: Find origin for EntryCountryCode
+            d.ExitUpdateDate = null; //TODO: Find origin for ExitUpdateDate - DPR SPECIFIC
+            d.ForeignAddressDate = null; //TODO: Find origin for ForeignAddressDate - SHOULD BE IN CPR...
+            d.VotingDate = null; //TODO: Find origin for VotingDate - SHOULD BE IN CPR...
+            d.EntryCountryCode = null; //TODO: Find origin for EntryCountryCode - SHOULD BE IN CPR...
             d.EntryDate = null; // This is the current departure
-            d.EntryUpdateDate = null; //TODO: Find origin for EntryUpdateDate
-            d.CorrectionMarker = null; //TODO: Find origin for CorrectionMarker
+            d.EntryUpdateDate = null; //TODO: Find origin for EntryUpdateDate - DPR SPECIFIC
+            d.CorrectionMarker = null; //TODO: Find origin for CorrectionMarker - SHOULD BE IN CPR...
             d.ForeignAddressLine1 = currentDeparture.ForeignAddress1;
             d.ForeignAddressLine2 = currentDeparture.ForeignAddress2;
             d.ForeignAddressLine3 = currentDeparture.ForeignAddress3;
@@ -338,17 +332,16 @@ namespace CPRDirectToDPR
         {
             Departure d = new Departure();
             d.PNR = Decimal.Parse(historicalDeparture.PNR);
-            //TODO: Figure out where the 'CprUpdateDate' originates.
-            d.CprUpdateDate = CprBroker.Utilities.Dates.DateToDecimal(historicalDeparture.Registration.RegistrationDate, 12);
+            d.CprUpdateDate = 0; //TODO: Find origin for UpdateDateOfCpr - DPR SPECIFIC
             d.ExitCountryCode = historicalDeparture.ExitCountryCode;
             d.ExitDate = CprBroker.Utilities.Dates.DateToDecimal(historicalDeparture.ExitDate.Value, 12);
-            d.ExitUpdateDate = null; //TODO: Find origin for ExitUpdateDate
-            d.ForeignAddressDate = null; //TODO: Find origin for ForeignAddressDate
-            d.VotingDate = null; //TODO: Find origin for VotingDate
+            d.ExitUpdateDate = null; //TODO: Find origin for ExitUpdateDate - DPR SPECIFIC
+            d.ForeignAddressDate = null; //TODO: Find origin for ForeignAddressDate - SHOULD BE IN CPR...
+            d.VotingDate = null; //TODO: Find origin for VotingDate - SHOULD BE IN CPR...
             d.EntryCountryCode = historicalDeparture.EntryCountryCode;
             d.EntryDate = CprBroker.Utilities.Dates.DateToDecimal(historicalDeparture.EntryDate.Value, 12);
-            d.EntryUpdateDate = null; //TODO: Find origin for EntryUpdateDate
-            d.CorrectionMarker = null; //TODO: Find origin for CorrectionMarker
+            d.EntryUpdateDate = null; //TODO: Find origin for EntryUpdateDate - DPR SPECIFIC
+            d.CorrectionMarker = null; //TODO: Find origin for CorrectionMarker - SHOULD BE IN CPR...
             d.ForeignAddressLine1 = historicalDeparture.ForeignAddress1;
             d.ForeignAddressLine2 = historicalDeparture.ForeignAddress2;
             d.ForeignAddressLine3 = historicalDeparture.ForeignAddress3;
@@ -362,9 +355,8 @@ namespace CPRDirectToDPR
         {
             ContactAddress ca = new ContactAddress();
             ca.PNR = Decimal.Parse(contactAddress.PNR);
-            //TODO: Figure out where the 'CprUpdateDate' originates.
-            ca.CprUpdateDate = CprBroker.Utilities.Dates.DateToDecimal(contactAddress.Registration.RegistrationDate, 12);
-            ca.MunicipalityCode = 0; //TODO: Find origin for MunicipalityCode
+            ca.CprUpdateDate = 0; //TODO: Find origin for UpdateDateOfCpr - DPR SPECIFIC
+            ca.MunicipalityCode = 0; //TODO: Find origin for MunicipalityCode - SHOULD BE IN CPR...
             ca.AddressDate = CprBroker.Utilities.Dates.DateToDecimal(contactAddress.StartDate.Value, 8);
             ca.ContactAddressLine1 = contactAddress.Line1;
             ca.ContactAddressLine2 = contactAddress.Line2;
@@ -379,19 +371,18 @@ namespace CPRDirectToDPR
         {
             PersonAddress pa = new PersonAddress();
             pa.PNR = Decimal.Parse(currentAddress.CurrentAddressInformation.PNR);
-            //TODO: Figure out where the 'CprUpdateDate' originates.
-            pa.CprUpdateDate = CprBroker.Utilities.Dates.DateToDecimal(currentAddress.CurrentAddressInformation.Registration.RegistrationDate, 12);
+            pa.CprUpdateDate = 0; //TODO: Find origin for UpdateDateOfCpr - DPR SPECIFIC
             pa.MunicipalityCode = currentAddress.CurrentAddressInformation.MunicipalityCode;
             pa.StreetCode = currentAddress.CurrentAddressInformation.StreetCode;
             pa.HouseNumber = currentAddress.CurrentAddressInformation.HouseNumber;
             pa.Floor = currentAddress.CurrentAddressInformation.Floor;
             pa.DoorNumber = currentAddress.CurrentAddressInformation.Door;
-            pa.GreenlandConstructionNumber = null; //TODO: Find origin for GreenlandConstructionNumber
-            pa.PostCode = 0; //TODO: Find origin for PostCode
-            pa.MunicipalityName = null; //TODO: Find origin for MunicipalityName
-            pa.StreetAddressingName = null; //TODO: Find origin for StreetAddressingName
+            pa.GreenlandConstructionNumber = null; //TODO: Find origin for GreenlandConstructionNumber - SHOULD BE IN CPR...
+            pa.PostCode = 0; //TODO: Find origin for PostCode - SHOULD BE IN CPR...
+            pa.MunicipalityName = null; //TODO: Find origin for MunicipalityName - SHOULD BE IN CPR...
+            pa.StreetAddressingName = null; //TODO: Find origin for StreetAddressingName - SHOULD BE IN CPR...
             pa.AddressStartDate = CprBroker.Utilities.Dates.DateToDecimal(currentAddress.CurrentAddressInformation.StartDate.Value, 8);
-            pa.AddressStartDateMarker = null; //TODO: Find origin for AddressStartDateMarker
+            pa.AddressStartDateMarker = null; //TODO: Find origin for AddressStartDateMarker - DPR SPECIFIC
             pa.AddressEndDate = CprBroker.Utilities.Dates.DateToDecimal(currentAddress.CurrentAddressInformation.EndDate.Value, 8);
             pa.LeavingFromMunicipalityCode = currentAddress.CurrentAddressInformation.LeavingMunicipalityCode;
             pa.LeavingFromMunicipalityDate = CprBroker.Utilities.Dates.DateToDecimal(currentAddress.CurrentAddressInformation.LeavingMunicipalityDepartureDate.Value, 12);
@@ -401,11 +392,11 @@ namespace CPRDirectToDPR
             pa.AlwaysNull3 = null;
             pa.AlwaysNull4 = null;
             pa.AlwaysNull5 = null;
-            pa.AdditionalAddressDate = null; //TODO: Find origin for AdditionalAddressDate
-            pa.CorrectionMarker = null; //TODO: Find origin for CorrectionMarker
+            pa.AdditionalAddressDate = null; //TODO: Find origin for AdditionalAddressDate - SHOULD BE IN CPR...
+            pa.CorrectionMarker = null; //TODO: Find origin for CorrectionMarker - SHOULD BE IN CPR...
             pa.CareOfName = currentAddress.CurrentAddressInformation.CareOfName;
-            pa.Town = null; //TODO: Find origin for Town
-            pa.Location = null; //TODO: Find origin for Location
+            pa.Town = null; //TODO: Find origin for Town - SHOULD BE IN CPR...
+            pa.Location = null; //TODO: Find origin for Location - SHOULD BE IN CPR...
             pa.AdditionalAddressLine1 = currentAddress.CurrentAddressInformation.SupplementaryAddress1;
             pa.AdditionalAddressLine2 = currentAddress.CurrentAddressInformation.SupplementaryAddress2;
             pa.AdditionalAddressLine3 = currentAddress.CurrentAddressInformation.SupplementaryAddress3;
@@ -419,38 +410,37 @@ namespace CPRDirectToDPR
         {
             PersonAddress pa = new PersonAddress();
             pa.PNR = Decimal.Parse(historicalAddress.PNR);
-            //TODO: Figure out where the 'CprUpdateDate' originates.
-            pa.CprUpdateDate = CprBroker.Utilities.Dates.DateToDecimal(historicalAddress.Registration.RegistrationDate, 12);
+            pa.CprUpdateDate = 0; //TODO: Find origin for UpdateDateOfCpr - DPR SPECIFIC
             pa.MunicipalityCode = historicalAddress.MunicipalityCode;
             pa.StreetCode = historicalAddress.StreetCode;
             pa.HouseNumber = historicalAddress.HouseNumber;
             pa.Floor = historicalAddress.Floor;
             pa.DoorNumber = historicalAddress.Door;
-            pa.GreenlandConstructionNumber = null; //TODO: Find origin for GreenlandConstructionNumber
-            pa.PostCode = 0; //TODO: Find origin for PostCode
-            pa.MunicipalityName = null; //TODO: Find origin for MunicipalityName
-            pa.StreetAddressingName = null; //TODO: Find origin for StreetAddressingName
+            pa.GreenlandConstructionNumber = null; //TODO: Find origin for GreenlandConstructionNumber - SHOULD BE IN CPR...
+            pa.PostCode = 0; //TODO: Find origin for PostCode - SHOULD BE IN CPR...
+            pa.MunicipalityName = null; //TODO: Find origin for MunicipalityName - SHOULD BE IN CPR...
+            pa.StreetAddressingName = null; //TODO: Find origin for StreetAddressingName - SHOULD BE IN CPR...
             pa.AddressStartDate = CprBroker.Utilities.Dates.DateToDecimal(historicalAddress.RelocationDate.Value, 8);
             pa.AddressStartDateMarker = historicalAddress.RelocationDateUncertainty;
             pa.AddressEndDate = CprBroker.Utilities.Dates.DateToDecimal(historicalAddress.LeavingDate.Value, 8);
-            pa.LeavingFromMunicipalityCode = null; //TODO: Find origin for LeavingFromMunicipalityCode
-            pa.LeavingFromMunicipalityDate = null; //TODO: Find origin for LeavingFromMunicipalityDate
-            pa.MunicipalityArrivalDate = null; //TODO: Find origin for MunicipalityArrivalDate
+            pa.LeavingFromMunicipalityCode = null; //TODO: Find origin for LeavingFromMunicipalityCode - SHOULD BE IN CPR...
+            pa.LeavingFromMunicipalityDate = null; //TODO: Find origin for LeavingFromMunicipalityDate - SHOULD BE IN CPR...
+            pa.MunicipalityArrivalDate = null; //TODO: Find origin for MunicipalityArrivalDate - SHOULD BE IN CPR...
             pa.AlwaysNull1 = null;
             pa.AlwaysNull2 = null;
             pa.AlwaysNull3 = null;
             pa.AlwaysNull4 = null;
             pa.AlwaysNull5 = null;
-            pa.AdditionalAddressDate = null; //TODO: Find origin for AdditionalAddressDate
+            pa.AdditionalAddressDate = null; //TODO: Find origin for AdditionalAddressDate - SHOULD BE IN CPR...
             pa.CorrectionMarker = historicalAddress.CorrectionMarker;
             pa.CareOfName = historicalAddress.CareOfName;
-            pa.Town = null; //TODO: Find origin for Town
-            pa.Location = null; //TODO: Find origin for Location
-            pa.AdditionalAddressLine1 = null; //TODO: Find origin for AdditionalAddressLine1
-            pa.AdditionalAddressLine2 = null; //TODO: Find origin for AdditionalAddressLine2
-            pa.AdditionalAddressLine3 = null; //TODO: Find origin for AdditionalAddressLine3
-            pa.AdditionalAddressLine4 = null; //TODO: Find origin for AdditionalAddressLine4
-            pa.AdditionalAddressLine5 = null; //TODO: Find origin for AdditionalAddressLine5
+            pa.Town = null; //TODO: Find origin for Town - SHOULD BE IN CPR...
+            pa.Location = null; //TODO: Find origin for Location - SHOULD BE IN CPR...
+            pa.AdditionalAddressLine1 = null; //TODO: Find origin for AdditionalAddressLine1 - SHOULD BE IN CPR...
+            pa.AdditionalAddressLine2 = null; //TODO: Find origin for AdditionalAddressLine2 - SHOULD BE IN CPR...
+            pa.AdditionalAddressLine3 = null; //TODO: Find origin for AdditionalAddressLine3 - SHOULD BE IN CPR...
+            pa.AdditionalAddressLine4 = null; //TODO: Find origin for AdditionalAddressLine4 - SHOULD BE IN CPR...
+            pa.AdditionalAddressLine5 = null; //TODO: Find origin for AdditionalAddressLine5 - SHOULD BE IN CPR...
             //return pa;
             throw new NotImplementedException();
         }
@@ -460,11 +450,10 @@ namespace CPRDirectToDPR
             Protection p = new Protection();
             p.PNR = Decimal.Parse(protection.PNR);
             p.ProtectionType = protection.ProtectionType_;
-            //TODO: Figure out where the 'CprUpdateDate' originates.
-            p.CprUpdateDate = CprBroker.Utilities.Dates.DateToDecimal(protection.Registration.RegistrationDate, 12);
+            p.CprUpdateDate = 0; //TODO: Find origin for UpdateDateOfCpr - DPR SPECIFIC
             p.StartDate = protection.StartDate.Value;
             p.EndDate = protection.EndDate;
-            p.ReportingMarker = null; //TODO: Find origin for ReportingMarker
+            p.ReportingMarker = null; //TODO: Find origin for ReportingMarker - SHOULD BE IN CPR...
             throw new NotImplementedException();
         }
 
@@ -472,11 +461,10 @@ namespace CPRDirectToDPR
         {
             Disappearance d = new Disappearance();
             d.PNR = decimal.Parse(disappearance.PNR);
-            //TODO: Figure out where the 'CprUpdateDate' originates.
-            d.CprUpdateDate = CprBroker.Utilities.Dates.DateToDecimal(disappearance.Registration.RegistrationDate, 12);
+            d.CprUpdateDate = 0; //TODO: Find origin for UpdateDateOfCpr - DPR SPECIFIC
             d.DisappearanceDate = CprBroker.Utilities.Dates.DateToDecimal(disappearance.DisappearanceDate.Value, 12);
             d.RetrievalDate = null; // It is the current disappearance
-            d.CorrectionMarker = null; //TODO: Find origin for CorrectionMarker
+            d.CorrectionMarker = null; // It is the current disappearance
             //return d;
             throw new NotImplementedException();
         }
@@ -485,8 +473,7 @@ namespace CPRDirectToDPR
         {
             Disappearance d = new Disappearance();
             d.PNR = decimal.Parse(disappearance.PNR);
-            //TODO: Figure out where the 'CprUpdateDate' originates.
-            d.CprUpdateDate = CprBroker.Utilities.Dates.DateToDecimal(disappearance.Registration.RegistrationDate, 12);
+            d.CprUpdateDate = 0; //TODO: Find origin for UpdateDateOfCpr - DPR SPECIFIC
             d.DisappearanceDate = CprBroker.Utilities.Dates.DateToDecimal(disappearance.DisappearanceDate.Value, 12);
             d.RetrievalDate = CprBroker.Utilities.Dates.DateToDecimal(disappearance.RetrievalDate.Value, 12);
             d.CorrectionMarker = disappearance.CorrectionMarker.ToString();
@@ -498,8 +485,7 @@ namespace CPRDirectToDPR
         {
             Event e = new Event();
             e.PNR = decimal.Parse(events.PNR);
-            //TODO: Figure out where the 'CprUpdateDate' originates.
-            e.CprUpdateDate = CprBroker.Utilities.Dates.DateToDecimal(events.CprUpdateDate.Value, 12);
+            e.CprUpdateDate = 0; //TODO: Find origin for UpdateDateOfCpr - DPR SPECIFIC
             e.Event_ = events.Event_;
             e.AFLMRK = events.DerivedMark;
             //return e;
@@ -510,7 +496,7 @@ namespace CPRDirectToDPR
         {
             Note n = new Note();
             n.PNR = decimal.Parse(notes.PNR);
-            n.CprUpdateDate = CprBroker.Utilities.Dates.DateToDecimal(notes.Registration.RegistrationDate, 12);
+            n.CprUpdateDate = 0; //TODO: Find origin for UpdateDateOfCpr - DPR SPECIFIC
             n.NationalRegisterMemoDate = CprBroker.Utilities.Dates.DateToDecimal(notes.StartDate.Value, 8);
             n.DeletionDate = CprBroker.Utilities.Dates.DateToDecimal(notes.EndDate.Value, 8);
             n.NoteNumber = notes.NoteNumber;
@@ -524,10 +510,9 @@ namespace CPRDirectToDPR
         {
             MunicipalCondition m = new MunicipalCondition();
             m.PNR = decimal.Parse(condition.PNR);
-            //TODO: Figure out where the 'CprUpdateDate' originates.
-            m.CprUpdateDate = CprBroker.Utilities.Dates.DateToDecimal(condition.Registration.RegistrationDate, 12);
+            m.CprUpdateDate = 0; //TODO: Find origin for UpdateDateOfCpr - DPR SPECIFIC
             m.ConditionType = condition.MunicipalConditionType;
-            m.ConditionMarker = null; //TODO: Find origin for ConditionMarker
+            m.ConditionMarker = null; //TODO: Find origin for ConditionMarker - SHOULD BE IN CPR...
             m.ConditionDate = CprBroker.Utilities.Dates.DateToDecimal(condition.MunicipalConditionStartDate.Value, 8);
             m.ConditionComments = condition.MunicipalConditionComment;
             //return m;
@@ -539,9 +524,8 @@ namespace CPRDirectToDPR
             ParentalAuthority p = new ParentalAuthority();
             p.ChildPNR = decimal.Parse(auth.PNR);
             p.RelationType = auth.RelationshipType;
-            //TODO: Figure out where the 'CprUpdateDate' originates.
-            p.CprUpdateDate = CprBroker.Utilities.Dates.DateToDecimal(auth.Registration.RegistrationDate, 12);
-            p.ParentalAuthorityCode = 0; //TODO: Find origin for ParentalAuthorityCode
+            p.CprUpdateDate = 0; //TODO: Find origin for UpdateDateOfCpr - DPR SPECIFIC
+            p.ParentalAuthorityCode = 0; //TODO: Find origin for ParentalAuthorityCode - SHOULD BE IN CPR...
             p.StartDate = auth.CustodyStartDate.Value;
             p.StartDateUncertainty = auth.CustodyStartDateUncertainty;
             p.EndDate = auth.CustodyEndDate.Value;
@@ -555,11 +539,10 @@ namespace CPRDirectToDPR
             gapa.PNR = decimal.Parse(disempowerment.PNR);
             gapa.RelationPnr = decimal.Parse(disempowerment.RelationPNR);
             gapa.RelationType = disempowerment.GuardianRelationType;
-            //TODO: Figure out where the 'CprUpdateDate' originates.
-            gapa.CprUpdateDate = CprBroker.Utilities.Dates.DateToDecimal(disempowerment.Registration.RegistrationDate, 12);
+            gapa.CprUpdateDate = 0; //TODO: Find origin for UpdateDateOfCpr - DPR SPECIFIC
             gapa.StartDate = disempowerment.DisempowermentStartDate.Value;
             gapa.EndDate = disempowerment.DisempowermentEndDate.Value;
-            gapa.AuthorityCode = 0; //TODO: Find origin for AuthorityCode
+            gapa.AuthorityCode = 0; //TODO: Find origin for AuthorityCode - SHOULD BE IN CPR...
             //return gapa;
             throw new NotImplementedException();
         }
@@ -568,18 +551,17 @@ namespace CPRDirectToDPR
         {
             GuardianAddress ga = new GuardianAddress();
             ga.PNR = decimal.Parse(disempowerment.PNR);
-            ga.Address = null; //TODO: Find origin for Address
+            ga.Address = null; //TODO: Find origin for Address - SHOULD BE IN CPR...
             ga.RelationType = disempowerment.GuardianRelationType;
-            //TODO: Figure out where the 'CprUpdateDate' originates.
-            ga.CprUpdateDate = CprBroker.Utilities.Dates.DateToDecimal(disempowerment.Registration.RegistrationDate, 12);
+            ga.CprUpdateDate = 0; //TODO: Find origin for UpdateDateOfCpr - DPR SPECIFIC
             ga.AddressLine1 = disempowerment.RelationText1;
             ga.AddressLine2 = disempowerment.RelationText2;
             ga.AddressLine3 = disempowerment.RelationText3;
             ga.AddressLine4 = disempowerment.RelationText4;
             ga.AddressLine5 = disempowerment.RelationText5;
             ga.StartDate = disempowerment.GuardianAddressStartDate.Value;
-            ga.EndDate = null; //TODO: Find origin for EndDate
-            ga.AuthorityCode = 0; //TODO: Find origin for AuthorityCode
+            ga.EndDate = null; //TODO: Find origin for EndDate - SHOULD BE IN CPR...
+            ga.AuthorityCode = 0; //TODO: Find origin for AuthorityCode - SHOULD BE IN CPR...
             //return ga;
             throw new NotImplementedException();
         }
