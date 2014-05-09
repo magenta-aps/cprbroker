@@ -8,13 +8,13 @@
         <elementListCompartment Id="c900b4f2-94d0-4cd9-967d-b17650645b70" absoluteBounds="7.14, 2.585, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="7c7bee57-df44-4f35-9d51-3e840c3736f8" absoluteBounds="2.25, 2, 2, 1.7708968098958331">
+    <classShape Id="7c7bee57-df44-4f35-9d51-3e840c3736f8" absoluteBounds="2.25, 2, 2, 1.9631982421875">
       <DataClassMoniker Name="/QueueDataContext/Queue" />
       <nestedChildShapes>
-        <elementListCompartment Id="9ef536ce-19f4-4843-a1c0-f2fb0166d893" absoluteBounds="2.265, 2.46, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="9ef536ce-19f4-4843-a1c0-f2fb0166d893" absoluteBounds="2.265, 2.46, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(4.25 : 2.94794840494792); (7.125 : 2.94794840494792)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(4.25 : 2.94794840494792); (7.125 : 2.94794840494792)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/QueueDataContext/Queue/Queue_QueueItem" />
       <nodes>
         <classShapeMoniker Id="7c7bee57-df44-4f35-9d51-3e840c3736f8" />

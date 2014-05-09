@@ -1088,8 +1088,8 @@ namespace CprBroker.Providers.DPR
     partial void OnChristianMarkChanged();
     partial void OnBirthPlaceOfRegistrationChanging(string value);
     partial void OnBirthPlaceOfRegistrationChanged();
-    partial void OnPersonalSelectionDateChanging(System.Nullable<decimal> value);
-    partial void OnPersonalSelectionDateChanged();
+    partial void OnPnrMarkingDateChanging(System.Nullable<decimal> value);
+    partial void OnPnrMarkingDateChanged();
     partial void OnMotherPersonalOrBirthDateChanging(string value);
     partial void OnMotherPersonalOrBirthDateChanged();
     partial void OnMotherMarkerChanging(System.Nullable<char> value);
@@ -1142,8 +1142,8 @@ namespace CprBroker.Providers.DPR
     partial void OnCareOfNameChanged();
     partial void OnCityNameChanging(string value);
     partial void OnCityNameChanged();
-    partial void OnNationalityChanging(string value);
-    partial void OnNationalityChanged();
+    partial void OnNationalityRightChanging(string value);
+    partial void OnNationalityRightChanged();
     partial void OnPreviousAddressChanging(string value);
     partial void OnPreviousAddressChanged();
     partial void OnPreviousMunicipalityNameChanging(string value);
@@ -1576,7 +1576,7 @@ namespace CprBroker.Providers.DPR
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="PMHAENST", Storage="_PMHAENST", DbType="Decimal(13,0)")]
-		public System.Nullable<decimal> PersonalSelectionDate
+		public System.Nullable<decimal> PnrMarkingDate
 		{
 			get
 			{
@@ -1586,11 +1586,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._PMHAENST != value))
 				{
-					this.OnPersonalSelectionDateChanging(value);
+					this.OnPnrMarkingDateChanging(value);
 					this.SendPropertyChanging();
 					this._PMHAENST = value;
-					this.SendPropertyChanged("PersonalSelectionDate");
-					this.OnPersonalSelectionDateChanged();
+					this.SendPropertyChanged("PnrMarkingDate");
+					this.OnPnrMarkingDateChanged();
 				}
 			}
 		}
@@ -2116,7 +2116,7 @@ namespace CprBroker.Providers.DPR
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="STBORGER", Storage="_STBORGER", DbType="VarChar(20)")]
-		public string Nationality
+		public string NationalityRight
 		{
 			get
 			{
@@ -2126,11 +2126,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._STBORGER != value))
 				{
-					this.OnNationalityChanging(value);
+					this.OnNationalityRightChanging(value);
 					this.SendPropertyChanging();
 					this._STBORGER = value;
-					this.SendPropertyChanged("Nationality");
-					this.OnNationalityChanged();
+					this.SendPropertyChanged("NationalityRight");
+					this.OnNationalityRightChanged();
 				}
 			}
 		}
@@ -6036,7 +6036,7 @@ namespace CprBroker.Providers.DPR
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="STILDTO", Storage="_LocationDate", DbType="Decimal(13,0)")]
-		public System.Nullable<decimal> LocationDate
+		public System.Nullable<decimal> JobDate
 		{
 			get
 			{

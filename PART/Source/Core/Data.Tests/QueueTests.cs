@@ -54,7 +54,7 @@ namespace CprBroker.Tests.Data
             {
                 using (var dataContext = new QueueDataContext())
                 {
-                    var dbQueue = new Queue() { QueueId = Guid.NewGuid(), BatchSize = 10, MaxRetry = 1, Name = "shdklahsfdkh" };
+                    var dbQueue = new Queue() { QueueId = Guid.NewGuid(), BatchSize = 10, MaxRetry = 1, TypeName = "shdklahsfdkh" };
                     dataContext.Queues.InsertOnSubmit(dbQueue);
                     dataContext.SubmitChanges();
                     QueueId = dbQueue.QueueId;

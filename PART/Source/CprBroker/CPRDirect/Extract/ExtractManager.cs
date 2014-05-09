@@ -106,7 +106,7 @@ namespace CprBroker.Providers.CPRDirect
                         trans.Commit();
                     }
 
-                    var stagingQueue = new PersonStagingQueue();
+                    var stagingQueue = new BaseQueue();
                     stagingQueue.Enqueue(queueItems);
 
                     using (var dataContext = new ExtractDataContext())
@@ -199,7 +199,7 @@ namespace CprBroker.Providers.CPRDirect
                                     // TODO: (Extract) In case some records have been skipped in a previous import attempt, make sure that allPnrs contains their PNR's
                                     //conn.BulkInsertAll<ExtractPersonStaging>(extractResult.ToExtractPersonStagings(extract.ExtractId, allPnrs));
 
-                                    var stagingQueue = new PersonStagingQueue();
+                                    var stagingQueue = new BaseQueue();
                                     stagingQueue.Enqueue(extractResult.ToQueueItems(extract.ExtractId));
 
                                     // Update counts
@@ -219,8 +219,6 @@ namespace CprBroker.Providers.CPRDirect
                                 {
                                     Admin.LogFormattedSuccess("Batch already inserted, skipping");
                                 }
-
-                                
                                 transactionScope.Complete();
                             }
                         }

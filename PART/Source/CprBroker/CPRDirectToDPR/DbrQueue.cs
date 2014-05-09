@@ -9,7 +9,7 @@ using CprBroker.Providers.DPR;
 
 namespace CPRDirectToDPR
 {
-    public class DbrQueue : CprBroker.Data.Queues.Queue<CprDirectExtractQueueItem>
+    public class DbrQueue : CprBroker.Data.Queues.Queue<ExtractQueueItem>
     {
         public DbrQueue()
         { }
@@ -20,9 +20,9 @@ namespace CPRDirectToDPR
             set { this.Impl.EncryptedData = Encryption.EncryptObject(value); }
         }
 
-        public override CprDirectExtractQueueItem[] Process(CprDirectExtractQueueItem[] items)
+        public override ExtractQueueItem[] Process(ExtractQueueItem[] items)
         {
-            var ret = new List<CprDirectExtractQueueItem>();
+            var ret = new List<ExtractQueueItem>();
 
             using (var cprDataContext = new ExtractDataContext())
             {

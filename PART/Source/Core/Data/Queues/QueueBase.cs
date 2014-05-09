@@ -32,5 +32,18 @@ namespace CprBroker.Data.Queues
             }
         }
 
+        public static TQueue[] GetQueues<TQueue>(int typeId)
+            where TQueue : QueueBase, new()
+        {
+            using (var dataContext = new QueueDataContext())
+            {
+                return dataContext.Queues
+                    .Where(q => q.TypeId.HasValue && q.TypeId.Value == typeId)
+                    .ToArray()
+                    .Select(q => new TQueue() { Impl = q })
+                    .ToArray();
+            }
+        }
+
     }
 }

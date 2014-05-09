@@ -44,7 +44,7 @@
     </Reference>
     <Reference Include="CprBroker.Utilities, Version=2.2.2.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Core\Data\bin\Debug\CprBroker.Utilities.dll</HintPath>
+      <HintPath>..\..\Core\Output\CprBroker.Utilities.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

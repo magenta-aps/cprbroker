@@ -286,7 +286,9 @@ namespace CprBroker.Data.Queues
 		
 		private System.Guid _QueueId;
 		
-		private string _Name;
+		private System.Nullable<int> _TypeId;
+		
+		private string _TypeName;
 		
 		private int _BatchSize;
 		
@@ -302,6 +304,8 @@ namespace CprBroker.Data.Queues
     partial void OnCreated();
     partial void OnQueueIdChanging(System.Guid value);
     partial void OnQueueIdChanged();
+    partial void OnTypeIdChanging(System.Nullable<int> value);
+    partial void OnTypeIdChanged();
     partial void OnTypeNameChanging(string value);
     partial void OnTypeNameChanged();
     partial void OnBatchSizeChanging(int value);
@@ -338,20 +342,40 @@ namespace CprBroker.Data.Queues
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="VarChar(250) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TypeId", DbType="INT")]
+		public System.Nullable<int> TypeId
+		{
+			get
+			{
+				return this._TypeId;
+			}
+			set
+			{
+				if ((this._TypeId != value))
+				{
+					this.OnTypeIdChanging(value);
+					this.SendPropertyChanging();
+					this._TypeId = value;
+					this.SendPropertyChanged("TypeId");
+					this.OnTypeIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TypeName", DbType="VarChar(250) NOT NULL", CanBeNull=false)]
 		public string TypeName
 		{
 			get
 			{
-				return this._Name;
+				return this._TypeName;
 			}
 			set
 			{
-				if ((this._Name != value))
+				if ((this._TypeName != value))
 				{
 					this.OnTypeNameChanging(value);
 					this.SendPropertyChanging();
-					this._Name = value;
+					this._TypeName = value;
 					this.SendPropertyChanged("TypeName");
 					this.OnTypeNameChanged();
 				}
