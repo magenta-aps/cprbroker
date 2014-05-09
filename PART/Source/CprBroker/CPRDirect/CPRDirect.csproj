@@ -59,13 +59,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Extract\CprDirectExtractQueueItem.cs" />
-    <Compile Include="Extract\DbrQueue.cs" />
+    <Compile Include="Queues\ExtractQueueItem.cs" />
+    <Compile Include="Queues\DbrBaseQueue.cs" />
     <Compile Include="Extract\ExtractPersonStaging.cs" />
     <Compile Include="Extract\ExtrcatConversion.cs" />
     <Compile Include="Extract\PersonConversion.cs" />
-    <Compile Include="Extract\PersonExtractionQueue.cs" />
-    <Compile Include="Extract\PersonStagingQueue.cs" />
+    <Compile Include="Queues\PartConversionQueue.cs" />
+    <Compile Include="Queues\BaseQueue.cs" />
     <Compile Include="Interfaces\IParentalAuthority.cs" />
     <Compile Include="Interfaces\IProtection.cs" />
     <Compile Include="Interfaces\IRelationship.cs" />
@@ -216,6 +216,9 @@
       <Project>{DA42D8BB-24D3-4416-A0BD-B98857F249AD}</Project>
       <Name>PartInterface</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="NewFolder1\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
