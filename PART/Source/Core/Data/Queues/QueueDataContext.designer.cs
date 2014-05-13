@@ -294,7 +294,7 @@ namespace CprBroker.Data.Queues
 		
 		private int _MaxRetry;
 		
-		private System.Data.Linq.Binary _EncryptedData;
+		private System.Data.Linq.Binary _image;
 		
 		private EntitySet<QueueItem> _QueueItems;
 		
@@ -422,20 +422,20 @@ namespace CprBroker.Data.Queues
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="image", Storage="_EncryptedData", DbType="EncrtptedData")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_image", DbType="image")]
 		public System.Data.Linq.Binary EncryptedData
 		{
 			get
 			{
-				return this._EncryptedData;
+				return this._image;
 			}
 			set
 			{
-				if ((this._EncryptedData != value))
+				if ((this._image != value))
 				{
 					this.OnEncryptedDataChanging(value);
 					this.SendPropertyChanging();
-					this._EncryptedData = value;
+					this._image = value;
 					this.SendPropertyChanged("EncryptedData");
 					this.OnEncryptedDataChanged();
 				}

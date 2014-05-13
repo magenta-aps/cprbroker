@@ -104,6 +104,7 @@
     <Content Include="Pages\Controls\Pager.ascx" />
     <Content Include="Pages\Controls\PeriodSelector.ascx" />
     <Content Include="Pages\Budget.aspx" />
+    <Content Include="Pages\Dbr.aspx" />
     <Content Include="Pages\ExternalCalls.aspx" />
     <Content Include="web.config">
       <SubType>Designer</SubType>
@@ -156,6 +157,13 @@
     </Compile>
     <Compile Include="Pages\DataProviders.aspx.designer.cs">
       <DependentUpon>DataProviders.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Dbr.aspx.cs">
+      <DependentUpon>Dbr.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Dbr.aspx.designer.cs">
+      <DependentUpon>Dbr.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
@@ -224,6 +232,10 @@
     <Content Include="Pages\Site.Master" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CPRDirectToDPR\CPRDirectToDPR.csproj">
+      <Project>{F6E48545-473F-4133-90F7-B93A4612F50F}</Project>
+      <Name>CPRDirectToDPR</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CPRDirect\CPRDirect.csproj">
       <Project>{EDDB494D-782D-4D45-8599-633057B9B203}</Project>
       <Name>CPRDirect</Name>

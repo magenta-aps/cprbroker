@@ -50,6 +50,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Deployment.WindowsInstaller;
 using CprBroker.Utilities;
+using CprBroker.Data;
 using CprBroker.Data.DataProviders;
 using CprBroker.Installers;
 using CprBroker.Installers.EventBrokerInstallers;
@@ -99,12 +100,12 @@ namespace CprBrokerWixInstallers
 
                     foreach (var prov in providers)
                     {
-                        var adr = prov["Address"];
+                        var adr = prov.Get("Address");
                         if (!string.IsNullOrEmpty(adr))
                         {
                             if (!adr.EndsWith("/PersonMasterService12", StringComparison.InvariantCultureIgnoreCase))
                             {
-                                prov["Address"] += "/PersonMasterService12";
+                                prov.Set("Address", prov.Get("Address") + "/PersonMasterService12");
                             }
                         }
                     }

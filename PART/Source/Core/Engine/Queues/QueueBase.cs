@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using CprBroker.Data.Queues;
 
-namespace CprBroker.Data.Queues
+namespace CprBroker.Engine.Queues
 {
     public abstract class QueueBase
     {
-        public Queue Impl { get; internal set; }
+        public CprBroker.Data.Queues.Queue Impl { get; internal set; }
         public abstract void Run();
 
         public static QueueBase ToQueue(Queue impl)
@@ -16,6 +17,10 @@ namespace CprBroker.Data.Queues
             if (ret != null)
             {
                 ret.Impl = impl;
+                if (ret is IHasConfigurationProperties)
+                {
+                    (ret as IHasConfigurationProperties).FillFromEncryptedStorage(ret.Impl);
+                }
             }
             return ret;
         }
@@ -26,6 +31,7 @@ namespace CprBroker.Data.Queues
             using (var dataContext = new QueueDataContext())
             {
                 return dataContext.Queues
+                    .ToArray()
                     .Select(q => QueueBase.ToQueue(q) as TQueue)
                     .Where(q => q != null)
                     .ToArray();
@@ -43,6 +49,35 @@ namespace CprBroker.Data.Queues
                     .Select(q => new TQueue() { Impl = q })
                     .ToArray();
             }
+        }
+
+        public static TQueue AddQueue<TQueue>(int queueTypeId, int batchSize, int maxRetry, Action<TQueue> initializer)
+            where TQueue : QueueBase, new()
+        {
+            var ret = new TQueue();
+            ret.Impl = new Queue()
+            {
+                QueueId = Guid.NewGuid(),
+                BatchSize = batchSize,
+                MaxRetry = maxRetry,
+                TypeId = queueTypeId,
+                TypeName = typeof(TQueue).AssemblyQualifiedName,
+                
+                Attributes = new List<Schemas.AttributeType>()
+            };
+
+            if(initializer!=null)
+            {
+                initializer(ret);
+            }
+
+            using (var dataContext = new QueueDataContext())
+            {
+                dataContext.Queues.InsertOnSubmit(ret.Impl);
+                dataContext.SubmitChanges();
+            }
+
+            return ret;
         }
 
     }

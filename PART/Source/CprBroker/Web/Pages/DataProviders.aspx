@@ -31,7 +31,7 @@
             </asp:TemplateField>
             <asp:TemplateField HeaderText="Details">
                 <ItemTemplate>
-                    <asp:Repeater ID="DataList1" runat="server" DataSource='<%# GetAttributes(Container.DataItem) %>'>
+                    <asp:Repeater ID="DataList1" runat="server" DataSource='<%# (Container.DataItem as IHasConfigurationProperties).ToDisplayableProperties() %>'>
                         <ItemTemplate>
                             <b>
                                 <%# Eval("Name")%>:</b>
@@ -42,7 +42,7 @@
                     </asp:Repeater>
                 </ItemTemplate>
                 <EditItemTemplate>
-                    <asp:DataList ID="EditDataList" runat="server" DataSource='<%# GetAttributes(Container.DataItem) %>' RepeatColumns="3"
+                    <asp:DataList ID="EditDataList" runat="server" DataSource='<%# (Container.DataItem as IHasConfigurationProperties).ToDisplayableProperties() %>' RepeatColumns="3"
                         DataKeyField="Name" RepeatDirection="Horizontal">
                         <ItemTemplate>
                             <b>

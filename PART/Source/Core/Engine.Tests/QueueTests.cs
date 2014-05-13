@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using cprq = CprBroker.Data.Queues;
+using cprq = CprBroker.Engine.Queues;
+using CprBroker.Engine.Queues;
 using CprBroker.Data.Queues;
 
 using NUnit.Framework;

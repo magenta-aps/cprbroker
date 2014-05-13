@@ -5,7 +5,7 @@ using System.Text;
 using CprBroker.Providers.DPR;
 using CprBroker.Providers.CPRDirect;
 
-namespace CPRDirectToDPR
+namespace CprBroker.DBR
 {
     public static class CprConverterExtensions
     {

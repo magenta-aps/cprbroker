@@ -56,6 +56,7 @@ using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
+using CprBroker.Data;
 using CprBroker.Data.DataProviders;
 using CprBroker.Engine;
 using CprBroker.Schemas;
@@ -165,12 +166,12 @@ namespace CprBroker.Web.Pages
                         // Only update the password if something is entered to avoid erasing the password by mistake
                         if (!string.IsNullOrEmpty(smartTextBox.Text))
                         {
-                            dbProv[valuesDataList.DataKeys[item.ItemIndex].ToString()] = smartTextBox.Text;
+                            dbProv.Set(valuesDataList.DataKeys[item.ItemIndex].ToString(), smartTextBox.Text);
                         }
                     }
                     else
                     {
-                        dbProv[valuesDataList.DataKeys[item.ItemIndex].ToString()] = smartTextBox.Text;
+                        dbProv.Set(valuesDataList.DataKeys[item.ItemIndex].ToString(), smartTextBox.Text);
                     }
                 }
                 dataContext.SubmitChanges();
@@ -290,7 +291,7 @@ namespace CprBroker.Web.Pages
                         {
                             SmartTextBox smartTextBox = item.FindControl("SmartTextBox") as SmartTextBox;
                             string propName = newDataProviderGridView.DataKeys[item.RowIndex].Value.ToString();
-                            dbProv[propName] = smartTextBox.Text;
+                            dbProv.Set(propName, smartTextBox.Text);
                         }
 
                         dataContext.DataProviders.InsertOnSubmit(dbProv);
@@ -325,31 +326,6 @@ namespace CprBroker.Web.Pages
                 Master.AppendError(ex.Message);
             }
             return assebblyQualifiedName;
-        }
-
-        protected Array GetAttributes(object dbProvider)
-        {
-            // TODO: Include IPerCallData providers here
-
-            var dbProv = dbProvider as Data.DataProviders.DataProvider;
-            var paidProv = DataProviderManager.CreatePaidDataProvider(dbProv);
-
-            var prov = DataProviderManager.CreateDataProvider(dbProv);
-            var properties = dbProv.GetProperties();
-            var configKeys = prov.ToAllPropertyInfo();
-
-            return (from pInfo in configKeys
-                    join pp in properties
-                    on pInfo.Name equals pp.Name into joined
-                    from pVal in joined.DefaultIfEmpty()
-                    select new
-                    {
-                        Name = pInfo.Name,
-                        Value = (pVal == null || pInfo.Confidential) ? null : pVal.Value,
-                        Confidential = pInfo.Confidential,
-                        Required = pInfo.Required,
-                        Type = pInfo.Type
-                    }).ToArray();
         }
 
         protected DataProvider[] LoadDataProviders(DataProvidersDataContext dataContext)

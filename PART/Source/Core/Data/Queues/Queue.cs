@@ -2,11 +2,20 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using CprBroker.Schemas;
 
 namespace CprBroker.Data.Queues
 {
-    public partial class Queue
+    public partial class Queue : IHasEncryptedAttributes
     {
+        public System.Security.Cryptography.RijndaelManaged EncryptionAlgorithm { get; set; }
+        public List<AttributeType> Attributes { get; set; }
+
+        partial void OnLoaded()
+        {
+            this.PreLoadAttributes();
+        }
+
         public static Queue GetById(Guid queueId)
         {
             using (var dataContext = new QueueDataContext())

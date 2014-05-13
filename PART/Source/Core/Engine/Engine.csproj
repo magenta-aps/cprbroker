@@ -86,6 +86,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataProviderConfigPropertyInfo.cs" />
     <Compile Include="Facades\ClientMethodPlan.cs" />
     <Compile Include="Facades\DataComponentFacade.Base.cs">
       <SubType>Code</SubType>
@@ -95,6 +96,7 @@
     <Compile Include="Budget\BudgetController.cs" />
     <Compile Include="Facades\Element.cs" />
     <Compile Include="Facades\ProviderMethod.cs" />
+    <Compile Include="IHasConfigurationProperties.cs" />
     <Compile Include="IPerCallDataProvider.cs" />
     <Compile Include="Facades\ClientMethod.cs" />
     <Compile Include="Exceptions\InvalidTokenException.cs" />
@@ -104,6 +106,10 @@
     <Compile Include="Local\AdminDataProvider.cs" />
     <Compile Include="Local\Admin.Log.cs" />
     <Compile Include="IDataProvider.cs" />
+    <Compile Include="Queues\IQueueItem.cs" />
+    <Compile Include="Queues\Queue%28Of TQueueItem%29.cs" />
+    <Compile Include="Queues\QueueBase.cs" />
+    <Compile Include="Queues\QueueItemBase.cs" />
     <Compile Include="SubMethodRunState.cs" />
     <Compile Include="Sync\ISyncTargetQueue.cs" />
     <Compile Include="Sync\SyncManager.cs" />

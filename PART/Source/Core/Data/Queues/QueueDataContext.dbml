@@ -16,7 +16,7 @@
       <Column Name="TypeName" Type="System.String" DbType="VarChar(250) NOT NULL" CanBeNull="false" />
       <Column Name="BatchSize" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="MaxRetry" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="image" Member="EncryptedData" Type="System.Data.Linq.Binary" DbType="EncrtptedData" CanBeNull="true" />
+      <Column Name="EncryptedData" Storage="_image" Type="System.Data.Linq.Binary" DbType="image" CanBeNull="true" />
       <Association Name="Queue_QueueItem" Member="QueueItems" ThisKey="QueueId" OtherKey="QueueId" Type="QueueItem" />
     </Type>
   </Table>

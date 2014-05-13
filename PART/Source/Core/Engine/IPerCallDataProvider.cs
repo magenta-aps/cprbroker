@@ -125,18 +125,6 @@ namespace CprBroker.Engine
             return ToDataProviderConfigPropertyInfo(prov.OperationKeys);
         }
 
-        public static DataProviderConfigPropertyInfo[] ToAllPropertyInfo(this IExternalDataProvider prov)
-        {
-            var configKeys = prov.ConfigurationKeys;
-
-            if (prov is IPerCallDataProvider)
-            {
-                configKeys = configKeys.Union((prov as IPerCallDataProvider).ToOperationConfigPropertyInfo()).ToArray();
-            }
-
-            return configKeys;
-        }
-
         public static PerCallContext BeginCall(this IPerCallDataProvider provider, string operation, string input)
         {
             return PerCallContext.Begin(provider, operation, input);
