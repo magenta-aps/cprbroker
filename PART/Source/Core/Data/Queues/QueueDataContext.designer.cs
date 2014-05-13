@@ -422,7 +422,7 @@ namespace CprBroker.Data.Queues
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_image", DbType="image")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_image", DbType="varbinary(MAX)")]
 		public System.Data.Linq.Binary EncryptedData
 		{
 			get

@@ -2,13 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using CprBroker.Data;
 using CprBroker.Data.Queues;
 
 namespace CprBroker.Engine.Queues
 {
-    public abstract class QueueBase
+    public abstract class QueueBase : IHasConfigurationProperties
     {
         public CprBroker.Data.Queues.Queue Impl { get; internal set; }
+
+        public virtual Engine.DataProviderConfigPropertyInfo[] ConfigurationKeys { get { return new DataProviderConfigPropertyInfo[] { }; } }
+        public Dictionary<string, string> ConfigurationProperties { get; set; }
+
         public abstract void Run();
 
         public static QueueBase ToQueue(Queue impl)
@@ -17,10 +22,7 @@ namespace CprBroker.Engine.Queues
             if (ret != null)
             {
                 ret.Impl = impl;
-                if (ret is IHasConfigurationProperties)
-                {
-                    (ret as IHasConfigurationProperties).FillFromEncryptedStorage(ret.Impl);
-                }
+                ret.FillFromEncryptedStorage(ret.Impl);
             }
             return ret;
         }
@@ -51,7 +53,14 @@ namespace CprBroker.Engine.Queues
             }
         }
 
-        public static TQueue AddQueue<TQueue>(int queueTypeId, int batchSize, int maxRetry, Action<TQueue> initializer)
+        public static TQueue GetById<TQueue>(Guid queueId)
+            where TQueue : QueueBase
+        {
+            var db = Queue.GetById(queueId);
+            return ToQueue(db) as TQueue;
+        }
+
+        public static TQueue AddQueue<TQueue>(int queueTypeId, Dictionary<string, string> values, int batchSize, int maxRetry)
             where TQueue : QueueBase, new()
         {
             var ret = new TQueue();
@@ -62,13 +71,13 @@ namespace CprBroker.Engine.Queues
                 MaxRetry = maxRetry,
                 TypeId = queueTypeId,
                 TypeName = typeof(TQueue).AssemblyQualifiedName,
-                
+
                 Attributes = new List<Schemas.AttributeType>()
             };
-
-            if(initializer!=null)
+            if (ret is IHasConfigurationProperties)
             {
-                initializer(ret);
+                (ret as IHasConfigurationProperties).ConfigurationProperties = values;
+                (ret as IHasConfigurationProperties).CopyToEncryptedStorage(ret.Impl);
             }
 
             using (var dataContext = new QueueDataContext())
@@ -80,5 +89,31 @@ namespace CprBroker.Engine.Queues
             return ret;
         }
 
+
+        public static void UpdateAttributesById(Guid queueId, Dictionary<string, string> props)
+        {
+            using (var dataContext = new QueueDataContext())
+            {
+                var db = dataContext.Queues.Single(dbq => dbq.QueueId == queueId);
+                db.SetAll(props);
+
+                dataContext.SubmitChanges();
+            }
+        }
+
+        public static void DeleteById(Guid queueId)
+        {
+            using (var dataContext = new QueueDataContext())
+            {
+                var db = dataContext.Queues.Single(dbq => dbq.QueueId == queueId);
+                dataContext.Queues.DeleteOnSubmit(db);
+                dataContext.SubmitChanges();
+            }
+        }
+
+        public Guid QueueId
+        {
+            get { return Impl.QueueId; }
+        }
     }
 }

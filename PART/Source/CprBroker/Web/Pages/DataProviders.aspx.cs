@@ -332,6 +332,7 @@ namespace CprBroker.Web.Pages
         {
             return dataContext.DataProviders.Where(dp => dp.IsExternal == true).OrderBy(dp => dp.Ordinal).ToArray();
         }
+
         #endregion
     }
 }

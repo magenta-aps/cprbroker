@@ -101,6 +101,7 @@
     <Reference Include="System.Web.Mobile" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Pages\Controls\ConfigPropertyEditor.ascx" />
     <Content Include="Pages\Controls\Pager.ascx" />
     <Content Include="Pages\Controls\PeriodSelector.ascx" />
     <Content Include="Pages\Budget.aspx" />
@@ -111,6 +112,13 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Pages\Controls\ConfigPropertyEditor.ascx.cs">
+      <DependentUpon>ConfigPropertyEditor.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Controls\ConfigPropertyEditor.ascx.designer.cs">
+      <DependentUpon>ConfigPropertyEditor.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Controls\Pager.ascx.cs">
       <DependentUpon>Pager.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

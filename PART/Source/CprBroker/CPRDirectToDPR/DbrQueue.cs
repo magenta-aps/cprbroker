@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Data.SqlClient;
 using CprBroker.Engine.Queues;
 using CprBroker.Utilities;
 using CprBroker.Engine;
@@ -10,7 +11,7 @@ using CprBroker.Providers.DPR;
 
 namespace CprBroker.DBR
 {
-    public class DbrQueue : CprBroker.Engine.Queues.Queue<ExtractQueueItem>, IHasConfigurationProperties
+    public class DbrQueue : CprBroker.Engine.Queues.Queue<ExtractQueueItem>
     {
         public DbrQueue()
         { }
@@ -48,11 +49,28 @@ namespace CprBroker.DBR
             return ret.ToArray();
         }
 
-        public Engine.DataProviderConfigPropertyInfo[] ConfigurationKeys
+        public override Engine.DataProviderConfigPropertyInfo[] ConfigurationKeys
         {
             get { return DataProviderConfigPropertyInfo.Templates.ConnectionStringKeys; }
         }
 
-        public Dictionary<string, string> ConfigurationProperties { get; set; }
+        public bool IsAlive()
+        {
+            try 
+            {
+                using (var conn = new SqlConnection(this.ConnectionString))
+                {
+                    conn.Open();
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                CprBroker.Engine.Local.Admin.LogException(ex);
+                return false;
+            }
+        }
+
+        
     }
 }

@@ -4,6 +4,9 @@
 
 <%@ MasterType VirtualPath="~/Pages/Site.Master" %>
 <%@ Register Assembly="CprBroker.Web" Namespace="CprBroker.Web.Controls" TagPrefix="cc1" %>
+<%@ Register Src="~/Pages/Controls/ConfigPropertyEditor.ascx" TagPrefix="uc1" TagName="ConfigPropertyEditor" %>
+<%@ Import Namespace="CprBroker.Data.DataProviders" %>
+<%@ Import Namespace="CprBroker.Engine" %>
 <asp:Content ID="Content1" runat="server" ContentPlaceHolderID="Contents">
     <h3>
         Data provider types</h3>
@@ -31,7 +34,7 @@
             </asp:TemplateField>
             <asp:TemplateField HeaderText="Details">
                 <ItemTemplate>
-                    <asp:Repeater ID="DataList1" runat="server" DataSource='<%# (Container.DataItem as IHasConfigurationProperties).ToDisplayableProperties() %>'>
+                    <asp:Repeater ID="DataList1" runat="server" DataSource='<%# DataProviderManager.CreateDataProvider(Container.DataItem as DataProvider).ToDisplayableProperties() %>'>
                         <ItemTemplate>
                             <b>
                                 <%# Eval("Name")%>:</b>
@@ -42,14 +45,7 @@
                     </asp:Repeater>
                 </ItemTemplate>
                 <EditItemTemplate>
-                    <asp:DataList ID="EditDataList" runat="server" DataSource='<%# (Container.DataItem as IHasConfigurationProperties).ToDisplayableProperties() %>' RepeatColumns="3"
-                        DataKeyField="Name" RepeatDirection="Horizontal">
-                        <ItemTemplate>
-                            <b>
-                                <%# Eval("Name")%>:</b>
-                            <cc1:SmartTextBox ID="SmartTextBox" runat="server" Type='<%# Eval("Type") %>' Text='<%# Bind("Value") %>' Required='<%# Bind("Required") %>' Confidential='<%# Bind("Confidential") %>' />
-                        </ItemTemplate>
-                    </asp:DataList>
+                    <uc1:ConfigPropertyEditor id="configEditor" runat="server" DataSource='<%# DataProviderManager.CreateDataProvider(Container.DataItem as DataProvider).ToDisplayableProperties() %>'/>
                 </EditItemTemplate>
             </asp:TemplateField>
             <asp:CommandField ShowEditButton="True" ControlStyle-CssClass="CommandButton" />
@@ -77,8 +73,6 @@
                     <asp:LinkButton ID="LinkButton2" runat="server" CommandArgument='<%# Eval("DataProviderId") %>'
                         CommandName="Ping">Ping</asp:LinkButton>
                 </ItemTemplate>
-                <EditItemTemplate>
-                </EditItemTemplate>
             </asp:TemplateField>
             <asp:CommandField ShowDeleteButton="True" ControlStyle-CssClass="CommandButton" />
             <asp:TemplateField ControlStyle-CssClass="UpDownButton">
