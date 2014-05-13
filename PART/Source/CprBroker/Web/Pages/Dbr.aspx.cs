@@ -31,7 +31,7 @@ namespace CprBroker.Web.Pages
             var valuesDataList = grdDbr.Rows[e.RowIndex].Cells[0].FindControl("configEditor") as ConfigPropertyEditor;
             var id = (Guid)this.grdDbr.DataKeys[e.RowIndex].Value;
             QueueBase.UpdateAttributesById(id, valuesDataList.ToDictionary());
-            
+
             grdDbr.EditIndex = -1;
             grdDbr.DataBind();
         }
@@ -81,21 +81,11 @@ namespace CprBroker.Web.Pages
             newDbr.DataSource = new DbrQueue().ToAllPropertyInfo();
         }
 
-        protected void newDataProviderGridView_RowCommand(object sender, GridViewCommandEventArgs e)
+        protected void newDbr_InsertCommand(object sender, Dictionary<string, string> props)
         {
-            if (e.CommandName == "Insert")
-            {
-                var props = new Dictionary<string, string>();
-                foreach (GridViewRow item in this.newDbr.Rows)
-                {
-                    SmartTextBox smartTextBox = item.FindControl("SmartTextBox") as SmartTextBox;
-                    string propName = newDbr.DataKeys[item.RowIndex].Value.ToString();
-                    props[propName] = smartTextBox.Text;
-                }
-                var queue = QueueBase.AddQueue<DbrQueue>(CprBroker.Providers.CPRDirect.DbrBaseQueue.TargetQueueTypeId, props, 10, 10);
-                this.grdDbr.DataBind();
-                this.newDbr.DataBind();
-            }
+            var queue = QueueBase.AddQueue<DbrQueue>(CprBroker.Providers.CPRDirect.DbrBaseQueue.TargetQueueTypeId, props, 10, 10);
+            this.grdDbr.DataBind();
+            this.newDbr.DataBind();
         }
     }
 }

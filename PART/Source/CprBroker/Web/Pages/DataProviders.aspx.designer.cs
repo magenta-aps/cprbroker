@@ -40,13 +40,13 @@ namespace CprBroker.Web.Pages {
         protected global::System.Web.UI.WebControls.DropDownList newDataProviderDropDownList;
         
         /// <summary>
-        /// newDataProviderGridView control.
+        /// newDataProvider control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView newDataProviderGridView;
+        protected global::CprBroker.Web.Controls.ConfigPropertyGridEditor newDataProvider;
         
         /// <summary>
         /// Master property.

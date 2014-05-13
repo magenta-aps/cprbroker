@@ -5,6 +5,7 @@
 <%@ Register Assembly="CprBroker.Web" Namespace="CprBroker.Web.Controls" TagPrefix="cc1" %>
 <%@ Register Src="~/Pages/Controls/ConfigPropertyViewer.ascx" TagPrefix="uc1" TagName="ConfigPropertyViewer" %>
 <%@ Register Src="~/Pages/Controls/ConfigPropertyEditor.ascx" TagPrefix="uc1" TagName="ConfigPropertyEditor" %>
+<%@ Register Src="~/Pages/Controls/ConfigPropertyGridEditor.ascx" TagPrefix="uc1" TagName="ConfigPropertyGridEditor" %>
 <%@ Import Namespace="CprBroker.Engine" %>
 <asp:Content ID="Content1" runat="server" ContentPlaceHolderID="Contents">
     <h3>
@@ -38,24 +39,5 @@
     </asp:GridView>
     <h4>
         New sync target</h4>
-    <asp:GridView runat="server" ID="newDbr" AutoGenerateColumns="false" DataKeyNames="Name"
-        ShowFooter="true" OnRowCommand="newDataProviderGridView_RowCommand" OnDataBinding="newDbr_DataBinding">
-        <Columns>
-            <asp:TemplateField>
-                <ItemTemplate>
-                    <%# Eval("Name") %>:
-                </ItemTemplate>
-                <FooterTemplate>
-                    <asp:Button ID="InsertButton" runat="server" CommandName="Insert" Text="Insert" CssClass="CommandButton"
-                        ValidationGroup="Add"></asp:Button>
-                </FooterTemplate>
-            </asp:TemplateField>
-            <asp:TemplateField>
-                <ItemTemplate>
-                    <cc1:SmartTextBox ID="SmartTextBox" runat="server" Type='<%# Eval("Type") %>' Required='<%# Eval("Required") %>'
-                        Confidential='<%# Eval("Confidential") %>' ValidationGroup="Add" />
-                </ItemTemplate>
-            </asp:TemplateField>
-        </Columns>
-    </asp:GridView>
+        <uc1:ConfigPropertyGridEditor runat="server" id="newDbr" OnDataBinding="newDbr_DataBinding" OnInsertCommand="newDbr_InsertCommand" />
 </asp:Content>

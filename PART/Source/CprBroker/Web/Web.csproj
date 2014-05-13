@@ -102,6 +102,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Pages\Controls\ConfigPropertyEditor.ascx" />
+    <Content Include="Pages\Controls\ConfigPropertyGridEditor.ascx" />
     <Content Include="Pages\Controls\ConfigPropertyViewer.ascx" />
     <Content Include="Pages\Controls\Pager.ascx" />
     <Content Include="Pages\Controls\PeriodSelector.ascx" />
@@ -119,6 +120,13 @@
     </Compile>
     <Compile Include="Pages\Controls\ConfigPropertyEditor.ascx.designer.cs">
       <DependentUpon>ConfigPropertyEditor.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Controls\ConfigPropertyGridEditor.ascx.cs">
+      <DependentUpon>ConfigPropertyGridEditor.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Controls\ConfigPropertyGridEditor.ascx.designer.cs">
+      <DependentUpon>ConfigPropertyGridEditor.ascx</DependentUpon>
     </Compile>
     <Compile Include="Pages\Controls\ConfigPropertyViewer.ascx.cs">
       <DependentUpon>ConfigPropertyViewer.ascx</DependentUpon>

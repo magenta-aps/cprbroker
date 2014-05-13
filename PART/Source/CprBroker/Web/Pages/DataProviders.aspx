@@ -6,6 +6,8 @@
 <%@ Register Assembly="CprBroker.Web" Namespace="CprBroker.Web.Controls" TagPrefix="cc1" %>
 <%@ Register Src="~/Pages/Controls/ConfigPropertyViewer.ascx" TagPrefix="uc1" TagName="ConfigPropertyViewer" %>
 <%@ Register Src="~/Pages/Controls/ConfigPropertyEditor.ascx" TagPrefix="uc1" TagName="ConfigPropertyEditor" %>
+<%@ Register Src="~/Pages/Controls/ConfigPropertyGridEditor.ascx" TagPrefix="uc1"
+    TagName="ConfigPropertyGridEditor" %>
 <%@ Import Namespace="CprBroker.Data.DataProviders" %>
 <%@ Import Namespace="CprBroker.Engine" %>
 <asp:Content ID="Content1" runat="server" ContentPlaceHolderID="Contents">
@@ -38,7 +40,7 @@
                     <uc1:ConfigPropertyViewer runat="server" DataSource='<%# DataProviderManager.CreateDataProvider(Container.DataItem as DataProvider).ToDisplayableProperties() %>' />
                 </ItemTemplate>
                 <EditItemTemplate>
-                    <uc1:ConfigPropertyEditor id="configEditor" runat="server" DataSource='<%# DataProviderManager.CreateDataProvider(Container.DataItem as DataProvider).ToDisplayableProperties() %>'/>
+                    <uc1:ConfigPropertyEditor ID="configEditor" runat="server" DataSource='<%# DataProviderManager.CreateDataProvider(Container.DataItem as DataProvider).ToDisplayableProperties() %>' />
                 </EditItemTemplate>
             </asp:TemplateField>
             <asp:CommandField ShowEditButton="True" ControlStyle-CssClass="CommandButton" />
@@ -58,8 +60,6 @@
                         </tr>
                     </table>
                 </ItemTemplate>
-                <EditItemTemplate>
-                </EditItemTemplate>
             </asp:TemplateField>
             <asp:TemplateField ShowHeader="False" ControlStyle-CssClass="CommandButton">
                 <ItemTemplate>
@@ -93,25 +93,6 @@
         DataTextField="FullName" DataValueField="AssemblyQualifiedName" OnSelectedIndexChanged="newDataProviderDropDownList_SelectedIndexChanged"
         OnDataBinding="newDataProviderDropDownList_DataBinding">
     </asp:DropDownList>
-    <asp:GridView runat="server" ID="newDataProviderGridView" AutoGenerateColumns="false"
-        DataKeyNames="Name" ShowFooter="true" OnRowCommand="newDataProviderGridView_RowCommand"
-        OnDataBinding="newDataProviderGridView_DataBinding">
-        <Columns>
-            <asp:TemplateField>
-                <ItemTemplate>
-                    <%# Eval("Name") %>:
-                </ItemTemplate>
-                <FooterTemplate>
-                    <asp:Button ID="InsertButton" runat="server" CommandName="Insert" Text="Insert" CssClass="CommandButton"
-                        ValidationGroup="Add"></asp:Button>
-                </FooterTemplate>
-            </asp:TemplateField>
-            <asp:TemplateField>
-                <ItemTemplate>
-                    <cc1:SmartTextBox ID="SmartTextBox" runat="server" Type='<%# Eval("Type") %>' Required='<%# Eval("Required") %>'
-                        Confidential='<%# Eval("Confidential") %>' ValidationGroup="Add"  />
-                </ItemTemplate>
-            </asp:TemplateField>
-        </Columns>
-    </asp:GridView>
+    <uc1:ConfigPropertyGridEditor runat="server" ID="newDataProvider" OnDataBinding="newDataProvider_DataBinding"
+        OnInsertCommand="newDataProvider_InsertCommand" />
 </asp:Content>
