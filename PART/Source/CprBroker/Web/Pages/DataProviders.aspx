@@ -4,6 +4,7 @@
 
 <%@ MasterType VirtualPath="~/Pages/Site.Master" %>
 <%@ Register Assembly="CprBroker.Web" Namespace="CprBroker.Web.Controls" TagPrefix="cc1" %>
+<%@ Register Src="~/Pages/Controls/ConfigPropertyViewer.ascx" TagPrefix="uc1" TagName="ConfigPropertyViewer" %>
 <%@ Register Src="~/Pages/Controls/ConfigPropertyEditor.ascx" TagPrefix="uc1" TagName="ConfigPropertyEditor" %>
 <%@ Import Namespace="CprBroker.Data.DataProviders" %>
 <%@ Import Namespace="CprBroker.Engine" %>
@@ -34,15 +35,7 @@
             </asp:TemplateField>
             <asp:TemplateField HeaderText="Details">
                 <ItemTemplate>
-                    <asp:Repeater ID="DataList1" runat="server" DataSource='<%# DataProviderManager.CreateDataProvider(Container.DataItem as DataProvider).ToDisplayableProperties() %>'>
-                        <ItemTemplate>
-                            <b>
-                                <%# Eval("Name")%>:</b>
-                            <%# (bool)Eval("Confidential")?"********": Eval("Value")%>
-                        </ItemTemplate>
-                        <SeparatorTemplate>
-                            &nbsp;</SeparatorTemplate>
-                    </asp:Repeater>
+                    <uc1:ConfigPropertyViewer runat="server" DataSource='<%# DataProviderManager.CreateDataProvider(Container.DataItem as DataProvider).ToDisplayableProperties() %>' />
                 </ItemTemplate>
                 <EditItemTemplate>
                     <uc1:ConfigPropertyEditor id="configEditor" runat="server" DataSource='<%# DataProviderManager.CreateDataProvider(Container.DataItem as DataProvider).ToDisplayableProperties() %>'/>
