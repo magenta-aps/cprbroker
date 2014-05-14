@@ -72,10 +72,9 @@ namespace CprBroker.Engine
     /// <summary>
     /// Represents an external data provider (DPR, KMD)
     /// </summary> 
-    public interface IExternalDataProvider : IDataProvider
+    public interface IExternalDataProvider : IDataProvider, IHasConfigurationProperties
     {
-        Dictionary<string, string> ConfigurationProperties { get; set; }
-        DataProviderConfigPropertyInfo[] ConfigurationKeys { get; }
+
     }
 
     /// <summary>
@@ -87,74 +86,6 @@ namespace CprBroker.Engine
         TKey[] ReadUpdateQueue(int batchSize);
         void DeleteFromQueue(TKey[] keys);
     }
-
-    public enum DataProviderConfigPropertyInfoTypes
-    {
-        String,
-        Integer,
-        Boolean,
-        Decimal
-    }
-
-    public class DataProviderConfigPropertyInfo
-    {
-        public string Name { get; set; }
-        public bool Confidential { get; set; }
-        public bool Required { get; set; }
-        public DataProviderConfigPropertyInfoTypes Type { get; set; }
-
-        public DataProviderConfigPropertyInfo()
-        {
-            Type = DataProviderConfigPropertyInfoTypes.String;
-        }
-
-        public static string GetValue(Dictionary<string, string> configuration, string key)
-        {
-            return GetValue(configuration, key, null);
-        }
-
-        public static string GetValue(Dictionary<string, string> configuration, string key, string defaultValue)
-        {
-            if (configuration.ContainsKey(key))
-                return configuration[key];
-            else
-                return defaultValue;
-        }
-
-        public static T GetValue<T>(Dictionary<string, string> configuration, string key, T defaultValue, Func<string, T> converter)
-        {
-            var val = GetValue(configuration, key, null);
-            if (string.IsNullOrEmpty(val))
-                return defaultValue;
-            else
-                return converter(val);
-        }
-
-        public static bool GetBoolean(Dictionary<string, string> configuration, string key)
-        {
-            return GetValue<bool>(configuration, key, false, (s) => Boolean.Parse(s));
-        }
-
-        public static class Templates
-        {
-            public static DataProviderConfigPropertyInfo[] ConnectionStringKeys
-            {
-                get
-                {
-                    return new DataProviderConfigPropertyInfo[] {                     
-                        new DataProviderConfigPropertyInfo(){Name="Data Source", Required=true, Confidential=false},
-                        new DataProviderConfigPropertyInfo(){Name="Initial Catalog", Required=false, Confidential=false},
-                        new DataProviderConfigPropertyInfo(){Name="User ID", Required=false, Confidential=false},
-                        new DataProviderConfigPropertyInfo(){Name="Password", Required=false, Confidential=true},
-                        new DataProviderConfigPropertyInfo(){Name="Integrated Security", Required=false, Confidential=false},
-                        new DataProviderConfigPropertyInfo(){Name="Other Connection String", Required=false, Confidential=false},
-                    };
-                }
-            }
-        }
-    }
-
-
 
     /// <summary>
     /// Contains methods related to application management

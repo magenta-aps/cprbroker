@@ -73,7 +73,7 @@ namespace CprBroker.Tests.DPR
         {
             var personInfo = new PersonInfo()
             {
-                PersonTotal = new PersonTotalStub() { PNR = cprNumber, Nationality = nationality.ToDecimalString() },
+                PersonTotal = new PersonTotalStub() { PNR = cprNumber, NationalityRight = nationality.ToDecimalString() },
                 Nationality = new Nationality() { CountryCode = nationality }
             };
             var result = personInfo.ToRegisterOplysningType();
@@ -87,7 +87,7 @@ namespace CprBroker.Tests.DPR
         {
             var personInfo = new PersonInfo()
             {
-                PersonTotal = new PersonTotalStub() { PNR = cprNumber, Nationality = nationality.ToDecimalString() },
+                PersonTotal = new PersonTotalStub() { PNR = cprNumber, NationalityRight = nationality.ToDecimalString() },
                 Nationality = new Nationality() { CountryCode = nationality }
             };
             var result = personInfo.ToRegisterOplysningType();
@@ -101,7 +101,7 @@ namespace CprBroker.Tests.DPR
         {
             var personInfo = new PersonInfo()
             {
-                PersonTotal = new PersonTotalStub() { PNR = cprNumber, Nationality = nationality.ToDecimalString() },
+                PersonTotal = new PersonTotalStub() { PNR = cprNumber, NationalityRight = nationality.ToDecimalString() },
                 Nationality = new Nationality() { CountryCode = nationality }
             };
             var result = personInfo.ToRegisterOplysningType();

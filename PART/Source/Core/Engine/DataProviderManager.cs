@@ -52,6 +52,7 @@ using System.Text;
 using System.Threading;
 using System.Data.Linq;
 using System.IO;
+using CprBroker.Data;
 using CprBroker.Data.DataProviders;
 using CprBroker.Utilities;
 using CprBroker.Schemas;
@@ -76,7 +77,7 @@ namespace CprBroker.Engine
             {
                 try
                 {
-                    dataProvider.ConfigurationProperties = dbDataProvider.ToPropertiesDictionary(dataProvider.ToAllPropertyInfo().Select(p => p.Name).ToArray());
+                    dataProvider.FillFromEncryptedStorage(dbDataProvider);
                 }
                 catch (Exception ex)
                 {
@@ -93,7 +94,7 @@ namespace CprBroker.Engine
             {
                 try
                 {
-                    dataProvider.ConfigurationProperties = dbDataProvider.ToPropertiesDictionary(dataProvider.ConfigurationKeys.Select(p => p.Name).ToArray());
+                    dataProvider.FillFromEncryptedStorage(dbDataProvider);
                 }
                 catch (Exception ex)
                 {

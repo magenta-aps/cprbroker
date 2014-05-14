@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using CprBroker.Data.Queues;
+using CprBroker.Engine.Queues;
 
 namespace CprBroker.Engine.Sync
 {

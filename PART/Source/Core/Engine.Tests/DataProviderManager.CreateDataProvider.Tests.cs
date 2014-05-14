@@ -46,7 +46,7 @@ namespace CprBroker.Tests.Engine
             [Test]
             public void CreateDataProvider_NewProperty_NoException()
             {
-                var dbProvider = new Data.DataProviders.DataProvider()
+                var dbProvider = new CprBroker.Data.DataProviders.DataProvider()
                 {
                     TypeName = typeof(DataProviderWithNewConfigProperty).AssemblyQualifiedName
                 };

@@ -104,16 +104,14 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DataProvidersDataContext.dbml</DependentUpon>
     </Compile>
+    <Compile Include="IHasEncryptedAttributes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="Queues\IQueueItem.cs" />
-    <Compile Include="Queues\Queue%28Of TQueueItem%29.cs" />
     <Compile Include="Queues\Queue.cs" />
-    <Compile Include="Queues\QueueBase.cs" />
     <Compile Include="Queues\QueueDataContext.cs">
       <DependentUpon>QueueDataContext.dbml</DependentUpon>
     </Compile>
@@ -123,7 +121,6 @@
       <DependentUpon>QueueDataContext.dbml</DependentUpon>
     </Compile>
     <Compile Include="Queues\QueueItem.cs" />
-    <Compile Include="Queues\QueueItemBase.cs" />
     <Compile Include="Statistics\stat.cs" />
     <Compile Include="Statistics\StatisticsDataContext.designer.cs">
       <AutoGen>True</AutoGen>

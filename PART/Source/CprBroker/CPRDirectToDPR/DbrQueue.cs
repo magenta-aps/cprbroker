@@ -2,22 +2,23 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using CprBroker.Data.Queues;
+using System.Data.SqlClient;
+using CprBroker.Engine.Queues;
 using CprBroker.Utilities;
+using CprBroker.Engine;
 using CprBroker.Providers.CPRDirect;
 using CprBroker.Providers.DPR;
 
-namespace CPRDirectToDPR
+namespace CprBroker.DBR
 {
-    public class DbrQueue : CprBroker.Data.Queues.Queue<ExtractQueueItem>
+    public class DbrQueue : CprBroker.Engine.Queues.Queue<ExtractQueueItem>
     {
         public DbrQueue()
         { }
 
         public string ConnectionString
         {
-            get { return Encryption.DecryptObject<string>(this.Impl.EncryptedData.ToArray()); }
-            set { this.Impl.EncryptedData = Encryption.EncryptObject(value); }
+            get { return DataProviderConfigProperty.Templates.GetConnectionString(this.ConfigurationProperties); }
         }
 
         public override ExtractQueueItem[] Process(ExtractQueueItem[] items)
@@ -43,9 +44,34 @@ namespace CPRDirectToDPR
                             CprBroker.Engine.Local.Admin.LogException(ex);
                         }
                     }
+                    dprDataContext.SubmitChanges();
                 }
             }
             return ret.ToArray();
         }
+
+        public override Engine.DataProviderConfigPropertyInfo[] ConfigurationKeys
+        {
+            get { return DataProviderConfigPropertyInfo.Templates.ConnectionStringKeys; }
+        }
+
+        public bool IsAlive()
+        {
+            try 
+            {
+                using (var conn = new SqlConnection(this.ConnectionString))
+                {
+                    conn.Open();
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                CprBroker.Engine.Local.Admin.LogException(ex);
+                return false;
+            }
+        }
+
+        
     }
 }
