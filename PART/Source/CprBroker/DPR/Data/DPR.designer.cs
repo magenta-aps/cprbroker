@@ -1060,8 +1060,8 @@ namespace CprBroker.Providers.DPR
     partial void OnSexChanged();
     partial void OnMunicipalityCodeChanging(decimal value);
     partial void OnMunicipalityCodeChanged();
-    partial void OnMunicipalityNameChanging(string value);
-    partial void OnMunicipalityNameChanged();
+    partial void OnCurrentMunicipalityNameChanging(string value);
+    partial void OnCurrentMunicipalityNameChanged();
     partial void OnStreetCodeChanging(decimal value);
     partial void OnStreetCodeChanged();
     partial void OnHouseNumberChanging(string value);
@@ -1296,7 +1296,7 @@ namespace CprBroker.Providers.DPR
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="AKTKONVN", Storage="_AKTKONVN", DbType="VarChar(20)")]
-		public string MunicipalityName
+		public string CurrentMunicipalityName
 		{
 			get
 			{
@@ -1306,11 +1306,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._AKTKONVN != value))
 				{
-					this.OnMunicipalityNameChanging(value);
+					this.OnCurrentMunicipalityNameChanging(value);
 					this.SendPropertyChanging();
 					this._AKTKONVN = value;
-					this.SendPropertyChanged("MunicipalityName");
-					this.OnMunicipalityNameChanged();
+					this.SendPropertyChanged("CurrentMunicipalityName");
+					this.OnCurrentMunicipalityNameChanged();
 				}
 			}
 		}
@@ -1455,7 +1455,7 @@ namespace CprBroker.Providers.DPR
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="TFDTOMRK", Storage="_TFDTOMRK", DbType="VarChar(1)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="TFDTOMRK", Storage="_TFDTOMRK", DbType="VarChar(1)", IsDbGenerated=true, IsVersion=true)]
 		public System.Nullable<char> ArrivalDateMarker
 		{
 			get
