@@ -59,7 +59,7 @@ namespace CprBroker.Engine.Queues
         /// <returns>A subset if the input that was processed successfully</returns>
         public abstract TQueueItem[] Process(TQueueItem[] items);
 
-        public override void Run()
+        public override void RunAll()
         {
             var items = GetNext(Impl.BatchSize);
             while (items.FirstOrDefault() != null)
@@ -69,7 +69,21 @@ namespace CprBroker.Engine.Queues
 
                 var failedItems = items.Except(succeeded).ToArray();
                 MarkFailure(failedItems);
+
                 items = GetNext(Impl.BatchSize);
+            }
+        }
+
+        public override void RunOneBatch()
+        {
+            var items = GetNext(Impl.BatchSize);
+            if(items.FirstOrDefault() != null)
+            {
+                var succeeded = Process(items);
+                Remove(succeeded);
+
+                var failedItems = items.Except(succeeded).ToArray();
+                MarkFailure(failedItems);
             }
         }
     }

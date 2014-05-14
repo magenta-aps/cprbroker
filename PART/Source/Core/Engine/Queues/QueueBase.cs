@@ -14,7 +14,8 @@ namespace CprBroker.Engine.Queues
         public virtual Engine.DataProviderConfigPropertyInfo[] ConfigurationKeys { get { return new DataProviderConfigPropertyInfo[] { }; } }
         public Dictionary<string, string> ConfigurationProperties { get; set; }
 
-        public abstract void Run();
+        public abstract void RunAll();
+        public abstract void RunOneBatch();
 
         public static QueueBase ToQueue(Queue impl)
         {
