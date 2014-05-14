@@ -44,6 +44,7 @@ namespace CprBroker.DBR
                             CprBroker.Engine.Local.Admin.LogException(ex);
                         }
                     }
+                    dprDataContext.SubmitChanges();
                 }
             }
             return ret.ToArray();
