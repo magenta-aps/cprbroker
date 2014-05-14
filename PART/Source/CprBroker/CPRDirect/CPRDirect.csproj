@@ -217,9 +217,7 @@
       <Name>PartInterface</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="NewFolder1\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>"$(ProjectDir)..\..\Dll\msxsl.exe" "$(ProjectDir)XML\Definitions.xml" "$(ProjectDir)XML\ClassTransform.xslt" -o "$(ProjectDir)XML\Definitions.cs"
