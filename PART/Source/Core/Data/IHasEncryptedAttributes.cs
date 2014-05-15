@@ -44,6 +44,10 @@ namespace CprBroker.Data
 
         public static AttributeType GetAttribute(this IHasEncryptedAttributes obj, string key)
         {
+            if (obj.Attributes == null)
+            {
+                obj.Attributes = new List<AttributeType>();
+            }
             return (from p in obj.Attributes where p.Name == key select p).FirstOrDefault();
         }
 

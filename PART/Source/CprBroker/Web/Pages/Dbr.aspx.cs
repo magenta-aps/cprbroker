@@ -12,6 +12,7 @@ using CprBroker.Data.Queues;
 using CprBroker.Web.Controls;
 using CprBroker.Utilities;
 
+
 namespace CprBroker.Web.Pages
 {
     public partial class Dbr : System.Web.UI.Page
@@ -26,27 +27,26 @@ namespace CprBroker.Web.Pages
             }
         }
 
-        protected void grdDbr_RowUpdating(object sender, GridViewUpdateEventArgs e)
+        #region Select/Edit/Cancel
+        protected void dsDbr_Selecting(object sender, LinqDataSourceSelectEventArgs e)
         {
-            var valuesDataList = grdDbr.Rows[e.RowIndex].Cells[0].FindControl("configEditor") as ConfigPropertyEditor;
-            var id = (Guid)this.grdDbr.DataKeys[e.RowIndex].Value;
-            QueueBase.UpdateAttributesById(id, valuesDataList.ToDictionary());
-
-            grdDbr.EditIndex = -1;
-            grdDbr.DataBind();
+            dsDbr.SelectParameters["@TypeId"].DefaultValue = CprBroker.Providers.CPRDirect.DbrBaseQueue.TargetQueueTypeId.ToString();
         }
 
-        protected void grdDbr_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
+        protected void dsDbr_Updating(object sender, LinqDataSourceUpdateEventArgs e)
         {
-            grdDbr.EditIndex = -1;
-            grdDbr.DataBind();
+            var editor = grdDbr.Rows[grdDbr.EditIndex].FindControl("configEditor") as ConfigPropertyEditor;
+            (e.NewObject as CprBroker.Data.Queues.Queue).SetAll(editor.ToDictionary());
         }
 
-        protected void grdDbr_DataBinding(object sender, EventArgs e)
+        protected DataProviderConfigProperty[] GetDisplayableProperties(object o)
         {
-            grdDbr.DataSource = CprBroker.Engine.Queues.QueueBase.GetQueues<DbrQueue>();
+            var dbQueue = o as CprBroker.Data.Queues.Queue;
+            return CprBroker.Engine.Queues.QueueBase.ToQueue(dbQueue).ToDisplayableProperties();
         }
+        #endregion
 
+        #region Ping
         protected void grdDbr_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             if (e.CommandName == "Ping")
@@ -62,20 +62,9 @@ namespace CprBroker.Web.Pages
                 }
             }
         }
+        #endregion
 
-        protected void grdDbr_RowEditing(object sender, GridViewEditEventArgs e)
-        {
-            grdDbr.EditIndex = e.NewEditIndex;
-            grdDbr.DataBind();
-        }
-
-        protected void grdDbr_RowDeleting(object sender, GridViewDeleteEventArgs e)
-        {
-            var id = (Guid)this.grdDbr.DataKeys[e.RowIndex].Value;
-            QueueBase.DeleteById(id);
-            grdDbr.DataBind();
-        }
-
+        #region Insert
         protected void newDbr_DataBinding(object sender, EventArgs e)
         {
             newDbr.DataSource = new DbrQueue().ToAllPropertyInfo();
@@ -87,5 +76,6 @@ namespace CprBroker.Web.Pages
             this.grdDbr.DataBind();
             this.newDbr.DataBind();
         }
+        #endregion
     }
 }
