@@ -121,6 +121,7 @@
     <Compile Include="Pages\Controls\ConfigPropertyEditor.ascx.designer.cs">
       <DependentUpon>ConfigPropertyEditor.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Controls\ConfigPropertyField.cs" />
     <Compile Include="Pages\Controls\ConfigPropertyGridEditor.ascx.cs">
       <DependentUpon>ConfigPropertyGridEditor.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -203,6 +204,7 @@
     <Compile Include="Pages\ExternalCalls.aspx.designer.cs">
       <DependentUpon>ExternalCalls.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Controls\IControlWithDataSource.cs" />
     <Compile Include="Pages\LogEntries.aspx.cs">
       <DependentUpon>LogEntries.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

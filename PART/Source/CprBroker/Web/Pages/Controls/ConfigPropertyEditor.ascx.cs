@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 
 namespace CprBroker.Web.Controls
 {
-    public partial class ConfigPropertyEditor : System.Web.UI.UserControl
+    public partial class ConfigPropertyEditor : System.Web.UI.UserControl, IControlWithDataSource
     {
         protected void Page_Load(object sender, EventArgs e)
         {

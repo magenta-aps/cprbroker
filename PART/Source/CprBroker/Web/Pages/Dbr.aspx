@@ -16,24 +16,16 @@
     <h4>
         Sync targets</h4>
     <asp:LinqDataSource runat="server" ID="dsDbr" ContextTypeName="CprBroker.Data.Queues.QueueDataContext"
-        TableName="Queues" Where="TypeId==@TypeId" EnableDelete="true" EnableUpdate="true"
-        OnUpdating="dsDbr_Updating">
+        TableName="Queues" Where="TypeId==@TypeId" EnableDelete="true" EnableUpdate="true">
     </asp:LinqDataSource>
     <asp:GridView runat="server" ID="grdDbr" AutoGenerateColumns="false" OnRowCommand="grdDbr_RowCommand"        
         DataKeyNames="QueueId" DataSourceID="dsDbr">
         <EmptyDataTemplate>
             (None)</EmptyDataTemplate>
         <Columns>
-            <asp:TemplateField HeaderText="Details">
-                <ItemTemplate>
-                    <uc1:ConfigPropertyViewer ID="ConfigPropertyViewer1" runat="server" DataSource='<%# GetDisplayableProperties(Container.DataItem) %>' />
-                </ItemTemplate>
-                <EditItemTemplate>
-                    <uc1:ConfigPropertyEditor ID="configEditor" runat="server" DataSource='<%# GetDisplayableProperties(Container.DataItem) %>' />
-                </EditItemTemplate>
-            </asp:TemplateField>
+            <cc1:ConfigPropertyField HeaderText="Details" OnObjectCreating="grdDbrPropertiesField_ObjectCreating" />
             <cc1:SmartTextField DataField="BatchSize" Type="Integer" Required="true" HeaderText="Batch Size" />
-            <cc1:SmartTextField DataField="MaxRetry" Type="Integer" Required="true" HeaderText="Max retry" />
+            <cc1:SmartTextField DataField="MaxRetry" Type="Integer" Required="true" HeaderText="Max retry" />            
             <asp:TemplateField ShowHeader="False" ControlStyle-CssClass="CommandButton">
                 <ItemTemplate>
                     <asp:LinkButton ID="LinkButton2" runat="server" CommandArgument='<%# Eval("QueueId") %>'

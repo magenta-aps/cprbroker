@@ -33,16 +33,9 @@ namespace CprBroker.Web.Pages
             dsDbr.SelectParameters["@TypeId"].DefaultValue = CprBroker.Providers.CPRDirect.DbrBaseQueue.TargetQueueTypeId.ToString();
         }
 
-        protected void dsDbr_Updating(object sender, LinqDataSourceUpdateEventArgs e)
+        protected IHasConfigurationProperties grdDbrPropertiesField_ObjectCreating(IHasEncryptedAttributes arg)
         {
-            var editor = grdDbr.Rows[grdDbr.EditIndex].FindControl("configEditor") as ConfigPropertyEditor;
-            (e.NewObject as CprBroker.Data.Queues.Queue).SetAll(editor.ToDictionary());
-        }
-
-        protected DataProviderConfigProperty[] GetDisplayableProperties(object o)
-        {
-            var dbQueue = o as CprBroker.Data.Queues.Queue;
-            return CprBroker.Engine.Queues.QueueBase.ToQueue(dbQueue).ToDisplayableProperties();
+            return QueueBase.ToQueue(arg as CprBroker.Data.Queues.Queue);
         }
         #endregion
 

@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CprBroker.Web.Pages.Controls {
+namespace CprBroker.Web.Controls {
     
     
     public partial class ConfigPropertyViewer {

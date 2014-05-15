@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ConfigPropertyViewer.ascx.cs"
-    Inherits="CprBroker.Web.Pages.Controls.ConfigPropertyViewer" %>
+    Inherits="CprBroker.Web.Controls.ConfigPropertyViewer" %>
 <asp:Repeater ID="DataList1" runat="server" >
     <ItemTemplate>
         <b>
