@@ -1,4 +1,0 @@
-DBRefFolders found in your dbp file
-Connect String: Data Source=10.20.1.20;Initial Catalog=PartEventBroker;Persist Security Info=True;User ID=sa
-Provider: Microsoft SQL Server
-

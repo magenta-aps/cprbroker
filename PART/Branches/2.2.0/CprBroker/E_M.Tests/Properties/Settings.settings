@@ -1,9 +1,0 @@
-﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="CprBroker.Tests.E_M.Properties" GeneratedClassName="Settings">
-  <Profiles />
-  <Settings>
-    <Setting Name="CprBroker_Tests_E_M_Part_Part" Type="(Web Service URL)" Scope="Application">
-      <Value Profile="(Default)">http://localhost:1551/Services/Part.asmx</Value>
-    </Setting>
-  </Settings>
-</SettingsFile>

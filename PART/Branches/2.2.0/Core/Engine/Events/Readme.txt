@@ -1,1 +1,0 @@
-﻿Contains facade methods for event web methods
