@@ -8,8 +8,8 @@
     <ProjectGuid>{F6E48545-473F-4133-90F7-B93A4612F50F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CPRDirectToDPR</RootNamespace>
-    <AssemblyName>CPRDirectToDPR</AssemblyName>
+    <RootNamespace>CprBroker.DBR</RootNamespace>
+    <AssemblyName>CprBroker.DBR</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -58,6 +58,7 @@
     <Compile Include="CprConverter.cs" />
     <Compile Include="CprConverterExtensions.cs" />
     <Compile Include="DbrQueue.cs" />
+    <Compile Include="DiversionListener.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
