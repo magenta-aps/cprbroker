@@ -1,0 +1,26 @@
+obj
+*.suo
+*.csproj.user
+*.wixproj.user
+*.dbproj.user
+Output
+_UpgradeReport_Files
+UpgradeLog.XML
+
+/PART/Source/Other
+Deliveries
+/PART/Doc/Data Providers/CPR Direct/TEST_klient_source_og_setup
+/PART/Open Source
+/PART/K3b dataprojekt
+/PART/Test Source
+bin
+PART/Source/Tests/Backup
+/PART/Source/Updates/DPRUpdateWinTest
+/PART/Source/GK.WebServices/Personmaster/PersonmasterServiceLibrary/DocAndDeploy
+/PART/Source/InstalledEnvironments
+/PART/Source/SQL/Other
+/PART/Source/SQL/XPath
+
+/PART/Source/Demo/Backup
+PART/Source/CprBroker/CPRDirect.Tests/Resources/Test/Processed
+PART/Source/Updates/DPRUpdatesNotificationService/DocAndDeploy
