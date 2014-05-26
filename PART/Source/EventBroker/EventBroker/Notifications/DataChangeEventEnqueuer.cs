@@ -112,35 +112,20 @@ namespace CprBroker.EventBroker.Notifications
         {
             var batchSize = CprBroker.Config.Properties.Settings.Default.DataChangeDequeueBatchSize;
 
-            Admin.LogFormattedSuccess("DataChangeEventEnqueuer.PushNotifications() started, batch size <{0}>", batchSize);
-            bool moreChangesExist = true;
-
-            while (moreChangesExist)
+            using (var dataContext = new Data.EventBrokerDataContext())
             {
-                var resp = EventsService.DequeueDataChangeEvents(batchSize);
-                var changedPeople = resp.Item;
-                if (changedPeople == null)
-                    changedPeople = new EventBroker.EventsService.DataChangeEventInfo[0];
-                moreChangesExist = changedPeople.Length == batchSize;
+                Func<Data.DataChangeEvent[]> puller = () =>
+                    dataContext.DataChangeEvents
+                    .OrderBy(dce => dce.ReceivedOrder)
+                    .ThenBy(dce => dce.ReceivedDate)
+                    .Take(batchSize)
+                    .ToArray();
 
-                Admin.LogFormattedSuccess("DataChangeEventEnqueuer.PushNotifications(): <{0}> data changes found", changedPeople.Length);
+                var dbObjects = puller();
 
-                using (var dataContext = new Data.EventBrokerDataContext())
+                while (dbObjects.Length > 0)
                 {
-                    var dbObjects = Array.ConvertAll<EventsService.DataChangeEventInfo, Data.DataChangeEvent>(
-                        changedPeople,
-                        p => new Data.DataChangeEvent()
-                        {
-                            DataChangeEventId = p.EventId,
-                            DueDate = p.ReceivedDate,
-                            PersonUuid = p.PersonUuid,
-                            PersonRegistrationId = p.PersonRegistrationId,
-                            ReceivedDate = DateTime.Now
-                        }
-                    );
-
-                    dataContext.DataChangeEvents.InsertAllOnSubmit(dbObjects);
-                    dataContext.SubmitChanges();
+                    Admin.LogFormattedSuccess("DataChangeEventEnqueuer.PushNotifications(): <{0}> data changes found", dbObjects.Length);
 
                     DateTime now = DateTime.Now;
                     MatchDataChangeEvents(dataContext, dbObjects, now);
@@ -151,6 +136,8 @@ namespace CprBroker.EventBroker.Notifications
                     //TODO: Move this logic to above stored procedure
                     dataContext.DataChangeEvents.DeleteAllOnSubmit(dbObjects);
                     dataContext.SubmitChanges();
+
+                    dbObjects = puller();
                 }
             }
         }
@@ -160,7 +147,7 @@ namespace CprBroker.EventBroker.Notifications
             var criteriaSubscriptions = dataContext.Subscriptions.Where(sub => sub.Criteria != null).ToArray();
             foreach (var subscription in criteriaSubscriptions)
             {
-                subscription.GetDataChangeEventMatches(dataChangeEvents);
+                subscription.MatchDataChangeEvents(dataChangeEvents);
             }
             dataContext.SubmitChanges();
         }

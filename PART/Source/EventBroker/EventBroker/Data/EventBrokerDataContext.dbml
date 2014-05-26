@@ -73,6 +73,7 @@
       <Column Name="PersonRegistrationId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
       <Column Name="DueDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Column Name="ReceivedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="ReceivedOrder" AutoSync="Never" Type="System.Int32" DbType="Int NOT NULL" IsDbGenerated="true" CanBeNull="false" />
       <Association Name="DataChangeEvent_SubscriptionCriteriaMatch" Member="SubscriptionCriteriaMatches" Storage="_TempSubscriptionPersons" ThisKey="DataChangeEventId" OtherKey="DataChangeEventId" Type="SubscriptionCriteriaMatch" />
     </Type>
   </Table>
