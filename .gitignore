@@ -1,10 +1,18 @@
 obj
+bin
+debug
+Output
+_UpgradeReport_Files
+
 *.suo
 *.csproj.user
 *.wixproj.user
 *.dbproj.user
-Output
-_UpgradeReport_Files
+*.wixmsp
+*.wixobj
+*.wixpdb
+*.pdb
+
 UpgradeLog.XML
 
 /PART/Source/Other
@@ -15,12 +23,14 @@ Deliveries
 /PART/Test Source
 bin
 PART/Source/Tests/Backup
-/PART/Source/Updates/DPRUpdateWinTest
-/PART/Source/GK.WebServices/Personmaster/PersonmasterServiceLibrary/DocAndDeploy
-/PART/Source/InstalledEnvironments
-/PART/Source/SQL/Other
-/PART/Source/SQL/XPath
-
-/PART/Source/Demo/Backup
+PART/Source/Updates/DPRUpdateWinTest
+PART/Source/GK.WebServices/Personmaster/PersonmasterServiceLibrary/DocAndDeploy
+PART/Source/InstalledEnvironments
+PART/Source/SQL/Other
+PART/Source/SQL/XPath
+PART/Source/Demo/Backup
 PART/Source/CprBroker/CPRDirect.Tests/Resources/Test/Processed
 PART/Source/Updates/DPRUpdatesNotificationService/DocAndDeploy
+PART/Doc/LTK/Presentation 20130415
+PART/Source/Batch UUID assignment
+PART/Source/CprBroker/Web/aspnet_client
