@@ -141,7 +141,6 @@
   <ItemGroup>
     <NotInBuild Include="Create Scripts\EnqueueBirthdateEventNotifications.sql" />
     <NotInBuild Include="Create Scripts\EnqueueDataChangeEventNotifications.sql" />
-    <NotInBuild Include="Create Scripts\InsertChangeNotificationData.sql" />
     <NotInBuild Include="Create Scripts\IsBirthdateEvent.sql" />
   </ItemGroup>
   <ItemGroup>

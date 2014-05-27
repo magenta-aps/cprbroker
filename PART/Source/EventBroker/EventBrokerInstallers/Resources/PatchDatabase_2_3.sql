@@ -1,4 +1,9 @@
-﻿-- Create temp table if not already there
+﻿
+-----------------------------------------------------------------------------------------------
+-------------------   Add identity column DataChangeEvent.ReceivedOrder   ---------------------
+-----------------------------------------------------------------------------------------------
+
+-- Create temp table if not already there
 IF NOT EXISTS (SELECT * FROM sys.tables where name='DataChangeEvent_TMP')
 	CREATE TABLE DataChangeEvent_TMP (DataChangeEventId uniqueidentifier, PersonUuid uniqueidentifier, PersonRegistrationId uniqueidentifier, DueDate datetime, ReceivedDate DateTime)
 GO
@@ -31,4 +36,13 @@ GO
 -- Now drop temp table
 IF EXISTS (SELECT * FROM sys.tables where name='DataChangeEvent_TMP')
 	DROP TABLE DataChangeEvent_TMP
+GO
+
+
+-----------------------------------------------------------------------------------------------
+-------------------------------   Drop legacy stored procedure  -------------------------------
+-----------------------------------------------------------------------------------------------
+
+IF EXISTS (SELECT * FROM sys.procedures WHERE name='InsertChangeNotificationData')
+	DROP PROCEDURE InsertChangeNotificationData
 GO

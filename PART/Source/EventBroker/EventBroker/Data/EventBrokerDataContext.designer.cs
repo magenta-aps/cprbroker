@@ -188,13 +188,6 @@ namespace CprBroker.EventBroker.Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.InsertChangeNotificationData")]
-		public int InsertChangeNotificationData([global::System.Data.Linq.Mapping.ParameterAttribute(Name="SubscriptionId", DbType="UniqueIdentifier")] System.Nullable<System.Guid> subscriptionId, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Today", DbType="DateTime")] System.Nullable<System.DateTime> today, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="LastTime", DbType="DateTime")] System.Nullable<System.DateTime> lastTime)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), subscriptionId, today, lastTime);
-			return ((int)(result.ReturnValue));
-		}
-		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.EnqueueBirthdateEventNotifications")]
 		public int EnqueueBirthdateEventNotifications([global::System.Data.Linq.Mapping.ParameterAttribute(Name="SubscriptionId", DbType="UniqueIdentifier")] System.Nullable<System.Guid> subscriptionId, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Today", DbType="DateTime")] System.Nullable<System.DateTime> today)
 		{
@@ -1069,7 +1062,7 @@ namespace CprBroker.EventBroker.Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Criteria", DbType="Xml", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Criteria", DbType="Xml", CanBeNull=true, UpdateCheck=UpdateCheck.Never)]
 		public System.Xml.Linq.XElement Criteria
 		{
 			get

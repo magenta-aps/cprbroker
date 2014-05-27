@@ -82,7 +82,7 @@
         <classShapeMoniker Id="581c54f8-f2b7-48dd-993c-56d55888b546" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(1.6875 : 2.4631982421875); (1.6875 : 4)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(1.6875 : 2.4631982421875); (1.6875 : 4)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/EventBrokerDataContext/DataChangeEvent/DataChangeEvent_SubscriptionCriteriaMatch" />
       <nodes>
         <classShapeMoniker Id="2b5d6f85-0079-4f23-89d1-6cfca4183b3a" />

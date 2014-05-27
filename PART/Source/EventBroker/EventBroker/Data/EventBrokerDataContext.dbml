@@ -112,12 +112,6 @@
       <Association Name="Subscription_EventNotification" Member="Subscription" ThisKey="SubscriptionId" OtherKey="SubscriptionId" Type="Subscription" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
     </Type>
   </Table>
-  <Function Name="dbo.InsertChangeNotificationData" Method="InsertChangeNotificationData">
-    <Parameter Name="SubscriptionId" Parameter="subscriptionId" Type="System.Guid" DbType="UniqueIdentifier" />
-    <Parameter Name="Today" Parameter="today" Type="System.DateTime" DbType="DateTime" />
-    <Parameter Name="LastTime" Parameter="lastTime" Type="System.DateTime" DbType="DateTime" />
-    <Return Type="System.Int32" />
-  </Function>
   <Function Name="dbo.EnqueueBirthdateEventNotifications" Method="EnqueueBirthdateEventNotifications">
     <Parameter Name="SubscriptionId" Parameter="subscriptionId" Type="System.Guid" DbType="UniqueIdentifier" />
     <Parameter Name="Today" Parameter="today" Type="System.DateTime" DbType="DateTime" />
