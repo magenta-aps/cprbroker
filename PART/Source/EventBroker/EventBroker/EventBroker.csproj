@@ -122,6 +122,9 @@
     <Compile Include="Notifications\CPRDirectPersonConverter.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Notifications\CriteriaSubscriptionPersonPopulator.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Notifications\DataChangeEventPuller.cs">
       <SubType>Component</SubType>
     </Compile>

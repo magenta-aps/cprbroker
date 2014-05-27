@@ -46,3 +46,14 @@ GO
 IF EXISTS (SELECT * FROM sys.procedures WHERE name='InsertChangeNotificationData')
 	DROP PROCEDURE InsertChangeNotificationData
 GO
+
+-----------------------------------------------------------------------------------------------
+------------------------------   New column Subscription.Ready  -------------------------------
+-----------------------------------------------------------------------------------------------
+
+IF NOT EXISTS (SELECT * FROM sys.columns WHERE name = 'Ready' AND object_id = OBJECT_ID('Subscription'))
+	ALTER TABLE Subscription ADD Ready BIT NOT NULL DEFAULT 0
+GO
+
+UPDATE Subscription SET Ready = 1 WHERE Ready IS NULL AND LastCheckedUUID IS NULL
+GO

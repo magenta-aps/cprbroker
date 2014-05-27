@@ -930,6 +930,8 @@ namespace CprBroker.EventBroker.Data
 		
 		private System.Nullable<System.DateTime> _Deactivated;
 		
+		private bool _Ready;
+		
 		private EntityRef<BirthdateSubscription> _BirthdateSubscription;
 		
 		private EntitySet<Channel> _Channels;
@@ -964,6 +966,8 @@ namespace CprBroker.EventBroker.Data
     partial void OnCreatedChanged();
     partial void OnDeactivatedChanging(System.Nullable<System.DateTime> value);
     partial void OnDeactivatedChanged();
+    partial void OnReadyChanging(bool value);
+    partial void OnReadyChanged();
     #endregion
 		
 		public Subscription()
@@ -1062,7 +1066,7 @@ namespace CprBroker.EventBroker.Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Criteria", DbType="Xml", CanBeNull=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Criteria", DbType="Xml", UpdateCheck=UpdateCheck.Never)]
 		public System.Xml.Linq.XElement Criteria
 		{
 			get
@@ -1138,6 +1142,26 @@ namespace CprBroker.EventBroker.Data
 					this._Deactivated = value;
 					this.SendPropertyChanged("Deactivated");
 					this.OnDeactivatedChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Ready", DbType="bit NOT NULL")]
+		public bool Ready
+		{
+			get
+			{
+				return this._Ready;
+			}
+			set
+			{
+				if ((this._Ready != value))
+				{
+					this.OnReadyChanging(value);
+					this.SendPropertyChanging();
+					this._Ready = value;
+					this.SendPropertyChanged("Ready");
+					this.OnReadyChanged();
 				}
 			}
 		}

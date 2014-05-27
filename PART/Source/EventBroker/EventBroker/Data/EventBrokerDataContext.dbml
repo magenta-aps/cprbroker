@@ -47,6 +47,7 @@
       <Column Name="LastCheckedUUID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
       <Column Name="Created" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Column Name="Deactivated" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Ready" Type="System.Boolean" DbType="bit NOT NULL" CanBeNull="false" />
       <Association Name="Subscription_BirthdateSubscription" Member="BirthdateSubscription" ThisKey="SubscriptionId" OtherKey="SubscriptionId" Type="BirthdateSubscription" Cardinality="One" />
       <Association Name="Subscription_Channel" Member="Channels" ThisKey="SubscriptionId" OtherKey="SubscriptionId" Type="Channel" />
       <Association Name="Subscription_DataSubscription" Member="DataSubscription" ThisKey="SubscriptionId" OtherKey="SubscriptionId" Type="DataSubscription" Cardinality="One" />

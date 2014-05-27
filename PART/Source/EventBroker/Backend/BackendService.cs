@@ -76,6 +76,8 @@ namespace CprBroker.EventBroker.Backend
             {
                 return new PeriodicTaskExecuter[]{
                     this.BirthdateEventEnqueuer,
+                    this.DataChangeEventPuller,
+                    this.CriteriaSubscriptionPersonPopulator,
                     this.DataChangeEventEnqueuer,
                     this.NotificationSender,
                     this.CprDirectDownloader,

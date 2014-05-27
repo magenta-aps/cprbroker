@@ -59,7 +59,7 @@ namespace CprBroker.EventBroker.Notifications
     /// <summary>
     /// Gets data change events for Event Broker from Cpr Broker
     /// </summary>
-    public partial class DataChangeEventEnqueuer : CprBrokerEventEnqueuer
+    public partial class DataChangeEventEnqueuer : PeriodicTaskExecuter
     {
         public DataChangeEventEnqueuer()
         {
@@ -79,42 +79,11 @@ namespace CprBroker.EventBroker.Notifications
 
         protected override void PerformTimerAction()
         {
-            // First, make sure that the initial lists for subscription persons are up to date
-            FinalizeInitialPersonLists();
-            PushNotifications();
-        }
-
-        public static void FinalizeInitialPersonLists()
-        {
-            int batchSize = CprBroker.Config.Properties.Settings.Default.SubscriptionCriteriaMatchingBatchSize;
-
-            Admin.LogFormattedSuccess("DataChangeEventEnqueuer.UpdateSubscriptionCriteriaLists() started, batch size <{0}>", batchSize);
-
-            using (var eventDataContext = new Data.EventBrokerDataContext())
-            {
-                var subscriptions = eventDataContext.Subscriptions.Where(s => s.Deactivated == null && s.LastCheckedUUID != null).OrderBy(s => s.Created).ToArray();
-                Admin.LogFormattedSuccess("Found <{0}> pending criteria subscriptions", subscriptions.Length);
-                foreach (var sub in subscriptions)
-                {
-                    while (sub.LastCheckedUUID.HasValue)
-                    {
-                        // TODO: Merge this log entry with the one at the end
-                        Admin.LogFormattedSuccess("Adding persons to subscription <{0}>, start UUID <{1}>, batch size <{2}>", sub.SubscriptionId, sub.LastCheckedUUID.Value, batchSize);
-                        var added = sub.AddMatchingSubscriptionPersons(eventDataContext, batchSize);
-                        eventDataContext.SubmitChanges();
-                        Admin.LogFormattedSuccess("Added <{0}> persons to subscription <{1}>, next start UUID <{2}>", added, sub.SubscriptionId, sub.LastCheckedUUID);
-                    }
-                }
-            }
-            Admin.LogFormattedSuccess("DataChangeEventEnqueuer.UpdateSubscriptionCriteriaLists() finished");
-        }
-
-        public void PushNotifications()
-        {
             var batchSize = CprBroker.Config.Properties.Settings.Default.DataChangeDequeueBatchSize;
 
             using (var dataContext = new Data.EventBrokerDataContext())
             {
+                // Pulls the next n data changes from the database
                 Func<Data.DataChangeEvent[]> puller = () =>
                     dataContext.DataChangeEvents
                     .OrderBy(dce => dce.ReceivedOrder)
@@ -122,16 +91,19 @@ namespace CprBroker.EventBroker.Notifications
                     .Take(batchSize)
                     .ToArray();
 
+                // Used to detect whether all subscriptions are ready. i.e. all criteria subscriptions have completed the initial population
+                Func<bool> allSubsriptionsReady = () => Data.Subscription.GetNonReadySubscriptions(dataContext).Length == 0;
+
                 var dbObjects = puller();
 
-                while (dbObjects.Length > 0)
+                while (allSubsriptionsReady() && dbObjects.Length > 0)
                 {
                     var lastReceivedOrder = dbObjects.Last().ReceivedOrder;
 
                     Admin.LogFormattedSuccess("DataChangeEventEnqueuer.PushNotifications(): <{0}> data changes found", dbObjects.Length);
 
                     DateTime now = DateTime.Now;
-                    MatchDataChangeEvents(dataContext, dbObjects, now);
+                    MatchDataChangeEventsWithSubscriptionCriteria(dataContext, dbObjects, now);
 
                     dataContext.UpdatePersonLists(now, lastReceivedOrder, (int)Data.SubscriptionType.SubscriptionTypes.DataChange);
                     dataContext.EnqueueDataChangeEventNotifications(now, lastReceivedOrder, (int)Data.SubscriptionType.SubscriptionTypes.DataChange);
@@ -145,12 +117,12 @@ namespace CprBroker.EventBroker.Notifications
             }
         }
 
-        private void MatchDataChangeEvents(Data.EventBrokerDataContext dataContext, Data.DataChangeEvent[] dataChangeEvents, DateTime now)
+        private void MatchDataChangeEventsWithSubscriptionCriteria(Data.EventBrokerDataContext dataContext, Data.DataChangeEvent[] dataChangeEvents, DateTime now)
         {
             var criteriaSubscriptions = dataContext.Subscriptions.Where(sub => sub.Criteria != null).ToArray();
             foreach (var subscription in criteriaSubscriptions)
             {
-                subscription.MatchDataChangeEvents(dataChangeEvents);
+                subscription.MatchDataChangeEventsWithCriteria(dataChangeEvents);
             }
             dataContext.SubmitChanges();
         }

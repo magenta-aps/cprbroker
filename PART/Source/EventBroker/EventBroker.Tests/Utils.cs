@@ -73,6 +73,7 @@ namespace CprBroker.EventBroker.Tests
                 Deactivated = null,
                 SubscriptionTypeId = (int)CprBroker.EventBroker.Data.SubscriptionType.SubscriptionTypes.DataChange,
                 IsForAllPersons = false,
+                Ready = true
             };
         }
 
