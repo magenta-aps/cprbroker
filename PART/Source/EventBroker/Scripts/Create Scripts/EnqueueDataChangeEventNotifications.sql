@@ -1,99 +1,65 @@
-﻿/* ***** BEGIN LICENSE BLOCK *****
- * Version: MPL 1.1/GPL 2.0/LGPL 2.1
- *
- * The contents of this file are subject to the Mozilla Public License
- * Version 1.1 (the "License"); you may not use this file except in
- * compliance with the License. You may obtain a copy of the License at
- * http://www.mozilla.org/MPL/
- *
- * Software distributed under the License is distributed on an "AS IS"basis,
- * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
- * for the specific language governing rights and limitations under the
- * License.
- *
- * The CPR Broker concept was initally developed by
- * Gentofte Kommune / Municipality of Gentofte, Denmark.
- * Contributor(s):
- * Steen Deth
- *
- *
- * The Initial Code for CPR Broker and related components is made in
- * cooperation between Magenta, Gentofte Kommune and IT- og Telestyrelsen /
- * Danish National IT and Telecom Agency
- *
- * Contributor(s):
- * Beemen Beshara
- * Niels Elgaard Larsen
- * Leif Lodahl
- * Steen Deth
- *
- * The code is currently governed by IT- og Telestyrelsen / Danish National
- * IT and Telecom Agency
- *
- * Alternatively, the contents of this file may be used under the terms of
- * either the GNU General Public License Version 2 or later (the "GPL"), or
- * the GNU Lesser General Public License Version 2.1 or later (the "LGPL"),
- * in which case the provisions of the GPL or the LGPL are applicable instead
- * of those above. If you wish to allow use of your version of this file only
- * under the terms of either the GPL or the LGPL, and not to allow others to
- * use your version of this file under the terms of the MPL, indicate your
- * decision by deleting the provisions above and replace them with the notice
- * and other provisions required by the GPL or the LGPL. If you do not delete
- * the provisions above, a recipient may use your version of this file under
- * the terms of any one of the MPL, the GPL or the LGPL.
- *
- * ***** END LICENSE BLOCK ***** */
+﻿/*
+    Input:
+    ------
+    - Current time (@Now) to mark changes with timestamp
+    - Subset of data change events (defined as ReceivedOrder <= @LatestReceivedOrder)
+    - @SubscriptionTypeId to mark data change subscriptions (instead of having the typeId hardcoded)
 
-IF EXISTS (SELECT * FROM sysobjects WHERE type = 'P' AND name = 'EnqueueDataChangeEventNotifications')
-	BEGIN
-		DROP  Procedure  EnqueueDataChangeEventNotifications
-	END
+    Result:
+    -------
+    Rows inserted in EventNotification for each DataChangeEvent X active subscriptions that are any of these:
+    - Are for specific persons, and these persons include the person in the DataChangeEvent
+        (Including criteria subscriptions, as their SubscriptionPerson rows should have been updated in previous steps)
+    - Are for all persons
 
-GO
+    Output:
+    -------
+    N/A
+*/
 
 CREATE Procedure EnqueueDataChangeEventNotifications
 (
-		--@StartDate DateTime,
-		--@EndDate DateTime,
-		@Now DateTime,
-		@SubscriptionTypeId Int
+    @Now DateTime,
+    @LatestReceivedOrder Int,
+    @SubscriptionTypeId Int
 )
 
 AS
-		-- Subscriptions (that ARE NOT deactivated) for specific persons that deactivated
-		INSERT INTO EventNotification (SubscriptionId, PersonUUID, CreatedDate)
-		SELECT S.SubscriptionId, DCE.PersonUuid, @Now
-		FROM DataChangeEvent AS DCE
-		INNER JOIN SubscriptionPerson AS SP ON SP.PersonUuid = DCE.PersonUuid
-		INNER JOIN Subscription AS S ON S.SubscriptionId = SP.SubscriptionId
-		WHERE 
-			--DCE.ReceivedDate BETWEEN @StartDate AND @EndDate
-			S.IsForAllPersons = 0
-			AND S.SubscriptionTypeId = @SubscriptionTypeId
-			-- We test if the subscription has been deactivated
-			AND S.Deactivated IS NULL
-		
-		-- Subscriptions (that ARE deactivated) for specific persons
-		INSERT INTO EventNotification (SubscriptionId, PersonUUID, CreatedDate, IsLastNotification)
-		SELECT S.SubscriptionId, DCE.PersonUuid, @Now, 1
-		FROM DataChangeEvent AS DCE
-		INNER JOIN SubscriptionPerson AS SP ON SP.PersonUuid = DCE.PersonUuid
-		INNER JOIN Subscription AS S ON S.SubscriptionId = SP.SubscriptionId
-		WHERE 
-			--DCE.ReceivedDate BETWEEN @StartDate AND @EndDate
-			S.IsForAllPersons = 0
-			AND S.SubscriptionTypeId = @SubscriptionTypeId
-			-- We test if the subscription has been deactivated
-			AND S.Deactivated IS NOT NULL
-		
-		-- Subscriptions for all persons
-		INSERT INTO EventNotification (SubscriptionId, PersonUUID, CreatedDate)
-		SELECT S.SubscriptionId, DCE.PersonUuid, @Now
-		FROM DataChangeEvent AS DCE,	Subscription AS S	
-		WHERE 
-			--DCE.ReceivedDate BETWEEN @StartDate AND @EndDate
-			S.IsForAllPersons = 1
-			AND S.SubscriptionTypeId = @SubscriptionTypeId
+    -- Subscriptions for specific persons or criteria
+    INSERT INTO 
+        EventNotification (SubscriptionId, PersonUUID, CreatedDate, IsLastNotification)
+    SELECT 
+        S.SubscriptionId, DCE.PersonUuid, @Now, 0
+    FROM 
+        DataChangeEvent AS DCE
+        INNER JOIN SubscriptionPerson AS SP ON SP.PersonUuid = DCE.PersonUuid
+        INNER JOIN Subscription AS S ON S.SubscriptionId = SP.SubscriptionId
+    WHERE 
+        -- Conditions for DataChangeEvent
+            DCE.ReceivedOrder <= @LatestReceivedOrder
+            
+        -- Conditions for SubscriptionPerson
+        AND SP.Removed IS NULL
+            
+        -- Conditions for Subscription
+        AND S.IsForAllPersons = 0
+        AND S.SubscriptionTypeId = @SubscriptionTypeId
+        AND S.Deactivated IS NULL
+
+
+
+    -- Subscriptions for all persons
+    INSERT INTO EventNotification (SubscriptionId, PersonUUID, CreatedDate, IsLastNotification)
+    SELECT S.SubscriptionId, DCE.PersonUuid, @Now, 0
+    FROM DataChangeEvent AS DCE,    Subscription AS S    
+    WHERE 
+        -- Conditions for DataChangeEvent
+            DCE.ReceivedOrder <= @LatestReceivedOrder
+            
+        -- Conditions for Subscription
+        AND S.IsForAllPersons = 1
+        AND S.SubscriptionTypeId = @SubscriptionTypeId
+        AND S.Deactivated IS NULL
 GO
 
 

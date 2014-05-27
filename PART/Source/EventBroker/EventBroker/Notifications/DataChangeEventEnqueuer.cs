@@ -79,11 +79,12 @@ namespace CprBroker.EventBroker.Notifications
 
         protected override void PerformTimerAction()
         {
-            UpdateSubscriptionCriteriaLists();
+            // First, make sure that the initial lists for subscription persons are up to date
+            FinalizeInitialPersonLists();
             PushNotifications();
         }
 
-        public static void UpdateSubscriptionCriteriaLists()
+        public static void FinalizeInitialPersonLists()
         {
             int batchSize = CprBroker.Config.Properties.Settings.Default.SubscriptionCriteriaMatchingBatchSize;
 
@@ -125,13 +126,15 @@ namespace CprBroker.EventBroker.Notifications
 
                 while (dbObjects.Length > 0)
                 {
+                    var lastReceivedOrder = dbObjects.Last().ReceivedOrder;
+
                     Admin.LogFormattedSuccess("DataChangeEventEnqueuer.PushNotifications(): <{0}> data changes found", dbObjects.Length);
 
                     DateTime now = DateTime.Now;
                     MatchDataChangeEvents(dataContext, dbObjects, now);
 
-                    dataContext.UpdatePersonLists(now, (int)Data.SubscriptionType.SubscriptionTypes.DataChange);
-                    dataContext.EnqueueDataChangeEventNotifications(now, (int)Data.SubscriptionType.SubscriptionTypes.DataChange);
+                    dataContext.UpdatePersonLists(now, lastReceivedOrder, (int)Data.SubscriptionType.SubscriptionTypes.DataChange);
+                    dataContext.EnqueueDataChangeEventNotifications(now, lastReceivedOrder, (int)Data.SubscriptionType.SubscriptionTypes.DataChange);
 
                     //TODO: Move this logic to above stored procedure
                     dataContext.DataChangeEvents.DeleteAllOnSubmit(dbObjects);

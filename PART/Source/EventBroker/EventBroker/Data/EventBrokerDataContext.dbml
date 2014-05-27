@@ -119,11 +119,13 @@
   </Function>
   <Function Name="dbo.EnqueueDataChangeEventNotifications" Method="EnqueueDataChangeEventNotifications">
     <Parameter Name="Now" Parameter="now" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="LatestReceivedOrder" Parameter="latestReceivedOrder" Type="System.Int32" DbType="Int" />
     <Parameter Name="SubscriptionTypeId" Parameter="subscriptionTypeId" Type="System.Int32" DbType="Int" />
     <Return Type="System.Int32" />
   </Function>
   <Function Name="dbo.UpdatePersonLists" Method="UpdatePersonLists">
     <Parameter Name="Now" Parameter="now" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="LatestReceivedOrder" Parameter="latestReceivedOrder" Type="System.Int32" DbType="Int" />
     <Parameter Name="SubscriptionTypeId" Parameter="subscriptionTypeId" Type="System.Int32" DbType="Int" />
     <Return Type="System.Int32" />
   </Function>

@@ -67,7 +67,7 @@ namespace CprBroker.EventBroker.Tests
                 var soegObject = Utils.CreateSoegObject(municipalityCode);
                 new Subscriptions.SubscriptionDataProvider().SubscribeOnCriteria(new FileShareChannelType() { Path = "C:\\" }, soegObject);
 
-                Notifications.DataChangeEventEnqueuer.UpdateSubscriptionCriteriaLists();
+                Notifications.DataChangeEventEnqueuer.FinalizeInitialPersonLists();
             }
         }
     }

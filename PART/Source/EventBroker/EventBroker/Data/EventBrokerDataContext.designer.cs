@@ -196,16 +196,16 @@ namespace CprBroker.EventBroker.Data
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.EnqueueDataChangeEventNotifications")]
-		public int EnqueueDataChangeEventNotifications([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Now", DbType="DateTime")] System.Nullable<System.DateTime> now, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="SubscriptionTypeId", DbType="Int")] System.Nullable<int> subscriptionTypeId)
+		public int EnqueueDataChangeEventNotifications([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Now", DbType="DateTime")] System.Nullable<System.DateTime> now, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="LatestReceivedOrder", DbType="Int")] System.Nullable<int> latestReceivedOrder, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="SubscriptionTypeId", DbType="Int")] System.Nullable<int> subscriptionTypeId)
 		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), now, subscriptionTypeId);
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), now, latestReceivedOrder, subscriptionTypeId);
 			return ((int)(result.ReturnValue));
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.UpdatePersonLists")]
-		public int UpdatePersonLists([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Now", DbType="DateTime")] System.Nullable<System.DateTime> now, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="SubscriptionTypeId", DbType="Int")] System.Nullable<int> subscriptionTypeId)
+		public int UpdatePersonLists([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Now", DbType="DateTime")] System.Nullable<System.DateTime> now, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="LatestReceivedOrder", DbType="Int")] System.Nullable<int> latestReceivedOrder, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="SubscriptionTypeId", DbType="Int")] System.Nullable<int> subscriptionTypeId)
 		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), now, subscriptionTypeId);
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), now, latestReceivedOrder, subscriptionTypeId);
 			return ((int)(result.ReturnValue));
 		}
 	}
