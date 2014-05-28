@@ -46,9 +46,9 @@
 
 /*
 	Checks whether a birthdate subscription should fire a notification
-	If so, creates a new row in Notification table with its child rows
+	If so, creates a new row in EventNotification table with its child rows
 */
-IF EXISTS (SELECT * FROM sysobjects WHERE type = 'P' AND name = 'EnqueueBirthdateEventNotifications')
+IF EXISTS (SELECT * FROM sys.procedures WHERE name = 'EnqueueBirthdateEventNotifications')
 	BEGIN
 		DROP  Procedure  EnqueueBirthdateEventNotifications
 	END

@@ -17,6 +17,10 @@
     N/A
 */
 
+IF EXISTS (SELECT * FROM sys.procedures WHERE name = 'EnqueueDataChangeEventNotifications')
+	DROP PROCEDURE EnqueueDataChangeEventNotifications
+GO
+
 CREATE Procedure EnqueueDataChangeEventNotifications
 (
     @Now DateTime,
@@ -61,5 +65,3 @@ AS
         AND S.SubscriptionTypeId = @SubscriptionTypeId
         AND S.Deactivated IS NULL
 GO
-
-

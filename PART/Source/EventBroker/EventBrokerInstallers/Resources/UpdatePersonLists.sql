@@ -19,6 +19,10 @@
     N/A
 */
 
+IF EXISTS (SELECT * FROM sys.procedures WHERE name = 'UpdatePersonLists')
+	DROP PROCEDURE UpdatePersonLists
+GO
+
 CREATE PROCEDURE [dbo].[UpdatePersonLists]
     @Now datetime,
     @LatestReceivedOrder Int,
