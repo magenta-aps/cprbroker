@@ -139,16 +139,6 @@
     <Folder Include="Properties" />
   </ItemGroup>
   <ItemGroup>
-    <NotInBuild Include="Create Scripts\EnqueueBirthdateEventNotifications.sql" />
-    <NotInBuild Include="Create Scripts\EnqueueDataChangeEventNotifications.sql" />
-    <NotInBuild Include="Create Scripts\IsBirthdateEvent.sql" />
-  </ItemGroup>
-  <ItemGroup>
     <BuildContributorArgument Include="OutDir=$(OutDir)" />
-  </ItemGroup>
-  <ItemGroup>
-    <Build Include="Create Scripts\UpdatePersonLists.sql">
-      <SubType>Code</SubType>
-    </Build>
   </ItemGroup>
 </Project>
