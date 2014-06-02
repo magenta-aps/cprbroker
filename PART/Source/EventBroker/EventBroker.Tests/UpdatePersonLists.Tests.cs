@@ -98,7 +98,7 @@ namespace CprBroker.EventBroker.Tests
             }
             using (var dataContext = new EventBrokerDataContext())
             {
-                int records = dataContext.UpdatePersonLists(DateTime.Now, (int)Data.SubscriptionType.SubscriptionTypes.DataChange);
+                int records = dataContext.UpdatePersonLists(DateTime.Now, int.MaxValue, (int)Data.SubscriptionType.SubscriptionTypes.DataChange);
                 var subscriptionPersons = dataContext.SubscriptionPersons.Where(sp => sp.SubscriptionId == sub.SubscriptionId && sp.Removed == null).ToArray();
                 Assert.AreEqual(1, subscriptionPersons.Length);
                 Assert.Null(subscriptionPersons[0].Removed);
@@ -128,7 +128,7 @@ namespace CprBroker.EventBroker.Tests
             }
             using (var dataContext = new EventBrokerDataContext())
             {
-                int records = dataContext.UpdatePersonLists(DateTime.Now, (int)Data.SubscriptionType.SubscriptionTypes.DataChange);
+                int records = dataContext.UpdatePersonLists(DateTime.Now, int.MaxValue, (int)Data.SubscriptionType.SubscriptionTypes.DataChange);
                 var subscriptionPerson = dataContext.SubscriptionPersons.Where(sp => sp.SubscriptionId == sub.SubscriptionId).Single();
                 Assert.NotNull(subscriptionPerson.Removed);
 
@@ -159,7 +159,7 @@ namespace CprBroker.EventBroker.Tests
             }
             using (var dataContext = new EventBrokerDataContext())
             {
-                int records = dataContext.UpdatePersonLists(DateTime.Now, (int)Data.SubscriptionType.SubscriptionTypes.DataChange);
+                int records = dataContext.UpdatePersonLists(DateTime.Now, int.MaxValue, (int)Data.SubscriptionType.SubscriptionTypes.DataChange);
                 var subscriptionPerson = dataContext.SubscriptionPersons.Where(sp => sp.SubscriptionId == sub.SubscriptionId).Single();
                 Assert.Null(subscriptionPerson.Removed);
 
@@ -178,7 +178,7 @@ namespace CprBroker.EventBroker.Tests
             };
 
             var sub = Utils.CreateCriteriaSubscription(municipalityCode);
-            
+
             using (var dataContext = new EventBrokerDataContext())
             {
                 dataContext.DataChangeEvents.InsertAllOnSubmit(dce);
@@ -187,7 +187,7 @@ namespace CprBroker.EventBroker.Tests
             }
             using (var dataContext = new EventBrokerDataContext())
             {
-                int records = dataContext.UpdatePersonLists(DateTime.Now, (int)Data.SubscriptionType.SubscriptionTypes.DataChange);
+                int records = dataContext.UpdatePersonLists(DateTime.Now, int.MaxValue, (int)Data.SubscriptionType.SubscriptionTypes.DataChange);
                 var subscriptionPerson = dataContext.SubscriptionPersons.Where(sp => sp.SubscriptionId == sub.SubscriptionId).SingleOrDefault();
                 Assert.Null(subscriptionPerson);
 
