@@ -188,11 +188,7 @@ namespace CprBrokerWixInstallers
 
                 lookupDataArray["CPR"] = cprLookups.ToArray();
 
-                List<KeyValuePair<string, string>> eventLookups = new List<KeyValuePair<string, string>>();
-
-                eventLookups.Add(new KeyValuePair<string, string>(typeof(ChannelType).Name, CprBroker.Installers.EventBrokerInstallers.Properties.Resources.ChannelType));
-                eventLookups.Add(new KeyValuePair<string, string>(typeof(SubscriptionType).Name, CprBroker.Installers.EventBrokerInstallers.Properties.Resources.SubscriptionType));
-
+                var eventLookups = CprBroker.Installers.EventBrokerInstallers.Properties.ResourcesExtensions.Lookups;
                 lookupDataArray["EVENT"] = eventLookups.ToArray();
 
                 // Custom methods
