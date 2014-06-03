@@ -154,12 +154,24 @@ namespace CprBroker.Installers.EventBrokerInstallers.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to /****** Object:  ForeignKey [FK_Subscription_SubscriptionType]    Script Date: 02/13/2011 17:59:04 ******/
-        ///IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N&apos;[dbo].[FK_Subscription_SubscriptionType]&apos;) AND parent_object_id = OBJECT_ID(N&apos;[dbo].[Subscription]&apos;))
-        ///ALTER TABLE [dbo].[Subscription] DROP CONSTRAINT [FK_Subscription_SubscriptionType]
+        ///   Looks up a localized string similar to 
+        ///
+        ///
+        ///
+        ///
+        ///
+        ///
+        ///
+        ////****** Object:  Table [dbo].[PersonBirthdate]    Script Date: 02/13/2011 17:59:04 ******/
+        ///IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N&apos;[dbo].[PersonBirthdate]&apos;) AND type in (N&apos;U&apos;))
+        ///DROP TABLE [dbo].[PersonBirthdate]
         ///GO
-        ////****** Object:  Default [DF_Subscription_SubscriptionId]    Script Date: 02/13/2011 17:59:04 ******/
-        ///IF  EXISTS (SELECT * FROM sys.defaul [rest of string was truncated]&quot;;.
+        ////****** Object:  Table [dbo].[DataChangeEvent]    Script Date: 02/13/2011 17:59:04 ******/
+        ///IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N&apos;[dbo].[DataChangeEvent]&apos;) AND type in (N&apos;U&apos;))
+        ///DROP TABLE [dbo].[DataChangeEvent]
+        ///GO
+        ///
+        /// [rest of string was truncated]&quot;;.
         /// </summary>
         public static string CreateEventBrokerDatabaseObjects {
             get {
@@ -289,16 +301,38 @@ namespace CprBroker.Installers.EventBrokerInstallers.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to /****** Object:  ForeignKey [FK_Subscription_SubscriptionType]    Script Date: 02/13/2011 17:59:04 ******/
-        ///IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N&apos;[dbo].[FK_Subscription_SubscriptionType]&apos;) AND parent_object_id = OBJECT_ID(N&apos;[dbo].[Subscription]&apos;))
-        ///ALTER TABLE [dbo].[Subscription] DROP CONSTRAINT [FK_Subscription_SubscriptionType]
+        ///   Looks up a localized string similar to /****** Object:  Table [dbo].[Subscription] ******/
+        ///IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N&apos;[dbo].[Subscription]&apos;) AND type in (N&apos;U&apos;))
+        ///DROP TABLE [dbo].[Subscription]
         ///GO
-        ////****** Object:  Default [DF_Subscription_SubscriptionId]    Script Date: 02/13/2011 17:59:04 ******/
-        ///IF  EXISTS (SELECT * FROM sys.defaul [rest of string was truncated]&quot;;.
+        ///
+        ////****** Object:  Table [dbo].[Subscription] ******/
+        ///SET ANSI_NULLS ON
+        ///GO
+        ///SET QUOTED_IDENTIFIER ON
+        ///GO
+        ///IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N&apos;[dbo].[Subscription]&apos;) AND type in (N&apos;U&apos;))
+        ///BEGIN
+        ///CREATE TABLE [dbo].[Subscription](
+        ///	[SubscriptionId] [uniqueidentifier] NOT NUL [rest of string was truncated]&quot;;.
         /// </summary>
         public static string Subscription {
             get {
                 return ResourceManager.GetString("Subscription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /****** Object:  ForeignKey [FK_SubscriptionPerson_Subscription]    Script Date: 02/13/2011 17:59:04 ******/
+        ///IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N&apos;[dbo].[FK_SubscriptionPerson_Subscription]&apos;) AND parent_object_id = OBJECT_ID(N&apos;[dbo].[SubscriptionPerson]&apos;))
+        ///ALTER TABLE [dbo].[SubscriptionPerson] DROP CONSTRAINT [FK_SubscriptionPerson_Subscription]
+        ///GO
+        ////****** Object:  Default [DF_SubscriptionPerson_SubscriptionPersonId]    Script Date: 02/13/2011 17:59:04 ******/
+        ///IF  EX [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string SubscriptionPerson {
+            get {
+                return ResourceManager.GetString("SubscriptionPerson", resourceCulture);
             }
         }
         
