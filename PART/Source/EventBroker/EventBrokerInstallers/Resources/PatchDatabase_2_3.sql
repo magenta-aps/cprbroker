@@ -57,3 +57,10 @@ GO
 
 UPDATE Subscription SET Ready = 1 WHERE Ready IS NULL AND LastCheckedUUID IS NULL
 GO
+
+-----------------------------------------------------------------------------------------------
+--------------------   Drop default for  BirthdateSubscription.SubscriptionId -----------------
+-----------------------------------------------------------------------------------------------
+
+IF EXISTS (SELECT * FROM sys.default_constraints WHERE object_id = OBJECT_ID(N'[dbo].[DF_BirthdateSubscription_SubscriptionId]') AND parent_object_id = OBJECT_ID(N'[dbo].[BirthdateSubscription]'))
+    ALTER TABLE [dbo].[BirthdateSubscription] DROP  CONSTRAINT [DF_BirthdateSubscription_SubscriptionId]  

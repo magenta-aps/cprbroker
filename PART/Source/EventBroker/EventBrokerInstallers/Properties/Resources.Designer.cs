@@ -78,12 +78,41 @@ namespace CprBroker.Installers.EventBrokerInstallers.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to /****** Object:  ForeignKey [FK_Channel_ChannelType]    Script Date: 02/13/2011 17:59:04 ******/
-        ///IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N&apos;[dbo].[FK_Channel_ChannelType]&apos;) AND parent_object_id = OBJECT_ID(N&apos;[dbo].[Channel]&apos;))
-        ///ALTER TABLE [dbo].[Channel] DROP CONSTRAINT [FK_Channel_ChannelType]
+        ///   Looks up a localized string similar to /****** Object:  Table [dbo].[BirthdateSubscription] ******/
+        ///IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N&apos;[dbo].[BirthdateSubscription]&apos;) AND type in (N&apos;U&apos;))
+        ///DROP TABLE [dbo].[BirthdateSubscription]
         ///GO
-        ////****** Object:  ForeignKey [FK_Channel_Subscription]    Script Date: 02/13/2011 17:59:04 ******/
-        ///IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N&apos;[dbo].[ [rest of string was truncated]&quot;;.
+        ///
+        ////****** Object:  Table [dbo].[BirthdateSubscription] ******/
+        ///SET ANSI_NULLS ON
+        ///GO
+        ///SET QUOTED_IDENTIFIER ON
+        ///GO
+        ///IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N&apos;[dbo].[BirthdateSubscription]&apos;) AND type in (N&apos;U&apos;))
+        ///BEGIN
+        ///CREATE TABLE [dbo].[BirthdateSubscr [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string BirthdateSubscription {
+            get {
+                return ResourceManager.GetString("BirthdateSubscription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /****** Object:  Table [dbo].[Channel]    Script Date: 02/13/2011 17:59:04 ******/
+        ///IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N&apos;[dbo].[Channel]&apos;) AND type in (N&apos;U&apos;))
+        ///DROP TABLE [dbo].[Channel]
+        ///GO
+        ///
+        ////****** Object:  Table [dbo].[Channel]    Script Date: 02/13/2011 17:59:04 ******/
+        ///SET ANSI_NULLS ON
+        ///GO
+        ///SET QUOTED_IDENTIFIER ON
+        ///GO
+        ///IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N&apos;[dbo].[Channel]&apos;) AND type in (N&apos;U&apos;))
+        ///BEGIN
+        ///CREATE TABLE [dbo].[Channel](
+        ///	[ [rest of string was truncated]&quot;;.
         /// </summary>
         public static string Channel {
             get {
@@ -125,12 +154,18 @@ namespace CprBroker.Installers.EventBrokerInstallers.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to /****** Object:  ForeignKey [FK_Channel_ChannelType]    Script Date: 02/13/2011 17:59:04 ******/
-        ///IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N&apos;[dbo].[FK_Channel_ChannelType]&apos;) AND parent_object_id = OBJECT_ID(N&apos;[dbo].[Channel]&apos;))
-        ///ALTER TABLE [dbo].[Channel] DROP CONSTRAINT [FK_Channel_ChannelType]
+        ///   Looks up a localized string similar to 
+        ///
+        ///
+        ///
+        ///
+        ///
+        ////****** Object:  ForeignKey [FK_DataSubscription_Subscription]    Script Date: 02/13/2011 17:59:04 ******/
+        ///IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N&apos;[dbo].[FK_DataSubscription_Subscription]&apos;) AND parent_object_id = OBJECT_ID(N&apos;[dbo].[DataSubscription]&apos;))
+        ///ALTER TABLE [dbo].[DataSubscription] DROP CONSTRAINT [FK_DataSubscription_Subscription]
         ///GO
-        ////****** Object:  ForeignKey [FK_Channel_Subscription]    Script Date: 02/13/2011 17:59:04 ******/
-        ///IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N&apos;[dbo].[ [rest of string was truncated]&quot;;.
+        ////****** Object:  ForeignKey [FK_EventNotification_Subscription]    Script Date: 02/13/2011 17:59:04 ******/
+        ///IF  EXISTS [rest of string was truncated]&quot;;.
         /// </summary>
         public static string CreateEventBrokerDatabaseObjects {
             get {
