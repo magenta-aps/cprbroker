@@ -54,11 +54,11 @@ using CprBroker.Data.Part;
 
 namespace CprBroker.EventBroker.Tests
 {
-    
+
     namespace SubscriptionTests
     {
         [TestFixture]
-        public class GetDataChangeEventMatches
+        public class GetDataChangeEventMatches : TestBase
         {
             public static string[] MunicipalityCodes = new string[] { "851", "500", "322" };
             [Test]
@@ -70,41 +70,51 @@ namespace CprBroker.EventBroker.Tests
 
                 var pers = Utils.CreatePerson(uuid);
                 var dbReg = Utils.CreatePersonRegistration(pers, municipalityCode, personRegId, uuid);
-                var dataChangeEvent = Utils.CreateDataChangeEvent(dbReg);
-                var subscription = Utils.CreateCriteriaSubscription(municipalityCode);
 
-                using (var cprDataContext = new PartDataContext())
+                using (var dataContext = new EventBrokerDataContext(ConnectionString))
                 {
-                    cprDataContext.Persons.InsertOnSubmit(pers);
-                    cprDataContext.PersonRegistrations.InsertOnSubmit(dbReg);
-                    cprDataContext.SubmitChanges();
-                }
+                    var subscription = AddSubscription(dataContext, Utils.CreateSoegObject(municipalityCode), false, true, SubscriptionType.SubscriptionTypes.DataChange);
+                    var dataChangeEvent = AddChanges(dataContext, dbReg);
+                    dataContext.SubmitChanges();
 
-                var sss = subscription.GetDataChangeEventMatches(new DataChangeEvent[] { dataChangeEvent }).ToArray();
-                Assert.IsNotEmpty(sss);
+                    using (var cprDataContext = new PartDataContext())
+                    {
+                        cprDataContext.Persons.InsertOnSubmit(pers);
+                        cprDataContext.PersonRegistrations.InsertOnSubmit(dbReg);
+                        cprDataContext.SubmitChanges();
+                    }
+
+                    var sss = subscription.GetDataChangeEventMatches(dataChangeEvent).ToArray();
+                    Assert.IsNotEmpty(sss);
+                }
             }
 
             [Test]
             public void UpdatePersonLists_NotMatching_NotFound([ValueSource("MunicipalityCodes")]string municipalityCode)
             {
-
                 Guid uuid = Guid.NewGuid();
                 Guid personRegId = Guid.NewGuid();
 
                 var pers = Utils.CreatePerson(uuid);
                 var dbReg = Utils.CreatePersonRegistration(pers, municipalityCode, personRegId, uuid);
-                var dataChangeEvent = Utils.CreateDataChangeEvent(dbReg);
-                var subscription = Utils.CreateCriteriaSubscription(municipalityCode + "222");
 
-                using (var cprDataContext = new PartDataContext())
+
+                using (var dataContext = new EventBrokerDataContext(ConnectionString))
                 {
-                    cprDataContext.Persons.InsertOnSubmit(pers);
-                    cprDataContext.PersonRegistrations.InsertOnSubmit(dbReg);
-                    cprDataContext.SubmitChanges();
-                }
+                    var subscription = AddSubscription(dataContext, Utils.CreateSoegObject(municipalityCode + "222"), false, true, SubscriptionType.SubscriptionTypes.DataChange);
+                    var dataChangeEvent = AddChanges(dataContext, dbReg);
+                    dataContext.SubmitChanges();
 
-                var sss = subscription.GetDataChangeEventMatches(new DataChangeEvent[] { dataChangeEvent }).ToArray();
-                Assert.IsEmpty(sss);
+                    using (var cprDataContext = new PartDataContext())
+                    {
+                        cprDataContext.Persons.InsertOnSubmit(pers);
+                        cprDataContext.PersonRegistrations.InsertOnSubmit(dbReg);
+                        cprDataContext.SubmitChanges();
+                    }
+
+                    var sss = subscription.GetDataChangeEventMatches(dataChangeEvent).ToArray();
+                    Assert.IsEmpty(sss);
+                }
             }
         }
     }

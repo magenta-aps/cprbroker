@@ -1,4 +1,9 @@
 ﻿/*
+    Preconditions:
+    --------------
+    Current subset of data changes should have been matched to all the subscriptions that have Criteria IS NOT NULL,
+    Matches should have been pushed into SubscriptionCriteriaMatch
+
     Input:
     ------
     - Current time (@Now) to mark changes with timestamp
@@ -76,7 +81,7 @@ AS
     UPDATE 
         SP
     SET 
-        Removed = 1
+        Removed = @Now
     FROM 
         SubscriptionPerson SP INNER JOIN @TMP T 
         ON 

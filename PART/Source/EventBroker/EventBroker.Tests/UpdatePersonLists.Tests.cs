@@ -57,47 +57,22 @@ using System.IO;
 namespace CprBroker.EventBroker.Tests
 {
     [TestFixture]
-    class UpdatePersonLists
+    public class UpdatePersonLists : TestBase
     {
         public static string[] MunicipalityCodes = new string[] { "1950", "935" };
-
-        [SetUp]
-        public static void ClearDatabase()
-        {
-            using (var dataContext = new EventBrokerDataContext())
-            {
-                dataContext.BirthdateEventNotifications.DeleteAllOnSubmit(dataContext.BirthdateEventNotifications);
-                dataContext.BirthdateSubscriptions.DeleteAllOnSubmit(dataContext.BirthdateSubscriptions);
-                dataContext.DataChangeEvents.DeleteAllOnSubmit(dataContext.DataChangeEvents);
-                dataContext.DataSubscriptions.DeleteAllOnSubmit(dataContext.DataSubscriptions);
-                dataContext.EventNotifications.DeleteAllOnSubmit(dataContext.EventNotifications);
-                dataContext.SubscriptionCriteriaMatches.DeleteAllOnSubmit(dataContext.SubscriptionCriteriaMatches);
-                dataContext.SubscriptionPersons.DeleteAllOnSubmit(dataContext.SubscriptionPersons);
-                //dataContext.Subscriptions.DeleteAllOnSubmit(dataContext.Subscriptions);
-                dataContext.SubmitChanges();
-            }
-        }
 
         [Test]
         [TestCaseSource("MunicipalityCodes")]
         public void UpdatePersonLists_2Changes_1MovingIn_PersonAdded(string municipalityCode)
         {
-            var dce = new DataChangeEvent[]{ 
-                new DataChangeEvent(){ PersonRegistrationId = Guid.NewGuid(), DueDate = DateTime.Now, ReceivedDate=DateTime.Now, PersonUuid = Guid.NewGuid(), DataChangeEventId=Guid.NewGuid()},
-                new DataChangeEvent(){ PersonRegistrationId = Guid.NewGuid(), DueDate = DateTime.Now, ReceivedDate=DateTime.Now, PersonUuid = Guid.NewGuid(), DataChangeEventId=Guid.NewGuid()}
-            };
-
-            var sub = Utils.CreateCriteriaSubscription(municipalityCode);
-            sub.SubscriptionCriteriaMatches.Add(new SubscriptionCriteriaMatch() { SubscriptionCriteriaMatchId = Guid.NewGuid(), DataChangeEvent = dce[0] });
-
-            using (var dataContext = new EventBrokerDataContext())
+            using (var dataContext = new EventBrokerDataContext(ConnectionString))
             {
-                dataContext.DataChangeEvents.InsertAllOnSubmit(dce);
-                dataContext.Subscriptions.InsertOnSubmit(sub);
+                var dce = AddChanges(dataContext, 2);
+                var sub = AddSubscription(dataContext, Utils.CreateSoegObject(municipalityCode), false, true, Data.SubscriptionType.SubscriptionTypes.DataChange);
+                sub.SubscriptionCriteriaMatches.Add(new SubscriptionCriteriaMatch() { SubscriptionCriteriaMatchId = Guid.NewGuid(), DataChangeEvent = dce[0] });
+
                 dataContext.SubmitChanges();
-            }
-            using (var dataContext = new EventBrokerDataContext())
-            {
+
                 int records = dataContext.UpdatePersonLists(DateTime.Now, int.MaxValue, (int)Data.SubscriptionType.SubscriptionTypes.DataChange);
                 var subscriptionPersons = dataContext.SubscriptionPersons.Where(sp => sp.SubscriptionId == sub.SubscriptionId && sp.Removed == null).ToArray();
                 Assert.AreEqual(1, subscriptionPersons.Length);
@@ -106,29 +81,31 @@ namespace CprBroker.EventBroker.Tests
                 var notif = dataContext.EventNotifications.Where(en => en.SubscriptionId == sub.SubscriptionId).SingleOrDefault();
                 Assert.Null(notif);
             }
+
         }
 
         [Test]
         [TestCaseSource("MunicipalityCodes")]
         public void UpdatePersonLists_2Changes_1MovingOut_PersonRemovedAndNotoficationAdded(string municipalityCode)
         {
-            var dce = new DataChangeEvent[]{ 
-                new DataChangeEvent(){ PersonRegistrationId = Guid.NewGuid(), DueDate = DateTime.Now, ReceivedDate=DateTime.Now, PersonUuid = Guid.NewGuid(), DataChangeEventId=Guid.NewGuid()},
-                new DataChangeEvent(){ PersonRegistrationId = Guid.NewGuid(), DueDate = DateTime.Now, ReceivedDate=DateTime.Now, PersonUuid = Guid.NewGuid(), DataChangeEventId=Guid.NewGuid()}
-            };
-
-            var sub = Utils.CreateCriteriaSubscription(municipalityCode);
-            sub.SubscriptionPersons.Add(new SubscriptionPerson() { SubscriptionPersonId = Guid.NewGuid(), PersonUuid = dce[0].PersonUuid, Created = DateTime.Now, Removed = null });
-
-            using (var dataContext = new EventBrokerDataContext())
+            using (var dataContext = new EventBrokerDataContext(ConnectionString))
             {
-                dataContext.DataChangeEvents.InsertAllOnSubmit(dce);
+                // Init data
+                var dce = AddChanges(dataContext, 2);
+                var sub = AddSubscription(dataContext, Utils.CreateSoegObject(municipalityCode), false, true, Data.SubscriptionType.SubscriptionTypes.DataChange);
+                var persons = AddPersons(sub, 1);
+                persons[0].PersonUuid = dce[0].PersonUuid;                
+
                 dataContext.Subscriptions.InsertOnSubmit(sub);
                 dataContext.SubmitChanges();
-            }
-            using (var dataContext = new EventBrokerDataContext())
-            {
+
+                // Action
                 int records = dataContext.UpdatePersonLists(DateTime.Now, int.MaxValue, (int)Data.SubscriptionType.SubscriptionTypes.DataChange);
+                
+                // Refresh from DB
+                dataContext.Refresh(System.Data.Linq.RefreshMode.OverwriteCurrentValues, dataContext.SubscriptionPersons);
+                
+                // Test outcome
                 var subscriptionPerson = dataContext.SubscriptionPersons.Where(sp => sp.SubscriptionId == sub.SubscriptionId).Single();
                 Assert.NotNull(subscriptionPerson.Removed);
 
@@ -142,23 +119,15 @@ namespace CprBroker.EventBroker.Tests
         [TestCaseSource("MunicipalityCodes")]
         public void UpdatePersonLists_2Changes_1In_AlreadyInSubscription_StaysInSubscriptionAndNoNotificationCreated(string municipalityCode)
         {
-            var dce = new DataChangeEvent[]{ 
-                new DataChangeEvent(){ PersonRegistrationId = Guid.NewGuid(), DueDate = DateTime.Now, ReceivedDate=DateTime.Now, PersonUuid = Guid.NewGuid(), DataChangeEventId=Guid.NewGuid()},
-                new DataChangeEvent(){ PersonRegistrationId = Guid.NewGuid(), DueDate = DateTime.Now, ReceivedDate=DateTime.Now, PersonUuid = Guid.NewGuid(), DataChangeEventId=Guid.NewGuid()}
-            };
-
-            var sub = Utils.CreateCriteriaSubscription(municipalityCode);
-            sub.SubscriptionPersons.Add(new SubscriptionPerson() { SubscriptionPersonId = Guid.NewGuid(), PersonUuid = dce[0].PersonUuid, Created = DateTime.Now, Removed = null });
-            sub.SubscriptionCriteriaMatches.Add(new SubscriptionCriteriaMatch() { SubscriptionCriteriaMatchId = Guid.NewGuid(), DataChangeEvent = dce[0] });
-
-            using (var dataContext = new EventBrokerDataContext())
+            using (var dataContext = new EventBrokerDataContext(ConnectionString))
             {
-                dataContext.DataChangeEvents.InsertAllOnSubmit(dce);
-                dataContext.Subscriptions.InsertOnSubmit(sub);
+                var dce = AddChanges(dataContext, 2);
+                var sub = AddSubscription(dataContext, Utils.CreateSoegObject(municipalityCode), false, true, Data.SubscriptionType.SubscriptionTypes.DataChange);
+                sub.SubscriptionPersons.Add(new SubscriptionPerson() { SubscriptionPersonId = Guid.NewGuid(), PersonUuid = dce[0].PersonUuid, Created = DateTime.Now, Removed = null });
+                sub.SubscriptionCriteriaMatches.Add(new SubscriptionCriteriaMatch() { SubscriptionCriteriaMatchId = Guid.NewGuid(), DataChangeEvent = dce[0] });
+
                 dataContext.SubmitChanges();
-            }
-            using (var dataContext = new EventBrokerDataContext())
-            {
+
                 int records = dataContext.UpdatePersonLists(DateTime.Now, int.MaxValue, (int)Data.SubscriptionType.SubscriptionTypes.DataChange);
                 var subscriptionPerson = dataContext.SubscriptionPersons.Where(sp => sp.SubscriptionId == sub.SubscriptionId).Single();
                 Assert.Null(subscriptionPerson.Removed);
@@ -172,21 +141,12 @@ namespace CprBroker.EventBroker.Tests
         [TestCaseSource("MunicipalityCodes")]
         public void UpdatePersonLists_2Changes_NonInSubscription_NothingAddedInSubscription_And_NoNotificationCreated(string municipalityCode)
         {
-            var dce = new DataChangeEvent[]{ 
-                new DataChangeEvent(){ PersonRegistrationId = Guid.NewGuid(), DueDate = DateTime.Now, ReceivedDate=DateTime.Now, PersonUuid = Guid.NewGuid(), DataChangeEventId=Guid.NewGuid()},
-                new DataChangeEvent(){ PersonRegistrationId = Guid.NewGuid(), DueDate = DateTime.Now, ReceivedDate=DateTime.Now, PersonUuid = Guid.NewGuid(), DataChangeEventId=Guid.NewGuid()}
-            };
-
-            var sub = Utils.CreateCriteriaSubscription(municipalityCode);
-
-            using (var dataContext = new EventBrokerDataContext())
+            using (var dataContext = new EventBrokerDataContext(ConnectionString))
             {
-                dataContext.DataChangeEvents.InsertAllOnSubmit(dce);
-                dataContext.Subscriptions.InsertOnSubmit(sub);
+                var dce = AddChanges(dataContext, 2);
+                var sub = AddSubscription(dataContext, Utils.CreateSoegObject(municipalityCode), false, true, Data.SubscriptionType.SubscriptionTypes.DataChange);
                 dataContext.SubmitChanges();
-            }
-            using (var dataContext = new EventBrokerDataContext())
-            {
+
                 int records = dataContext.UpdatePersonLists(DateTime.Now, int.MaxValue, (int)Data.SubscriptionType.SubscriptionTypes.DataChange);
                 var subscriptionPerson = dataContext.SubscriptionPersons.Where(sp => sp.SubscriptionId == sub.SubscriptionId).SingleOrDefault();
                 Assert.Null(subscriptionPerson);

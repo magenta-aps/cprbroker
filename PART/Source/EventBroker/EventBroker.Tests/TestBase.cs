@@ -5,6 +5,8 @@ using System.Text;
 using NUnit.Framework;
 using System.Data.SqlClient;
 using CprBroker.EventBroker.Data;
+using CprBroker.Schemas.Part;
+using CprBroker.Data.Part;
 
 namespace CprBroker.EventBroker.Tests
 {
@@ -72,7 +74,7 @@ namespace CprBroker.EventBroker.Tests
             }
         }
 
-        public Subscription AddSubscription(EventBrokerDataContext dataContext, System.Xml.Linq.XElement criteria, bool forAll, bool ready, SubscriptionType.SubscriptionTypes type)
+        public Subscription AddSubscription(EventBrokerDataContext dataContext, SoegObjektType criteria, bool forAll, bool ready, Data.SubscriptionType.SubscriptionTypes type)
         {
             var sub = new Subscription()
             {
@@ -90,7 +92,7 @@ namespace CprBroker.EventBroker.Tests
                 LastCheckedUUID = null,
 
                 // Control
-                Criteria = criteria,
+                Criteria = criteria == null ? null : System.Xml.Linq.XElement.Load(new System.IO.StringReader(Utilities.Strings.SerializeObject(criteria))),
                 IsForAllPersons = forAll,
                 Ready = ready,
                 SubscriptionTypeId = (int)type
@@ -104,11 +106,12 @@ namespace CprBroker.EventBroker.Tests
             var ret = new SubscriptionPerson[count];
             for (int i = 0; i < count; i++)
             {
-                ret[i] = new SubscriptionPerson(){ 
-                    Created=DateTime.Now, 
-                    PersonUuid = Guid.NewGuid(), 
-                    Removed=null,  
-                    SubscriptionPersonId = Guid.NewGuid(), 
+                ret[i] = new SubscriptionPerson()
+                {
+                    Created = DateTime.Now,
+                    PersonUuid = Guid.NewGuid(),
+                    Removed = null,
+                    SubscriptionPersonId = Guid.NewGuid(),
                     //SubscriptionId = ??, Subscription = ??
                 };
             }
@@ -130,6 +133,18 @@ namespace CprBroker.EventBroker.Tests
                     ReceivedDate = DateTime.Now,
                     //ReceivedOrder = ??, SubscriptionCriteriaMatches = ??
                 };
+            }
+            dataContext.DataChangeEvents.InsertAllOnSubmit(ret);
+            return ret;
+        }
+
+        public DataChangeEvent[] AddChanges(EventBrokerDataContext dataContext, params PersonRegistration[] regs)
+        {
+            var ret = AddChanges(dataContext, regs.Length);
+            for (int i = 0; i < regs.Length; i++)
+            {
+                ret[i].PersonUuid = regs[i].UUID;
+                ret[i].PersonRegistrationId = regs[i].PersonRegistrationId;
             }
             dataContext.DataChangeEvents.InsertAllOnSubmit(ret);
             return ret;
