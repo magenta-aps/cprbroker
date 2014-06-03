@@ -33,7 +33,6 @@ namespace CprBroker.Installers.EventBrokerInstallers.Properties
                     Resources.EventNotification,
                     Resources.BirthdateEventNotification,
                     
-                    Resources.CreateEventBrokerDatabaseObjects,
                     // SP's and functions
                     Resources.EnqueueBirthdateEventNotifications,
                     Resources.EnqueueDataChangeEventNotifications,

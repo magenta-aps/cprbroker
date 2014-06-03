@@ -134,9 +134,6 @@
   <data name="ChannelType_Create" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ChannelType.sql;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
-  <data name="CreateEventBrokerDatabaseObjects" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\CreateEventBrokerDatabaseObjects.sql;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
-  </data>
   <data name="DataChangeEvent" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\DataChangeEvent.sql;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>

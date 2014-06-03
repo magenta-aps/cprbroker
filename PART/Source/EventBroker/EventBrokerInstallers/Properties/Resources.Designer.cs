@@ -154,27 +154,6 @@ namespace CprBroker.Installers.EventBrokerInstallers.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 
-        ///
-        ///
-        ///
-        ///
-        ///
-        ///
-        ///
-        ///
-        ///
-        ///
-        ///
-        ///.
-        /// </summary>
-        public static string CreateEventBrokerDatabaseObjects {
-            get {
-                return ResourceManager.GetString("CreateEventBrokerDatabaseObjects", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to /****** Object:  Table [dbo].[DataChangeEvent] ******/
         ///IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N&apos;[dbo].[DataChangeEvent]&apos;) AND type in (N&apos;U&apos;))
         ///DROP TABLE [dbo].[DataChangeEvent]
