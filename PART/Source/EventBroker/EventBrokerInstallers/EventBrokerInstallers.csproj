@@ -82,6 +82,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Content Include="Resources\DataChangeEvent.sql" />
     <Content Include="Resources\PersonBirthdate.sql" />
     <Compile Include="ServiceNameForm.cs">
       <SubType>Form</SubType>
