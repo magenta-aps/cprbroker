@@ -154,22 +154,30 @@ namespace CprBroker.Installers.EventBrokerInstallers.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 
-        ///
-        ///
-        ///
-        ///
-        ///
-        ////****** Object:  ForeignKey [FK_DataSubscription_Subscription]    Script Date: 02/13/2011 17:59:04 ******/
+        ///   Looks up a localized string similar to /****** Object:  ForeignKey [FK_DataSubscription_Subscription]    Script Date: 02/13/2011 17:59:04 ******/
         ///IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N&apos;[dbo].[FK_DataSubscription_Subscription]&apos;) AND parent_object_id = OBJECT_ID(N&apos;[dbo].[DataSubscription]&apos;))
         ///ALTER TABLE [dbo].[DataSubscription] DROP CONSTRAINT [FK_DataSubscription_Subscription]
         ///GO
-        ////****** Object:  ForeignKey [FK_EventNotification_Subscription]    Script Date: 02/13/2011 17:59:04 ******/
-        ///IF  EXISTS [rest of string was truncated]&quot;;.
+        ////****** Object:  Table [dbo].[DataSubscription]    Script Date: 02/13/2011 17:59:04 ******/
+        ///IF  EXISTS (SELECT * FROM sys.objects  [rest of string was truncated]&quot;;.
         /// </summary>
         public static string CreateEventBrokerDatabaseObjects {
             get {
                 return ResourceManager.GetString("CreateEventBrokerDatabaseObjects", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /****** Object:  ForeignKey [FK_DataSubscription_Subscription]    Script Date: 02/13/2011 17:59:04 ******/
+        ///IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N&apos;[dbo].[FK_DataSubscription_Subscription]&apos;) AND parent_object_id = OBJECT_ID(N&apos;[dbo].[DataSubscription]&apos;))
+        ///ALTER TABLE [dbo].[DataSubscription] DROP CONSTRAINT [FK_DataSubscription_Subscription]
+        ///GO
+        ////****** Object:  Table [dbo].[DataSubscription]    Script Date: 02/13/2011 17:59:04 ******/
+        ///IF  EXISTS (SELECT * FROM sys.objects  [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string DataSubscription {
+            get {
+                return ResourceManager.GetString("DataSubscription", resourceCulture);
             }
         }
         

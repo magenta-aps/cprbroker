@@ -106,6 +106,7 @@
     <Content Include="Resources\BirthdateSubscription.sql" />
     <Content Include="Resources\Channel.sql" />
     <Content Include="Resources\ChannelType.sql" />
+    <Content Include="Resources\DataSubscription.sql" />
     <Content Include="Resources\EnqueueBirthdateEventNotifications.sql" />
     <Content Include="Resources\EnqueueDataChangeEventNotifications.sql" />
     <Content Include="Resources\IsBirthdateEvent.sql" />
