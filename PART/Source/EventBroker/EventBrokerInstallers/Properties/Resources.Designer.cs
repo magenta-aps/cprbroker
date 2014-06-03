@@ -91,15 +91,32 @@ namespace CprBroker.Installers.EventBrokerInstallers.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 
-        ///
-        ///
-        ////****** Object:  ForeignKey [FK_BirthdateSubscription_Subscription]    Script Date: 02/13/2011 17:59:04 ******/
-        ///IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N&apos;[dbo].[FK_BirthdateSubscription_Subscription]&apos;) AND parent_object_id = OBJECT_ID(N&apos;[dbo].[BirthdateSubscription]&apos;))
-        ///ALTER TABLE [dbo].[BirthdateSubscription] DROP CONSTRAINT [FK_BirthdateSubscription_Subscription]
+        ///   Looks up a localized string similar to /****** Object:  Table [dbo].[ChannelType]    Script Date: 02/13/2011 17:59:04 ******/
+        ///IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N&apos;[dbo].[ChannelType]&apos;) AND type in (N&apos;U&apos;))
+        ///DROP TABLE [dbo].[ChannelType]
         ///GO
-        ////****** Object:  ForeignKey [FK_Channel_ChannelType]    Script Date: 02/13/2011 17:59:04 ******/
-        ///IF [rest of string was truncated]&quot;;.
+        ////****** Object:  Table [dbo].[ChannelType]    Script Date: 02/13/2011 17:59:04 ******/
+        ///SET ANSI_NULLS ON
+        ///GO
+        ///SET QUOTED_IDENTIFIER ON
+        ///GO
+        ///IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N&apos;[dbo].[ChannelType]&apos;) AND type in (N&apos;U&apos;))
+        ///BEGIN
+        ///CREATE TABLE [d [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string ChannelType_Create {
+            get {
+                return ResourceManager.GetString("ChannelType_Create", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /****** Object:  ForeignKey [FK_Channel_ChannelType]    Script Date: 02/13/2011 17:59:04 ******/
+        ///IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N&apos;[dbo].[FK_Channel_ChannelType]&apos;) AND parent_object_id = OBJECT_ID(N&apos;[dbo].[Channel]&apos;))
+        ///ALTER TABLE [dbo].[Channel] DROP CONSTRAINT [FK_Channel_ChannelType]
+        ///GO
+        ////****** Object:  ForeignKey [FK_BirthdateSubscription_Subscription]    Script Date: 02/13/2011 17:59:04 ******/
+        ///IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJEC [rest of string was truncated]&quot;;.
         /// </summary>
         public static string CreateEventBrokerDatabaseObjects {
             get {
