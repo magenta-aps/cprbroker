@@ -113,6 +113,7 @@
     <Content Include="Resources\IsBirthdateEvent.sql" />
     <Content Include="Resources\PatchDatabase_2_2.sql" />
     <Content Include="Resources\PatchDatabase_2_3.sql" />
+    <Content Include="Resources\Subscription.sql" />
     <Content Include="Resources\UpdatePersonLists.sql" />
   </ItemGroup>
   <ItemGroup>

@@ -154,19 +154,12 @@ namespace CprBroker.Installers.EventBrokerInstallers.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 
-        ///
-        ///
-        ///
-        ///
-        ///
-        ///
-        ////****** Object:  ForeignKey [FK_Subscription_SubscriptionType]    Script Date: 02/13/2011 17:59:04 ******/
+        ///   Looks up a localized string similar to /****** Object:  ForeignKey [FK_Subscription_SubscriptionType]    Script Date: 02/13/2011 17:59:04 ******/
         ///IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N&apos;[dbo].[FK_Subscription_SubscriptionType]&apos;) AND parent_object_id = OBJECT_ID(N&apos;[dbo].[Subscription]&apos;))
         ///ALTER TABLE [dbo].[Subscription] DROP CONSTRAINT [FK_Subscription_SubscriptionType]
         ///GO
-        ////****** Object:  ForeignKey [FK_SubscriptionPerson_Subscription]    Script Date: 02/13/2011 17:59:04 ******/
-        ///IF  EXISTS (SEL [rest of string was truncated]&quot;;.
+        ////****** Object:  Default [DF_Subscription_SubscriptionId]    Script Date: 02/13/2011 17:59:04 ******/
+        ///IF  EXISTS (SELECT * FROM sys.defaul [rest of string was truncated]&quot;;.
         /// </summary>
         public static string CreateEventBrokerDatabaseObjects {
             get {
@@ -237,12 +230,20 @@ namespace CprBroker.Installers.EventBrokerInstallers.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to 
-        ////****** Object:  ForeignKey [FK_EventNotification_Subscription]    Script Date: 02/13/2011 17:59:04 ******/
-        ///IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N&apos;[dbo].[FK_EventNotification_Subscription]&apos;) AND parent_object_id = OBJECT_ID(N&apos;[dbo].[EventNotification]&apos;))
-        ///ALTER TABLE [dbo].[EventNotification] DROP CONSTRAINT [FK_EventNotification_Subscription]
+        ////****** Object:  Table [dbo].[EventNotification] ******/
+        ///IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N&apos;[dbo].[EventNotification]&apos;) AND type in (N&apos;U&apos;))
+        ///DROP TABLE [dbo].[EventNotification]
         ///GO
-        ////****** Object:  Default [DF_EventNotification_EventNotificationId]    Script Date: 02/13/2011 17:59:04 ******/
-        ///IF  EXISTS  [rest of string was truncated]&quot;;.
+        ///
+        ////****** Object:  Table [dbo].[EventNotification] ******/
+        ///SET ANSI_NULLS ON
+        ///GO
+        ///SET QUOTED_IDENTIFIER ON
+        ///GO
+        ///IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N&apos;[dbo].[EventNotification]&apos;) AND type in (N&apos;U&apos;))
+        ///BEGIN
+        ///CREATE TABLE [dbo].[EventNotification](
+        ///	[EventNotif [rest of string was truncated]&quot;;.
         /// </summary>
         public static string EventNotification {
             get {
@@ -284,6 +285,20 @@ namespace CprBroker.Installers.EventBrokerInstallers.Properties {
         public static string PatchDatabase_2_2 {
             get {
                 return ResourceManager.GetString("PatchDatabase_2_2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /****** Object:  ForeignKey [FK_Subscription_SubscriptionType]    Script Date: 02/13/2011 17:59:04 ******/
+        ///IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N&apos;[dbo].[FK_Subscription_SubscriptionType]&apos;) AND parent_object_id = OBJECT_ID(N&apos;[dbo].[Subscription]&apos;))
+        ///ALTER TABLE [dbo].[Subscription] DROP CONSTRAINT [FK_Subscription_SubscriptionType]
+        ///GO
+        ////****** Object:  Default [DF_Subscription_SubscriptionId]    Script Date: 02/13/2011 17:59:04 ******/
+        ///IF  EXISTS (SELECT * FROM sys.defaul [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string Subscription {
+            get {
+                return ResourceManager.GetString("Subscription", resourceCulture);
             }
         }
         
