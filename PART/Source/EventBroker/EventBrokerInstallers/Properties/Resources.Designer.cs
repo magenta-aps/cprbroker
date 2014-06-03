@@ -175,20 +175,38 @@ namespace CprBroker.Installers.EventBrokerInstallers.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to /****** Object:  Table [dbo].[SubscriptionType]    Script Date: 02/13/2011 17:59:04 ******/
+        ///IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N&apos;[dbo].[SubscriptionType]&apos;) AND type in (N&apos;U&apos;))
+        ///DROP TABLE [dbo].[SubscriptionType]
+        ///GO
+        ///
+        ////****** Object:  Table [dbo].[SubscriptionType]    Script Date: 02/13/2011 17:59:04 ******/
+        ///SET ANSI_NULLS ON
+        ///GO
+        ///SET QUOTED_IDENTIFIER ON
+        ///GO
+        ///IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N&apos;[dbo].[SubscriptionType]&apos;) AND type in (N&apos;U [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string SubscriptionType_Create {
+            get {
+                return ResourceManager.GetString("SubscriptionType_Create", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to /*
+        ///    Preconditions:
+        ///    --------------
+        ///    Current subset of data changes should have been matched to all the subscriptions that have Criteria IS NOT NULL,
+        ///    Matches should have been pushed into SubscriptionCriteriaMatch
+        ///
         ///    Input:
         ///    ------
         ///    - Current time (@Now) to mark changes with timestamp
         ///    - Subset of data change events (defined as ReceivedOrder &lt;= @LatestReceivedOrder)
         ///    - @SubscriptionTypeId to mark data change subscriptions (instead of having the typeId hardcoded)
         ///    
-        ///    
-        ///    Result: 
-        ///    -------
-        ///    Updates and inserts rows as a result of the input data change events
-        ///    - People now entering the criteria =&gt; New records in SubscriptionPerson
-        ///    - People now leaving the criteria =&gt; 
-        ///     [rest of string was truncated]&quot;;.
+        ///    [rest of string was truncated]&quot;;.
         /// </summary>
         public static string UpdatePersonLists {
             get {
