@@ -163,17 +163,10 @@ namespace CprBroker.Installers.EventBrokerInstallers.Properties {
         ///
         ///
         ///
-        ////****** Object:  Table [dbo].[DataChangeEvent]    Script Date: 02/13/2011 17:59:04 ******/
-        ///IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N&apos;[dbo].[DataChangeEvent]&apos;) AND type in (N&apos;U&apos;))
-        ///DROP TABLE [dbo].[DataChangeEvent]
-        ///GO
         ///
-        ////****** Object:  Table [dbo].[DataChangeEvent]    Script Date: 02/13/2011 17:59:04 ******/
-        ///SET ANSI_NULLS ON
-        ///GO
-        ///SET QUOTED_IDENTIFIER ON
-        ///GO
-        ///IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N&apos;[dbo].[DataChangeEvent]&apos;) AND [rest of string was truncated]&quot;;.
+        ///
+        ///
+        ///.
         /// </summary>
         public static string CreateEventBrokerDatabaseObjects {
             get {
@@ -349,7 +342,7 @@ namespace CprBroker.Installers.EventBrokerInstallers.Properties {
         /// <summary>
         ///   Looks up a localized string similar to /****** Object:  Table [dbo].[Subscription] ******/
         ///IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N&apos;[dbo].[Subscription]&apos;) AND type in (N&apos;U&apos;))
-        ///DROP TABLE [dbo].[Subscription]
+        ///    DROP TABLE [dbo].[Subscription]
         ///GO
         ///
         ////****** Object:  Table [dbo].[Subscription] ******/
@@ -360,11 +353,31 @@ namespace CprBroker.Installers.EventBrokerInstallers.Properties {
         ///IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N&apos;[dbo].[Subscription]&apos;) AND type in (N&apos;U&apos;))
         ///BEGIN
         ///CREATE TABLE [dbo].[Subscription](
-        ///	[SubscriptionId] [uniqueidentifier] NOT NUL [rest of string was truncated]&quot;;.
+        ///	[SubscriptionId] [uniqueidentifier] NOT [rest of string was truncated]&quot;;.
         /// </summary>
         public static string Subscription {
             get {
                 return ResourceManager.GetString("Subscription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IF EXISTS (SELECT * FROM sys.tables WHERE object_id = object_id(&apos;SubscriptionCriteriaMatch&apos;))
+        ///    DROP TABLE [dbo].[SubscriptionCriteriaMatch]
+        ///
+        ///-------------------------------------
+        ///-- Table : SubscriptionCriteriaMatch
+        ///-------------------------------------
+        ///
+        ///IF NOT EXISTS (SELECT * FROM sys.tables WHERE object_id = object_id(&apos;SubscriptionCriteriaMatch&apos;))
+        ///BEGIN
+        ///	CREATE TABLE [dbo].[SubscriptionCriteriaMatch](
+        ///		[SubscriptionCriteriaMatchId] [uniqueidentifier] NOT NULL DEFAULT NEWID(),
+        ///		[Subscripti [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string SubscriptionCriteriaMatch {
+            get {
+                return ResourceManager.GetString("SubscriptionCriteriaMatch", resourceCulture);
             }
         }
         

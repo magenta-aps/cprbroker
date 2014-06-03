@@ -13,21 +13,28 @@ namespace CprBroker.Installers.EventBrokerInstallers.Properties
             get
             {
                 var arr = new string[] { 
+                    // Copied from CPR Broker
                     Resources.PersonBirthdate,
-                    
+                    Resources.DataChangeEvent, 
+
+                    // Subscriptions
                     Resources.SubscriptionType_Create,
                     Resources.Subscription,
                     Resources.SubscriptionPerson,
                     Resources.DataSubscription,
                     Resources.BirthdateSubscription,
+                    Resources.SubscriptionCriteriaMatch,
+                    
+                    // Channels
                     Resources.ChannelType_Create,
                     Resources.Channel,
+                    
+                    // Notifications
                     Resources.EventNotification,
                     Resources.BirthdateEventNotification,
-
                     
-
                     Resources.CreateEventBrokerDatabaseObjects,
+                    // SP's and functions
                     Resources.EnqueueBirthdateEventNotifications,
                     Resources.EnqueueDataChangeEventNotifications,
                     Resources.IsBirthdateEvent,
