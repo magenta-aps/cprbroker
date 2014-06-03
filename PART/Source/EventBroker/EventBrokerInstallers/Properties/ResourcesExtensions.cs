@@ -19,7 +19,7 @@ namespace CprBroker.Installers.EventBrokerInstallers.Properties
                     Resources.BirthdateSubscription,
                     Resources.ChannelType_Create,
                     Resources.Channel,
-                    //event notification
+                    Resources.EventNotification,
                     Resources.BirthdateEventNotification,
                     Resources.CreateEventBrokerDatabaseObjects,
                     Resources.EnqueueBirthdateEventNotifications,
@@ -36,7 +36,8 @@ namespace CprBroker.Installers.EventBrokerInstallers.Properties
 
         public static KeyValuePair<string, string>[] Lookups
         {
-            get { 
+            get
+            {
                 List<KeyValuePair<string, string>> eventLookups = new List<KeyValuePair<string, string>>();
 
                 eventLookups.Add(new KeyValuePair<string, string>(typeof(ChannelType).Name, CprBroker.Installers.EventBrokerInstallers.Properties.Resources.ChannelType));

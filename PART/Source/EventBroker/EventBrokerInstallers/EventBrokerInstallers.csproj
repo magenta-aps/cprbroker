@@ -100,6 +100,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\EventNotification.sql" />
     <Content Include="GenerateScript.txt" />
     <None Include="Resources\SubscriptionType.sql" />
     <Content Include="Resources\BirthdateEventNotification.sql" />

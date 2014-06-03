@@ -146,6 +146,9 @@
   <data name="EnqueueDataChangeEventNotifications" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\EnqueueDataChangeEventNotifications.sql;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
+  <data name="EventNotification" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\EventNotification.sql;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
   <data name="IsBirthdateEvent" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\IsBirthdateEvent.sql;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
