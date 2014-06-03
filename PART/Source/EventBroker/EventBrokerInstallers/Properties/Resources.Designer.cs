@@ -61,6 +61,23 @@ namespace CprBroker.Installers.EventBrokerInstallers.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N&apos;[dbo].[BirthdateEventNotification]&apos;) AND type in (N&apos;U&apos;))
+        ///DROP TABLE [dbo].[BirthdateEventNotification]
+        ///GO
+        ///
+        ////****** Object:  Table [dbo].[BirthdateEventNotification]    Script Date: 02/13/2011 17:59:04 ******/
+        ///IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N&apos;[dbo].[BirthdateEventNotification]&apos;) AND type in (N&apos;U&apos;))
+        ///BEGIN
+        ///CREATE TABLE [dbo].[BirthdateEventNotification](
+        ///	[EventNotificationId] [uniqueidentifier] NO [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string BirthdateEventNotification {
+            get {
+                return ResourceManager.GetString("BirthdateEventNotification", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ChannelTypeId;Name
         ///1;WebService
         ///2;GPAC
@@ -74,11 +91,15 @@ namespace CprBroker.Installers.EventBrokerInstallers.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to /****** Object:  ForeignKey [FK_BirthdateEventNotification_EventNotification]    Script Date: 02/13/2011 17:59:04 ******/
-        ///IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N&apos;[dbo].[FK_BirthdateEventNotification_EventNotification]&apos;) AND parent_object_id = OBJECT_ID(N&apos;[dbo].[BirthdateEventNotification]&apos;))
-        ///ALTER TABLE [dbo].[BirthdateEventNotification] DROP CONSTRAINT [FK_BirthdateEventNotification_EventNotification]
+        ///   Looks up a localized string similar to 
+        ///
+        ///
+        ////****** Object:  ForeignKey [FK_BirthdateSubscription_Subscription]    Script Date: 02/13/2011 17:59:04 ******/
+        ///IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N&apos;[dbo].[FK_BirthdateSubscription_Subscription]&apos;) AND parent_object_id = OBJECT_ID(N&apos;[dbo].[BirthdateSubscription]&apos;))
+        ///ALTER TABLE [dbo].[BirthdateSubscription] DROP CONSTRAINT [FK_BirthdateSubscription_Subscription]
         ///GO
-        ////****** Object:  ForeignKey [FK_BirthdateSubscription_Subscription [rest of string was truncated]&quot;;.
+        ////****** Object:  ForeignKey [FK_Channel_ChannelType]    Script Date: 02/13/2011 17:59:04 ******/
+        ///IF [rest of string was truncated]&quot;;.
         /// </summary>
         public static string CreateEventBrokerDatabaseObjects {
             get {
