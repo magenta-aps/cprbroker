@@ -48,6 +48,7 @@ AS
         -- Conditions for Subscription
         AND S.IsForAllPersons = 0
         AND S.SubscriptionTypeId = @SubscriptionTypeId
+        AND S.Ready = 1
         AND S.Deactivated IS NULL
 
 
@@ -63,5 +64,6 @@ AS
         -- Conditions for Subscription
         AND S.IsForAllPersons = 1
         AND S.SubscriptionTypeId = @SubscriptionTypeId
+        AND S.Ready = 1
         AND S.Deactivated IS NULL
 GO

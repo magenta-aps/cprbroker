@@ -10,94 +10,133 @@ using System.Data.SqlClient;
 
 namespace CprBroker.EventBroker.Tests
 {
-    [TestFixture]
-    class EnqueueDataChangeEventNotifications
+    namespace EnqueueDataChangeEventNotifications
     {
-        public EnqueueDataChangeEventNotifications()
+        [TestFixture]
+        public class ForAllPersons : TestBase
         {
-            DbName = "EventBrokerTest_" + CprBroker.Utilities.Strings.NewRandomString(7);
-            MasterConnectionString = "Data Source=localhost\\sqlexpress; integrated security=sspi;";
-            ConnectionString = string.Format("Data Source=localhost\\sqlexpress; integrated security=sspi; initial catalog={0}", DbName);
-        }
 
-        string DbName;
-        string ConnectionString;
-        string MasterConnectionString;
-
-        [SetUp]
-        public void Setup()
-        {
-            // Create DB
-            using (var conn = new System.Data.SqlClient.SqlConnection(MasterConnectionString))
+            [Test]
+            public void EnqueueDataChangeEventNotifications_LatestReceivedOrder_OneNotif([Range(2, 10)]int changeCount)
             {
-                conn.Open();
-                var cmd = new SqlCommand("CREATE DATABASE " + DbName + "", conn);
-                cmd.ExecuteNonQuery();
-            }
-            CprBroker.Installers.DatabaseCustomAction.ExecuteDDL(CprBroker.Installers.EventBrokerInstallers.Properties.ResourcesExtensions.AllEventBrokerDatabaseObjectsSql, ConnectionString);
-            CprBroker.Installers.DatabaseCustomAction.InsertLookups(CprBroker.Installers.EventBrokerInstallers.Properties.ResourcesExtensions.Lookups, ConnectionString);
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            string kill =
-                string.Format("declare @kill varchar(8000) = ''; select @kill=@kill+'kill '+convert(varchar(5),spid)+';'    from master..sysprocesses where dbid=db_id('{0}');exec (@kill); ", DbName)
-                + "\r\nGO\r\n"
-                + "DROP DATABASE " + DbName + "";
-            CprBroker.Installers.DatabaseCustomAction.ExecuteDDL(kill, MasterConnectionString);
-        }
-
-        [Test]
-        public void EnqueueDataChangeEventNotifications_LatestReceivedOrder_OneNotif()
-        {
-            /*
-             * ready
-             * IsForAll
-             * TypeId
-             */
-            using (var dataContext = new EventBrokerDataContext(ConnectionString))
-            {
-                var sub = new Subscription()
+                using (var dataContext = new EventBrokerDataContext(ConnectionString))
                 {
-                    // Child
-                    BirthdateSubscription = null,
-                    DataSubscription = new DataSubscription(),
+                    var sub = AddSubscription(dataContext, null, true, true, SubscriptionType.SubscriptionTypes.DataChange);
+                    var changes = AddChanges(dataContext, changeCount);
+                    dataContext.SubmitChanges();
 
-                    // Ids
-                    ApplicationId = Guid.NewGuid(),
-                    SubscriptionId = Guid.NewGuid(),
+                    var minOrder = dataContext.DataChangeEvents.Select(dce => dce.ReceivedOrder).Min();
+                    // Now call SP
+                    dataContext.EnqueueDataChangeEventNotifications(DateTime.Now, minOrder, sub.SubscriptionTypeId);
 
-                    // Other
-                    Created = DateTime.Now,
+                    // Validate
+                    var eventsCount = dataContext.EventNotifications.Count();
+                    Assert.AreEqual(1, eventsCount);
+                }
+            }
 
-                    // Control
-                    Criteria = null,
-                    Deactivated = null,
-                    IsForAllPersons = true,
-                    LastCheckedUUID = null,
-                    Ready = true,
-                    SubscriptionTypeId = (int)SubscriptionType.SubscriptionTypes.DataChange
-                };
-                dataContext.Subscriptions.InsertOnSubmit(sub);
+            [Test]
+            public void EnqueueDataChangeEventNotifications_UnreadySubscription_Zero([Range(2, 10)]int changeCount)
+            {
+                using (var dataContext = new EventBrokerDataContext(ConnectionString))
+                {
+                    var sub = AddSubscription(dataContext, null, true, false, SubscriptionType.SubscriptionTypes.DataChange);
+                    var changes = AddChanges(dataContext, changeCount);
+                    dataContext.SubmitChanges();
 
-                var changes = new DataChangeEvent[] { 
-                    new DataChangeEvent(){ DataChangeEventId = Guid.NewGuid(), DueDate = DateTime.Now, PersonRegistrationId=Guid.NewGuid(), PersonUuid = Guid.NewGuid(), ReceivedDate = DateTime.Now,
-                        //ReceivedOrder = ??, SubscriptionCriteriaMatches = ??
-                    },
-                    new DataChangeEvent(){ DataChangeEventId = Guid.NewGuid(), DueDate = DateTime.Now, PersonRegistrationId=Guid.NewGuid(), PersonUuid = Guid.NewGuid(), ReceivedDate = DateTime.Now,
-                        //ReceivedOrder = ??, SubscriptionCriteriaMatches = ??
-                    }
-                };
-                dataContext.DataChangeEvents.InsertAllOnSubmit(changes);
-                dataContext.SubmitChanges();
+                    // Now call SP
+                    dataContext.EnqueueDataChangeEventNotifications(DateTime.Now, int.MaxValue, sub.SubscriptionTypeId);
 
-                // Now call SP
-                dataContext.EnqueueDataChangeEventNotifications(DateTime.Now, 1, sub.SubscriptionTypeId);
+                    // Validate
+                    var eventsCount = dataContext.EventNotifications.Count();
+                    Assert.AreEqual(0, eventsCount);
+                }
+            }
 
-                // Validate
-                var eventsCount = dataContext.EventNotifications.Count();
-                Assert.AreEqual(1, eventsCount);
+            [Test]
+            public void EnqueueDataChangeEventNotifications_DeactivatedSubscription_Zero([Range(2, 10)]int changeCount)
+            {
+                using (var dataContext = new EventBrokerDataContext(ConnectionString))
+                {
+                    var sub = AddSubscription(dataContext, null, true, true, SubscriptionType.SubscriptionTypes.DataChange);
+                    sub.Deactivated = DateTime.Today;
+                    var changes = AddChanges(dataContext, changeCount);
+                    dataContext.SubmitChanges();
+
+                    // Now call SP
+                    dataContext.EnqueueDataChangeEventNotifications(DateTime.Now, int.MaxValue, sub.SubscriptionTypeId);
+
+                    // Validate
+                    var eventsCount = dataContext.EventNotifications.Count();
+                    Assert.AreEqual(0, eventsCount);
+                }
+            }
+
+            [Test]
+            public void EnqueueDataChangeEventNotifications_MismatchedSubscriptionType_Zero([Range(2, 10)]int changeCount)
+            {
+                using (var dataContext = new EventBrokerDataContext(ConnectionString))
+                {
+                    var sub = AddSubscription(dataContext, null, true, true, SubscriptionType.SubscriptionTypes.DataChange);
+                    var changes = AddChanges(dataContext, changeCount);
+                    dataContext.SubmitChanges();
+
+                    // Now call SP
+                    dataContext.EnqueueDataChangeEventNotifications(DateTime.Now, int.MaxValue, sub.SubscriptionTypeId + 55);
+
+                    // Validate
+                    var eventsCount = dataContext.EventNotifications.Count();
+                    Assert.AreEqual(0, eventsCount);
+                }
+            }
+
+        }
+
+        [TestFixture]
+        public class SpecificPersons : TestBase
+        {
+            [Test]
+            public void MatchingUuids_OnePushed(
+                [Random(1, 100, 3)] int personCount,
+                [Random(1, 100, 3)] int changeCount
+                )
+            {
+                using (var dataContext = new EventBrokerDataContext(ConnectionString))
+                {
+                    var sub = AddSubscription(dataContext, null, false, true, SubscriptionType.SubscriptionTypes.DataChange);
+                    var persons = AddPersons(sub, personCount);
+                    var changes = AddChanges(dataContext, changeCount);
+                    changes[0].PersonUuid = persons[0].PersonUuid.Value;
+                    dataContext.SubmitChanges();
+
+
+                    dataContext.EnqueueDataChangeEventNotifications(DateTime.Now, int.MaxValue, sub.SubscriptionTypeId);
+
+                    var events = dataContext.EventNotifications.Count();
+                    Assert.AreEqual(1, events);
+                }
+            }
+
+            [Test]
+            public void NonMatchingUuids_NotPushed(
+                [Random(1, 100, 3)] int personCount,
+                [Random(1, 100, 3)] int changeCount
+                )
+            {
+
+                using (var dataContext = new EventBrokerDataContext(ConnectionString))
+                {
+                    var sub = AddSubscription(dataContext, null, false, true, SubscriptionType.SubscriptionTypes.DataChange);
+                    var persons = AddPersons(sub, personCount);
+                    var changes = AddChanges(dataContext, changeCount);                    
+                    dataContext.SubmitChanges();
+
+
+                    dataContext.EnqueueDataChangeEventNotifications(DateTime.Now, int.MaxValue, sub.SubscriptionTypeId);
+
+                    var events = dataContext.EventNotifications.Count();
+                    Assert.AreEqual(0, events);
+                }
             }
         }
     }
