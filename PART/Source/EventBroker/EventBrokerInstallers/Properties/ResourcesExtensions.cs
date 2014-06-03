@@ -14,7 +14,10 @@ namespace CprBroker.Installers.EventBrokerInstallers.Properties
             {
                 var arr = new string[] { 
                     Resources.SubscriptionType_Create,
+                    // subscription
                     Resources.ChannelType_Create,
+                    Resources.Channel,
+                    //event notification
                     Resources.BirthdateEventNotification,
                     Resources.CreateEventBrokerDatabaseObjects,
                     Resources.EnqueueBirthdateEventNotifications,

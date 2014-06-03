@@ -103,6 +103,7 @@
     <Content Include="GenerateScript.txt" />
     <None Include="Resources\SubscriptionType.sql" />
     <Content Include="Resources\BirthdateEventNotification.sql" />
+    <Content Include="Resources\Channel.sql" />
     <Content Include="Resources\ChannelType.sql" />
     <Content Include="Resources\EnqueueBirthdateEventNotifications.sql" />
     <Content Include="Resources\EnqueueDataChangeEventNotifications.sql" />

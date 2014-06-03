@@ -78,6 +78,20 @@ namespace CprBroker.Installers.EventBrokerInstallers.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to /****** Object:  ForeignKey [FK_Channel_ChannelType]    Script Date: 02/13/2011 17:59:04 ******/
+        ///IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N&apos;[dbo].[FK_Channel_ChannelType]&apos;) AND parent_object_id = OBJECT_ID(N&apos;[dbo].[Channel]&apos;))
+        ///ALTER TABLE [dbo].[Channel] DROP CONSTRAINT [FK_Channel_ChannelType]
+        ///GO
+        ////****** Object:  ForeignKey [FK_Channel_Subscription]    Script Date: 02/13/2011 17:59:04 ******/
+        ///IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N&apos;[dbo].[ [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string Channel {
+            get {
+                return ResourceManager.GetString("Channel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ChannelTypeId;Name
         ///1;WebService
         ///2;GPAC
@@ -115,8 +129,8 @@ namespace CprBroker.Installers.EventBrokerInstallers.Properties {
         ///IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N&apos;[dbo].[FK_Channel_ChannelType]&apos;) AND parent_object_id = OBJECT_ID(N&apos;[dbo].[Channel]&apos;))
         ///ALTER TABLE [dbo].[Channel] DROP CONSTRAINT [FK_Channel_ChannelType]
         ///GO
-        ////****** Object:  ForeignKey [FK_BirthdateSubscription_Subscription]    Script Date: 02/13/2011 17:59:04 ******/
-        ///IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJEC [rest of string was truncated]&quot;;.
+        ////****** Object:  ForeignKey [FK_Channel_Subscription]    Script Date: 02/13/2011 17:59:04 ******/
+        ///IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N&apos;[dbo].[ [rest of string was truncated]&quot;;.
         /// </summary>
         public static string CreateEventBrokerDatabaseObjects {
             get {
