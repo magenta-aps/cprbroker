@@ -46,7 +46,7 @@ namespace CprBroker.Tests.Engine
 
                         var outBytes = new Byte[2880 + 28];
 
-                        int bytes = stream.Read(outBytes, 0, 30);
+                        int bytes = stream.Read(outBytes, 0, outBytes.Length);
                         var ret = enc.GetString(outBytes, 0, bytes);
                         return ret;
                     }
@@ -66,29 +66,34 @@ namespace CprBroker.Tests.Engine
             }
 
             [Test]
-            public void Run_ManyConnections_OK([Range(10, 1000, 50)] int count)
+            public void Run_ManyConnections_OK([Range(100, 4000, 200)] int count)
             {
-                var server = new TcpServerStub() { Port = 555 };
-                server.Start();
-                
-                long passed = 0;
-                var threads = new List<Thread>();
-                for (int i = 0; i < count; i++)
+                var port = new Random().Next(1000, 10000);
+                using (var server = new TcpServerStub() { Port = port })
                 {
-                    var th = new Thread(new ThreadStart(() => {
-                        var client = new Client(server);
-                        var msg = "123";
-                        var ret = client.GetResponse(msg);
-                        Interlocked.Increment(ref passed);
-                    }));
-                    threads.Add(th);
+                    server.Start();
+
+                    long passed = 0;
+                    var threads = new List<Thread>();
+                    for (int i = 0; i < count; i++)
+                    {
+                        var th = new Thread(new ParameterizedThreadStart((p) =>
+                        {
+                            var client = new Client(server);
+                            var msg = Guid.NewGuid().ToString();
+                            var ret = client.GetResponse(msg);
+                            Interlocked.Increment(ref passed);
+                            Assert.AreEqual(msg, ret);
+                        }));
+                        threads.Add(th);
+                    }
+                    threads.ForEach(th => th.Start(threads.IndexOf(th)));
+                    while (Interlocked.Read(ref passed) < count)
+                    {
+                        Thread.Sleep(100);
+                    }
+                    threads.ForEach(th => th.Abort());
                 }
-                threads.ForEach(th => th.Start());
-                while (Interlocked.Read(ref passed) < count)
-                {
-                    Thread.Sleep(100);
-                }
-                server.Stop();
             }
         }
     }

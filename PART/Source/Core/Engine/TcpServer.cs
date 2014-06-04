@@ -7,15 +7,17 @@ using System.Net.Sockets;
 
 namespace CprBroker.Engine
 {
-    public class TcpServer
+    public class TcpServer : IDisposable
     {
         public int Port { get; set; }
-        private System.Net.Sockets.Socket _serverSocket;
-        private int _maxQueueLength = 100;
+        private int _maxQueueLength = 1000;
         private int _bufferSize = 1024;
-        private List<xConnection> _sockets = new List<xConnection>();
+        
+        bool _Running = false;        
+        private System.Net.Sockets.Socket _serverSocket;        
+        private List<Session> _Sessions = new List<Session>();
 
-        public class xConnection
+        public class Session
         {
             public byte[] buffer;
             public System.Net.Sockets.Socket socket;
@@ -23,6 +25,7 @@ namespace CprBroker.Engine
 
         public bool Start()
         {
+            _Running = true;
             System.Net.IPHostEntry localhost = System.Net.Dns.GetHostEntry(System.Net.Dns.GetHostName());
             System.Net.IPEndPoint serverEndPoint;
             serverEndPoint = new System.Net.IPEndPoint(localhost.AddressList[0], Port);
@@ -36,17 +39,18 @@ namespace CprBroker.Engine
             // it was a major pain in the ass previously, so make sure there is only one
             //BeginAccept running
 
-            _serverSocket.BeginAccept(new AsyncCallback(AcceptCallback), _serverSocket);
+            BeginAccept();
             return true;
         }
 
         public void Stop()
         {
+            _Running = false;
             do
             {
-                lock (_sockets)
+                lock (_Sessions)
                 {
-                    if (_sockets.Count == 0)
+                    if (_Sessions.Count == 0)
                     {
                         _serverSocket.Close();
                         break;
@@ -56,94 +60,109 @@ namespace CprBroker.Engine
             } while (true);
         }
 
+        private void BeginAccept()
+        {
+            if (_Running)
+            {
+                _serverSocket.BeginAccept(new AsyncCallback(AcceptCallback), _serverSocket);
+            }
+        }
+
         private void AcceptCallback(IAsyncResult result)
         {
-            xConnection conn = new xConnection();
-            try
+            if (_Running)
             {
-                //Finish accepting the connection
-                System.Net.Sockets.Socket s = (System.Net.Sockets.Socket)result.AsyncState;
-                conn = new xConnection();
-                conn.socket = s.EndAccept(result);
-                conn.buffer = new byte[_bufferSize];
-                lock (_sockets)
+                Session session = new Session();
+                try
                 {
-                    _sockets.Add(conn);
-                }
-                //Queue recieving of data from the connection
-                conn.socket.BeginReceive(conn.buffer, 0, conn.buffer.Length, SocketFlags.None, new AsyncCallback(ReceiveCallback), conn);
-                //Queue the accept of the next incomming connection
-                _serverSocket.BeginAccept(new AsyncCallback(AcceptCallback), _serverSocket);
-            }
-            catch (SocketException e)
-            {
-                if (conn.socket != null)
-                {
-                    conn.socket.Close();
-                    lock (_sockets)
+                    //Finish accepting the connection
+                    System.Net.Sockets.Socket s = (System.Net.Sockets.Socket)result.AsyncState;
+                    session = new Session();
+                    session.socket = s.EndAccept(result);
+                    session.buffer = new byte[_bufferSize];
+                    lock (_Sessions)
                     {
-                        _sockets.Remove(conn);
+                        _Sessions.Add(session);
                     }
+                    //Queue recieving of data from the connection
+                    session.socket.BeginReceive(session.buffer, 0, session.buffer.Length, SocketFlags.None, new AsyncCallback(ReceiveCallback), session);
+                    //Queue the accept of the next incomming connection
+                    BeginAccept();
                 }
-                //Queue the next accept, think this should be here, stop attacks based on killing the waiting listeners
-                _serverSocket.BeginAccept(new AsyncCallback(AcceptCallback), _serverSocket);
-            }
-            catch (Exception e)
-            {
-                if (conn.socket != null)
+                catch (SocketException e)
                 {
-                    conn.socket.Close();
-                    lock (_sockets)
+                    if (session.socket != null)
                     {
-                        _sockets.Remove(conn);
+                        session.socket.Close();
+                        lock (_Sessions)
+                        {
+                            _Sessions.Remove(session);
+                        }
                     }
+                    //Queue the next accept, think this should be here, stop attacks based on killing the waiting listeners
+                    BeginAccept();
                 }
-                //Queue the next accept, think this should be here, stop attacks based on killing the waiting listeners
-                _serverSocket.BeginAccept(new AsyncCallback(AcceptCallback), _serverSocket);
+                catch (Exception e)
+                {
+                    if (session.socket != null)
+                    {
+                        session.socket.Close();
+                        lock (_Sessions)
+                        {
+                            _Sessions.Remove(session);
+                        }
+                    }
+                    //Queue the next accept, think this should be here, stop attacks based on killing the waiting listeners
+                    BeginAccept();
+                }
             }
         }
 
         private void ReceiveCallback(IAsyncResult result)
         {
-            //get our connection from the callback
-            xConnection conn = (xConnection)result.AsyncState;
-            //catch any errors, we'd better not have any
-            try
+            if (_Running)
             {
-                //Grab our buffer and count the number of bytes receives
-                int bytesRead = conn.socket.EndReceive(result);
-                //make sure we've read something, if we haven't it supposadly means that the client disconnected
-                if (bytesRead > 0)
-                {
-                    //put whatever you want to do when you receive data here
-                    var response = ProcessMessage(conn.buffer.Take(bytesRead).ToArray());
-                    conn.socket.Send(response);
 
-                    //Queue the next receive
-                    conn.socket.BeginReceive(conn.buffer, 0, conn.buffer.Length, SocketFlags.None, new AsyncCallback(ReceiveCallback), conn);
-                }
-                else
+                //get our connection from the callback
+                Session conn = (Session)result.AsyncState;
+                //catch any errors, we'd better not have any
+                try
                 {
-                    //Callback run but no data, close the connection
-                    //supposadly means a disconnect
-                    //and we still have to close the socket, even though we throw the event later
-                    conn.socket.Close();
-                    lock (_sockets)
+                    //Grab our buffer and count the number of bytes receives
+                    int bytesRead = conn.socket.EndReceive(result);
+                    //make sure we've read something, if we haven't it supposadly means that the client disconnected
+                    if (bytesRead > 0)
                     {
-                        _sockets.Remove(conn);
+                        //put whatever you want to do when you receive data here
+                        var response = ProcessMessage(conn.buffer.Take(bytesRead).ToArray());
+                        conn.socket.Send(response);
+
+                        //Queue the next receive
+                        conn.socket.BeginReceive(conn.buffer, 0, conn.buffer.Length, SocketFlags.None, new AsyncCallback(ReceiveCallback), conn);
+                    }
+                    else
+                    {
+                        //Callback run but no data, close the connection
+                        //supposadly means a disconnect
+                        //and we still have to close the socket, even though we throw the event later
+                        conn.socket.Close();
+                        lock (_Sessions)
+                        {
+                            _Sessions.Remove(conn);
+                        }
                     }
                 }
-            }
-            catch (SocketException e)
-            {
-                //Something went terribly wrong
-                //which shouldn't have happened
-                if (conn.socket != null)
+                catch (SocketException e)
                 {
-                    conn.socket.Close();
-                    lock (_sockets)
+                    //Something went terribly wrong
+                    //which shouldn't have happened
+                    if (conn.socket != null)
                     {
-                        _sockets.Remove(conn);
+                        conn.socket.Close();
+                        lock (_Sessions)
+                        {
+                            _Sessions.Remove(conn);
+                        }
                     }
                 }
             }
@@ -152,6 +171,11 @@ namespace CprBroker.Engine
         protected virtual byte[] ProcessMessage(byte[] message)
         {
             return new byte[] { };
+        }
+
+        public void Dispose()
+        {
+            Stop();
         }
     }
 }

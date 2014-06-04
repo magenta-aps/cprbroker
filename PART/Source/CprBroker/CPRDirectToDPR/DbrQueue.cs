@@ -90,12 +90,10 @@ namespace CprBroker.DBR
             }
         }
 
-        public void CreateListener()
+        public DiversionListener CreateListener()
         {
-            var ip = new System.Net.IPEndPoint(0, this.Port.Value);
-            var lis = new System.Net.Sockets.TcpListener(ip);
-            var listener = new 
-            lis.BeginAcceptTcpClient(DiversionListener.SSS, lis);
+            var listener = new DiversionListener() { Port = this.Port.Value };
+            return listener;
         }
         
     }
