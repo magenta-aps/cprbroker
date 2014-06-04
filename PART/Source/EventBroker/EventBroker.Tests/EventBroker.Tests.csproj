@@ -86,6 +86,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Linq" />
+    <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -93,6 +94,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataFlowTest.cs" />
     <Compile Include="EnqueueDataChangeEventNotifications.Tests.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -105,6 +107,10 @@
     <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Backend\Backend.csproj">
+      <Project>{AA6A8258-ED37-44F4-A8F4-5253D1A2B1E0}</Project>
+      <Name>Backend</Name>
+    </ProjectReference>
     <ProjectReference Include="..\EventBrokerInstallers\EventBrokerInstallers.csproj">
       <Project>{F6890247-F6CC-4EFB-B3DF-0D60D9DACAEE}</Project>
       <Name>EventBrokerInstallers</Name>

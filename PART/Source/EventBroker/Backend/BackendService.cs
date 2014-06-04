@@ -88,13 +88,13 @@ namespace CprBroker.EventBroker.Backend
             }
         }
 
-        private void StartQueues()
+        public void StartQueues()
         {
             foreach (var queue in this.InstalledQueues)
                 queue.Start();
         }
 
-        private void StopQueues()
+        public void StopQueues()
         {
             foreach (var queue in this.InstalledQueues)
                 queue.Stop();
