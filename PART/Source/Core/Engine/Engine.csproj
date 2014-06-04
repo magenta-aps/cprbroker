@@ -113,6 +113,7 @@
     <Compile Include="SubMethodRunState.cs" />
     <Compile Include="Sync\ISyncTargetQueue.cs" />
     <Compile Include="Sync\SyncManager.cs" />
+    <Compile Include="TcpServer.cs" />
     <Compile Include="ThreadRunner.cs" />
     <Compile Include="Manager.Admin.cs" />
     <Compile Include="Manager.Base.cs" />
