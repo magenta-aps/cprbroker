@@ -39,7 +39,7 @@
       <Column Name="FOEDDTO" Member="DateOfBirth" Type="System.Decimal" DbType="Decimal(9,0) NOT NULL" CanBeNull="false" />
       <Column Name="KOEN" Member="Sex" Type="System.Char" DbType="VarChar(1)" CanBeNull="true" />
       <Column Name="KOMKOD" Member="MunicipalityCode" Storage="_KOMKOD" Type="System.Decimal" DbType="Decimal(5,0) NOT NULL" CanBeNull="false" />
-      <Column Name="AKTKONVN" Member="MunicipalityName" Storage="_AKTKONVN" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="AKTKONVN" Member="CurrentMunicipalityName" Storage="_AKTKONVN" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
       <Column Name="VEJKOD" Member="StreetCode" Storage="_VEJKOD" Type="System.Decimal" DbType="Decimal(5,0) NOT NULL" CanBeNull="false" />
       <Column Name="HUSNR" Member="HouseNumber" Storage="_HUSNR" Type="System.String" DbType="VarChar(4)" CanBeNull="true" />
       <Column Name="ETAGE" Member="Floor" Storage="_ETAGE" Type="System.String" DbType="VarChar(2)" CanBeNull="true" />
