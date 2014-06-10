@@ -21,6 +21,19 @@ namespace CprBroker.DBR
             get { return DataProviderConfigProperty.Templates.GetConnectionString(this.ConfigurationProperties); }
         }
 
+        public int? Port
+        {
+            get
+            {
+                var s = this.ConfigurationProperties["Port"];
+                int ret;
+                if (int.TryParse(s, out ret))
+                    return ret;
+                else
+                    return null;
+            }
+        }
+
         public override ExtractQueueItem[] Process(ExtractQueueItem[] items)
         {
             var ret = new List<ExtractQueueItem>();
@@ -52,12 +65,17 @@ namespace CprBroker.DBR
 
         public override Engine.DataProviderConfigPropertyInfo[] ConfigurationKeys
         {
-            get { return DataProviderConfigPropertyInfo.Templates.ConnectionStringKeys; }
+            get
+            {
+                var ret = new List<Engine.DataProviderConfigPropertyInfo>(DataProviderConfigPropertyInfo.Templates.ConnectionStringKeys);
+                ret.Add(new DataProviderConfigPropertyInfo() { Confidential = false, Name = "Port", Type = DataProviderConfigPropertyInfoTypes.Integer, Required = false });
+                return ret.ToArray();
+            }
         }
 
         public bool IsAlive()
         {
-            try 
+            try
             {
                 using (var conn = new SqlConnection(this.ConnectionString))
                 {
@@ -72,6 +90,11 @@ namespace CprBroker.DBR
             }
         }
 
+        public DiversionListener CreateListener()
+        {
+            var listener = new DiversionListener() { Port = this.Port.Value };
+            return listener;
+        }
         
     }
 }

@@ -5,9 +5,9 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace CprBroker.Web.Pages.Controls
+namespace CprBroker.Web.Controls
 {
-    public partial class ConfigPropertyViewer : System.Web.UI.UserControl
+   public partial class ConfigPropertyViewer : System.Web.UI.UserControl, IControlWithDataSource
     {
         protected void Page_Load(object sender, EventArgs e)
         {

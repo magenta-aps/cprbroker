@@ -34,6 +34,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Practices.EnterpriseLibrary.Logging">
       <SpecificVersion>False</SpecificVersion>
@@ -68,6 +71,7 @@
     <Compile Include="Stubs\GuidDataProvider.cs" />
     <Compile Include="Stubs\GuidFacade.cs" />
     <Compile Include="Stubs\GuidMethodInfo.cs" />
+    <Compile Include="TcpServerTests.cs" />
     <Compile Include="Utilities.cs" />
   </ItemGroup>
   <ItemGroup>

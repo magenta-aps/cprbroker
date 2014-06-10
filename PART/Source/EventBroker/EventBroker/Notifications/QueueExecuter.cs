@@ -35,7 +35,7 @@ namespace CprBroker.EventBroker.Notifications
 
         protected override void PerformTimerAction()
         {
-            this.Queue.Run();
+            this.Queue.RunOneBatch();
         }
     }
 }

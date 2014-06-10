@@ -79,7 +79,7 @@ namespace CprBroker.Tests.Data
                 var q = new QueueStub(QueueId);
                 q.Enqueue(new QueueItemStub());
 
-                q.Run();
+                q.RunAll();
             }
 
             [Test]
@@ -95,7 +95,7 @@ namespace CprBroker.Tests.Data
                 q.Enqueue(items.ToArray());
 
                 Assert.AreEqual(count, q.Count());
-                q.Run();
+                q.RunAll();
                 Assert.AreEqual(0, q.Count());
             }
         }
