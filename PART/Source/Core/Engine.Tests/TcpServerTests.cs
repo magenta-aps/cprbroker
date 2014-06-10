@@ -41,14 +41,16 @@ namespace CprBroker.Tests.Engine
                     byte[] inBytes = enc.GetBytes(msg);
                     using (var client = new TcpClient("Beemen-PC", _Server.Port))
                     {
-                        var stream = client.GetStream() as NetworkStream;
-                        stream.Write(inBytes, 0, inBytes.Length);
+                        using (var stream = client.GetStream() as NetworkStream)
+                        {
+                            stream.Write(inBytes, 0, inBytes.Length);
 
-                        var outBytes = new Byte[2880 + 28];
+                            var outBytes = new Byte[2880 + 28];
 
-                        int bytes = stream.Read(outBytes, 0, outBytes.Length);
-                        var ret = enc.GetString(outBytes, 0, bytes);
-                        return ret;
+                            int bytes = stream.Read(outBytes, 0, outBytes.Length);
+                            var ret = enc.GetString(outBytes, 0, bytes);
+                            return ret;
+                        }
                     }
 
                 }
@@ -62,12 +64,14 @@ namespace CprBroker.Tests.Engine
             [Test]
             public void Run_OneConnection_OK()
             {
-                var server = new TcpServerStub() { Port = NewPort() };
-                server.Start();
-                var client = new Client(server);
-                var msg = "123";
-                var ret = client.GetResponse(msg);
-                Assert.AreEqual(msg, ret);
+                using (var server = new TcpServerStub() { Port = NewPort() })
+                {
+                    server.Start();
+                    var client = new Client(server);
+                    var msg = "123";
+                    var ret = client.GetResponse(msg);
+                    Assert.AreEqual(msg, ret);
+                }
             }
 
             public void Run_ManyConnections_OK(int count)
