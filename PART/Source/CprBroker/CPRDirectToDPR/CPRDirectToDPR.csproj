@@ -58,7 +58,7 @@
     <Compile Include="CprConverter.cs" />
     <Compile Include="CprConverterExtensions.cs" />
     <Compile Include="DbrQueue.cs" />
-    <Compile Include="DiversionListener.cs" />
+    <Compile Include="DprDiversionServer.cs" />
     <Compile Include="DiversionRequest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
