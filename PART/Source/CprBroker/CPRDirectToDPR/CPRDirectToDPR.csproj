@@ -59,6 +59,7 @@
     <Compile Include="CprConverterExtensions.cs" />
     <Compile Include="DbrQueue.cs" />
     <Compile Include="DiversionListener.cs" />
+    <Compile Include="DiversionRequest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -74,6 +75,9 @@
       <Project>{DA42D8BB-24D3-4416-A0BD-B98857F249AD}</Project>
       <Name>PartInterface</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Objects.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
