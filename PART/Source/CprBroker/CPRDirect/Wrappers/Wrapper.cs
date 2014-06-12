@@ -197,13 +197,23 @@ namespace CprBroker.Providers.CPRDirect
             }
         }
 
+        public T GetEnum<T>(int pos, int length)
+        {
+            return (T)(object)int.Parse(this[pos, length]);
+        }
+
+        public void SetEnum<T>(T value, int pos, int length)
+        {
+            this[pos, length] = Converters.DecimalToString((int)(object)value, length);
+        }
+
         public static Wrapper Create(string code, string contents, Dictionary<string, Type> typeMap)
         {
             if (typeMap.ContainsKey(code))
             {
                 Type type = typeMap[code];
                 var wrapper = Utilities.Reflection.CreateInstance(type) as Wrapper;
-                wrapper.Contents =  contents.PadRight(wrapper.Length);
+                wrapper.Contents = contents.PadRight(wrapper.Length);
                 return wrapper;
             }
             return null;

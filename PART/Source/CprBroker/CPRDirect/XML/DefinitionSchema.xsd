@@ -17,7 +17,7 @@
     <xs:attribute name="name" type="xs:string" use="required"/>
     <xs:attribute name="base" type="xs:string" use="optional"/>
     <xs:attribute name="danishName" type="xs:string" use="optional"/>
-    <xs:attribute name="length" type="xs:int" use="required">
+    <xs:attribute name="length" type="xs:int" use="optional">
       <xs:annotation>
         <xs:documentation>Set to 0 to disable object length validation</xs:documentation>
       </xs:annotation>
@@ -31,6 +31,7 @@
         <xs:attribute name="format" type="FormatType" use="required"/>
         <xs:attribute name="position" type="xs:int" use="required"/>
         <xs:attribute name="dateFormat" type="xs:string" use="optional"/>
+        <xs:attribute name="enumType" type="xs:string" use="optional"/>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>

@@ -34,6 +34,9 @@ ___________Attribute template _____________________________
       <xsl:when test="@dateFormat != ''">
         <xsl:text>DateTime?</xsl:text>
       </xsl:when>
+      <xsl:when test="@enumType != ''">
+        <xsl:value-of select="@enumType"/>
+      </xsl:when>
       <xsl:otherwise>
         <xsl:choose>
           <xsl:when test="@format = 'Alpha'">
@@ -58,6 +61,9 @@ ___________Attribute template _____________________________
             get { <xsl:choose>
               <xsl:when test="@dateFormat != ''">
                 <xsl:text>return this.GetDateTime(</xsl:text><xsl:value-of select="@position"/>, <xsl:value-of select="@length"/>, "<xsl:value-of select="@dateFormat"/><xsl:text>"); }</xsl:text>
+              </xsl:when>
+              <xsl:when test="@enumType != ''">
+                <xsl:text>return this.GetEnum&lt;</xsl:text><xsl:value-of select="@enumType"/><xsl:text>&gt;(</xsl:text><xsl:value-of select="@position"/>, <xsl:value-of select="@length"/><xsl:text>); }</xsl:text>
               </xsl:when>
               <xsl:otherwise>
                 <xsl:choose>
@@ -85,6 +91,9 @@ ___________Attribute template _____________________________
             set { <xsl:choose>
               <xsl:when test="@dateFormat != ''">
                 <xsl:text>this.SetDateTime(value, </xsl:text><xsl:value-of select="@position"/>, <xsl:value-of select="@length"/>, "<xsl:value-of select="@dateFormat"/><xsl:text>"); }</xsl:text>
+              </xsl:when>
+              <xsl:when test="@enumType != ''">
+                <xsl:text>this.SetEnum&lt;</xsl:text><xsl:value-of select="@enumType"/><xsl:text>&gt;(value, </xsl:text><xsl:value-of select="@position"/>, <xsl:value-of select="@length"/><xsl:text>); }</xsl:text>
               </xsl:when>
               <xsl:otherwise>
                 <xsl:choose>
