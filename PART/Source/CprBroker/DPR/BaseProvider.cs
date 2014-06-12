@@ -187,7 +187,7 @@ namespace CprBroker.Providers.DPR
                 {
                     using (TcpClient client = new TcpClient(Address, Port))
                     {
-                        Byte[] data = System.Text.Encoding.UTF7.GetBytes(message);
+                        Byte[] data = Constants.DiversionEncoding.GetBytes(message);
 
                         using (NetworkStream stream = client.GetStream())
                         {
