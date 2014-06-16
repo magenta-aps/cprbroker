@@ -181,7 +181,7 @@ namespace CprBroker.Providers.CPRDirect
             var properties = myType.GetProperties();
             foreach (System.Reflection.PropertyInfo property in properties)
             {
-                if (typeof(System.Collections.IList).IsAssignableFrom(property.PropertyType) && property.PropertyType.GetGenericTypeDefinition() == typeof(List<>))
+                if (property.PropertyType.IsGenericType && typeof(System.Collections.IList).IsAssignableFrom(property.PropertyType) && property.PropertyType.GetGenericTypeDefinition() == typeof(List<>))
                 {
                     var args = property.PropertyType.GetGenericArguments();
                     if (args.Length == 1)
