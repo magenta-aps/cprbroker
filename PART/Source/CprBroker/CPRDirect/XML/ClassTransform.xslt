@@ -6,11 +6,13 @@
                 exclude-result-prefixes="msxsl"
 >
   <xsl:output method="text" indent="yes"/>
+  <xsl:param name="namespace" />
+  
   <xsl:template match="/d:Layer">
     using System;
     using System.Collections.Generic;
 
-    namespace CprBroker.Providers.CPRDirect
+    namespace <xsl:value-of select="$namespace"/>
     {
     <xsl:apply-templates select="//d:Object"/>
     }

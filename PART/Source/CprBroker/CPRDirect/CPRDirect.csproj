@@ -221,10 +221,10 @@
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>"$(ProjectDir)..\..\Dll\msxsl.exe" "$(ProjectDir)XML\Definitions.xml" "$(ProjectDir)XML\ClassTransform.xslt" -o "$(ProjectDir)XML\Definitions.cs"
-"$(ProjectDir)..\..\Dll\msxsl.exe" "$(ProjectDir)XML\Definitions.xml" "$(ProjectDir)XML\ViewTransform.xslt" -o "$(ProjectDir)XML\Definitions.sql"
-"$(ProjectDir)..\..\Dll\msxsl.exe" "$(ProjectDir)Lookup\Authority.xml" "$(ProjectDir)XML\ClassTransform.xslt" -o "$(ProjectDir)Lookup\Authority.designer.cs"
-"$(ProjectDir)..\..\Dll\msxsl.exe" "$(ProjectDir)Lookup\GeoInformation.xml" "$(ProjectDir)XML\ClassTransform.xslt" -o "$(ProjectDir)Lookup\GeoInformation.designer.cs"</PreBuildEvent>
+    <PreBuildEvent>"$(ProjectDir)..\..\Dll\msxsl.exe" "$(ProjectDir)XML\Definitions.xml" "$(ProjectDir)XML\ClassTransform.xslt" -o "$(ProjectDir)XML\Definitions.cs" namespace="$(TargetName)"
+"$(ProjectDir)..\..\Dll\msxsl.exe" "$(ProjectDir)XML\Definitions.xml" "$(ProjectDir)XML\ViewTransform.xslt" -o "$(ProjectDir)XML\Definitions.sql" 
+"$(ProjectDir)..\..\Dll\msxsl.exe" "$(ProjectDir)Lookup\Authority.xml" "$(ProjectDir)XML\ClassTransform.xslt" -o "$(ProjectDir)Lookup\Authority.designer.cs" namespace="$(TargetName)"
+"$(ProjectDir)..\..\Dll\msxsl.exe" "$(ProjectDir)Lookup\GeoInformation.xml" "$(ProjectDir)XML\ClassTransform.xslt" -o "$(ProjectDir)Lookup\GeoInformation.designer.cs" namespace="$(TargetName)"</PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PostBuildEvent>copy $(TargetFileName) ..\..\..\Output\ /y</PostBuildEvent>
