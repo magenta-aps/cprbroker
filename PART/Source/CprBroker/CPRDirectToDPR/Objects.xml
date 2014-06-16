@@ -2,15 +2,15 @@
 <?xml-stylesheet type="text/xsl" href="ClassTransform.xslt"?>
 <Layer xmlns="http://itst.dk/CPRDirect">
 
-  <Object name="ClassicRequest" length="12">
-    <Attribute format="Numeric" position="1" length="1" name="Type"/>
-    <Attribute format="Numeric" position="2" length="1" name="LargeData"/>
+  <Object name="ClassicRequest" length="12" base="DiversionRequest">
+    <Attribute format="Numeric" position="1" length="1" name="Type" enumType="InquiryType"/>
+    <Attribute format="Numeric" position="2" length="1" name="LargeData" enumType="DetailType"/>
     <Attribute format="Alpha" position="3" length="10" name="PNR"/>
   </Object>
 
   <Object name="ClassicResponse">
-    <Attribute format="Numeric" position="1" length="1" name="Type"/>
-    <Attribute format="Numeric" position="2" length="1" name="LargeData"/>
+    <Attribute format="Numeric" position="1" length="1" name="Type" enumType="InquiryType"/>
+    <Attribute format="Numeric" position="2" length="1" name="LargeData" enumType="DetailType"/>
     <Attribute format="Alpha" position="3" length="2" name="ErrorNumber" danishName="FEJLNR"/>
     <Attribute format="Alpha" position="5" length="10" name="PNR"/>
     <Attribute format="Alpha" position="15"             name="Data"/>

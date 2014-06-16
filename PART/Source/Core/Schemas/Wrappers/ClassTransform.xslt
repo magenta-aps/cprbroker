@@ -7,12 +7,15 @@
 >
   <xsl:output method="text" indent="yes"/>
   <xsl:param name="namespace" />
+  <xsl:param name="using" />
   
   <xsl:template match="/d:Layer">
     using System;
     using System.Collections.Generic;
     using CprBroker.Schemas.Wrappers;
-
+  <xsl:if test="$using != ''">
+    using <xsl:value-of select="$using"/>;
+  </xsl:if>
     namespace <xsl:value-of select="$namespace"/>
     {
     <xsl:apply-templates select="//d:Object"/>
