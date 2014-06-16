@@ -52,6 +52,7 @@ using CprBroker.Engine;
 using CprBroker.Engine.Part;
 using CprBroker.Engine.Local;
 using CprBroker.Schemas.Part;
+using CprBroker.Schemas.Wrappers;
 
 namespace CprBroker.Providers.CPRDirect
 {

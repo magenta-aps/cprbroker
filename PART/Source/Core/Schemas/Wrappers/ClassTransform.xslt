@@ -11,6 +11,7 @@
   <xsl:template match="/d:Layer">
     using System;
     using System.Collections.Generic;
+    using CprBroker.Schemas.Wrappers;
 
     namespace <xsl:value-of select="$namespace"/>
     {

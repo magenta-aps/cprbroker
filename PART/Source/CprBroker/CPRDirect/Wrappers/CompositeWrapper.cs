@@ -50,6 +50,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using CprBroker.Schemas.Part;
+using CprBroker.Schemas.Wrappers;
 
 namespace CprBroker.Providers.CPRDirect
 {

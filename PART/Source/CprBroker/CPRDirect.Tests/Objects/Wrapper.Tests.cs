@@ -53,6 +53,7 @@ using NUnit.Framework;
 using System.Reflection;
 using System.Reflection.Emit;
 using System.Threading;
+using CprBroker.Schemas.Wrappers;
 
 namespace CprBroker.Tests.CPRDirect.Objects
 {

@@ -157,7 +157,6 @@
     <Compile Include="XML\IndividualResponse.NotImplemented.cs" />
     <Compile Include="XML\IndividualRequest.cs" />
     <Compile Include="MinMaxOccurs.cs" />
-    <Compile Include="Wrappers\Wrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="XML\Definitions.cs">
       <DependentUpon>Definitions.xml</DependentUpon>
@@ -177,7 +176,6 @@
     <Content Include="XML\CodeGeneration.txt" />
     <Content Include="XML\Definitions.sql" />
     <Content Include="XML\ViewTransform.xslt" />
-    <Content Include="XML\DefinitionSchema.xsd" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Extract\ExtractDataContext.dbml">
@@ -197,7 +195,6 @@
     <None Include="XML\Definitions.xml">
       <SubType>Designer</SubType>
     </None>
-    <Content Include="XML\ClassTransform.xslt" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
@@ -221,10 +218,10 @@
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>"$(ProjectDir)..\..\Dll\msxsl.exe" "$(ProjectDir)XML\Definitions.xml" "$(ProjectDir)XML\ClassTransform.xslt" -o "$(ProjectDir)XML\Definitions.cs" namespace="$(TargetName)"
+    <PreBuildEvent>"$(ProjectDir)..\..\Dll\msxsl.exe" "$(ProjectDir)XML\Definitions.xml" "$(SolutionDir)..\Core\Schemas\Wrappers\ClassTransform.xslt" -o "$(ProjectDir)XML\Definitions.cs" namespace="$(TargetName)"
 "$(ProjectDir)..\..\Dll\msxsl.exe" "$(ProjectDir)XML\Definitions.xml" "$(ProjectDir)XML\ViewTransform.xslt" -o "$(ProjectDir)XML\Definitions.sql" 
-"$(ProjectDir)..\..\Dll\msxsl.exe" "$(ProjectDir)Lookup\Authority.xml" "$(ProjectDir)XML\ClassTransform.xslt" -o "$(ProjectDir)Lookup\Authority.designer.cs" namespace="$(TargetName)"
-"$(ProjectDir)..\..\Dll\msxsl.exe" "$(ProjectDir)Lookup\GeoInformation.xml" "$(ProjectDir)XML\ClassTransform.xslt" -o "$(ProjectDir)Lookup\GeoInformation.designer.cs" namespace="$(TargetName)"</PreBuildEvent>
+"$(ProjectDir)..\..\Dll\msxsl.exe" "$(ProjectDir)Lookup\Authority.xml" "$(SolutionDir)..\Core\Schemas\Wrappers\ClassTransform.xslt" -o "$(ProjectDir)Lookup\Authority.designer.cs" namespace="$(TargetName)"
+"$(ProjectDir)..\..\Dll\msxsl.exe" "$(ProjectDir)Lookup\GeoInformation.xml" "$(SolutionDir)..\Core\Schemas\Wrappers\ClassTransform.xslt" -o "$(ProjectDir)Lookup\GeoInformation.designer.cs" namespace="$(TargetName)"</PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PostBuildEvent>copy $(TargetFileName) ..\..\..\Output\ /y</PostBuildEvent>

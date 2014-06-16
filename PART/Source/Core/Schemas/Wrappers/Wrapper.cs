@@ -51,7 +51,7 @@ using System.Text;
 using System.IO;
 using CprBroker.Schemas.Part;
 
-namespace CprBroker.Providers.CPRDirect
+namespace CprBroker.Schemas.Wrappers
 {
     public abstract class Wrapper
     {
@@ -152,7 +152,7 @@ namespace CprBroker.Providers.CPRDirect
 
         public void SetDecimal(decimal value, int pos, int length)
         {
-            this[pos, length] = Converters.DecimalToString(value, length);
+            this[pos, length] = Utilities.Strings.DecimalToString(value, length);
         }
 
         public DateTime? GetDateTime(int pos, int length, string format)
@@ -194,7 +194,7 @@ namespace CprBroker.Providers.CPRDirect
 
         public void SetEnum<T>(T value, int pos, int length)
         {
-            this[pos, length] = Converters.DecimalToString((int)(object)value, length);
+            this[pos, length] = Utilities.Strings.DecimalToString((int)(object)value, length);
         }
 
         public static Wrapper Create(string code, string contents, Dictionary<string, Type> typeMap)
