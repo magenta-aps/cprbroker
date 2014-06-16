@@ -86,16 +86,6 @@ namespace CprBroker.Providers.CPRDirect
 
         public abstract int Length { get; }
 
-        public string Code
-        {
-            get { return Contents.Substring(0, 3); }
-        }
-
-        public int IntCode
-        {
-            get { return int.Parse(Code); }
-        }
-
         private string this[int pos, int length]
         {
             get

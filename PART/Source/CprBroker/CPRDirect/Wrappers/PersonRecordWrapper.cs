@@ -52,7 +52,7 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Providers.CPRDirect
 {
-    public abstract class PersonRecordWrapper : Wrapper
+    public abstract class PersonRecordWrapper : CprDirectWrapper
     {
         public IRegistrationInfo Registration { get; set; }
     }

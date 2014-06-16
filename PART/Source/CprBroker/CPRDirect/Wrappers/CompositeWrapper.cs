@@ -53,7 +53,7 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Providers.CPRDirect
 {
-    public abstract class CompositeWrapper : Wrapper
+    public abstract class CompositeWrapper : CprDirectWrapper
     {
         public CompositeWrapper()
         { }

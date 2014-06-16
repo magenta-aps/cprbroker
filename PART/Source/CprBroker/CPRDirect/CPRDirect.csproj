@@ -104,6 +104,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>LookupDataContext.dbml</DependentUpon>
     </Compile>
+    <Compile Include="Wrappers\CprDirectWrapper.cs" />
     <Compile Include="Wrappers\PersonRecordWrapper.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
