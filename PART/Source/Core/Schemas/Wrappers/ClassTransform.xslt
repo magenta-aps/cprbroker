@@ -24,15 +24,20 @@ ___________Attribute template _____________________________
 -->
   <xsl:template match="d:Attribute">
     <xsl:if test="@description != '' or @danishName!=''">
-        ///  &lt;summary&gt;<xsl:if test="@danishName != ''">
-        <xsl:text>&#xa;</xsl:text>        /// Danish: <xsl:value-of select="@danishName"/>
+      <xsl:text>        ///  &lt;summary&gt;&#xa;</xsl:text>
+      <xsl:if test="@danishName != ''">
+        <xsl:text>        /// Danish: </xsl:text>
+        <xsl:value-of select="@danishName"/>
+        <xsl:text>&#xa;</xsl:text>
       </xsl:if>
       <xsl:if test="@description != ''">
-        <xsl:text>&#xa;</xsl:text>        /// <xsl:value-of select="@description"/>
+        <xsl:text>        /// </xsl:text>
+        <xsl:value-of select="@description"/>
+        <xsl:text>&#xa;</xsl:text>
       </xsl:if>
-        ///  &lt;/summary&gt;
+      <xsl:text>        ///  &lt;/summary&gt;&#xa;</xsl:text>
     </xsl:if>
-    <xsl:text>    public </xsl:text>
+    <xsl:text>        public </xsl:text>
     <xsl:choose>
       <xsl:when test="@dateFormat != ''">
         <xsl:text>DateTime?</xsl:text>
@@ -89,8 +94,9 @@ ___________Attribute template _____________________________
                 </xsl:choose>
               </xsl:otherwise>
     </xsl:choose>
-
-            set { <xsl:choose>
+    <xsl:text>&#xa;</xsl:text>
+    <xsl:text>            set { </xsl:text>
+            <xsl:choose>
               <xsl:when test="@dateFormat != ''">
                 <xsl:text>this.SetDateTime(value, </xsl:text><xsl:value-of select="@position"/><xsl:call-template name="lengthTemplate"/>, "<xsl:value-of select="@dateFormat"/><xsl:text>"); }</xsl:text>
               </xsl:when>
@@ -118,7 +124,7 @@ ___________Attribute template _____________________________
                 </xsl:choose>
               </xsl:otherwise>
     </xsl:choose>
-        }  </xsl:template>
+        }&#xa;</xsl:template>
   
   
   <!-- 
@@ -152,15 +158,20 @@ _____________________________ Object template _____________________________
       <xsl:text>Wrapper</xsl:text>
     </xsl:otherwise>
   </xsl:choose>
+    <xsl:text>
     {
         #region Common
+
         public override int Length
         {
-            get { return <xsl:value-of select="sum(@length)"/>; }
+            get { return </xsl:text>
+    <xsl:value-of select="sum(@length)"/>
+    <xsl:text>; }
         }
         #endregion
-        
-        #region Properties
+
+        #region Properties&#xa;&#xa;</xsl:text>
+    
     <xsl:apply-templates select="d:Attribute" />
         #endregion
 <xsl:if test="d:Object">
