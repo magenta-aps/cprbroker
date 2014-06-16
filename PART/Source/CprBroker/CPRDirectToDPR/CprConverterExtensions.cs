@@ -393,7 +393,7 @@ namespace CprBroker.DBR
             pa.AlwaysNull3 = null;
             pa.AlwaysNull4 = null;
             pa.AlwaysNull5 = null;
-            pa.AdditionalAddressDate = CprBroker.Utilities.Dates.DateToDecimal(currentAddress.CurrentAddressInformation.StartDate, 8);
+            pa.AdditionalAddressDate = CprBroker.Utilities.Dates.DateToDecimal(currentAddress.CurrentAddressInformation.StartDate.Value, 8);
             pa.CorrectionMarker = null; //This is the current status
             pa.CareOfName = currentAddress.CurrentAddressInformation.CareOfName;
             pa.Town = null; //Can be found in ClearWrittenAddress

@@ -63,10 +63,10 @@ ___________Attribute template _____________________________
         {
             get { <xsl:choose>
               <xsl:when test="@dateFormat != ''">
-                <xsl:text>return this.GetDateTime(</xsl:text><xsl:value-of select="@position"/>, <xsl:value-of select="@length"/>, "<xsl:value-of select="@dateFormat"/><xsl:text>"); }</xsl:text>
+                <xsl:text>return this.GetDateTime(</xsl:text><xsl:value-of select="@position"/><xsl:call-template name="lengthTemplate"/>, "<xsl:value-of select="@dateFormat"/><xsl:text>"); }</xsl:text>
               </xsl:when>
               <xsl:when test="@enumType != ''">
-                <xsl:text>return this.GetEnum&lt;</xsl:text><xsl:value-of select="@enumType"/><xsl:text>&gt;(</xsl:text><xsl:value-of select="@position"/>, <xsl:value-of select="@length"/><xsl:text>); }</xsl:text>
+                <xsl:text>return this.GetEnum&lt;</xsl:text><xsl:value-of select="@enumType"/><xsl:text>&gt;(</xsl:text><xsl:value-of select="@position"/><xsl:call-template name="lengthTemplate"/><xsl:text>); }</xsl:text>
               </xsl:when>
               <xsl:otherwise>
                 <xsl:choose>
@@ -78,14 +78,13 @@ ___________Attribute template _____________________________
                       <xsl:otherwise>
                         <xsl:text>return this.GetString(</xsl:text>
                         <xsl:value-of select="@position"/>
-                        <xsl:text>, </xsl:text>
-                        <xsl:value-of select="@length"/>
+                        <xsl:call-template name="lengthTemplate"/>
                         <xsl:text>); }</xsl:text>
                       </xsl:otherwise>
                     </xsl:choose>
                   </xsl:when>
                   <xsl:otherwise>
-                    <xsl:text>return this.GetDecimal(</xsl:text><xsl:value-of select="@position"/>, <xsl:value-of select="@length"/><xsl:text>); }</xsl:text>
+                    <xsl:text>return this.GetDecimal(</xsl:text><xsl:value-of select="@position"/><xsl:call-template name="lengthTemplate"/><xsl:text>); }</xsl:text>
                   </xsl:otherwise>
                 </xsl:choose>
               </xsl:otherwise>
@@ -93,10 +92,10 @@ ___________Attribute template _____________________________
 
             set { <xsl:choose>
               <xsl:when test="@dateFormat != ''">
-                <xsl:text>this.SetDateTime(value, </xsl:text><xsl:value-of select="@position"/>, <xsl:value-of select="@length"/>, "<xsl:value-of select="@dateFormat"/><xsl:text>"); }</xsl:text>
+                <xsl:text>this.SetDateTime(value, </xsl:text><xsl:value-of select="@position"/><xsl:call-template name="lengthTemplate"/>, "<xsl:value-of select="@dateFormat"/><xsl:text>"); }</xsl:text>
               </xsl:when>
               <xsl:when test="@enumType != ''">
-                <xsl:text>this.SetEnum&lt;</xsl:text><xsl:value-of select="@enumType"/><xsl:text>&gt;(value, </xsl:text><xsl:value-of select="@position"/>, <xsl:value-of select="@length"/><xsl:text>); }</xsl:text>
+                <xsl:text>this.SetEnum&lt;</xsl:text><xsl:value-of select="@enumType"/><xsl:text>&gt;(value, </xsl:text><xsl:value-of select="@position"/><xsl:call-template name="lengthTemplate"/><xsl:text>); }</xsl:text>
               </xsl:when>
               <xsl:otherwise>
                 <xsl:choose>
@@ -108,19 +107,36 @@ ___________Attribute template _____________________________
                       <xsl:otherwise>
                         <xsl:text>this.SetString(value, </xsl:text>
                         <xsl:value-of select="@position"/>
-                        <xsl:text>, </xsl:text>
-                        <xsl:value-of select="@length"/>
+                        <xsl:call-template name="lengthTemplate"/>
                         <xsl:text>); }</xsl:text>
                       </xsl:otherwise>
                     </xsl:choose>
                   </xsl:when>
                   <xsl:otherwise>
-                    <xsl:text>this.SetDecimal(value, </xsl:text><xsl:value-of select="@position"/>, <xsl:value-of select="@length"/><xsl:text>); }</xsl:text>
+                    <xsl:text>this.SetDecimal(value, </xsl:text><xsl:value-of select="@position"/><xsl:call-template name="lengthTemplate"/><xsl:text>); }</xsl:text>
                   </xsl:otherwise>
                 </xsl:choose>
               </xsl:otherwise>
     </xsl:choose>
         }  </xsl:template>
+  
+  
+  <!-- 
+  ___________________________ Length template _____________________________
+  -->
+  <xsl:template name="lengthTemplate">
+    <xsl:choose>
+      <xsl:when test="@length != ''">
+        <xsl:text>, </xsl:text>
+        <xsl:value-of select="@length"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:text>, null</xsl:text>
+      </xsl:otherwise>
+    </xsl:choose>
+    
+  </xsl:template>
+  
   
   <!-- 
 _____________________________ Object template _____________________________

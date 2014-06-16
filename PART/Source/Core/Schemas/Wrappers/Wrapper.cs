@@ -86,19 +86,28 @@ namespace CprBroker.Schemas.Wrappers
 
         public abstract int Length { get; }
 
-        private string this[int pos, int length]
+        private string this[int pos, int? length]
         {
             get
             {
                 int index = pos - 1;
 
-                if (this.Length == 0)
-                    length = Math.Min(length, Contents.Length - index);
+                if (length.HasValue)
+                {
+                    if (this.Length == 0)
+                        length = Math.Min(length.Value, Contents.Length - index);
 
-                return Contents.Substring(index, length);
+                    return Contents.Substring(index, length.Value);
+                }
+                else
+                {
+                    return Contents.Substring(pos);
+                }
             }
             set
             {
+                if (!length.HasValue)
+                    length = 0;
                 if (value.Length != length)
                 {
                     throw new ArgumentOutOfRangeException("value", string.Format("Should be exactly <{0}> characters", length));
@@ -112,25 +121,25 @@ namespace CprBroker.Schemas.Wrappers
                     Contents.Take(startIndex)
                     .Concat(value)
                     .Concat(
-                        _Contents.Skip(startIndex + length)
+                        _Contents.Skip(startIndex + length.Value)
                     )
                     .ToArray();
                 _Contents = new string(charArr);
             }
         }
 
-        public string GetString(int pos, int len)
+        public string GetString(int pos, int? len)
         {
             var ret = this[pos, len];
             return ret.Trim();
         }
 
-        public void SetString(string value, int pos, int len)
+        public void SetString(string value, int pos, int? len)
         {
             value = string.Format("{0}", value);
-            if (value.Length < len)
+            if (len.HasValue && value.Length < len)
             {
-                value = value + new string(' ', len - value.Length);
+                value = value + new string(' ', len.Value - value.Length);
             }
             this[pos, len] = value;
         }

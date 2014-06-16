@@ -8,12 +8,12 @@
     <Attribute format="Alpha" position="3" length="10" name="PNR"/>
   </Object>
 
-  <Object name="ClassicResponse" length="12">
+  <Object name="ClassicResponse">
     <Attribute format="Numeric" position="1" length="1" name="Type"/>
     <Attribute format="Numeric" position="2" length="1" name="LargeData"/>
     <Attribute format="Alpha" position="3" length="2" name="ErrorNumber" danishName="FEJLNR"/>
     <Attribute format="Alpha" position="5" length="10" name="PNR"/>
-    <Attribute format="Data" position="15"             name="ErrorNumber"/>
+    <Attribute format="Alpha" position="15"             name="Data"/>
   </Object>
 
   <Object name="ClassicResponseBasicData">
