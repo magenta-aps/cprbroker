@@ -58,6 +58,7 @@
     <Compile Include="CprConverter.cs" />
     <Compile Include="CprConverterExtensions.cs" />
     <Compile Include="DbrQueue.cs" />
+    <Compile Include="DiversionResponse.cs" />
     <Compile Include="DprDiversionServer.cs" />
     <Compile Include="DiversionRequest.cs" />
     <Compile Include="Objects.cs">

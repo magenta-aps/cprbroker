@@ -8,7 +8,7 @@
     <Attribute format="Alpha" position="3" length="10" name="PNR"/>
   </Object>
 
-  <Object name="ClassicResponse">
+  <Object name="ClassicResponse" base="DiversionResponse">
     <Attribute format="Numeric" position="1" length="1" name="Type" enumType="InquiryType"/>
     <Attribute format="Numeric" position="2" length="1" name="LargeData" enumType="DetailType"/>
     <Attribute format="Alpha" position="3" length="2" name="ErrorNumber" danishName="FEJLNR"/>

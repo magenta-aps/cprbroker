@@ -18,7 +18,8 @@ namespace CprBroker.DBR
             var req = DiversionRequest.Parse(message);
             if (req != null)
             {
-                return CprBroker.Providers.DPR.Constants.DiversionEncoding.GetBytes(req.Process());
+                var ret = req.Process();                
+                return ret.ToBytes();
             }
             else
             {
