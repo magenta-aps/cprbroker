@@ -55,6 +55,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClassicRequestType.cs" />
+    <Compile Include="ClassicResponseType.cs" />
     <Compile Include="CprConverter.cs" />
     <Compile Include="CprConverterExtensions.cs" />
     <Compile Include="DbrQueue.cs" />

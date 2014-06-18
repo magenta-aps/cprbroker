@@ -59,7 +59,7 @@ using CprBroker.Engine.Part;
 
 namespace CprBroker.Providers.CPRDirect
 {
-    public partial class CPRDirectExtractDataProvider : IPartReadDataProvider, IExternalDataProvider, IPartPeriodDataProvider
+    public partial class CPRDirectExtractDataProvider : IPartReadDataProvider, IExternalDataProvider, IPartPeriodDataProvider, ICprDirectPersonDataProvider
     {
         #region IPartReadDataProvider members
         public RegistreringType1 Read(CprBroker.Schemas.PersonIdentifier uuid, LaesInputType input, Func<string, Guid> cpr2uuidFunc, out QualityLevel? ql)
@@ -67,7 +67,7 @@ namespace CprBroker.Providers.CPRDirect
             ql = QualityLevel.Cpr;
             IndividualResponseType response = null;
 
-            response = ExtractManager.GetPerson(uuid.CprNumber);
+            response = GetPerson(uuid.CprNumber);
 
             if (response != null)
             {
@@ -213,5 +213,12 @@ namespace CprBroker.Providers.CPRDirect
         #endregion
 
 
+        #region ICprDirectPersonDataProvider members
+
+        public IndividualResponseType GetPerson(string cprNumber)
+        {
+            return ExtractManager.GetPerson(cprNumber);
+        }
+        #endregion
     }
 }
