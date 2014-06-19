@@ -64,6 +64,7 @@
     <Compile Include="DiversionResponse.cs" />
     <Compile Include="DprDiversionServer.cs" />
     <Compile Include="DiversionRequest.cs" />
+    <Compile Include="NewRquestType.cs" />
     <Compile Include="Objects.cs">
       <DependentUpon>Objects.xml</DependentUpon>
     </Compile>
