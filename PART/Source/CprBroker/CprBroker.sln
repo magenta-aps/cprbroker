@@ -46,7 +46,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PartInterface", "PartInterf
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PartInterface.Tests", "PartInterface.Tests\PartInterface.Tests.csproj", "{06CCC703-83F2-44B9-B67A-F7F3A0071E2D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CPRDirectToDPR", "CPRDirectToDPR\CPRDirectToDPR.csproj", "{F6E48545-473F-4133-90F7-B93A4612F50F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBR", "DBR\DBR.csproj", "{F6E48545-473F-4133-90F7-B93A4612F50F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
