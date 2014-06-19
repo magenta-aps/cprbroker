@@ -18,7 +18,7 @@ namespace CprBroker.DBR
             var req = DiversionRequest.Parse(message);
             if (req != null)
             {
-                var ret = req.Process();                
+                var ret = req.Process(this.DbrQueue.ConnectionString);
                 return ret.ToBytes();
             }
             else

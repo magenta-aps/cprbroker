@@ -29,10 +29,7 @@ namespace CprBroker.DBR
             return ret;
         }
 
-        public virtual DiversionResponse Process()
-        {
-            throw new NotImplementedException();
-        }
+        public abstract DiversionResponse Process(string dprConnectionString);
     }
 
 }

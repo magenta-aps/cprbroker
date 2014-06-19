@@ -5,12 +5,13 @@ using System.Text;
 using CprBroker.Engine;
 using CprBroker.Data.DataProviders;
 using CprBroker.Providers.CPRDirect;
+using CprBroker.Providers.DPR;
 
 namespace CprBroker.DBR
 {
     public partial class ClassicRequestType
     {
-        public override DiversionResponse Process()
+        public override DiversionResponse Process(string dprConnectionString)
         {
             if (this.LargeData == Providers.DPR.DetailType.ExtendedData && this.Type == Providers.DPR.InquiryType.DataUpdatedAutomaticallyFromCpr)
             {
@@ -22,30 +23,37 @@ namespace CprBroker.DBR
                     .Select(p => p as ICprDirectPersonDataProvider);
 
                 var response = providers
-                    .First(p => p.GetPerson(this.PNR) != null);
+                    .Select(p => p.GetPerson(this.PNR))
+                    .First(p => p != null);
 
                 if (response != null)
                 {
-                    var ret = new ClassicResponseType()
+                    using (var dataContext = new DPRDataContext(dprConnectionString))
                     {
-                        Type = this.Type,
-                        LargeData = this.LargeData,
-                        PNR = this.PNR,
-                        ErrorNumber = "00",
-                        Data = "Basen er opdateret"
-                    };
-                    return ret;
+                        CprConverter.DeletePersonRecords(this.PNR, dataContext);
+                        CprConverter.AppendPerson(response, dataContext);
+
+                        var ret = new ClassicResponseType()
+                        {
+                            Type = this.Type,
+                            LargeData = this.LargeData,
+                            PNR = this.PNR,
+                            ErrorNumber = "00",
+                            Data = "Basen er opdateret"
+                        };
+                        return ret;
+                    }
                 }
                 else
                 {
                     // TODO: person not found, return error
-                    return base.Process();
+                    throw new NotImplementedException();
                 }
             }
             else
             {
                 // TODO: unimplemented mode of operation
-                return base.Process();
+                throw new NotImplementedException();
             }
         }
     }
