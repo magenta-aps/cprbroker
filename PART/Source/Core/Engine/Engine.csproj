@@ -147,7 +147,6 @@
     <Compile Include="Capabilites\IsImplementingFacadeMethod.cs" />
     <Compile Include="Capabilites\GetCapabilitiesFacadeMethod.cs" />
     <Compile Include="Capabilites\LogFacadeMethod.cs" />
-    <Compile Include="DataProvidersConfigurationSection.cs" />
     <Compile Include="GenericFacadeMethodInfo.cs" />
     <Compile Include="DataProviders\GetDataProviderListFacadeMethodInfo.cs" />
     <Compile Include="DataProviders\SetDataProvidersFacadeMethodInfo.cs" />

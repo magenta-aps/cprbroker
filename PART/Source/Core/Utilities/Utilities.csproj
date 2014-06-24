@@ -73,6 +73,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CaseInvariantCharComparer.cs" />
+    <Compile Include="Config\ConfigManager.cs" />
+    <Compile Include="Config\DataProvidersConfigurationSection.cs" />
+    <Compile Include="Config\IConfigProvider.cs" />
+    <Compile Include="Config\StandardConfigProvider.cs" />
     <Compile Include="ConsoleApps\CommandArgument.cs" />
     <Compile Include="ConsoleApps\CommandlineParser.cs" />
     <Compile Include="Config.cs" />

@@ -17,7 +17,7 @@ namespace CprBroker.Config.Properties {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
         
-        internal static Settings Default {
+        public static Settings Default {
             get {
                 return defaultInstance;
             }
