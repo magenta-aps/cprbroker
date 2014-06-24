@@ -56,7 +56,7 @@ namespace CprBroker.Engine
     {
         public static bool CanCallOnline(string pnr)
         {
-            return CanCallOnline(Config.Properties.Settings.Default.Modulus11LowLevelEnabled, pnr);
+            return CanCallOnline(Config.ConfigManager.Current.Settings.Modulus11LowLevelEnabled, pnr);
         }
 
         public static bool CanCallOnline(bool modulus11Enabled, string pnr)

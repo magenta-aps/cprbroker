@@ -59,7 +59,7 @@ namespace CprBroker.Data.Part
     public partial class PartDataContext
     {
         public PartDataContext()
-            : base(Config.Properties.Settings.Default.CprBrokerConnectionString)
+            : base(Config.ConfigManager.Current.Settings.CprBrokerConnectionString)
         {
             OnCreated();
             /*if (!Directory.Exists(@"C:\Log"))

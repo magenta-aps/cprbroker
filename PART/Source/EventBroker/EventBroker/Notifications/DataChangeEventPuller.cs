@@ -64,7 +64,7 @@ namespace CprBroker.EventBroker.Notifications
 
         protected override void PerformTimerAction()
         {
-            var batchSize = CprBroker.Config.Properties.Settings.Default.DataChangeDequeueBatchSize;
+            var batchSize = CprBroker.Config.ConfigManager.Current.Settings.DataChangeDequeueBatchSize;
 
             Admin.LogFormattedSuccess("DataChangeEventEnqueuer.PushNotifications() started, batch size <{0}>", batchSize);
             EventBroker.EventsService.DataChangeEventInfo[] changedPeople;

@@ -160,7 +160,7 @@ namespace CprBroker.Engine
                     }
                 })).ToArray();
 
-                ThreadRunner.RunThreads(threadStarts, TimeSpan.FromMilliseconds(Config.Properties.Settings.Default.DataProviderMillisecondsTimeout));
+                ThreadRunner.RunThreads(threadStarts, TimeSpan.FromMilliseconds(Config.ConfigManager.Current.Settings.DataProviderMillisecondsTimeout));
             }
             elementsToUpdate = elementsToUpdateList.ToArray();
         }

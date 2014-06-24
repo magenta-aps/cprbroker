@@ -216,7 +216,7 @@ namespace CprBroker.Engine
                 // Wait for sub results to continue
                 DateTime executionStartTime = DateTime.Now;
 
-                while (System.Threading.Interlocked.Read(ref finishedThreads) < subMethodRunStates.Length && (DateTime.Now - executionStartTime).TotalMilliseconds < Config.Properties.Settings.Default.DataProviderMillisecondsTimeout)
+                while (System.Threading.Interlocked.Read(ref finishedThreads) < subMethodRunStates.Length && (DateTime.Now - executionStartTime).TotalMilliseconds < Config.ConfigManager.Current.Settings.DataProviderMillisecondsTimeout)
                 {
                     int waitMilliseconds = 100;
                     Thread.Sleep(waitMilliseconds);

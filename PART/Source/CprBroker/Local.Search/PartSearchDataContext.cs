@@ -8,7 +8,7 @@ namespace CprBroker.Providers.Local.Search
     partial class PartSearchDataContext
     {
         public PartSearchDataContext()
-            : this(CprBroker.Config.Properties.Settings.Default.CprBrokerConnectionString)
+            : this(CprBroker.Config.ConfigManager.Current.Settings.CprBrokerConnectionString)
         { }
     }
 }

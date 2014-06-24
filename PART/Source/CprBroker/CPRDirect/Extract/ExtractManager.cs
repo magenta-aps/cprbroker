@@ -78,7 +78,7 @@ namespace CprBroker.Providers.CPRDirect
             var extractStaging = parseResult.ToExtractPersonStagings(extract.ExtractId);
             var extractErrors = parseResult.ToExtractErrors(extract.ExtractId);
 
-            using (var conn = new SqlConnection(CprBroker.Config.Properties.Settings.Default.CprBrokerConnectionString))
+            using (var conn = new SqlConnection(CprBroker.Config.ConfigManager.Current.Settings.CprBrokerConnectionString))
             {
                 conn.Open();
 
@@ -122,7 +122,7 @@ namespace CprBroker.Providers.CPRDirect
                 var extractResult = new ExtractParseResult();
 
                 long totalReadLinesCount = 0;
-                using (var conn = new SqlConnection(CprBroker.Config.Properties.Settings.Default.CprBrokerConnectionString))
+                using (var conn = new SqlConnection(CprBroker.Config.ConfigManager.Current.Settings.CprBrokerConnectionString))
                 {
                     conn.Open();
                     using (var dataContext = new ExtractDataContext(conn))
@@ -251,7 +251,7 @@ namespace CprBroker.Providers.CPRDirect
                 try
                 {
                     Admin.LogFormattedSuccess("Reading file <{0}> ", file);
-                    ExtractManager.ImportFileInSteps(file, CprBroker.Config.Properties.Settings.Default.CprDirectExtractImportBatchSize);
+                    ExtractManager.ImportFileInSteps(file, CprBroker.Config.ConfigManager.Current.Settings.CprDirectExtractImportBatchSize);
                     Admin.LogFormattedSuccess("Importing file <{0}> succeeded", file);
 
                     MoveToProcessed(prov.ExtractsFolder, file);

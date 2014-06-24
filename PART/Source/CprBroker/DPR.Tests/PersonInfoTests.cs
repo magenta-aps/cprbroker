@@ -60,7 +60,7 @@ namespace CprBroker.Tests.DPR.PersonInfoTests
         {
             get
             {
-                var builder = new System.Data.SqlClient.SqlConnectionStringBuilder(CprBroker.Config.Properties.Settings.Default.CprBrokerConnectionString);
+                var builder = new System.Data.SqlClient.SqlConnectionStringBuilder(CprBroker.Config.ConfigManager.Current.Settings.CprBrokerConnectionString);
                 builder.InitialCatalog = "DPR";
                 return builder.ToString();
             }

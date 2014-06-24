@@ -79,7 +79,7 @@ namespace CprBroker.EventBroker.Notifications
 
         protected override void PerformTimerAction()
         {
-            var batchSize = CprBroker.Config.Properties.Settings.Default.DataChangeDequeueBatchSize;
+            var batchSize = CprBroker.Config.ConfigManager.Current.Settings.DataChangeDequeueBatchSize;
 
             using (var dataContext = new Data.EventBrokerDataContext())
             {

@@ -18,7 +18,7 @@ namespace CprBroker.EventBroker.Notifications
 
         protected override void PerformTimerAction()
         {
-            int batchSize = CprBroker.Config.Properties.Settings.Default.SubscriptionCriteriaMatchingBatchSize;
+            int batchSize = CprBroker.Config.ConfigManager.Current.Settings.SubscriptionCriteriaMatchingBatchSize;
 
             Admin.LogFormattedSuccess("DataChangeEventEnqueuer.UpdateSubscriptionCriteriaLists() started, batch size <{0}>", batchSize);
 
