@@ -74,6 +74,7 @@
   <ItemGroup>
     <Compile Include="CaseInvariantCharComparer.cs" />
     <Compile Include="Config\ConfigManager.cs" />
+    <Compile Include="Config\DataProviderKeysSection.cs" />
     <Compile Include="Config\DataProvidersConfigurationSection.cs" />
     <Compile Include="Config\IConfigProvider.cs" />
     <Compile Include="Config\StandardConfigProvider.cs" />
@@ -83,7 +84,6 @@
     <Compile Include="ConsoleApps\ConsoleEnvironment.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="DataLinq.cs" />
-    <Compile Include="DataProviderKeysSection.cs" />
     <Compile Include="Dates.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="LookupMap.cs" />

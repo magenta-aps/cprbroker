@@ -114,7 +114,7 @@ namespace CprBroker.Engine
 
         public static IEnumerable<Type> GetAvailableDataProviderTypes(Type interfaceType, bool isExternal)
         {
-            return GetAvailableDataProviderTypes(DataProvidersConfigurationSection.GetCurrent(), interfaceType, isExternal);
+            return GetAvailableDataProviderTypes(Config.ConfigManager.Current.DataProvidersSection, interfaceType, isExternal);
 
         }
 

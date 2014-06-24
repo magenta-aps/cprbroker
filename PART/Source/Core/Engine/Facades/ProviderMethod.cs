@@ -48,7 +48,7 @@ namespace CprBroker.Engine
 
         public IEnumerable<TInterface> CreateDataProviders(SourceUsageOrder sourceUsageOrder)
         {
-            DataProvidersConfigurationSection section = DataProvidersConfigurationSection.GetCurrent();
+            DataProvidersConfigurationSection section = CprBroker.Config.ConfigManager.Current.DataProvidersSection;
             DataProvider[] dbProviders = DataProviderManager.ReadDatabaseDataProviders();
 
             var dataProviders = DataProviderManager.GetDataProviderList(section, dbProviders, typeof(TInterface), sourceUsageOrder)

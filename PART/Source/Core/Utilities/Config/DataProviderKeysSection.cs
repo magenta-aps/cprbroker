@@ -122,11 +122,6 @@ namespace CprBroker.Utilities
             }
         }
 
-        public static RijndaelManaged GetFromConfig()
-        {
-            return GetFromConfig(Config.GetConfigFile());
-        }
-
         public static RijndaelManaged GetFromConfig(Configuration configFile)
         {
             RijndaelManaged rm = new RijndaelManaged();
