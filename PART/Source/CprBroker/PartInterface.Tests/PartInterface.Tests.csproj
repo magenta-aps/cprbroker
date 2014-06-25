@@ -37,6 +37,15 @@
     <Reference Include="CprBroker.Engine">
       <HintPath>..\..\Core\Output\CprBroker.Engine.dll</HintPath>
     </Reference>
+    <Reference Include="CprBroker.EventBroker">
+      <HintPath>..\..\EventBroker\Output\CprBroker.EventBroker.dll</HintPath>
+    </Reference>
+    <Reference Include="CprBroker.Installers">
+      <HintPath>..\..\Core\Output\CprBroker.Installers.dll</HintPath>
+    </Reference>
+    <Reference Include="CprBroker.Installers.EventBrokerInstallers">
+      <HintPath>..\..\EventBroker\Output\CprBroker.Installers.EventBrokerInstallers.dll</HintPath>
+    </Reference>
     <Reference Include="CprBroker.Schemas">
       <HintPath>..\..\Core\Output\CprBroker.Schemas.dll</HintPath>
     </Reference>
