@@ -73,6 +73,7 @@
     <Compile Include="Stubs\GuidDataProvider.cs" />
     <Compile Include="Stubs\GuidFacade.cs" />
     <Compile Include="Stubs\GuidMethodInfo.cs" />
+    <Compile Include="TestBase.cs" />
     <Compile Include="UpdateDatabasePartTests.cs" />
     <Compile Include="Utilities.cs" />
     <Compile Include="UuidCacheTests.cs" />
