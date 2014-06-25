@@ -51,7 +51,7 @@ using System.Text;
 using NUnit.Framework;
 using CprBroker.Schemas.Part;
 
-namespace CprBroker.Tests.Schemas
+namespace CprBroker.Tests.PartInterface
 {
     namespace CivilStatusWrapperTests.Tests
     {

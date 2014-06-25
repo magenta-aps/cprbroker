@@ -48,11 +48,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
 using NUnit.Framework;
+
 using CprBroker.Data.Part;
 using CprBroker.Schemas.Part;
 using CprBroker.EventBroker.Data;
-using System.IO;
+using CprBroker.Tests.PartInterface;
 
 namespace CprBroker.EventBroker.Tests
 {

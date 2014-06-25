@@ -53,7 +53,7 @@ using CprBroker.Engine;
 using CprBroker.Engine.Part;
 using CprBroker.Schemas.Part;
 
-namespace CprBroker.Tests.Engine
+namespace CprBroker.Tests.PartInterface
 {
     [TestFixture]
     class ListFacadeMethodInfoTests

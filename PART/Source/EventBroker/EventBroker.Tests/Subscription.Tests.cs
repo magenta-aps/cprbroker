@@ -51,6 +51,7 @@ using System.Text;
 using NUnit.Framework;
 using CprBroker.EventBroker.Data;
 using CprBroker.Data.Part;
+using CprBroker.Tests.PartInterface;
 
 namespace CprBroker.EventBroker.Tests
 {

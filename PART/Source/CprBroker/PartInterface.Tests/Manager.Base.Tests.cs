@@ -52,7 +52,7 @@ using NUnit.Framework;
 using CprBroker.Engine;
 using CprBroker.Tests.Engine.Stubs;
 
-namespace CprBroker.Tests.Engine
+namespace CprBroker.Tests.PartInterface
 {
     [TestFixture]
     class ManagerTests

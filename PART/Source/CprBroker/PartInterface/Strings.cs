@@ -55,7 +55,7 @@ using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace PartInterface
+namespace CprBroker.PartInterface
 {
     /// <summary>
     /// Contains string processing utility methods

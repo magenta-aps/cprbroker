@@ -8,7 +8,7 @@ using CprBroker.EventBroker.Data;
 using CprBroker.Schemas.Part;
 using CprBroker.Data.Part;
 
-namespace CprBroker.EventBroker.Tests
+namespace CprBroker.Tests.PartInterface
 {
     public class TestBase
     {
@@ -74,7 +74,7 @@ namespace CprBroker.EventBroker.Tests
             }
         }
 
-        public Subscription AddSubscription(EventBrokerDataContext dataContext, SoegObjektType criteria, bool forAll, bool ready, Data.SubscriptionType.SubscriptionTypes type)
+        public Subscription AddSubscription(EventBrokerDataContext dataContext, SoegObjektType criteria, bool forAll, bool ready, EventBroker.Data.SubscriptionType.SubscriptionTypes type)
         {
             var sub = new Subscription()
             {
@@ -92,7 +92,7 @@ namespace CprBroker.EventBroker.Tests
                 LastCheckedUUID = null,
 
                 // Control
-                Criteria = criteria == null ? null : System.Xml.Linq.XElement.Load(new System.IO.StringReader(Utilities.Strings.SerializeObject(criteria))),
+                Criteria = criteria == null ? null : System.Xml.Linq.XElement.Load(new System.IO.StringReader(CprBroker.Utilities.Strings.SerializeObject(criteria))),
                 IsForAllPersons = forAll,
                 Ready = ready,
                 SubscriptionTypeId = (int)type

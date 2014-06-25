@@ -7,6 +7,7 @@ using CprBroker.EventBroker;
 using CprBroker.EventBroker.Data;
 using System.IO;
 using System.Data.SqlClient;
+using CprBroker.Tests.PartInterface;
 
 namespace CprBroker.EventBroker.Tests
 {
