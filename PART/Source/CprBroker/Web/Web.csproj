@@ -258,9 +258,9 @@
     <Content Include="Pages\Site.Master" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CPRDirectToDPR\CPRDirectToDPR.csproj">
+    <ProjectReference Include="..\DBR\DBR.csproj">
       <Project>{F6E48545-473F-4133-90F7-B93A4612F50F}</Project>
-      <Name>CPRDirectToDPR</Name>
+      <Name>DBR</Name>
     </ProjectReference>
     <ProjectReference Include="..\CPRDirect\CPRDirect.csproj">
       <Project>{EDDB494D-782D-4D45-8599-633057B9B203}</Project>

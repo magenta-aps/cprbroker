@@ -159,7 +159,23 @@ namespace CprBroker.Utilities
             return str;
         }
 
+        public static string DecimalToString(decimal value)
+        {
+            return value.ToString("G");
+        }
+        public static string DecimalToString(decimal value, int length)
+        {
+            int myLength = length;
+            if (value < 0)
+                myLength--;
 
+            var ret = value.ToString(new string('0', myLength));
+            if (ret.Length > length)
+            {
+                throw new ArgumentOutOfRangeException("value", string.Format("Value <{0}> cannot be fit in <{1}> characters", value, length));
+            }
+            return ret;
+        }
 
         /// <summary>
         /// Converts an object to a string

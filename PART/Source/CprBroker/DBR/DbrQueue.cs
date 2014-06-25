@@ -90,9 +90,9 @@ namespace CprBroker.DBR
             }
         }
 
-        public DiversionListener CreateListener()
+        public DprDiversionServer CreateListener()
         {
-            var listener = new DiversionListener() { Port = this.Port.Value };
+            var listener = new DprDiversionServer() { Port = this.Port.Value };
             return listener;
         }
         

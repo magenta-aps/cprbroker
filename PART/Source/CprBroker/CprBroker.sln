@@ -46,7 +46,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PartInterface", "PartInterf
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PartInterface.Tests", "PartInterface.Tests\PartInterface.Tests.csproj", "{06CCC703-83F2-44B9-B67A-F7F3A0071E2D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CPRDirectToDPR", "CPRDirectToDPR\CPRDirectToDPR.csproj", "{F6E48545-473F-4133-90F7-B93A4612F50F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBR", "DBR\DBR.csproj", "{F6E48545-473F-4133-90F7-B93A4612F50F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBR.Tests", "DBR.Tests\DBR.Tests.csproj", "{FF2FFCD5-6091-4B10-8FD9-C737BD45C86B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -384,6 +386,22 @@ Global
 		{F6E48545-473F-4133-90F7-B93A4612F50F}.Release|Mono.ActiveCfg = Release|Any CPU
 		{F6E48545-473F-4133-90F7-B93A4612F50F}.Release|Win32.ActiveCfg = Release|Any CPU
 		{F6E48545-473F-4133-90F7-B93A4612F50F}.Release|x86.ActiveCfg = Release|Any CPU
+		{FF2FFCD5-6091-4B10-8FD9-C737BD45C86B}.Debug|.NET.ActiveCfg = Debug|Any CPU
+		{FF2FFCD5-6091-4B10-8FD9-C737BD45C86B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF2FFCD5-6091-4B10-8FD9-C737BD45C86B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF2FFCD5-6091-4B10-8FD9-C737BD45C86B}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{FF2FFCD5-6091-4B10-8FD9-C737BD45C86B}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{FF2FFCD5-6091-4B10-8FD9-C737BD45C86B}.Debug|Mono.ActiveCfg = Debug|Any CPU
+		{FF2FFCD5-6091-4B10-8FD9-C737BD45C86B}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{FF2FFCD5-6091-4B10-8FD9-C737BD45C86B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{FF2FFCD5-6091-4B10-8FD9-C737BD45C86B}.Release|.NET.ActiveCfg = Release|Any CPU
+		{FF2FFCD5-6091-4B10-8FD9-C737BD45C86B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF2FFCD5-6091-4B10-8FD9-C737BD45C86B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF2FFCD5-6091-4B10-8FD9-C737BD45C86B}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{FF2FFCD5-6091-4B10-8FD9-C737BD45C86B}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{FF2FFCD5-6091-4B10-8FD9-C737BD45C86B}.Release|Mono.ActiveCfg = Release|Any CPU
+		{FF2FFCD5-6091-4B10-8FD9-C737BD45C86B}.Release|Win32.ActiveCfg = Release|Any CPU
+		{FF2FFCD5-6091-4B10-8FD9-C737BD45C86B}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -49,10 +49,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using CprBroker.Schemas.Part;
+using CprBroker.Schemas.Wrappers;
 
 namespace CprBroker.Providers.CPRDirect
 {
-    public abstract class PersonRecordWrapper : Wrapper
+    public abstract class PersonRecordWrapper : CprDirectWrapper
     {
         public IRegistrationInfo Registration { get; set; }
     }

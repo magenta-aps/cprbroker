@@ -51,7 +51,7 @@ using System.Text;
 using System.IO;
 using CprBroker.Schemas.Part;
 
-namespace CprBroker.Providers.CPRDirect
+namespace CprBroker.Schemas.Wrappers
 {
     public abstract class Wrapper
     {
@@ -86,29 +86,28 @@ namespace CprBroker.Providers.CPRDirect
 
         public abstract int Length { get; }
 
-        public string Code
-        {
-            get { return Contents.Substring(0, 3); }
-        }
-
-        public int IntCode
-        {
-            get { return int.Parse(Code); }
-        }
-
-        private string this[int pos, int length]
+        private string this[int pos, int? length]
         {
             get
             {
                 int index = pos - 1;
 
-                if (this.Length == 0)
-                    length = Math.Min(length, Contents.Length - index);
+                if (length.HasValue)
+                {
+                    if (this.Length == 0)
+                        length = Math.Min(length.Value, Contents.Length - index);
 
-                return Contents.Substring(index, length);
+                    return Contents.Substring(index, length.Value);
+                }
+                else
+                {
+                    return Contents.Substring(pos);
+                }
             }
             set
             {
+                if (!length.HasValue)
+                    length = 0;
                 if (value.Length != length)
                 {
                     throw new ArgumentOutOfRangeException("value", string.Format("Should be exactly <{0}> characters", length));
@@ -122,25 +121,25 @@ namespace CprBroker.Providers.CPRDirect
                     Contents.Take(startIndex)
                     .Concat(value)
                     .Concat(
-                        _Contents.Skip(startIndex + length)
+                        _Contents.Skip(startIndex + length.Value)
                     )
                     .ToArray();
                 _Contents = new string(charArr);
             }
         }
 
-        public string GetString(int pos, int len)
+        public string GetString(int pos, int? len)
         {
             var ret = this[pos, len];
             return ret.Trim();
         }
 
-        public void SetString(string value, int pos, int len)
+        public void SetString(string value, int pos, int? len)
         {
             value = string.Format("{0}", value);
-            if (value.Length < len)
+            if (len.HasValue && value.Length < len)
             {
-                value = value + new string(' ', len - value.Length);
+                value = value + new string(' ', len.Value - value.Length);
             }
             this[pos, len] = value;
         }
@@ -162,7 +161,7 @@ namespace CprBroker.Providers.CPRDirect
 
         public void SetDecimal(decimal value, int pos, int length)
         {
-            this[pos, length] = Converters.DecimalToString(value, length);
+            this[pos, length] = Utilities.Strings.DecimalToString(value, length);
         }
 
         public DateTime? GetDateTime(int pos, int length, string format)
@@ -197,13 +196,23 @@ namespace CprBroker.Providers.CPRDirect
             }
         }
 
+        public T GetEnum<T>(int pos, int length)
+        {
+            return (T)(object)int.Parse(this[pos, length]);
+        }
+
+        public void SetEnum<T>(T value, int pos, int length)
+        {
+            this[pos, length] = Utilities.Strings.DecimalToString((int)(object)value, length);
+        }
+
         public static Wrapper Create(string code, string contents, Dictionary<string, Type> typeMap)
         {
             if (typeMap.ContainsKey(code))
             {
                 Type type = typeMap[code];
                 var wrapper = Utilities.Reflection.CreateInstance(type) as Wrapper;
-                wrapper.Contents =  contents.PadRight(wrapper.Length);
+                wrapper.Contents = contents.PadRight(wrapper.Length);
                 return wrapper;
             }
             return null;

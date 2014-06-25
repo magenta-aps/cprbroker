@@ -47,6 +47,7 @@
       <HintPath>..\..\Core\Output\CprBroker.Utilities.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Linq" />
     <Reference Include="System.Xml.Linq" />
@@ -55,10 +56,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClassicRequestType.cs" />
+    <Compile Include="ClassicResponseType.cs" />
+    <Compile Include="CprConverterExtensions.Lookups.cs" />
     <Compile Include="CprConverter.cs" />
     <Compile Include="CprConverterExtensions.cs" />
     <Compile Include="DbrQueue.cs" />
-    <Compile Include="DiversionListener.cs" />
+    <Compile Include="DiversionResponse.cs" />
+    <Compile Include="DprDiversionServer.cs" />
+    <Compile Include="DiversionRequest.cs" />
+    <Compile Include="NewRquestType.cs" />
+    <Compile Include="Objects.cs">
+      <DependentUpon>Objects.xml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -75,7 +85,13 @@
       <Name>PartInterface</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Objects.xml" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>"$(ProjectDir)..\..\Dll\msxsl.exe" "$(ProjectDir)Objects.xml" "$(SolutionDir)..\Core\Schemas\Wrappers\ClassTransform.xslt" -o "$(ProjectDir)Objects.cs" namespace="$(TargetName)" using="CprBroker.Providers.DPR"</PreBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

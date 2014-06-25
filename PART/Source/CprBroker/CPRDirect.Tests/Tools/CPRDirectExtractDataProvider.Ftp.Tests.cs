@@ -77,7 +77,7 @@ namespace CprBroker.Tests.CPRDirect.Tools
             [Test]
             [Sequential]
             public void FtpUrl_Simple_OK(
-                [Values("localhost", "127.0.0.1", "ftp://localhost", "FTP://127.0.0.1/")]string address,
+                [Values("localhost", "127.0.0.1", "ftp://localhost", "ftp://127.0.0.1/")]string address,
                 [Values("ftp://localhost", "ftp://127.0.0.1", "ftp://localhost", "ftp://127.0.0.1")]string expected)
             {
                 var dp = CreateDataProvider();

@@ -7,7 +7,7 @@ using CprBroker.Providers.CPRDirect;
 
 namespace CprBroker.DBR
 {
-    public static class CprConverterExtensions
+    public static partial class CprConverterExtensions
     {
         public static PersonTotal ToPersonTotal(this IndividualResponseType resp)
         {

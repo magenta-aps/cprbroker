@@ -12,9 +12,9 @@ namespace CprBroker.Engine
         public int Port { get; set; }
         private int _maxQueueLength = 1000;
         private int _bufferSize = 1024;
-        
-        bool _Running = false;        
-        private System.Net.Sockets.Socket _serverSocket;        
+
+        bool _Running = false;
+        private System.Net.Sockets.Socket _serverSocket;
         private List<Session> _Sessions = new List<Session>();
 
         public class Session
@@ -76,9 +76,9 @@ namespace CprBroker.Engine
                 try
                 {
                     //Finish accepting the connection
-                    System.Net.Sockets.Socket s = (System.Net.Sockets.Socket)result.AsyncState;
+                    var sessionSocket = result.AsyncState as Socket;
                     session = new Session();
-                    session.socket = s.EndAccept(result);
+                    session.socket = sessionSocket.EndAccept(result);
                     session.buffer = new byte[_bufferSize];
                     lock (_Sessions)
                     {
@@ -86,6 +86,7 @@ namespace CprBroker.Engine
                     }
                     //Queue recieving of data from the connection
                     session.socket.BeginReceive(session.buffer, 0, session.buffer.Length, SocketFlags.None, new AsyncCallback(ReceiveCallback), session);
+
                     //Queue the accept of the next incomming connection
                     BeginAccept();
                 }

@@ -60,19 +60,6 @@ namespace CprBroker.Providers.DPR
     /// </summary>
     public abstract class ClientDataProvider : BaseProvider
     {
-        public enum InquiryType
-        {
-            DataNotUpdatedAutomatically = 0,
-            DataUpdatedAutomaticallyFromCpr = 1,
-            DeleteAutomaticDataUpdateFromCpr = 3
-        }
-
-        public enum DetailType
-        {
-            MasterData = 0, // Only to client
-            ExtendedData = 1 // Put to DPR database
-        }
-
         static ClientDataProvider()
         {
             ErrorCodes["01"] = "PNR unknown in CPR";
