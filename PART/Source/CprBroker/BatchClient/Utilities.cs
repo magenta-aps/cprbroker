@@ -68,7 +68,7 @@ namespace BatchClient
             if (section == null)
             {
                 section = new ConnectionStringsSection();
-                config.Sections.Add("connectionString", section);
+                config.Sections.Add("connectionStrings", section);
                 config.Save();
             }
             var connStr = section.ConnectionStrings["CprBroker.Config.Properties.Settings.CprBrokerConnectionString"];
