@@ -180,16 +180,8 @@ namespace CprBrokerWixInstallers
                 // Prepare lookups
                 var lookupDataArray = new Dictionary<string, KeyValuePair<string, string>[]>();
 
-                List<KeyValuePair<string, string>> cprLookups = new List<KeyValuePair<string, string>>();
-                cprLookups.Add(new KeyValuePair<string, string>(typeof(CprBroker.Data.Applications.Application).Name, Properties.Resources.Application));
-                cprLookups.Add(new KeyValuePair<string, string>(typeof(LifecycleStatus).Name, Properties.Resources.LifecycleStatus));
-                cprLookups.Add(new KeyValuePair<string, string>(typeof(LogType).Name, Properties.Resources.LogType));
-                cprLookups.Add(new KeyValuePair<string, string>(typeof(CprBroker.Data.DataProviders.BudgetInterval).Name, Properties.Resources.BudgetEntry));
-
-                lookupDataArray["CPR"] = cprLookups.ToArray();
-
-                var eventLookups = CprBroker.Installers.EventBrokerInstallers.Properties.ResourcesExtensions.Lookups;
-                lookupDataArray["EVENT"] = eventLookups.ToArray();
+                lookupDataArray["CPR"] = Properties.ResourcesExtensions.Lookups;
+                lookupDataArray["EVENT"] = CprBroker.Installers.EventBrokerInstallers.Properties.ResourcesExtensions.Lookups;
 
                 // Custom methods
                 var customMethods = new Dictionary<string, Action<SqlConnection>>();

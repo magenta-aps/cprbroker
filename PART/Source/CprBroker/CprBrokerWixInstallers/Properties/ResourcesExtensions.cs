@@ -48,7 +48,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using CprBroker.EventBroker.Data;
+using CprBroker.Data.Applications;
+using CprBroker.Data.DataProviders;
+using CprBroker.Data.Part;
 
 namespace CprBrokerWixInstallers.Properties
 {
@@ -73,11 +75,14 @@ namespace CprBrokerWixInstallers.Properties
         {
             get
             {
-                List<KeyValuePair<string, string>> eventLookups = new List<KeyValuePair<string, string>>();
+                List<KeyValuePair<string, string>> cprLookups = new List<KeyValuePair<string, string>>();
 
-                eventLookups.Add(new KeyValuePair<string, string>(typeof(ChannelType).Name, CprBroker.Installers.EventBrokerInstallers.Properties.Resources.ChannelType));
-                eventLookups.Add(new KeyValuePair<string, string>(typeof(SubscriptionType).Name, CprBroker.Installers.EventBrokerInstallers.Properties.Resources.SubscriptionType));
-                return eventLookups.ToArray();
+                cprLookups.Add(new KeyValuePair<string, string>(typeof(Application).Name, Properties.Resources.Application));
+                cprLookups.Add(new KeyValuePair<string, string>(typeof(LifecycleStatus).Name, Properties.Resources.LifecycleStatus));
+                cprLookups.Add(new KeyValuePair<string, string>(typeof(LogType).Name, Properties.Resources.LogType));
+                cprLookups.Add(new KeyValuePair<string, string>(typeof(BudgetInterval).Name, Properties.Resources.BudgetEntry));
+                
+                return cprLookups.ToArray();
             }
         }
     }

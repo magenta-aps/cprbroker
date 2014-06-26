@@ -11,6 +11,7 @@ using CprBroker.Data.Part;
 
 namespace CprBroker.Tests.PartInterface
 {
+    [TestFixture]
     public class TestBase
     {
         public class DatabaseInfo
@@ -55,8 +56,7 @@ namespace CprBroker.Tests.PartInterface
                 var cmd = new SqlCommand("CREATE DATABASE " + db.DbName + "", conn);
                 cmd.ExecuteNonQuery();
             }
-            CprBroker.Installers.DatabaseCustomAction.ExecuteDDL(ddl, db.ConnectionString);
-            CprBroker.Installers.DatabaseCustomAction.InsertLookups(lookups, db.ConnectionString);
+            CprBroker.Installers.DatabaseCustomAction.ExecuteDDL(ddl, db.ConnectionString);            
 
             return db;
         }
