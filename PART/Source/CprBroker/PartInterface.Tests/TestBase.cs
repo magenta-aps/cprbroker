@@ -40,7 +40,6 @@ namespace CprBroker.Tests.PartInterface
 
             CprBroker.Config.ConfigManager.Current.Settings["CprBrokerConnectionString"] = CprDatabase.ConnectionString;
             CprBroker.Config.ConfigManager.Current.Settings["EventBrokerConnectionString"] = EventDatabase.ConnectionString;
-
             CprBroker.Config.ConfigManager.Current.Commit();
         }
 
@@ -61,7 +60,7 @@ namespace CprBroker.Tests.PartInterface
                 var cmd = new SqlCommand("CREATE DATABASE " + db.DbName + "", conn);
                 cmd.ExecuteNonQuery();
             }
-            CprBroker.Installers.DatabaseCustomAction.ExecuteDDL(ddl, db.ConnectionString);            
+            CprBroker.Installers.DatabaseCustomAction.ExecuteDDL(ddl, db.ConnectionString);
 
             return db;
         }

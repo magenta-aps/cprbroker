@@ -74,7 +74,6 @@
   <ItemGroup>
     <Compile Include="CaseInvariantCharComparer.cs" />
     <Compile Include="Config\ConfigManager.cs" />
-    <Compile Include="Config\CustomConfigProvider.cs" />
     <Compile Include="Config\DataProviderKeysSection.cs" />
     <Compile Include="Config\DataProvidersConfigurationSection.cs" />
     <Compile Include="Config\IConfigProvider.cs" />
