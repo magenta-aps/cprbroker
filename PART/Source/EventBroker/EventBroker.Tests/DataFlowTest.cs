@@ -16,7 +16,7 @@ namespace CprBroker.EventBroker.Tests
         [Test]
         public void DataChange_SubForAll_Enqueued()
         {
-            using (var dataContext = new EventBrokerDataContext(ConnectionString))
+            using (var dataContext = new EventBrokerDataContext(EventDatabase.ConnectionString))
             {
                 var sub = AddSubscription(dataContext, null, true, true, SubscriptionType.SubscriptionTypes.DataChange);
                 var change = AddChanges(dataContext, 1);
@@ -26,7 +26,7 @@ namespace CprBroker.EventBroker.Tests
             backEnd.StartQueues();
 
             Thread.Sleep(1000);
-            using (var dataContext = new EventBrokerDataContext(ConnectionString))
+            using (var dataContext = new EventBrokerDataContext(EventDatabase.ConnectionString))
             {
                 var notif = dataContext.EventNotifications.SingleOrDefault();
                 Assert.NotNull(notif);

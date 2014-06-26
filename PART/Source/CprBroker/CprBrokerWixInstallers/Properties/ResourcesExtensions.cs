@@ -54,7 +54,7 @@ namespace CprBrokerWixInstallers.Properties
 {
     public static class ResourcesExtensions
     {
-        public static String AllEventBrokerDatabaseObjectsSql
+        public static String AllCprBrokerDatabaseObjectsSql
         {
             get
             {

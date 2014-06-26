@@ -20,7 +20,7 @@ namespace CprBroker.EventBroker.Tests
             [Test]
             public void EnqueueDataChangeEventNotifications_LatestReceivedOrder_OneNotif([Range(2, 10)]int changeCount)
             {
-                using (var dataContext = new EventBrokerDataContext(ConnectionString))
+                using (var dataContext = new EventBrokerDataContext(EventDatabase.ConnectionString))
                 {
                     var sub = AddSubscription(dataContext, null, true, true, SubscriptionType.SubscriptionTypes.DataChange);
                     var changes = AddChanges(dataContext, changeCount);
@@ -39,7 +39,7 @@ namespace CprBroker.EventBroker.Tests
             [Test]
             public void EnqueueDataChangeEventNotifications_UnreadySubscription_Zero([Range(2, 10)]int changeCount)
             {
-                using (var dataContext = new EventBrokerDataContext(ConnectionString))
+                using (var dataContext = new EventBrokerDataContext(EventDatabase.ConnectionString))
                 {
                     var sub = AddSubscription(dataContext, null, true, false, SubscriptionType.SubscriptionTypes.DataChange);
                     var changes = AddChanges(dataContext, changeCount);
@@ -57,7 +57,7 @@ namespace CprBroker.EventBroker.Tests
             [Test]
             public void EnqueueDataChangeEventNotifications_DeactivatedSubscription_Zero([Range(2, 10)]int changeCount)
             {
-                using (var dataContext = new EventBrokerDataContext(ConnectionString))
+                using (var dataContext = new EventBrokerDataContext(EventDatabase.ConnectionString))
                 {
                     var sub = AddSubscription(dataContext, null, true, true, SubscriptionType.SubscriptionTypes.DataChange);
                     sub.Deactivated = DateTime.Today;
@@ -76,7 +76,7 @@ namespace CprBroker.EventBroker.Tests
             [Test]
             public void EnqueueDataChangeEventNotifications_MismatchedSubscriptionType_Zero([Range(2, 10)]int changeCount)
             {
-                using (var dataContext = new EventBrokerDataContext(ConnectionString))
+                using (var dataContext = new EventBrokerDataContext(EventDatabase.ConnectionString))
                 {
                     var sub = AddSubscription(dataContext, null, true, true, SubscriptionType.SubscriptionTypes.DataChange);
                     var changes = AddChanges(dataContext, changeCount);
@@ -102,7 +102,7 @@ namespace CprBroker.EventBroker.Tests
                 [Random(1, 100, 3)] int changeCount
                 )
             {
-                using (var dataContext = new EventBrokerDataContext(ConnectionString))
+                using (var dataContext = new EventBrokerDataContext(EventDatabase.ConnectionString))
                 {
                     var sub = AddSubscription(dataContext, null, false, true, SubscriptionType.SubscriptionTypes.DataChange);
                     var persons = AddPersons(sub, personCount);
@@ -125,7 +125,7 @@ namespace CprBroker.EventBroker.Tests
                 )
             {
 
-                using (var dataContext = new EventBrokerDataContext(ConnectionString))
+                using (var dataContext = new EventBrokerDataContext(EventDatabase.ConnectionString))
                 {
                     var sub = AddSubscription(dataContext, null, false, true, SubscriptionType.SubscriptionTypes.DataChange);
                     var persons = AddPersons(sub, personCount);

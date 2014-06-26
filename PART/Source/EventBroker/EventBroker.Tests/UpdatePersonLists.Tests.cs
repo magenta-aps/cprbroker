@@ -67,7 +67,7 @@ namespace CprBroker.EventBroker.Tests
         [TestCaseSource("MunicipalityCodes")]
         public void UpdatePersonLists_2Changes_1MovingIn_PersonAdded(string municipalityCode)
         {
-            using (var dataContext = new EventBrokerDataContext(ConnectionString))
+            using (var dataContext = new EventBrokerDataContext(EventDatabase.ConnectionString))
             {
                 var dce = AddChanges(dataContext, 2);
                 var sub = AddSubscription(dataContext, Utils.CreateSoegObject(municipalityCode), false, true, Data.SubscriptionType.SubscriptionTypes.DataChange);
@@ -90,7 +90,7 @@ namespace CprBroker.EventBroker.Tests
         [TestCaseSource("MunicipalityCodes")]
         public void UpdatePersonLists_2Changes_1MovingOut_PersonRemovedAndNotoficationAdded(string municipalityCode)
         {
-            using (var dataContext = new EventBrokerDataContext(ConnectionString))
+            using (var dataContext = new EventBrokerDataContext(EventDatabase.ConnectionString))
             {
                 // Init data
                 var dce = AddChanges(dataContext, 2);
@@ -121,7 +121,7 @@ namespace CprBroker.EventBroker.Tests
         [TestCaseSource("MunicipalityCodes")]
         public void UpdatePersonLists_2Changes_1In_AlreadyInSubscription_StaysInSubscriptionAndNoNotificationCreated(string municipalityCode)
         {
-            using (var dataContext = new EventBrokerDataContext(ConnectionString))
+            using (var dataContext = new EventBrokerDataContext(EventDatabase.ConnectionString))
             {
                 var dce = AddChanges(dataContext, 2);
                 var sub = AddSubscription(dataContext, Utils.CreateSoegObject(municipalityCode), false, true, Data.SubscriptionType.SubscriptionTypes.DataChange);
@@ -143,7 +143,7 @@ namespace CprBroker.EventBroker.Tests
         [TestCaseSource("MunicipalityCodes")]
         public void UpdatePersonLists_2Changes_NonInSubscription_NothingAddedInSubscription_And_NoNotificationCreated(string municipalityCode)
         {
-            using (var dataContext = new EventBrokerDataContext(ConnectionString))
+            using (var dataContext = new EventBrokerDataContext(EventDatabase.ConnectionString))
             {
                 var dce = AddChanges(dataContext, 2);
                 var sub = AddSubscription(dataContext, Utils.CreateSoegObject(municipalityCode), false, true, Data.SubscriptionType.SubscriptionTypes.DataChange);

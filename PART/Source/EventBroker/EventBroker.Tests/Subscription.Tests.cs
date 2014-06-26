@@ -72,7 +72,7 @@ namespace CprBroker.EventBroker.Tests
                 var pers = Utils.CreatePerson(uuid);
                 var dbReg = Utils.CreatePersonRegistration(pers, municipalityCode, personRegId, uuid);
 
-                using (var dataContext = new EventBrokerDataContext(ConnectionString))
+                using (var dataContext = new EventBrokerDataContext(EventDatabase.ConnectionString))
                 {
                     var subscription = AddSubscription(dataContext, Utils.CreateSoegObject(municipalityCode), false, true, SubscriptionType.SubscriptionTypes.DataChange);
                     var dataChangeEvent = AddChanges(dataContext, dbReg);
@@ -100,7 +100,7 @@ namespace CprBroker.EventBroker.Tests
                 var dbReg = Utils.CreatePersonRegistration(pers, municipalityCode, personRegId, uuid);
 
 
-                using (var dataContext = new EventBrokerDataContext(ConnectionString))
+                using (var dataContext = new EventBrokerDataContext(EventDatabase.ConnectionString))
                 {
                     var subscription = AddSubscription(dataContext, Utils.CreateSoegObject(municipalityCode + "222"), false, true, SubscriptionType.SubscriptionTypes.DataChange);
                     var dataChangeEvent = AddChanges(dataContext, dbReg);

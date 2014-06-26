@@ -88,6 +88,10 @@
     <Compile Include="UuidCacheTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CprBrokerWixInstallers\CprBrokerWixInstallers.csproj">
+      <Project>{EBE4DA5E-1E87-4071-B8A3-EC6096B35B31}</Project>
+      <Name>CprBrokerWixInstallers</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PartInterface\PartInterface.csproj">
       <Project>{DA42D8BB-24D3-4416-A0BD-B98857F249AD}</Project>
       <Name>PartInterface</Name>

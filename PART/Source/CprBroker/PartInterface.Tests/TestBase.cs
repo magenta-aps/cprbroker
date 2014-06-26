@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using NUnit.Framework;
 using System.Data.SqlClient;
+using System.Data.Linq;
 using CprBroker.EventBroker.Data;
 using CprBroker.Schemas.Part;
 using CprBroker.Data.Part;
@@ -12,64 +13,101 @@ namespace CprBroker.Tests.PartInterface
 {
     public class TestBase
     {
-        public string DbName;
-        public string ConnectionString;
-        public string MasterConnectionString;
+        public class DatabaseInfo
+        {
+            public string DbName;
+            public string ConnectionString;
+            public string MasterConnectionString;
+            public KeyValuePair<string, string>[] Lookups;
+        }
+
+        public List<DatabaseInfo> Databases = new List<DatabaseInfo>();
+        public DatabaseInfo CprDatabase;
+        public DatabaseInfo EventDatabase;
 
         [TestFixtureSetUp]
-        public void CreateDatabase()
+        public void CreateDatabases()
         {
-            DbName = "EventBrokerTest_" + CprBroker.Utilities.Strings.NewRandomString(7);
-            MasterConnectionString = "Data Source=localhost\\sqlexpress; integrated security=sspi;";
-            ConnectionString = string.Format("Data Source=localhost\\sqlexpress; integrated security=sspi; initial catalog={0}", DbName);
+            CprDatabase = CreateDatabase("CprBrrokerTest_",
+                CprBrokerWixInstallers.Properties.ResourcesExtensions.AllCprBrokerDatabaseObjectsSql,
+                CprBrokerWixInstallers.Properties.ResourcesExtensions.Lookups
+                );
+
+            EventDatabase = CreateDatabase("EventBrokerTest_",
+                CprBroker.Installers.EventBrokerInstallers.Properties.ResourcesExtensions.AllEventBrokerDatabaseObjectsSql,
+                CprBroker.Installers.EventBrokerInstallers.Properties.ResourcesExtensions.Lookups);
+        }
+
+        public DatabaseInfo CreateDatabase(string prefix, string ddl, KeyValuePair<string, string>[] lookups)
+        {
+            var db = new DatabaseInfo();
+            Databases.Add(db);
+
+            db.DbName = prefix + CprBroker.Utilities.Strings.NewRandomString(7);
+            db.MasterConnectionString = "Data Source=localhost\\sqlexpress; integrated security=sspi;";
+            db.ConnectionString = string.Format("Data Source=localhost\\sqlexpress; integrated security=sspi; initial catalog={0}", db.DbName);
+            db.Lookups = lookups;
+
             // Create DB
-            using (var conn = new System.Data.SqlClient.SqlConnection(MasterConnectionString))
+            using (var conn = new System.Data.SqlClient.SqlConnection(db.MasterConnectionString))
             {
                 conn.Open();
-                var cmd = new SqlCommand("CREATE DATABASE " + DbName + "", conn);
+                var cmd = new SqlCommand("CREATE DATABASE " + db.DbName + "", conn);
                 cmd.ExecuteNonQuery();
             }
-            CprBroker.Installers.DatabaseCustomAction.ExecuteDDL(CprBroker.Installers.EventBrokerInstallers.Properties.ResourcesExtensions.AllEventBrokerDatabaseObjectsSql, ConnectionString);
+            CprBroker.Installers.DatabaseCustomAction.ExecuteDDL(ddl, db.ConnectionString);
+            CprBroker.Installers.DatabaseCustomAction.InsertLookups(lookups, db.ConnectionString);
+
+            return db;
         }
 
         [TestFixtureTearDown]
-        public void DeleteDatabase()
+        public void DeleteDatabases()
         {
-            string kill =
-                string.Format("declare @kill varchar(8000) = ''; select @kill=@kill+'kill '+convert(varchar(5),spid)+';'    from master..sysprocesses where dbid=db_id('{0}');exec (@kill); ", DbName)
-                + "\r\nGO\r\n"
-                + "DROP DATABASE " + DbName + "";
-            CprBroker.Installers.DatabaseCustomAction.ExecuteDDL(kill, MasterConnectionString);
+            foreach (var db in Databases)
+            {
+                string kill =
+                    string.Format("declare @kill varchar(8000) = ''; select @kill=@kill+'kill '+convert(varchar(5),spid)+';'    from master..sysprocesses where dbid=db_id('{0}');exec (@kill); ", db.DbName)
+                    + "\r\nGO\r\n"
+                    + "DROP DATABASE " + db.DbName + "";
+                CprBroker.Installers.DatabaseCustomAction.ExecuteDDL(kill, db.MasterConnectionString);
+            }
         }
 
         [SetUp]
         public void InsertLookups()
         {
-            CprBroker.Installers.DatabaseCustomAction.InsertLookups(CprBroker.Installers.EventBrokerInstallers.Properties.ResourcesExtensions.Lookups, ConnectionString);
+            foreach (var db in Databases)
+            {
+                CprBroker.Installers.DatabaseCustomAction.InsertLookups(db.Lookups, db.ConnectionString);
+            }
         }
 
         [TearDown]
         public void DeleteAllData()
         {
-            using (var dataContext = new EventBrokerDataContext(ConnectionString))
+            foreach (var db in Databases)
             {
-                var tables = dataContext.ExecuteQuery<string>("select name from sys.tables").ToList();
-                var deletedTables = new List<string>();
-                while (deletedTables.Count < tables.Count)
+                using (var dataContext = new DataContext(db.ConnectionString))
                 {
-                    tables
-                        .Except(deletedTables.ToArray())
-                        .ToList()
-                        .ForEach(t =>
-                        {
-                            try
+                    var tables = dataContext.ExecuteQuery<string>("select name from sys.tables").ToList();
+                    var deletedTables = new List<string>();
+                    while (deletedTables.Count < tables.Count)
+                    {
+                        tables
+                            .Except(deletedTables.ToArray())
+                            .ToList()
+                            .ForEach(t =>
                             {
-                                dataContext.ExecuteCommand("delete " + t);
-                                deletedTables.Add(t);
-                            }
-                            catch { }
-                        });
+                                try
+                                {
+                                    dataContext.ExecuteCommand("delete " + t);
+                                    deletedTables.Add(t);
+                                }
+                                catch { }
+                            });
 
+                    }
                 }
             }
         }
