@@ -34,5 +34,11 @@ namespace CprBroker.Config
                 return null;
             }
         }
+
+        public void Commit()
+        {
+            // TODO: Implement saving
+
+        }
     }
 }

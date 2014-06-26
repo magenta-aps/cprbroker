@@ -26,5 +26,11 @@ namespace CprBroker.Config
         {
             get { throw new NotImplementedException(); }
         }
+
+
+        public void Commit()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

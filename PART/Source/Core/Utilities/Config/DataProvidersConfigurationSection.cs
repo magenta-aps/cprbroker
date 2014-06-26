@@ -59,7 +59,7 @@ namespace CprBroker.Engine
             AddItemName = "add",
             ClearItemsName = "clear",
             RemoveItemName = "remove")]
-        public TypeCollection Types
+        public TypeCollection KnownTypes
         {
             get
             {

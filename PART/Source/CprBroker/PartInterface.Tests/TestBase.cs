@@ -37,6 +37,11 @@ namespace CprBroker.Tests.PartInterface
             EventDatabase = CreateDatabase("EventBrokerTest_",
                 CprBroker.Installers.EventBrokerInstallers.Properties.ResourcesExtensions.AllEventBrokerDatabaseObjectsSql,
                 CprBroker.Installers.EventBrokerInstallers.Properties.ResourcesExtensions.Lookups);
+
+            CprBroker.Config.ConfigManager.Current.Settings["CprBrokerConnectionString"] = CprDatabase.ConnectionString;
+            CprBroker.Config.ConfigManager.Current.Settings["EventBrokerConnectionString"] = EventDatabase.ConnectionString;
+
+            CprBroker.Config.ConfigManager.Current.Commit();
         }
 
         public DatabaseInfo CreateDatabase(string prefix, string ddl, KeyValuePair<string, string>[] lookups)

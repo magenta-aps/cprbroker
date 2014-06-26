@@ -11,5 +11,6 @@ namespace CprBroker.Config
         Properties.Settings Settings { get; }
         System.Security.Cryptography.RijndaelManaged EncryptionAlgorithm { get; }
         DataProvidersConfigurationSection DataProvidersSection { get; }
+        void Commit();
     }
 }

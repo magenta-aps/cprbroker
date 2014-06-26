@@ -129,8 +129,8 @@ namespace CprBroker.Engine
             {
                 try
                 {
-                    var typesConfigurationElements = new TypeElement[section.Types.Count];
-                    section.Types.CopyTo(typesConfigurationElements, 0);
+                    var typesConfigurationElements = new TypeElement[section.KnownTypes.Count];
+                    section.KnownTypes.CopyTo(typesConfigurationElements, 0);
 
                     return typesConfigurationElements
                         .Select(typeConfigElement =>
