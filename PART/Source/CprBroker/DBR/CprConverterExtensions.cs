@@ -66,7 +66,6 @@ namespace CprBroker.DBR
             pt.FormerPersonalMarker = null; //DPR SPECIFIC
             pt.PaternityAuthorityName = null; //TODO: Retrieve this from the CPR Service field far_mynkod
             pt.MaritalAuthorityName = null; //TODO: Retrieve this from the CPR Service field mynkod
-            pt.BirthPlaceOfRegistration = resp.BirthRegistrationInformation.AdditionalBirthRegistrationText; //TODO: validate that this is correct
             pt.Occupation = resp.PersonInformation.Job;
             pt.CareOfName = resp.CurrentAddressInformation.CareOfName;
             pt.CityName = resp.ClearWrittenAddress.CityName;
@@ -85,11 +84,11 @@ namespace CprBroker.DBR
             //throw new NotImplementedException();
         }
 
-        public static Person ToPerson(this IndividualResponseType person)
+        public static Person ToPerson(this IndividualResponseType person, EventsType events)
         {
             Person p = new Person();
             p.PNR = decimal.Parse(person.PersonInformation.PNR);
-            p.CprUpdateDate = 0; //TODO: Can be fetched in CPR Services, timestamp
+            p.CprUpdateDate = CprBroker.Utilities.Dates.DateToDecimal(events.CprUpdateDate.Value, 12);
             p.Birthdate = CprBroker.Utilities.Dates.DateToDecimal(person.PersonInformation.Birthdate.Value, 8);
             p.Gender = person.PersonInformation.Gender.ToString();
             p.CustomerNumber = null; //DPR SPECIFIC
@@ -157,11 +156,11 @@ namespace CprBroker.DBR
             //throw new NotImplementedException();
         }
 
-        public static PersonName ToDpr(this CurrentNameInformationType currentName, PersonInformationType personInformation)
+        public static PersonName ToDpr(this CurrentNameInformationType currentName, PersonInformationType personInformation, EventsType events)
         {
             PersonName pn = new PersonName();
             pn.PNR = Decimal.Parse(currentName.PNR);
-            pn.CprUpdateDate = 0; //TODO: Can be fetched in CPR Services, timestamp
+            pn.CprUpdateDate = CprBroker.Utilities.Dates.DateToDecimal(events.CprUpdateDate.Value, 12);
             pn.NameAuthorityCode = null; //TODO: Can be fetched in CPR Services, mynkod
             pn.Status = personInformation.Status;
             pn.StatusDate = CprBroker.Utilities.Dates.DateToDecimal(personInformation.StatusStartDate.Value, 13);
@@ -183,11 +182,11 @@ namespace CprBroker.DBR
             //throw new NotImplementedException();
         }
 
-        public static PersonName ToDpr(this HistoricalNameType historicalName, PersonInformationType personInformation)
+        public static PersonName ToDpr(this HistoricalNameType historicalName, PersonInformationType personInformation, EventsType events)
         {
             PersonName pn = new PersonName();
             pn.PNR = Decimal.Parse(historicalName.PNR);
-            pn.CprUpdateDate = 0; //TODO: Can be fetched in CPR Services, timestamp
+            pn.CprUpdateDate = CprBroker.Utilities.Dates.DateToDecimal(events.CprUpdateDate.Value, 12);
             pn.NameAuthorityCode = null; //TODO: Can be fetched in CPR Services, mynkod
             pn.Status = personInformation.Status;
             pn.StatusDate = CprBroker.Utilities.Dates.DateToDecimal(personInformation.StatusStartDate.Value, 13);
@@ -209,11 +208,11 @@ namespace CprBroker.DBR
             //throw new NotImplementedException();
         }
 
-        public static CivilStatus ToDpr(this CurrentCivilStatusType currentCivilStatus)
+        public static CivilStatus ToDpr(this CurrentCivilStatusType currentCivilStatus, EventsType events)
         {
             CivilStatus cs = new CivilStatus();
             cs.PNR = Decimal.Parse(currentCivilStatus.PNR);
-            cs.UpdateDateOfCpr = 0; //TODO: Can be fetched in CPR Services, timestamp
+            cs.UpdateDateOfCpr = CprBroker.Utilities.Dates.DateToDecimal(events.CprUpdateDate.Value, 12);
             cs.MaritalStatus = currentCivilStatus.CivilStatusCode;
             cs.MaritalStatusAuthorityCode = null; //TODO: Can be fetched in CPR Services, mynkod
             cs.SpousePNR = Decimal.Parse(currentCivilStatus.SpousePNR);
@@ -230,11 +229,11 @@ namespace CprBroker.DBR
             //throw new NotImplementedException();
         }
 
-        public static CivilStatus ToDpr(this HistoricalCivilStatusType historicalCivilStatus)
+        public static CivilStatus ToDpr(this HistoricalCivilStatusType historicalCivilStatus, EventsType events)
         {
             CivilStatus cs = new CivilStatus();
             cs.PNR = Decimal.Parse(historicalCivilStatus.PNR);
-            cs.UpdateDateOfCpr = 0; //TODO: Can be fetched in CPR Services, timestamp
+            cs.UpdateDateOfCpr = CprBroker.Utilities.Dates.DateToDecimal(events.CprUpdateDate.Value, 12);
             cs.MaritalStatus = historicalCivilStatus.CivilStatusCode;
             cs.MaritalStatusAuthorityCode = null; //TODO: Can be fetched in CPR Services, mynkod
             cs.SpousePNR = Decimal.Parse(historicalCivilStatus.SpousePNR);
@@ -251,11 +250,11 @@ namespace CprBroker.DBR
             //throw new NotImplementedException();
         }
 
-        public static Separation ToDpr(this CurrentSeparationType currentSeparation)
+        public static Separation ToDpr(this CurrentSeparationType currentSeparation, EventsType events)
         {
             Separation s = new Separation();
             s.PNR = Decimal.Parse(currentSeparation.PNR);
-            s.CprUpdateDate = 0; //TODO: Can be fetched in CPR Services, timestamp
+            s.CprUpdateDate = CprBroker.Utilities.Dates.DateToDecimal(events.CprUpdateDate.Value, 12);
             s.SeparationReferalTimestamp = currentSeparation.ReferenceToAnyMaritalStatus.Value.ToString();
             s.CorrectionMarker = null; //This is the current status
             s.StartAuthorityCode = 0; //TODO: Can be fetched in CPR Services, mynkod_start
@@ -268,11 +267,11 @@ namespace CprBroker.DBR
             //throw new NotImplementedException();
         }
 
-        public static Separation ToDpr(this HistoricalSeparationType historicalSeparation)
+        public static Separation ToDpr(this HistoricalSeparationType historicalSeparation, EventsType events)
         {
             Separation s = new Separation();
             s.PNR = Decimal.Parse(historicalSeparation.PNR);
-            s.CprUpdateDate = 0; //TODO: Can be fetched in CPR Services, timestamp
+            s.CprUpdateDate = CprBroker.Utilities.Dates.DateToDecimal(events.CprUpdateDate.Value, 12);
             s.SeparationReferalTimestamp = historicalSeparation.ReferenceToAnyMaritalStatus.Value.ToString();
             s.CorrectionMarker = historicalSeparation.CorrectionMarker;
             s.StartAuthorityCode = 0; //TODO: Can be fetched in CPR Services, mynkod_start
@@ -285,11 +284,11 @@ namespace CprBroker.DBR
             //throw new NotImplementedException();
         }
 
-        public static Nationality ToDpr(this CurrentCitizenshipType currentCitizenship)
+        public static Nationality ToDpr(this CurrentCitizenshipType currentCitizenship, EventsType events)
         {
             Nationality n = new Nationality();
             n.PNR = Decimal.Parse(currentCitizenship.PNR);
-            n.CprUpdateDate = 0; //TODO: Can be fetched in CPR Services, timestamp
+            n.CprUpdateDate = CprBroker.Utilities.Dates.DateToDecimal(events.CprUpdateDate.Value, 12);
             n.CountryCode = currentCitizenship.CountryCode;
             n.NationalityStartDate = CprBroker.Utilities.Dates.DateToDecimal(currentCitizenship.CitizenshipStartDate.Value, 12);
             n.NationalityEndDate = null; // This is the current nationality
@@ -298,11 +297,11 @@ namespace CprBroker.DBR
             //throw new NotImplementedException();
         }
 
-        public static Nationality ToDpr(this HistoricalCitizenshipType historicalCitizenship)
+        public static Nationality ToDpr(this HistoricalCitizenshipType historicalCitizenship, EventsType events)
         {
             Nationality n = new Nationality();
             n.PNR = Decimal.Parse(historicalCitizenship.PNR);
-            n.CprUpdateDate = 0; //TODO: Can be fetched in CPR Services, timestamp
+            n.CprUpdateDate = CprBroker.Utilities.Dates.DateToDecimal(events.CprUpdateDate.Value, 12);
             n.CountryCode = historicalCitizenship.CountryCode;
             n.NationalityStartDate = CprBroker.Utilities.Dates.DateToDecimal(historicalCitizenship.CitizenshipStartDate.Value, 12);
             n.NationalityEndDate = CprBroker.Utilities.Dates.DateToDecimal(historicalCitizenship.CitizenshipEndDate.Value, 12);
@@ -311,11 +310,11 @@ namespace CprBroker.DBR
             //throw new NotImplementedException();
         }
 
-        public static Departure ToDpr(this CurrentDepartureDataType currentDeparture, ElectionInformationType electionInfo)
+        public static Departure ToDpr(this CurrentDepartureDataType currentDeparture, ElectionInformationType electionInfo, EventsType events)
         {
             Departure d = new Departure();
             d.PNR = Decimal.Parse(currentDeparture.PNR);
-            d.CprUpdateDate = 0; //TODO: Can be fetched in CPR Services, timestamp
+            d.CprUpdateDate = CprBroker.Utilities.Dates.DateToDecimal(events.CprUpdateDate.Value, 12);
             d.ExitCountryCode = currentDeparture.ExitCountryCode;
             d.ExitDate = CprBroker.Utilities.Dates.DateToDecimal(currentDeparture.ExitDate.Value, 12);
             d.ExitUpdateDate = null; //TODO: Can be fetched in CPR Services, udrtimestamp
@@ -334,11 +333,11 @@ namespace CprBroker.DBR
             //throw new NotImplementedException();
         }
 
-        public static Departure ToDpr(this HistoricalDepartureType historicalDeparture, ElectionInformationType electionInfo)
+        public static Departure ToDpr(this HistoricalDepartureType historicalDeparture, ElectionInformationType electionInfo, EventsType events)
         {
             Departure d = new Departure();
             d.PNR = Decimal.Parse(historicalDeparture.PNR);
-            d.CprUpdateDate = 0; //TODO: Can be fetched in CPR Services, timestamp
+            d.CprUpdateDate = CprBroker.Utilities.Dates.DateToDecimal(events.CprUpdateDate.Value, 12);
             d.ExitCountryCode = historicalDeparture.ExitCountryCode;
             d.ExitDate = CprBroker.Utilities.Dates.DateToDecimal(historicalDeparture.ExitDate.Value, 12);
             d.ExitUpdateDate = null; //TODO: Can be fetched in CPR Services, udrtimestamp
@@ -357,11 +356,11 @@ namespace CprBroker.DBR
             //throw new NotImplementedException();
         }
 
-        public static ContactAddress ToDpr(this ContactAddressType contactAddress)
+        public static ContactAddress ToDpr(this ContactAddressType contactAddress, EventsType events)
         {
             ContactAddress ca = new ContactAddress();
             ca.PNR = Decimal.Parse(contactAddress.PNR);
-            ca.CprUpdateDate = 0; //TODO: Can be fetched in CPR Services, timestamp
+            ca.CprUpdateDate = CprBroker.Utilities.Dates.DateToDecimal(events.CprUpdateDate.Value, 12);
             ca.MunicipalityCode = 0; //TODO: Can be fetched in CPR Services, CATX_STARTMYNKOD
             ca.AddressDate = CprBroker.Utilities.Dates.DateToDecimal(contactAddress.StartDate.Value, 8);
             ca.ContactAddressLine1 = contactAddress.Line1;
@@ -373,11 +372,11 @@ namespace CprBroker.DBR
             //throw new NotImplementedException();
         }
 
-        public static PersonAddress ToDpr(this CurrentAddressWrapper currentAddress)
+        public static PersonAddress ToDpr(this CurrentAddressWrapper currentAddress, EventsType events)
         {
             PersonAddress pa = new PersonAddress();
             pa.PNR = Decimal.Parse(currentAddress.CurrentAddressInformation.PNR);
-            pa.CprUpdateDate = 0; //TODO: Can be fetched in CPR Services, timestamp
+            pa.CprUpdateDate = CprBroker.Utilities.Dates.DateToDecimal(events.CprUpdateDate.Value, 12);
             pa.MunicipalityCode = currentAddress.CurrentAddressInformation.MunicipalityCode;
             pa.StreetCode = currentAddress.CurrentAddressInformation.StreetCode;
             pa.HouseNumber = currentAddress.CurrentAddressInformation.HouseNumber;
@@ -412,11 +411,11 @@ namespace CprBroker.DBR
             //throw new NotImplementedException();
         }
 
-        public static PersonAddress ToDpr(this HistoricalAddressType historicalAddress)
+        public static PersonAddress ToDpr(this HistoricalAddressType historicalAddress, EventsType events)
         {
             PersonAddress pa = new PersonAddress();
             pa.PNR = Decimal.Parse(historicalAddress.PNR);
-            pa.CprUpdateDate = 0; //TODO: Can be fetched in CPR Services, timestamp
+            pa.CprUpdateDate = CprBroker.Utilities.Dates.DateToDecimal(events.CprUpdateDate.Value, 12);
             pa.MunicipalityCode = historicalAddress.MunicipalityCode;
             pa.StreetCode = historicalAddress.StreetCode;
             pa.HouseNumber = historicalAddress.HouseNumber;
@@ -451,12 +450,12 @@ namespace CprBroker.DBR
             //throw new NotImplementedException();
         }
 
-        public static Protection ToDpr(this ProtectionType protection)
+        public static Protection ToDpr(this ProtectionType protection, EventsType events)
         {
             Protection p = new Protection();
             p.PNR = Decimal.Parse(protection.PNR);
             p.ProtectionType = protection.ProtectionType_;
-            p.CprUpdateDate = 0; //TODO: Can be fetched in CPR Services, timestamp
+            p.CprUpdateDate = CprBroker.Utilities.Dates.DateToDecimal(events.CprUpdateDate.Value, 12);
             p.StartDate = protection.StartDate.Value;
             p.EndDate = protection.EndDate;
             p.ReportingMarker = null; //TODO: Can be fetched in CPR Services, indrap
@@ -464,11 +463,11 @@ namespace CprBroker.DBR
             //throw new NotImplementedException();
         }
 
-        public static Disappearance ToDpr(this CurrentDisappearanceInformationType disappearance)
+        public static Disappearance ToDpr(this CurrentDisappearanceInformationType disappearance, EventsType events)
         {
             Disappearance d = new Disappearance();
             d.PNR = decimal.Parse(disappearance.PNR);
-            d.CprUpdateDate = 0; //TODO: Can be fetched in CPR Services, timestamp
+            p.CprUpdateDate = CprBroker.Utilities.Dates.DateToDecimal(events.CprUpdateDate.Value, 12);
             d.DisappearanceDate = CprBroker.Utilities.Dates.DateToDecimal(disappearance.DisappearanceDate.Value, 12);
             d.RetrievalDate = null; // It is the current disappearance
             d.CorrectionMarker = null; // It is the current disappearance
@@ -476,11 +475,11 @@ namespace CprBroker.DBR
             //throw new NotImplementedException();
         }
 
-        public static Disappearance ToDpr(this HistoricalDisappearanceType disappearance)
+        public static Disappearance ToDpr(this HistoricalDisappearanceType disappearance, EventsType events)
         {
             Disappearance d = new Disappearance();
             d.PNR = decimal.Parse(disappearance.PNR);
-            d.CprUpdateDate = 0; //TODO: Can be fetched in CPR Services, timestamp
+            d.CprUpdateDate = CprBroker.Utilities.Dates.DateToDecimal(events.CprUpdateDate.Value, 12);
             d.DisappearanceDate = CprBroker.Utilities.Dates.DateToDecimal(disappearance.DisappearanceDate.Value, 12);
             d.RetrievalDate = CprBroker.Utilities.Dates.DateToDecimal(disappearance.RetrievalDate.Value, 12);
             d.CorrectionMarker = disappearance.CorrectionMarker.ToString();
@@ -492,18 +491,18 @@ namespace CprBroker.DBR
         {
             Event e = new Event();
             e.PNR = decimal.Parse(events.PNR);
-            e.CprUpdateDate = 0; //TODO: Can be fetched in CPR Services, timestamp
+            e.CprUpdateDate = CprBroker.Utilities.Dates.DateToDecimal(events.CprUpdateDate.Value, 12);
             e.Event_ = events.Event_;
             e.AFLMRK = events.DerivedMark;
             return e;
             //throw new NotImplementedException();
         }
 
-        public static Note ToDpr(this NotesType notes)
+        public static Note ToDpr(this NotesType notes, EventsType events)
         {
             Note n = new Note();
             n.PNR = decimal.Parse(notes.PNR);
-            n.CprUpdateDate = 0; //TODO: Can be fetched in CPR Services, timestamp
+            n.CprUpdateDate = CprBroker.Utilities.Dates.DateToDecimal(events.CprUpdateDate.Value, 12);
             n.NationalRegisterMemoDate = CprBroker.Utilities.Dates.DateToDecimal(notes.StartDate.Value, 8);
             n.DeletionDate = CprBroker.Utilities.Dates.DateToDecimal(notes.EndDate.Value, 8);
             n.NoteNumber = notes.NoteNumber;
@@ -513,11 +512,11 @@ namespace CprBroker.DBR
             //throw new NotImplementedException();
         }
 
-        public static MunicipalCondition ToDpr(this MunicipalConditionsType condition)
+        public static MunicipalCondition ToDpr(this MunicipalConditionsType condition, EventsType events)
         {
             MunicipalCondition m = new MunicipalCondition();
             m.PNR = decimal.Parse(condition.PNR);
-            m.CprUpdateDate = 0; //TODO: Can be fetched in CPR Services, timestamp
+            m.CprUpdateDate = CprBroker.Utilities.Dates.DateToDecimal(events.CprUpdateDate.Value, 12);
             m.ConditionType = condition.MunicipalConditionType;
             m.ConditionMarker = condition.MunicipalConditionCode;
             m.ConditionDate = CprBroker.Utilities.Dates.DateToDecimal(condition.MunicipalConditionStartDate.Value, 8);
@@ -526,12 +525,12 @@ namespace CprBroker.DBR
             //throw new NotImplementedException();
         }
 
-        public static ParentalAuthority ToDpr(this ParentalAuthorityType auth)
+        public static ParentalAuthority ToDpr(this ParentalAuthorityType auth, EventsType events)
         {
             ParentalAuthority p = new ParentalAuthority();
             p.ChildPNR = decimal.Parse(auth.PNR);
             p.RelationType = auth.RelationshipType;
-            p.CprUpdateDate = 0; //TODO: Can be fetched in CPR Services, timestamp
+            p.CprUpdateDate = CprBroker.Utilities.Dates.DateToDecimal(events.CprUpdateDate.Value, 12);
             p.ParentalAuthorityCode = 0; //TODO: Can be fetched in CPR Services, mynkod_start
             p.StartDate = auth.CustodyStartDate.Value;
             p.StartDateUncertainty = auth.CustodyStartDateUncertainty;
@@ -540,13 +539,13 @@ namespace CprBroker.DBR
             //throw new NotImplementedException();
         }
         
-        public static GuardianAndParentalAuthorityRelation ToDpr(this DisempowermentType disempowerment)
+        public static GuardianAndParentalAuthorityRelation ToDpr(this DisempowermentType disempowerment, EventsType events)
         {
             GuardianAndParentalAuthorityRelation gapa = new GuardianAndParentalAuthorityRelation();
             gapa.PNR = decimal.Parse(disempowerment.PNR);
             gapa.RelationPnr = decimal.Parse(disempowerment.RelationPNR);
             gapa.RelationType = disempowerment.GuardianRelationType;
-            gapa.CprUpdateDate = 0; //TODO: Can be fetched in CPR Services, timestamp
+            gapa.CprUpdateDate = CprBroker.Utilities.Dates.DateToDecimal(events.CprUpdateDate.Value, 12);
             gapa.StartDate = disempowerment.DisempowermentStartDate.Value;
             gapa.EndDate = disempowerment.DisempowermentEndDate.Value;
             gapa.AuthorityCode = 0; //TODO: Can be fetched in CPR Services, mynkod
@@ -554,13 +553,13 @@ namespace CprBroker.DBR
             //throw new NotImplementedException();
         }
 
-        public static GuardianAddress ToDprAddress(this DisempowermentType disempowerment)
+        public static GuardianAddress ToDprAddress(this DisempowermentType disempowerment, EventsType events)
         {
             GuardianAddress ga = new GuardianAddress();
             ga.PNR = decimal.Parse(disempowerment.PNR);
             ga.Address = disempowerment.GuardianName;
             ga.RelationType = disempowerment.GuardianRelationType;
-            ga.CprUpdateDate = 0; //TODO: Can be fetched in CPR Services, timestamp
+            ga.CprUpdateDate = CprBroker.Utilities.Dates.DateToDecimal(events.CprUpdateDate.Value, 12);
             ga.AddressLine1 = disempowerment.RelationText1;
             ga.AddressLine2 = disempowerment.RelationText2;
             ga.AddressLine3 = disempowerment.RelationText3;
