@@ -60,6 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ICprDirectPersonDataProvider.cs" />
+    <Compile Include="Lookup\GeoInformation.cs" />
     <Compile Include="Queues\ExtractQueueItem.cs" />
     <Compile Include="Queues\DbrBaseQueue.cs" />
     <Compile Include="Extract\ExtractPersonStaging.cs" />
@@ -179,6 +180,7 @@
     <Content Include="XML\ViewTransform.xslt" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="Extract\ExtractDataContext.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>ExtractDataContext.designer.cs</LastGenOutput>

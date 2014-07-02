@@ -130,6 +130,28 @@ namespace CprBroker.Providers.CPRDirect
 
             _DataObjectMap_P02680 = new Dictionary<string, Type>();
             _DataObjectMap_P02680["001"] = typeof(AuthorityType);
+
+            _DataObjectMap_P05780 = new Dictionary<string, Type>();
+            _DataObjectMap_P05780["000"] = typeof(StartRecordType);
+            _DataObjectMap_P05780["001"] = typeof(StreetType);
+            _DataObjectMap_P05780["003"] = typeof(CityType);
+            _DataObjectMap_P05780["006"] = typeof(AreaRestorationDistrictType);
+            _DataObjectMap_P05780["007"] = typeof(DiverseDistrictType);
+            _DataObjectMap_P05780["008"] = typeof(EvacuationDistrictType);
+            _DataObjectMap_P05780["009"] = typeof(ChurchDistrictType);
+            _DataObjectMap_P05780["010"] = typeof(SchoolDistrictType);
+            _DataObjectMap_P05780["011"] = typeof(PopulationDistrictType);
+            _DataObjectMap_P05780["012"] = typeof(SocialDistrictType);
+            _DataObjectMap_P05780["013"] = typeof(ChurchAdministrationDistrictType);
+            _DataObjectMap_P05780["014"] = typeof(ElectionDistrictType);
+            _DataObjectMap_P05780["015"] = typeof(HeatingDistrictType);
+            _DataObjectMap_P05780["010"] = typeof(SchoolDistrictType);
+            _DataObjectMap_P05780["999"] = typeof(EndRecordType);
+
+            _DataObjectMap_P11980 = new Dictionary<string, Type>();
+            _DataObjectMap_P11980["000"] = typeof(StartRecordType);
+            _DataObjectMap_P11980["001"] = typeof(PostNumberType);
+            _DataObjectMap_P11980["999"] = typeof(EndRecordType);
         }
 
         private static Dictionary<string, Type> _DataObjectMap;
@@ -144,6 +166,17 @@ namespace CprBroker.Providers.CPRDirect
             get { return _DataObjectMap_P02680.ToDictionary(kvp => kvp.Key, kvp => kvp.Value); }
         }
 
+        private static Dictionary<string, Type> _DataObjectMap_P05780;
+        public static Dictionary<string, Type> DataObjectMap_P05780
+        {
+            get { return _DataObjectMap_P05780.ToDictionary(kvp => kvp.Key, kvp => kvp.Value); }
+        }
+
+        private static Dictionary<string, Type> _DataObjectMap_P11980;
+        public static Dictionary<string, Type> DataObjectMap_P11980
+        {
+            get { return _DataObjectMap_P11980.ToDictionary(kvp => kvp.Key, kvp => kvp.Value); }
+        }
 
         private static Dictionary<string, bool> _RelationshipMap;
         public static Dictionary<string, bool> RelationshipMap
