@@ -133,6 +133,8 @@
     <Compile Include="SplitLogFile.cs" />
     <Compile Include="SyncDPR.cs" />
     <Compile Include="TestDPRConversion.cs" />
+    <Compile Include="UpdateGeoLocationInformation.cs" />
+    <Compile Include="UpdatePostCodeInformation.cs" />
     <Compile Include="Utilities.cs" />
     <Compile Include="ValidateCprNumbers.cs" />
     <Compile Include="Web References\Part\Reference.cs">
@@ -206,6 +208,10 @@
     <ProjectReference Include="..\CPRDirect\CPRDirect.csproj">
       <Project>{EDDB494D-782D-4D45-8599-633057B9B203}</Project>
       <Name>CPRDirect</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DBR\DBR.csproj">
+      <Project>{f6e48545-473f-4133-90f7-b93a4612f50f}</Project>
+      <Name>DBR</Name>
     </ProjectReference>
     <ProjectReference Include="..\DPR\DPR.csproj">
       <Project>{F98E5179-88E3-404E-83BE-54F0A3E7DBC0}</Project>

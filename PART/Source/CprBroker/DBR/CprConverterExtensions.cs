@@ -576,7 +576,7 @@ namespace CprBroker.DBR
         {
             Street st = new Street();
             st.KOMKOD = s.MunicipalityCode;
-            st.SVEJADRNVN = s.StreetName;
+            st.SVEJADRNVN = s.StreetAddressingName.ToUpper();
             st.VEJKOD = s.StreetCode;
             st.VEJADNVN = s.StreetAddressingName;
             return st;
@@ -593,6 +593,20 @@ namespace CprBroker.DBR
             c.LIGEULIGE = city.EvenOrOdd;
             c.VEJKOD = city.StreetCode;
             return c;
+        }
+
+        public static PostDistrict ToDprPostDistrict(this PostDistrictType pd)
+        {
+            PostDistrict p = new PostDistrict();
+            p.AJFDTO = pd.Timestamp;
+            p.DISTTXT = pd.PostDistrictText;
+            p.HUSNRFRA = pd.HouseNumberFrom;
+            p.HUSNRTIL = pd.HouseNumberTo;
+            p.KOMKOD = pd.MunicipalityCode;
+            p.LIGEULIGE = pd.EvenOrOdd;
+            p.VEJKOD = pd.StreetCode;
+            p.POSTNR = pd.PostNumber;
+            return p;
         }
 
         public static AreaRestorationDistrict ToDprAreaRestorationDistrict(this AreaRestorationDistrictType ardt)

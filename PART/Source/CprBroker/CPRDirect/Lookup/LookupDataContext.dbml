@@ -23,12 +23,26 @@
       <Column Name="NumericCountryCode" Type="System.String" DbType="Char(3) NOT NULL" CanBeNull="false" />
     </Type>
   </Table>
+  <Table Name="dbo.DTPOSTDIST" Member="PostDistricts">
+    <Type Name="PostDistrict">
+      <Column Name="KOMKOD" Type="System.Decimal" DbType="Decimal(5,0) NOT NULL" CanBeNull="false" />
+      <Column Name="VEJKOD" Type="System.Decimal" DbType="Decimal(5,0) NOT NULL" CanBeNull="false" />
+      <Column Name="HUSNRFRA" Type="System.String" DbType="Char(4) NOT NULL" CanBeNull="false" />
+      <Column Name="HUSNRTIL" Type="System.String" DbType="Char(4) NOT NULL" CanBeNull="false" />
+      <Column Name="LIGEULIGE" Type="System.Char" DbType="Char(1) NOT NULL" CanBeNull="false" />
+      <Column Name="AJFDTO" Type="System.Decimal" DbType="Decimal(13,0) NOT NULL" CanBeNull="false" />
+      <Column Name="POSTNR" Type="System.Decimal" DbType="Decimal(4,0) NOT NULL" CanBeNull="false" />
+      <Column Name="DISTTXT" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+    </Type>
+  </Table>
   <Table Name="dbo.DTAKTVEJ" Member="Streets">
     <Type Name="Street">
       <Column Name="KOMKOD" Type="System.Decimal" DbType="Decimal(5,0) NOT NULL" CanBeNull="false" />
       <Column Name="VEJKOD" Type="System.Decimal" DbType="Decimal(5,0) NOT NULL" CanBeNull="false" />
       <Column Name="VEJADNVN" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
       <Column Name="SVEJADRNVN" Type="System.String" DbType="Char(20)" CanBeNull="true" />
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
     </Type>
   </Table>
   <Table Name="dbo.DTBYNAVN" Member="Cities">
@@ -40,6 +54,7 @@
       <Column Name="LIGEULIGE" Type="System.Char" DbType="Char(1) NOT NULL" CanBeNull="false" />
       <Column Name="AJFDTO" Type="System.Decimal" DbType="Decimal(13,0) NOT NULL" CanBeNull="false" />
       <Column Name="BYNVN" Type="System.String" DbType="VarChar(34) NOT NULL" CanBeNull="false" />
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
     </Type>
   </Table>
   <Table Name="dbo.DTBYFORNYDIST" Member="AreaRestorationDistricts">
@@ -52,6 +67,7 @@
       <Column Name="AJFDTO" Type="System.Decimal" DbType="Decimal(13,0) NOT NULL" CanBeNull="false" />
       <Column Name="BYFORNYKOD" Type="System.String" DbType="Char(6) NOT NULL" CanBeNull="false" />
       <Column Name="DISTTXT" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
     </Type>
   </Table>
   <Table Name="dbo.DTDIVDIST" Member="DiverseDistricts">
@@ -65,42 +81,19 @@
       <Column Name="DISTTYP" Type="System.Decimal" DbType="Decimal(2,0) NOT NULL" CanBeNull="false" />
       <Column Name="DIVDISTKOD" Type="System.String" DbType="Char(4) NOT NULL" CanBeNull="false" />
       <Column Name="DISTTXT" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
     </Type>
   </Table>
-  <Table Name="dbo.DTEVAKUERDIST" Member="EvacuationDistricts">
-    <Type Name="EvacuationDistrict">
+  <Table Name="dbo.DTSOGNEDIST" Member="ChurchAdministrationDistricts">
+    <Type Name="ChurchAdministrationDistrict">
       <Column Name="KOMKOD" Type="System.Decimal" DbType="Decimal(5,0) NOT NULL" CanBeNull="false" />
       <Column Name="VEJKOD" Type="System.Decimal" DbType="Decimal(5,0) NOT NULL" CanBeNull="false" />
       <Column Name="HUSNRFRA" Type="System.String" DbType="Char(4) NOT NULL" CanBeNull="false" />
       <Column Name="HUSNRTIL" Type="System.String" DbType="Char(4) NOT NULL" CanBeNull="false" />
       <Column Name="LIGEULIGE" Type="System.Char" DbType="Char(1) NOT NULL" CanBeNull="false" />
       <Column Name="AJFDTO" Type="System.Decimal" DbType="Decimal(13,0) NOT NULL" CanBeNull="false" />
-      <Column Name="EVAKUERKOD" Type="System.Decimal" DbType="Decimal(1,0) NOT NULL" CanBeNull="false" />
-      <Column Name="DISTTXT" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.DTKIRKEDIST" Member="ChurchDistricts">
-    <Type Name="ChurchDistrict">
-      <Column Name="KOMKOD" Type="System.Decimal" DbType="Decimal(5,0) NOT NULL" CanBeNull="false" />
-      <Column Name="VEJKOD" Type="System.Decimal" DbType="Decimal(5,0) NOT NULL" CanBeNull="false" />
-      <Column Name="HUSNRFRA" Type="System.String" DbType="Char(4) NOT NULL" CanBeNull="false" />
-      <Column Name="HUSNRTIL" Type="System.String" DbType="Char(4) NOT NULL" CanBeNull="false" />
-      <Column Name="LIGEULIGE" Type="System.Char" DbType="Char(1) NOT NULL" CanBeNull="false" />
-      <Column Name="AJFDTO" Type="System.Decimal" DbType="Decimal(13,0) NOT NULL" CanBeNull="false" />
-      <Column Name="KIRKEKOD" Type="System.Decimal" DbType="Decimal(2,0) NOT NULL" CanBeNull="false" />
-      <Column Name="DISTTXT" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.DTSKOLEDIST" Member="SchoolDistricts">
-    <Type Name="SchoolDistrict">
-      <Column Name="KOMKOD" Type="System.Decimal" DbType="Decimal(5,0) NOT NULL" CanBeNull="false" />
-      <Column Name="VEJKOD" Type="System.Decimal" DbType="Decimal(5,0) NOT NULL" CanBeNull="false" />
-      <Column Name="HUSNRFRA" Type="System.String" DbType="Char(4) NOT NULL" CanBeNull="false" />
-      <Column Name="HUSNRTIL" Type="System.String" DbType="Char(4) NOT NULL" CanBeNull="false" />
-      <Column Name="LIGEULIGE" Type="System.Char" DbType="Char(1) NOT NULL" CanBeNull="false" />
-      <Column Name="AJFDTO" Type="System.Decimal" DbType="Decimal(13,0) NOT NULL" CanBeNull="false" />
-      <Column Name="SKOLEKOD" Type="System.Decimal" DbType="Decimal(2,0) NOT NULL" CanBeNull="false" />
-      <Column Name="DISTTXT" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="MYNKOD" Type="System.Decimal" DbType="Decimal(4,0) NOT NULL" CanBeNull="false" />
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
     </Type>
   </Table>
   <Table Name="dbo.DTBEFOLKDIST" Member="PopulationDistricts">
@@ -113,55 +106,33 @@
       <Column Name="AJFDTO" Type="System.Decimal" DbType="Decimal(13,0) NOT NULL" CanBeNull="false" />
       <Column Name="BEFOLKKOD" Type="System.String" DbType="Char(4) NOT NULL" CanBeNull="false" />
       <Column Name="DISTTXT" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
     </Type>
   </Table>
-  <Table Name="dbo.DTSOGNEDIST" Member="ChurchAdministrationDistricts">
-    <Type Name="ChurchAdministrationDistrict">
+  <Table Name="dbo.DTEVAKUERDIST" Member="EvacuationDistricts">
+    <Type Name="EvacuationDistrict">
       <Column Name="KOMKOD" Type="System.Decimal" DbType="Decimal(5,0) NOT NULL" CanBeNull="false" />
       <Column Name="VEJKOD" Type="System.Decimal" DbType="Decimal(5,0) NOT NULL" CanBeNull="false" />
       <Column Name="HUSNRFRA" Type="System.String" DbType="Char(4) NOT NULL" CanBeNull="false" />
       <Column Name="HUSNRTIL" Type="System.String" DbType="Char(4) NOT NULL" CanBeNull="false" />
       <Column Name="LIGEULIGE" Type="System.Char" DbType="Char(1) NOT NULL" CanBeNull="false" />
       <Column Name="AJFDTO" Type="System.Decimal" DbType="Decimal(13,0) NOT NULL" CanBeNull="false" />
-      <Column Name="MYNKOD" Type="System.Decimal" DbType="Decimal(4,0) NOT NULL" CanBeNull="false" />
-    </Type>
-  </Table>
-  <Table Name="dbo.DTVALGDIST" Member="ElectionDistricts">
-    <Type Name="ElectionDistrict">
-      <Column Name="KOMKOD" Type="System.Decimal" DbType="Decimal(5,0) NOT NULL" CanBeNull="false" />
-      <Column Name="VEJKOD" Type="System.Decimal" DbType="Decimal(5,0) NOT NULL" CanBeNull="false" />
-      <Column Name="HUSNRFRA" Type="System.String" DbType="Char(4) NOT NULL" CanBeNull="false" />
-      <Column Name="HUSNRTIL" Type="System.String" DbType="Char(4) NOT NULL" CanBeNull="false" />
-      <Column Name="LIGEULIGE" Type="System.Char" DbType="Char(1) NOT NULL" CanBeNull="false" />
-      <Column Name="AJFDTO" Type="System.Decimal" DbType="Decimal(13,0) NOT NULL" CanBeNull="false" />
-      <Column Name="VALGKOD" Type="System.Decimal" DbType="Decimal(2,0) NOT NULL" CanBeNull="false" />
+      <Column Name="EVAKUERKOD" Type="System.Decimal" DbType="Decimal(1,0) NOT NULL" CanBeNull="false" />
       <Column Name="DISTTXT" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
     </Type>
   </Table>
-  <Table Name="dbo.DTVARMEDIST" Member="HeatingDistricts">
-    <Type Name="HeatingDistrict">
+  <Table Name="dbo.DTSKOLEDIST" Member="SchoolDistricts">
+    <Type Name="SchoolDistrict">
       <Column Name="KOMKOD" Type="System.Decimal" DbType="Decimal(5,0) NOT NULL" CanBeNull="false" />
       <Column Name="VEJKOD" Type="System.Decimal" DbType="Decimal(5,0) NOT NULL" CanBeNull="false" />
       <Column Name="HUSNRFRA" Type="System.String" DbType="Char(4) NOT NULL" CanBeNull="false" />
       <Column Name="HUSNRTIL" Type="System.String" DbType="Char(4) NOT NULL" CanBeNull="false" />
       <Column Name="LIGEULIGE" Type="System.Char" DbType="Char(1) NOT NULL" CanBeNull="false" />
       <Column Name="AJFDTO" Type="System.Decimal" DbType="Decimal(13,0) NOT NULL" CanBeNull="false" />
-      <Column Name="VARMEKOD" Type="System.Decimal" DbType="Decimal(4,0) NOT NULL" CanBeNull="false" />
+      <Column Name="SKOLEKOD" Type="System.Decimal" DbType="Decimal(2,0) NOT NULL" CanBeNull="false" />
       <Column Name="DISTTXT" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.DTPOSTNR" Member="PostNumbers">
-    <Type Name="PostNumber">
-      <Column Name="POSTNR" Type="System.Decimal" DbType="Decimal(5,0) NOT NULL" CanBeNull="false" />
-      <Column Name="POSTTXT" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.DTMYN" Member="Councils">
-    <Type Name="Council">
-      <Column Name="MYNKOD" Type="System.Decimal" DbType="Decimal(5,0) NOT NULL" CanBeNull="false" />
-      <Column Name="MYNTYP" Type="System.Decimal" DbType="Decimal(3,0) NOT NULL" CanBeNull="false" />
-      <Column Name="MYNGRP" Type="System.Decimal" DbType="Decimal(1,0) NOT NULL" CanBeNull="false" />
-      <Column Name="MYNNVN" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
     </Type>
   </Table>
   <Table Name="dbo.DTSOCIALDIST" Member="SocialDistricts">
@@ -174,6 +145,62 @@
       <Column Name="AJFDTO" Type="System.Decimal" DbType="Decimal(13,0) NOT NULL" CanBeNull="false" />
       <Column Name="SOCIALKOD" Type="System.Decimal" DbType="Decimal(2,0) NOT NULL" CanBeNull="false" />
       <Column Name="DISTTXT" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DTKIRKEDIST" Member="ChurchDistricts">
+    <Type Name="ChurchDistrict">
+      <Column Name="KOMKOD" Type="System.Decimal" DbType="Decimal(5,0) NOT NULL" CanBeNull="false" />
+      <Column Name="VEJKOD" Type="System.Decimal" DbType="Decimal(5,0) NOT NULL" CanBeNull="false" />
+      <Column Name="HUSNRFRA" Type="System.String" DbType="Char(4) NOT NULL" CanBeNull="false" />
+      <Column Name="HUSNRTIL" Type="System.String" DbType="Char(4) NOT NULL" CanBeNull="false" />
+      <Column Name="LIGEULIGE" Type="System.Char" DbType="Char(1) NOT NULL" CanBeNull="false" />
+      <Column Name="AJFDTO" Type="System.Decimal" DbType="Decimal(13,0) NOT NULL" CanBeNull="false" />
+      <Column Name="KIRKEKOD" Type="System.Decimal" DbType="Decimal(2,0) NOT NULL" CanBeNull="false" />
+      <Column Name="DISTTXT" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DTVALGDIST" Member="ElectionDistricts">
+    <Type Name="ElectionDistrict">
+      <Column Name="KOMKOD" Type="System.Decimal" DbType="Decimal(5,0) NOT NULL" CanBeNull="false" />
+      <Column Name="VEJKOD" Type="System.Decimal" DbType="Decimal(5,0) NOT NULL" CanBeNull="false" />
+      <Column Name="HUSNRFRA" Type="System.String" DbType="Char(4) NOT NULL" CanBeNull="false" />
+      <Column Name="HUSNRTIL" Type="System.String" DbType="Char(4) NOT NULL" CanBeNull="false" />
+      <Column Name="LIGEULIGE" Type="System.Char" DbType="Char(1) NOT NULL" CanBeNull="false" />
+      <Column Name="AJFDTO" Type="System.Decimal" DbType="Decimal(13,0) NOT NULL" CanBeNull="false" />
+      <Column Name="VALGKOD" Type="System.Decimal" DbType="Decimal(2,0) NOT NULL" CanBeNull="false" />
+      <Column Name="DISTTXT" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DTVARMEDIST" Member="HeatingDistricts">
+    <Type Name="HeatingDistrict">
+      <Column Name="KOMKOD" Type="System.Decimal" DbType="Decimal(5,0) NOT NULL" CanBeNull="false" />
+      <Column Name="VEJKOD" Type="System.Decimal" DbType="Decimal(5,0) NOT NULL" CanBeNull="false" />
+      <Column Name="HUSNRFRA" Type="System.String" DbType="Char(4) NOT NULL" CanBeNull="false" />
+      <Column Name="HUSNRTIL" Type="System.String" DbType="Char(4) NOT NULL" CanBeNull="false" />
+      <Column Name="LIGEULIGE" Type="System.Char" DbType="Char(1) NOT NULL" CanBeNull="false" />
+      <Column Name="AJFDTO" Type="System.Decimal" DbType="Decimal(13,0) NOT NULL" CanBeNull="false" />
+      <Column Name="VARMEKOD" Type="System.Decimal" DbType="Decimal(4,0) NOT NULL" CanBeNull="false" />
+      <Column Name="DISTTXT" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DTPOSTNR" Member="PostNumbers">
+    <Type Name="PostNumber">
+      <Column Name="POSTNR" Type="System.Decimal" DbType="Decimal(5,0) NOT NULL" CanBeNull="false" />
+      <Column Name="POSTTXT" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DTMYN" Member="Councils">
+    <Type Name="Council">
+      <Column Name="MYNKOD" Type="System.Decimal" DbType="Decimal(5,0) NOT NULL" CanBeNull="false" />
+      <Column Name="MYNTYP" Type="System.Decimal" DbType="Decimal(3,0) NOT NULL" CanBeNull="false" />
+      <Column Name="MYNGRP" Type="System.Decimal" DbType="Decimal(1,0) NOT NULL" CanBeNull="false" />
+      <Column Name="MYNNVN" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
     </Type>
   </Table>
 </Database>

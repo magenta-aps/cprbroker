@@ -37,6 +37,7 @@ namespace CprBroker.DBR
             dataContext.GuardianAddresses.DeleteAllOnSubmit(dataContext.GuardianAddresses.Where(t => t.PNR == pnr));
         }
 
+        /*
         public static void AppendPerson(IndividualResponseType person, DPRDataContext dataContext)
         {
             dataContext.PersonTotals.InsertOnSubmit(person.ToPersonTotal());
@@ -89,8 +90,9 @@ namespace CprBroker.DBR
                 dataContext.GuardianAddresses.InsertOnSubmit(person.Disempowerment.ToDprAddress());
             }
         }
+         */
 
-        public static void ImportFileInSteps(Stream dataStream, string path, int batchSize, Encoding encoding, String connectionString, Dictionary<String, Type> typeMap)
+        public static void ImportGeoInformationFileInSteps(Stream dataStream, int batchSize, Encoding encoding, String connectionString)
         {
             var allPnrs = new List<string>();
             using (var file = new StreamReader(dataStream, encoding))
@@ -107,6 +109,111 @@ namespace CprBroker.DBR
                         while (!file.EndOfStream)
                         {
                             var wrappers = CompositeWrapper.Parse(file, CprBroker.Providers.CPRDirect.Constants.DataObjectMap_P05780, batchSize);
+                            var batchReadLinesCount = wrappers.Count;
+                            totalReadLinesCount += batchReadLinesCount;
+
+                            using (var transactionScope = ExtractManager.CreateTransactionScope())
+                            {
+                                foreach (var w in wrappers)
+                                {
+                                    if (w is StreetType)
+                                    {
+                                        var s = (w as StreetType).ToDprStreet();
+                                        dataContext.Streets.InsertOnSubmit(s);
+                                    }
+                                    else if (w is CityType)
+                                    {
+                                        var c = (w as CityType).ToDprCity();
+                                        dataContext.Cities.InsertOnSubmit(c);
+                                    }
+                                    else if (w is PostDistrictType)
+                                    {
+                                        var p = (w as PostDistrictType).ToDprPostDistrict();
+                                        dataContext.PostDistricts.InsertOnSubmit(p);
+                                    }
+                                    else if (w is AreaRestorationDistrictType)
+                                    {
+                                        var a = (w as AreaRestorationDistrictType).ToDprAreaRestorationDistrict();
+                                        dataContext.AreaRestorationDistricts.InsertOnSubmit(a);
+                                    }
+                                    else if (w is DiverseDistrictType)
+                                    {
+                                        var d = (w as DiverseDistrictType).ToDprDiverseDistrict();
+                                        dataContext.DiverseDistricts.InsertOnSubmit(d);
+                                    }
+                                    else if (w is EvacuationDistrictType)
+                                    {
+                                        var e = (w as EvacuationDistrictType).ToDprEvacuationDistrict();
+                                        dataContext.EvacuationDistricts.InsertOnSubmit(e);
+                                    }
+                                    else if (w is ChurchDistrictType)
+                                    {
+                                        var c = (w as ChurchDistrictType).ToDprChurchDistrict();
+                                        dataContext.ChurchDistricts.InsertOnSubmit(c);
+                                    }
+                                    else if (w is SchoolDistrictType)
+                                    {
+                                        var s = (w as SchoolDistrictType).ToDprSchoolDistrict();
+                                        dataContext.SchoolDistricts.InsertOnSubmit(s);
+                                    }
+                                    else if (w is PopulationDistrictType)
+                                    {
+                                        var p = (w as PopulationDistrictType).ToDprPopulationDistrict();
+                                        dataContext.PopulationDistricts.InsertOnSubmit(p);
+                                    }
+                                    else if (w is SocialDistrictType)
+                                    {
+                                        var s = (w as SocialDistrictType).ToDprSocialDistrict();
+                                        dataContext.SocialDistricts.InsertOnSubmit(s);
+                                    }
+                                    else if (w is ChurchAdministrationDistrictType)
+                                    {
+                                        var c = (w as ChurchAdministrationDistrictType).ToDprChurchAdministrationDistrict();
+                                        dataContext.ChurchAdministrationDistricts.InsertOnSubmit(c);
+                                    }
+                                    else if (w is ElectionDistrictType)
+                                    {
+                                        var e = (w as ElectionDistrictType).ToDprElectionDistrict();
+                                        dataContext.ElectionDistricts.InsertOnSubmit(e);
+                                    }
+                                    else if (w is HeatingDistrictType)
+                                    {
+                                        var h = (w as HeatingDistrictType).ToDprHeatingDistrict();
+                                        dataContext.HeatingDistricts.InsertOnSubmit(h);
+                                    }
+                                    else if (w is PostNumberType)
+                                    {
+                                        var p = (w as PostNumberType).ToDprPostNumber();
+                                        dataContext.PostNumbers.InsertOnSubmit(p);
+                                    }
+                                }
+                                dataContext.SubmitChanges();
+                                //Admin.LogFormattedSuccess("Geo Information was updated");
+                                transactionScope.Complete();
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        public static void ImportPostCodeFileInSteps(Stream dataStream, int batchSize, Encoding encoding, String connectionString)
+        {
+            var allPnrs = new List<string>();
+            using (var file = new StreamReader(dataStream, encoding))
+            {
+                var extractResult = new ExtractParseResult();
+
+                long totalReadLinesCount = 0;
+                using (var conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    using (var dataContext = new LookupDataContext(conn))
+                    {
+                        // Start reading the file
+                        while (!file.EndOfStream)
+                        {
+                            var wrappers = CompositeWrapper.Parse(file, CprBroker.Providers.CPRDirect.Constants.DataObjectMap_P11980, batchSize);
                             var batchReadLinesCount = wrappers.Count;
                             totalReadLinesCount += batchReadLinesCount;
 
@@ -183,7 +290,7 @@ namespace CprBroker.DBR
                                     }
                                 }
                                 dataContext.SubmitChanges();
-                                Admin.LogFormattedSuccess("Batch committed");
+                                Admin.LogFormattedSuccess("Geo Information was updated");
                                 transactionScope.Complete();
                             }
                         }

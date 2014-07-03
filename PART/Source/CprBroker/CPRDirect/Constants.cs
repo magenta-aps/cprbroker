@@ -132,9 +132,12 @@ namespace CprBroker.Providers.CPRDirect
             _DataObjectMap_P02680["001"] = typeof(AuthorityType);
 
             _DataObjectMap_P05780 = new Dictionary<string, Type>();
-            _DataObjectMap_P05780["000"] = typeof(StartRecordType);
+            _DataObjectMap_P05780["000"] = typeof(GeoStartRecordType);
             _DataObjectMap_P05780["001"] = typeof(StreetType);
+            _DataObjectMap_P05780["002"] = typeof(ResidenceType);
             _DataObjectMap_P05780["003"] = typeof(CityType);
+            _DataObjectMap_P05780["004"] = typeof(PostDistrictType);
+            _DataObjectMap_P05780["005"] = typeof(NoteType);
             _DataObjectMap_P05780["006"] = typeof(AreaRestorationDistrictType);
             _DataObjectMap_P05780["007"] = typeof(DiverseDistrictType);
             _DataObjectMap_P05780["008"] = typeof(EvacuationDistrictType);
@@ -146,12 +149,12 @@ namespace CprBroker.Providers.CPRDirect
             _DataObjectMap_P05780["014"] = typeof(ElectionDistrictType);
             _DataObjectMap_P05780["015"] = typeof(HeatingDistrictType);
             _DataObjectMap_P05780["010"] = typeof(SchoolDistrictType);
-            _DataObjectMap_P05780["999"] = typeof(EndRecordType);
+            _DataObjectMap_P05780["999"] = typeof(GeoEndRecordType);
 
             _DataObjectMap_P11980 = new Dictionary<string, Type>();
-            _DataObjectMap_P11980["000"] = typeof(StartRecordType);
+            _DataObjectMap_P11980["000"] = typeof(PostStartRecordType);
             _DataObjectMap_P11980["001"] = typeof(PostNumberType);
-            _DataObjectMap_P11980["999"] = typeof(EndRecordType);
+            _DataObjectMap_P11980["999"] = typeof(PostEndRecordType);
         }
 
         private static Dictionary<string, Type> _DataObjectMap;

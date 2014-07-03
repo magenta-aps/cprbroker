@@ -1,14 +1,26 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Layer xmlns="http://itst.dk/CPRDirect">
 
+  <Object name="GeoStartRecord" danishName="P05780-000" length="17" description="Start record">
+    <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
+    <Attribute name="TaskNumber" danishName="OPGAVENR" format="Numeric" length="6" position="4" />
+    <Attribute name="ProductionDate" danishName="PRODDTO" format="Numeric" length="8" position="10" description="Production date yyyyMMdd" dateFormat="yyyyMMdd"/>
+  </Object>
+
   <Object name="Street" danishName="P05780-001" length="111" description="Street names, from file https://cpr.dk/media/152096/vejregister_hele_landet_pr_140401.zip">
     <Attribute name="MunicipalityCode" danishName="KOMKOD" format="Numeric" length="4" position="4" description="The municipality code"/>
     <Attribute name="StreetCode" danishName="VEJKOD" format="Numeric" length="4" position="8" description="The street code"/>
     <Attribute name="StreetAddressingName" danishName="VEJADRNVN" format="Alpha" length="20" position="52" description="The addressing street name"/>
-    <Attribute name="StreetName" danishName="VEJNVN" format="Alpha" length="40" position="72" description="The street name"/>
     <!--
     LEFT OUT FIELDS:
     RECORDTYPE, TIMESTAMP, TILKOMKOD, TILVEJKOD, FRAKOMKOD, FRAVEJKOD, HAENSTART
+    -->
+  </Object>
+
+  <Object name="Residence" danishName="P05780-002" length="92" description="Residence details">
+    <Attribute name="MunicipalityCode" danishName="KOMKOD" format="Numeric" length="4" position="4" description="The municipality code"/>
+    <!--
+    Empty placeholder
     -->
   </Object>
 
@@ -23,6 +35,28 @@
     <!--
     LEFT OUT FIELDS:
     RECORDTYPE
+    -->
+  </Object>
+
+  <Object name="PostDistrict" danishName="P05780-004" length="56" description="Post district texts, from file https://cpr.dk/media/152096/vejregister_hele_landet_pr_140401.zip">
+    <Attribute name="MunicipalityCode" danishName="KOMKOD" format="Numeric" length="4" position="4" description="The municipality code"/>
+    <Attribute name="StreetCode" danishName="VEJKOD" format="Numeric" length="4" position="8" description="The street code"/>
+    <Attribute name="HouseNumberFrom" danishName="HUSNRFRA" format="Alpha" length="4" position="12" description="House number from"/>
+    <Attribute name="HouseNumberTo" danishName="HUSNRTIL" format="Alpha" length="4" position="16" description="House number to"/>
+    <Attribute name="EvenOrOdd" danishName="LIGEULIGE" format="Alpha" length="1" position="20" description="Even or odd house number"/>
+    <Attribute name="Timestamp" danishName="TIMESTAMP" format="Numeric" length="12" position="21" description="Date of report"/>
+    <Attribute name="PostNumber" danishName="POSTNR" format="Numeric" length="4" position="33" description="Post number"/>
+    <Attribute name="PostDistrictText" danishName="POSTDISTTXT" format="Alpha" length="20" position="37" description="Post District text"/>
+    <!--
+    LEFT OUT FIELDS:
+    RECORDTYPE
+    -->
+  </Object>
+
+  <Object name="Note" danishName="P05780-005" length="77" description="Note details">
+    <Attribute name="MunicipalityCode" danishName="KOMKOD" format="Numeric" length="4" position="4" description="The municipality code"/>
+    <!--
+    Empty placeholder
     -->
   </Object>
 
@@ -189,6 +223,17 @@
   </Object>
   -->
 
+  <Object name="GeoEndRecord" danishName="P05780-000" length="11" description="Start record">
+    <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
+    <Attribute name="Counter" danishName="TAELLER" format="Alpha" length="8" position="4" description="Counter"/>
+  </Object>
+
+  <Object name="PostStartRecord" danishName="P11980-000" length="17" description="Start record">
+    <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
+    <Attribute name="TaskNumber" danishName="OPGAVENR" format="Numeric" length="6" position="4" />
+    <Attribute name="ProductionDate" danishName="PRODDTO" format="Numeric" length="8" position="10" description="Production date yyyyMMdd" dateFormat="yyyyMMdd"/>
+  </Object>
+
   <Object name="PostNumber" danishName="P11980-001" length="84" description="Council information, from file https://cpr.dk/media/152114/a370712.txt">
     <Attribute name="PostCode" danishName="POSTNR" format="Numeric" length="4" position="61" description="The post code"/>
     <Attribute name="PostText" danishName="POSTDISTTXT" format="Alpha" length="20" position="65" description="The post text"/>
@@ -196,6 +241,11 @@
     LEFT OUT FIELDS:
     RECORDTYPE, KOMKOD, VEJKOD, MYNNVN, VEJADRNVN, HUSNRFRA, HUSNRTIL, LIGEULIGE
     -->
+  </Object>
+
+  <Object name="PostEndRecord" danishName="P11980-000" length="11" description="Start record">
+    <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
+    <Attribute name="Counter" danishName="TAELLER" format="Alpha" length="8" position="4" description="Counter"/>
   </Object>
 
 </Layer>

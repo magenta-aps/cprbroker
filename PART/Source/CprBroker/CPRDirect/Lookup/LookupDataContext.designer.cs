@@ -33,6 +33,51 @@ namespace CprBroker.Providers.CPRDirect
     partial void InsertAuthority(Authority instance);
     partial void UpdateAuthority(Authority instance);
     partial void DeleteAuthority(Authority instance);
+    partial void InsertPostDistrict(PostDistrict instance);
+    partial void UpdatePostDistrict(PostDistrict instance);
+    partial void DeletePostDistrict(PostDistrict instance);
+    partial void InsertStreet(Street instance);
+    partial void UpdateStreet(Street instance);
+    partial void DeleteStreet(Street instance);
+    partial void InsertCity(City instance);
+    partial void UpdateCity(City instance);
+    partial void DeleteCity(City instance);
+    partial void InsertAreaRestorationDistrict(AreaRestorationDistrict instance);
+    partial void UpdateAreaRestorationDistrict(AreaRestorationDistrict instance);
+    partial void DeleteAreaRestorationDistrict(AreaRestorationDistrict instance);
+    partial void InsertDiverseDistrict(DiverseDistrict instance);
+    partial void UpdateDiverseDistrict(DiverseDistrict instance);
+    partial void DeleteDiverseDistrict(DiverseDistrict instance);
+    partial void InsertChurchAdministrationDistrict(ChurchAdministrationDistrict instance);
+    partial void UpdateChurchAdministrationDistrict(ChurchAdministrationDistrict instance);
+    partial void DeleteChurchAdministrationDistrict(ChurchAdministrationDistrict instance);
+    partial void InsertPopulationDistrict(PopulationDistrict instance);
+    partial void UpdatePopulationDistrict(PopulationDistrict instance);
+    partial void DeletePopulationDistrict(PopulationDistrict instance);
+    partial void InsertEvacuationDistrict(EvacuationDistrict instance);
+    partial void UpdateEvacuationDistrict(EvacuationDistrict instance);
+    partial void DeleteEvacuationDistrict(EvacuationDistrict instance);
+    partial void InsertSchoolDistrict(SchoolDistrict instance);
+    partial void UpdateSchoolDistrict(SchoolDistrict instance);
+    partial void DeleteSchoolDistrict(SchoolDistrict instance);
+    partial void InsertSocialDistrict(SocialDistrict instance);
+    partial void UpdateSocialDistrict(SocialDistrict instance);
+    partial void DeleteSocialDistrict(SocialDistrict instance);
+    partial void InsertChurchDistrict(ChurchDistrict instance);
+    partial void UpdateChurchDistrict(ChurchDistrict instance);
+    partial void DeleteChurchDistrict(ChurchDistrict instance);
+    partial void InsertElectionDistrict(ElectionDistrict instance);
+    partial void UpdateElectionDistrict(ElectionDistrict instance);
+    partial void DeleteElectionDistrict(ElectionDistrict instance);
+    partial void InsertHeatingDistrict(HeatingDistrict instance);
+    partial void UpdateHeatingDistrict(HeatingDistrict instance);
+    partial void DeleteHeatingDistrict(HeatingDistrict instance);
+    partial void InsertPostNumber(PostNumber instance);
+    partial void UpdatePostNumber(PostNumber instance);
+    partial void DeletePostNumber(PostNumber instance);
+    partial void InsertCouncil(Council instance);
+    partial void UpdateCouncil(Council instance);
+    partial void DeleteCouncil(Council instance);
     #endregion
 		
 		public LookupDataContext() : 
@@ -73,6 +118,14 @@ namespace CprBroker.Providers.CPRDirect
 			}
 		}
 		
+		public System.Data.Linq.Table<PostDistrict> PostDistricts
+		{
+			get
+			{
+				return this.GetTable<PostDistrict>();
+			}
+		}
+		
 		public System.Data.Linq.Table<Street> Streets
 		{
 			get
@@ -105,27 +158,11 @@ namespace CprBroker.Providers.CPRDirect
 			}
 		}
 		
-		public System.Data.Linq.Table<EvacuationDistrict> EvacuationDistricts
+		public System.Data.Linq.Table<ChurchAdministrationDistrict> ChurchAdministrationDistricts
 		{
 			get
 			{
-				return this.GetTable<EvacuationDistrict>();
-			}
-		}
-		
-		public System.Data.Linq.Table<ChurchDistrict> ChurchDistricts
-		{
-			get
-			{
-				return this.GetTable<ChurchDistrict>();
-			}
-		}
-		
-		public System.Data.Linq.Table<SchoolDistrict> SchoolDistricts
-		{
-			get
-			{
-				return this.GetTable<SchoolDistrict>();
+				return this.GetTable<ChurchAdministrationDistrict>();
 			}
 		}
 		
@@ -137,11 +174,35 @@ namespace CprBroker.Providers.CPRDirect
 			}
 		}
 		
-		public System.Data.Linq.Table<ChurchAdministrationDistrict> ChurchAdministrationDistricts
+		public System.Data.Linq.Table<EvacuationDistrict> EvacuationDistricts
 		{
 			get
 			{
-				return this.GetTable<ChurchAdministrationDistrict>();
+				return this.GetTable<EvacuationDistrict>();
+			}
+		}
+		
+		public System.Data.Linq.Table<SchoolDistrict> SchoolDistricts
+		{
+			get
+			{
+				return this.GetTable<SchoolDistrict>();
+			}
+		}
+		
+		public System.Data.Linq.Table<SocialDistrict> SocialDistricts
+		{
+			get
+			{
+				return this.GetTable<SocialDistrict>();
+			}
+		}
+		
+		public System.Data.Linq.Table<ChurchDistrict> ChurchDistricts
+		{
+			get
+			{
+				return this.GetTable<ChurchDistrict>();
 			}
 		}
 		
@@ -174,14 +235,6 @@ namespace CprBroker.Providers.CPRDirect
 			get
 			{
 				return this.GetTable<Council>();
-			}
-		}
-		
-		public System.Data.Linq.Table<SocialDistrict> SocialDistricts
-		{
-			get
-			{
-				return this.GetTable<SocialDistrict>();
 			}
 		}
 	}
@@ -680,90 +733,11 @@ namespace CprBroker.Providers.CPRDirect
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DTAKTVEJ")]
-	public partial class Street
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DTPOSTDIST")]
+	public partial class PostDistrict : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
-		private decimal _KOMKOD;
-		
-		private decimal _VEJKOD;
-		
-		private string _VEJADNVN;
-		
-		private string _SVEJADRNVN;
-		
-		public Street()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_KOMKOD", DbType="Decimal(5,0) NOT NULL")]
-		public decimal KOMKOD
-		{
-			get
-			{
-				return this._KOMKOD;
-			}
-			set
-			{
-				if ((this._KOMKOD != value))
-				{
-					this._KOMKOD = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_VEJKOD", DbType="Decimal(5,0) NOT NULL")]
-		public decimal VEJKOD
-		{
-			get
-			{
-				return this._VEJKOD;
-			}
-			set
-			{
-				if ((this._VEJKOD != value))
-				{
-					this._VEJKOD = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_VEJADNVN", DbType="VarChar(20)")]
-		public string VEJADNVN
-		{
-			get
-			{
-				return this._VEJADNVN;
-			}
-			set
-			{
-				if ((this._VEJADNVN != value))
-				{
-					this._VEJADNVN = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SVEJADRNVN", DbType="Char(20)")]
-		public string SVEJADRNVN
-		{
-			get
-			{
-				return this._SVEJADRNVN;
-			}
-			set
-			{
-				if ((this._SVEJADRNVN != value))
-				{
-					this._SVEJADRNVN = value;
-				}
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DTBYNAVN")]
-	public partial class City
-	{
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private decimal _KOMKOD;
 		
@@ -777,10 +751,39 @@ namespace CprBroker.Providers.CPRDirect
 		
 		private decimal _AJFDTO;
 		
-		private string _BYNVN;
+		private decimal _POSTNR;
 		
-		public City()
+		private string _DISTTXT;
+		
+		private int _ID;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnKOMKODChanging(decimal value);
+    partial void OnKOMKODChanged();
+    partial void OnVEJKODChanging(decimal value);
+    partial void OnVEJKODChanged();
+    partial void OnHUSNRFRAChanging(string value);
+    partial void OnHUSNRFRAChanged();
+    partial void OnHUSNRTILChanging(string value);
+    partial void OnHUSNRTILChanged();
+    partial void OnLIGEULIGEChanging(char value);
+    partial void OnLIGEULIGEChanged();
+    partial void OnAJFDTOChanging(decimal value);
+    partial void OnAJFDTOChanged();
+    partial void OnPOSTNRChanging(decimal value);
+    partial void OnPOSTNRChanged();
+    partial void OnDISTTXTChanging(string value);
+    partial void OnDISTTXTChanged();
+    partial void OnIDChanging(int value);
+    partial void OnIDChanged();
+    #endregion
+		
+		public PostDistrict()
 		{
+			OnCreated();
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_KOMKOD", DbType="Decimal(5,0) NOT NULL")]
@@ -794,7 +797,11 @@ namespace CprBroker.Providers.CPRDirect
 			{
 				if ((this._KOMKOD != value))
 				{
+					this.OnKOMKODChanging(value);
+					this.SendPropertyChanging();
 					this._KOMKOD = value;
+					this.SendPropertyChanged("KOMKOD");
+					this.OnKOMKODChanged();
 				}
 			}
 		}
@@ -810,7 +817,11 @@ namespace CprBroker.Providers.CPRDirect
 			{
 				if ((this._VEJKOD != value))
 				{
+					this.OnVEJKODChanging(value);
+					this.SendPropertyChanging();
 					this._VEJKOD = value;
+					this.SendPropertyChanged("VEJKOD");
+					this.OnVEJKODChanged();
 				}
 			}
 		}
@@ -826,7 +837,11 @@ namespace CprBroker.Providers.CPRDirect
 			{
 				if ((this._HUSNRFRA != value))
 				{
+					this.OnHUSNRFRAChanging(value);
+					this.SendPropertyChanging();
 					this._HUSNRFRA = value;
+					this.SendPropertyChanged("HUSNRFRA");
+					this.OnHUSNRFRAChanged();
 				}
 			}
 		}
@@ -842,7 +857,11 @@ namespace CprBroker.Providers.CPRDirect
 			{
 				if ((this._HUSNRTIL != value))
 				{
+					this.OnHUSNRTILChanging(value);
+					this.SendPropertyChanging();
 					this._HUSNRTIL = value;
+					this.SendPropertyChanged("HUSNRTIL");
+					this.OnHUSNRTILChanged();
 				}
 			}
 		}
@@ -858,7 +877,11 @@ namespace CprBroker.Providers.CPRDirect
 			{
 				if ((this._LIGEULIGE != value))
 				{
+					this.OnLIGEULIGEChanging(value);
+					this.SendPropertyChanging();
 					this._LIGEULIGE = value;
+					this.SendPropertyChanged("LIGEULIGE");
+					this.OnLIGEULIGEChanged();
 				}
 			}
 		}
@@ -874,7 +897,419 @@ namespace CprBroker.Providers.CPRDirect
 			{
 				if ((this._AJFDTO != value))
 				{
+					this.OnAJFDTOChanging(value);
+					this.SendPropertyChanging();
 					this._AJFDTO = value;
+					this.SendPropertyChanged("AJFDTO");
+					this.OnAJFDTOChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_POSTNR", DbType="Decimal(4,0) NOT NULL")]
+		public decimal POSTNR
+		{
+			get
+			{
+				return this._POSTNR;
+			}
+			set
+			{
+				if ((this._POSTNR != value))
+				{
+					this.OnPOSTNRChanging(value);
+					this.SendPropertyChanging();
+					this._POSTNR = value;
+					this.SendPropertyChanged("POSTNR");
+					this.OnPOSTNRChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DISTTXT", DbType="VarChar(30) NOT NULL", CanBeNull=false)]
+		public string DISTTXT
+		{
+			get
+			{
+				return this._DISTTXT;
+			}
+			set
+			{
+				if ((this._DISTTXT != value))
+				{
+					this.OnDISTTXTChanging(value);
+					this.SendPropertyChanging();
+					this._DISTTXT = value;
+					this.SendPropertyChanged("DISTTXT");
+					this.OnDISTTXTChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this.OnIDChanging(value);
+					this.SendPropertyChanging();
+					this._ID = value;
+					this.SendPropertyChanged("ID");
+					this.OnIDChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DTAKTVEJ")]
+	public partial class Street : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private decimal _KOMKOD;
+		
+		private decimal _VEJKOD;
+		
+		private string _VEJADNVN;
+		
+		private string _SVEJADRNVN;
+		
+		private int _ID;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnKOMKODChanging(decimal value);
+    partial void OnKOMKODChanged();
+    partial void OnVEJKODChanging(decimal value);
+    partial void OnVEJKODChanged();
+    partial void OnVEJADNVNChanging(string value);
+    partial void OnVEJADNVNChanged();
+    partial void OnSVEJADRNVNChanging(string value);
+    partial void OnSVEJADRNVNChanged();
+    partial void OnIDChanging(int value);
+    partial void OnIDChanged();
+    #endregion
+		
+		public Street()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_KOMKOD", DbType="Decimal(5,0) NOT NULL")]
+		public decimal KOMKOD
+		{
+			get
+			{
+				return this._KOMKOD;
+			}
+			set
+			{
+				if ((this._KOMKOD != value))
+				{
+					this.OnKOMKODChanging(value);
+					this.SendPropertyChanging();
+					this._KOMKOD = value;
+					this.SendPropertyChanged("KOMKOD");
+					this.OnKOMKODChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_VEJKOD", DbType="Decimal(5,0) NOT NULL")]
+		public decimal VEJKOD
+		{
+			get
+			{
+				return this._VEJKOD;
+			}
+			set
+			{
+				if ((this._VEJKOD != value))
+				{
+					this.OnVEJKODChanging(value);
+					this.SendPropertyChanging();
+					this._VEJKOD = value;
+					this.SendPropertyChanged("VEJKOD");
+					this.OnVEJKODChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_VEJADNVN", DbType="VarChar(20)")]
+		public string VEJADNVN
+		{
+			get
+			{
+				return this._VEJADNVN;
+			}
+			set
+			{
+				if ((this._VEJADNVN != value))
+				{
+					this.OnVEJADNVNChanging(value);
+					this.SendPropertyChanging();
+					this._VEJADNVN = value;
+					this.SendPropertyChanged("VEJADNVN");
+					this.OnVEJADNVNChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SVEJADRNVN", DbType="Char(20)")]
+		public string SVEJADRNVN
+		{
+			get
+			{
+				return this._SVEJADRNVN;
+			}
+			set
+			{
+				if ((this._SVEJADRNVN != value))
+				{
+					this.OnSVEJADRNVNChanging(value);
+					this.SendPropertyChanging();
+					this._SVEJADRNVN = value;
+					this.SendPropertyChanged("SVEJADRNVN");
+					this.OnSVEJADRNVNChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this.OnIDChanging(value);
+					this.SendPropertyChanging();
+					this._ID = value;
+					this.SendPropertyChanged("ID");
+					this.OnIDChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DTBYNAVN")]
+	public partial class City : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private decimal _KOMKOD;
+		
+		private decimal _VEJKOD;
+		
+		private string _HUSNRFRA;
+		
+		private string _HUSNRTIL;
+		
+		private char _LIGEULIGE;
+		
+		private decimal _AJFDTO;
+		
+		private string _BYNVN;
+		
+		private int _ID;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnKOMKODChanging(decimal value);
+    partial void OnKOMKODChanged();
+    partial void OnVEJKODChanging(decimal value);
+    partial void OnVEJKODChanged();
+    partial void OnHUSNRFRAChanging(string value);
+    partial void OnHUSNRFRAChanged();
+    partial void OnHUSNRTILChanging(string value);
+    partial void OnHUSNRTILChanged();
+    partial void OnLIGEULIGEChanging(char value);
+    partial void OnLIGEULIGEChanged();
+    partial void OnAJFDTOChanging(decimal value);
+    partial void OnAJFDTOChanged();
+    partial void OnBYNVNChanging(string value);
+    partial void OnBYNVNChanged();
+    partial void OnIDChanging(int value);
+    partial void OnIDChanged();
+    #endregion
+		
+		public City()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_KOMKOD", DbType="Decimal(5,0) NOT NULL")]
+		public decimal KOMKOD
+		{
+			get
+			{
+				return this._KOMKOD;
+			}
+			set
+			{
+				if ((this._KOMKOD != value))
+				{
+					this.OnKOMKODChanging(value);
+					this.SendPropertyChanging();
+					this._KOMKOD = value;
+					this.SendPropertyChanged("KOMKOD");
+					this.OnKOMKODChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_VEJKOD", DbType="Decimal(5,0) NOT NULL")]
+		public decimal VEJKOD
+		{
+			get
+			{
+				return this._VEJKOD;
+			}
+			set
+			{
+				if ((this._VEJKOD != value))
+				{
+					this.OnVEJKODChanging(value);
+					this.SendPropertyChanging();
+					this._VEJKOD = value;
+					this.SendPropertyChanged("VEJKOD");
+					this.OnVEJKODChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HUSNRFRA", DbType="Char(4) NOT NULL", CanBeNull=false)]
+		public string HUSNRFRA
+		{
+			get
+			{
+				return this._HUSNRFRA;
+			}
+			set
+			{
+				if ((this._HUSNRFRA != value))
+				{
+					this.OnHUSNRFRAChanging(value);
+					this.SendPropertyChanging();
+					this._HUSNRFRA = value;
+					this.SendPropertyChanged("HUSNRFRA");
+					this.OnHUSNRFRAChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HUSNRTIL", DbType="Char(4) NOT NULL", CanBeNull=false)]
+		public string HUSNRTIL
+		{
+			get
+			{
+				return this._HUSNRTIL;
+			}
+			set
+			{
+				if ((this._HUSNRTIL != value))
+				{
+					this.OnHUSNRTILChanging(value);
+					this.SendPropertyChanging();
+					this._HUSNRTIL = value;
+					this.SendPropertyChanged("HUSNRTIL");
+					this.OnHUSNRTILChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LIGEULIGE", DbType="Char(1) NOT NULL")]
+		public char LIGEULIGE
+		{
+			get
+			{
+				return this._LIGEULIGE;
+			}
+			set
+			{
+				if ((this._LIGEULIGE != value))
+				{
+					this.OnLIGEULIGEChanging(value);
+					this.SendPropertyChanging();
+					this._LIGEULIGE = value;
+					this.SendPropertyChanged("LIGEULIGE");
+					this.OnLIGEULIGEChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AJFDTO", DbType="Decimal(13,0) NOT NULL")]
+		public decimal AJFDTO
+		{
+			get
+			{
+				return this._AJFDTO;
+			}
+			set
+			{
+				if ((this._AJFDTO != value))
+				{
+					this.OnAJFDTOChanging(value);
+					this.SendPropertyChanging();
+					this._AJFDTO = value;
+					this.SendPropertyChanged("AJFDTO");
+					this.OnAJFDTOChanged();
 				}
 			}
 		}
@@ -890,15 +1325,61 @@ namespace CprBroker.Providers.CPRDirect
 			{
 				if ((this._BYNVN != value))
 				{
+					this.OnBYNVNChanging(value);
+					this.SendPropertyChanging();
 					this._BYNVN = value;
+					this.SendPropertyChanged("BYNVN");
+					this.OnBYNVNChanged();
 				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this.OnIDChanging(value);
+					this.SendPropertyChanging();
+					this._ID = value;
+					this.SendPropertyChanged("ID");
+					this.OnIDChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DTBYFORNYDIST")]
-	public partial class AreaRestorationDistrict
+	public partial class AreaRestorationDistrict : INotifyPropertyChanging, INotifyPropertyChanged
 	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private decimal _KOMKOD;
 		
@@ -916,8 +1397,35 @@ namespace CprBroker.Providers.CPRDirect
 		
 		private string _DISTTXT;
 		
+		private int _ID;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnKOMKODChanging(decimal value);
+    partial void OnKOMKODChanged();
+    partial void OnVEJKODChanging(decimal value);
+    partial void OnVEJKODChanged();
+    partial void OnHUSNRFRAChanging(string value);
+    partial void OnHUSNRFRAChanged();
+    partial void OnHUSNRTILChanging(string value);
+    partial void OnHUSNRTILChanged();
+    partial void OnLIGEULIGEChanging(char value);
+    partial void OnLIGEULIGEChanged();
+    partial void OnAJFDTOChanging(decimal value);
+    partial void OnAJFDTOChanged();
+    partial void OnBYFORNYKODChanging(string value);
+    partial void OnBYFORNYKODChanged();
+    partial void OnDISTTXTChanging(string value);
+    partial void OnDISTTXTChanged();
+    partial void OnIDChanging(int value);
+    partial void OnIDChanged();
+    #endregion
+		
 		public AreaRestorationDistrict()
 		{
+			OnCreated();
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_KOMKOD", DbType="Decimal(5,0) NOT NULL")]
@@ -931,7 +1439,11 @@ namespace CprBroker.Providers.CPRDirect
 			{
 				if ((this._KOMKOD != value))
 				{
+					this.OnKOMKODChanging(value);
+					this.SendPropertyChanging();
 					this._KOMKOD = value;
+					this.SendPropertyChanged("KOMKOD");
+					this.OnKOMKODChanged();
 				}
 			}
 		}
@@ -947,7 +1459,11 @@ namespace CprBroker.Providers.CPRDirect
 			{
 				if ((this._VEJKOD != value))
 				{
+					this.OnVEJKODChanging(value);
+					this.SendPropertyChanging();
 					this._VEJKOD = value;
+					this.SendPropertyChanged("VEJKOD");
+					this.OnVEJKODChanged();
 				}
 			}
 		}
@@ -963,7 +1479,11 @@ namespace CprBroker.Providers.CPRDirect
 			{
 				if ((this._HUSNRFRA != value))
 				{
+					this.OnHUSNRFRAChanging(value);
+					this.SendPropertyChanging();
 					this._HUSNRFRA = value;
+					this.SendPropertyChanged("HUSNRFRA");
+					this.OnHUSNRFRAChanged();
 				}
 			}
 		}
@@ -979,7 +1499,11 @@ namespace CprBroker.Providers.CPRDirect
 			{
 				if ((this._HUSNRTIL != value))
 				{
+					this.OnHUSNRTILChanging(value);
+					this.SendPropertyChanging();
 					this._HUSNRTIL = value;
+					this.SendPropertyChanged("HUSNRTIL");
+					this.OnHUSNRTILChanged();
 				}
 			}
 		}
@@ -995,7 +1519,11 @@ namespace CprBroker.Providers.CPRDirect
 			{
 				if ((this._LIGEULIGE != value))
 				{
+					this.OnLIGEULIGEChanging(value);
+					this.SendPropertyChanging();
 					this._LIGEULIGE = value;
+					this.SendPropertyChanged("LIGEULIGE");
+					this.OnLIGEULIGEChanged();
 				}
 			}
 		}
@@ -1011,7 +1539,11 @@ namespace CprBroker.Providers.CPRDirect
 			{
 				if ((this._AJFDTO != value))
 				{
+					this.OnAJFDTOChanging(value);
+					this.SendPropertyChanging();
 					this._AJFDTO = value;
+					this.SendPropertyChanged("AJFDTO");
+					this.OnAJFDTOChanged();
 				}
 			}
 		}
@@ -1027,7 +1559,11 @@ namespace CprBroker.Providers.CPRDirect
 			{
 				if ((this._BYFORNYKOD != value))
 				{
+					this.OnBYFORNYKODChanging(value);
+					this.SendPropertyChanging();
 					this._BYFORNYKOD = value;
+					this.SendPropertyChanged("BYFORNYKOD");
+					this.OnBYFORNYKODChanged();
 				}
 			}
 		}
@@ -1043,15 +1579,61 @@ namespace CprBroker.Providers.CPRDirect
 			{
 				if ((this._DISTTXT != value))
 				{
+					this.OnDISTTXTChanging(value);
+					this.SendPropertyChanging();
 					this._DISTTXT = value;
+					this.SendPropertyChanged("DISTTXT");
+					this.OnDISTTXTChanged();
 				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this.OnIDChanging(value);
+					this.SendPropertyChanging();
+					this._ID = value;
+					this.SendPropertyChanged("ID");
+					this.OnIDChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DTDIVDIST")]
-	public partial class DiverseDistrict
+	public partial class DiverseDistrict : INotifyPropertyChanging, INotifyPropertyChanged
 	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private decimal _KOMKOD;
 		
@@ -1071,8 +1653,37 @@ namespace CprBroker.Providers.CPRDirect
 		
 		private string _DISTTXT;
 		
+		private int _ID;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnKOMKODChanging(decimal value);
+    partial void OnKOMKODChanged();
+    partial void OnVEJKODChanging(decimal value);
+    partial void OnVEJKODChanged();
+    partial void OnHUSNRFRAChanging(string value);
+    partial void OnHUSNRFRAChanged();
+    partial void OnHUSNRTILChanging(string value);
+    partial void OnHUSNRTILChanged();
+    partial void OnLIGEULIGEChanging(char value);
+    partial void OnLIGEULIGEChanged();
+    partial void OnAJFDTOChanging(decimal value);
+    partial void OnAJFDTOChanged();
+    partial void OnDISTTYPChanging(decimal value);
+    partial void OnDISTTYPChanged();
+    partial void OnDIVDISTKODChanging(string value);
+    partial void OnDIVDISTKODChanged();
+    partial void OnDISTTXTChanging(string value);
+    partial void OnDISTTXTChanged();
+    partial void OnIDChanging(int value);
+    partial void OnIDChanged();
+    #endregion
+		
 		public DiverseDistrict()
 		{
+			OnCreated();
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_KOMKOD", DbType="Decimal(5,0) NOT NULL")]
@@ -1086,7 +1697,11 @@ namespace CprBroker.Providers.CPRDirect
 			{
 				if ((this._KOMKOD != value))
 				{
+					this.OnKOMKODChanging(value);
+					this.SendPropertyChanging();
 					this._KOMKOD = value;
+					this.SendPropertyChanged("KOMKOD");
+					this.OnKOMKODChanged();
 				}
 			}
 		}
@@ -1102,7 +1717,11 @@ namespace CprBroker.Providers.CPRDirect
 			{
 				if ((this._VEJKOD != value))
 				{
+					this.OnVEJKODChanging(value);
+					this.SendPropertyChanging();
 					this._VEJKOD = value;
+					this.SendPropertyChanged("VEJKOD");
+					this.OnVEJKODChanged();
 				}
 			}
 		}
@@ -1118,7 +1737,11 @@ namespace CprBroker.Providers.CPRDirect
 			{
 				if ((this._HUSNRFRA != value))
 				{
+					this.OnHUSNRFRAChanging(value);
+					this.SendPropertyChanging();
 					this._HUSNRFRA = value;
+					this.SendPropertyChanged("HUSNRFRA");
+					this.OnHUSNRFRAChanged();
 				}
 			}
 		}
@@ -1134,7 +1757,11 @@ namespace CprBroker.Providers.CPRDirect
 			{
 				if ((this._HUSNRTIL != value))
 				{
+					this.OnHUSNRTILChanging(value);
+					this.SendPropertyChanging();
 					this._HUSNRTIL = value;
+					this.SendPropertyChanged("HUSNRTIL");
+					this.OnHUSNRTILChanged();
 				}
 			}
 		}
@@ -1150,7 +1777,11 @@ namespace CprBroker.Providers.CPRDirect
 			{
 				if ((this._LIGEULIGE != value))
 				{
+					this.OnLIGEULIGEChanging(value);
+					this.SendPropertyChanging();
 					this._LIGEULIGE = value;
+					this.SendPropertyChanged("LIGEULIGE");
+					this.OnLIGEULIGEChanged();
 				}
 			}
 		}
@@ -1166,7 +1797,11 @@ namespace CprBroker.Providers.CPRDirect
 			{
 				if ((this._AJFDTO != value))
 				{
+					this.OnAJFDTOChanging(value);
+					this.SendPropertyChanging();
 					this._AJFDTO = value;
+					this.SendPropertyChanged("AJFDTO");
+					this.OnAJFDTOChanged();
 				}
 			}
 		}
@@ -1182,7 +1817,11 @@ namespace CprBroker.Providers.CPRDirect
 			{
 				if ((this._DISTTYP != value))
 				{
+					this.OnDISTTYPChanging(value);
+					this.SendPropertyChanging();
 					this._DISTTYP = value;
+					this.SendPropertyChanged("DISTTYP");
+					this.OnDISTTYPChanged();
 				}
 			}
 		}
@@ -1198,7 +1837,11 @@ namespace CprBroker.Providers.CPRDirect
 			{
 				if ((this._DIVDISTKOD != value))
 				{
+					this.OnDIVDISTKODChanging(value);
+					this.SendPropertyChanging();
 					this._DIVDISTKOD = value;
+					this.SendPropertyChanged("DIVDISTKOD");
+					this.OnDIVDISTKODChanged();
 				}
 			}
 		}
@@ -1214,15 +1857,61 @@ namespace CprBroker.Providers.CPRDirect
 			{
 				if ((this._DISTTXT != value))
 				{
+					this.OnDISTTXTChanging(value);
+					this.SendPropertyChanging();
 					this._DISTTXT = value;
+					this.SendPropertyChanged("DISTTXT");
+					this.OnDISTTXTChanged();
 				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this.OnIDChanging(value);
+					this.SendPropertyChanging();
+					this._ID = value;
+					this.SendPropertyChanged("ID");
+					this.OnIDChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DTEVAKUERDIST")]
-	public partial class EvacuationDistrict
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DTSOGNEDIST")]
+	public partial class ChurchAdministrationDistrict : INotifyPropertyChanging, INotifyPropertyChanged
 	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private decimal _KOMKOD;
 		
@@ -1236,12 +1925,35 @@ namespace CprBroker.Providers.CPRDirect
 		
 		private decimal _AJFDTO;
 		
-		private decimal _EVAKUERKOD;
+		private decimal _MYNKOD;
 		
-		private string _DISTTXT;
+		private int _ID;
 		
-		public EvacuationDistrict()
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnKOMKODChanging(decimal value);
+    partial void OnKOMKODChanged();
+    partial void OnVEJKODChanging(decimal value);
+    partial void OnVEJKODChanged();
+    partial void OnHUSNRFRAChanging(string value);
+    partial void OnHUSNRFRAChanged();
+    partial void OnHUSNRTILChanging(string value);
+    partial void OnHUSNRTILChanged();
+    partial void OnLIGEULIGEChanging(char value);
+    partial void OnLIGEULIGEChanged();
+    partial void OnAJFDTOChanging(decimal value);
+    partial void OnAJFDTOChanged();
+    partial void OnMYNKODChanging(decimal value);
+    partial void OnMYNKODChanged();
+    partial void OnIDChanging(int value);
+    partial void OnIDChanged();
+    #endregion
+		
+		public ChurchAdministrationDistrict()
 		{
+			OnCreated();
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_KOMKOD", DbType="Decimal(5,0) NOT NULL")]
@@ -1255,7 +1967,11 @@ namespace CprBroker.Providers.CPRDirect
 			{
 				if ((this._KOMKOD != value))
 				{
+					this.OnKOMKODChanging(value);
+					this.SendPropertyChanging();
 					this._KOMKOD = value;
+					this.SendPropertyChanged("KOMKOD");
+					this.OnKOMKODChanged();
 				}
 			}
 		}
@@ -1271,7 +1987,11 @@ namespace CprBroker.Providers.CPRDirect
 			{
 				if ((this._VEJKOD != value))
 				{
+					this.OnVEJKODChanging(value);
+					this.SendPropertyChanging();
 					this._VEJKOD = value;
+					this.SendPropertyChanged("VEJKOD");
+					this.OnVEJKODChanged();
 				}
 			}
 		}
@@ -1287,7 +2007,11 @@ namespace CprBroker.Providers.CPRDirect
 			{
 				if ((this._HUSNRFRA != value))
 				{
+					this.OnHUSNRFRAChanging(value);
+					this.SendPropertyChanging();
 					this._HUSNRFRA = value;
+					this.SendPropertyChanged("HUSNRFRA");
+					this.OnHUSNRFRAChanged();
 				}
 			}
 		}
@@ -1303,7 +2027,11 @@ namespace CprBroker.Providers.CPRDirect
 			{
 				if ((this._HUSNRTIL != value))
 				{
+					this.OnHUSNRTILChanging(value);
+					this.SendPropertyChanging();
 					this._HUSNRTIL = value;
+					this.SendPropertyChanged("HUSNRTIL");
+					this.OnHUSNRTILChanged();
 				}
 			}
 		}
@@ -1319,7 +2047,11 @@ namespace CprBroker.Providers.CPRDirect
 			{
 				if ((this._LIGEULIGE != value))
 				{
+					this.OnLIGEULIGEChanging(value);
+					this.SendPropertyChanging();
 					this._LIGEULIGE = value;
+					this.SendPropertyChanged("LIGEULIGE");
+					this.OnLIGEULIGEChanged();
 				}
 			}
 		}
@@ -1335,353 +2067,81 @@ namespace CprBroker.Providers.CPRDirect
 			{
 				if ((this._AJFDTO != value))
 				{
+					this.OnAJFDTOChanging(value);
+					this.SendPropertyChanging();
 					this._AJFDTO = value;
+					this.SendPropertyChanged("AJFDTO");
+					this.OnAJFDTOChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EVAKUERKOD", DbType="Decimal(1,0) NOT NULL")]
-		public decimal EVAKUERKOD
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MYNKOD", DbType="Decimal(4,0) NOT NULL")]
+		public decimal MYNKOD
 		{
 			get
 			{
-				return this._EVAKUERKOD;
+				return this._MYNKOD;
 			}
 			set
 			{
-				if ((this._EVAKUERKOD != value))
+				if ((this._MYNKOD != value))
 				{
-					this._EVAKUERKOD = value;
+					this.OnMYNKODChanging(value);
+					this.SendPropertyChanging();
+					this._MYNKOD = value;
+					this.SendPropertyChanged("MYNKOD");
+					this.OnMYNKODChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DISTTXT", DbType="VarChar(30)")]
-		public string DISTTXT
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int ID
 		{
 			get
 			{
-				return this._DISTTXT;
+				return this._ID;
 			}
 			set
 			{
-				if ((this._DISTTXT != value))
+				if ((this._ID != value))
 				{
-					this._DISTTXT = value;
-				}
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DTKIRKEDIST")]
-	public partial class ChurchDistrict
-	{
-		
-		private decimal _KOMKOD;
-		
-		private decimal _VEJKOD;
-		
-		private string _HUSNRFRA;
-		
-		private string _HUSNRTIL;
-		
-		private char _LIGEULIGE;
-		
-		private decimal _AJFDTO;
-		
-		private decimal _KIRKEKOD;
-		
-		private string _DISTTXT;
-		
-		public ChurchDistrict()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_KOMKOD", DbType="Decimal(5,0) NOT NULL")]
-		public decimal KOMKOD
-		{
-			get
-			{
-				return this._KOMKOD;
-			}
-			set
-			{
-				if ((this._KOMKOD != value))
-				{
-					this._KOMKOD = value;
+					this.OnIDChanging(value);
+					this.SendPropertyChanging();
+					this._ID = value;
+					this.SendPropertyChanged("ID");
+					this.OnIDChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_VEJKOD", DbType="Decimal(5,0) NOT NULL")]
-		public decimal VEJKOD
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
 		{
-			get
+			if ((this.PropertyChanging != null))
 			{
-				return this._VEJKOD;
-			}
-			set
-			{
-				if ((this._VEJKOD != value))
-				{
-					this._VEJKOD = value;
-				}
+				this.PropertyChanging(this, emptyChangingEventArgs);
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HUSNRFRA", DbType="Char(4) NOT NULL", CanBeNull=false)]
-		public string HUSNRFRA
+		protected virtual void SendPropertyChanged(String propertyName)
 		{
-			get
+			if ((this.PropertyChanged != null))
 			{
-				return this._HUSNRFRA;
-			}
-			set
-			{
-				if ((this._HUSNRFRA != value))
-				{
-					this._HUSNRFRA = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HUSNRTIL", DbType="Char(4) NOT NULL", CanBeNull=false)]
-		public string HUSNRTIL
-		{
-			get
-			{
-				return this._HUSNRTIL;
-			}
-			set
-			{
-				if ((this._HUSNRTIL != value))
-				{
-					this._HUSNRTIL = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LIGEULIGE", DbType="Char(1) NOT NULL")]
-		public char LIGEULIGE
-		{
-			get
-			{
-				return this._LIGEULIGE;
-			}
-			set
-			{
-				if ((this._LIGEULIGE != value))
-				{
-					this._LIGEULIGE = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AJFDTO", DbType="Decimal(13,0) NOT NULL")]
-		public decimal AJFDTO
-		{
-			get
-			{
-				return this._AJFDTO;
-			}
-			set
-			{
-				if ((this._AJFDTO != value))
-				{
-					this._AJFDTO = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_KIRKEKOD", DbType="Decimal(2,0) NOT NULL")]
-		public decimal KIRKEKOD
-		{
-			get
-			{
-				return this._KIRKEKOD;
-			}
-			set
-			{
-				if ((this._KIRKEKOD != value))
-				{
-					this._KIRKEKOD = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DISTTXT", DbType="VarChar(30)")]
-		public string DISTTXT
-		{
-			get
-			{
-				return this._DISTTXT;
-			}
-			set
-			{
-				if ((this._DISTTXT != value))
-				{
-					this._DISTTXT = value;
-				}
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DTSKOLEDIST")]
-	public partial class SchoolDistrict
-	{
-		
-		private decimal _KOMKOD;
-		
-		private decimal _VEJKOD;
-		
-		private string _HUSNRFRA;
-		
-		private string _HUSNRTIL;
-		
-		private char _LIGEULIGE;
-		
-		private decimal _AJFDTO;
-		
-		private decimal _SKOLEKOD;
-		
-		private string _DISTTXT;
-		
-		public SchoolDistrict()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_KOMKOD", DbType="Decimal(5,0) NOT NULL")]
-		public decimal KOMKOD
-		{
-			get
-			{
-				return this._KOMKOD;
-			}
-			set
-			{
-				if ((this._KOMKOD != value))
-				{
-					this._KOMKOD = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_VEJKOD", DbType="Decimal(5,0) NOT NULL")]
-		public decimal VEJKOD
-		{
-			get
-			{
-				return this._VEJKOD;
-			}
-			set
-			{
-				if ((this._VEJKOD != value))
-				{
-					this._VEJKOD = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HUSNRFRA", DbType="Char(4) NOT NULL", CanBeNull=false)]
-		public string HUSNRFRA
-		{
-			get
-			{
-				return this._HUSNRFRA;
-			}
-			set
-			{
-				if ((this._HUSNRFRA != value))
-				{
-					this._HUSNRFRA = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HUSNRTIL", DbType="Char(4) NOT NULL", CanBeNull=false)]
-		public string HUSNRTIL
-		{
-			get
-			{
-				return this._HUSNRTIL;
-			}
-			set
-			{
-				if ((this._HUSNRTIL != value))
-				{
-					this._HUSNRTIL = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LIGEULIGE", DbType="Char(1) NOT NULL")]
-		public char LIGEULIGE
-		{
-			get
-			{
-				return this._LIGEULIGE;
-			}
-			set
-			{
-				if ((this._LIGEULIGE != value))
-				{
-					this._LIGEULIGE = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AJFDTO", DbType="Decimal(13,0) NOT NULL")]
-		public decimal AJFDTO
-		{
-			get
-			{
-				return this._AJFDTO;
-			}
-			set
-			{
-				if ((this._AJFDTO != value))
-				{
-					this._AJFDTO = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SKOLEKOD", DbType="Decimal(2,0) NOT NULL")]
-		public decimal SKOLEKOD
-		{
-			get
-			{
-				return this._SKOLEKOD;
-			}
-			set
-			{
-				if ((this._SKOLEKOD != value))
-				{
-					this._SKOLEKOD = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DISTTXT", DbType="VarChar(30)")]
-		public string DISTTXT
-		{
-			get
-			{
-				return this._DISTTXT;
-			}
-			set
-			{
-				if ((this._DISTTXT != value))
-				{
-					this._DISTTXT = value;
-				}
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DTBEFOLKDIST")]
-	public partial class PopulationDistrict
+	public partial class PopulationDistrict : INotifyPropertyChanging, INotifyPropertyChanged
 	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private decimal _KOMKOD;
 		
@@ -1699,8 +2159,35 @@ namespace CprBroker.Providers.CPRDirect
 		
 		private string _DISTTXT;
 		
+		private int _ID;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnKOMKODChanging(decimal value);
+    partial void OnKOMKODChanged();
+    partial void OnVEJKODChanging(decimal value);
+    partial void OnVEJKODChanged();
+    partial void OnHUSNRFRAChanging(string value);
+    partial void OnHUSNRFRAChanged();
+    partial void OnHUSNRTILChanging(string value);
+    partial void OnHUSNRTILChanged();
+    partial void OnLIGEULIGEChanging(char value);
+    partial void OnLIGEULIGEChanged();
+    partial void OnAJFDTOChanging(decimal value);
+    partial void OnAJFDTOChanged();
+    partial void OnBEFOLKKODChanging(string value);
+    partial void OnBEFOLKKODChanged();
+    partial void OnDISTTXTChanging(string value);
+    partial void OnDISTTXTChanged();
+    partial void OnIDChanging(int value);
+    partial void OnIDChanged();
+    #endregion
+		
 		public PopulationDistrict()
 		{
+			OnCreated();
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_KOMKOD", DbType="Decimal(5,0) NOT NULL")]
@@ -1714,7 +2201,11 @@ namespace CprBroker.Providers.CPRDirect
 			{
 				if ((this._KOMKOD != value))
 				{
+					this.OnKOMKODChanging(value);
+					this.SendPropertyChanging();
 					this._KOMKOD = value;
+					this.SendPropertyChanged("KOMKOD");
+					this.OnKOMKODChanged();
 				}
 			}
 		}
@@ -1730,7 +2221,11 @@ namespace CprBroker.Providers.CPRDirect
 			{
 				if ((this._VEJKOD != value))
 				{
+					this.OnVEJKODChanging(value);
+					this.SendPropertyChanging();
 					this._VEJKOD = value;
+					this.SendPropertyChanged("VEJKOD");
+					this.OnVEJKODChanged();
 				}
 			}
 		}
@@ -1746,7 +2241,11 @@ namespace CprBroker.Providers.CPRDirect
 			{
 				if ((this._HUSNRFRA != value))
 				{
+					this.OnHUSNRFRAChanging(value);
+					this.SendPropertyChanging();
 					this._HUSNRFRA = value;
+					this.SendPropertyChanged("HUSNRFRA");
+					this.OnHUSNRFRAChanged();
 				}
 			}
 		}
@@ -1762,7 +2261,11 @@ namespace CprBroker.Providers.CPRDirect
 			{
 				if ((this._HUSNRTIL != value))
 				{
+					this.OnHUSNRTILChanging(value);
+					this.SendPropertyChanging();
 					this._HUSNRTIL = value;
+					this.SendPropertyChanged("HUSNRTIL");
+					this.OnHUSNRTILChanged();
 				}
 			}
 		}
@@ -1778,7 +2281,11 @@ namespace CprBroker.Providers.CPRDirect
 			{
 				if ((this._LIGEULIGE != value))
 				{
+					this.OnLIGEULIGEChanging(value);
+					this.SendPropertyChanging();
 					this._LIGEULIGE = value;
+					this.SendPropertyChanged("LIGEULIGE");
+					this.OnLIGEULIGEChanged();
 				}
 			}
 		}
@@ -1794,7 +2301,11 @@ namespace CprBroker.Providers.CPRDirect
 			{
 				if ((this._AJFDTO != value))
 				{
+					this.OnAJFDTOChanging(value);
+					this.SendPropertyChanging();
 					this._AJFDTO = value;
+					this.SendPropertyChanged("AJFDTO");
+					this.OnAJFDTOChanged();
 				}
 			}
 		}
@@ -1810,7 +2321,11 @@ namespace CprBroker.Providers.CPRDirect
 			{
 				if ((this._BEFOLKKOD != value))
 				{
+					this.OnBEFOLKKODChanging(value);
+					this.SendPropertyChanging();
 					this._BEFOLKKOD = value;
+					this.SendPropertyChanged("BEFOLKKOD");
+					this.OnBEFOLKKODChanged();
 				}
 			}
 		}
@@ -1826,15 +2341,61 @@ namespace CprBroker.Providers.CPRDirect
 			{
 				if ((this._DISTTXT != value))
 				{
+					this.OnDISTTXTChanging(value);
+					this.SendPropertyChanging();
 					this._DISTTXT = value;
+					this.SendPropertyChanged("DISTTXT");
+					this.OnDISTTXTChanged();
 				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this.OnIDChanging(value);
+					this.SendPropertyChanging();
+					this._ID = value;
+					this.SendPropertyChanged("ID");
+					this.OnIDChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DTSOGNEDIST")]
-	public partial class ChurchAdministrationDistrict
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DTEVAKUERDIST")]
+	public partial class EvacuationDistrict : INotifyPropertyChanging, INotifyPropertyChanged
 	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private decimal _KOMKOD;
 		
@@ -1848,147 +2409,39 @@ namespace CprBroker.Providers.CPRDirect
 		
 		private decimal _AJFDTO;
 		
-		private decimal _MYNKOD;
-		
-		public ChurchAdministrationDistrict()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_KOMKOD", DbType="Decimal(5,0) NOT NULL")]
-		public decimal KOMKOD
-		{
-			get
-			{
-				return this._KOMKOD;
-			}
-			set
-			{
-				if ((this._KOMKOD != value))
-				{
-					this._KOMKOD = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_VEJKOD", DbType="Decimal(5,0) NOT NULL")]
-		public decimal VEJKOD
-		{
-			get
-			{
-				return this._VEJKOD;
-			}
-			set
-			{
-				if ((this._VEJKOD != value))
-				{
-					this._VEJKOD = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HUSNRFRA", DbType="Char(4) NOT NULL", CanBeNull=false)]
-		public string HUSNRFRA
-		{
-			get
-			{
-				return this._HUSNRFRA;
-			}
-			set
-			{
-				if ((this._HUSNRFRA != value))
-				{
-					this._HUSNRFRA = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HUSNRTIL", DbType="Char(4) NOT NULL", CanBeNull=false)]
-		public string HUSNRTIL
-		{
-			get
-			{
-				return this._HUSNRTIL;
-			}
-			set
-			{
-				if ((this._HUSNRTIL != value))
-				{
-					this._HUSNRTIL = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LIGEULIGE", DbType="Char(1) NOT NULL")]
-		public char LIGEULIGE
-		{
-			get
-			{
-				return this._LIGEULIGE;
-			}
-			set
-			{
-				if ((this._LIGEULIGE != value))
-				{
-					this._LIGEULIGE = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AJFDTO", DbType="Decimal(13,0) NOT NULL")]
-		public decimal AJFDTO
-		{
-			get
-			{
-				return this._AJFDTO;
-			}
-			set
-			{
-				if ((this._AJFDTO != value))
-				{
-					this._AJFDTO = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MYNKOD", DbType="Decimal(4,0) NOT NULL")]
-		public decimal MYNKOD
-		{
-			get
-			{
-				return this._MYNKOD;
-			}
-			set
-			{
-				if ((this._MYNKOD != value))
-				{
-					this._MYNKOD = value;
-				}
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DTVALGDIST")]
-	public partial class ElectionDistrict
-	{
-		
-		private decimal _KOMKOD;
-		
-		private decimal _VEJKOD;
-		
-		private string _HUSNRFRA;
-		
-		private string _HUSNRTIL;
-		
-		private char _LIGEULIGE;
-		
-		private decimal _AJFDTO;
-		
-		private decimal _VALGKOD;
+		private decimal _EVAKUERKOD;
 		
 		private string _DISTTXT;
 		
-		public ElectionDistrict()
+		private int _ID;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnKOMKODChanging(decimal value);
+    partial void OnKOMKODChanged();
+    partial void OnVEJKODChanging(decimal value);
+    partial void OnVEJKODChanged();
+    partial void OnHUSNRFRAChanging(string value);
+    partial void OnHUSNRFRAChanged();
+    partial void OnHUSNRTILChanging(string value);
+    partial void OnHUSNRTILChanged();
+    partial void OnLIGEULIGEChanging(char value);
+    partial void OnLIGEULIGEChanged();
+    partial void OnAJFDTOChanging(decimal value);
+    partial void OnAJFDTOChanged();
+    partial void OnEVAKUERKODChanging(decimal value);
+    partial void OnEVAKUERKODChanged();
+    partial void OnDISTTXTChanging(string value);
+    partial void OnDISTTXTChanged();
+    partial void OnIDChanging(int value);
+    partial void OnIDChanged();
+    #endregion
+		
+		public EvacuationDistrict()
 		{
+			OnCreated();
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_KOMKOD", DbType="Decimal(5,0) NOT NULL")]
@@ -2002,7 +2455,11 @@ namespace CprBroker.Providers.CPRDirect
 			{
 				if ((this._KOMKOD != value))
 				{
+					this.OnKOMKODChanging(value);
+					this.SendPropertyChanging();
 					this._KOMKOD = value;
+					this.SendPropertyChanged("KOMKOD");
+					this.OnKOMKODChanged();
 				}
 			}
 		}
@@ -2018,7 +2475,11 @@ namespace CprBroker.Providers.CPRDirect
 			{
 				if ((this._VEJKOD != value))
 				{
+					this.OnVEJKODChanging(value);
+					this.SendPropertyChanging();
 					this._VEJKOD = value;
+					this.SendPropertyChanged("VEJKOD");
+					this.OnVEJKODChanged();
 				}
 			}
 		}
@@ -2034,7 +2495,11 @@ namespace CprBroker.Providers.CPRDirect
 			{
 				if ((this._HUSNRFRA != value))
 				{
+					this.OnHUSNRFRAChanging(value);
+					this.SendPropertyChanging();
 					this._HUSNRFRA = value;
+					this.SendPropertyChanged("HUSNRFRA");
+					this.OnHUSNRFRAChanged();
 				}
 			}
 		}
@@ -2050,7 +2515,11 @@ namespace CprBroker.Providers.CPRDirect
 			{
 				if ((this._HUSNRTIL != value))
 				{
+					this.OnHUSNRTILChanging(value);
+					this.SendPropertyChanging();
 					this._HUSNRTIL = value;
+					this.SendPropertyChanged("HUSNRTIL");
+					this.OnHUSNRTILChanged();
 				}
 			}
 		}
@@ -2066,7 +2535,11 @@ namespace CprBroker.Providers.CPRDirect
 			{
 				if ((this._LIGEULIGE != value))
 				{
+					this.OnLIGEULIGEChanging(value);
+					this.SendPropertyChanging();
 					this._LIGEULIGE = value;
+					this.SendPropertyChanged("LIGEULIGE");
+					this.OnLIGEULIGEChanged();
 				}
 			}
 		}
@@ -2082,23 +2555,31 @@ namespace CprBroker.Providers.CPRDirect
 			{
 				if ((this._AJFDTO != value))
 				{
+					this.OnAJFDTOChanging(value);
+					this.SendPropertyChanging();
 					this._AJFDTO = value;
+					this.SendPropertyChanged("AJFDTO");
+					this.OnAJFDTOChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_VALGKOD", DbType="Decimal(2,0) NOT NULL")]
-		public decimal VALGKOD
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EVAKUERKOD", DbType="Decimal(1,0) NOT NULL")]
+		public decimal EVAKUERKOD
 		{
 			get
 			{
-				return this._VALGKOD;
+				return this._EVAKUERKOD;
 			}
 			set
 			{
-				if ((this._VALGKOD != value))
+				if ((this._EVAKUERKOD != value))
 				{
-					this._VALGKOD = value;
+					this.OnEVAKUERKODChanging(value);
+					this.SendPropertyChanging();
+					this._EVAKUERKOD = value;
+					this.SendPropertyChanged("EVAKUERKOD");
+					this.OnEVAKUERKODChanged();
 				}
 			}
 		}
@@ -2114,15 +2595,61 @@ namespace CprBroker.Providers.CPRDirect
 			{
 				if ((this._DISTTXT != value))
 				{
+					this.OnDISTTXTChanging(value);
+					this.SendPropertyChanging();
 					this._DISTTXT = value;
+					this.SendPropertyChanged("DISTTXT");
+					this.OnDISTTXTChanged();
 				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this.OnIDChanging(value);
+					this.SendPropertyChanging();
+					this._ID = value;
+					this.SendPropertyChanged("ID");
+					this.OnIDChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DTVARMEDIST")]
-	public partial class HeatingDistrict
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DTSKOLEDIST")]
+	public partial class SchoolDistrict : INotifyPropertyChanging, INotifyPropertyChanged
 	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private decimal _KOMKOD;
 		
@@ -2136,12 +2663,39 @@ namespace CprBroker.Providers.CPRDirect
 		
 		private decimal _AJFDTO;
 		
-		private decimal _VARMEKOD;
+		private decimal _SKOLEKOD;
 		
 		private string _DISTTXT;
 		
-		public HeatingDistrict()
+		private int _ID;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnKOMKODChanging(decimal value);
+    partial void OnKOMKODChanged();
+    partial void OnVEJKODChanging(decimal value);
+    partial void OnVEJKODChanged();
+    partial void OnHUSNRFRAChanging(string value);
+    partial void OnHUSNRFRAChanged();
+    partial void OnHUSNRTILChanging(string value);
+    partial void OnHUSNRTILChanged();
+    partial void OnLIGEULIGEChanging(char value);
+    partial void OnLIGEULIGEChanged();
+    partial void OnAJFDTOChanging(decimal value);
+    partial void OnAJFDTOChanged();
+    partial void OnSKOLEKODChanging(decimal value);
+    partial void OnSKOLEKODChanged();
+    partial void OnDISTTXTChanging(string value);
+    partial void OnDISTTXTChanged();
+    partial void OnIDChanging(int value);
+    partial void OnIDChanged();
+    #endregion
+		
+		public SchoolDistrict()
 		{
+			OnCreated();
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_KOMKOD", DbType="Decimal(5,0) NOT NULL")]
@@ -2155,7 +2709,11 @@ namespace CprBroker.Providers.CPRDirect
 			{
 				if ((this._KOMKOD != value))
 				{
+					this.OnKOMKODChanging(value);
+					this.SendPropertyChanging();
 					this._KOMKOD = value;
+					this.SendPropertyChanged("KOMKOD");
+					this.OnKOMKODChanged();
 				}
 			}
 		}
@@ -2171,7 +2729,11 @@ namespace CprBroker.Providers.CPRDirect
 			{
 				if ((this._VEJKOD != value))
 				{
+					this.OnVEJKODChanging(value);
+					this.SendPropertyChanging();
 					this._VEJKOD = value;
+					this.SendPropertyChanged("VEJKOD");
+					this.OnVEJKODChanged();
 				}
 			}
 		}
@@ -2187,7 +2749,11 @@ namespace CprBroker.Providers.CPRDirect
 			{
 				if ((this._HUSNRFRA != value))
 				{
+					this.OnHUSNRFRAChanging(value);
+					this.SendPropertyChanging();
 					this._HUSNRFRA = value;
+					this.SendPropertyChanged("HUSNRFRA");
+					this.OnHUSNRFRAChanged();
 				}
 			}
 		}
@@ -2203,7 +2769,11 @@ namespace CprBroker.Providers.CPRDirect
 			{
 				if ((this._HUSNRTIL != value))
 				{
+					this.OnHUSNRTILChanging(value);
+					this.SendPropertyChanging();
 					this._HUSNRTIL = value;
+					this.SendPropertyChanged("HUSNRTIL");
+					this.OnHUSNRTILChanged();
 				}
 			}
 		}
@@ -2219,7 +2789,11 @@ namespace CprBroker.Providers.CPRDirect
 			{
 				if ((this._LIGEULIGE != value))
 				{
+					this.OnLIGEULIGEChanging(value);
+					this.SendPropertyChanging();
 					this._LIGEULIGE = value;
+					this.SendPropertyChanged("LIGEULIGE");
+					this.OnLIGEULIGEChanged();
 				}
 			}
 		}
@@ -2235,23 +2809,31 @@ namespace CprBroker.Providers.CPRDirect
 			{
 				if ((this._AJFDTO != value))
 				{
+					this.OnAJFDTOChanging(value);
+					this.SendPropertyChanging();
 					this._AJFDTO = value;
+					this.SendPropertyChanged("AJFDTO");
+					this.OnAJFDTOChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_VARMEKOD", DbType="Decimal(4,0) NOT NULL")]
-		public decimal VARMEKOD
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SKOLEKOD", DbType="Decimal(2,0) NOT NULL")]
+		public decimal SKOLEKOD
 		{
 			get
 			{
-				return this._VARMEKOD;
+				return this._SKOLEKOD;
 			}
 			set
 			{
-				if ((this._VARMEKOD != value))
+				if ((this._SKOLEKOD != value))
 				{
-					this._VARMEKOD = value;
+					this.OnSKOLEKODChanging(value);
+					this.SendPropertyChanging();
+					this._SKOLEKOD = value;
+					this.SendPropertyChanged("SKOLEKOD");
+					this.OnSKOLEKODChanged();
 				}
 			}
 		}
@@ -2267,141 +2849,61 @@ namespace CprBroker.Providers.CPRDirect
 			{
 				if ((this._DISTTXT != value))
 				{
+					this.OnDISTTXTChanging(value);
+					this.SendPropertyChanging();
 					this._DISTTXT = value;
+					this.SendPropertyChanged("DISTTXT");
+					this.OnDISTTXTChanged();
 				}
 			}
 		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DTPOSTNR")]
-	public partial class PostNumber
-	{
 		
-		private decimal _POSTNR;
-		
-		private string _POSTTXT;
-		
-		public PostNumber()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_POSTNR", DbType="Decimal(5,0) NOT NULL")]
-		public decimal POSTNR
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int ID
 		{
 			get
 			{
-				return this._POSTNR;
+				return this._ID;
 			}
 			set
 			{
-				if ((this._POSTNR != value))
+				if ((this._ID != value))
 				{
-					this._POSTNR = value;
+					this.OnIDChanging(value);
+					this.SendPropertyChanging();
+					this._ID = value;
+					this.SendPropertyChanged("ID");
+					this.OnIDChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_POSTTXT", DbType="VarChar(20)")]
-		public string POSTTXT
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
 		{
-			get
+			if ((this.PropertyChanging != null))
 			{
-				return this._POSTTXT;
-			}
-			set
-			{
-				if ((this._POSTTXT != value))
-				{
-					this._POSTTXT = value;
-				}
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DTMYN")]
-	public partial class Council
-	{
-		
-		private decimal _MYNKOD;
-		
-		private decimal _MYNTYP;
-		
-		private decimal _MYNGRP;
-		
-		private string _MYNNVN;
-		
-		public Council()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MYNKOD", DbType="Decimal(5,0) NOT NULL")]
-		public decimal MYNKOD
-		{
-			get
-			{
-				return this._MYNKOD;
-			}
-			set
-			{
-				if ((this._MYNKOD != value))
-				{
-					this._MYNKOD = value;
-				}
+				this.PropertyChanging(this, emptyChangingEventArgs);
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MYNTYP", DbType="Decimal(3,0) NOT NULL")]
-		public decimal MYNTYP
+		protected virtual void SendPropertyChanged(String propertyName)
 		{
-			get
+			if ((this.PropertyChanged != null))
 			{
-				return this._MYNTYP;
-			}
-			set
-			{
-				if ((this._MYNTYP != value))
-				{
-					this._MYNTYP = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MYNGRP", DbType="Decimal(1,0) NOT NULL")]
-		public decimal MYNGRP
-		{
-			get
-			{
-				return this._MYNGRP;
-			}
-			set
-			{
-				if ((this._MYNGRP != value))
-				{
-					this._MYNGRP = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MYNNVN", DbType="VarChar(20)")]
-		public string MYNNVN
-		{
-			get
-			{
-				return this._MYNNVN;
-			}
-			set
-			{
-				if ((this._MYNNVN != value))
-				{
-					this._MYNNVN = value;
-				}
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DTSOCIALDIST")]
-	public partial class SocialDistrict
+	public partial class SocialDistrict : INotifyPropertyChanging, INotifyPropertyChanged
 	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private decimal _KOMKOD;
 		
@@ -2419,8 +2921,35 @@ namespace CprBroker.Providers.CPRDirect
 		
 		private string _DISTTXT;
 		
+		private int _ID;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnKOMKODChanging(decimal value);
+    partial void OnKOMKODChanged();
+    partial void OnVEJKODChanging(decimal value);
+    partial void OnVEJKODChanged();
+    partial void OnHUSNRFRAChanging(string value);
+    partial void OnHUSNRFRAChanged();
+    partial void OnHUSNRTILChanging(string value);
+    partial void OnHUSNRTILChanged();
+    partial void OnLIGEULIGEChanging(char value);
+    partial void OnLIGEULIGEChanged();
+    partial void OnAJFDTOChanging(decimal value);
+    partial void OnAJFDTOChanged();
+    partial void OnSOCIALKODChanging(decimal value);
+    partial void OnSOCIALKODChanged();
+    partial void OnDISTTXTChanging(string value);
+    partial void OnDISTTXTChanged();
+    partial void OnIDChanging(int value);
+    partial void OnIDChanged();
+    #endregion
+		
 		public SocialDistrict()
 		{
+			OnCreated();
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_KOMKOD", DbType="Decimal(5,0) NOT NULL")]
@@ -2434,7 +2963,11 @@ namespace CprBroker.Providers.CPRDirect
 			{
 				if ((this._KOMKOD != value))
 				{
+					this.OnKOMKODChanging(value);
+					this.SendPropertyChanging();
 					this._KOMKOD = value;
+					this.SendPropertyChanged("KOMKOD");
+					this.OnKOMKODChanged();
 				}
 			}
 		}
@@ -2450,7 +2983,11 @@ namespace CprBroker.Providers.CPRDirect
 			{
 				if ((this._VEJKOD != value))
 				{
+					this.OnVEJKODChanging(value);
+					this.SendPropertyChanging();
 					this._VEJKOD = value;
+					this.SendPropertyChanged("VEJKOD");
+					this.OnVEJKODChanged();
 				}
 			}
 		}
@@ -2466,7 +3003,11 @@ namespace CprBroker.Providers.CPRDirect
 			{
 				if ((this._HUSNRFRA != value))
 				{
+					this.OnHUSNRFRAChanging(value);
+					this.SendPropertyChanging();
 					this._HUSNRFRA = value;
+					this.SendPropertyChanged("HUSNRFRA");
+					this.OnHUSNRFRAChanged();
 				}
 			}
 		}
@@ -2482,7 +3023,11 @@ namespace CprBroker.Providers.CPRDirect
 			{
 				if ((this._HUSNRTIL != value))
 				{
+					this.OnHUSNRTILChanging(value);
+					this.SendPropertyChanging();
 					this._HUSNRTIL = value;
+					this.SendPropertyChanged("HUSNRTIL");
+					this.OnHUSNRTILChanged();
 				}
 			}
 		}
@@ -2498,7 +3043,11 @@ namespace CprBroker.Providers.CPRDirect
 			{
 				if ((this._LIGEULIGE != value))
 				{
+					this.OnLIGEULIGEChanging(value);
+					this.SendPropertyChanging();
 					this._LIGEULIGE = value;
+					this.SendPropertyChanged("LIGEULIGE");
+					this.OnLIGEULIGEChanged();
 				}
 			}
 		}
@@ -2514,7 +3063,11 @@ namespace CprBroker.Providers.CPRDirect
 			{
 				if ((this._AJFDTO != value))
 				{
+					this.OnAJFDTOChanging(value);
+					this.SendPropertyChanging();
 					this._AJFDTO = value;
+					this.SendPropertyChanged("AJFDTO");
+					this.OnAJFDTOChanged();
 				}
 			}
 		}
@@ -2530,7 +3083,11 @@ namespace CprBroker.Providers.CPRDirect
 			{
 				if ((this._SOCIALKOD != value))
 				{
+					this.OnSOCIALKODChanging(value);
+					this.SendPropertyChanging();
 					this._SOCIALKOD = value;
+					this.SendPropertyChanged("SOCIALKOD");
+					this.OnSOCIALKODChanged();
 				}
 			}
 		}
@@ -2546,8 +3103,1082 @@ namespace CprBroker.Providers.CPRDirect
 			{
 				if ((this._DISTTXT != value))
 				{
+					this.OnDISTTXTChanging(value);
+					this.SendPropertyChanging();
 					this._DISTTXT = value;
+					this.SendPropertyChanged("DISTTXT");
+					this.OnDISTTXTChanged();
 				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this.OnIDChanging(value);
+					this.SendPropertyChanging();
+					this._ID = value;
+					this.SendPropertyChanged("ID");
+					this.OnIDChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DTKIRKEDIST")]
+	public partial class ChurchDistrict : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private decimal _KOMKOD;
+		
+		private decimal _VEJKOD;
+		
+		private string _HUSNRFRA;
+		
+		private string _HUSNRTIL;
+		
+		private char _LIGEULIGE;
+		
+		private decimal _AJFDTO;
+		
+		private decimal _KIRKEKOD;
+		
+		private string _DISTTXT;
+		
+		private int _ID;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnKOMKODChanging(decimal value);
+    partial void OnKOMKODChanged();
+    partial void OnVEJKODChanging(decimal value);
+    partial void OnVEJKODChanged();
+    partial void OnHUSNRFRAChanging(string value);
+    partial void OnHUSNRFRAChanged();
+    partial void OnHUSNRTILChanging(string value);
+    partial void OnHUSNRTILChanged();
+    partial void OnLIGEULIGEChanging(char value);
+    partial void OnLIGEULIGEChanged();
+    partial void OnAJFDTOChanging(decimal value);
+    partial void OnAJFDTOChanged();
+    partial void OnKIRKEKODChanging(decimal value);
+    partial void OnKIRKEKODChanged();
+    partial void OnDISTTXTChanging(string value);
+    partial void OnDISTTXTChanged();
+    partial void OnIDChanging(int value);
+    partial void OnIDChanged();
+    #endregion
+		
+		public ChurchDistrict()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_KOMKOD", DbType="Decimal(5,0) NOT NULL")]
+		public decimal KOMKOD
+		{
+			get
+			{
+				return this._KOMKOD;
+			}
+			set
+			{
+				if ((this._KOMKOD != value))
+				{
+					this.OnKOMKODChanging(value);
+					this.SendPropertyChanging();
+					this._KOMKOD = value;
+					this.SendPropertyChanged("KOMKOD");
+					this.OnKOMKODChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_VEJKOD", DbType="Decimal(5,0) NOT NULL")]
+		public decimal VEJKOD
+		{
+			get
+			{
+				return this._VEJKOD;
+			}
+			set
+			{
+				if ((this._VEJKOD != value))
+				{
+					this.OnVEJKODChanging(value);
+					this.SendPropertyChanging();
+					this._VEJKOD = value;
+					this.SendPropertyChanged("VEJKOD");
+					this.OnVEJKODChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HUSNRFRA", DbType="Char(4) NOT NULL", CanBeNull=false)]
+		public string HUSNRFRA
+		{
+			get
+			{
+				return this._HUSNRFRA;
+			}
+			set
+			{
+				if ((this._HUSNRFRA != value))
+				{
+					this.OnHUSNRFRAChanging(value);
+					this.SendPropertyChanging();
+					this._HUSNRFRA = value;
+					this.SendPropertyChanged("HUSNRFRA");
+					this.OnHUSNRFRAChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HUSNRTIL", DbType="Char(4) NOT NULL", CanBeNull=false)]
+		public string HUSNRTIL
+		{
+			get
+			{
+				return this._HUSNRTIL;
+			}
+			set
+			{
+				if ((this._HUSNRTIL != value))
+				{
+					this.OnHUSNRTILChanging(value);
+					this.SendPropertyChanging();
+					this._HUSNRTIL = value;
+					this.SendPropertyChanged("HUSNRTIL");
+					this.OnHUSNRTILChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LIGEULIGE", DbType="Char(1) NOT NULL")]
+		public char LIGEULIGE
+		{
+			get
+			{
+				return this._LIGEULIGE;
+			}
+			set
+			{
+				if ((this._LIGEULIGE != value))
+				{
+					this.OnLIGEULIGEChanging(value);
+					this.SendPropertyChanging();
+					this._LIGEULIGE = value;
+					this.SendPropertyChanged("LIGEULIGE");
+					this.OnLIGEULIGEChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AJFDTO", DbType="Decimal(13,0) NOT NULL")]
+		public decimal AJFDTO
+		{
+			get
+			{
+				return this._AJFDTO;
+			}
+			set
+			{
+				if ((this._AJFDTO != value))
+				{
+					this.OnAJFDTOChanging(value);
+					this.SendPropertyChanging();
+					this._AJFDTO = value;
+					this.SendPropertyChanged("AJFDTO");
+					this.OnAJFDTOChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_KIRKEKOD", DbType="Decimal(2,0) NOT NULL")]
+		public decimal KIRKEKOD
+		{
+			get
+			{
+				return this._KIRKEKOD;
+			}
+			set
+			{
+				if ((this._KIRKEKOD != value))
+				{
+					this.OnKIRKEKODChanging(value);
+					this.SendPropertyChanging();
+					this._KIRKEKOD = value;
+					this.SendPropertyChanged("KIRKEKOD");
+					this.OnKIRKEKODChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DISTTXT", DbType="VarChar(30)")]
+		public string DISTTXT
+		{
+			get
+			{
+				return this._DISTTXT;
+			}
+			set
+			{
+				if ((this._DISTTXT != value))
+				{
+					this.OnDISTTXTChanging(value);
+					this.SendPropertyChanging();
+					this._DISTTXT = value;
+					this.SendPropertyChanged("DISTTXT");
+					this.OnDISTTXTChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this.OnIDChanging(value);
+					this.SendPropertyChanging();
+					this._ID = value;
+					this.SendPropertyChanged("ID");
+					this.OnIDChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DTVALGDIST")]
+	public partial class ElectionDistrict : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private decimal _KOMKOD;
+		
+		private decimal _VEJKOD;
+		
+		private string _HUSNRFRA;
+		
+		private string _HUSNRTIL;
+		
+		private char _LIGEULIGE;
+		
+		private decimal _AJFDTO;
+		
+		private decimal _VALGKOD;
+		
+		private string _DISTTXT;
+		
+		private int _ID;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnKOMKODChanging(decimal value);
+    partial void OnKOMKODChanged();
+    partial void OnVEJKODChanging(decimal value);
+    partial void OnVEJKODChanged();
+    partial void OnHUSNRFRAChanging(string value);
+    partial void OnHUSNRFRAChanged();
+    partial void OnHUSNRTILChanging(string value);
+    partial void OnHUSNRTILChanged();
+    partial void OnLIGEULIGEChanging(char value);
+    partial void OnLIGEULIGEChanged();
+    partial void OnAJFDTOChanging(decimal value);
+    partial void OnAJFDTOChanged();
+    partial void OnVALGKODChanging(decimal value);
+    partial void OnVALGKODChanged();
+    partial void OnDISTTXTChanging(string value);
+    partial void OnDISTTXTChanged();
+    partial void OnIDChanging(int value);
+    partial void OnIDChanged();
+    #endregion
+		
+		public ElectionDistrict()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_KOMKOD", DbType="Decimal(5,0) NOT NULL")]
+		public decimal KOMKOD
+		{
+			get
+			{
+				return this._KOMKOD;
+			}
+			set
+			{
+				if ((this._KOMKOD != value))
+				{
+					this.OnKOMKODChanging(value);
+					this.SendPropertyChanging();
+					this._KOMKOD = value;
+					this.SendPropertyChanged("KOMKOD");
+					this.OnKOMKODChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_VEJKOD", DbType="Decimal(5,0) NOT NULL")]
+		public decimal VEJKOD
+		{
+			get
+			{
+				return this._VEJKOD;
+			}
+			set
+			{
+				if ((this._VEJKOD != value))
+				{
+					this.OnVEJKODChanging(value);
+					this.SendPropertyChanging();
+					this._VEJKOD = value;
+					this.SendPropertyChanged("VEJKOD");
+					this.OnVEJKODChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HUSNRFRA", DbType="Char(4) NOT NULL", CanBeNull=false)]
+		public string HUSNRFRA
+		{
+			get
+			{
+				return this._HUSNRFRA;
+			}
+			set
+			{
+				if ((this._HUSNRFRA != value))
+				{
+					this.OnHUSNRFRAChanging(value);
+					this.SendPropertyChanging();
+					this._HUSNRFRA = value;
+					this.SendPropertyChanged("HUSNRFRA");
+					this.OnHUSNRFRAChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HUSNRTIL", DbType="Char(4) NOT NULL", CanBeNull=false)]
+		public string HUSNRTIL
+		{
+			get
+			{
+				return this._HUSNRTIL;
+			}
+			set
+			{
+				if ((this._HUSNRTIL != value))
+				{
+					this.OnHUSNRTILChanging(value);
+					this.SendPropertyChanging();
+					this._HUSNRTIL = value;
+					this.SendPropertyChanged("HUSNRTIL");
+					this.OnHUSNRTILChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LIGEULIGE", DbType="Char(1) NOT NULL")]
+		public char LIGEULIGE
+		{
+			get
+			{
+				return this._LIGEULIGE;
+			}
+			set
+			{
+				if ((this._LIGEULIGE != value))
+				{
+					this.OnLIGEULIGEChanging(value);
+					this.SendPropertyChanging();
+					this._LIGEULIGE = value;
+					this.SendPropertyChanged("LIGEULIGE");
+					this.OnLIGEULIGEChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AJFDTO", DbType="Decimal(13,0) NOT NULL")]
+		public decimal AJFDTO
+		{
+			get
+			{
+				return this._AJFDTO;
+			}
+			set
+			{
+				if ((this._AJFDTO != value))
+				{
+					this.OnAJFDTOChanging(value);
+					this.SendPropertyChanging();
+					this._AJFDTO = value;
+					this.SendPropertyChanged("AJFDTO");
+					this.OnAJFDTOChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_VALGKOD", DbType="Decimal(2,0) NOT NULL")]
+		public decimal VALGKOD
+		{
+			get
+			{
+				return this._VALGKOD;
+			}
+			set
+			{
+				if ((this._VALGKOD != value))
+				{
+					this.OnVALGKODChanging(value);
+					this.SendPropertyChanging();
+					this._VALGKOD = value;
+					this.SendPropertyChanged("VALGKOD");
+					this.OnVALGKODChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DISTTXT", DbType="VarChar(30)")]
+		public string DISTTXT
+		{
+			get
+			{
+				return this._DISTTXT;
+			}
+			set
+			{
+				if ((this._DISTTXT != value))
+				{
+					this.OnDISTTXTChanging(value);
+					this.SendPropertyChanging();
+					this._DISTTXT = value;
+					this.SendPropertyChanged("DISTTXT");
+					this.OnDISTTXTChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this.OnIDChanging(value);
+					this.SendPropertyChanging();
+					this._ID = value;
+					this.SendPropertyChanged("ID");
+					this.OnIDChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DTVARMEDIST")]
+	public partial class HeatingDistrict : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private decimal _KOMKOD;
+		
+		private decimal _VEJKOD;
+		
+		private string _HUSNRFRA;
+		
+		private string _HUSNRTIL;
+		
+		private char _LIGEULIGE;
+		
+		private decimal _AJFDTO;
+		
+		private decimal _VARMEKOD;
+		
+		private string _DISTTXT;
+		
+		private int _ID;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnKOMKODChanging(decimal value);
+    partial void OnKOMKODChanged();
+    partial void OnVEJKODChanging(decimal value);
+    partial void OnVEJKODChanged();
+    partial void OnHUSNRFRAChanging(string value);
+    partial void OnHUSNRFRAChanged();
+    partial void OnHUSNRTILChanging(string value);
+    partial void OnHUSNRTILChanged();
+    partial void OnLIGEULIGEChanging(char value);
+    partial void OnLIGEULIGEChanged();
+    partial void OnAJFDTOChanging(decimal value);
+    partial void OnAJFDTOChanged();
+    partial void OnVARMEKODChanging(decimal value);
+    partial void OnVARMEKODChanged();
+    partial void OnDISTTXTChanging(string value);
+    partial void OnDISTTXTChanged();
+    partial void OnIDChanging(int value);
+    partial void OnIDChanged();
+    #endregion
+		
+		public HeatingDistrict()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_KOMKOD", DbType="Decimal(5,0) NOT NULL")]
+		public decimal KOMKOD
+		{
+			get
+			{
+				return this._KOMKOD;
+			}
+			set
+			{
+				if ((this._KOMKOD != value))
+				{
+					this.OnKOMKODChanging(value);
+					this.SendPropertyChanging();
+					this._KOMKOD = value;
+					this.SendPropertyChanged("KOMKOD");
+					this.OnKOMKODChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_VEJKOD", DbType="Decimal(5,0) NOT NULL")]
+		public decimal VEJKOD
+		{
+			get
+			{
+				return this._VEJKOD;
+			}
+			set
+			{
+				if ((this._VEJKOD != value))
+				{
+					this.OnVEJKODChanging(value);
+					this.SendPropertyChanging();
+					this._VEJKOD = value;
+					this.SendPropertyChanged("VEJKOD");
+					this.OnVEJKODChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HUSNRFRA", DbType="Char(4) NOT NULL", CanBeNull=false)]
+		public string HUSNRFRA
+		{
+			get
+			{
+				return this._HUSNRFRA;
+			}
+			set
+			{
+				if ((this._HUSNRFRA != value))
+				{
+					this.OnHUSNRFRAChanging(value);
+					this.SendPropertyChanging();
+					this._HUSNRFRA = value;
+					this.SendPropertyChanged("HUSNRFRA");
+					this.OnHUSNRFRAChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HUSNRTIL", DbType="Char(4) NOT NULL", CanBeNull=false)]
+		public string HUSNRTIL
+		{
+			get
+			{
+				return this._HUSNRTIL;
+			}
+			set
+			{
+				if ((this._HUSNRTIL != value))
+				{
+					this.OnHUSNRTILChanging(value);
+					this.SendPropertyChanging();
+					this._HUSNRTIL = value;
+					this.SendPropertyChanged("HUSNRTIL");
+					this.OnHUSNRTILChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LIGEULIGE", DbType="Char(1) NOT NULL")]
+		public char LIGEULIGE
+		{
+			get
+			{
+				return this._LIGEULIGE;
+			}
+			set
+			{
+				if ((this._LIGEULIGE != value))
+				{
+					this.OnLIGEULIGEChanging(value);
+					this.SendPropertyChanging();
+					this._LIGEULIGE = value;
+					this.SendPropertyChanged("LIGEULIGE");
+					this.OnLIGEULIGEChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AJFDTO", DbType="Decimal(13,0) NOT NULL")]
+		public decimal AJFDTO
+		{
+			get
+			{
+				return this._AJFDTO;
+			}
+			set
+			{
+				if ((this._AJFDTO != value))
+				{
+					this.OnAJFDTOChanging(value);
+					this.SendPropertyChanging();
+					this._AJFDTO = value;
+					this.SendPropertyChanged("AJFDTO");
+					this.OnAJFDTOChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_VARMEKOD", DbType="Decimal(4,0) NOT NULL")]
+		public decimal VARMEKOD
+		{
+			get
+			{
+				return this._VARMEKOD;
+			}
+			set
+			{
+				if ((this._VARMEKOD != value))
+				{
+					this.OnVARMEKODChanging(value);
+					this.SendPropertyChanging();
+					this._VARMEKOD = value;
+					this.SendPropertyChanged("VARMEKOD");
+					this.OnVARMEKODChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DISTTXT", DbType="VarChar(30)")]
+		public string DISTTXT
+		{
+			get
+			{
+				return this._DISTTXT;
+			}
+			set
+			{
+				if ((this._DISTTXT != value))
+				{
+					this.OnDISTTXTChanging(value);
+					this.SendPropertyChanging();
+					this._DISTTXT = value;
+					this.SendPropertyChanged("DISTTXT");
+					this.OnDISTTXTChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this.OnIDChanging(value);
+					this.SendPropertyChanging();
+					this._ID = value;
+					this.SendPropertyChanged("ID");
+					this.OnIDChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DTPOSTNR")]
+	public partial class PostNumber : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private decimal _POSTNR;
+		
+		private string _POSTTXT;
+		
+		private int _ID;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnPOSTNRChanging(decimal value);
+    partial void OnPOSTNRChanged();
+    partial void OnPOSTTXTChanging(string value);
+    partial void OnPOSTTXTChanged();
+    partial void OnIDChanging(int value);
+    partial void OnIDChanged();
+    #endregion
+		
+		public PostNumber()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_POSTNR", DbType="Decimal(5,0) NOT NULL")]
+		public decimal POSTNR
+		{
+			get
+			{
+				return this._POSTNR;
+			}
+			set
+			{
+				if ((this._POSTNR != value))
+				{
+					this.OnPOSTNRChanging(value);
+					this.SendPropertyChanging();
+					this._POSTNR = value;
+					this.SendPropertyChanged("POSTNR");
+					this.OnPOSTNRChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_POSTTXT", DbType="VarChar(20)")]
+		public string POSTTXT
+		{
+			get
+			{
+				return this._POSTTXT;
+			}
+			set
+			{
+				if ((this._POSTTXT != value))
+				{
+					this.OnPOSTTXTChanging(value);
+					this.SendPropertyChanging();
+					this._POSTTXT = value;
+					this.SendPropertyChanged("POSTTXT");
+					this.OnPOSTTXTChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this.OnIDChanging(value);
+					this.SendPropertyChanging();
+					this._ID = value;
+					this.SendPropertyChanged("ID");
+					this.OnIDChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DTMYN")]
+	public partial class Council : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private decimal _MYNKOD;
+		
+		private decimal _MYNTYP;
+		
+		private decimal _MYNGRP;
+		
+		private string _MYNNVN;
+		
+		private int _ID;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnMYNKODChanging(decimal value);
+    partial void OnMYNKODChanged();
+    partial void OnMYNTYPChanging(decimal value);
+    partial void OnMYNTYPChanged();
+    partial void OnMYNGRPChanging(decimal value);
+    partial void OnMYNGRPChanged();
+    partial void OnMYNNVNChanging(string value);
+    partial void OnMYNNVNChanged();
+    partial void OnIDChanging(int value);
+    partial void OnIDChanged();
+    #endregion
+		
+		public Council()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MYNKOD", DbType="Decimal(5,0) NOT NULL")]
+		public decimal MYNKOD
+		{
+			get
+			{
+				return this._MYNKOD;
+			}
+			set
+			{
+				if ((this._MYNKOD != value))
+				{
+					this.OnMYNKODChanging(value);
+					this.SendPropertyChanging();
+					this._MYNKOD = value;
+					this.SendPropertyChanged("MYNKOD");
+					this.OnMYNKODChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MYNTYP", DbType="Decimal(3,0) NOT NULL")]
+		public decimal MYNTYP
+		{
+			get
+			{
+				return this._MYNTYP;
+			}
+			set
+			{
+				if ((this._MYNTYP != value))
+				{
+					this.OnMYNTYPChanging(value);
+					this.SendPropertyChanging();
+					this._MYNTYP = value;
+					this.SendPropertyChanged("MYNTYP");
+					this.OnMYNTYPChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MYNGRP", DbType="Decimal(1,0) NOT NULL")]
+		public decimal MYNGRP
+		{
+			get
+			{
+				return this._MYNGRP;
+			}
+			set
+			{
+				if ((this._MYNGRP != value))
+				{
+					this.OnMYNGRPChanging(value);
+					this.SendPropertyChanging();
+					this._MYNGRP = value;
+					this.SendPropertyChanged("MYNGRP");
+					this.OnMYNGRPChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MYNNVN", DbType="VarChar(20)")]
+		public string MYNNVN
+		{
+			get
+			{
+				return this._MYNNVN;
+			}
+			set
+			{
+				if ((this._MYNNVN != value))
+				{
+					this.OnMYNNVNChanging(value);
+					this.SendPropertyChanging();
+					this._MYNNVN = value;
+					this.SendPropertyChanged("MYNNVN");
+					this.OnMYNNVNChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this.OnIDChanging(value);
+					this.SendPropertyChanging();
+					this._ID = value;
+					this.SendPropertyChanged("ID");
+					this.OnIDChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}

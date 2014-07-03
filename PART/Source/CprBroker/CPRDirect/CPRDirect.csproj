@@ -98,9 +98,6 @@
       <DependentUpon>Authority.xml</DependentUpon>
     </Compile>
     <Compile Include="Lookup\AuthorityType.cs" />
-    <Compile Include="Lookup\LookupDataContext.cs">
-      <DependentUpon>LookupDataContext.dbml</DependentUpon>
-    </Compile>
     <Compile Include="Lookup\LookupDataContext.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
