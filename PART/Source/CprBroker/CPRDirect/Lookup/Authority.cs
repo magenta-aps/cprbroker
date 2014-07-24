@@ -118,12 +118,59 @@ namespace CprBroker.Providers.CPRDirect
             }
         }
 
+        private static Dictionary<string, string> _CountryCodeToAuthorityMap;
+
+        static void FillCountryCodeToAuthorityMap()
+        {
+            try
+            {
+                Constants.AuthorityLock.EnterUpgradeableReadLock();
+                if (_CountryCodeToAuthorityMap == null)
+                {
+                    try
+                    {
+                        Constants.AuthorityLock.EnterWriteLock();
+                        if (_CountryCodeToAuthorityMap == null)
+                        {
+                            using (var dataContext = new LookupDataContext())
+                            {
+                                _CountryCodeToAuthorityMap = dataContext
+                                    .Authorities
+                                    .ToDictionary(au => au._Alpha3CountryCode, au => au.FullName);
+                            }
+                        }
+                    }
+                    finally
+                    {
+                        Constants.AuthorityLock.ExitWriteLock();
+                    }
+                }
+            }
+            finally
+            {
+                Constants.AuthorityLock.ExitUpgradeableReadLock();
+            }
+        }
+
         public static string GetNameByCode(string code)
         {
             FillAuthorityMap();
             if (!string.IsNullOrEmpty(code) && _AuthorityMap.ContainsKey(code))
             {
                 return _AuthorityMap[code];
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public static string GetNameByCountryCode(string code)
+        {
+            FillCountryCodeToAuthorityMap();
+            if (!string.IsNullOrEmpty(code) && _CountryCodeToAuthorityMap.ContainsKey(code))
+            {
+                return _CountryCodeToAuthorityMap[code];
             }
             else
             {
