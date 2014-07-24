@@ -212,7 +212,7 @@
   </Object>
 
   <!--
-  This one seems 
+  This one seems unused
   <Object name="Council" danishName="P02680-001" length="420" description="Council information, from file https://cpr.dk/media/152126/a370716.txt">
     <Attribute name="MunicipalityCode" danishName="KOMKOD" format="Numeric" length="4" position="4" description="The municipality code"/>
     <Attribute name="AuthorityCode" danishName="MYNTYP" format="Numeric" length="2" position="8" description="The street code"/>
