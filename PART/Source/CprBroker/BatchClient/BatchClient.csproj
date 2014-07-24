@@ -132,6 +132,7 @@
     <Compile Include="SortContentsByDate.cs" />
     <Compile Include="SplitLogFile.cs" />
     <Compile Include="SyncDPR.cs" />
+    <Compile Include="TestDBR.cs" />
     <Compile Include="TestDPRConversion.cs" />
     <Compile Include="UpdateGeoLocationInformation.cs" />
     <Compile Include="UpdatePostCodeInformation.cs" />
