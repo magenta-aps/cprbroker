@@ -64,9 +64,9 @@ namespace CprBroker.DBR
 
             dataContext.ContactAddresses.InsertOnSubmit(person.ContactAddress.ToDpr());
 
-            var currenrAddress = person.GetFolkeregisterAdresseSource(false) as CurrentAddressWrapper;
-            if (currenrAddress != null)
-                dataContext.PersonAddresses.InsertOnSubmit(currenrAddress.ToDpr());
+            var currentAddress = person.GetFolkeregisterAdresseSource(false) as CurrentAddressWrapper;
+            if (currentAddress != null)
+                dataContext.PersonAddresses.InsertOnSubmit(currentAddress.ToDpr());
             dataContext.PersonAddresses.InsertAllOnSubmit(person.HistoricalAddress.Select(c => c.ToDpr()));
 
             dataContext.Protections.InsertAllOnSubmit(person.Protection.Select(p => p.ToDpr()));
