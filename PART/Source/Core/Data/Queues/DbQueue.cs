@@ -6,7 +6,7 @@ using CprBroker.Schemas;
 
 namespace CprBroker.Data.Queues
 {
-    public partial class Queue : IHasEncryptedAttributes
+    public partial class DbQueue : IHasEncryptedAttributes
     {
         public System.Security.Cryptography.RijndaelManaged EncryptionAlgorithm { get; set; }
         public List<AttributeType> Attributes { get; set; }
@@ -16,7 +16,7 @@ namespace CprBroker.Data.Queues
             this.PreLoadAttributes();
         }
 
-        public static Queue GetById(Guid queueId)
+        public static DbQueue GetById(Guid queueId)
         {
             using (var dataContext = new QueueDataContext())
             {
@@ -26,7 +26,7 @@ namespace CprBroker.Data.Queues
             }
         }
 
-        public QueueItem[] GetNext(int maxCount)
+        public DbQueueItem[] GetNext(int maxCount)
         {
             using (var dataContext = new QueueDataContext())
             {
@@ -38,7 +38,7 @@ namespace CprBroker.Data.Queues
             }
         }
 
-        public void Remove(QueueItem[] items)
+        public void Remove(DbQueueItem[] items)
         {
             using (var dataContext = new QueueDataContext())
             {
@@ -49,7 +49,7 @@ namespace CprBroker.Data.Queues
             }
         }
 
-        public void MarkFailure(QueueItem[] items)
+        public void MarkFailure(DbQueueItem[] items)
         {
             using (var dataContext = new QueueDataContext())
             {
@@ -65,7 +65,7 @@ namespace CprBroker.Data.Queues
 
         public void Enqueue(string[] itemKeys)
         {
-            var items = itemKeys.Select(ik => new QueueItem(ik, this));
+            var items = itemKeys.Select(ik => new DbQueueItem(ik, this));
             using (var dataContext = new QueueDataContext())
             {
                 dataContext.QueueItems.InsertAllOnSubmit(items);
@@ -73,7 +73,7 @@ namespace CprBroker.Data.Queues
             }
         }
 
-        public void MultiplyTo(IEnumerable<Queue> targetQueues, int maxCount)
+        public void MultiplyTo(IEnumerable<DbQueue> targetQueues, int maxCount)
         {
             using (var dataContext = new QueueDataContext())
             {

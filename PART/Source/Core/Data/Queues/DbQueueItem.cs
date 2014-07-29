@@ -5,9 +5,9 @@ using System.Text;
 
 namespace CprBroker.Data.Queues
 {
-    public partial class QueueItem
+    public partial class DbQueueItem
     {
-        public QueueItem(string key, Queue queue)
+        public DbQueueItem(string key, DbQueue queue)
         {
             this.QueueId = queue.QueueId;
             this.ItemKey = key;
@@ -15,9 +15,9 @@ namespace CprBroker.Data.Queues
             AttemptCount = 0;
         }
         
-        public QueueItem Clone(Queue newQueue)
+        public DbQueueItem Clone(DbQueue newQueue)
         {
-            return new QueueItem() { 
+            return new DbQueueItem() { 
                 ItemKey = this.ItemKey,
                 
                 QueueId = newQueue.QueueId,

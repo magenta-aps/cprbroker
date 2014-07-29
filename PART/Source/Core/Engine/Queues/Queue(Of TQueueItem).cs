@@ -15,7 +15,7 @@ namespace CprBroker.Engine.Queues
 
         public Queue(Guid queueId)
         {
-            this.Impl = Queue.GetById(queueId);
+            this.Impl = DbQueue.GetById(queueId);
         }
 
         public TQueueItem[] GetNext(int maxCount)

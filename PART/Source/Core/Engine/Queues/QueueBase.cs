@@ -9,7 +9,7 @@ namespace CprBroker.Engine.Queues
 {
     public abstract class QueueBase : IHasConfigurationProperties
     {
-        public CprBroker.Data.Queues.Queue Impl { get; internal set; }
+        public CprBroker.Data.Queues.DbQueue Impl { get; internal set; }
 
         public virtual Engine.DataProviderConfigPropertyInfo[] ConfigurationKeys { get { return new DataProviderConfigPropertyInfo[] { }; } }
         public Dictionary<string, string> ConfigurationProperties { get; set; }
@@ -17,7 +17,7 @@ namespace CprBroker.Engine.Queues
         public abstract void RunAll();
         public abstract void RunOneBatch();
 
-        public static QueueBase ToQueue(Queue impl)
+        public static QueueBase ToQueue(DbQueue impl)
         {
             var ret = CprBroker.Utilities.Reflection.CreateInstance<QueueBase>(impl.TypeName);
             if (ret != null)
@@ -57,7 +57,7 @@ namespace CprBroker.Engine.Queues
         public static TQueue GetById<TQueue>(Guid queueId)
             where TQueue : QueueBase
         {
-            var db = Queue.GetById(queueId);
+            var db = DbQueue.GetById(queueId);
             return ToQueue(db) as TQueue;
         }
 
@@ -65,7 +65,7 @@ namespace CprBroker.Engine.Queues
             where TQueue : QueueBase, new()
         {
             var ret = new TQueue();
-            ret.Impl = new Queue()
+            ret.Impl = new DbQueue()
             {
                 QueueId = Guid.NewGuid(),
                 BatchSize = batchSize,

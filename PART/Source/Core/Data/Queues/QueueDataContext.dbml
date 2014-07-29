@@ -1,23 +1,23 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="part" Class="QueueDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
   <Table Name="dbo.QueueItem" Member="QueueItems">
-    <Type Name="QueueItem">
+    <Type Name="DbQueueItem">
       <Column Name="QueueItemId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="QueueId" Type="System.Guid" DbType="uniqueidentifier NOT NULL" CanBeNull="false" />
       <Column Name="ItemKey" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="CreatedTS" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Column Name="AttemptCount" Type="System.Int32" DbType="Int" CanBeNull="false" />
-      <Association Name="Queue_QueueItem" Member="Queue" ThisKey="QueueId" OtherKey="QueueId" Type="Queue" IsForeignKey="true" />
+      <Association Name="Queue_QueueItem" Member="Queue" Storage="_Queue" ThisKey="QueueId" OtherKey="QueueId" Type="DbQueue" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Queue" Member="Queues">
-    <Type Name="Queue">
+    <Type Name="DbQueue">
       <Column Name="QueueId" Type="System.Guid" DbType="uniqueidentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="TypeId" Type="System.Int32" DbType="INT" CanBeNull="true" />
       <Column Name="TypeName" Type="System.String" DbType="VarChar(250) NOT NULL" CanBeNull="false" />
       <Column Name="BatchSize" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="MaxRetry" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="EncryptedData" Storage="_image" Type="System.Data.Linq.Binary" DbType="varbinary(MAX)" CanBeNull="true" />
-      <Association Name="Queue_QueueItem" Member="QueueItems" ThisKey="QueueId" OtherKey="QueueId" Type="QueueItem" />
+      <Association Name="Queue_QueueItem" Member="QueueItems" Storage="_QueueItems" ThisKey="QueueId" OtherKey="QueueId" Type="DbQueueItem" />
     </Type>
   </Table>
 </Database>

@@ -8,7 +8,7 @@ namespace CprBroker.Engine.Queues
 {
     public abstract class QueueItemBase : IQueueItem
     {
-        public QueueItem Impl { get; set; }
+        public DbQueueItem Impl { get; set; }
         public abstract string SerializeToKey();
         public abstract void DeserializeFromKey(string key);
     }

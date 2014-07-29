@@ -111,7 +111,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="Queues\Queue.cs" />
+    <Compile Include="Queues\DbQueue.cs" />
     <Compile Include="Queues\QueueDataContext.cs">
       <DependentUpon>QueueDataContext.dbml</DependentUpon>
     </Compile>
@@ -120,7 +120,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>QueueDataContext.dbml</DependentUpon>
     </Compile>
-    <Compile Include="Queues\QueueItem.cs" />
+    <Compile Include="Queues\DbQueueItem.cs" />
     <Compile Include="Statistics\stat.cs" />
     <Compile Include="Statistics\StatisticsDataContext.designer.cs">
       <AutoGen>True</AutoGen>

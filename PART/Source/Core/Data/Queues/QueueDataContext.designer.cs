@@ -30,12 +30,12 @@ namespace CprBroker.Data.Queues
 		
     #region Extensibility Method Definitions
     partial void OnCreated();
-    partial void InsertQueueItem(QueueItem instance);
-    partial void UpdateQueueItem(QueueItem instance);
-    partial void DeleteQueueItem(QueueItem instance);
-    partial void InsertQueue(Queue instance);
-    partial void UpdateQueue(Queue instance);
-    partial void DeleteQueue(Queue instance);
+    partial void InsertDbQueueItem(DbQueueItem instance);
+    partial void UpdateDbQueueItem(DbQueueItem instance);
+    partial void DeleteDbQueueItem(DbQueueItem instance);
+    partial void InsertDbQueue(DbQueue instance);
+    partial void UpdateDbQueue(DbQueue instance);
+    partial void DeleteDbQueue(DbQueue instance);
     #endregion
 		
 		public QueueDataContext(string connection) : 
@@ -62,25 +62,25 @@ namespace CprBroker.Data.Queues
 			OnCreated();
 		}
 		
-		public System.Data.Linq.Table<QueueItem> QueueItems
+		public System.Data.Linq.Table<DbQueueItem> QueueItems
 		{
 			get
 			{
-				return this.GetTable<QueueItem>();
+				return this.GetTable<DbQueueItem>();
 			}
 		}
 		
-		public System.Data.Linq.Table<Queue> Queues
+		public System.Data.Linq.Table<DbQueue> Queues
 		{
 			get
 			{
-				return this.GetTable<Queue>();
+				return this.GetTable<DbQueue>();
 			}
 		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.QueueItem")]
-	public partial class QueueItem : INotifyPropertyChanging, INotifyPropertyChanged
+	public partial class DbQueueItem : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
@@ -95,7 +95,7 @@ namespace CprBroker.Data.Queues
 		
 		private int _AttemptCount;
 		
-		private EntityRef<Queue> _Queue;
+		private EntityRef<DbQueue> _Queue;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -113,9 +113,9 @@ namespace CprBroker.Data.Queues
     partial void OnAttemptCountChanged();
     #endregion
 		
-		public QueueItem()
+		public DbQueueItem()
 		{
-			this._Queue = default(EntityRef<Queue>);
+			this._Queue = default(EntityRef<DbQueue>);
 			OnCreated();
 		}
 		
@@ -223,8 +223,8 @@ namespace CprBroker.Data.Queues
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Queue_QueueItem", Storage="_Queue", ThisKey="QueueId", OtherKey="QueueId", IsForeignKey=true)]
-		public Queue Queue
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DbQueue_DbQueueItem", Storage="_Queue", ThisKey="QueueId", OtherKey="QueueId", IsForeignKey=true)]
+		public DbQueue Queue
 		{
 			get
 			{
@@ -232,7 +232,7 @@ namespace CprBroker.Data.Queues
 			}
 			set
 			{
-				Queue previousValue = this._Queue.Entity;
+				DbQueue previousValue = this._Queue.Entity;
 				if (((previousValue != value) 
 							|| (this._Queue.HasLoadedOrAssignedValue == false)))
 				{
@@ -279,7 +279,7 @@ namespace CprBroker.Data.Queues
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Queue")]
-	public partial class Queue : INotifyPropertyChanging, INotifyPropertyChanged
+	public partial class DbQueue : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
@@ -296,7 +296,7 @@ namespace CprBroker.Data.Queues
 		
 		private System.Data.Linq.Binary _image;
 		
-		private EntitySet<QueueItem> _QueueItems;
+		private EntitySet<DbQueueItem> _QueueItems;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -316,9 +316,9 @@ namespace CprBroker.Data.Queues
     partial void OnEncryptedDataChanged();
     #endregion
 		
-		public Queue()
+		public DbQueue()
 		{
-			this._QueueItems = new EntitySet<QueueItem>(new Action<QueueItem>(this.attach_QueueItems), new Action<QueueItem>(this.detach_QueueItems));
+			this._QueueItems = new EntitySet<DbQueueItem>(new Action<DbQueueItem>(this.attach_QueueItems), new Action<DbQueueItem>(this.detach_QueueItems));
 			OnCreated();
 		}
 		
@@ -442,8 +442,8 @@ namespace CprBroker.Data.Queues
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Queue_QueueItem", Storage="_QueueItems", ThisKey="QueueId", OtherKey="QueueId")]
-		public EntitySet<QueueItem> QueueItems
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DbQueue_DbQueueItem", Storage="_QueueItems", ThisKey="QueueId", OtherKey="QueueId")]
+		public EntitySet<DbQueueItem> QueueItems
 		{
 			get
 			{
@@ -475,13 +475,13 @@ namespace CprBroker.Data.Queues
 			}
 		}
 		
-		private void attach_QueueItems(QueueItem entity)
+		private void attach_QueueItems(DbQueueItem entity)
 		{
 			this.SendPropertyChanging();
 			entity.Queue = this;
 		}
 		
-		private void detach_QueueItems(QueueItem entity)
+		private void detach_QueueItems(DbQueueItem entity)
 		{
 			this.SendPropertyChanging();
 			entity.Queue = null;
