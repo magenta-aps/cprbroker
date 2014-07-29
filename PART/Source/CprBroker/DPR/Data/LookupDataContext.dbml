@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Database Name="DPR" EntityNamespace="CprBroker.Providers.CPRDirect" ContextNamespace="CprBroker.Providers.CPRDirect" Class="LookupDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="DPR" EntityNamespace="CprBroker.Providers.DPR" ContextNamespace="CprBroker.Providers.DPR" Class="LookupDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
   <Table Name="dbo.DTPOSTDIST" Member="PostDistricts">
     <Type Name="PostDistrict">
       <Column Name="KOMKOD" Type="System.Decimal" DbType="Decimal(5,0) NOT NULL" CanBeNull="false" />

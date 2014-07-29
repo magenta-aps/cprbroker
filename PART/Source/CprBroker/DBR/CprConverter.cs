@@ -100,10 +100,10 @@ namespace CprBroker.DBR
                 var extractResult = new ExtractParseResult();
 
                 long totalReadLinesCount = 0;
-                using (var conn = new SqlConnection(CprBroker.Config.Properties.Settings.Default.CprBrokerConnectionString))
+                using (var conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    using (var dataContext = new LookupDataContext(conn))
+                    using (var dataContext = new CprBroker.Providers.DPR.LookupDataContext(conn))
                     {
                         // Start reading the file
                         while (!file.EndOfStream)
@@ -207,7 +207,7 @@ namespace CprBroker.DBR
                 using (var conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    using (var dataContext = new LookupDataContext(conn))
+                    using (var dataContext = new CprBroker.Providers.DPR.LookupDataContext(conn))
                     {
                         // Start reading the file
                         while (!file.EndOfStream)
@@ -250,7 +250,7 @@ namespace CprBroker.DBR
                 );
                 using (var transactionScope = ExtractManager.CreateTransactionScope())
                 {
-                    using (var conn = new SqlConnection(CprBroker.Config.Properties.Settings.Default.CprBrokerConnectionString))
+                    using (var conn = new SqlConnection(connectionString))
                     {
                         conn.Open();
                         using (var trans = conn.BeginTransaction(System.Data.IsolationLevel.ReadUncommitted))
@@ -272,7 +272,7 @@ namespace CprBroker.DBR
                 using (var dbrConn = new SqlConnection(connectionString))
                 {
                     dbrConn.Open();
-                    using (var dbrDataContext = new LookupDataContext(dbrConn))
+                    using (var dbrDataContext = new CprBroker.Providers.DPR.LookupDataContext(dbrConn))
                     {
                         foreach (ExtractItem item in extractItems)
                         {
