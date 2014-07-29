@@ -64,20 +64,25 @@ namespace BatchClient
     {
         public override string[] LoadCprNumbers()
         {
-            UpdateFromeGeoLocationFile(SourceFile);
-            return new String[0];
+            return new String[] { SourceFile };
         }
-        public void UpdateFromeGeoLocationFile(string dataFile)
+
+        public override void ProcessPerson(string pnr)
+        {
+            UpdateFromGeoLocationFile(SourceFile);
+        }
+
+        public void UpdateFromGeoLocationFile(string dataFile)
         {
             DateTime startTime = DateTime.Now;
-            System.IO.File.WriteAllText(@"C:\Users\dennis\Documents\CPR-broker-relateret\TEST_LOG_START.txt", "Started at " + startTime);
+            Log("Started at " + startTime);
             var dataStream = new FileStream(dataFile, FileMode.Open, FileAccess.Read);
             CprConverter.ImportGeoInformationFileInSteps(dataStream, 20, Encoding.GetEncoding(1252), BrokerConnectionString);
             dataStream.Close();
             DateTime endTime = DateTime.Now;
             TimeSpan diff = endTime.Subtract(startTime);
             var diffText = "Ended at " + DateTime.Now + "\nTotal time spent: " + diff.Hours + ":" + diff.Minutes + ":" + diff.Seconds;
-            System.IO.File.WriteAllText(@"C:\Users\dennis\Documents\CPR-broker-relateret\TEST_LOG_END.txt", diffText);
+            Log(diffText);
         }
     }
 }

@@ -235,11 +235,14 @@ namespace CprBroker.DBR
             }
         }
 
+        [Obsolete("This functionality should be done inside the appropriate queue")]
         public static void ImportCprDirectFileInSteps(Stream dataStream, String filePath, int batchSize, Encoding encoding, String connectionString)
         {
             var allPnrs = new List<string>();
             using (var file = new StreamReader(dataStream, encoding))
             {
+                // TODO: This code reads the whole file at once, which could be extremely heavy for a computer (or even impossible),
+                // Code should utilise batchSize parameter
                 var extractResult = new ExtractParseResult(file.ReadToEnd(), CprBroker.Providers.CPRDirect.Constants.DataObjectMap);
                 var extract = extractResult.ToExtract(filePath);
                 var extractItems = extractResult.ToExtractItems(
@@ -274,6 +277,7 @@ namespace CprBroker.DBR
                     dbrConn.Open();
                     using (var dbrDataContext = new CprBroker.Providers.DPR.LookupDataContext(dbrConn))
                     {
+                        // TODO: This should only loop over PNR's, not all items
                         foreach (ExtractItem item in extractItems)
                         {
                             Console.WriteLine("ITEM: " + item.PNR);

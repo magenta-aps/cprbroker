@@ -64,20 +64,25 @@ namespace BatchClient
     {
         public override string[] LoadCprNumbers()
         {
-            UpdateFromePostCodeFile(SourceFile);
-            return new String[0];
+            return new String[] { SourceFile };
         }
-        public void UpdateFromePostCodeFile(string dataFile)
+
+        public override void ProcessPerson(string pnr)
+        {
+            UpdateFromPostCodeFile(SourceFile);
+        }
+
+        public void UpdateFromPostCodeFile(string dataFile)
         {
             DateTime startTime = DateTime.Now;
-            System.IO.File.WriteAllText(@"C:\Users\dennis\Documents\CPR-broker-relateret\TEST_LOG_START.txt", "Started at " + startTime);
+            Log("Started at " + startTime);
             var dataStream = new FileStream(dataFile, FileMode.Open, FileAccess.Read);
             CprConverter.ImportPostCodeFileInSteps(dataStream, 20, Encoding.GetEncoding(1252), BrokerConnectionString);
             dataStream.Close();
             DateTime endTime = DateTime.Now;
             TimeSpan diff = endTime.Subtract(startTime);
             var diffText = "Ended at " + DateTime.Now + "\nTotal time spent: " + diff.Hours + ":" + diff.Minutes + ":" + diff.Seconds;
-            System.IO.File.WriteAllText(@"C:\Users\dennis\Documents\CPR-broker-relateret\TEST_LOG_END.txt", diffText);
+            Log(diffText);
         }
     }
 }
