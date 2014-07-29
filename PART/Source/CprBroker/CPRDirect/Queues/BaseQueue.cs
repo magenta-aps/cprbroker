@@ -12,8 +12,8 @@ namespace CprBroker.Providers.CPRDirect
 
         public override ExtractQueueItem[] Process(ExtractQueueItem[] items)
         {
-            var dbr = QueueBase.GetQueues<DbrBaseQueue>(DbrBaseQueue.BaseQueueTypeId).First();
-            var cpr = QueueBase.GetQueues<PartConversionQueue>().First();
+            var dbr = Queue.GetQueues<DbrBaseQueue>(DbrBaseQueue.BaseQueueTypeId).First();
+            var cpr = Queue.GetQueues<PartConversionQueue>().First();
 
             dbr.Enqueue(items);
             cpr.Enqueue(items);

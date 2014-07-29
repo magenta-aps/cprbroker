@@ -7,7 +7,7 @@ using CprBroker.Data.Queues;
 
 namespace CprBroker.Engine.Queues
 {
-    public abstract class QueueBase : IHasConfigurationProperties
+    public abstract class Queue : IHasConfigurationProperties
     {
         public CprBroker.Data.Queues.DbQueue Impl { get; internal set; }
 
@@ -17,9 +17,9 @@ namespace CprBroker.Engine.Queues
         public abstract void RunAll();
         public abstract void RunOneBatch();
 
-        public static QueueBase ToQueue(DbQueue impl)
+        public static Queue ToQueue(DbQueue impl)
         {
-            var ret = CprBroker.Utilities.Reflection.CreateInstance<QueueBase>(impl.TypeName);
+            var ret = CprBroker.Utilities.Reflection.CreateInstance<Queue>(impl.TypeName);
             if (ret != null)
             {
                 ret.Impl = impl;
@@ -35,14 +35,14 @@ namespace CprBroker.Engine.Queues
             {
                 return dataContext.Queues
                     .ToArray()
-                    .Select(q => QueueBase.ToQueue(q) as TQueue)
+                    .Select(q => Queue.ToQueue(q) as TQueue)
                     .Where(q => q != null)
                     .ToArray();
             }
         }
 
         public static TQueue[] GetQueues<TQueue>(int typeId)
-            where TQueue : QueueBase, new()
+            where TQueue : Queue, new()
         {
             using (var dataContext = new QueueDataContext())
             {
@@ -55,14 +55,14 @@ namespace CprBroker.Engine.Queues
         }
 
         public static TQueue GetById<TQueue>(Guid queueId)
-            where TQueue : QueueBase
+            where TQueue : Queue
         {
             var db = DbQueue.GetById(queueId);
             return ToQueue(db) as TQueue;
         }
 
         public static TQueue AddQueue<TQueue>(int queueTypeId, Dictionary<string, string> values, int batchSize, int maxRetry)
-            where TQueue : QueueBase, new()
+            where TQueue : Queue, new()
         {
             var ret = new TQueue();
             ret.Impl = new DbQueue()

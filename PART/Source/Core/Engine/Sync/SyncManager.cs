@@ -10,7 +10,7 @@ namespace CprBroker.Engine.Sync
     {
         public static ISyncTargetQueue[] GetAllTargets()
         {
-            return QueueBase.GetQueues<ISyncTargetQueue>();
+            return Queue.GetQueues<ISyncTargetQueue>();
         }
     }
 }

@@ -6,7 +6,7 @@ using CprBroker.Data.Queues;
 
 namespace CprBroker.Engine.Queues
 {
-    public abstract class Queue<TQueueItem> : QueueBase
+    public abstract class Queue<TQueueItem> : Queue
         where TQueueItem : IQueueItem, new()
     {
         public Queue()

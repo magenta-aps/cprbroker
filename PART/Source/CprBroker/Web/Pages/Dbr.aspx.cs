@@ -35,7 +35,7 @@ namespace CprBroker.Web.Pages
 
         protected IHasConfigurationProperties grdDbrPropertiesField_ObjectCreating(IHasEncryptedAttributes arg)
         {
-            return QueueBase.ToQueue(arg as CprBroker.Data.Queues.Queue);
+            return Queue.ToQueue(arg as CprBroker.Data.Queues.DbQueue);
         }
         #endregion
 
@@ -44,7 +44,7 @@ namespace CprBroker.Web.Pages
         {
             if (e.CommandName == "Ping")
             {
-                var dbr = QueueBase.GetById<DbrQueue>(new Guid(e.CommandArgument.ToString()));
+                var dbr = Queue.GetById<DbrQueue>(new Guid(e.CommandArgument.ToString()));
                 if (dbr.IsAlive())
                 {
                     Master.AlertMessages.Add("Ping succeeded");
@@ -65,7 +65,7 @@ namespace CprBroker.Web.Pages
 
         protected void newDbr_InsertCommand(object sender, Dictionary<string, string> props)
         {
-            var queue = QueueBase.AddQueue<DbrQueue>(CprBroker.Providers.CPRDirect.DbrBaseQueue.TargetQueueTypeId, props, 10, 10);
+            var queue = Queue.AddQueue<DbrQueue>(CprBroker.Providers.CPRDirect.DbrBaseQueue.TargetQueueTypeId, props, 10, 10);
             this.grdDbr.DataBind();
             this.newDbr.DataBind();
         }

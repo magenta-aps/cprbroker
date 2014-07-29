@@ -13,7 +13,7 @@ namespace CprBroker.Providers.CPRDirect
         
         public override ExtractQueueItem[] Process(ExtractQueueItem[] items)
         {
-            var targetQueues = QueueBase.GetQueues<DbrBaseQueue>(TargetQueueTypeId);
+            var targetQueues = Queue.GetQueues<DbrBaseQueue>(TargetQueueTypeId);
 
             foreach (var q in targetQueues)
             {

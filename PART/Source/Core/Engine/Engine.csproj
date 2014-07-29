@@ -108,7 +108,7 @@
     <Compile Include="IDataProvider.cs" />
     <Compile Include="Queues\IQueueItem.cs" />
     <Compile Include="Queues\Queue%28Of TQueueItem%29.cs" />
-    <Compile Include="Queues\QueueBase.cs" />
+    <Compile Include="Queues\Queue.cs" />
     <Compile Include="Queues\QueueItemBase.cs" />
     <Compile Include="SubMethodRunState.cs" />
     <Compile Include="Sync\ISyncTargetQueue.cs" />
