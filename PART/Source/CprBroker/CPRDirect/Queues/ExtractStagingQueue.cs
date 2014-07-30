@@ -6,7 +6,7 @@ using CprBroker.Engine.Queues;
 
 namespace CprBroker.Providers.CPRDirect
 {
-    public class BaseQueue : Engine.Queues.Queue<ExtractQueueItem>
+    public class ExtractStagingQueue : Engine.Queues.Queue<ExtractQueueItem>
     {
         public const int QueueId = 100;
 

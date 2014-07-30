@@ -69,7 +69,7 @@
     <Compile Include="Extract\ExtrcatConversion.cs" />
     <Compile Include="Extract\PersonConversion.cs" />
     <Compile Include="Queues\PartConversionQueue.cs" />
-    <Compile Include="Queues\BaseQueue.cs" />
+    <Compile Include="Queues\ExtractStagingQueue.cs" />
     <Compile Include="Interfaces\IParentalAuthority.cs" />
     <Compile Include="Interfaces\IProtection.cs" />
     <Compile Include="Interfaces\IRelationship.cs" />
