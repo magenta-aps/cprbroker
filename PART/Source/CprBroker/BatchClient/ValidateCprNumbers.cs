@@ -71,7 +71,7 @@ namespace BatchClient
 
         public override void ProcessPerson(string pnr)
         {
-            if (!PartInterface.Strings.IsValidPersonNumber(pnr))
+            if (!CprBroker.PartInterface.Strings.IsValidPersonNumber(pnr))
             {
                 throw new Exception("Invaild PNR");
             }

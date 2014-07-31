@@ -55,7 +55,7 @@ using CprBroker.Engine.Local;
 using CprBroker.Schemas;
 using CprBroker.Schemas.Part;
 
-namespace CprBroker.Tests.Engine
+namespace CprBroker.Tests.PartInterface
 {
     namespace UpdateDatabase.Part.Tests
     {

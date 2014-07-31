@@ -50,7 +50,7 @@ using System.Linq;
 using System.Text;
 using CprBroker.Schemas.Part;
 
-namespace CprBroker.Tests.Engine
+namespace CprBroker.Tests.PartInterface
 {
     public static class Utilities
     {
@@ -62,7 +62,7 @@ namespace CprBroker.Tests.Engine
             var year = Random.Next(1, 100).ToString("00");
             var part1 = Random.Next(1000, 9980).ToString();
             var ret = day + month + year + part1;
-            while (!PartInterface.Strings.IsModulus11OK(ret))
+            while (!CprBroker.PartInterface.Strings.IsModulus11OK(ret))
             {
                 part1 = (int.Parse(part1) + 1).ToString();
                 ret = day + month + year + part1;

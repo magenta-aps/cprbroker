@@ -150,7 +150,16 @@ namespace CprBroker.EventBroker.Data
                 var soegObject = Strings.Deserialize<SoegObjektType>(this.Criteria.ToString());
                 var matchingPersons = CprBroker.Data.Part.PersonRegistrationKey.GetByCriteria(partDataContext, soegObject, personRegistrationIds).ToArray();
 
-                this.LastCheckedUUID = (persons.Count() == batchSize) ? persons.Last().UUID : null as Guid?;
+                if (persons.Count() == batchSize)
+                {
+                    this.LastCheckedUUID = persons.Last().UUID;
+                }
+                else
+                {
+                    this.LastCheckedUUID = null;
+                    this.Ready = true;
+                }
+
                 var subscriptionPersons = matchingPersons.Select(mp => new SubscriptionPerson()
                     {
                         Created = DateTime.Now,
@@ -181,7 +190,15 @@ namespace CprBroker.EventBroker.Data
             }
         }
 
-        public void MatchDataChangeEvents(DataChangeEvent[] dataChangeEvents)
+        public static Subscription[] GetNonReadySubscriptions(EventBrokerDataContext dataContext)
+        {
+            return dataContext.Subscriptions
+                .Where(s => s.Deactivated == null && s.Ready == false)
+                .OrderBy(s => s.Created)
+                .ToArray();
+        }
+
+        public void MatchDataChangeEventsWithCriteria(DataChangeEvent[] dataChangeEvents)
         {
             var temp = GetDataChangeEventMatches(dataChangeEvents);
             this.SubscriptionCriteriaMatches.AddRange(temp);

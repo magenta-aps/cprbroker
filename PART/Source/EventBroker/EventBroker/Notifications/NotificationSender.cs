@@ -74,14 +74,14 @@ namespace CprBroker.EventBroker.Notifications
 
         protected override TimeSpan CalculateActionTimerInterval(TimeSpan currentInterval)
         {
-            return TimeSpan.FromMilliseconds(CprBroker.Config.Properties.Settings.Default.EventBrokerPollIntervalMilliseconds);
+            return TimeSpan.FromMilliseconds(CprBroker.Config.ConfigManager.Current.Settings.EventBrokerPollIntervalMilliseconds);
         }
         
         protected override void PerformTimerAction()
         {
             using (var dataContext = new Data.EventBrokerDataContext())
             {
-                int batchSize = CprBroker.Config.Properties.Settings.Default.EventBrokerNotificationBatchSize;
+                int batchSize = CprBroker.Config.ConfigManager.Current.Settings.EventBrokerNotificationBatchSize;
                 Data.EventNotification[] dueNotifications = new CprBroker.EventBroker.Data.EventNotification[0];
                 do
                 {

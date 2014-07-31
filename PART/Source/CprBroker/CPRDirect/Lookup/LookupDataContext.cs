@@ -8,7 +8,7 @@ namespace CprBroker.Providers.CPRDirect
     public partial class LookupDataContext
     {
         public LookupDataContext()
-            : this(CprBroker.Config.Properties.Settings.Default.CprBrokerConnectionString)
+            : this(CprBroker.Config.ConfigManager.Current.Settings.CprBrokerConnectionString)
         { }
     }
 }

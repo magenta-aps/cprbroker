@@ -8,7 +8,7 @@ namespace CprBroker.Providers.CPRDirect
     partial class ExtractDataContext
     {
         public ExtractDataContext()
-            : this(CprBroker.Config.Properties.Settings.Default.CprBrokerConnectionString)
+            : this(CprBroker.Config.ConfigManager.Current.Settings.CprBrokerConnectionString)
         { }
     }
 }

@@ -65,7 +65,7 @@ namespace CprBroker.EventBroker.Backend
 
             try
             {
-                string s = CprBroker.Config.Properties.Settings.Default.CprBrokerConnectionString;
+                string s = CprBroker.Config.ConfigManager.Current.Settings.CprBrokerConnectionString;
                 ServiceBase[] ServicesToRun;
                 ServicesToRun = new ServiceBase[] 
 			    { 

@@ -59,7 +59,7 @@ namespace CprBroker.Engine
             AddItemName = "add",
             ClearItemsName = "clear",
             RemoveItemName = "remove")]
-        public TypeCollection Types
+        public TypeCollection KnownTypes
         {
             get
             {
@@ -72,19 +72,6 @@ namespace CprBroker.Engine
         }
 
         public const string SectionName = "dataProviders";
-
-        public static DataProvidersConfigurationSection GetCurrent()
-        {
-            var configFile = Utilities.Config.GetConfigFile();
-            var group = configFile.SectionGroups[Utilities.Constants.DataProvidersSectionGroupName];
-            if (group != null)
-            {
-                return group.Sections[SectionName] as DataProvidersConfigurationSection;
-            }
-            return null;
-        }
-
-        
     }
 
     public class TypeCollection : ConfigurationElementCollection

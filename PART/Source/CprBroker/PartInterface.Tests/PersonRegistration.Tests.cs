@@ -52,7 +52,7 @@ using NUnit.Framework;
 using CprBroker.Schemas.Part;
 using CprBroker.Data.Part;
 
-namespace CprBroker.Tests.Data
+namespace CprBroker.Tests.PartInterface
 {
     namespace PersonRegistrationTests
     {

@@ -173,27 +173,15 @@ namespace CprBrokerWixInstallers
                 var createDatabaseObjectsSql = new Dictionary<string, string>();
 
                 createDatabaseObjectsSql["CPR"] =
-                    Properties.Resources.CreatePartDatabaseObjects;
+                    Properties.ResourcesExtensions.AllCprBrokerDatabaseObjectsSql;
 
-                createDatabaseObjectsSql["EVENT"] = CprBroker.Installers.EventBrokerInstallers.Properties.Resources.CreateEventBrokerDatabaseObjects;
+                createDatabaseObjectsSql["EVENT"] = CprBroker.Installers.EventBrokerInstallers.Properties.ResourcesExtensions.AllEventBrokerDatabaseObjectsSql;
 
                 // Prepare lookups
                 var lookupDataArray = new Dictionary<string, KeyValuePair<string, string>[]>();
 
-                List<KeyValuePair<string, string>> cprLookups = new List<KeyValuePair<string, string>>();
-                cprLookups.Add(new KeyValuePair<string, string>(typeof(CprBroker.Data.Applications.Application).Name, Properties.Resources.Application));
-                cprLookups.Add(new KeyValuePair<string, string>(typeof(LifecycleStatus).Name, Properties.Resources.LifecycleStatus));
-                cprLookups.Add(new KeyValuePair<string, string>(typeof(LogType).Name, Properties.Resources.LogType));
-                cprLookups.Add(new KeyValuePair<string, string>(typeof(CprBroker.Data.DataProviders.BudgetInterval).Name, Properties.Resources.BudgetEntry));
-
-                lookupDataArray["CPR"] = cprLookups.ToArray();
-
-                List<KeyValuePair<string, string>> eventLookups = new List<KeyValuePair<string, string>>();
-
-                eventLookups.Add(new KeyValuePair<string, string>(typeof(ChannelType).Name, CprBroker.Installers.EventBrokerInstallers.Properties.Resources.ChannelType));
-                eventLookups.Add(new KeyValuePair<string, string>(typeof(SubscriptionType).Name, CprBroker.Installers.EventBrokerInstallers.Properties.Resources.SubscriptionType));
-
-                lookupDataArray["EVENT"] = eventLookups.ToArray();
+                lookupDataArray["CPR"] = Properties.ResourcesExtensions.Lookups;
+                lookupDataArray["EVENT"] = CprBroker.Installers.EventBrokerInstallers.Properties.ResourcesExtensions.Lookups;
 
                 // Custom methods
                 var customMethods = new Dictionary<string, Action<SqlConnection>>();

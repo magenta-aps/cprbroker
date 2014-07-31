@@ -8,7 +8,7 @@ using CprBroker.Schemas.Part;
 using CprBroker.Data.Part;
 using CprBroker.Utilities;
 
-namespace CprBroker.Tests.Engine
+namespace CprBroker.Tests.PartInterface
 {
     namespace MatchRuleTests
     {

@@ -51,7 +51,7 @@ using System.Text;
 using NUnit.Framework;
 using CprBroker.Engine;
 
-namespace CprBroker.Tests.Engine
+namespace CprBroker.Tests.PartInterface
 {
     namespace IPerCallDataProviderHelperTests
     {

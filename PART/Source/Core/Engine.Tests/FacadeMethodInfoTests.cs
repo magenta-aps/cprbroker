@@ -37,7 +37,7 @@ namespace CprBroker.Tests.Engine
             }
 
 
-            DataProvidersConfigurationSection section = DataProvidersConfigurationSection.GetCurrent();
+            DataProvidersConfigurationSection section = CprBroker.Config.ConfigManager.Current.DataProvidersSection;
 
 
             bool missingDataProvidersExist;

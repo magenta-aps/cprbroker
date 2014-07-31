@@ -23,8 +23,8 @@ namespace CprBroker.Tests.Engine
             public static DataProvidersConfigurationSection CreateConfigSection()
             {
                 var section = new DataProvidersConfigurationSection();
-                section.Types.Add(new TypeElement() { TypeName = typeof(LocalDataProviderStub).AssemblyQualifiedName });
-                section.Types.Add(new TypeElement() { TypeName = typeof(CustomExternalDataProviderStub).AssemblyQualifiedName });
+                section.KnownTypes.Add(new TypeElement() { TypeName = typeof(LocalDataProviderStub).AssemblyQualifiedName });
+                section.KnownTypes.Add(new TypeElement() { TypeName = typeof(CustomExternalDataProviderStub).AssemblyQualifiedName });
                 return section;
             }
 

@@ -47,6 +47,7 @@
       <Column Name="LastCheckedUUID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
       <Column Name="Created" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Column Name="Deactivated" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Ready" Type="System.Boolean" DbType="bit NOT NULL" CanBeNull="false" />
       <Association Name="Subscription_BirthdateSubscription" Member="BirthdateSubscription" ThisKey="SubscriptionId" OtherKey="SubscriptionId" Type="BirthdateSubscription" Cardinality="One" />
       <Association Name="Subscription_Channel" Member="Channels" ThisKey="SubscriptionId" OtherKey="SubscriptionId" Type="Channel" />
       <Association Name="Subscription_DataSubscription" Member="DataSubscription" ThisKey="SubscriptionId" OtherKey="SubscriptionId" Type="DataSubscription" Cardinality="One" />
@@ -73,6 +74,7 @@
       <Column Name="PersonRegistrationId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
       <Column Name="DueDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Column Name="ReceivedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="ReceivedOrder" AutoSync="Never" Type="System.Int32" DbType="Int NOT NULL" IsDbGenerated="true" CanBeNull="false" />
       <Association Name="DataChangeEvent_SubscriptionCriteriaMatch" Member="SubscriptionCriteriaMatches" Storage="_TempSubscriptionPersons" ThisKey="DataChangeEventId" OtherKey="DataChangeEventId" Type="SubscriptionCriteriaMatch" />
     </Type>
   </Table>
@@ -111,12 +113,6 @@
       <Association Name="Subscription_EventNotification" Member="Subscription" ThisKey="SubscriptionId" OtherKey="SubscriptionId" Type="Subscription" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
     </Type>
   </Table>
-  <Function Name="dbo.InsertChangeNotificationData" Method="InsertChangeNotificationData">
-    <Parameter Name="SubscriptionId" Parameter="subscriptionId" Type="System.Guid" DbType="UniqueIdentifier" />
-    <Parameter Name="Today" Parameter="today" Type="System.DateTime" DbType="DateTime" />
-    <Parameter Name="LastTime" Parameter="lastTime" Type="System.DateTime" DbType="DateTime" />
-    <Return Type="System.Int32" />
-  </Function>
   <Function Name="dbo.EnqueueBirthdateEventNotifications" Method="EnqueueBirthdateEventNotifications">
     <Parameter Name="SubscriptionId" Parameter="subscriptionId" Type="System.Guid" DbType="UniqueIdentifier" />
     <Parameter Name="Today" Parameter="today" Type="System.DateTime" DbType="DateTime" />
@@ -124,11 +120,13 @@
   </Function>
   <Function Name="dbo.EnqueueDataChangeEventNotifications" Method="EnqueueDataChangeEventNotifications">
     <Parameter Name="Now" Parameter="now" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="LatestReceivedOrder" Parameter="latestReceivedOrder" Type="System.Int32" DbType="Int" />
     <Parameter Name="SubscriptionTypeId" Parameter="subscriptionTypeId" Type="System.Int32" DbType="Int" />
     <Return Type="System.Int32" />
   </Function>
   <Function Name="dbo.UpdatePersonLists" Method="UpdatePersonLists">
     <Parameter Name="Now" Parameter="now" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="LatestReceivedOrder" Parameter="latestReceivedOrder" Type="System.Int32" DbType="Int" />
     <Parameter Name="SubscriptionTypeId" Parameter="subscriptionTypeId" Type="System.Int32" DbType="Int" />
     <Return Type="System.Int32" />
   </Function>

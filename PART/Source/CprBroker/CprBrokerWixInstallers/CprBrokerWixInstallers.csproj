@@ -86,6 +86,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Properties\ResourcesExtensions.cs" />
     <Compile Include="RegistryCustomActions.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -103,6 +104,7 @@
     <None Include="Resources\LogType.csv" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\Extract.sql" />
     <Content Include="Resources\PatchDatabase_2_2_2.sql" />
     <Content Include="Resources\Script generation.txt" />
     <None Include="Resources\CreatePartDatabaseObjects.ChildObjects.sql" />

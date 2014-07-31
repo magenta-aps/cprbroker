@@ -70,7 +70,7 @@ namespace BatchClient
                     .PersonMappings
                     .Select(pm => pm.CprNumber)
                     .ToArray()
-                    .Where(pnr => !PartInterface.Strings.IsValidPersonNumber(decimal.Parse(pnr).ToPnrDecimalString()))
+                    .Where(pnr => !CprBroker.PartInterface.Strings.IsValidPersonNumber(decimal.Parse(pnr).ToPnrDecimalString()))
                     .ToArray();
             }
         }
