@@ -54,7 +54,7 @@ using CprBroker.Engine.Part;
 using CprBroker.Schemas;
 using CprBroker.Schemas.Part;
 
-namespace CprBroker.Tests.Engine
+namespace CprBroker.Tests.PartInterface
 {
     [TestFixture]
     class ReadSubMethodInfoTests

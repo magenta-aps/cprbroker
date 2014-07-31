@@ -88,7 +88,7 @@ namespace CprBroker.Engine
 
         public virtual SubMethodRunState[] CreateSubMethodRunStates(out bool missingDataProvidersExist)
         {
-            DataProvidersConfigurationSection section = DataProvidersConfigurationSection.GetCurrent();
+            DataProvidersConfigurationSection section = Config.ConfigManager.Current.DataProvidersSection;
             DataProvider[] dbProviders = DataProviderManager.ReadDatabaseDataProviders();
 
             var subMethodRunStates = this.SubMethodInfos

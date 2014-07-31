@@ -62,7 +62,7 @@ namespace BatchClient
         public override string[] LoadCprNumbers()
         {
             Utilities.UpdateConnectionString(this.BrokerConnectionString);
-            Console.WriteLine(CprBroker.Config.Properties.Settings.Default.CprBrokerConnectionString);
+            Console.WriteLine(CprBroker.Config.ConfigManager.Current.Settings.CprBrokerConnectionString);
 
             if (string.IsNullOrEmpty(SourceFile))
             {

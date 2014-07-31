@@ -56,12 +56,12 @@ namespace CprBroker.EventBroker.Notifications
     {
         protected override TimeSpan CalculateActionTimerInterval(TimeSpan currentInterval)
         {
-            return TimeSpan.FromSeconds(Config.Properties.Settings.Default.CprDirectPersonConverterIntervalSeconds);
+            return TimeSpan.FromSeconds(Config.ConfigManager.Current.Settings.CprDirectPersonConverterIntervalSeconds);
         }
 
         protected override void PerformTimerAction()
         {
-            ExtractManager.ConvertPersons(Config.Properties.Settings.Default.CprDirectPersonConverterBatchSize);
+            ExtractManager.ConvertPersons(Config.ConfigManager.Current.Settings.CprDirectPersonConverterBatchSize);
         }
     }
 }

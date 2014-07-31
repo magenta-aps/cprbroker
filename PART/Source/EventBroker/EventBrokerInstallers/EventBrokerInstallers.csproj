@@ -76,11 +76,14 @@
     <Compile Include="EventBrokerCustomActions.Helpers.cs" />
     <Compile Include="EventBrokerCustomActions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\ResourcesExtensions.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Content Include="Resources\DataChangeEvent.sql" />
+    <Content Include="Resources\PersonBirthdate.sql" />
     <Compile Include="ServiceNameForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -99,12 +102,26 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\EventNotification.sql" />
     <Content Include="GenerateScript.txt" />
+    <None Include="Resources\SubscriptionType.sql" />
+    <Content Include="Resources\BirthdateEventNotification.sql" />
+    <Content Include="Resources\BirthdateSubscription.sql" />
+    <Content Include="Resources\Channel.sql" />
+    <Content Include="Resources\ChannelType.sql" />
+    <Content Include="Resources\DataSubscription.sql" />
+    <Content Include="Resources\EnqueueBirthdateEventNotifications.sql" />
+    <Content Include="Resources\EnqueueDataChangeEventNotifications.sql" />
+    <Content Include="Resources\IsBirthdateEvent.sql" />
     <Content Include="Resources\PatchDatabase_2_2.sql" />
+    <Content Include="Resources\PatchDatabase_2_3.sql" />
+    <Content Include="Resources\Subscription.sql" />
+    <Content Include="Resources\SubscriptionCriteriaMatch.sql" />
+    <Content Include="Resources\SubscriptionPerson.sql" />
+    <Content Include="Resources\UpdatePersonLists.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\ChannelType.csv" />
-    <None Include="Resources\CreateEventBrokerDatabaseObjects.sql" />
     <None Include="Resources\SubscriptionType.csv" />
   </ItemGroup>
   <ItemGroup>

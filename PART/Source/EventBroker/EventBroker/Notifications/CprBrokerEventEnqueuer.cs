@@ -89,7 +89,7 @@ namespace CprBroker.EventBroker.Notifications
             };
 
             EventsService.ApplicationHeaderValue = ApplicationHeader;
-            EventsService.Url = Config.Properties.Settings.Default.EventsServiceUrl;
+            EventsService.Url = Config.ConfigManager.Current.Settings.EventsServiceUrl;
             EventsService.Credentials = System.Net.CredentialCache.DefaultCredentials;
         }
 

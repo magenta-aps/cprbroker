@@ -15,7 +15,7 @@ namespace CprBroker.DBR
         {
             if (this.LargeData == Providers.DPR.DetailType.ExtendedData && this.Type == Providers.DPR.InquiryType.DataUpdatedAutomaticallyFromCpr)
             {
-                DataProvidersConfigurationSection section = DataProvidersConfigurationSection.GetCurrent();
+                DataProvidersConfigurationSection section = Config.ConfigManager.Current.DataProvidersSection;
                 DataProvider[] dbProviders = DataProviderManager.ReadDatabaseDataProviders();
 
                 var providers = DataProviderManager

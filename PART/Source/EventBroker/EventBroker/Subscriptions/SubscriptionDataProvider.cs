@@ -83,11 +83,17 @@ namespace CprBroker.EventBroker.Subscriptions
             subscription.SubscriptionTypeId = (int)subscriptionType;
             subscription.ApplicationId = applicationId;
             subscription.Created = DateTime.Now;
-            if (soegObject != null)
+
+            if (soegObject == null)
+            {
+                subscription.Ready = true;
+            }
+            else
             {
                 var xml = Strings.SerializeObject(soegObject);
                 subscription.Criteria = System.Xml.Linq.XElement.Load(new StringReader(xml));
                 subscription.LastCheckedUUID = Guid.Empty;
+                subscription.Ready = false;
             }
 
 
@@ -138,7 +144,7 @@ namespace CprBroker.EventBroker.Subscriptions
                 dataContext.LoadOptions = loadOptions;
 
                 var subscription = (from sub in dataContext.Subscriptions
-                                    where sub.SubscriptionId == subscriptionId && ! sub.Deactivated.HasValue && sub.SubscriptionTypeId == (int)subscriptionType
+                                    where sub.SubscriptionId == subscriptionId && !sub.Deactivated.HasValue && sub.SubscriptionTypeId == (int)subscriptionType
                                     select sub
                                     ).SingleOrDefault();
 

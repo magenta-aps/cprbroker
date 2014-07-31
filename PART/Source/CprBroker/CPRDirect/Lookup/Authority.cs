@@ -62,7 +62,7 @@ namespace CprBroker.Providers.CPRDirect
 
         public static void ImportText(string text)
         {
-            using (var conn = new SqlConnection(CprBroker.Config.Properties.Settings.Default.CprBrokerConnectionString))
+            using (var conn = new SqlConnection(CprBroker.Config.ConfigManager.Current.Settings.CprBrokerConnectionString))
             {
                 conn.Open();
                 ImportText(text, conn);

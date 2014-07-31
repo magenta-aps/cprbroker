@@ -10,9 +10,9 @@ namespace CprBroker.EventBroker.Notifications
 {
     public class QueueExecuter : PeriodicTaskExecuter
     {
-        public QueueBase Queue { get; set; }
+        public Queue Queue { get; set; }
 
-        public QueueExecuter(QueueBase queue)
+        public QueueExecuter(Queue queue)
         {
             this.Queue = queue;
         }
@@ -21,7 +21,7 @@ namespace CprBroker.EventBroker.Notifications
         {
             using (var dataContext = new QueueDataContext())
             {
-                return QueueBase.GetQueues<QueueBase>()
+                return Queue.GetQueues<Queue>()
                     .Where(q => q != null)
                     .Select(q => new QueueExecuter(q))
                     .ToArray();

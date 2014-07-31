@@ -61,24 +61,6 @@ namespace CprBroker.EventBroker.Tests
             return new SoegObjektType() { SoegAttributListe = new SoegAttributListeType() { SoegRegisterOplysning = CreateRegisterOplysning(municipalityCode) } };
         }
 
-        public static Subscription CreateCriteriaSubscription(string municipalityCode)
-        {
-            var soegObject = CreateSoegObject(municipalityCode);
-            return new Subscription()
-            {
-                SubscriptionId = Guid.NewGuid(),
-                DataSubscription = new DataSubscription(),
-                Criteria = System.Xml.Linq.XElement.Load(new StringReader(Utilities.Strings.SerializeObject(soegObject))),
-                Created = DateTime.Now,
-                Deactivated = null,
-                SubscriptionTypeId = (int)CprBroker.EventBroker.Data.SubscriptionType.SubscriptionTypes.DataChange,
-                IsForAllPersons = false,
-            };
-        }
 
-        public static DataChangeEvent CreateDataChangeEvent(PersonRegistration pr)
-        {
-            return new DataChangeEvent() { DataChangeEventId = Guid.NewGuid(), DueDate = DateTime.Now, PersonRegistrationId = pr.PersonRegistrationId, PersonUuid = pr.UUID, ReceivedDate = DateTime.Now };
-        }
     }
 }

@@ -77,7 +77,7 @@ namespace CprBroker.Utilities
 
         public static byte[] EncryptObject(object o)
         {
-            return EncryptObject(o, DataProviderKeysSection.GetFromConfig());
+            return EncryptObject(o, CprBroker.Config.ConfigManager.Current.EncryptionAlgorithm);
         }
 
         public static byte[] EncryptObject(object o, RijndaelManaged m)
@@ -102,7 +102,7 @@ namespace CprBroker.Utilities
 
         public static T DecryptObject<T>(byte[] encryptedData)
         {
-            return DecryptObject<T>(encryptedData, DataProviderKeysSection.GetFromConfig());
+            return DecryptObject<T>(encryptedData, CprBroker.Config.ConfigManager.Current.EncryptionAlgorithm);
         }
 
         public static T DecryptObject<T>(byte[] encryptedData, RijndaelManaged m)

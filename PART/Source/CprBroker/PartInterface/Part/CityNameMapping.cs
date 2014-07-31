@@ -57,7 +57,7 @@ namespace CprBroker.Engine.Part
     {
         public static void ApplyIfNeeded(LaesResultatType result)
         {
-            if (Config.Properties.Settings.Default.ReturnCityNameInDistrictName)
+            if (Config.ConfigManager.Current.Settings.ReturnCityNameInDistrictName)
             {
                 if (result != null)
                 {
