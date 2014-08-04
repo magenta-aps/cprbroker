@@ -58,12 +58,21 @@ namespace CprBroker.DBR
             dataContext.Nationalities.InsertOnSubmit(person.CurrentCitizenship.ToDpr());
             dataContext.Nationalities.InsertAllOnSubmit(person.HistoricalCitizenship.Select(c => c.ToDpr()));
 
-            ElectionInformationType eit = person.ElectionInformation.Select(i => i.PNR.ToString() == person.CurrentDepartureData.PNR) as ElectionInformationType;
-            dataContext.Departures.InsertOnSubmit(person.CurrentDepartureData.ToDpr(eit));
-            dataContext.Departures.InsertAllOnSubmit(person.HistoricalDeparture.Select(c => c.ToDpr(/*eit*/)));
+            if (person.CurrentDepartureData != null)
+            {
+                ElectionInformationType eit = person.ElectionInformation.OrderByDescending(i => i.VotingDate).FirstOrDefault() as ElectionInformationType;
+                dataContext.Departures.InsertOnSubmit(person.CurrentDepartureData.ToDpr(eit));
+            }
+            dataContext.Departures.InsertAllOnSubmit(person.HistoricalDeparture.Select(c => c.ToDpr()));
 
-            dataContext.ContactAddresses.InsertOnSubmit(person.ContactAddress.ToDpr());
-
+            if(person.ContactAddress !=null)
+                dataContext.ContactAddresses.InsertOnSubmit(person.ContactAddress.ToDpr());
+            
+            else
+            {
+                Console.WriteLine("contactAddress was NULL");    
+            }
+            
             var currentAddress = person.GetFolkeregisterAdresseSource(false) as CurrentAddressWrapper;
             if (currentAddress != null)
                 dataContext.PersonAddresses.InsertOnSubmit(currentAddress.ToDpr());

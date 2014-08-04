@@ -36,7 +36,9 @@ namespace CprBroker.Providers.CPRDirect
             foreach (var item in items)
             {
                 item.Extract = dataContext.Extracts.Where(ex => ex.ExtractId == item.ExtractId).Single();
-                item.ExtractItems = dataContext.ExtractItems.Where(ei => ei.ExtractId == item.ExtractId && ei.PNR == item.PNR);
+                // TODO: Change into something faster and avoid ToArray() but do not use a similar to this :
+                //         item.ExtractItems = dataContext.ExtractItems.Where(ei => ei.ExtractId == item.ExtractId && ei.PNR == item.PNR)
+                item.ExtractItems = dataContext.ExtractItems.Where(ei => ei.ExtractId == item.ExtractId && ei.PNR == item.PNR).ToArray().AsQueryable();
             }
         }
     }

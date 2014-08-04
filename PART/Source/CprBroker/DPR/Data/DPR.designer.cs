@@ -57,6 +57,33 @@ namespace CprBroker.Providers.DPR
     partial void InsertContactAddress(ContactAddress instance);
     partial void UpdateContactAddress(ContactAddress instance);
     partial void DeleteContactAddress(ContactAddress instance);
+    partial void InsertProtection(Protection instance);
+    partial void UpdateProtection(Protection instance);
+    partial void DeleteProtection(Protection instance);
+    partial void InsertParentalAuthority(ParentalAuthority instance);
+    partial void UpdateParentalAuthority(ParentalAuthority instance);
+    partial void DeleteParentalAuthority(ParentalAuthority instance);
+    partial void InsertDisappearance(Disappearance instance);
+    partial void UpdateDisappearance(Disappearance instance);
+    partial void DeleteDisappearance(Disappearance instance);
+    partial void InsertNote(Note instance);
+    partial void UpdateNote(Note instance);
+    partial void DeleteNote(Note instance);
+    partial void InsertEvent(Event instance);
+    partial void UpdateEvent(Event instance);
+    partial void DeleteEvent(Event instance);
+    partial void InsertPerson(Person instance);
+    partial void UpdatePerson(Person instance);
+    partial void DeletePerson(Person instance);
+    partial void InsertMunicipalCondition(MunicipalCondition instance);
+    partial void UpdateMunicipalCondition(MunicipalCondition instance);
+    partial void DeleteMunicipalCondition(MunicipalCondition instance);
+    partial void InsertGuardianAndParentalAuthorityRelation(GuardianAndParentalAuthorityRelation instance);
+    partial void UpdateGuardianAndParentalAuthorityRelation(GuardianAndParentalAuthorityRelation instance);
+    partial void DeleteGuardianAndParentalAuthorityRelation(GuardianAndParentalAuthorityRelation instance);
+    partial void InsertGuardianAddress(GuardianAddress instance);
+    partial void UpdateGuardianAddress(GuardianAddress instance);
+    partial void DeleteGuardianAddress(GuardianAddress instance);
     #endregion
 		
 		public DPRDataContext(string connection) : 
@@ -1455,7 +1482,7 @@ namespace CprBroker.Providers.DPR
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="TFDTOMRK", Storage="_TFDTOMRK", DbType="VarChar(1)", IsDbGenerated=true, IsVersion=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="TFDTOMRK", Storage="_TFDTOMRK", DbType="VarChar(1)")]
 		public System.Nullable<char> ArrivalDateMarker
 		{
 			get
@@ -5083,8 +5110,10 @@ namespace CprBroker.Providers.DPR
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DTBESKYT")]
-	public partial class Protection
+	public partial class Protection : INotifyPropertyChanging, INotifyPropertyChanged
 	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private decimal _PNR;
 		
@@ -5098,11 +5127,30 @@ namespace CprBroker.Providers.DPR
 		
 		private string _ReportingMarker;
 		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnPNRChanging(decimal value);
+    partial void OnPNRChanged();
+    partial void OnProtectionTypeChanging(decimal value);
+    partial void OnProtectionTypeChanged();
+    partial void OnCprUpdateDateChanging(decimal value);
+    partial void OnCprUpdateDateChanged();
+    partial void OnStartDateChanging(System.DateTime value);
+    partial void OnStartDateChanged();
+    partial void OnEndDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnEndDateChanged();
+    partial void OnReportingMarkerChanging(string value);
+    partial void OnReportingMarkerChanged();
+    #endregion
+		
 		public Protection()
 		{
+			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PNR", DbType="Decimal(11,0) NOT NULL")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PNR", DbType="Decimal(11,0) NOT NULL", IsPrimaryKey=true)]
 		public decimal PNR
 		{
 			get
@@ -5113,12 +5161,16 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._PNR != value))
 				{
+					this.OnPNRChanging(value);
+					this.SendPropertyChanging();
 					this._PNR = value;
+					this.SendPropertyChanged("PNR");
+					this.OnPNRChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="BESKYT_TYP", Storage="_ProtectionType", DbType="Decimal(4,0) NOT NULL")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="BESKYT_TYP", Storage="_ProtectionType", DbType="Decimal(4,0) NOT NULL", IsPrimaryKey=true)]
 		public decimal ProtectionType
 		{
 			get
@@ -5129,12 +5181,16 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._ProtectionType != value))
 				{
+					this.OnProtectionTypeChanging(value);
+					this.SendPropertyChanging();
 					this._ProtectionType = value;
+					this.SendPropertyChanged("ProtectionType");
+					this.OnProtectionTypeChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="AJFDTO", Storage="_CprUpdateDate", DbType="Decimal(13,0) NOT NULL")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="AJFDTO", Storage="_CprUpdateDate", DbType="Decimal(13,0) NOT NULL", IsPrimaryKey=true)]
 		public decimal CprUpdateDate
 		{
 			get
@@ -5145,12 +5201,16 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._CprUpdateDate != value))
 				{
+					this.OnCprUpdateDateChanging(value);
+					this.SendPropertyChanging();
 					this._CprUpdateDate = value;
+					this.SendPropertyChanged("CprUpdateDate");
+					this.OnCprUpdateDateChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="STARTDATE", Storage="_StartDate", DbType="SmallDateTime NOT NULL")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="STARTDATE", Storage="_StartDate", DbType="SmallDateTime NOT NULL", IsPrimaryKey=true)]
 		public System.DateTime StartDate
 		{
 			get
@@ -5161,7 +5221,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._StartDate != value))
 				{
+					this.OnStartDateChanging(value);
+					this.SendPropertyChanging();
 					this._StartDate = value;
+					this.SendPropertyChanged("StartDate");
+					this.OnStartDateChanged();
 				}
 			}
 		}
@@ -5177,7 +5241,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._EndDate != value))
 				{
+					this.OnEndDateChanging(value);
+					this.SendPropertyChanging();
 					this._EndDate = value;
+					this.SendPropertyChanged("EndDate");
+					this.OnEndDateChanged();
 				}
 			}
 		}
@@ -5193,15 +5261,41 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._ReportingMarker != value))
 				{
+					this.OnReportingMarkerChanging(value);
+					this.SendPropertyChanging();
 					this._ReportingMarker = value;
+					this.SendPropertyChanged("ReportingMarker");
+					this.OnReportingMarkerChanged();
 				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DTFORALDREMYND")]
-	public partial class ParentalAuthority
+	public partial class ParentalAuthority : INotifyPropertyChanging, INotifyPropertyChanged
 	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private decimal _ChildPNR;
 		
@@ -5217,11 +5311,32 @@ namespace CprBroker.Providers.DPR
 		
 		private System.Nullable<System.DateTime> _EndDate;
 		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnChildPNRChanging(decimal value);
+    partial void OnChildPNRChanged();
+    partial void OnRelationTypeChanging(decimal value);
+    partial void OnRelationTypeChanged();
+    partial void OnCprUpdateDateChanging(decimal value);
+    partial void OnCprUpdateDateChanged();
+    partial void OnParentalAuthorityCodeChanging(decimal value);
+    partial void OnParentalAuthorityCodeChanged();
+    partial void OnStartDateChanging(System.DateTime value);
+    partial void OnStartDateChanged();
+    partial void OnStartDateUncertaintyChanging(System.Nullable<char> value);
+    partial void OnStartDateUncertaintyChanged();
+    partial void OnEndDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnEndDateChanged();
+    #endregion
+		
 		public ParentalAuthority()
 		{
+			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="PNR", Storage="_ChildPNR", DbType="Decimal(11,0) NOT NULL")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="PNR", Storage="_ChildPNR", DbType="Decimal(11,0) NOT NULL", IsPrimaryKey=true)]
 		public decimal ChildPNR
 		{
 			get
@@ -5232,12 +5347,16 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._ChildPNR != value))
 				{
+					this.OnChildPNRChanging(value);
+					this.SendPropertyChanging();
 					this._ChildPNR = value;
+					this.SendPropertyChanged("ChildPNR");
+					this.OnChildPNRChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="RELTYP", Storage="_RelationType", DbType="Decimal(4,0) NOT NULL")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="RELTYP", Storage="_RelationType", DbType="Decimal(4,0) NOT NULL", IsPrimaryKey=true)]
 		public decimal RelationType
 		{
 			get
@@ -5248,12 +5367,16 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._RelationType != value))
 				{
+					this.OnRelationTypeChanging(value);
+					this.SendPropertyChanging();
 					this._RelationType = value;
+					this.SendPropertyChanged("RelationType");
+					this.OnRelationTypeChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="AJFDTO", Storage="_CprUpdateDate", DbType="Decimal(13,0) NOT NULL")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="AJFDTO", Storage="_CprUpdateDate", DbType="Decimal(13,0) NOT NULL", IsPrimaryKey=true)]
 		public decimal CprUpdateDate
 		{
 			get
@@ -5264,7 +5387,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._CprUpdateDate != value))
 				{
+					this.OnCprUpdateDateChanging(value);
+					this.SendPropertyChanging();
 					this._CprUpdateDate = value;
+					this.SendPropertyChanged("CprUpdateDate");
+					this.OnCprUpdateDateChanged();
 				}
 			}
 		}
@@ -5280,12 +5407,16 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._ParentalAuthorityCode != value))
 				{
+					this.OnParentalAuthorityCodeChanging(value);
+					this.SendPropertyChanging();
 					this._ParentalAuthorityCode = value;
+					this.SendPropertyChanged("ParentalAuthorityCode");
+					this.OnParentalAuthorityCodeChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="STARTDATE", Storage="_StartDate", DbType="DateTime NOT NULL")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="STARTDATE", Storage="_StartDate", DbType="DateTime NOT NULL", IsPrimaryKey=true)]
 		public System.DateTime StartDate
 		{
 			get
@@ -5296,7 +5427,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._StartDate != value))
 				{
+					this.OnStartDateChanging(value);
+					this.SendPropertyChanging();
 					this._StartDate = value;
+					this.SendPropertyChanged("StartDate");
+					this.OnStartDateChanged();
 				}
 			}
 		}
@@ -5312,7 +5447,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._StartDateUncertainty != value))
 				{
+					this.OnStartDateUncertaintyChanging(value);
+					this.SendPropertyChanging();
 					this._StartDateUncertainty = value;
+					this.SendPropertyChanged("StartDateUncertainty");
+					this.OnStartDateUncertaintyChanged();
 				}
 			}
 		}
@@ -5328,15 +5467,41 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._EndDate != value))
 				{
+					this.OnEndDateChanging(value);
+					this.SendPropertyChanging();
 					this._EndDate = value;
+					this.SendPropertyChanged("EndDate");
+					this.OnEndDateChanged();
 				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DTFORSV")]
-	public partial class Disappearance
+	public partial class Disappearance : INotifyPropertyChanging, INotifyPropertyChanged
 	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private decimal _PNR;
 		
@@ -5348,11 +5513,28 @@ namespace CprBroker.Providers.DPR
 		
 		private string _CorrectionMarker;
 		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnPNRChanging(decimal value);
+    partial void OnPNRChanged();
+    partial void OnCprUpdateDateChanging(decimal value);
+    partial void OnCprUpdateDateChanged();
+    partial void OnDisappearanceDateChanging(decimal value);
+    partial void OnDisappearanceDateChanged();
+    partial void OnRetrievalDateChanging(System.Nullable<decimal> value);
+    partial void OnRetrievalDateChanged();
+    partial void OnCorrectionMarkerChanging(string value);
+    partial void OnCorrectionMarkerChanged();
+    #endregion
+		
 		public Disappearance()
 		{
+			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PNR", DbType="Decimal(11,0) NOT NULL")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PNR", DbType="Decimal(11,0) NOT NULL", IsPrimaryKey=true)]
 		public decimal PNR
 		{
 			get
@@ -5363,12 +5545,16 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._PNR != value))
 				{
+					this.OnPNRChanging(value);
+					this.SendPropertyChanging();
 					this._PNR = value;
+					this.SendPropertyChanged("PNR");
+					this.OnPNRChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="AJFDTO", Storage="_CprUpdateDate", DbType="Decimal(13,0) NOT NULL")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="AJFDTO", Storage="_CprUpdateDate", DbType="Decimal(13,0) NOT NULL", IsPrimaryKey=true)]
 		public decimal CprUpdateDate
 		{
 			get
@@ -5379,12 +5565,16 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._CprUpdateDate != value))
 				{
+					this.OnCprUpdateDateChanging(value);
+					this.SendPropertyChanging();
 					this._CprUpdateDate = value;
+					this.SendPropertyChanged("CprUpdateDate");
+					this.OnCprUpdateDateChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="FORSVDTO", Storage="_DisappearanceDate", DbType="Decimal(13,0) NOT NULL")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="FORSVDTO", Storage="_DisappearanceDate", DbType="Decimal(13,0) NOT NULL", IsPrimaryKey=true)]
 		public decimal DisappearanceDate
 		{
 			get
@@ -5395,7 +5585,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._DisappearanceDate != value))
 				{
+					this.OnDisappearanceDateChanging(value);
+					this.SendPropertyChanging();
 					this._DisappearanceDate = value;
+					this.SendPropertyChanged("DisappearanceDate");
+					this.OnDisappearanceDateChanged();
 				}
 			}
 		}
@@ -5411,7 +5605,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._RetrievalDate != value))
 				{
+					this.OnRetrievalDateChanging(value);
+					this.SendPropertyChanging();
 					this._RetrievalDate = value;
+					this.SendPropertyChanged("RetrievalDate");
+					this.OnRetrievalDateChanged();
 				}
 			}
 		}
@@ -5427,15 +5625,41 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._CorrectionMarker != value))
 				{
+					this.OnCorrectionMarkerChanging(value);
+					this.SendPropertyChanging();
 					this._CorrectionMarker = value;
+					this.SendPropertyChanged("CorrectionMarker");
+					this.OnCorrectionMarkerChanged();
 				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DTNOTAT")]
-	public partial class Note
+	public partial class Note : INotifyPropertyChanging, INotifyPropertyChanged
 	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private decimal _PNR;
 		
@@ -5451,11 +5675,32 @@ namespace CprBroker.Providers.DPR
 		
 		private decimal _MunicipalityCode;
 		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnPNRChanging(decimal value);
+    partial void OnPNRChanged();
+    partial void OnCprUpdateDateChanging(decimal value);
+    partial void OnCprUpdateDateChanged();
+    partial void OnNationalRegisterMemoDateChanging(decimal value);
+    partial void OnNationalRegisterMemoDateChanged();
+    partial void OnDeletionDateChanging(System.Nullable<decimal> value);
+    partial void OnDeletionDateChanged();
+    partial void OnNoteNumberChanging(decimal value);
+    partial void OnNoteNumberChanged();
+    partial void OnNationalRegisterNoteLineChanging(string value);
+    partial void OnNationalRegisterNoteLineChanged();
+    partial void OnMunicipalityCodeChanging(decimal value);
+    partial void OnMunicipalityCodeChanged();
+    #endregion
+		
 		public Note()
 		{
+			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PNR", DbType="Decimal(11,0) NOT NULL")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PNR", DbType="Decimal(11,0) NOT NULL", IsPrimaryKey=true)]
 		public decimal PNR
 		{
 			get
@@ -5466,12 +5711,16 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._PNR != value))
 				{
+					this.OnPNRChanging(value);
+					this.SendPropertyChanging();
 					this._PNR = value;
+					this.SendPropertyChanged("PNR");
+					this.OnPNRChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="AJFDTO", Storage="_CprUpdateDate", DbType="Decimal(13,0) NOT NULL")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="AJFDTO", Storage="_CprUpdateDate", DbType="Decimal(13,0) NOT NULL", IsPrimaryKey=true)]
 		public decimal CprUpdateDate
 		{
 			get
@@ -5482,7 +5731,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._CprUpdateDate != value))
 				{
+					this.OnCprUpdateDateChanging(value);
+					this.SendPropertyChanging();
 					this._CprUpdateDate = value;
+					this.SendPropertyChanged("CprUpdateDate");
+					this.OnCprUpdateDateChanged();
 				}
 			}
 		}
@@ -5498,7 +5751,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._NationalRegisterMemoDate != value))
 				{
+					this.OnNationalRegisterMemoDateChanging(value);
+					this.SendPropertyChanging();
 					this._NationalRegisterMemoDate = value;
+					this.SendPropertyChanged("NationalRegisterMemoDate");
+					this.OnNationalRegisterMemoDateChanged();
 				}
 			}
 		}
@@ -5514,7 +5771,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._DeletionDate != value))
 				{
+					this.OnDeletionDateChanging(value);
+					this.SendPropertyChanging();
 					this._DeletionDate = value;
+					this.SendPropertyChanged("DeletionDate");
+					this.OnDeletionDateChanged();
 				}
 			}
 		}
@@ -5530,7 +5791,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._NoteNumber != value))
 				{
+					this.OnNoteNumberChanging(value);
+					this.SendPropertyChanging();
 					this._NoteNumber = value;
+					this.SendPropertyChanged("NoteNumber");
+					this.OnNoteNumberChanged();
 				}
 			}
 		}
@@ -5546,7 +5811,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._NationalRegisterNoteLine != value))
 				{
+					this.OnNationalRegisterNoteLineChanging(value);
+					this.SendPropertyChanging();
 					this._NationalRegisterNoteLine = value;
+					this.SendPropertyChanged("NationalRegisterNoteLine");
+					this.OnNationalRegisterNoteLineChanged();
 				}
 			}
 		}
@@ -5562,15 +5831,41 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._MunicipalityCode != value))
 				{
+					this.OnMunicipalityCodeChanging(value);
+					this.SendPropertyChanging();
 					this._MunicipalityCode = value;
+					this.SendPropertyChanged("MunicipalityCode");
+					this.OnMunicipalityCodeChanged();
 				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DTHAEN")]
-	public partial class Event
+	public partial class Event : INotifyPropertyChanging, INotifyPropertyChanged
 	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private decimal _PNR;
 		
@@ -5580,11 +5875,26 @@ namespace CprBroker.Providers.DPR
 		
 		private string _AFLMRK;
 		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnPNRChanging(decimal value);
+    partial void OnPNRChanged();
+    partial void OnCprUpdateDateChanging(decimal value);
+    partial void OnCprUpdateDateChanged();
+    partial void OnEvent_Changing(string value);
+    partial void OnEvent_Changed();
+    partial void OnAFLMRKChanging(string value);
+    partial void OnAFLMRKChanged();
+    #endregion
+		
 		public Event()
 		{
+			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PNR", DbType="Decimal(11,0) NOT NULL")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PNR", DbType="Decimal(11,0) NOT NULL", IsPrimaryKey=true)]
 		public decimal PNR
 		{
 			get
@@ -5595,12 +5905,16 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._PNR != value))
 				{
+					this.OnPNRChanging(value);
+					this.SendPropertyChanging();
 					this._PNR = value;
+					this.SendPropertyChanged("PNR");
+					this.OnPNRChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="TSU", Storage="_CprUpdateDate", DbType="Decimal(13,0) NOT NULL")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="TSU", Storage="_CprUpdateDate", DbType="Decimal(13,0) NOT NULL", IsPrimaryKey=true)]
 		public decimal CprUpdateDate
 		{
 			get
@@ -5611,7 +5925,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._CprUpdateDate != value))
 				{
+					this.OnCprUpdateDateChanging(value);
+					this.SendPropertyChanging();
 					this._CprUpdateDate = value;
+					this.SendPropertyChanged("CprUpdateDate");
+					this.OnCprUpdateDateChanged();
 				}
 			}
 		}
@@ -5627,7 +5945,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._Event_ != value))
 				{
+					this.OnEvent_Changing(value);
+					this.SendPropertyChanging();
 					this._Event_ = value;
+					this.SendPropertyChanged("Event_");
+					this.OnEvent_Changed();
 				}
 			}
 		}
@@ -5643,15 +5965,41 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._AFLMRK != value))
 				{
+					this.OnAFLMRKChanging(value);
+					this.SendPropertyChanging();
 					this._AFLMRK = value;
+					this.SendPropertyChanged("AFLMRK");
+					this.OnAFLMRKChanged();
 				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DTPERS")]
-	public partial class Person
+	public partial class Person : INotifyPropertyChanging, INotifyPropertyChanged
 	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private decimal _PNR;
 		
@@ -5727,11 +6075,92 @@ namespace CprBroker.Providers.DPR
 		
 		private System.Nullable<decimal> _UnderGuardianshipRelationType;
 		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnPNRChanging(decimal value);
+    partial void OnPNRChanged();
+    partial void OnCprUpdateDateChanging(decimal value);
+    partial void OnCprUpdateDateChanged();
+    partial void OnBirthdateChanging(decimal value);
+    partial void OnBirthdateChanged();
+    partial void OnGenderChanging(string value);
+    partial void OnGenderChanged();
+    partial void OnBirthRegistrationAuthorityCodeChanging(decimal value);
+    partial void OnBirthRegistrationAuthorityCodeChanged();
+    partial void OnBirthRegistrationDateChanging(decimal value);
+    partial void OnBirthRegistrationDateChanged();
+    partial void OnBirthRegistrationPlaceUpdateDateChanging(decimal value);
+    partial void OnBirthRegistrationPlaceUpdateDateChanged();
+    partial void OnChristianMarkChanging(string value);
+    partial void OnChristianMarkChanged();
+    partial void OnChurchRelationUpdateDateChanging(decimal value);
+    partial void OnChurchRelationUpdateDateChanged();
+    partial void OnChurchAuthorityCodeChanging(decimal value);
+    partial void OnChurchAuthorityCodeChanged();
+    partial void OnChurchDateChanging(decimal value);
+    partial void OnChurchDateChanged();
+    partial void OnUnderGuardianshipAuthprityCodeChanging(System.Nullable<decimal> value);
+    partial void OnUnderGuardianshipAuthprityCodeChanged();
+    partial void OnGuardianshipUpdateDateChanging(System.Nullable<decimal> value);
+    partial void OnGuardianshipUpdateDateChanged();
+    partial void OnUnderGuardianshipDateChanging(System.Nullable<decimal> value);
+    partial void OnUnderGuardianshipDateChanged();
+    partial void OnPnrMarkingDateChanging(System.Nullable<decimal> value);
+    partial void OnPnrMarkingDateChanged();
+    partial void OnPnrDateChanging(decimal value);
+    partial void OnPnrDateChanged();
+    partial void OnCurrentPnrUpdateDateChanging(System.Nullable<decimal> value);
+    partial void OnCurrentPnrUpdateDateChanged();
+    partial void OnCurrentPnrChanging(System.Nullable<decimal> value);
+    partial void OnCurrentPnrChanged();
+    partial void OnPnrDeletionDateChanging(System.Nullable<decimal> value);
+    partial void OnPnrDeletionDateChanged();
+    partial void OnJobDateChanging(System.Nullable<decimal> value);
+    partial void OnJobDateChanged();
+    partial void OnBirthplaceTextUpdateDateChanging(System.Nullable<decimal> value);
+    partial void OnBirthplaceTextUpdateDateChanged();
+    partial void OnCustomerNumberChanging(System.Nullable<decimal> value);
+    partial void OnCustomerNumberChanged();
+    partial void OnKinshipUpdateDateChanging(decimal value);
+    partial void OnKinshipUpdateDateChanged();
+    partial void OnMotherPnrChanging(decimal value);
+    partial void OnMotherPnrChanged();
+    partial void OnMotherBirthdateChanging(System.Nullable<decimal> value);
+    partial void OnMotherBirthdateChanged();
+    partial void OnMotherDocumentationChanging(string value);
+    partial void OnMotherDocumentationChanged();
+    partial void OnFatherPnrChanging(decimal value);
+    partial void OnFatherPnrChanged();
+    partial void OnFatherBirthdateChanging(System.Nullable<decimal> value);
+    partial void OnFatherBirthdateChanged();
+    partial void OnFatherDocumentationChanging(string value);
+    partial void OnFatherDocumentationChanged();
+    partial void OnPaternityDateChanging(System.Nullable<decimal> value);
+    partial void OnPaternityDateChanged();
+    partial void OnPaternityAuthorityCodeChanging(System.Nullable<decimal> value);
+    partial void OnPaternityAuthorityCodeChanged();
+    partial void OnMotherNameChanging(string value);
+    partial void OnMotherNameChanged();
+    partial void OnFatherNameChanging(string value);
+    partial void OnFatherNameChanged();
+    partial void OnBirthplaceTextChanging(string value);
+    partial void OnBirthplaceTextChanged();
+    partial void OnJobChanging(string value);
+    partial void OnJobChanged();
+    partial void OnUnderGuardianshipDeleteDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnUnderGuardianshipDeleteDateChanged();
+    partial void OnUnderGuardianshipRelationTypeChanging(System.Nullable<decimal> value);
+    partial void OnUnderGuardianshipRelationTypeChanged();
+    #endregion
+		
 		public Person()
 		{
+			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PNR", DbType="Decimal(11,0) NOT NULL")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PNR", DbType="Decimal(11,0) NOT NULL", IsPrimaryKey=true)]
 		public decimal PNR
 		{
 			get
@@ -5742,12 +6171,16 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._PNR != value))
 				{
+					this.OnPNRChanging(value);
+					this.SendPropertyChanging();
 					this._PNR = value;
+					this.SendPropertyChanged("PNR");
+					this.OnPNRChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="PERAJDTO", Storage="_CprUpdateDate", DbType="Decimal(13,0) NOT NULL")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="PERAJDTO", Storage="_CprUpdateDate", DbType="Decimal(13,0) NOT NULL", IsPrimaryKey=true)]
 		public decimal CprUpdateDate
 		{
 			get
@@ -5758,7 +6191,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._CprUpdateDate != value))
 				{
+					this.OnCprUpdateDateChanging(value);
+					this.SendPropertyChanging();
 					this._CprUpdateDate = value;
+					this.SendPropertyChanged("CprUpdateDate");
+					this.OnCprUpdateDateChanged();
 				}
 			}
 		}
@@ -5774,7 +6211,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._Birthdate != value))
 				{
+					this.OnBirthdateChanging(value);
+					this.SendPropertyChanging();
 					this._Birthdate = value;
+					this.SendPropertyChanged("Birthdate");
+					this.OnBirthdateChanged();
 				}
 			}
 		}
@@ -5790,7 +6231,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._Gender != value))
 				{
+					this.OnGenderChanging(value);
+					this.SendPropertyChanging();
 					this._Gender = value;
+					this.SendPropertyChanged("Gender");
+					this.OnGenderChanged();
 				}
 			}
 		}
@@ -5806,7 +6251,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._BirthRegistrationAuthorityCode != value))
 				{
+					this.OnBirthRegistrationAuthorityCodeChanging(value);
+					this.SendPropertyChanging();
 					this._BirthRegistrationAuthorityCode = value;
+					this.SendPropertyChanged("BirthRegistrationAuthorityCode");
+					this.OnBirthRegistrationAuthorityCodeChanged();
 				}
 			}
 		}
@@ -5822,7 +6271,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._BirthRegistrationDate != value))
 				{
+					this.OnBirthRegistrationDateChanging(value);
+					this.SendPropertyChanging();
 					this._BirthRegistrationDate = value;
+					this.SendPropertyChanged("BirthRegistrationDate");
+					this.OnBirthRegistrationDateChanged();
 				}
 			}
 		}
@@ -5838,7 +6291,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._BirthRegistrationPlaceUpdateDate != value))
 				{
+					this.OnBirthRegistrationPlaceUpdateDateChanging(value);
+					this.SendPropertyChanging();
 					this._BirthRegistrationPlaceUpdateDate = value;
+					this.SendPropertyChanged("BirthRegistrationPlaceUpdateDate");
+					this.OnBirthRegistrationPlaceUpdateDateChanged();
 				}
 			}
 		}
@@ -5854,7 +6311,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._ChristianMark != value))
 				{
+					this.OnChristianMarkChanging(value);
+					this.SendPropertyChanging();
 					this._ChristianMark = value;
+					this.SendPropertyChanged("ChristianMark");
+					this.OnChristianMarkChanged();
 				}
 			}
 		}
@@ -5870,7 +6331,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._ChurchRelationUpdateDate != value))
 				{
+					this.OnChurchRelationUpdateDateChanging(value);
+					this.SendPropertyChanging();
 					this._ChurchRelationUpdateDate = value;
+					this.SendPropertyChanged("ChurchRelationUpdateDate");
+					this.OnChurchRelationUpdateDateChanged();
 				}
 			}
 		}
@@ -5886,7 +6351,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._ChurchAuthorityCode != value))
 				{
+					this.OnChurchAuthorityCodeChanging(value);
+					this.SendPropertyChanging();
 					this._ChurchAuthorityCode = value;
+					this.SendPropertyChanged("ChurchAuthorityCode");
+					this.OnChurchAuthorityCodeChanged();
 				}
 			}
 		}
@@ -5902,7 +6371,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._ChurchDate != value))
 				{
+					this.OnChurchDateChanging(value);
+					this.SendPropertyChanging();
 					this._ChurchDate = value;
+					this.SendPropertyChanged("ChurchDate");
+					this.OnChurchDateChanged();
 				}
 			}
 		}
@@ -5918,7 +6391,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._UnderGuardianshipAuthprityCode != value))
 				{
+					this.OnUnderGuardianshipAuthprityCodeChanging(value);
+					this.SendPropertyChanging();
 					this._UnderGuardianshipAuthprityCode = value;
+					this.SendPropertyChanged("UnderGuardianshipAuthprityCode");
+					this.OnUnderGuardianshipAuthprityCodeChanged();
 				}
 			}
 		}
@@ -5934,7 +6411,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._GuardianshipUpdateDate != value))
 				{
+					this.OnGuardianshipUpdateDateChanging(value);
+					this.SendPropertyChanging();
 					this._GuardianshipUpdateDate = value;
+					this.SendPropertyChanged("GuardianshipUpdateDate");
+					this.OnGuardianshipUpdateDateChanged();
 				}
 			}
 		}
@@ -5950,7 +6431,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._UnderGuardianshipDate != value))
 				{
+					this.OnUnderGuardianshipDateChanging(value);
+					this.SendPropertyChanging();
 					this._UnderGuardianshipDate = value;
+					this.SendPropertyChanged("UnderGuardianshipDate");
+					this.OnUnderGuardianshipDateChanged();
 				}
 			}
 		}
@@ -5966,7 +6451,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._PnrMarkingDate != value))
 				{
+					this.OnPnrMarkingDateChanging(value);
+					this.SendPropertyChanging();
 					this._PnrMarkingDate = value;
+					this.SendPropertyChanged("PnrMarkingDate");
+					this.OnPnrMarkingDateChanged();
 				}
 			}
 		}
@@ -5982,7 +6471,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._PnrDate != value))
 				{
+					this.OnPnrDateChanging(value);
+					this.SendPropertyChanging();
 					this._PnrDate = value;
+					this.SendPropertyChanged("PnrDate");
+					this.OnPnrDateChanged();
 				}
 			}
 		}
@@ -5998,7 +6491,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._CurrentPnrUpdateDate != value))
 				{
+					this.OnCurrentPnrUpdateDateChanging(value);
+					this.SendPropertyChanging();
 					this._CurrentPnrUpdateDate = value;
+					this.SendPropertyChanged("CurrentPnrUpdateDate");
+					this.OnCurrentPnrUpdateDateChanged();
 				}
 			}
 		}
@@ -6014,7 +6511,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._CurrentPnr != value))
 				{
+					this.OnCurrentPnrChanging(value);
+					this.SendPropertyChanging();
 					this._CurrentPnr = value;
+					this.SendPropertyChanged("CurrentPnr");
+					this.OnCurrentPnrChanged();
 				}
 			}
 		}
@@ -6030,7 +6531,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._PnrDeletionDate != value))
 				{
+					this.OnPnrDeletionDateChanging(value);
+					this.SendPropertyChanging();
 					this._PnrDeletionDate = value;
+					this.SendPropertyChanged("PnrDeletionDate");
+					this.OnPnrDeletionDateChanged();
 				}
 			}
 		}
@@ -6046,7 +6551,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._LocationDate != value))
 				{
+					this.OnJobDateChanging(value);
+					this.SendPropertyChanging();
 					this._LocationDate = value;
+					this.SendPropertyChanged("JobDate");
+					this.OnJobDateChanged();
 				}
 			}
 		}
@@ -6062,7 +6571,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._BirthplaceTextUpdateDate != value))
 				{
+					this.OnBirthplaceTextUpdateDateChanging(value);
+					this.SendPropertyChanging();
 					this._BirthplaceTextUpdateDate = value;
+					this.SendPropertyChanged("BirthplaceTextUpdateDate");
+					this.OnBirthplaceTextUpdateDateChanged();
 				}
 			}
 		}
@@ -6078,7 +6591,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._CustomerNumber != value))
 				{
+					this.OnCustomerNumberChanging(value);
+					this.SendPropertyChanging();
 					this._CustomerNumber = value;
+					this.SendPropertyChanged("CustomerNumber");
+					this.OnCustomerNumberChanged();
 				}
 			}
 		}
@@ -6094,7 +6611,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._KinshipUpdateDate != value))
 				{
+					this.OnKinshipUpdateDateChanging(value);
+					this.SendPropertyChanging();
 					this._KinshipUpdateDate = value;
+					this.SendPropertyChanged("KinshipUpdateDate");
+					this.OnKinshipUpdateDateChanged();
 				}
 			}
 		}
@@ -6110,7 +6631,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._MotherPnr != value))
 				{
+					this.OnMotherPnrChanging(value);
+					this.SendPropertyChanging();
 					this._MotherPnr = value;
+					this.SendPropertyChanged("MotherPnr");
+					this.OnMotherPnrChanged();
 				}
 			}
 		}
@@ -6126,7 +6651,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._MotherBirthdate != value))
 				{
+					this.OnMotherBirthdateChanging(value);
+					this.SendPropertyChanging();
 					this._MotherBirthdate = value;
+					this.SendPropertyChanged("MotherBirthdate");
+					this.OnMotherBirthdateChanged();
 				}
 			}
 		}
@@ -6142,7 +6671,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._MotherDocumentation != value))
 				{
+					this.OnMotherDocumentationChanging(value);
+					this.SendPropertyChanging();
 					this._MotherDocumentation = value;
+					this.SendPropertyChanged("MotherDocumentation");
+					this.OnMotherDocumentationChanged();
 				}
 			}
 		}
@@ -6158,7 +6691,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._FatherPnr != value))
 				{
+					this.OnFatherPnrChanging(value);
+					this.SendPropertyChanging();
 					this._FatherPnr = value;
+					this.SendPropertyChanged("FatherPnr");
+					this.OnFatherPnrChanged();
 				}
 			}
 		}
@@ -6174,7 +6711,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._FatherBirthdate != value))
 				{
+					this.OnFatherBirthdateChanging(value);
+					this.SendPropertyChanging();
 					this._FatherBirthdate = value;
+					this.SendPropertyChanged("FatherBirthdate");
+					this.OnFatherBirthdateChanged();
 				}
 			}
 		}
@@ -6190,7 +6731,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._FatherDocumentation != value))
 				{
+					this.OnFatherDocumentationChanging(value);
+					this.SendPropertyChanging();
 					this._FatherDocumentation = value;
+					this.SendPropertyChanged("FatherDocumentation");
+					this.OnFatherDocumentationChanged();
 				}
 			}
 		}
@@ -6206,7 +6751,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._PaternityDate != value))
 				{
+					this.OnPaternityDateChanging(value);
+					this.SendPropertyChanging();
 					this._PaternityDate = value;
+					this.SendPropertyChanged("PaternityDate");
+					this.OnPaternityDateChanged();
 				}
 			}
 		}
@@ -6222,7 +6771,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._PaternityAuthorityCode != value))
 				{
+					this.OnPaternityAuthorityCodeChanging(value);
+					this.SendPropertyChanging();
 					this._PaternityAuthorityCode = value;
+					this.SendPropertyChanged("PaternityAuthorityCode");
+					this.OnPaternityAuthorityCodeChanged();
 				}
 			}
 		}
@@ -6238,7 +6791,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._MotherName != value))
 				{
+					this.OnMotherNameChanging(value);
+					this.SendPropertyChanging();
 					this._MotherName = value;
+					this.SendPropertyChanged("MotherName");
+					this.OnMotherNameChanged();
 				}
 			}
 		}
@@ -6254,7 +6811,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._FatherName != value))
 				{
+					this.OnFatherNameChanging(value);
+					this.SendPropertyChanging();
 					this._FatherName = value;
+					this.SendPropertyChanged("FatherName");
+					this.OnFatherNameChanged();
 				}
 			}
 		}
@@ -6270,7 +6831,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._BirthplaceText != value))
 				{
+					this.OnBirthplaceTextChanging(value);
+					this.SendPropertyChanging();
 					this._BirthplaceText = value;
+					this.SendPropertyChanged("BirthplaceText");
+					this.OnBirthplaceTextChanged();
 				}
 			}
 		}
@@ -6286,7 +6851,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._Job != value))
 				{
+					this.OnJobChanging(value);
+					this.SendPropertyChanging();
 					this._Job = value;
+					this.SendPropertyChanged("Job");
+					this.OnJobChanged();
 				}
 			}
 		}
@@ -6302,7 +6871,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._UnderGuardianshipDeleteDate != value))
 				{
+					this.OnUnderGuardianshipDeleteDateChanging(value);
+					this.SendPropertyChanging();
 					this._UnderGuardianshipDeleteDate = value;
+					this.SendPropertyChanged("UnderGuardianshipDeleteDate");
+					this.OnUnderGuardianshipDeleteDateChanged();
 				}
 			}
 		}
@@ -6318,15 +6891,41 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._UnderGuardianshipRelationType != value))
 				{
+					this.OnUnderGuardianshipRelationTypeChanging(value);
+					this.SendPropertyChanging();
 					this._UnderGuardianshipRelationType = value;
+					this.SendPropertyChanged("UnderGuardianshipRelationType");
+					this.OnUnderGuardianshipRelationTypeChanged();
 				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DTKOMFOR")]
-	public partial class MunicipalCondition
+	public partial class MunicipalCondition : INotifyPropertyChanging, INotifyPropertyChanged
 	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private decimal _PNR;
 		
@@ -6340,11 +6939,30 @@ namespace CprBroker.Providers.DPR
 		
 		private string _ConditionComments;
 		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnPNRChanging(decimal value);
+    partial void OnPNRChanged();
+    partial void OnCprUpdateDateChanging(decimal value);
+    partial void OnCprUpdateDateChanged();
+    partial void OnConditionTypeChanging(decimal value);
+    partial void OnConditionTypeChanged();
+    partial void OnConditionMarkerChanging(string value);
+    partial void OnConditionMarkerChanged();
+    partial void OnConditionDateChanging(decimal value);
+    partial void OnConditionDateChanged();
+    partial void OnConditionCommentsChanging(string value);
+    partial void OnConditionCommentsChanged();
+    #endregion
+		
 		public MunicipalCondition()
 		{
+			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PNR", DbType="Decimal(11,0) NOT NULL")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PNR", DbType="Decimal(11,0) NOT NULL", IsPrimaryKey=true)]
 		public decimal PNR
 		{
 			get
@@ -6355,12 +6973,16 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._PNR != value))
 				{
+					this.OnPNRChanging(value);
+					this.SendPropertyChanging();
 					this._PNR = value;
+					this.SendPropertyChanged("PNR");
+					this.OnPNRChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="AJFDTO", Storage="_CprUpdateDate", DbType="Decimal(13,0) NOT NULL")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="AJFDTO", Storage="_CprUpdateDate", DbType="Decimal(13,0) NOT NULL", IsPrimaryKey=true)]
 		public decimal CprUpdateDate
 		{
 			get
@@ -6371,7 +6993,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._CprUpdateDate != value))
 				{
+					this.OnCprUpdateDateChanging(value);
+					this.SendPropertyChanging();
 					this._CprUpdateDate = value;
+					this.SendPropertyChanged("CprUpdateDate");
+					this.OnCprUpdateDateChanged();
 				}
 			}
 		}
@@ -6387,7 +7013,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._ConditionType != value))
 				{
+					this.OnConditionTypeChanging(value);
+					this.SendPropertyChanging();
 					this._ConditionType = value;
+					this.SendPropertyChanged("ConditionType");
+					this.OnConditionTypeChanged();
 				}
 			}
 		}
@@ -6403,12 +7033,16 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._ConditionMarker != value))
 				{
+					this.OnConditionMarkerChanging(value);
+					this.SendPropertyChanging();
 					this._ConditionMarker = value;
+					this.SendPropertyChanged("ConditionMarker");
+					this.OnConditionMarkerChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="HAENST", Storage="_ConditionDate", DbType="Decimal(13,0) NOT NULL")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="HAENST", Storage="_ConditionDate", DbType="Decimal(13,0) NOT NULL", IsPrimaryKey=true)]
 		public decimal ConditionDate
 		{
 			get
@@ -6419,7 +7053,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._ConditionDate != value))
 				{
+					this.OnConditionDateChanging(value);
+					this.SendPropertyChanging();
 					this._ConditionDate = value;
+					this.SendPropertyChanged("ConditionDate");
+					this.OnConditionDateChanged();
 				}
 			}
 		}
@@ -6435,15 +7073,41 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._ConditionComments != value))
 				{
+					this.OnConditionCommentsChanging(value);
+					this.SendPropertyChanging();
 					this._ConditionComments = value;
+					this.SendPropertyChanged("ConditionComments");
+					this.OnConditionCommentsChanged();
 				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DTRELPNR_PNR")]
-	public partial class GuardianAndParentalAuthorityRelation
+	public partial class GuardianAndParentalAuthorityRelation : INotifyPropertyChanging, INotifyPropertyChanged
 	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private decimal _PNR;
 		
@@ -6459,11 +7123,32 @@ namespace CprBroker.Providers.DPR
 		
 		private decimal _AuthorityCode;
 		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnPNRChanging(decimal value);
+    partial void OnPNRChanged();
+    partial void OnRelationPnrChanging(decimal value);
+    partial void OnRelationPnrChanged();
+    partial void OnRelationTypeChanging(decimal value);
+    partial void OnRelationTypeChanged();
+    partial void OnCprUpdateDateChanging(decimal value);
+    partial void OnCprUpdateDateChanged();
+    partial void OnStartDateChanging(System.DateTime value);
+    partial void OnStartDateChanged();
+    partial void OnEndDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnEndDateChanged();
+    partial void OnAuthorityCodeChanging(decimal value);
+    partial void OnAuthorityCodeChanged();
+    #endregion
+		
 		public GuardianAndParentalAuthorityRelation()
 		{
+			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PNR", DbType="Decimal(11,0) NOT NULL")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PNR", DbType="Decimal(11,0) NOT NULL", IsPrimaryKey=true)]
 		public decimal PNR
 		{
 			get
@@ -6474,12 +7159,16 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._PNR != value))
 				{
+					this.OnPNRChanging(value);
+					this.SendPropertyChanging();
 					this._PNR = value;
+					this.SendPropertyChanged("PNR");
+					this.OnPNRChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="RELPNR", Storage="_RelationPnr", DbType="Decimal(11,0) NOT NULL")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="RELPNR", Storage="_RelationPnr", DbType="Decimal(11,0) NOT NULL", IsPrimaryKey=true)]
 		public decimal RelationPnr
 		{
 			get
@@ -6490,7 +7179,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._RelationPnr != value))
 				{
+					this.OnRelationPnrChanging(value);
+					this.SendPropertyChanging();
 					this._RelationPnr = value;
+					this.SendPropertyChanged("RelationPnr");
+					this.OnRelationPnrChanged();
 				}
 			}
 		}
@@ -6506,12 +7199,16 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._RelationType != value))
 				{
+					this.OnRelationTypeChanging(value);
+					this.SendPropertyChanging();
 					this._RelationType = value;
+					this.SendPropertyChanged("RelationType");
+					this.OnRelationTypeChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="AJFDTO", Storage="_CprUpdateDate", DbType="Decimal(13,0) NOT NULL")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="AJFDTO", Storage="_CprUpdateDate", DbType="Decimal(13,0) NOT NULL", IsPrimaryKey=true)]
 		public decimal CprUpdateDate
 		{
 			get
@@ -6522,7 +7219,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._CprUpdateDate != value))
 				{
+					this.OnCprUpdateDateChanging(value);
+					this.SendPropertyChanging();
 					this._CprUpdateDate = value;
+					this.SendPropertyChanged("CprUpdateDate");
+					this.OnCprUpdateDateChanged();
 				}
 			}
 		}
@@ -6538,7 +7239,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._StartDate != value))
 				{
+					this.OnStartDateChanging(value);
+					this.SendPropertyChanging();
 					this._StartDate = value;
+					this.SendPropertyChanged("StartDate");
+					this.OnStartDateChanged();
 				}
 			}
 		}
@@ -6554,7 +7259,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._EndDate != value))
 				{
+					this.OnEndDateChanging(value);
+					this.SendPropertyChanging();
 					this._EndDate = value;
+					this.SendPropertyChanged("EndDate");
+					this.OnEndDateChanged();
 				}
 			}
 		}
@@ -6570,15 +7279,41 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._AuthorityCode != value))
 				{
+					this.OnAuthorityCodeChanging(value);
+					this.SendPropertyChanging();
 					this._AuthorityCode = value;
+					this.SendPropertyChanged("AuthorityCode");
+					this.OnAuthorityCodeChanged();
 				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DTRELPNR_TXT")]
-	public partial class GuardianAddress
+	public partial class GuardianAddress : INotifyPropertyChanging, INotifyPropertyChanged
 	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private decimal _PNR;
 		
@@ -6604,11 +7339,42 @@ namespace CprBroker.Providers.DPR
 		
 		private decimal _AuthorityCode;
 		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnPNRChanging(decimal value);
+    partial void OnPNRChanged();
+    partial void OnAddressChanging(string value);
+    partial void OnAddressChanged();
+    partial void OnRelationTypeChanging(decimal value);
+    partial void OnRelationTypeChanged();
+    partial void OnCprUpdateDateChanging(decimal value);
+    partial void OnCprUpdateDateChanged();
+    partial void OnAddressLine1Changing(string value);
+    partial void OnAddressLine1Changed();
+    partial void OnAddressLine2Changing(string value);
+    partial void OnAddressLine2Changed();
+    partial void OnAddressLine3Changing(string value);
+    partial void OnAddressLine3Changed();
+    partial void OnAddressLine4Changing(string value);
+    partial void OnAddressLine4Changed();
+    partial void OnAddressLine5Changing(string value);
+    partial void OnAddressLine5Changed();
+    partial void OnStartDateChanging(System.DateTime value);
+    partial void OnStartDateChanged();
+    partial void OnEndDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnEndDateChanged();
+    partial void OnAuthorityCodeChanging(decimal value);
+    partial void OnAuthorityCodeChanged();
+    #endregion
+		
 		public GuardianAddress()
 		{
+			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PNR", DbType="Decimal(11,0) NOT NULL")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PNR", DbType="Decimal(11,0) NOT NULL", IsPrimaryKey=true)]
 		public decimal PNR
 		{
 			get
@@ -6619,7 +7385,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._PNR != value))
 				{
+					this.OnPNRChanging(value);
+					this.SendPropertyChanging();
 					this._PNR = value;
+					this.SendPropertyChanged("PNR");
+					this.OnPNRChanged();
 				}
 			}
 		}
@@ -6635,12 +7405,16 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._Address != value))
 				{
+					this.OnAddressChanging(value);
+					this.SendPropertyChanging();
 					this._Address = value;
+					this.SendPropertyChanged("Address");
+					this.OnAddressChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="RELTYP", Storage="_RelationType", DbType="Decimal(4,0) NOT NULL")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="RELTYP", Storage="_RelationType", DbType="Decimal(4,0) NOT NULL", IsPrimaryKey=true)]
 		public decimal RelationType
 		{
 			get
@@ -6651,12 +7425,16 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._RelationType != value))
 				{
+					this.OnRelationTypeChanging(value);
+					this.SendPropertyChanging();
 					this._RelationType = value;
+					this.SendPropertyChanged("RelationType");
+					this.OnRelationTypeChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="AJFDTO", Storage="_CprUpdateDate", DbType="Decimal(13,0) NOT NULL")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="AJFDTO", Storage="_CprUpdateDate", DbType="Decimal(13,0) NOT NULL", IsPrimaryKey=true)]
 		public decimal CprUpdateDate
 		{
 			get
@@ -6667,7 +7445,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._CprUpdateDate != value))
 				{
+					this.OnCprUpdateDateChanging(value);
+					this.SendPropertyChanging();
 					this._CprUpdateDate = value;
+					this.SendPropertyChanged("CprUpdateDate");
+					this.OnCprUpdateDateChanged();
 				}
 			}
 		}
@@ -6683,7 +7465,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._AddressLine1 != value))
 				{
+					this.OnAddressLine1Changing(value);
+					this.SendPropertyChanging();
 					this._AddressLine1 = value;
+					this.SendPropertyChanged("AddressLine1");
+					this.OnAddressLine1Changed();
 				}
 			}
 		}
@@ -6699,7 +7485,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._AddressLine2 != value))
 				{
+					this.OnAddressLine2Changing(value);
+					this.SendPropertyChanging();
 					this._AddressLine2 = value;
+					this.SendPropertyChanged("AddressLine2");
+					this.OnAddressLine2Changed();
 				}
 			}
 		}
@@ -6715,7 +7505,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._AddressLine3 != value))
 				{
+					this.OnAddressLine3Changing(value);
+					this.SendPropertyChanging();
 					this._AddressLine3 = value;
+					this.SendPropertyChanged("AddressLine3");
+					this.OnAddressLine3Changed();
 				}
 			}
 		}
@@ -6731,7 +7525,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._AddressLine4 != value))
 				{
+					this.OnAddressLine4Changing(value);
+					this.SendPropertyChanging();
 					this._AddressLine4 = value;
+					this.SendPropertyChanged("AddressLine4");
+					this.OnAddressLine4Changed();
 				}
 			}
 		}
@@ -6747,12 +7545,16 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._AddressLine5 != value))
 				{
+					this.OnAddressLine5Changing(value);
+					this.SendPropertyChanging();
 					this._AddressLine5 = value;
+					this.SendPropertyChanged("AddressLine5");
+					this.OnAddressLine5Changed();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="STARTDATE", Storage="_StartDate", DbType="SmallDateTime NOT NULL")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="STARTDATE", Storage="_StartDate", DbType="SmallDateTime NOT NULL", IsPrimaryKey=true)]
 		public System.DateTime StartDate
 		{
 			get
@@ -6763,7 +7565,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._StartDate != value))
 				{
+					this.OnStartDateChanging(value);
+					this.SendPropertyChanging();
 					this._StartDate = value;
+					this.SendPropertyChanged("StartDate");
+					this.OnStartDateChanged();
 				}
 			}
 		}
@@ -6779,7 +7585,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._EndDate != value))
 				{
+					this.OnEndDateChanging(value);
+					this.SendPropertyChanging();
 					this._EndDate = value;
+					this.SendPropertyChanged("EndDate");
+					this.OnEndDateChanged();
 				}
 			}
 		}
@@ -6795,8 +7605,32 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._AuthorityCode != value))
 				{
+					this.OnAuthorityCodeChanging(value);
+					this.SendPropertyChanging();
 					this._AuthorityCode = value;
+					this.SendPropertyChanged("AuthorityCode");
+					this.OnAuthorityCodeChanged();
 				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}
