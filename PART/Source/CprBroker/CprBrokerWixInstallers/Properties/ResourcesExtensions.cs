@@ -51,6 +51,7 @@ using System.Text;
 using CprBroker.Data.Applications;
 using CprBroker.Data.DataProviders;
 using CprBroker.Data.Part;
+using CprBroker.Data.Queues;
 
 namespace CprBrokerWixInstallers.Properties
 {
@@ -62,6 +63,8 @@ namespace CprBrokerWixInstallers.Properties
             {
                 var arr = new string[] { 
                     Resources.Extract,
+                    Resources.Queue,
+                    Resources.QueueItem,
                     Resources.CreatePartDatabaseObjects
                 };
 
@@ -77,13 +80,15 @@ namespace CprBrokerWixInstallers.Properties
             {
                 List<KeyValuePair<string, string>> cprLookups = new List<KeyValuePair<string, string>>();
 
-                cprLookups.Add(new KeyValuePair<string, string>(typeof(Application).Name, Properties.Resources.Application));
-                cprLookups.Add(new KeyValuePair<string, string>(typeof(LifecycleStatus).Name, Properties.Resources.LifecycleStatus));
-                cprLookups.Add(new KeyValuePair<string, string>(typeof(LogType).Name, Properties.Resources.LogType));
-                cprLookups.Add(new KeyValuePair<string, string>(typeof(BudgetInterval).Name, Properties.Resources.BudgetEntry));
-                
+                cprLookups.Add(new KeyValuePair<string, string>(CprBroker.Utilities.DataLinq.GetTableName<Application>(), Properties.Resources.Application));
+                cprLookups.Add(new KeyValuePair<string, string>(CprBroker.Utilities.DataLinq.GetTableName<LifecycleStatus>(), Properties.Resources.LifecycleStatus));
+                cprLookups.Add(new KeyValuePair<string, string>(CprBroker.Utilities.DataLinq.GetTableName<LogType>(), Properties.Resources.LogType));
+                cprLookups.Add(new KeyValuePair<string, string>(CprBroker.Utilities.DataLinq.GetTableName<BudgetInterval>(), Properties.Resources.BudgetEntry));
+                cprLookups.Add(new KeyValuePair<string, string>(CprBroker.Utilities.DataLinq.GetTableName<DbQueue>(), Properties.Resources.Queue_Csv));
+
                 return cprLookups.ToArray();
             }
         }
+
     }
 }

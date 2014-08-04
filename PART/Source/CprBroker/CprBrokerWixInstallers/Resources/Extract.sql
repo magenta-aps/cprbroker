@@ -2,11 +2,6 @@
     DROP TABLE [dbo].[Extract]
 GO
 
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
 CREATE TABLE [dbo].[Extract](
 	[ExtractId] [uniqueidentifier] NOT NULL 
         CONSTRAINT [DF_Extract_ExtractId] DEFAULT NEWID(),

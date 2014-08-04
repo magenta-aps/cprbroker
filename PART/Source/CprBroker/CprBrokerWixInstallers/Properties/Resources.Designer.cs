@@ -327,5 +327,60 @@ namespace CprBrokerWixInstallers.Properties {
                 return ResourceManager.GetString("PatchDatabase_2_2_2", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N&apos;[dbo].[Queue]&apos;) AND type in (N&apos;U&apos;))
+        ///    DROP TABLE [dbo].[Queue]
+        ///GO
+        ///
+        ///CREATE TABLE [dbo].[Queue](
+        ///	[QueueId] [uniqueidentifier] NOT NULL
+        ///        CONSTRAINT [DF_Queue_QueueId] DEFAULT NEWID(),
+        ///	[TypeId] [int] NULL,
+        ///	[TypeName] [varchar](250) NOT NULL,
+        ///	[BatchSize] [int] NOT NULL,
+        ///	[MaxRetry] [int] NOT NULL,
+        ///	[EncryptedData] [varbinary](max) NULL,
+        ///    CONSTRAINT [PK_Queue] PRIMARY KEY CLUSTERED ([QueueId] ASC)
+        ///
+        ///) ON [PRIMARY]
+        ///
+        ///G [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Queue {
+            get {
+                return ResourceManager.GetString("Queue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TypeId;TypeName;BatchSize;MaxRetry;EncryptedData
+        ///100;CprBroker.Providers.CPRDirect.ExtractStagingQueue, CprBroker.Providers.CPRDirect;1000;100;null
+        ///200;CprBroker.Providers.CPRDirect.DbrBaseQueue, CprBroker.Providers.CPRDirect;100;100;null.
+        /// </summary>
+        internal static string Queue_Csv {
+            get {
+                return ResourceManager.GetString("Queue_Csv", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N&apos;[dbo].[QueueItem]&apos;) AND type in (N&apos;U&apos;))
+        ///    DROP TABLE [dbo].[QueueItem]
+        ///GO
+        ///
+        ///CREATE TABLE [dbo].[QueueItem](
+        ///	[QueueItemId] [int] IDENTITY(1,1) NOT NULL,
+        ///	[QueueId] [uniqueidentifier] NOT NULL
+        ///        CONSTRAINT [FK_QueueItem_Queue] FOREIGN KEY([QueueId]) REFERENCES [dbo].[Queue] ([QueueId]) ON UPDATE CASCADE ON DELETE CASCADE,
+        ///	[ItemKey] [varchar](50) NOT NULL,
+        ///	[CreatedTS] [datetime] NOT NULL
+        ///        CONSTRAINT [DF_QueueItem_Crea [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string QueueItem {
+            get {
+                return ResourceManager.GetString("QueueItem", resourceCulture);
+            }
+        }
     }
 }
