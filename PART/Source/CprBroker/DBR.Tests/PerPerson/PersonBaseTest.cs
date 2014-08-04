@@ -9,11 +9,11 @@ namespace DBR.Tests.PerPerson
 {
     public class PersonBaseTest 
     {
-        public string[] CprNumbers;
-        public Dictionary<string, IndividualResponseType> Persons;
+        public static string[] CprNumbers;
+        public static Dictionary<string, IndividualResponseType> Persons;
 
 
-        public PersonBaseTest()
+        static PersonBaseTest()
         {
             var all = CprBroker.Providers.CPRDirect.IndividualResponseType.ParseBatch(CprBroker.Tests.CPRDirect.Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE);
             CprNumbers = all.Select(p => p.PersonInformation.PNR).OrderBy(p => p).ToArray();

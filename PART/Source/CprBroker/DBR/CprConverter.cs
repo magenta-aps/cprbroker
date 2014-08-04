@@ -52,7 +52,9 @@ namespace CprBroker.DBR
             dataContext.CivilStatus.InsertOnSubmit(person.CurrentCivilStatus.ToDpr());
             dataContext.CivilStatus.InsertAllOnSubmit(person.HistoricalCivilStatus.Select(c => c.ToDpr()));
 
-            dataContext.Separations.InsertOnSubmit(person.CurrentSeparation.ToDpr());
+            if (person.CurrentSeparation != null)
+                dataContext.Separations.InsertOnSubmit(person.CurrentSeparation.ToDpr());
+
             dataContext.Separations.InsertAllOnSubmit(person.HistoricalSeparation.Select(c => c.ToDpr()));
 
             dataContext.Nationalities.InsertOnSubmit(person.CurrentCitizenship.ToDpr());
@@ -65,14 +67,14 @@ namespace CprBroker.DBR
             }
             dataContext.Departures.InsertAllOnSubmit(person.HistoricalDeparture.Select(c => c.ToDpr()));
 
-            if(person.ContactAddress !=null)
+            if (person.ContactAddress != null)
                 dataContext.ContactAddresses.InsertOnSubmit(person.ContactAddress.ToDpr());
-            
+
             else
             {
-                Console.WriteLine("contactAddress was NULL");    
+                Console.WriteLine("contactAddress was NULL");
             }
-            
+
             var currentAddress = person.GetFolkeregisterAdresseSource(false) as CurrentAddressWrapper;
             if (currentAddress != null)
                 dataContext.PersonAddresses.InsertOnSubmit(currentAddress.ToDpr());

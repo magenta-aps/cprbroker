@@ -9,10 +9,10 @@ using CprBroker.Schemas.Part;
 namespace DBR.Tests.PerPerson
 {
     [TestFixture]
-    class CprConverterTests : PersonBaseTest
+    public class CprConverterTests : PersonBaseTest
     {
         [Test]
-        public void AppendPerson_IndividualResponse_Passes([ValueSource("CprNumbers")]string pnr)
+        public void AppendPerson_IndividualResponse_Passes([ValueSource(typeof(PersonBaseTest), "CprNumbers")]string pnr)
         {
             var pers = Persons[pnr];
             using (var dataContext = new CprBroker.Providers.DPR.DPRDataContext(""))

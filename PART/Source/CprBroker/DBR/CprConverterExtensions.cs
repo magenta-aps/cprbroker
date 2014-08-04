@@ -120,7 +120,7 @@ namespace CprBroker.DBR
             {
                 pt.SpousePersonalOrBirthdate = resp.CurrentCivilStatus.SpouseBirthDate.Value.ToString("dd-MM-yyyy");
             }
-
+            
             pt.SpouseMarker = null; //DPR SPECIFIC
             pt.PostCode = resp.ClearWrittenAddress.PostCode;
             pt.PostDistrictName = resp.ClearWrittenAddress.PostDistrictText;
@@ -144,10 +144,13 @@ namespace CprBroker.DBR
                 .Where(e => (e as CprBroker.Schemas.Part.IHasCorrectionMarker).CorrectionMarker == CprBroker.Schemas.Part.CorrectionMarker.OK)
                 .OrderByDescending(e => e.ToStartTS())
                 .FirstOrDefault();
+            
             // TODO: What to do with previous address??
+            /*
             var prevMun = resp.HistoricalAddress.OrderByDescending(e => e.MunicipalityCode).FirstOrDefault(); //Find municipality name in GeoLookup, based on mun. code
             pt.PreviousAddress = prevAdr + "(" + prevMun + ")";
             //pt.PreviousMunicipalityName = prevMun;
+            */
             pt.SearchName = resp.CurrentNameInformation.FirstName_s.ToUpper();
             pt.SearchSurname = resp.CurrentNameInformation.LastName.ToUpper();
             pt.AddressingName = resp.ClearWrittenAddress.AddressingName;
@@ -155,7 +158,6 @@ namespace CprBroker.DBR
             pt.Location = resp.ClearWrittenAddress.Location;
             pt.ContactAddressMarker = null; //DPR SPECIFIC
             return pt;
-            //throw new NotImplementedException();
         }
 
         public static Person ToPerson(this IndividualResponseType person)
@@ -427,25 +429,17 @@ namespace CprBroker.DBR
         public static Separation ToDpr(this CurrentSeparationType currentSeparation)
         {
             Separation s = new Separation();
-            if (currentSeparation != null)
-            {
-                s.PNR = Decimal.Parse(currentSeparation.PNR);
-                s.CprUpdateDate = CprBroker.Utilities.Dates.DateToDecimal(currentSeparation.Registration.RegistrationDate, 12);
-                s.SeparationReferalTimestamp = currentSeparation.ReferenceToAnyMaritalStatus.Value.ToString();
-                s.CorrectionMarker = null; //This is the current status
-                s.StartAuthorityCode = 0; //TODO: Can be fetched in CPR Services, mynkod_start
-                s.StartDate = currentSeparation.SeparationStartDate.Value;
-                s.StartDateMarker = currentSeparation.SeparationStartDateUncertainty;
-                s.EndAuthorityCode = null; //TODO: Can be fetched in CPR Services, mynkod_slut
-                s.EndDate = null; //This is the current separation
-                s.EndDateMarker = null; //This is the current separation
-            }
-            else
-            {
-                Console.WriteLine("currentSeparation was NULL");
-            }
+            s.PNR = Decimal.Parse(currentSeparation.PNR);
+            s.CprUpdateDate = CprBroker.Utilities.Dates.DateToDecimal(currentSeparation.Registration.RegistrationDate, 12);
+            s.SeparationReferalTimestamp = currentSeparation.ReferenceToAnyMaritalStatus.Value.ToString();
+            s.CorrectionMarker = null; //This is the current status
+            s.StartAuthorityCode = 0; //TODO: Can be fetched in CPR Services, mynkod_start
+            s.StartDate = currentSeparation.SeparationStartDate.Value;
+            s.StartDateMarker = currentSeparation.SeparationStartDateUncertainty;
+            s.EndAuthorityCode = null; //TODO: Can be fetched in CPR Services, mynkod_slut
+            s.EndDate = null; //This is the current separation
+            s.EndDateMarker = null; //This is the current separation            
             return s;
-            //throw new NotImplementedException();
         }
 
         public static Separation ToDpr(this HistoricalSeparationType historicalSeparation)
@@ -689,8 +683,9 @@ namespace CprBroker.DBR
             pa.MunicipalityName = CprBroker.Providers.CPRDirect.Authority.GetNameByCode(pa.MunicipalityCode.ToString());
             pa.StreetAddressingName = null; //TODO: Can be fetched in CPR Services, vejadrnvn
 
+            // TODO: Shall we use length 12 or 13?
             if (historicalAddress.RelocationDate.HasValue)
-                pa.AddressStartDate = CprBroker.Utilities.Dates.DateToDecimal(historicalAddress.RelocationDate.Value, 8);
+                pa.AddressStartDate = CprBroker.Utilities.Dates.DateToDecimal(historicalAddress.RelocationDate.Value, 12);
 
             pa.AddressStartDateMarker = historicalAddress.RelocationDateUncertainty;
 
@@ -860,6 +855,7 @@ namespace CprBroker.DBR
             ga.AddressLine4 = disempowerment.RelationText4;
             ga.AddressLine5 = disempowerment.RelationText5;
 
+            // TODO: Sample PNR 709614126 has start date equal to 1/1/1 !!!
             if (disempowerment.GuardianAddressStartDate.HasValue)
                 ga.StartDate = disempowerment.GuardianAddressStartDate.Value;
 

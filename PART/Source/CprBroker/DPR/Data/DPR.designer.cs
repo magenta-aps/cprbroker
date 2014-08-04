@@ -515,7 +515,7 @@ namespace CprBroker.Providers.DPR
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="NVHAENSL", Storage="_NVHAENSL", DbType="Decimal(13,0)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="NVHAENSL", Storage="_NVHAENSL", DbType="Decimal(13,0)", IsPrimaryKey=true)]
 		public System.Nullable<decimal> NameTerminationDate
 		{
 			get
@@ -2707,7 +2707,7 @@ namespace CprBroker.Providers.DPR
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="AEGTEPNR", Storage="_AEGTEPNR", DbType="Decimal(11,0)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="AEGTEPNR", Storage="_AEGTEPNR", DbType="Decimal(11,0)", IsPrimaryKey=true)]
 		public System.Nullable<decimal> SpousePNR
 		{
 			get
@@ -5934,7 +5934,7 @@ namespace CprBroker.Providers.DPR
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="HAEND", Storage="_Event_", DbType="VarChar(3)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="HAEND", Storage="_Event_", DbType="VarChar(3)", IsPrimaryKey=true)]
 		public string Event_
 		{
 			get

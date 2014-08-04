@@ -53,35 +53,36 @@ namespace DBR.Tests
             }
 
             [Test]
-            public void _400_ConvertPersons_Extract_GoesToDbrDatabase()
+            public void _400_DbrQueue_GoesToDbrDatabase([ValueSource(typeof(PerPerson.PersonBaseTest), "CprNumbers")] string pnr)
             {
-                // Init DB
+                // Init DB & env
+                CprBroker.Engine.BrokerContext.Initialize(CprBroker.Utilities.Constants.BaseApplicationToken.ToString(), "test user");
                 CprBroker.Providers.CPRDirect.ExtractManager.ImportText(CprBroker.Tests.CPRDirect.Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE_FixedLength);
-                var stagingQueue = CprBroker.Engine.Queues.Queue.GetQueues<CprBroker.Providers.CPRDirect.ExtractStagingQueue>().Single();
-                var dbrBaseQueue = CprBroker.Engine.Queues.Queue.GetQueues<CprBroker.Providers.CPRDirect.DbrBaseQueue>().Single();
 
                 var values = new Dictionary<string, string>();
                 CprBroker.Engine.DataProviderConfigProperty.Templates.SetConnectionString(DbrDatabase.ConnectionString, values);
-                var dbrQueue = CprBroker.Engine.Queues.Queue.AddQueue<DbrQueue>(CprBroker.Providers.CPRDirect.DbrBaseQueue.TargetQueueTypeId, values, 100, 1);
 
-                // Now run
-                stagingQueue.RunOneBatch();
-                dbrBaseQueue.RunOneBatch();
-
+                Guid extractId;
+                using (var partDataContext = new CprBroker.Providers.CPRDirect.ExtractDataContext())
+                {
+                    extractId = partDataContext.Extracts.Single().ExtractId;
+                }
 
                 using (var dataContext = new System.Data.Linq.DataContext(DbrDatabase.ConnectionString))
                 {
-                    var sql = "select count(*) from DTTOTAL";
-                    var c1 = dataContext.ExecuteQuery<int>(sql).Single();
+                    var sql = "select count(*) from DTTOTAL WHERE PNR = {0}";
+                    var c1 = dataContext.ExecuteQuery<int>(sql, pnr).Single();
                     Assert.AreEqual(0, c1);
+
+                    var dbrQueue = CprBroker.Engine.Queues.Queue.AddQueue<DbrQueue>(CprBroker.Providers.CPRDirect.DbrBaseQueue.TargetQueueTypeId, values, 100, 1);
+                    var dbrQueueItem = new CprBroker.Providers.CPRDirect.ExtractQueueItem() { ExtractId = extractId, PNR = pnr };
+                    dbrQueue.Enqueue(dbrQueueItem);
 
                     dbrQueue.RunOneBatch();
 
-                    var c2 = dataContext.ExecuteQuery<int>(sql).Single();
+                    var c2 = dataContext.ExecuteQuery<int>(sql, pnr).Single();
                     Assert.Greater(c2, 0);
                 }
-
-
             }
         }
     }

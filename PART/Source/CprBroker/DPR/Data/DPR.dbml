@@ -9,7 +9,7 @@
       <Column Name="FORNMRK" Member="FirstNameMarker" Storage="_FORNMRK" Type="System.Char" DbType="VarChar(1)" CanBeNull="true" />
       <Column Name="EFTNMRK" Member="SurnameMarker" Storage="_EFTNMRK" Type="System.Char" DbType="VarChar(1)" CanBeNull="true" />
       <Column Name="NVHAENST" Member="NameStartDate" Storage="_NVHAENST" Type="System.Decimal" DbType="Decimal(13,0)" IsPrimaryKey="true" CanBeNull="true" />
-      <Column Name="NVHAENSL" Member="NameTerminationDate" Storage="_NVHAENSL" Type="System.Decimal" DbType="Decimal(13,0)" CanBeNull="true" />
+      <Column Name="NVHAENSL" Member="NameTerminationDate" Storage="_NVHAENSL" Type="System.Decimal" DbType="Decimal(13,0)" IsPrimaryKey="true" CanBeNull="true" />
       <Column Name="ANHAENST" Member="AddressingNameDate" Storage="_ANHAENST" Type="System.Decimal" DbType="Decimal(13,0)" CanBeNull="true" />
       <Column Name="ANNKOR" Member="CorrectionMarker" Storage="_ANNKOR" Type="System.Char" DbType="VarChar(1)" IsPrimaryKey="true" CanBeNull="true" />
       <Column Name="INDRAP" Member="AddressingNameReportingMarker" Storage="_INDRAP" Type="System.String" DbType="VarChar(3)" CanBeNull="true" />
@@ -105,7 +105,7 @@
       <Column Name="AJFDTO" Member="UpdateDateOfCpr" Storage="_AJFDTO" Type="System.Decimal" DbType="Decimal(13,0) NOT NULL" CanBeNull="false" />
       <Column Name="CIVST" Member="MaritalStatus" Storage="_CIVST" Type="System.Char" DbType="VarChar(1)" CanBeNull="true" />
       <Column Name="MYNKOD" Member="MaritalStatusAuthorityCode" Storage="_MYNKOD" Type="System.Decimal" DbType="Decimal(5,0)" CanBeNull="true" />
-      <Column Name="AEGTEPNR" Member="SpousePNR" Storage="_AEGTEPNR" Type="System.Decimal" DbType="Decimal(11,0)" CanBeNull="true" />
+      <Column Name="AEGTEPNR" Member="SpousePNR" Storage="_AEGTEPNR" Type="System.Decimal" DbType="Decimal(11,0)" IsPrimaryKey="true" CanBeNull="true" />
       <Column Name="AEFODDTO" Member="SpouseBirthdate" Storage="_AEFODDTO" Type="System.Decimal" DbType="Decimal(9,0)" CanBeNull="true" />
       <Column Name="AEGTEDOK" Member="SpouseDocumentation" Storage="_AEGTEDOK" Type="System.String" DbType="VarChar(3)" CanBeNull="true" />
       <Column Name="HAENST" Member="MaritalStatusDate" Storage="_HAENST" Type="System.Decimal" DbType="Decimal(13,0)" IsPrimaryKey="true" CanBeNull="true" />
@@ -261,7 +261,7 @@
     <Type Name="Event">
       <Column Name="PNR" Type="System.Decimal" DbType="Decimal(11,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="TSU" Member="CprUpdateDate" Type="System.Decimal" DbType="Decimal(13,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="HAEND" Member="Event_" Type="System.String" DbType="VarChar(3)" CanBeNull="true" />
+      <Column Name="HAEND" Member="Event_" Type="System.String" DbType="VarChar(3)" IsPrimaryKey="true" CanBeNull="true" />
       <Column Name="AFLMRK" Type="System.String" DbType="VarChar(2)" CanBeNull="true" />
     </Type>
   </Table>
