@@ -19,6 +19,7 @@ namespace CprBroker.DBR
         public string ConnectionString
         {
             get { return DataProviderConfigProperty.Templates.GetConnectionString(this.ConfigurationProperties); }
+            set { DataProviderConfigProperty.Templates.SetConnectionString(value, this.ConfigurationProperties); }
         }
 
         public int? Port
@@ -31,6 +32,10 @@ namespace CprBroker.DBR
                     return ret;
                 else
                     return null;
+            }
+            set
+            {
+                this.ConfigurationProperties["Port"] = value.HasValue ? "" : value.Value.ToString();
             }
         }
 
@@ -48,10 +53,13 @@ namespace CprBroker.DBR
                     {
                         try
                         {
-                            var person = Extract.ToIndividualResponseType(item.Extract, item.ExtractItems, CprBroker.Providers.CPRDirect.Constants.DataObjectMap);
-
                             CprConverter.DeletePersonRecords(item.PNR, dprDataContext);
+                            dprDataContext.SubmitChanges();
+
+                            var person = Extract.ToIndividualResponseType(item.Extract, item.ExtractItems, CprBroker.Providers.CPRDirect.Constants.DataObjectMap);
                             CprConverter.AppendPerson(person, dprDataContext);
+                            dprDataContext.SubmitChanges();
+
                             ret.Add(item);
                         }
                         catch (Exception ex)
@@ -59,7 +67,7 @@ namespace CprBroker.DBR
                             CprBroker.Engine.Local.Admin.LogException(ex);
                         }
                     }
-                    dprDataContext.SubmitChanges();
+
                 }
             }
             return ret.ToArray();
@@ -97,6 +105,6 @@ namespace CprBroker.DBR
             var listener = new DprDiversionServer() { Port = this.Port.Value };
             return listener;
         }
-        
+
     }
 }

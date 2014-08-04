@@ -93,7 +93,7 @@ namespace CprBroker.Providers.CPRDirect
 
             using (var transactionScope = CreateTransactionScope())
             {
-            using (var conn = new SqlConnection(CprBroker.Config.ConfigManager.Current.Settings.CprBrokerConnectionString))
+                using (var conn = new SqlConnection(CprBroker.Config.ConfigManager.Current.Settings.CprBrokerConnectionString))
                 {
                     conn.Open();
 
@@ -106,7 +106,8 @@ namespace CprBroker.Providers.CPRDirect
                         trans.Commit();
                     }
 
-                    var stagingQueue = new ExtractStagingQueue();
+
+                    var stagingQueue = CprBroker.Engine.Queues.Queue.GetQueues<ExtractStagingQueue>(ExtractStagingQueue.QueueId).First();
                     stagingQueue.Enqueue(queueItems);
 
                     using (var dataContext = new ExtractDataContext())
