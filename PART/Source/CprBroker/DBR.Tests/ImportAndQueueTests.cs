@@ -62,7 +62,6 @@ namespace DBR.Tests
 
                 var values = new Dictionary<string, string>();
                 CprBroker.Engine.DataProviderConfigProperty.Templates.SetConnectionString(DbrDatabase.ConnectionString, values);
-                System.Diagnostics.Debugger.Launch();
                 var dbrQueue = CprBroker.Engine.Queues.Queue.AddQueue<DbrQueue>(CprBroker.Providers.CPRDirect.DbrBaseQueue.TargetQueueTypeId, values, 100, 1);
 
                 // Now run

@@ -9,25 +9,26 @@ using CprBroker.DBR;
 namespace DBR.Tests.PerPerson
 {
     [TestFixture]
-    public class ConvertsionTests : PersonBaseTest
+    public class CprConverterExtensionTests : PersonBaseTest
     {
         [Test]
         public void PersonTotal_Passes([ValueSource("CprNumbers")]string pnr)
         {
-            var pers = CprBroker.Tests.CPRDirect.HistoryContinuity.Base<ITimedType>.GetPerson(pnr);
+            
+            var pers = Persons[pnr];
             pers.ToPersonTotal();
         }
 
         [Test]
         public void Person_ToDpr_Passes([ValueSource("CprNumbers")]string pnr)
         {
-            CprBroker.Tests.CPRDirect.HistoryContinuity.Base<ITimedType>.GetPerson(pnr).ToPerson();
+            Persons[pnr].ToPerson();
         }
 
         [Test]
         public void Child_ToDpr_Passes([ValueSource("CprNumbers")]string pnr)
         {
-            var pers = CprBroker.Tests.CPRDirect.HistoryContinuity.Base<ITimedType>.GetPerson(pnr);
+            var pers = Persons[pnr];
             foreach (var ch in pers.Child)
                 ch.ToDpr();
         }
@@ -35,14 +36,14 @@ namespace DBR.Tests.PerPerson
         [Test]
         public void CurrentName_ToDpr_Passes([ValueSource("CprNumbers")]string pnr)
         {
-            var pers = CprBroker.Tests.CPRDirect.HistoryContinuity.Base<ITimedType>.GetPerson(pnr);
+            var pers = Persons[pnr];
             pers.CurrentNameInformation.ToDpr(pers.PersonInformation);
         }
 
         [Test]
         public void HistoricalName_ToDpr_Passes([ValueSource("CprNumbers")]string pnr)
         {
-            var pers = CprBroker.Tests.CPRDirect.HistoryContinuity.Base<ITimedType>.GetPerson(pnr);
+            var pers = Persons[pnr];
             foreach (var n in pers.HistoricalName)
                 n.ToDpr();
         }
@@ -50,14 +51,14 @@ namespace DBR.Tests.PerPerson
         [Test]
         public void CurrentCivilStatus_ToDpr_Passes([ValueSource("CprNumbers")]string pnr)
         {
-            var pers = CprBroker.Tests.CPRDirect.HistoryContinuity.Base<ITimedType>.GetPerson(pnr);
+            var pers = Persons[pnr];
             pers.CurrentCivilStatus.ToDpr();
         }
 
         [Test]
         public void HistoricalCivilStatus_ToDpr_Passes([ValueSource("CprNumbers")]string pnr)
         {
-            var pers = CprBroker.Tests.CPRDirect.HistoryContinuity.Base<ITimedType>.GetPerson(pnr);
+            var pers = Persons[pnr];
             foreach (var c in pers.HistoricalCivilStatus)
                 c.ToDpr();
         }
@@ -65,14 +66,14 @@ namespace DBR.Tests.PerPerson
         [Test]
         public void CurrentSeparation_ToDpr_Passes([ValueSource("CprNumbers")]string pnr)
         {
-            var pers = CprBroker.Tests.CPRDirect.HistoryContinuity.Base<ITimedType>.GetPerson(pnr);
+            var pers = Persons[pnr];
             pers.CurrentSeparation.ToDpr();
         }
 
         [Test]
         public void HistoricalSeparation_ToDpr_Passes([ValueSource("CprNumbers")]string pnr)
         {
-            var pers = CprBroker.Tests.CPRDirect.HistoryContinuity.Base<ITimedType>.GetPerson(pnr);
+            var pers = Persons[pnr];
             foreach (var s in pers.HistoricalSeparation)
                 s.ToDpr();
         }
@@ -80,14 +81,14 @@ namespace DBR.Tests.PerPerson
         [Test]
         public void CurrentCitizenship_ToDpr_Passes([ValueSource("CprNumbers")]string pnr)
         {
-            var pers = CprBroker.Tests.CPRDirect.HistoryContinuity.Base<ITimedType>.GetPerson(pnr);
+            var pers = Persons[pnr];
             pers.CurrentCitizenship.ToDpr();
         }
 
         [Test]
         public void HistoricalCitizenship_ToDpr_Passes([ValueSource("CprNumbers")]string pnr)
         {
-            var pers = CprBroker.Tests.CPRDirect.HistoryContinuity.Base<ITimedType>.GetPerson(pnr);
+            var pers = Persons[pnr];
             foreach (var c in pers.HistoricalCitizenship)
                 c.ToDpr();
         }
@@ -95,15 +96,15 @@ namespace DBR.Tests.PerPerson
         [Test]
         public void CurrentDeparture_ToDpr_Passes([ValueSource("CprNumbers")]string pnr)
         {
-            var pers = CprBroker.Tests.CPRDirect.HistoryContinuity.Base<ITimedType>.GetPerson(pnr);
-            if(pers.CurrentDepartureData!=null)
+            var pers = Persons[pnr];
+            if (pers.CurrentDepartureData != null)
                 pers.CurrentDepartureData.ToDpr(pers.ElectionInformation.First());
         }
 
         [Test]
         public void HistoricalDeparture_ToDpr_Passes([ValueSource("CprNumbers")]string pnr)
         {
-            var pers = CprBroker.Tests.CPRDirect.HistoryContinuity.Base<ITimedType>.GetPerson(pnr);
+            var pers = Persons[pnr];
             foreach (var d in pers.HistoricalDeparture)
                 d.ToDpr();
         }
@@ -111,15 +112,15 @@ namespace DBR.Tests.PerPerson
         [Test]
         public void ContactAddress_ToDpr_Passes([ValueSource("CprNumbers")]string pnr)
         {
-            var pers = CprBroker.Tests.CPRDirect.HistoryContinuity.Base<ITimedType>.GetPerson(pnr);
-            if(pers.ContactAddress != null)
+            var pers = Persons[pnr];
+            if (pers.ContactAddress != null)
                 pers.ContactAddress.ToDpr();
         }
 
         [Test]
         public void FolkeregisterAddress_ToDpr_Passes([ValueSource("CprNumbers")]string pnr)
         {
-            var pers = CprBroker.Tests.CPRDirect.HistoryContinuity.Base<ITimedType>.GetPerson(pnr);
+            var pers = Persons[pnr];
             var adr = pers.GetFolkeregisterAdresseSource(false) as CprBroker.Providers.CPRDirect.CurrentAddressWrapper;
             if (adr != null)
                 adr.ToDpr();
@@ -128,7 +129,7 @@ namespace DBR.Tests.PerPerson
         [Test]
         public void HistoricalAddress_ToDpr_Passes([ValueSource("CprNumbers")]string pnr)
         {
-            var pers = CprBroker.Tests.CPRDirect.HistoryContinuity.Base<ITimedType>.GetPerson(pnr);
+            var pers = Persons[pnr];
             foreach (var a in pers.HistoricalAddress)
                 a.ToDpr();
         }
@@ -136,7 +137,7 @@ namespace DBR.Tests.PerPerson
         [Test]
         public void Protection_ToDpr_Passes([ValueSource("CprNumbers")]string pnr)
         {
-            var pers = CprBroker.Tests.CPRDirect.HistoryContinuity.Base<ITimedType>.GetPerson(pnr);
+            var pers = Persons[pnr];
             foreach (var p in pers.Protection)
                 p.ToDpr();
         }
@@ -144,7 +145,7 @@ namespace DBR.Tests.PerPerson
         [Test]
         public void CirrentDisappearance_ToDpr_Passes([ValueSource("CprNumbers")]string pnr)
         {
-            var pers = CprBroker.Tests.CPRDirect.HistoryContinuity.Base<ITimedType>.GetPerson(pnr);
+            var pers = Persons[pnr];
             if (pers.CurrentDisappearanceInformation != null)
                 pers.CurrentDisappearanceInformation.ToDpr();
         }
@@ -152,7 +153,7 @@ namespace DBR.Tests.PerPerson
         [Test]
         public void HistoricalDisappearance_ToDpr_Passes([ValueSource("CprNumbers")]string pnr)
         {
-            var pers = CprBroker.Tests.CPRDirect.HistoryContinuity.Base<ITimedType>.GetPerson(pnr);
+            var pers = Persons[pnr];
             foreach (var d in pers.HistoricalDisappearance)
                 d.ToDpr();
         }
@@ -160,7 +161,7 @@ namespace DBR.Tests.PerPerson
         [Test]
         public void Events_ToDpr_Passes([ValueSource("CprNumbers")]string pnr)
         {
-            var pers = CprBroker.Tests.CPRDirect.HistoryContinuity.Base<ITimedType>.GetPerson(pnr);
+            var pers = Persons[pnr];
             foreach (var e in pers.Events)
                 e.ToDpr();
         }
@@ -168,7 +169,7 @@ namespace DBR.Tests.PerPerson
         [Test]
         public void Notes_ToDpr_Passes([ValueSource("CprNumbers")]string pnr)
         {
-            var pers = CprBroker.Tests.CPRDirect.HistoryContinuity.Base<ITimedType>.GetPerson(pnr);
+            var pers = Persons[pnr];
             foreach (var n in pers.Notes)
                 n.ToDpr();
         }
@@ -176,7 +177,7 @@ namespace DBR.Tests.PerPerson
         [Test]
         public void MunicipalConditions_ToDpr_Passes([ValueSource("CprNumbers")]string pnr)
         {
-            var pers = CprBroker.Tests.CPRDirect.HistoryContinuity.Base<ITimedType>.GetPerson(pnr);
+            var pers = Persons[pnr];
             foreach (var m in pers.MunicipalConditions)
                 m.ToDpr();
         }
@@ -184,7 +185,7 @@ namespace DBR.Tests.PerPerson
         [Test]
         public void ParentalAuthority_ToDpr_Passes([ValueSource("CprNumbers")]string pnr)
         {
-            var pers = CprBroker.Tests.CPRDirect.HistoryContinuity.Base<ITimedType>.GetPerson(pnr);
+            var pers = Persons[pnr];
             foreach (var p in pers.ParentalAuthority)
                 p.ToDpr();
         }
@@ -192,15 +193,17 @@ namespace DBR.Tests.PerPerson
         [Test]
         public void Disempowerment_ToDpr_Passes([ValueSource("CprNumbers")]string pnr)
         {
-            var pers = CprBroker.Tests.CPRDirect.HistoryContinuity.Base<ITimedType>.GetPerson(pnr);
-            pers.Disempowerment.ToDpr();
+            var pers = Persons[pnr];
+            if (pers.Disempowerment != null)
+                pers.Disempowerment.ToDpr();
         }
 
         [Test]
         public void Disempowerment_ToDprAddress_Passes([ValueSource("CprNumbers")]string pnr)
         {
-            var pers = CprBroker.Tests.CPRDirect.HistoryContinuity.Base<ITimedType>.GetPerson(pnr);
-            pers.Disempowerment.ToDprAddress();
+            var pers = Persons[pnr];
+            if (pers.Disempowerment != null)
+                pers.Disempowerment.ToDprAddress();
         }
     }
 }

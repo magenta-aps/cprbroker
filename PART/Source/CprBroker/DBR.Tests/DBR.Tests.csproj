@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DbrTestBase.cs" />
+    <Compile Include="PerPerson\CprConverterTests.cs" />
     <Compile Include="PerPerson\PersonBaseTest.cs" />
     <Compile Include="ImportAndQueueTests.cs" />
     <Compile Include="Program.cs" />
@@ -96,7 +97,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PerPerson\PersonTotal.Tests.cs" />
+    <Compile Include="PerPerson\CprConverterExtensionTests.cs" />
     <None Include="Resources\CreateDbr.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

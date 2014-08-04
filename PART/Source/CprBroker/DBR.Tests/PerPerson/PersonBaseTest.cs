@@ -3,18 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using NUnit.Framework;
+using CprBroker.Providers.CPRDirect;
 
 namespace DBR.Tests.PerPerson
 {
-    public class PersonBaseTest : DbrTestBase
+    public class PersonBaseTest 
     {
         public string[] CprNumbers;
+        public Dictionary<string, IndividualResponseType> Persons;
 
 
         public PersonBaseTest()
         {
             var all = CprBroker.Providers.CPRDirect.IndividualResponseType.ParseBatch(CprBroker.Tests.CPRDirect.Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE);
             CprNumbers = all.Select(p => p.PersonInformation.PNR).OrderBy(p => p).ToArray();
+            Persons = all.ToDictionary(p => p.PersonInformation.PNR);
         }
 
     }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using CprBroker.Providers.DPR;
 using CprBroker.Providers.CPRDirect;
+using CprBroker.Schemas.Part;
 
 namespace CprBroker.DBR
 {
@@ -35,35 +36,50 @@ namespace CprBroker.DBR
             /*
              * RESIDENTIAL DETAILS
              */
-            pt.MunicipalityCode = resp.CurrentAddressInformation.MunicipalityCode;
-            /*
-             * TODO: FIX THE METHOD IN AUTHORITY!!!
-             */
-            pt.CurrentMunicipalityName = null;//CprBroker.Providers.CPRDirect.Authority.GetNameByCode(pt.MunicipalityCode.ToString());
-            pt.StreetCode = resp.CurrentAddressInformation.StreetCode;
-            pt.HouseNumber = resp.CurrentAddressInformation.HouseNumber;
-            pt.Floor = resp.CurrentAddressInformation.Floor;
-            pt.Door = resp.CurrentAddressInformation.Door;
-            pt.ConstructionNumber = resp.CurrentAddressInformation.BuildingNumber;
+            var adr = resp.GetFolkeregisterAdresseSource(false);
+            if (adr != null)
+            {
+                var schemaAdr = adr.ToAdresseType();
+                if (schemaAdr != null)
+                {
+                    if (schemaAdr.Item is DanskAdresseType || schemaAdr.Item is GroenlandAdresseType)
+                    {
+                        pt.MunicipalityCode = resp.CurrentAddressInformation.MunicipalityCode;
+                        pt.StreetCode = resp.CurrentAddressInformation.StreetCode;
+                        pt.HouseNumber = resp.CurrentAddressInformation.HouseNumber;
+                        pt.Floor = resp.CurrentAddressInformation.Floor;
+                        pt.Door = resp.CurrentAddressInformation.Door;
+                        pt.ConstructionNumber = resp.CurrentAddressInformation.BuildingNumber;
+
+                        if (resp.CurrentAddressInformation.RelocationDate.HasValue)
+                            pt.AddressDate = CprBroker.Utilities.Dates.DateToDecimal(resp.CurrentAddressInformation.RelocationDate.Value, 12);
+                        if (resp.CurrentAddressInformation.MunicipalityArrivalDate.HasValue)
+                            pt.MunicipalityArrivalDate = CprBroker.Utilities.Dates.DateToDecimal(resp.CurrentAddressInformation.MunicipalityArrivalDate.Value, 12);
+                        if (resp.CurrentAddressInformation.LeavingMunicipalityDepartureDate.HasValue)
+                        {
+                            pt.MunicipalityLeavingDate = CprBroker.Utilities.Dates.DateToDecimal(resp.CurrentAddressInformation.LeavingMunicipalityDepartureDate.Value, 12);
+                        }
+                        else
+                        {
+                            Console.WriteLine("resp.CurrentAddressInformation.LeavingMunicipalityDepartureDate was NULL");
+                            pt.MunicipalityLeavingDate = null;
+                        }
+                        pt.CareOfName = resp.CurrentAddressInformation.CareOfName;
+                        pt.CityName = resp.ClearWrittenAddress.CityName;
+                    }
+                }
+                /*
+                 * TODO: FIX THE METHOD IN AUTHORITY!!!
+                 */
+                pt.CurrentMunicipalityName = null;//CprBroker.Providers.CPRDirect.Authority.GetNameByCode(pt.MunicipalityCode.ToString());
+            }
+
+            // TODO: Get from protection records
             pt.AddressProtectionMarker = null; //DPR SPECIFIC
             pt.DirectoryProtectionMarker = null; //DPR SPECIFIC
             pt.ArrivalDateMarker = null; //DPR SPECIFIC
 
-            if (resp.CurrentAddressInformation.RelocationDate.HasValue)
-                pt.AddressDate = CprBroker.Utilities.Dates.DateToDecimal(resp.CurrentAddressInformation.RelocationDate.Value, 12);
 
-            if (resp.CurrentAddressInformation.MunicipalityArrivalDate.HasValue)
-                pt.MunicipalityArrivalDate = CprBroker.Utilities.Dates.DateToDecimal(resp.CurrentAddressInformation.MunicipalityArrivalDate.Value, 12);
-
-            if (resp.CurrentAddressInformation.LeavingMunicipalityDepartureDate.HasValue)
-            {
-                pt.MunicipalityLeavingDate = CprBroker.Utilities.Dates.DateToDecimal(resp.CurrentAddressInformation.LeavingMunicipalityDepartureDate.Value, 12);
-            }
-            else
-            {
-                Console.WriteLine("resp.CurrentAddressInformation.LeavingMunicipalityDepartureDate was NULL");
-                pt.MunicipalityLeavingDate = null;
-            }
             pt.ChristianMark = resp.ChurchInformation.ChurchRelationship;
             pt.BirthPlaceOfRegistration = resp.BirthRegistrationInformation.AdditionalBirthRegistrationText; //TODO: validate whether this is correct...
 
@@ -123,10 +139,12 @@ namespace CprBroker.DBR
             pt.PaternityAuthorityName = null; //TODO: Retrieve this from the CPR Service field far_mynkod
             pt.MaritalAuthorityName = null; //TODO: Retrieve this from the CPR Service field mynkod
             pt.Occupation = resp.PersonInformation.Job;
-            pt.CareOfName = resp.CurrentAddressInformation.CareOfName;
-            pt.CityName = resp.ClearWrittenAddress.CityName;
             pt.NationalityRight = null; // Find the mun. name by country code via method Authority.GetNameByCountryCode - how?
-            var prevAdr = resp.HistoricalAddress.OrderByDescending(e => e.ToDanskAdresseType().AddressComplete.AddressAccess).FirstOrDefault();
+            var prevAdr = resp.HistoricalAddress
+                .Where(e => (e as CprBroker.Schemas.Part.IHasCorrectionMarker).CorrectionMarker == CprBroker.Schemas.Part.CorrectionMarker.OK)
+                .OrderByDescending(e => e.ToStartTS())
+                .FirstOrDefault();
+            // TODO: What to do with previous address??
             var prevMun = resp.HistoricalAddress.OrderByDescending(e => e.MunicipalityCode).FirstOrDefault(); //Find municipality name in GeoLookup, based on mun. code
             pt.PreviousAddress = prevAdr + "(" + prevMun + ")";
             //pt.PreviousMunicipalityName = prevMun;
@@ -247,7 +265,8 @@ namespace CprBroker.DBR
             p.FatherName = person.ParentsInformation.FatherName;
             if (person.Disempowerment != null)
             {
-                p.UnderGuardianshipDeleteDate = person.Disempowerment.DisempowermentEndDate.Value;
+                if (person.Disempowerment.DisempowermentEndDate.HasValue)
+                    p.UnderGuardianshipDeleteDate = person.Disempowerment.DisempowermentEndDate.Value;
                 p.UnderGuardianshipRelationType = person.Disempowerment.GuardianRelationType;
             }
             else
@@ -315,7 +334,10 @@ namespace CprBroker.DBR
             //pn.StatusDate = CprBroker.Utilities.Dates.DateToDecimal(personInformation.StatusStartDate.Value, 13);
             pn.FirstNameMarker = historicalName.FirstNameMarker;
             pn.SurnameMarker = historicalName.LastNameMarker;
-            pn.NameStartDate = CprBroker.Utilities.Dates.DateToDecimal(historicalName.NameStartDate.Value, 12);
+
+            if (historicalName.NameStartDate.HasValue)
+                pn.NameStartDate = CprBroker.Utilities.Dates.DateToDecimal(historicalName.NameStartDate.Value, 12);
+
             pn.NameTerminationDate = CprBroker.Utilities.Dates.DateToDecimal(historicalName.NameEndDate.Value, 12);
             pn.AddressingNameDate = null; //TODO: Can be fetched in CPR Services, adrnvnhaenstart
             pn.CorrectionMarker = historicalName.CorrectionMarker;
@@ -666,13 +688,13 @@ namespace CprBroker.DBR
             pa.PostCode = 0; //Find in GeoLookup, based on streetCode and houseNumber
             pa.MunicipalityName = CprBroker.Providers.CPRDirect.Authority.GetNameByCode(pa.MunicipalityCode.ToString());
             pa.StreetAddressingName = null; //TODO: Can be fetched in CPR Services, vejadrnvn
-            
-            if(historicalAddress.RelocationDate.HasValue)
+
+            if (historicalAddress.RelocationDate.HasValue)
                 pa.AddressStartDate = CprBroker.Utilities.Dates.DateToDecimal(historicalAddress.RelocationDate.Value, 8);
-            
+
             pa.AddressStartDateMarker = historicalAddress.RelocationDateUncertainty;
 
-            if(historicalAddress.LeavingDate.HasValue)
+            if (historicalAddress.LeavingDate.HasValue)
                 pa.AddressEndDate = CprBroker.Utilities.Dates.DateToDecimal(historicalAddress.LeavingDate.Value, 8);
 
             pa.LeavingFromMunicipalityCode = null; // Seems not available in historical records....
@@ -703,7 +725,7 @@ namespace CprBroker.DBR
             p.ProtectionType = protection.ProtectionType_;
             p.CprUpdateDate = CprBroker.Utilities.Dates.DateToDecimal(protection.Registration.RegistrationDate, 12);
 
-            if(protection.StartDate.HasValue)
+            if (protection.StartDate.HasValue)
                 p.StartDate = protection.StartDate.Value;
 
             p.EndDate = protection.EndDate;
@@ -717,9 +739,9 @@ namespace CprBroker.DBR
             d.PNR = decimal.Parse(disappearance.PNR);
             d.CprUpdateDate = CprBroker.Utilities.Dates.DateToDecimal(disappearance.Registration.RegistrationDate, 12);
 
-            if(disappearance.DisappearanceDate.HasValue)
+            if (disappearance.DisappearanceDate.HasValue)
                 d.DisappearanceDate = CprBroker.Utilities.Dates.DateToDecimal(disappearance.DisappearanceDate.Value, 12);
-            
+
             d.RetrievalDate = null; // It is the current disappearance
             d.CorrectionMarker = null; // It is the current disappearance
             return d;
@@ -730,11 +752,11 @@ namespace CprBroker.DBR
             Disappearance d = new Disappearance();
             d.PNR = decimal.Parse(disappearance.PNR);
             d.CprUpdateDate = CprBroker.Utilities.Dates.DateToDecimal(disappearance.Registration.RegistrationDate, 12);
-            
-            if(disappearance.DisappearanceDate.HasValue)
+
+            if (disappearance.DisappearanceDate.HasValue)
                 d.DisappearanceDate = CprBroker.Utilities.Dates.DateToDecimal(disappearance.DisappearanceDate.Value, 12);
-            
-            if(disappearance.RetrievalDate.HasValue)
+
+            if (disappearance.RetrievalDate.HasValue)
                 d.RetrievalDate = CprBroker.Utilities.Dates.DateToDecimal(disappearance.RetrievalDate.Value, 12);
 
             d.CorrectionMarker = disappearance.CorrectionMarker.ToString();
@@ -745,7 +767,7 @@ namespace CprBroker.DBR
         {
             Event e = new Event();
             e.PNR = decimal.Parse(events.PNR);
-            if(events.CprUpdateDate.HasValue)
+            if (events.CprUpdateDate.HasValue)
                 e.CprUpdateDate = CprBroker.Utilities.Dates.DateToDecimal(events.CprUpdateDate.Value, 12);
             e.Event_ = events.Event_;
             e.AFLMRK = events.DerivedMark;
@@ -757,11 +779,11 @@ namespace CprBroker.DBR
             Note n = new Note();
             n.PNR = decimal.Parse(notes.PNR);
             n.CprUpdateDate = CprBroker.Utilities.Dates.DateToDecimal(notes.Registration.RegistrationDate, 12);
-            
-            if(notes.StartDate.HasValue)
+
+            if (notes.StartDate.HasValue)
                 n.NationalRegisterMemoDate = CprBroker.Utilities.Dates.DateToDecimal(notes.StartDate.Value, 8);
 
-            if(notes.EndDate.HasValue)
+            if (notes.EndDate.HasValue)
                 n.DeletionDate = CprBroker.Utilities.Dates.DateToDecimal(notes.EndDate.Value, 8);
 
             n.NoteNumber = notes.NoteNumber;
@@ -778,7 +800,7 @@ namespace CprBroker.DBR
             m.ConditionType = condition.MunicipalConditionType;
             m.ConditionMarker = condition.MunicipalConditionCode;
 
-            if(condition.MunicipalConditionStartDate.HasValue)
+            if (condition.MunicipalConditionStartDate.HasValue)
                 m.ConditionDate = CprBroker.Utilities.Dates.DateToDecimal(condition.MunicipalConditionStartDate.Value, 8);
 
             m.ConditionComments = condition.MunicipalConditionComment;
@@ -792,13 +814,13 @@ namespace CprBroker.DBR
             p.RelationType = auth.RelationshipType;
             p.CprUpdateDate = CprBroker.Utilities.Dates.DateToDecimal(auth.Registration.RegistrationDate, 12);
             p.ParentalAuthorityCode = 0; //TODO: Can be fetched in CPR Services, mynkod_start
-            
-            if(auth.CustodyStartDate.HasValue)
+
+            if (auth.CustodyStartDate.HasValue)
                 p.StartDate = auth.CustodyStartDate.Value;
-            
+
             p.StartDateUncertainty = auth.CustodyStartDateUncertainty;
 
-            if(auth.CustodyEndDate.HasValue)
+            if (auth.CustodyEndDate.HasValue)
                 p.EndDate = auth.CustodyEndDate.Value;
 
             return p;
@@ -808,14 +830,17 @@ namespace CprBroker.DBR
         {
             GuardianAndParentalAuthorityRelation gapa = new GuardianAndParentalAuthorityRelation();
             gapa.PNR = decimal.Parse(disempowerment.PNR);
-            gapa.RelationPnr = decimal.Parse(disempowerment.RelationPNR);
+
+            if (!string.IsNullOrEmpty(disempowerment.RelationPNR))
+                gapa.RelationPnr = decimal.Parse(disempowerment.RelationPNR);
+
             gapa.RelationType = disempowerment.GuardianRelationType;
             gapa.CprUpdateDate = CprBroker.Utilities.Dates.DateToDecimal(disempowerment.Registration.RegistrationDate, 12);
 
-            if(disempowerment.DisempowermentStartDate.HasValue)
+            if (disempowerment.DisempowermentStartDate.HasValue)
                 gapa.StartDate = disempowerment.DisempowermentStartDate.Value;
 
-            if(disempowerment.DisempowermentEndDate.HasValue)
+            if (disempowerment.DisempowermentEndDate.HasValue)
                 gapa.EndDate = disempowerment.DisempowermentEndDate.Value;
 
             gapa.AuthorityCode = 0; //TODO: Can be fetched in CPR Services, mynkod
@@ -834,8 +859,8 @@ namespace CprBroker.DBR
             ga.AddressLine3 = disempowerment.RelationText3;
             ga.AddressLine4 = disempowerment.RelationText4;
             ga.AddressLine5 = disempowerment.RelationText5;
-            
-            if(disempowerment.GuardianAddressStartDate.HasValue)
+
+            if (disempowerment.GuardianAddressStartDate.HasValue)
                 ga.StartDate = disempowerment.GuardianAddressStartDate.Value;
 
             ga.EndDate = disempowerment.DisempowermentEndDate;
