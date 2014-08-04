@@ -102,6 +102,18 @@ namespace CprBroker.Engine
 
                 return connectionBuilder.ToString();
             }
+
+            public static void SetConnectionString(string connectionString, Dictionary<string, string> configurationProperties)
+            {
+                System.Data.SqlClient.SqlConnectionStringBuilder connectionBuilder = new System.Data.SqlClient.SqlConnectionStringBuilder(connectionString);
+                configurationProperties["Data Source"] = connectionBuilder.DataSource;
+                configurationProperties["Initial Catalog"] = connectionBuilder.InitialCatalog;
+                configurationProperties["User ID"] = connectionBuilder.UserID;
+                configurationProperties["Password"] = connectionBuilder.Password;
+                configurationProperties["Integrated Security"] = connectionBuilder.IntegratedSecurity.ToString();
+                // TODO: Fill otherConnectionString
+                configurationProperties["Other Connection String"] = "";
+            }
         }
     }
 

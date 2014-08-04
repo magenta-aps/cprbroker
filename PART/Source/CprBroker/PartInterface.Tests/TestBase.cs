@@ -27,7 +27,7 @@ namespace CprBroker.Tests.PartInterface
         public DatabaseInfo EventDatabase;
 
         [TestFixtureSetUp]
-        public void CreateDatabases()
+        public virtual void CreateDatabases()
         {
             CprDatabase = CreateDatabase("CprBrrokerTest_",
                 CprBrokerWixInstallers.Properties.ResourcesExtensions.AllCprBrokerDatabaseObjectsSql,

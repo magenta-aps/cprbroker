@@ -70,7 +70,7 @@ namespace CprBroker.Tests.CPRDirect.HistoryContinuity
             return true;
         }
 
-        public IndividualResponseType GetPerson(string pnr)
+        public static IndividualResponseType GetPerson(string pnr)
         {
             var all = IndividualResponseType.ParseBatch(Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE);
             return all.Where(p => p.PersonInformation.PNR == pnr).First();
