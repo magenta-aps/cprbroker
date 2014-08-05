@@ -37,6 +37,7 @@
             this.BudgetChecker = new CprBroker.EventBroker.Notifications.BudgetChecker();
             this.CriteriaSubscriptionPersonPopulator = new CprBroker.EventBroker.Notifications.CriteriaSubscriptionPersonPopulator();
             this.DataChangeEventPuller = new CprBroker.EventBroker.Notifications.DataChangeEventPuller();
+            this.QueueExecutionManager = new CprBroker.EventBroker.Backend.QueueExecutionManager();
             // 
             // BackendService
             // 
@@ -54,5 +55,6 @@
         private Notifications.BudgetChecker BudgetChecker;
         private Notifications.CriteriaSubscriptionPersonPopulator CriteriaSubscriptionPersonPopulator;
         private Notifications.DataChangeEventPuller DataChangeEventPuller;
+        private QueueExecutionManager QueueExecutionManager;
     }
 }

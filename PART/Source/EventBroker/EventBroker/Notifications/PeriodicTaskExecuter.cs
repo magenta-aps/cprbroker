@@ -95,9 +95,14 @@ namespace CprBroker.EventBroker.Notifications
             ActionTimer.Start();
         }
 
+        public virtual void OnAfterStop()
+        {
+        }
+
         public void Stop()
         {
             ActionTimer.Stop();
+            OnAfterStop();
         }
 
         void SetActionTimerInterval()

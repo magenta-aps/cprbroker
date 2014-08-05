@@ -82,11 +82,10 @@ namespace CprBroker.EventBroker.Backend
                     this.NotificationSender,
                     this.CprDirectDownloader,
                     this.CprDirectExtractor,
-                    this.BudgetChecker
+                    this.BudgetChecker,
+                    this.QueueExecutionManager
                 };
-                var databaseQueues = Notifications.QueueExecuter.GetQueues();
-
-                return explicitQueues.Concat(databaseQueues).ToArray();
+                return explicitQueues.ToArray();
             }
         }
 
@@ -124,8 +123,6 @@ namespace CprBroker.EventBroker.Backend
         {
             StopQueues();
         }
-
-
 
     }
 }
