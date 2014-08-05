@@ -6,7 +6,7 @@ using CprBroker.Providers.DPR;
 using CprBroker.Providers.CPRDirect;
 using CprBroker.Schemas.Part;
 
-namespace CprBroker.DBR
+namespace CprBroker.DBR.Extensions
 {
     public static partial class CprConverterExtensions
     {

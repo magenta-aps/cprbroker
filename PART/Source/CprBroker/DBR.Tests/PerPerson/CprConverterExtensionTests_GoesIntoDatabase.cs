@@ -5,6 +5,7 @@ using System.Text;
 using NUnit.Framework;
 using CprBroker.Schemas.Part;
 using CprBroker.DBR;
+using CprBroker.DBR.Extensions;
 using CprBroker.Providers.DPR;
 
 namespace DBR.Tests.PerPerson

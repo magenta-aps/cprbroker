@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using CprBroker.Providers.DPR;
 using CprBroker.Providers.CPRDirect;
 using CprBroker.Engine.Local;
+using CprBroker.DBR.Extensions;
 
 namespace CprBroker.DBR
 {
