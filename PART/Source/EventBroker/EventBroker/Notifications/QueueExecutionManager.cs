@@ -62,5 +62,19 @@ namespace CprBroker.EventBroker.Notifications
                 CurrentTaskExecuters.Remove(qt);
             }
         }
+
+        protected override void Dispose(bool disposing)
+        {
+            base.Dispose(disposing);
+
+            if (disposing && this.CurrentTaskExecuters != null)
+            {
+                foreach (var q in this.CurrentTaskExecuters)
+                {
+                    if (q != null)
+                        q.Dispose();
+                }
+            }
+        }
     }
 }

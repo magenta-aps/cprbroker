@@ -30,13 +30,14 @@ namespace CprBroker.EventBroker.Notifications
 
         protected override TimeSpan CalculateActionTimerInterval(TimeSpan currentInterval)
         {
-            return base.CalculateActionTimerInterval(currentInterval);
+            return TimeSpan.FromSeconds(60);
         }
 
         protected override void PerformTimerAction()
         {
             this.Queue.RunOneBatch();
         }
+
     }
 
     public class QueueExecuterComparer : IEqualityComparer<QueueExecuter>
