@@ -8,6 +8,10 @@ using System.Data.Linq;
 using CprBroker.EventBroker.Data;
 using CprBroker.Schemas.Part;
 using CprBroker.Data.Part;
+using Microsoft.Practices.EnterpriseLibrary.Logging;
+using Microsoft.Practices.EnterpriseLibrary.Logging.Configuration;
+
+using System.Configuration;
 
 namespace CprBroker.Tests.PartInterface
 {
@@ -27,6 +31,12 @@ namespace CprBroker.Tests.PartInterface
         public DatabaseInfo EventDatabase;
 
         [TestFixtureSetUp]
+        public void SetupTestFixture()
+        {
+            CreateDatabases();
+            InitLogging();
+        }
+
         public virtual void CreateDatabases()
         {
             CprDatabase = CreateDatabase("CprBrrokerTest_",
@@ -40,6 +50,27 @@ namespace CprBroker.Tests.PartInterface
 
             CprBroker.Config.ConfigManager.Current.Settings["CprBrokerConnectionString"] = CprDatabase.ConnectionString;
             CprBroker.Config.ConfigManager.Current.Settings["EventBrokerConnectionString"] = EventDatabase.ConnectionString;
+            CprBroker.Config.ConfigManager.Current.Commit();
+        }
+
+        public void InitLogging()
+        {
+            var log = CprBroker.Config.ConfigManager.Current.LoggingSettings;
+
+            log.TraceListeners.Clear();
+            log.TraceListeners.Add(new TraceListenerData()
+            {
+                Name = "CprDatabase",
+                ListenerDataType = typeof(CustomTraceListenerData),
+                Type = typeof(CprBroker.Engine.Trace.LocalTraceListener)
+            });
+
+            log.SpecialTraceSources.AllEventsTraceSource.TraceListeners.Clear();
+            log.SpecialTraceSources.AllEventsTraceSource.TraceListeners.Add(new TraceListenerReferenceData()
+            {
+                Name = "CprDatabase"
+            });
+
             CprBroker.Config.ConfigManager.Current.Commit();
         }
 
