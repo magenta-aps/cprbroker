@@ -63,12 +63,11 @@ namespace CprBroker.EventBroker.Notifications
         // TODO: Shall SyncObject be defined per each task class?
         private System.Threading.AutoResetEvent SyncObject = new System.Threading.AutoResetEvent(true);
 
-        public EventLog EventLog = null;
-
         public PeriodicTaskExecuter()
         {
             InitializeComponent();
             InitializeTimer();
+            this.Disposed += new EventHandler(PeriodicTaskExecuter_Disposed);
         }
 
         public PeriodicTaskExecuter(IContainer container)
@@ -76,6 +75,15 @@ namespace CprBroker.EventBroker.Notifications
             container.Add(this);
             InitializeComponent();
             InitializeTimer();
+            this.Disposed += new EventHandler(PeriodicTaskExecuter_Disposed);
+        }
+
+        void PeriodicTaskExecuter_Disposed(object sender, EventArgs e)
+        {
+            if (SyncObject != null)
+            {
+                (SyncObject as IDisposable).Dispose();
+            }
         }
 
         private void InitializeTimer()
@@ -118,7 +126,7 @@ namespace CprBroker.EventBroker.Notifications
                 {
                     BrokerContext.Initialize(Constants.EventBrokerApplicationToken.ToString(), Constants.UserToken);
                     CprBroker.Engine.Local.Admin.LogSuccess(string.Format("{0} : {1}", TextMessages.TimerEventStarted, this.GetType()));
-                    ActionTimer.Interval = this.CalculateActionTimerInterval(TimeSpan.FromMilliseconds(ActionTimer.Interval)).TotalMilliseconds;
+                    SetActionTimerInterval();
 
                     try
                     {
