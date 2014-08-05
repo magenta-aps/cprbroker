@@ -58,6 +58,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClassicRequestType.cs" />
+    <Compile Include="Extensions\CprConverterExtensions.ContactAddress.cs" />
+    <Compile Include="Extensions\CprConverterExtensions.Child.cs" />
+    <Compile Include="Extensions\CprConverterExtensions.Administrative.cs" />
+    <Compile Include="Extensions\CprConverterExtensions.CivilStatus.cs" />
+    <Compile Include="Extensions\CprConverterExtensions.PersonAddress.cs" />
     <Compile Include="Extensions\CprConverterExtensions.Lookups.cs" />
     <Compile Include="CprConverter.cs" />
     <Compile Include="Extensions\CprConverterExtensions.cs" />
@@ -65,6 +70,16 @@
     <Compile Include="DiversionResponse.cs" />
     <Compile Include="DprDiversionServer.cs" />
     <Compile Include="DiversionRequest.cs" />
+    <Compile Include="Extensions\CprConverterExtensions.PersonTotal.cs" />
+    <Compile Include="Extensions\CprConverterExtensions.Person.cs" />
+    <Compile Include="Extensions\CprConverterExtensions.Guardianship.cs" />
+    <Compile Include="Extensions\CprConverterExtensions.Departure.cs" />
+    <Compile Include="Extensions\CprConverterExtensions.PersonName.cs" />
+    <Compile Include="Extensions\CprConverterExtensions.Separation.cs" />
+    <Compile Include="Extensions\CprConverterExtensions.Nationality.cs" />
+    <Compile Include="Extensions\CprConverterExtensions.Disappearance.cs" />
+    <Compile Include="Extensions\CprConverterExtensions.Protection.cs" />
+    <Compile Include="Extensions\CprConverterExtensions.ParentalAuthority.cs" />
     <Compile Include="NewRquestType.cs" />
     <Compile Include="Objects.cs">
       <DependentUpon>Objects.xml</DependentUpon>
