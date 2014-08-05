@@ -66,11 +66,11 @@ namespace CprBroker.EventBroker.Backend
         public BackendService()
         {
             InitializeComponent();
-            foreach (var queue in this.InstalledQueues)
+            foreach (var queue in this.InstalledTaskExecuters)
                 queue.EventLog = this.EventLog;
         }
 
-        PeriodicTaskExecuter[] InstalledQueues
+        PeriodicTaskExecuter[] InstalledTaskExecuters
         {
             get
             {
@@ -92,13 +92,13 @@ namespace CprBroker.EventBroker.Backend
 
         public void StartQueues()
         {
-            foreach (var queue in this.InstalledQueues)
+            foreach (var queue in this.InstalledTaskExecuters)
                 queue.Start();
         }
 
         public void StopQueues()
         {
-            foreach (var queue in this.InstalledQueues)
+            foreach (var queue in this.InstalledTaskExecuters)
                 queue.Stop();
         }
 
