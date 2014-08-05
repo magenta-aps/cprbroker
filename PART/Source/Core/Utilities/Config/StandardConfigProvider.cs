@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using CprBroker.Engine;
 using System.Configuration;
+using Microsoft.Practices.EnterpriseLibrary.Logging.Configuration;
 
 namespace CprBroker.Config
 {
@@ -77,10 +78,18 @@ namespace CprBroker.Config
             }
         }
 
+        public LoggingSettings LoggingSettings
+        {
+            get 
+            {
+                return Utilities.Config.GetConfigFile().GetSection("loggingConfiguration") as LoggingSettings;
+            }
+        }
 
         public void Commit()
         {
             CurrentConfiguration.Save();
         }
+
     }
 }
