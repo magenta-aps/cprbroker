@@ -106,7 +106,6 @@ namespace CprBroker.DBR
 
         public static void ImportGeoInformationFileInSteps(Stream dataStream, int batchSize, Encoding encoding, String connectionString)
         {
-            var allPnrs = new List<string>();
             using (var file = new StreamReader(dataStream, encoding))
             {
                 var extractResult = new ExtractParseResult();
