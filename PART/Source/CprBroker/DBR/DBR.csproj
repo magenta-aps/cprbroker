@@ -58,9 +58,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClassicRequestType.cs" />
-    <Compile Include="CprConverterExtensions.Lookups.cs" />
+    <Compile Include="Extensions\CprConverterExtensions.Lookups.cs" />
     <Compile Include="CprConverter.cs" />
-    <Compile Include="CprConverterExtensions.cs" />
+    <Compile Include="Extensions\CprConverterExtensions.cs" />
     <Compile Include="DbrQueue.cs" />
     <Compile Include="DiversionResponse.cs" />
     <Compile Include="DprDiversionServer.cs" />
