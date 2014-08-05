@@ -66,8 +66,6 @@ namespace CprBroker.EventBroker.Backend
         public BackendService()
         {
             InitializeComponent();
-            foreach (var queue in this.InstalledTaskExecuters)
-                queue.EventLog = this.EventLog;
         }
 
         PeriodicTaskExecuter[] InstalledTaskExecuters
