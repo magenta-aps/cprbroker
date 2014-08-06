@@ -6,7 +6,7 @@ using CprBroker.Engine.Queues;
 
 namespace CprBroker.EventBroker.Notifications
 {
-    public class QueueExecutionManager : TaskExecutionManager<QueueExecuter, QueueExecuterComparer>
+    public class QueueExecutionManager : TaskExecutionManager<QueueExecuter, QueueExecuter.EqualityComparer>
     {
         public override void StartTask(QueueExecuter task)
         {

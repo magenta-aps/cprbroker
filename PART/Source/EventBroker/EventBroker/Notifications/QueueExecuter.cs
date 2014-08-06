@@ -26,30 +26,32 @@ namespace CprBroker.EventBroker.Notifications
         {
             this.Queue.RunOneBatch();
         }
+
+        public class EqualityComparer : IEqualityComparer<QueueExecuter>
+        {
+            public bool Equals(QueueExecuter x, QueueExecuter y)
+            {
+                //Check whether the compared objects reference the same data.
+                if (Object.ReferenceEquals(x, y)) return true;
+
+                //Check whether any of the compared objects is null.
+                if (Object.ReferenceEquals(x, null) || Object.ReferenceEquals(y, null))
+                    return false;
+
+                //Check whether the products' properties are equal.
+                return x.Queue.QueueId == y.Queue.QueueId;
+            }
+
+            public int GetHashCode(QueueExecuter x)
+            {
+                //Check whether the object is null
+                if (Object.ReferenceEquals(x, null))
+                    return 0;
+
+                return x.Queue.QueueId.GetHashCode();
+            }
+        }
     }
 
-    public class QueueExecuterComparer : IEqualityComparer<QueueExecuter>
-    {
-        public bool Equals(QueueExecuter x, QueueExecuter y)
-        {
-            //Check whether the compared objects reference the same data.
-            if (Object.ReferenceEquals(x, y)) return true;
-
-            //Check whether any of the compared objects is null.
-            if (Object.ReferenceEquals(x, null) || Object.ReferenceEquals(y, null))
-                return false;
-
-            //Check whether the products' properties are equal.
-            return x.Queue.QueueId == y.Queue.QueueId;
-        }
-
-        public int GetHashCode(QueueExecuter x)
-        {
-            //Check whether the object is null
-            if (Object.ReferenceEquals(x, null))
-                return 0;
-
-            return x.Queue.QueueId.GetHashCode();
-        }
-    }
+    
 }
