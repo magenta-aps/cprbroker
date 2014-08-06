@@ -119,9 +119,6 @@
     <Compile Include="Notifications\CPRDirectIOExecuter.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Notifications\CPRDirectPersonConverter.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Notifications\CriteriaSubscriptionPersonPopulator.cs">
       <SubType>Component</SubType>
     </Compile>
