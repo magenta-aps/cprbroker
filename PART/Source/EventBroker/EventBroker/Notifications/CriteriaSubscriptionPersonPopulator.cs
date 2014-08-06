@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using CprBroker.Engine.Local;
+using CprBroker.Engine.Tasks;
 
 namespace CprBroker.EventBroker.Notifications
 {

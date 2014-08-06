@@ -53,7 +53,7 @@ using System.Text;
 using CprBroker.Engine;
 using CprBroker.Utilities;
 
-namespace CprBroker.EventBroker.Notifications
+namespace CprBroker.Engine.Tasks
 {
     /// <summary>
     /// Base class for running a task once whenever a period passes

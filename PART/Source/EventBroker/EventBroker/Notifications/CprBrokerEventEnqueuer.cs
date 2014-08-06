@@ -51,6 +51,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using CprBroker.Utilities;
+using CprBroker.Engine.Tasks;
 
 namespace CprBroker.EventBroker.Notifications
 {

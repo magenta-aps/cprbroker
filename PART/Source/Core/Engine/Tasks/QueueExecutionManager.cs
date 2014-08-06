@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using CprBroker.Engine.Queues;
 
-namespace CprBroker.EventBroker.Notifications
+namespace CprBroker.Engine.Tasks
 {
     public class QueueExecutionManager : TaskExecutionManager<QueueExecuter, QueueExecuter.EqualityComparer>
     {

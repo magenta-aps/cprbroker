@@ -113,6 +113,21 @@
     <Compile Include="SubMethodRunState.cs" />
     <Compile Include="Sync\ISyncTargetQueue.cs" />
     <Compile Include="Sync\SyncManager.cs" />
+    <Compile Include="Tasks\PeriodicTaskExecuter.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Tasks\PeriodicTaskExecuter.Designer.cs">
+      <DependentUpon>PeriodicTaskExecuter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tasks\QueueExecuter.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Tasks\QueueExecutionManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Tasks\TaskExecutionManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="TcpServer.cs" />
     <Compile Include="ThreadRunner.cs" />
     <Compile Include="Manager.Admin.cs" />
@@ -181,6 +196,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Facades\ProviderMethod.Overridables.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Tasks\PeriodicTaskExecuter.resx">
+      <DependentUpon>PeriodicTaskExecuter.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

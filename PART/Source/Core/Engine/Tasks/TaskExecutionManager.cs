@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace CprBroker.EventBroker.Notifications
+namespace CprBroker.Engine.Tasks
 {
     public class TaskExecutionManager<T, TComparer> : PeriodicTaskExecuter
         where TComparer : IEqualityComparer<T>, new()

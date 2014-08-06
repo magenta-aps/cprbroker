@@ -1,4 +1,4 @@
-﻿namespace CprBroker.EventBroker.Notifications
+﻿namespace CprBroker.Engine.Tasks
 {
     partial class PeriodicTaskExecuter
     {

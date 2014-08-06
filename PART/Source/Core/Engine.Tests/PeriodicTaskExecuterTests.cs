@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using NUnit.Framework;
-using CprBroker.EventBroker.Notifications;
+using CprBroker.Engine.Tasks;
 
-namespace CprBroker.EventBroker.Tests
+namespace CprBroker.Engine.Tests
 {
     namespace PeriodicTaskExecuterTests
     {
 
         [TestFixture]
-        public class Create : CprBroker.Tests.PartInterface.TestBase
+        public class Create 
         {
             [Test]
             public void Create_NoArgs_GoesOK([Range(1, 100)] int pass)

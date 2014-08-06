@@ -6,7 +6,7 @@ using CprBroker.Data.Queues;
 using CprBroker.Engine.Queues;
 
 
-namespace CprBroker.EventBroker.Notifications
+namespace CprBroker.Engine.Tasks
 {
     public class QueueExecuter : PeriodicTaskExecuter
     {

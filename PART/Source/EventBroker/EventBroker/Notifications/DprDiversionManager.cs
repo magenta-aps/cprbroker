@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using CprBroker.DBR;
 using CprBroker.Engine.Queues;
+using CprBroker.Engine.Tasks;
 
 namespace CprBroker.EventBroker.Notifications
 {
