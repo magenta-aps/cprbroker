@@ -6,36 +6,22 @@ using CprBroker.Engine.Queues;
 
 namespace CprBroker.EventBroker.Notifications
 {
-    public class QueueExecutionManager : PeriodicTaskExecuter
+    public class QueueExecutionManager : TaskExecutionManager<QueueExecuter, QueueExecuterComparer>
     {
-        private List<QueueExecuter> CurrentTaskExecuters = new List<QueueExecuter>();
-
-        public QueueExecuter[] GetCurrentTaskExecuters()
+        public override void StartTask(QueueExecuter task)
         {
-            return CurrentTaskExecuters.ToArray();
+            CprBroker.Engine.Local.Admin.LogSuccess(string.Format("Staring freshly loaded queue <{0}>", task.Queue.QueueId));
+            task.Start();
         }
 
-        protected override TimeSpan CalculateActionTimerInterval(TimeSpan currentInterval)
+        public override void DisposeTask(QueueExecuter q)
         {
-            return TimeSpan.FromSeconds(60);
+            CprBroker.Engine.Local.Admin.LogSuccess(string.Format("Stopping queue <{0}>", q.Queue.QueueId));
+            q.Stop();
+            q.Dispose();
         }
 
-        protected override void PerformTimerAction()
-        {
-            SyncTasks();
-        }
-
-        public override void OnAfterStop()
-        {
-            foreach (var q in CurrentTaskExecuters)
-            {
-                q.Stop();
-                q.Dispose();
-                CurrentTaskExecuters.Remove(q);
-            }
-        }
-
-        public static QueueExecuter[] GetQueues()
+        public override QueueExecuter[] GetTasks()
         {
             return Queue.GetQueues<Queue>()
                 .Where(q => q != null)
@@ -43,43 +29,5 @@ namespace CprBroker.EventBroker.Notifications
                 .ToArray();
         }
 
-        public void SyncTasks()
-        {
-            var dbQueueTasks = GetQueues();
-            var runningQueueTasks = CurrentTaskExecuters.ToArray();
-
-            var comparer = new QueueExecuterComparer();
-            var queueTasksToAdd = dbQueueTasks.Except(runningQueueTasks, comparer);
-            var queueTasksToRemove = runningQueueTasks.Except(dbQueueTasks, comparer);
-
-            foreach (var qt in queueTasksToAdd)
-            {
-                CprBroker.Engine.Local.Admin.LogSuccess(string.Format("Staring freshly loaded queue <{0}>", qt.Queue.QueueId));
-                qt.Start();
-                CurrentTaskExecuters.Add(qt);
-            }
-
-            foreach (var qt in queueTasksToRemove)
-            {
-                CprBroker.Engine.Local.Admin.LogSuccess(string.Format("Stopping queue <{0}>", qt.Queue.QueueId));
-                qt.Stop();
-                qt.Dispose();
-                CurrentTaskExecuters.Remove(qt);
-            }
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            base.Dispose(disposing);
-
-            if (disposing && this.CurrentTaskExecuters != null)
-            {
-                foreach (var q in this.CurrentTaskExecuters)
-                {
-                    if (q != null)
-                        q.Dispose();
-                }
-            }
-        }
     }
 }
