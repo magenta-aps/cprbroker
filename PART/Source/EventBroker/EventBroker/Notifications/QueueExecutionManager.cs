@@ -25,16 +25,12 @@ namespace CprBroker.EventBroker.Notifications
             SyncTasks();
         }
 
-        protected override void OnBeforeStart()
-        {
-            base.OnBeforeStart();
-        }
-
         public override void OnAfterStop()
         {
             foreach (var q in CurrentTaskExecuters)
             {
                 q.Stop();
+                q.Dispose();
                 CurrentTaskExecuters.Remove(q);
             }
         }
