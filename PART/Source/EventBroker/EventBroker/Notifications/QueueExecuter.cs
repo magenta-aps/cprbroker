@@ -17,14 +17,6 @@ namespace CprBroker.EventBroker.Notifications
             this.Queue = queue;
         }
 
-        public static QueueExecuter[] GetQueues()
-        {
-            return Queue.GetQueues<Queue>()
-                .Where(q => q != null)
-                .Select(q => new QueueExecuter(q))
-                .ToArray();
-        }
-
         protected override TimeSpan CalculateActionTimerInterval(TimeSpan currentInterval)
         {
             return TimeSpan.FromSeconds(60);
@@ -34,7 +26,6 @@ namespace CprBroker.EventBroker.Notifications
         {
             this.Queue.RunOneBatch();
         }
-
     }
 
     public class QueueExecuterComparer : IEqualityComparer<QueueExecuter>

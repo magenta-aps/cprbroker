@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using CprBroker.Engine.Queues;
 
 namespace CprBroker.EventBroker.Notifications
 {
@@ -38,10 +39,17 @@ namespace CprBroker.EventBroker.Notifications
             }
         }
 
+        public static QueueExecuter[] GetQueues()
+        {
+            return Queue.GetQueues<Queue>()
+                .Where(q => q != null)
+                .Select(q => new QueueExecuter(q))
+                .ToArray();
+        }
 
         public void SyncTasks()
         {
-            var dbQueueTasks = QueueExecuter.GetQueues();
+            var dbQueueTasks = GetQueues();
             var runningQueueTasks = CurrentTaskExecuters.ToArray();
 
             var comparer = new QueueExecuterComparer();
