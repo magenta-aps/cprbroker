@@ -38,21 +38,21 @@ namespace CprBroker.EventBroker.Tests
                 CprBroker.Engine.BrokerContext.Initialize(CprBroker.Utilities.Constants.BaseApplicationToken.ToString(), "Test user");
             }
 
-            [Test]            
+            [Test]
             public void SyncTasks_DefaultQueues_SomeTasks(
-                [Range(1,100)]int passNo)
+                [Range(1, 100)]int passNo)
             {
                 using (var manager = new QueueExecutionManager())
                 {
                     manager.SyncTasks();
-                    var tasks = manager.GetCurrentTaskExecuters();                    
+                    var tasks = manager.GetCurrentTaskExecuters();
                     Assert.IsNotEmpty(tasks);
                 }
             }
 
             [Test]
             public void SyncTasks_OneQueue_OneMoreTask(
-                [Range(1,100)]int passNo)
+                [Range(1, 100)]int passNo)
             {
 
                 using (var manager = new QueueExecutionManager())
@@ -63,7 +63,7 @@ namespace CprBroker.EventBroker.Tests
                     CprBroker.Engine.Queues.Queue.AddQueue<QueueStub>(1, new Dictionary<string, string>(), 1, 1);
                     manager.SyncTasks();
                     var c2 = manager.GetCurrentTaskExecuters().Length;
-                    
+
                     Assert.AreEqual(c1 + 1, c2);
                 }
             }

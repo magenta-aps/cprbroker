@@ -59,6 +59,7 @@ namespace CprBroker.EventBroker.Notifications
             {
                 CprBroker.Engine.Local.Admin.LogSuccess(string.Format("Stopping queue <{0}>", qt.Queue.QueueId));
                 qt.Stop();
+                qt.Dispose();
                 CurrentTaskExecuters.Remove(qt);
             }
         }

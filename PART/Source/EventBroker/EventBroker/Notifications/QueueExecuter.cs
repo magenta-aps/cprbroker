@@ -19,13 +19,10 @@ namespace CprBroker.EventBroker.Notifications
 
         public static QueueExecuter[] GetQueues()
         {
-            using (var dataContext = new QueueDataContext())
-            {
-                return Queue.GetQueues<Queue>()
-                    .Where(q => q != null)
-                    .Select(q => new QueueExecuter(q))
-                    .ToArray();
-            }
+            return Queue.GetQueues<Queue>()
+                .Where(q => q != null)
+                .Select(q => new QueueExecuter(q))
+                .ToArray();
         }
 
         protected override TimeSpan CalculateActionTimerInterval(TimeSpan currentInterval)
