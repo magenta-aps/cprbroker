@@ -43,6 +43,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Core\Output\CprBroker.Data.dll</HintPath>
     </Reference>
+    <Reference Include="CprBroker.DBR">
+      <HintPath>..\..\CprBroker\Output\CprBroker.DBR.dll</HintPath>
+    </Reference>
     <Reference Include="CprBroker.Engine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Core\Output\CprBroker.Engine.dll</HintPath>
@@ -125,13 +128,18 @@
     <Compile Include="Notifications\DataChangeEventPuller.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Notifications\DprDiversionManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Notifications\QueueExecuter.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Notifications\QueueExecutionManager.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Notifications\TaskExecutionManager.cs" />
+    <Compile Include="Notifications\TaskExecutionManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Subscriptions\SubscribeOnCriteriaFacadeMethod.cs" />
     <Compile Include="Subscriptions\GetActiveSubscriptionsListFacadeMethod.cs" />
     <Compile Include="Subscriptions\SubscribeOnBirthdateFacadeMethod.cs" />

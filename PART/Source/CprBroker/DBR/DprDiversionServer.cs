@@ -28,5 +28,33 @@ namespace CprBroker.DBR
                 return new byte[0];
             }
         }
+
+        public class EqualityComparer : IEqualityComparer<DprDiversionServer>
+        {
+            public bool Equals(DprDiversionServer x, DprDiversionServer y)
+            {
+                //Check whether the compared objects reference the same data.
+                if (Object.ReferenceEquals(x, y)) return true;
+
+                //Check whether any of the compared objects is null.
+                if (Object.ReferenceEquals(x, null) || Object.ReferenceEquals(y, null))
+                    return false;
+
+                //Check whether the products' properties are equal.
+                return x.DbrQueue.QueueId == y.DbrQueue.QueueId
+                    && x.Port == y.Port;
+            }
+
+            public int GetHashCode(DprDiversionServer x)
+            {
+                //Check whether the object is null
+                if (Object.ReferenceEquals(x, null))
+                    return 0;
+
+                return x.DbrQueue.QueueId.GetHashCode();
+            }
+        }
     }
+
+    
 }

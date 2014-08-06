@@ -102,7 +102,7 @@ namespace CprBroker.DBR
 
         public DprDiversionServer CreateListener()
         {
-            var listener = new DprDiversionServer() { Port = this.Port.Value };
+            var listener = new DprDiversionServer() { Port = this.Port.Value, DbrQueue = this };
             return listener;
         }
 
