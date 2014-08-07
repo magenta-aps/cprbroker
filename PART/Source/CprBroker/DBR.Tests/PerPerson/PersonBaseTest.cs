@@ -5,7 +5,7 @@ using System.Text;
 using NUnit.Framework;
 using CprBroker.Providers.CPRDirect;
 
-namespace DBR.Tests.PerPerson
+namespace CprBroker.Tests.DBR.PerPerson
 {
     public class PersonBaseTest 
     {

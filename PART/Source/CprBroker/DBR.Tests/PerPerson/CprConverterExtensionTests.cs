@@ -8,7 +8,7 @@ using CprBroker.DBR;
 using CprBroker.DBR.Extensions;
 using CprBroker.Providers.DPR;
 
-namespace DBR.Tests.PerPerson
+namespace CprBroker.Tests.DBR.PerPerson
 {
     [TestFixture]
     public class CprConverterExtensionTests : PersonBaseTest

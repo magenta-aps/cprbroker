@@ -5,7 +5,7 @@ using System.Text;
 using NUnit.Framework;
 using CprBroker.DBR;
 
-namespace DBR.Tests
+namespace CprBroker.Tests.DBR
 {
     namespace PersonConversionTests
     {

@@ -6,7 +6,7 @@ using NUnit.Framework;
 using CprBroker.DBR;
 using CprBroker.Schemas.Part;
 
-namespace DBR.Tests.PerPerson
+namespace CprBroker.Tests.DBR.PerPerson
 {
     [TestFixture]
     public class CprConverterTests : PersonBaseTest
