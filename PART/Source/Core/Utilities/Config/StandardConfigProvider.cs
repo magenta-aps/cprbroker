@@ -82,7 +82,14 @@ namespace CprBroker.Config
         {
             get 
             {
-                return Utilities.Config.GetConfigFile().GetSection("loggingConfiguration") as LoggingSettings;
+                var ret= CurrentConfiguration.GetSection("loggingConfiguration") as LoggingSettings;
+                if (ret == null)
+                {
+                    ret = new LoggingSettings();
+                    CurrentConfiguration.Sections.Add("loggingConfiguration", ret);
+                    Commit();
+                }
+                return ret;
             }
         }
 
