@@ -77,7 +77,7 @@ namespace CprBroker.Providers.DPR
                     .Union(new DataProviderConfigPropertyInfo[] { 
                         new DataProviderConfigPropertyInfo(){Type = DataProviderConfigPropertyInfoTypes.Boolean, Name="Disable Diversion", Required=false,Confidential=false},
                         new DataProviderConfigPropertyInfo(){Type = DataProviderConfigPropertyInfoTypes.String, Name="Address", Required=false, Confidential=false},
-                        new DataProviderConfigPropertyInfo(){Type = DataProviderConfigPropertyInfoTypes.Integer, Name="Port", Required=false, Confidential=false},                    
+                        new DataProviderConfigPropertyInfo(){Type = DataProviderConfigPropertyInfoTypes.Integer, Name="Port", Required=false, Confidential=false},
                         new DataProviderConfigPropertyInfo(){Type = DataProviderConfigPropertyInfoTypes.Integer, Name="TCP Read Timeout (ms)" , Required=true, Confidential=false}                    
                     })
                     .ToArray();

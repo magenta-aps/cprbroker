@@ -8,8 +8,8 @@
     <ProjectGuid>{FF2FFCD5-6091-4B10-8FD9-C737BD45C86B}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DBR.Tests</RootNamespace>
-    <AssemblyName>DBR.Tests</AssemblyName>
+    <RootNamespace>CprBroker.Tests.DBR</RootNamespace>
+    <AssemblyName>CprBroker.Tests.DBR</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -61,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DbrTestBase.cs" />
+    <Compile Include="DprDiversionManagerTests.cs" />
     <Compile Include="PerPerson\CprConverterExtensionTests_GoesIntoDatabase.cs" />
     <Compile Include="PerPerson\CprConverterTests.cs" />
     <Compile Include="PerPerson\PersonBaseTest.cs" />

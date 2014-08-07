@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using CprBroker.DBR;
 using CprBroker.Engine.Queues;
 using CprBroker.Engine.Tasks;
 
-namespace CprBroker.EventBroker.Notifications
+namespace CprBroker.DBR
 {
     public class DprDiversionManager : TaskExecutionManager<DprDiversionServer, DprDiversionServer.EqualityComparer>
     {
@@ -26,6 +25,7 @@ namespace CprBroker.EventBroker.Notifications
         public override DprDiversionServer[] GetTasks()
         {
             return Queue.GetQueues<DbrQueue>()
+                .Where(q => q.DiversionEnabled)
                 .Select(q => q.CreateListener())
                 .ToArray();
         }
