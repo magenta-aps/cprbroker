@@ -350,6 +350,49 @@ namespace CprBrokerWixInstallers.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to /****** Object:  Table [dbo].[PersonRegistration]    Script Date: 11/21/2013 10:16:51 ******/
+        ///SET ANSI_NULLS ON
+        ///GO
+        ///SET QUOTED_IDENTIFIER ON
+        ///GO
+        ///IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N&apos;[dbo].[PersonRegistration]&apos;) AND type in (N&apos;U&apos;))
+        ///BEGIN
+        ///CREATE TABLE [dbo].[PersonRegistration](
+        ///	[PersonRegistrationId] [uniqueidentifier] NOT NULL,
+        ///	[UUID] [uniqueidentifier] NOT NULL,
+        ///	[ActorRefId] [uniqueidentifier] NULL,
+        ///	[RegistrationDate] [datetime] NOT NULL,
+        ///	[BrokerUpdateDate]  [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string PersonRegistration {
+            get {
+                return ResourceManager.GetString("PersonRegistration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -- =============================================
+        ///-- Author:		Beemen Beshara
+        ///-- Description:	Trigger for changes in PersonRegistration, 
+        ///--  refreshes the cached serach table by calling InitializePersonSearchCache for 
+        ///--  each record being inserted or updated
+        ///-- =============================================
+        ///
+        ///IF EXISTS (SELECT * FROM sys.triggers where name=&apos;PersonRegistration_PopulateSearchCache&apos;)
+        ///BEGIN
+        ///	DROP TRIGGER dbo.PersonRegistration_PopulateSearchCache
+        ///END
+        ///GO
+        ///
+        ///CREATE TRIGGER dbo.PersonRe [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string PersonRegistration_PopulateSearchCache {
+            get {
+                return ResourceManager.GetString("PersonRegistration_PopulateSearchCache", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to -- ========================================================
         ///-- Table  : PersonSearchCache
         ///-- ========================================================
