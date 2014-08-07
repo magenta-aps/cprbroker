@@ -143,6 +143,27 @@ namespace CprBrokerWixInstallers.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to -- =============================================
+        ///-- Procedure:   InitializePersonSearchCache
+        ///-- Author:		Beemen Beshara
+        ///-- Create date: 24-Jan-2014
+        ///-- Description:	Initializes the cashed version of persons&apos; searchable fields
+        ///-- =============================================
+        ///IF EXISTS (SELECT * FROM sys.procedures WHERE name = &apos;InitializePersonSearchCache&apos;)
+        ///	DROP PROCEDURE dbo.InitializePersonSearchCache
+        ///GO
+        ///
+        ///CREATE PROCEDURE [dbo].[InitializePersonSearchCache]
+        ///	@UUID UNIQUEIDENTIFIER, 
+        ///	@PersonReg [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string InitializePersonSearchCache {
+            get {
+                return ResourceManager.GetString("InitializePersonSearchCache", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to LifecycleStatusId;LifecycleStatusName
         ///0;Created
         ///1;Imported
@@ -325,6 +346,26 @@ namespace CprBrokerWixInstallers.Properties {
         internal static string PatchDatabase_2_2_2 {
             get {
                 return ResourceManager.GetString("PatchDatabase_2_2_2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -- ========================================================
+        ///-- Table  : PersonSearchCache
+        ///-- ========================================================
+        ///IF NOT EXISTS (SELECT * FROM sys.tables WHERE Name = &apos;PersonSearchCache&apos;)
+        ///BEGIN
+        ///	CREATE TABLE [dbo].[PersonSearchCache](
+        ///		[PersonRegistrationId] [uniqueidentifier] NULL,
+        ///		[UUID] [uniqueidentifier] NOT NULL,
+        ///		[UserInterfaceKeyText] [varchar](max) NULL,
+        ///		[Birthdate] [varchar](max) NULL,
+        ///		[NickName] [varchar](max) NULL,
+        ///		[Note] [varchar](max) NUL [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string PersonSearchCache {
+            get {
+                return ResourceManager.GetString("PersonSearchCache", resourceCulture);
             }
         }
     }

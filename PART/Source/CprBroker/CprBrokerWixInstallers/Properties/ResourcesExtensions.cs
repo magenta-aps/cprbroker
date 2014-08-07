@@ -62,7 +62,9 @@ namespace CprBrokerWixInstallers.Properties
             {
                 var arr = new string[] { 
                     Resources.Extract,
-                    Resources.CreatePartDatabaseObjects
+                    Resources.CreatePartDatabaseObjects,
+                    Resources.PersonSearchCache,
+                    Resources.InitializePersonSearchCache
                 };
 
                 return string.Join(
@@ -81,7 +83,7 @@ namespace CprBrokerWixInstallers.Properties
                 cprLookups.Add(new KeyValuePair<string, string>(typeof(LifecycleStatus).Name, Properties.Resources.LifecycleStatus));
                 cprLookups.Add(new KeyValuePair<string, string>(typeof(LogType).Name, Properties.Resources.LogType));
                 cprLookups.Add(new KeyValuePair<string, string>(typeof(BudgetInterval).Name, Properties.Resources.BudgetEntry));
-                
+
                 return cprLookups.ToArray();
             }
         }
