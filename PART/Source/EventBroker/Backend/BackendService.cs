@@ -82,7 +82,8 @@ namespace CprBroker.EventBroker.Backend
                     this.CprDirectDownloader,
                     this.CprDirectExtractor,
                     this.BudgetChecker,
-                    this.QueueExecutionManager
+                    this.QueueExecutionManager,
+                    this.DprDiversionManager
                 };
                 return explicitQueues.ToArray();
             }
