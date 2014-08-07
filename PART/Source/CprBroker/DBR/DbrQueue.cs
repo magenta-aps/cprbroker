@@ -39,6 +39,11 @@ namespace CprBroker.DBR
             }
         }
 
+        public bool DiversionEnabled
+        {
+            get { return Port.HasValue; }
+        }
+
         public override ExtractQueueItem[] Process(ExtractQueueItem[] items)
         {
             var ret = new List<ExtractQueueItem>();
@@ -102,8 +107,12 @@ namespace CprBroker.DBR
 
         public DprDiversionServer CreateListener()
         {
-            var listener = new DprDiversionServer() { Port = this.Port.Value, DbrQueue = this };
-            return listener;
+            if (DiversionEnabled)
+            {
+                var listener = new DprDiversionServer() { Port = this.Port.Value, DbrQueue = this };
+                return listener;
+            }
+            return null;
         }
 
     }
