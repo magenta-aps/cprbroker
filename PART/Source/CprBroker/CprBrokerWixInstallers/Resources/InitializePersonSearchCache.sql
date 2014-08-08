@@ -87,7 +87,29 @@ BEGIN
     -- RegisterOplysning --
     -----------------------
 
-    DECLARE @UserInterfaceKeyText VARCHAR(MAX);
+    -- CprBorger fields
+    DECLARE @UserInterfaceKeyText VARCHAR(MAX), @PersonCivilRegistrationIdentifier VARCHAR(max),
+        @PersonNummerGyldighedStatusIndikator VARCHAR(MAX), @PersonNationalityCode VARCHAR(MAX),
+        @NavneAdresseBeskyttelseIndikator VARCHAR(MAX),@TelefonNummerBeskyttelseIndikator VARCHAR(MAX), @ForskerBeskyttelseIndikator VARCHAR(MAX);
+        
+    -- FolkeregisterAdresse fields
+    DECLARE @NoteTekst_DanskAdresse VARCHAR(MAX), @UkendtAdresseIndikator VARCHAR(MAX), 
+        @SpecielVejkodeIndikator VARCHAR(MAX), @PostDistriktTekst VARCHAR(MAX);
+    
+    -- AddressAccess fields
+    DECLARE @MunicipalityCode VARCHAR(MAX), @StreetCode VARCHAR(MAX), @StreetBuildingIdentifier VARCHAR(MAX);
+    
+    -- AddressPostal fields
+    DECLARE @MailDeliverySublocationIdentifier VARCHAR(MAX),
+        @StreetName VARCHAR(MAX), @StreetNameForAddressingName VARCHAR(MAX), 
+        @StreetBuildingIdentifier_Postal VARCHAR(MAX), @FloorIdentifier VARCHAR(MAX), @SuiteIdentifier VARCHAR(MAX), 
+        @DistrictSubdivisionIdentifier VARCHAR(MAX), @PostOfficeBoxIdentifier VARCHAR(MAX), 
+        @PostCodeIdentifier VARCHAR(MAX), @DistrictName VARCHAR(MAX), 
+        @CountryIdentificationCode VARCHAR(MAX);
+        
+    -- CprBorger fields - after address
+    DECLARE @AdresseNoteTekst VARCHAR(MAX), @FolkekirkeMedlemIndikator VARCHAR(MAX); 
+
     IF LEN (CAST (@RegisterOplysningNode AS VARCHAR(MAX))) > 0
     BEGIN	
         DECLARE @RegisterOplysningTable TABLE (X XML);
@@ -95,11 +117,48 @@ BEGIN
     
         WITH XMLNAMESPACES (
             'urn:oio:sagdok:person:1.0.0' as ns0,
-            'http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/' as ns1)
+            'http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/' as ns1,
+            'http://rep.oio.dk/ebxml/xml/schemas/dkcc/2006/01/03/' as ns2)
         SELECT
-            @UserInterfaceKeyText = X.value('(/ns0:RegisterOplysning/ns0:CprBorger/ns1:PersonCivilRegistrationIdentifier)[last()]','varchar(max)')
-        FROM @RegisterOplysningTable
+            @UserInterfaceKeyText = X.value('(/ns0:RegisterOplysning/ns0:CprBorger/ns1:PersonCivilRegistrationIdentifier)[last()]','varchar(max)'),
+            @PersonCivilRegistrationIdentifier = X.value('(/ns0:RegisterOplysning/ns0:CprBorger/ns1:PersonCivilRegistrationIdentifier)[last()]','varchar(max)'),
+            @PersonNummerGyldighedStatusIndikator = X.value('(/ns0:RegisterOplysning/ns0:CprBorger/ns1:PersonCivilRegistrationIdentifier)[last()]','varchar(max)'),
+            @PersonNationalityCode = X.value('(/ns0:RegisterOplysning/ns0:CprBorger/ns2:PersonNationalityCode)[last()]','varchar(max)'),
+            @NavneAdresseBeskyttelseIndikator = X.value('(/ns0:RegisterOplysning/ns0:CprBorger/ns0:NavneAdresseBeskyttelseIndikator)[last()]','varchar(max)'),
+            @TelefonNummerBeskyttelseIndikator = X.value('(/ns0:RegisterOplysning/ns0:CprBorger/ns0:TelefonNummerBeskyttelseIndikator)[last()]','varchar(max)'),
+            @ForskerBeskyttelseIndikator = X.value('(/ns0:RegisterOplysning/ns0:CprBorger/ns0:ForskerBeskyttelseIndikator)[last()]','varchar(max)')
+        FROM @RegisterOplysningTable;
+        
+        DECLARE @DanskAdresseTable TABLE(X XML);
+        WITH XMLNAMESPACES ('urn:oio:sagdok:person:1.0.0' as ns0)
+        INSERT INTO @DanskAdresseTable SELECT X.query('/ns0:RegisterOplysning/ns0:CprBorger/ns0:FolkeregisterAdresse/ns0:DanskAdresse') FROM @RegisterOplysningTable;
+        
+        WITH XMLNAMESPACES (
+            'urn:oio:sagdok:person:1.0.0' as ns0,
+            'urn:oio:sagdok:2.0.0' AS ns1)
+        SELECT 
+            @NoteTekst_DanskAdresse  = X.value('(/ns0:DanskAdresse/ns1:NoteTekst)[last()]'               , 'varchar(max)'),
+            @UkendtAdresseIndikator  = X.value('(/ns0:DanskAdresse/ns0:UkendtAdresseIndikator)[last()]'  , 'varchar(max)'),
+            @SpecielVejkodeIndikator = X.value('(/ns0:DanskAdresse/ns0:SpecielVejkodeIndikator)[last()]' , 'varchar(max)'),
+            @PostDistriktTekst       = X.value('(/ns0:DanskAdresse/ns0:PostDistriktTekst)[last()]'       , 'varchar(max)')
+        FROM @DanskAdresseTable;
+        
+        -- AddressAccess
+        WITH XMLNAMESPACES (
+            'urn:oio:sagdok:person:1.0.0' as ns0,
+            'http://rep.oio.dk/xkom.dk/xml/schemas/2006/01/06/' AS ns1,
+            'http://rep.oio.dk/xkom.dk/xml/schemas/2005/03/15/' as ns2,
+            'http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/' as ns3,            
+            'http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/' as ns4 )
+        SELECT
+            @MunicipalityCode         = X.value('(/ns2:AddressAccess/ns3:MunicipalityCode)[last()]'         , 'varchar(max)'),
+            @StreetCode               = X.value('(/ns2:AddressAccess/ns3:StreetCode)[last()]'               , 'varchar(max)'),
+            @StreetBuildingIdentifier = X.value('(/ns2:AddressAccess/ns4:StreetBuildingIdentifier)[last()]' , 'varchar(max)')
+        FROM 
+            (SELECT X.query('/ns0:DanskAdresse/ns1:AddressComplete/ns2:AddressAccess') FROM @DanskAdresseTable) AS tmp_AddressPostalTable(X)
+       
     END
+    
 
     -----------------------------
     -- INSERT OR UPDATE RECORD --
