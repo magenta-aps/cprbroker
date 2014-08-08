@@ -156,6 +156,40 @@ BEGIN
             @StreetBuildingIdentifier = X.value('(/ns2:AddressAccess/ns4:StreetBuildingIdentifier)[last()]' , 'varchar(max)')
         FROM 
             (SELECT X.query('/ns0:DanskAdresse/ns1:AddressComplete/ns2:AddressAccess') FROM @DanskAdresseTable) AS tmp_AddressPostalTable(X)
+
+        -- AddressPostal
+        WITH XMLNAMESPACES (
+            'urn:oio:sagdok:person:1.0.0' as ns0,
+            'http://rep.oio.dk/xkom.dk/xml/schemas/2006/01/06/' AS ns1,
+            'http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/' AS ns2,
+            'http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/03/15/' as ns3,
+            'http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/' as ns4,
+            'http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/13/' as ns5
+            )
+        SELECT
+            @MailDeliverySublocationIdentifier  = X.value('(/ns1:AddressPostal/ns2:MailDeliverySublocationIdentifier)[last()]'    , 'varchar(max)'),
+            @StreetName                         = X.value('(/ns1:AddressPostal/ns3:StreetName)[last()]'                           , 'varchar(max)') ,
+            @StreetNameForAddressingName        = X.value('(/ns1:AddressPostal/ns4:StreetNameForAddressingName)[last()]'          , 'varchar(max)'),
+            @StreetBuildingIdentifier           = X.value('(/ns1:AddressPostal/ns2:StreetBuildingIdentifier)[last()]'             , 'varchar(max)'),
+            @FloorIdentifier                    = X.value('(/ns1:AddressPostal/ns2:FloorIdentifier)[last()]'                      , 'varchar(max)'),
+            @SuiteIdentifier                    = X.value('(/ns1:AddressPostal/ns2:SuiteIdentifier)[last()]'                      , 'varchar(max)'),
+            @DistrictSubdivisionIdentifier      = X.value('(/ns1:AddressPostal/ns3:DistrictSubdivisionIdentifier)[last()]'        , 'varchar(max)'),
+            @PostOfficeBoxIdentifier            = X.value('(/ns1:AddressPostal/ns5:PostOfficeBoxIdentifier)[last()]'              , 'varchar(max)'),
+            @PostCodeIdentifier                 = X.value('(/ns1:AddressPostal/ns3:PostCodeIdentifier)[last()]'                   , 'varchar(max)'),
+            @DistrictName                       = X.value('(/ns1:AddressPostal/ns3:DistrictName)[last()]'                         , 'varchar(max)'),
+            @CountryIdentificationCode          = X.value('(/ns1:AddressPostal/ns2:CountryIdentificationCode)[last()]'            , 'varchar(max)')
+        FROM 
+            (SELECT X.query('/ns0:DanskAdresse/ns1:AddressComplete/ns1:AddressPostal') FROM @DanskAdresseTable) AS tmp_AddressPostalTable(X)
+
+        -- CprBorger - after address
+        WITH XMLNAMESPACES (
+            'urn:oio:sagdok:person:1.0.0' as ns0,
+            'http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/' as ns1,
+            'http://rep.oio.dk/ebxml/xml/schemas/dkcc/2006/01/03/' as ns2)
+        SELECT
+            @AdresseNoteTekst           = X.value('(/ns0:RegisterOplysning/ns0:CprBorger/ns0:AdresseNoteTekst)[last()]'          ,'varchar(max)'),
+            @FolkekirkeMedlemIndikator  = X.value('(/ns0:RegisterOplysning/ns0:CprBorger/ns0:FolkekirkeMedlemIndikator)[last()]' ,'varchar(max)')
+        FROM @RegisterOplysningTable;
        
     END
     
