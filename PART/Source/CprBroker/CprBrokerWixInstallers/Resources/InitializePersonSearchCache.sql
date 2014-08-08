@@ -1,9 +1,12 @@
-﻿-- =============================================
--- Procedure:   InitializePersonSearchCache
--- Author:		Beemen Beshara
--- Create date: 24-Jan-2014
--- Description:	Initializes the cashed version of persons' searchable fields
--- =============================================
+﻿/* 
+  ===========================================================================
+    Procedure:   InitializePersonSearchCache
+    Author:		 Beemen Beshara
+    Create date: 24-Jan-2014
+    Description: Initializes the cashed version of persons' searchable fields
+ ============================================================================
+*/
+
 IF EXISTS (SELECT * FROM sys.procedures WHERE name = 'InitializePersonSearchCache')
     DROP PROCEDURE dbo.InitializePersonSearchCache
 GO
@@ -220,7 +223,7 @@ BEGIN
             @AddressingName, @NickName, @Note, 
             @PersonGivenName, @PersonMiddleName, @PersonSurnameName, 
             @PersonGenderCode, @Birthdate, 
-            @UserInterfaceKeyText)	    	        
+            @UserInterfaceKeyText)
     END
 END
 GO
