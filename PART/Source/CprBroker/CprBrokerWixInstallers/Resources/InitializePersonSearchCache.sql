@@ -89,12 +89,12 @@ BEGIN
 
     -- CprBorger fields
     DECLARE @UserInterfaceKeyText VARCHAR(MAX), @PersonCivilRegistrationIdentifier VARCHAR(max),
-        @PersonNummerGyldighedStatusIndikator VARCHAR(MAX), @PersonNationalityCode VARCHAR(MAX),
-        @NavneAdresseBeskyttelseIndikator VARCHAR(MAX),@TelefonNummerBeskyttelseIndikator VARCHAR(MAX), @ForskerBeskyttelseIndikator VARCHAR(MAX);
+        @PersonNummerGyldighedStatusIndikator bit, @PersonNationalityCode VARCHAR(MAX),
+        @NavneAdresseBeskyttelseIndikator VARCHAR(MAX),@TelefonNummerBeskyttelseIndikator VARCHAR(MAX), @ForskerBeskyttelseIndikator bit;
         
     -- FolkeregisterAdresse fields
-    DECLARE @NoteTekst_DanskAdresse VARCHAR(MAX), @UkendtAdresseIndikator VARCHAR(MAX), 
-        @SpecielVejkodeIndikator VARCHAR(MAX), @PostDistriktTekst VARCHAR(MAX);
+    DECLARE @NoteTekst_DanskAdresse VARCHAR(MAX), @UkendtAdresseIndikator bit, 
+        @SpecielVejkodeIndikator bit, @PostDistriktTekst VARCHAR(MAX);
     
     -- AddressAccess fields
     DECLARE @MunicipalityCode VARCHAR(MAX), @StreetCode VARCHAR(MAX), @StreetBuildingIdentifier VARCHAR(MAX);
@@ -108,7 +108,7 @@ BEGIN
         @CountryIdentificationCode VARCHAR(MAX);
         
     -- CprBorger fields - after address
-    DECLARE @AdresseNoteTekst VARCHAR(MAX), @FolkekirkeMedlemIndikator VARCHAR(MAX); 
+    DECLARE @AdresseNoteTekst VARCHAR(MAX), @FolkekirkeMedlemIndikator bit; 
 
     IF LEN (CAST (@RegisterOplysningNode AS VARCHAR(MAX))) > 0
     BEGIN	
@@ -120,13 +120,13 @@ BEGIN
             'http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/' as ns1,
             'http://rep.oio.dk/ebxml/xml/schemas/dkcc/2006/01/03/' as ns2)
         SELECT
-            @UserInterfaceKeyText = X.value('(/ns0:RegisterOplysning/ns0:CprBorger/ns1:PersonCivilRegistrationIdentifier)[last()]','varchar(max)'),
-            @PersonCivilRegistrationIdentifier = X.value('(/ns0:RegisterOplysning/ns0:CprBorger/ns1:PersonCivilRegistrationIdentifier)[last()]','varchar(max)'),
-            @PersonNummerGyldighedStatusIndikator = X.value('(/ns0:RegisterOplysning/ns0:CprBorger/ns1:PersonCivilRegistrationIdentifier)[last()]','varchar(max)'),
-            @PersonNationalityCode = X.value('(/ns0:RegisterOplysning/ns0:CprBorger/ns2:PersonNationalityCode)[last()]','varchar(max)'),
-            @NavneAdresseBeskyttelseIndikator = X.value('(/ns0:RegisterOplysning/ns0:CprBorger/ns0:NavneAdresseBeskyttelseIndikator)[last()]','varchar(max)'),
-            @TelefonNummerBeskyttelseIndikator = X.value('(/ns0:RegisterOplysning/ns0:CprBorger/ns0:TelefonNummerBeskyttelseIndikator)[last()]','varchar(max)'),
-            @ForskerBeskyttelseIndikator = X.value('(/ns0:RegisterOplysning/ns0:CprBorger/ns0:ForskerBeskyttelseIndikator)[last()]','varchar(max)')
+            @UserInterfaceKeyText                  = X.value('(/ns0:RegisterOplysning/ns0:CprBorger/ns1:PersonCivilRegistrationIdentifier)[last()]' , 'varchar(max)'),
+            @PersonCivilRegistrationIdentifier     = X.value('(/ns0:RegisterOplysning/ns0:CprBorger/ns1:PersonCivilRegistrationIdentifier)[last()]' , 'varchar(max)'),
+            @PersonNummerGyldighedStatusIndikator  = X.value('(/ns0:RegisterOplysning/ns0:CprBorger/ns1:PersonCivilRegistrationIdentifier)[last()]' , 'bit'),
+            @PersonNationalityCode                 = X.value('(/ns0:RegisterOplysning/ns0:CprBorger/ns2:PersonNationalityCode)[last()]'             , 'varchar(max)'),
+            @NavneAdresseBeskyttelseIndikator      = X.value('(/ns0:RegisterOplysning/ns0:CprBorger/ns0:NavneAdresseBeskyttelseIndikator)[last()]'  , 'varchar(max)'),
+            @TelefonNummerBeskyttelseIndikator     = X.value('(/ns0:RegisterOplysning/ns0:CprBorger/ns0:TelefonNummerBeskyttelseIndikator)[last()]' , 'varchar(max)'),
+            @ForskerBeskyttelseIndikator           = X.value('(/ns0:RegisterOplysning/ns0:CprBorger/ns0:ForskerBeskyttelseIndikator)[last()]'       , 'bit')
         FROM @RegisterOplysningTable;
         
         DECLARE @DanskAdresseTable TABLE(X XML);
@@ -138,8 +138,8 @@ BEGIN
             'urn:oio:sagdok:2.0.0' AS ns1)
         SELECT 
             @NoteTekst_DanskAdresse  = X.value('(/ns0:DanskAdresse/ns1:NoteTekst)[last()]'               , 'varchar(max)'),
-            @UkendtAdresseIndikator  = X.value('(/ns0:DanskAdresse/ns0:UkendtAdresseIndikator)[last()]'  , 'varchar(max)'),
-            @SpecielVejkodeIndikator = X.value('(/ns0:DanskAdresse/ns0:SpecielVejkodeIndikator)[last()]' , 'varchar(max)'),
+            @UkendtAdresseIndikator  = X.value('(/ns0:DanskAdresse/ns0:UkendtAdresseIndikator)[last()]'  , 'bit'),
+            @SpecielVejkodeIndikator = X.value('(/ns0:DanskAdresse/ns0:SpecielVejkodeIndikator)[last()]' , 'bit'),
             @PostDistriktTekst       = X.value('(/ns0:DanskAdresse/ns0:PostDistriktTekst)[last()]'       , 'varchar(max)')
         FROM @DanskAdresseTable;
         
@@ -155,7 +155,7 @@ BEGIN
             @StreetCode               = X.value('(/ns2:AddressAccess/ns3:StreetCode)[last()]'               , 'varchar(max)'),
             @StreetBuildingIdentifier = X.value('(/ns2:AddressAccess/ns4:StreetBuildingIdentifier)[last()]' , 'varchar(max)')
         FROM 
-            (SELECT X.query('/ns0:DanskAdresse/ns1:AddressComplete/ns2:AddressAccess') FROM @DanskAdresseTable) AS tmp_AddressPostalTable(X)
+            (SELECT X.query('/ns0:DanskAdresse/ns1:AddressComplete/ns2:AddressAccess') FROM @DanskAdresseTable) AS tmp_AddressPostalTable(X);
 
         -- AddressPostal
         WITH XMLNAMESPACES (
@@ -179,7 +179,7 @@ BEGIN
             @DistrictName                       = X.value('(/ns1:AddressPostal/ns3:DistrictName)[last()]'                         , 'varchar(max)'),
             @CountryIdentificationCode          = X.value('(/ns1:AddressPostal/ns2:CountryIdentificationCode)[last()]'            , 'varchar(max)')
         FROM 
-            (SELECT X.query('/ns0:DanskAdresse/ns1:AddressComplete/ns1:AddressPostal') FROM @DanskAdresseTable) AS tmp_AddressPostalTable(X)
+            (SELECT X.query('/ns0:DanskAdresse/ns1:AddressComplete/ns1:AddressPostal') FROM @DanskAdresseTable) AS tmp_AddressPostalTable(X);
 
         -- CprBorger - after address
         WITH XMLNAMESPACES (
@@ -187,8 +187,8 @@ BEGIN
             'http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/' as ns1,
             'http://rep.oio.dk/ebxml/xml/schemas/dkcc/2006/01/03/' as ns2)
         SELECT
-            @AdresseNoteTekst           = X.value('(/ns0:RegisterOplysning/ns0:CprBorger/ns0:AdresseNoteTekst)[last()]'          ,'varchar(max)'),
-            @FolkekirkeMedlemIndikator  = X.value('(/ns0:RegisterOplysning/ns0:CprBorger/ns0:FolkekirkeMedlemIndikator)[last()]' ,'varchar(max)')
+            @AdresseNoteTekst           = X.value('(/ns0:RegisterOplysning/ns0:CprBorger/ns0:AdresseNoteTekst)[last()]'          , 'varchar(max)'),
+            @FolkekirkeMedlemIndikator  = X.value('(/ns0:RegisterOplysning/ns0:CprBorger/ns0:FolkekirkeMedlemIndikator)[last()]' , 'bit')
         FROM @RegisterOplysningTable;
        
     END
