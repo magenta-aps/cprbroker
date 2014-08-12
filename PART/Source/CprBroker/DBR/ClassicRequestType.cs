@@ -32,7 +32,7 @@ namespace CprBroker.DBR
                     {
                         CprConverter.DeletePersonRecords(this.PNR, dataContext);
                         CprConverter.AppendPerson(response, dataContext);
-
+                        dataContext.SubmitChanges();
                         var ret = new ClassicResponseType()
                         {
                             Type = this.Type,
