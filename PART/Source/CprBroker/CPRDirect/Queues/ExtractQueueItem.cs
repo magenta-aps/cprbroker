@@ -33,12 +33,20 @@ namespace CprBroker.Providers.CPRDirect
 
         public static void LoadExtractAndItems(this ExtractQueueItem[] items, ExtractDataContext dataContext)
         {
+            if (dataContext.LoadOptions == null)
+            {
+                var loadOptions = new System.Data.Linq.DataLoadOptions();
+                loadOptions.LoadWith<ExtractItem>(ei => ei.Extract);
+                dataContext.LoadOptions = loadOptions;
+            }
+
+            var pnrs = items.Select(i => i.PNR).Distinct().ToArray();            
+            var dbExtractItems = dataContext.ExtractItems.Where(ei => pnrs.Contains(ei.PNR)).ToArray();
+
             foreach (var item in items)
             {
-                item.Extract = dataContext.Extracts.Where(ex => ex.ExtractId == item.ExtractId).Single();
-                // TODO: Change into something faster and avoid ToArray() but do not use a similar to this :
-                //         item.ExtractItems = dataContext.ExtractItems.Where(ei => ei.ExtractId == item.ExtractId && ei.PNR == item.PNR)
-                item.ExtractItems = dataContext.ExtractItems.Where(ei => ei.ExtractId == item.ExtractId && ei.PNR == item.PNR).ToArray().AsQueryable();
+                item.ExtractItems = dbExtractItems.Where(ei => ei.ExtractId == item.ExtractId && ei.PNR == item.PNR).ToArray().AsQueryable();
+                item.Extract = item.ExtractItems.First().Extract;
             }
         }
     }
