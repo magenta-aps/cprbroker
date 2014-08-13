@@ -109,6 +109,7 @@ namespace CprBroker.Tests.DBR
             [Test]
             public void Start_Queue_GoesToDbr()
             {
+                string pnr = "";
                 using (var manager = new DprDiversionManagerStub())
                 {
                     var q = AddDbrQueue(true);
@@ -117,7 +118,7 @@ namespace CprBroker.Tests.DBR
                     manager.WaitForFirstRun();
 
                     var dpr = CreateDprProvider(q);
-                    string pnr = "";
+                    
                     dpr.CallDiversion(Providers.DPR.InquiryType.DataUpdatedAutomaticallyFromCpr, Providers.DPR.DetailType.ExtendedData, pnr);
                 }
 
