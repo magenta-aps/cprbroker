@@ -76,13 +76,49 @@ namespace BatchClient
         {
             DateTime startTime = DateTime.Now;
             Log("Started at " + startTime);
-            var dataStream = new FileStream(dataFile, FileMode.Open, FileAccess.Read);
-            CprConverter.ImportGeoInformationFileInSteps(dataStream, 20, Encoding.GetEncoding(1252), BrokerConnectionString);
-            dataStream.Close();
+            using (var dataStream = new FileStream(dataFile, FileMode.Open, FileAccess.Read))
+            {
+                CprConverter.ImportGeoInformationFileInSteps(dataStream, 20, Encoding.GetEncoding(1252), BrokerConnectionString);
+            }
             DateTime endTime = DateTime.Now;
             TimeSpan diff = endTime.Subtract(startTime);
             var diffText = "Ended at " + DateTime.Now + "\nTotal time spent: " + diff.Hours + ":" + diff.Minutes + ":" + diff.Seconds;
             Log(diffText);
+        }
+
+        public static void SplitFile()
+        {
+            var path = @"C:\Magenta Workspace\broker\PART\Doc\Data Providers\CPR Direct\Lookups\vejregister_hele_landet_pr_140801\A370715.txt";
+            var streams = new Dictionary<string, StreamWriter>();
+
+            using (var source = new System.IO.StreamReader(path, Encoding.GetEncoding(1252)))
+            {
+                while (!source.EndOfStream)
+                {
+                    int batchSize = 100;
+                    var wrappers = CprBroker.Providers.CPRDirect.CompositeWrapper.Parse(source, CprBroker.Providers.CPRDirect.Constants.DataObjectMap_P05780, batchSize);
+
+                    foreach (var w in wrappers)
+                    {
+                        var code = w.Contents.Substring(0, 3);
+                        StreamWriter target;
+                        if (streams.ContainsKey(code))
+                        {
+                            target = streams[code];
+                        }
+                        else
+                        {
+                            target = new StreamWriter(string.Format("{0}-{1}-{2}.txt", path, code, w.GetType().Name), false, Encoding.GetEncoding(1252));
+                            streams[code] = target;
+                        }
+                        target.Write(w.Contents);
+                    }
+                }
+            }
+            foreach (var kvp in streams)
+            {
+                kvp.Value.Close();
+            }
         }
     }
 }
