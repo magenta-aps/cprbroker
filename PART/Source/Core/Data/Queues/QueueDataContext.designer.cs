@@ -36,6 +36,9 @@ namespace CprBroker.Data.Queues
     partial void InsertDbQueue(DbQueue instance);
     partial void UpdateDbQueue(DbQueue instance);
     partial void DeleteDbQueue(DbQueue instance);
+    partial void InsertSemaphore(Semaphore instance);
+    partial void UpdateSemaphore(Semaphore instance);
+    partial void DeleteSemaphore(Semaphore instance);
     #endregion
 		
 		public QueueDataContext(string connection) : 
@@ -77,6 +80,14 @@ namespace CprBroker.Data.Queues
 				return this.GetTable<DbQueue>();
 			}
 		}
+		
+		public System.Data.Linq.Table<Semaphore> Semaphores
+		{
+			get
+			{
+				return this.GetTable<Semaphore>();
+			}
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.QueueItem")]
@@ -95,7 +106,11 @@ namespace CprBroker.Data.Queues
 		
 		private int _AttemptCount;
 		
+		private System.Nullable<System.Guid> _SemaphoreId;
+		
 		private EntityRef<DbQueue> _Queue;
+		
+		private EntityRef<Semaphore> _Semaphore;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -111,11 +126,14 @@ namespace CprBroker.Data.Queues
     partial void OnCreatedTSChanged();
     partial void OnAttemptCountChanging(int value);
     partial void OnAttemptCountChanged();
+    partial void OnSemaphoreIdChanging(System.Nullable<System.Guid> value);
+    partial void OnSemaphoreIdChanged();
     #endregion
 		
 		public DbQueueItem()
 		{
 			this._Queue = default(EntityRef<DbQueue>);
+			this._Semaphore = default(EntityRef<Semaphore>);
 			OnCreated();
 		}
 		
@@ -203,7 +221,7 @@ namespace CprBroker.Data.Queues
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AttemptCount", DbType="Int")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AttemptCount", DbType="Int NOT NULL")]
 		public int AttemptCount
 		{
 			get
@@ -223,7 +241,31 @@ namespace CprBroker.Data.Queues
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DbQueue_DbQueueItem", Storage="_Queue", ThisKey="QueueId", OtherKey="QueueId", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SemaphoreId", DbType="UniqueIdentifier")]
+		public System.Nullable<System.Guid> SemaphoreId
+		{
+			get
+			{
+				return this._SemaphoreId;
+			}
+			set
+			{
+				if ((this._SemaphoreId != value))
+				{
+					if (this._Semaphore.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnSemaphoreIdChanging(value);
+					this.SendPropertyChanging();
+					this._SemaphoreId = value;
+					this.SendPropertyChanged("SemaphoreId");
+					this.OnSemaphoreIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DbQueue_DbQueueItem", Storage="_Queue", ThisKey="QueueId", OtherKey="QueueId", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
 		public DbQueue Queue
 		{
 			get
@@ -253,6 +295,40 @@ namespace CprBroker.Data.Queues
 						this._QueueId = default(System.Guid);
 					}
 					this.SendPropertyChanged("Queue");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Semaphore_DbQueueItem", Storage="_Semaphore", ThisKey="SemaphoreId", OtherKey="SemaphoreId", IsForeignKey=true)]
+		public Semaphore Semaphore
+		{
+			get
+			{
+				return this._Semaphore.Entity;
+			}
+			set
+			{
+				Semaphore previousValue = this._Semaphore.Entity;
+				if (((previousValue != value) 
+							|| (this._Semaphore.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Semaphore.Entity = null;
+						previousValue.DbQueueItems.Remove(this);
+					}
+					this._Semaphore.Entity = value;
+					if ((value != null))
+					{
+						value.DbQueueItems.Add(this);
+						this._SemaphoreId = value.SemaphoreId;
+					}
+					else
+					{
+						this._SemaphoreId = default(Nullable<System.Guid>);
+					}
+					this.SendPropertyChanged("Semaphore");
 				}
 			}
 		}
@@ -485,6 +561,144 @@ namespace CprBroker.Data.Queues
 		{
 			this.SendPropertyChanging();
 			entity.Queue = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Semaphore")]
+	public partial class Semaphore : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private System.Guid _SemaphoreId;
+		
+		private System.DateTime _CreatedDate;
+		
+		private System.Nullable<System.DateTime> _SignaledDate;
+		
+		private EntitySet<DbQueueItem> _DbQueueItems;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnSemaphoreIdChanging(System.Guid value);
+    partial void OnSemaphoreIdChanged();
+    partial void OnCreatedDateChanging(System.DateTime value);
+    partial void OnCreatedDateChanged();
+    partial void OnSignaledDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnSignaledDateChanged();
+    #endregion
+		
+		public Semaphore()
+		{
+			this._DbQueueItems = new EntitySet<DbQueueItem>(new Action<DbQueueItem>(this.attach_DbQueueItems), new Action<DbQueueItem>(this.detach_DbQueueItems));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SemaphoreId", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+		public System.Guid SemaphoreId
+		{
+			get
+			{
+				return this._SemaphoreId;
+			}
+			set
+			{
+				if ((this._SemaphoreId != value))
+				{
+					this.OnSemaphoreIdChanging(value);
+					this.SendPropertyChanging();
+					this._SemaphoreId = value;
+					this.SendPropertyChanged("SemaphoreId");
+					this.OnSemaphoreIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedDate", DbType="DateTime NOT NULL")]
+		public System.DateTime CreatedDate
+		{
+			get
+			{
+				return this._CreatedDate;
+			}
+			set
+			{
+				if ((this._CreatedDate != value))
+				{
+					this.OnCreatedDateChanging(value);
+					this.SendPropertyChanging();
+					this._CreatedDate = value;
+					this.SendPropertyChanged("CreatedDate");
+					this.OnCreatedDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SignaledDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> SignaledDate
+		{
+			get
+			{
+				return this._SignaledDate;
+			}
+			set
+			{
+				if ((this._SignaledDate != value))
+				{
+					this.OnSignaledDateChanging(value);
+					this.SendPropertyChanging();
+					this._SignaledDate = value;
+					this.SendPropertyChanged("SignaledDate");
+					this.OnSignaledDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Semaphore_DbQueueItem", Storage="_DbQueueItems", ThisKey="SemaphoreId", OtherKey="SemaphoreId")]
+		public EntitySet<DbQueueItem> DbQueueItems
+		{
+			get
+			{
+				return this._DbQueueItems;
+			}
+			set
+			{
+				this._DbQueueItems.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_DbQueueItems(DbQueueItem entity)
+		{
+			this.SendPropertyChanging();
+			entity.Semaphore = this;
+		}
+		
+		private void detach_DbQueueItems(DbQueueItem entity)
+		{
+			this.SendPropertyChanging();
+			entity.Semaphore = null;
 		}
 	}
 }

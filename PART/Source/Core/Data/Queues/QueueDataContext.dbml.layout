@@ -2,23 +2,36 @@
 <ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="QueueDataContext">
   <DataContextMoniker Name="/QueueDataContext" />
   <nestedChildShapes>
-    <classShape Id="936eef32-ed42-449a-88e9-1a23b0a6b97f" absoluteBounds="7.125, 2.125, 2, 1.7708968098958327">
-      <DataClassMoniker Name="/QueueDataContext/DbQueueItem" />
-      <nestedChildShapes>
-        <elementListCompartment Id="c900b4f2-94d0-4cd9-967d-b17650645b70" absoluteBounds="7.14, 2.585, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
     <classShape Id="7c7bee57-df44-4f35-9d51-3e840c3736f8" absoluteBounds="2.25, 2, 2, 1.9631982421875">
       <DataClassMoniker Name="/QueueDataContext/DbQueue" />
       <nestedChildShapes>
         <elementListCompartment Id="9ef536ce-19f4-4843-a1c0-f2fb0166d893" absoluteBounds="2.265, 2.46, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(4.25 : 2.94794840494792); (7.125 : 2.94794840494792)]" fixedFrom="NotFixed" fixedTo="NotFixed">
-      <AssociationMoniker Name="/QueueDataContext/DbQueue/Queue_QueueItem" />
+    <classShape Id="5a4476ca-f550-43f2-bf73-fc550cebe158" absoluteBounds="5.625, 4.875, 2, 1.3862939453125">
+      <DataClassMoniker Name="/QueueDataContext/Semaphore" />
+      <nestedChildShapes>
+        <elementListCompartment Id="668e9702-5384-47ee-ae23-ab1aa955af15" absoluteBounds="5.64, 5.335, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="8265e5be-c282-4c58-a7ec-cec661a50019" absoluteBounds="8.375, 2.5, 2, 1.9631982421875">
+      <DataClassMoniker Name="/QueueDataContext/DbQueueItem" />
+      <nestedChildShapes>
+        <elementListCompartment Id="eb14de83-aea7-4f85-a51c-ff860ea579d6" absoluteBounds="8.39, 2.96, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(4.25 : 3.23159912109375); (8.375 : 3.23159912109375)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/QueueDataContext/DbQueue/DbQueue_QueueItem" />
       <nodes>
         <classShapeMoniker Id="7c7bee57-df44-4f35-9d51-3e840c3736f8" />
-        <classShapeMoniker Id="936eef32-ed42-449a-88e9-1a23b0a6b97f" />
+        <classShapeMoniker Id="8265e5be-c282-4c58-a7ec-cec661a50019" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(7.625 : 5.56814697265625); (9.375 : 5.56814697265625); (9.375 : 4.4631982421875)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/QueueDataContext/Semaphore/Semaphore_QueueItem" />
+      <nodes>
+        <classShapeMoniker Id="5a4476ca-f550-43f2-bf73-fc550cebe158" />
+        <classShapeMoniker Id="8265e5be-c282-4c58-a7ec-cec661a50019" />
       </nodes>
     </associationConnector>
   </nestedChildShapes>

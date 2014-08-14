@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Data.Linq;
 using CprBroker.Schemas;
 
 namespace CprBroker.Data.Queues
@@ -30,8 +31,15 @@ namespace CprBroker.Data.Queues
         {
             using (var dataContext = new QueueDataContext())
             {
+                var loadOptions = new DataLoadOptions();
+                loadOptions.LoadWith<DbQueueItem>(qi => qi.Semaphore);
+                dataContext.LoadOptions = loadOptions;
+
                 return dataContext.QueueItems
-                    .Where(qi => qi.QueueId == this.QueueId && qi.AttemptCount < this.MaxRetry)
+                    .Where(qi =>
+                        qi.QueueId == this.QueueId
+                        && qi.AttemptCount < this.MaxRetry
+                        && (qi.Semaphore == null || qi.Semaphore.SignaledDate.HasValue))
                     .OrderBy(qi => qi.QueueItemId)
                     .Take(maxCount)
                     .ToArray();
