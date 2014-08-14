@@ -71,9 +71,9 @@ namespace CprBroker.Data.Queues
             }
         }
 
-        public void Enqueue(string[] itemKeys)
+        public void Enqueue(string[] itemKeys, DbSemaphore semaphore)
         {
-            var items = itemKeys.Select(ik => new DbQueueItem(ik, this));
+            var items = itemKeys.Select(ik => new DbQueueItem(ik, this, semaphore));
             using (var dataContext = new QueueDataContext())
             {
                 dataContext.QueueItems.InsertAllOnSubmit(items);

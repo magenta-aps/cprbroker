@@ -36,9 +36,9 @@ namespace CprBroker.Data.Queues
     partial void InsertDbQueue(DbQueue instance);
     partial void UpdateDbQueue(DbQueue instance);
     partial void DeleteDbQueue(DbQueue instance);
-    partial void InsertSemaphore(Semaphore instance);
-    partial void UpdateSemaphore(Semaphore instance);
-    partial void DeleteSemaphore(Semaphore instance);
+    partial void InsertDbSemaphore(DbSemaphore instance);
+    partial void UpdateDbSemaphore(DbSemaphore instance);
+    partial void DeleteDbSemaphore(DbSemaphore instance);
     #endregion
 		
 		public QueueDataContext(string connection) : 
@@ -81,11 +81,11 @@ namespace CprBroker.Data.Queues
 			}
 		}
 		
-		public System.Data.Linq.Table<Semaphore> Semaphores
+		public System.Data.Linq.Table<DbSemaphore> Semaphores
 		{
 			get
 			{
-				return this.GetTable<Semaphore>();
+				return this.GetTable<DbSemaphore>();
 			}
 		}
 	}
@@ -110,7 +110,7 @@ namespace CprBroker.Data.Queues
 		
 		private EntityRef<DbQueue> _Queue;
 		
-		private EntityRef<Semaphore> _Semaphore;
+		private EntityRef<DbSemaphore> _Semaphore;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -133,7 +133,7 @@ namespace CprBroker.Data.Queues
 		public DbQueueItem()
 		{
 			this._Queue = default(EntityRef<DbQueue>);
-			this._Semaphore = default(EntityRef<Semaphore>);
+			this._Semaphore = default(EntityRef<DbSemaphore>);
 			OnCreated();
 		}
 		
@@ -299,8 +299,8 @@ namespace CprBroker.Data.Queues
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Semaphore_DbQueueItem", Storage="_Semaphore", ThisKey="SemaphoreId", OtherKey="SemaphoreId", IsForeignKey=true)]
-		public Semaphore Semaphore
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DbSemaphore_DbQueueItem", Storage="_Semaphore", ThisKey="SemaphoreId", OtherKey="SemaphoreId", IsForeignKey=true)]
+		public DbSemaphore Semaphore
 		{
 			get
 			{
@@ -308,7 +308,7 @@ namespace CprBroker.Data.Queues
 			}
 			set
 			{
-				Semaphore previousValue = this._Semaphore.Entity;
+				DbSemaphore previousValue = this._Semaphore.Entity;
 				if (((previousValue != value) 
 							|| (this._Semaphore.HasLoadedOrAssignedValue == false)))
 				{
@@ -565,7 +565,7 @@ namespace CprBroker.Data.Queues
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Semaphore")]
-	public partial class Semaphore : INotifyPropertyChanging, INotifyPropertyChanged
+	public partial class DbSemaphore : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
@@ -590,7 +590,7 @@ namespace CprBroker.Data.Queues
     partial void OnSignaledDateChanged();
     #endregion
 		
-		public Semaphore()
+		public DbSemaphore()
 		{
 			this._DbQueueItems = new EntitySet<DbQueueItem>(new Action<DbQueueItem>(this.attach_DbQueueItems), new Action<DbQueueItem>(this.detach_DbQueueItems));
 			OnCreated();
@@ -656,7 +656,7 @@ namespace CprBroker.Data.Queues
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Semaphore_DbQueueItem", Storage="_DbQueueItems", ThisKey="SemaphoreId", OtherKey="SemaphoreId")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DbSemaphore_DbQueueItem", Storage="_DbQueueItems", ThisKey="SemaphoreId", OtherKey="SemaphoreId")]
 		public EntitySet<DbQueueItem> DbQueueItems
 		{
 			get

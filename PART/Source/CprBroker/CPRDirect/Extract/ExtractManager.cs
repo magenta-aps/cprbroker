@@ -55,6 +55,7 @@ using CprBroker.Engine.Local;
 using CprBroker.Engine.Part;
 using CprBroker.Data.DataProviders;
 using System.Transactions;
+using CprBroker.Engine.Queues;
 
 namespace CprBroker.Providers.CPRDirect
 {
@@ -150,15 +151,28 @@ namespace CprBroker.Providers.CPRDirect
                     {
                         // Find existing extract or create a new one
                         var extract = dataContext.Extracts.Where(e => e.Filename == path && e.ProcessedLines != null && !e.Ready).OrderByDescending(e => e.ImportDate).FirstOrDefault();
+                        Semaphore semaphore;
                         if (extract == null)
                         {
-                            extract = extractResult.ToExtract(path, false, 0);
+                            semaphore = Semaphore.Create();
+                            extract = extractResult.ToExtract(path, false, 0, semaphore);
                             Admin.LogFormattedSuccess("Creating new extract <{0}>", extract.ExtractId);
                             dataContext.Extracts.InsertOnSubmit(extract);
                             dataContext.SubmitChanges();
                         }
                         else
                         {
+                            if (extract.SemaphoreId.HasValue)
+                            {
+                                semaphore = Semaphore.GetById(extract.SemaphoreId.Value);
+                            }
+                            else
+                            {
+                                // Transitional logic for the rare case of an extract that has started before introduction of semaphores
+                                semaphore = Semaphore.Create();
+                                extract.SemaphoreId = semaphore.Impl.SemaphoreId;
+                                dataContext.SubmitChanges();
+                            }
                             Admin.LogFormattedSuccess("Incomplete extract found <{0}>, resuming", extract.ExtractId);
                         }
 
@@ -197,24 +211,24 @@ namespace CprBroker.Providers.CPRDirect
                                     // Child records
                                     conn.BulkInsertAll<ExtractItem>(extractResult.ToExtractItems(extract.ExtractId, Constants.DataObjectMap, Constants.RelationshipMap, Constants.MultiRelationshipMap));
                                     conn.BulkInsertAll<ExtractError>(extractResult.ToExtractErrors(extract.ExtractId));
-                                    // TODO: (Extract) In case some records have been skipped in a previous import attempt, make sure that allPnrs contains their PNR's
-                                    //conn.BulkInsertAll<ExtractPersonStaging>(extractResult.ToExtractPersonStagings(extract.ExtractId, allPnrs));
 
                                     var stagingQueue = new ExtractStagingQueue();
-                                    stagingQueue.Enqueue(extractResult.ToQueueItems(extract.ExtractId));
+                                    stagingQueue.Enqueue(extractResult.ToQueueItems(extract.ExtractId, allPnrs), semaphore);
 
-                                    // Update counts
+                                    // Update counts and commit
                                     extract.ProcessedLines = totalReadLinesCount;
+                                    dataContext.SubmitChanges();
+                                    Admin.LogFormattedSuccess("Batch committed");
 
-                                    // End record and mark as ready
+                                    // End record and mark as ready, and signal the semaphore
                                     if (extractResult.EndLine != null)
                                     {
                                         extract.EndRecord = extractResult.EndLine.Contents;
                                         extract.Ready = true;
+                                        dataContext.SubmitChanges();
+                                        semaphore.Signal();
                                         Admin.LogFormattedSuccess("End record added");
                                     }
-                                    dataContext.SubmitChanges();
-                                    Admin.LogFormattedSuccess("Batch committed");
                                 }
                                 else
                                 {

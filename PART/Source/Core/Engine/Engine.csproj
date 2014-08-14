@@ -110,6 +110,7 @@
     <Compile Include="Queues\Queue%28Of TQueueItem%29.cs" />
     <Compile Include="Queues\Queue.cs" />
     <Compile Include="Queues\QueueItemBase.cs" />
+    <Compile Include="Queues\Semaphore.cs" />
     <Compile Include="SubMethodRunState.cs" />
     <Compile Include="Sync\ISyncTargetQueue.cs" />
     <Compile Include="Sync\SyncManager.cs" />

@@ -41,14 +41,17 @@ namespace CprBroker.Engine.Queues
             Impl.MarkFailure(items.Select(i => i.Impl).ToArray());
         }
 
-        public void Enqueue(TQueueItem item)
+        public void Enqueue(TQueueItem item, Semaphore semaphore = null)
         {
-            Enqueue(new TQueueItem[] { item });
+            Enqueue(new TQueueItem[] { item }, semaphore);
         }
-        public void Enqueue(TQueueItem[] items)
+
+        public void Enqueue(TQueueItem[] items, Semaphore semaphore = null)
         {
             var itemKeys = items.Select(it => it.SerializeToKey()).ToArray();
-            Impl.Enqueue(itemKeys);
+            Impl.Enqueue(
+                itemKeys,
+                semaphore != null ? semaphore.Impl : null);
         }
 
         /// <summary>
@@ -77,7 +80,7 @@ namespace CprBroker.Engine.Queues
         public override void RunOneBatch()
         {
             var items = GetNext(Impl.BatchSize);
-            if(items.FirstOrDefault() != null)
+            if (items.FirstOrDefault() != null)
             {
                 var succeeded = Process(items);
                 Remove(succeeded);

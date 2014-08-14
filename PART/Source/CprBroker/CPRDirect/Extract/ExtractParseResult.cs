@@ -49,6 +49,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using CprBroker.Schemas.Wrappers;
+using CprBroker.Engine.Queues;
 
 namespace CprBroker.Providers.CPRDirect
 {
@@ -126,10 +127,10 @@ namespace CprBroker.Providers.CPRDirect
 
         public Extract ToExtract(string sourceFileName)
         {
-            return ToExtract(sourceFileName, false, 0);
+            return ToExtract(sourceFileName, false, 0, null);
         }
 
-        public Extract ToExtract(string sourceFileName, bool ready, long processedLines)
+        public Extract ToExtract(string sourceFileName, bool ready, long processedLines, Semaphore semaphore = null)
         {
             return new Extract()
             {
@@ -140,7 +141,8 @@ namespace CprBroker.Providers.CPRDirect
                 StartRecord = this.StartWrapper == null ? "" : this.StartWrapper.Contents,
                 EndRecord = EndLine == null ? "" : this.EndLine.Contents,
                 Ready = ready,
-                ProcessedLines = processedLines
+                ProcessedLines = processedLines,
+                SemaphoreId = (semaphore != null) ? semaphore.Impl.SemaphoreId : null as Guid?
             };
         }
 
