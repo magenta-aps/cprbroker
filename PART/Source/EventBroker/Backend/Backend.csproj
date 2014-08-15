@@ -54,6 +54,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Core\Output\CprBroker.Config.dll</HintPath>
     </Reference>
+    <Reference Include="CprBroker.DBR">
+      <HintPath>..\..\CprBroker\Output\CprBroker.DBR.dll</HintPath>
+    </Reference>
     <Reference Include="CprBroker.Engine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Core\Output\CprBroker.Engine.dll</HintPath>

@@ -141,7 +141,9 @@
       <DependentUpon>BirthdateEventEnqueuer.cs</DependentUpon>
     </Compile>
     <Compile Include="Notifications\Channel.cs" />
-    <Compile Include="Notifications\DataChangeEventEnqueuer.cs" />
+    <Compile Include="Notifications\DataChangeEventEnqueuer.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Notifications\DataChangeEventEnqueuer.Designer.cs">
       <DependentUpon>DataChangeEventEnqueuer.cs</DependentUpon>
     </Compile>

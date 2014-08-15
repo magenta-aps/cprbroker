@@ -38,7 +38,7 @@
             this.CriteriaSubscriptionPersonPopulator = new CprBroker.EventBroker.Notifications.CriteriaSubscriptionPersonPopulator();
             this.DataChangeEventPuller = new CprBroker.EventBroker.Notifications.DataChangeEventPuller();
             this.QueueExecutionManager = new CprBroker.Engine.Tasks.QueueExecutionManager();
-            this.DprDiversionManager = new CprBroker.EventBroker.Notifications.DprDiversionManager();
+            this.DprDiversionManager = new CprBroker.DBR.DprDiversionManager();
             // 
             // BackendService
             // 
@@ -57,6 +57,6 @@
         private Notifications.CriteriaSubscriptionPersonPopulator CriteriaSubscriptionPersonPopulator;
         private Notifications.DataChangeEventPuller DataChangeEventPuller;
         private CprBroker.Engine.Tasks.QueueExecutionManager QueueExecutionManager;
-        private Notifications.DprDiversionManager DprDiversionManager;
+        private CprBroker.DBR.DprDiversionManager DprDiversionManager;
     }
 }
