@@ -81,6 +81,9 @@
       <Component Id="CMP_CPR_PersonMaster_Dll" Directory="CPR_bin">
         <File Id="FILE_CPR_bin_PersonMaster_DLL" Source="$(var.SitePath)bin\CprBroker.Providers.PersonMaster.dll" KeyPath="yes"/>
       </Component>
+      <Component Id="CMP_CPR_Dbr_Dll" Directory="CPR_bin">
+          <File Id="FILE_CPR_bin_Dbr_DLL" Source="$(var.SitePath)bin\CprBroker.Dbr.dll" KeyPath="yes"/>
+      </Component>
 
       <Component Id="CMP_CPR_EntLib_Common_Dll" Directory="CPR_bin">
         <File Id="FILE_CPR_bin_EntLib_Common_DLL" Source="$(var.SitePath)bin\Microsoft.Practices.EnterpriseLibrary.Common.dll" KeyPath="yes"/>
@@ -126,9 +129,9 @@
         <RemoveFile Id="Remove_CPR_Budget_ASPX" Name="Budget.aspx" On="install" />
         <File Id="FILE_CPR_Pages_Budget_ASPX" Source="$(var.SitePath)Pages\Budget.aspx" KeyPath="yes"/>
       </Component>
-      <Component Id="CMP_CPR_ExternalCalls_ASPX" Directory="CPR_Pages">
-        <RemoveFile Id="Remove_CPR_ExternalCalls_ASPX" Name="ExternalCalls.aspx" On="install" />
-        <File Id="FILE_CPR_Pages_ExternalCalls_ASPX" Source="$(var.SitePath)Pages\ExternalCalls.aspx" KeyPath="yes"/>
+      <Component Id="CMP_CPR_Dbr_ASPX" Directory="CPR_Pages">
+        <RemoveFile Id="Remove_CPR_Dbr_ASPX" Name="Dbr.aspx" On="install" />
+        <File Id="FILE_CPR_Pages_Dbr_ASPX" Source="$(var.SitePath)Pages\Dbr.aspx" KeyPath="yes"/>
       </Component>
 
       <!-- Controls folder -->
