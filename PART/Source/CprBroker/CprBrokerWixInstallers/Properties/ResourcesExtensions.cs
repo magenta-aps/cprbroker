@@ -62,7 +62,8 @@ namespace CprBrokerWixInstallers.Properties
             get
             {
                 var arr = new string[] { 
-                    Resources.Extract,
+                    Resources.Semaphore,
+                    Resources.Extract,                    
                     Resources.Queue,
                     Resources.QueueItem,
                     Resources.CreatePartDatabaseObjects

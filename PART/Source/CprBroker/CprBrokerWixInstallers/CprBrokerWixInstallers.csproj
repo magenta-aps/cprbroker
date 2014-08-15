@@ -110,6 +110,7 @@
     <Content Include="Resources\Queue.sql" />
     <Content Include="Resources\QueueItem.sql" />
     <Content Include="Resources\Script generation.txt" />
+    <Content Include="Resources\Semaphore.sql" />
     <None Include="Resources\CreatePartDatabaseObjects.ChildObjects.sql" />
     <Content Include="Resources\PatchDatabase_1_3_2.sql" />
     <Content Include="Resources\PatchDatabase_1_4.sql" />

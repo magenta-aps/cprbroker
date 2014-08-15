@@ -122,11 +122,6 @@ namespace CprBrokerWixInstallers.Properties {
         ///    DROP TABLE [dbo].[Extract]
         ///GO
         ///
-        ///SET ANSI_NULLS ON
-        ///GO
-        ///SET QUOTED_IDENTIFIER ON
-        ///GO
-        ///
         ///CREATE TABLE [dbo].[Extract](
         ///	[ExtractId] [uniqueidentifier] NOT NULL 
         ///        CONSTRAINT [DF_Extract_ExtractId] DEFAULT NEWID(),
@@ -134,7 +129,9 @@ namespace CprBrokerWixInstallers.Properties {
         ///	[ExtractDate] [datetime] NOT NULL,
         ///	[ImportDate] [datetime] NOT NULL,
         ///	[StartRecord] [nvarchar](max) NOT NULL,
-        ///	[EndRecord] [nvarchar](m [rest of string was truncated]&quot;;.
+        ///	[EndRecord] [nvarchar](max) NOT NULL,
+        ///	[Ready] [bit] NOT NULL 
+        ///        CONSTR [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Extract {
             get {
@@ -354,9 +351,11 @@ namespace CprBrokerWixInstallers.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to TypeId;TypeName;BatchSize;MaxRetry;EncryptedData
-        ///100;CprBroker.Providers.CPRDirect.ExtractStagingQueue, CprBroker.Providers.CPRDirect;1000;100;null
-        ///200;CprBroker.Providers.CPRDirect.DbrBaseQueue, CprBroker.Providers.CPRDirect;100;100;null.
+        ///   Looks up a localized string similar to TypeId;TypeName;BatchSize;MaxRetry
+        ///100;CprBroker.Providers.CPRDirect.ExtractStagingQueue, CprBroker.Providers.CPRDirect;1000;100
+        ///101;CprBroker.Providers.CPRDirect.PartConversionQueue, CprBroker.Providers.CPRDirect;100;100
+        ///200;CprBroker.Providers.CPRDirect.DbrBaseQueue, CprBroker.Providers.CPRDirect;100;100
+        ///.
         /// </summary>
         internal static string Queue_Csv {
             get {
@@ -380,6 +379,25 @@ namespace CprBrokerWixInstallers.Properties {
         internal static string QueueItem {
             get {
                 return ResourceManager.GetString("QueueItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N&apos;[dbo].[Semaphore]&apos;) AND type in (N&apos;U&apos;))
+        ///BEGIN    
+        ///    CREATE TABLE [dbo].[Semaphore](
+        ///	    [SemaphoreId] [uniqueidentifier] NOT NULL 
+        ///            CONSTRAINT [PK_Semaphore] PRIMARY KEY CLUSTERED ([SemaphoreId] ASC)
+        ///            CONSTRAINT [DF_Semaphore_SemaphoreId]  DEFAULT (newid()),
+        ///	    [CreatedDate] [datetime] NOT NULL,
+        ///	    [SignaledDate] [datetime] NULL,
+        ///    ) ON [PRIMARY]
+        ///END
+        ///GO.
+        /// </summary>
+        internal static string Semaphore {
+            get {
+                return ResourceManager.GetString("Semaphore", resourceCulture);
             }
         }
     }
