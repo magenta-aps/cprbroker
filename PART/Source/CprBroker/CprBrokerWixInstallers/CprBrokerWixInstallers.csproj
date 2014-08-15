@@ -107,6 +107,7 @@
   <ItemGroup>
     <Content Include="Resources\Extract.sql" />
     <Content Include="Resources\PatchDatabase_2_2_2.sql" />
+    <None Include="Resources\PatchDatabase_2_2_3.sql" />
     <Content Include="Resources\Queue.sql" />
     <Content Include="Resources\QueueItem.sql" />
     <Content Include="Resources\Script generation.txt" />

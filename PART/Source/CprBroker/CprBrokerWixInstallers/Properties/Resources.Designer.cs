@@ -118,20 +118,17 @@ namespace CprBrokerWixInstallers.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N&apos;[dbo].[Extract]&apos;) AND type in (N&apos;U&apos;))
-        ///    DROP TABLE [dbo].[Extract]
-        ///GO
-        ///
-        ///CREATE TABLE [dbo].[Extract](
-        ///	[ExtractId] [uniqueidentifier] NOT NULL 
-        ///        CONSTRAINT [DF_Extract_ExtractId] DEFAULT NEWID(),
-        ///	[Filename] [nvarchar](max) NOT NULL,
-        ///	[ExtractDate] [datetime] NOT NULL,
-        ///	[ImportDate] [datetime] NOT NULL,
-        ///	[StartRecord] [nvarchar](max) NOT NULL,
-        ///	[EndRecord] [nvarchar](max) NOT NULL,
-        ///	[Ready] [bit] NOT NULL 
-        ///        CONSTR [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N&apos;[dbo].[Extract]&apos;) AND type in (N&apos;U&apos;))
+        ///BEGIN
+        ///    CREATE TABLE [dbo].[Extract](
+        ///	    [ExtractId] [uniqueidentifier] NOT NULL 
+        ///            CONSTRAINT [PK_Extract] PRIMARY KEY CLUSTERED (	[ExtractId] ASC)
+        ///            CONSTRAINT [DF_Extract_ExtractId] DEFAULT NEWID(),
+        ///	    [Filename] [nvarchar](max) NOT NULL,
+        ///	    [ExtractDate] [datetime] NOT NULL,
+        ///	    [ImportDate] [datetime] NOT NULL,
+        ///	    [StartRecord] [nvarchar](max) NOT NULL,
+        ///	 [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Extract {
             get {
@@ -326,23 +323,38 @@ namespace CprBrokerWixInstallers.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N&apos;[dbo].[Queue]&apos;) AND type in (N&apos;U&apos;))
-        ///    DROP TABLE [dbo].[Queue]
-        ///GO
-        ///
-        ///CREATE TABLE [dbo].[Queue](
-        ///	[QueueId] [uniqueidentifier] NOT NULL
-        ///        CONSTRAINT [DF_Queue_QueueId] DEFAULT NEWID(),
-        ///	[TypeId] [int] NULL,
-        ///	[TypeName] [varchar](250) NOT NULL,
-        ///	[BatchSize] [int] NOT NULL,
-        ///	[MaxRetry] [int] NOT NULL,
-        ///	[EncryptedData] [varbinary](max) NULL,
-        ///    CONSTRAINT [PK_Queue] PRIMARY KEY CLUSTERED ([QueueId] ASC)
-        ///
-        ///) ON [PRIMARY]
-        ///
-        ///G [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to /*
+        ///   ==============================
+        ///   ====      Semaphores      ====
+        ///   ==============================
+        /// */
+        ///IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N&apos;[dbo].[Semaphore]&apos;) AND type in (N&apos;U&apos;))
+        ///BEGIN    
+        ///    CREATE TABLE [dbo].[Semaphore](
+        ///	    [SemaphoreId] [uniqueidentifier] NOT NULL 
+        ///            CONSTRAINT [PK_Semaphore] PRIMARY KEY CLUSTERED ([SemaphoreId] ASC)
+        ///            CONSTRAINT [DF_Semaphore_SemaphoreId]  DEFAULT (newid()),
+        ///	    [CreatedDate] [datetime] NOT NUL [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string PatchDatabase_2_2_3 {
+            get {
+                return ResourceManager.GetString("PatchDatabase_2_2_3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N&apos;[dbo].[Queue]&apos;) AND type in (N&apos;U&apos;))
+        ///BEGIN
+        ///    CREATE TABLE [dbo].[Queue](
+        ///	    [QueueId] [uniqueidentifier] NOT NULL
+        ///            CONSTRAINT [PK_Queue] PRIMARY KEY CLUSTERED ([QueueId] ASC)
+        ///            CONSTRAINT [DF_Queue_QueueId] DEFAULT NEWID(),
+        ///	    [TypeId] [int] NULL,
+        ///	    [TypeName] [varchar](250) NOT NULL,
+        ///	    [BatchSize] [int] NOT NULL,
+        ///	    [MaxRetry] [int] NOT NULL,
+        ///	    [EncryptedData] [varbinary](max) NULL
+        ///    ) O [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Queue {
             get {
@@ -364,17 +376,12 @@ namespace CprBrokerWixInstallers.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N&apos;[dbo].[QueueItem]&apos;) AND type in (N&apos;U&apos;))
-        ///    DROP TABLE [dbo].[QueueItem]
-        ///GO
-        ///
-        ///CREATE TABLE [dbo].[QueueItem](
-        ///	[QueueItemId] [int] IDENTITY(1,1) NOT NULL,
-        ///	[QueueId] [uniqueidentifier] NOT NULL
-        ///        CONSTRAINT [FK_QueueItem_Queue] FOREIGN KEY([QueueId]) REFERENCES [dbo].[Queue] ([QueueId]) ON UPDATE CASCADE ON DELETE CASCADE,
-        ///	[ItemKey] [varchar](50) NOT NULL,
-        ///	[CreatedTS] [datetime] NOT NULL
-        ///        CONSTRAINT [DF_QueueItem_Crea [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N&apos;[dbo].[QueueItem]&apos;) AND type in (N&apos;U&apos;))
+        ///BEGIN
+        ///    CREATE TABLE [dbo].[QueueItem](
+        ///	    [QueueItemId]   int IDENTITY(1,1)   NOT NULL CONSTRAINT [PK_QueueItem]              PRIMARY KEY CLUSTERED ([QueueItemId] ASC),
+        ///	    [QueueId]       uniqueidentifier    NOT NULL CONSTRAINT [FK_QueueItem_Queue]        FOREIGN KEY ([QueueId]) REFERENCES [dbo].[Queue] ([QueueId]) ON UPDATE CASCADE ON DELETE CASCADE,
+        ///	    [ItemKey]       varchar(50)    [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string QueueItem {
             get {
