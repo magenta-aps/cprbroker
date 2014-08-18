@@ -49,6 +49,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using CprBroker.Data.Applications;
+using CprBroker.Utilities.Config;
 
 namespace CprBroker.Engine
 {
@@ -56,7 +57,7 @@ namespace CprBroker.Engine
     {
         public static bool CanCallOnline(string pnr)
         {
-            return CanCallOnline(Config.ConfigManager.Current.Settings.Modulus11LowLevelEnabled, pnr);
+            return CanCallOnline(ConfigManager.Current.Settings.Modulus11LowLevelEnabled, pnr);
         }
 
         public static bool CanCallOnline(bool modulus11Enabled, string pnr)

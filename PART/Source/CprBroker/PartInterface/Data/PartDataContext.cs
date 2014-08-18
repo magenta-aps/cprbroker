@@ -50,6 +50,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Diagnostics;
+using CprBroker.Utilities.Config;
 
 namespace CprBroker.Data.Part
 {
@@ -59,7 +60,7 @@ namespace CprBroker.Data.Part
     public partial class PartDataContext
     {
         public PartDataContext()
-            : base(Config.ConfigManager.Current.Settings.CprBrokerConnectionString)
+            : base(ConfigManager.Current.Settings.CprBrokerConnectionString)
         {
             OnCreated();
             /*if (!Directory.Exists(@"C:\Log"))

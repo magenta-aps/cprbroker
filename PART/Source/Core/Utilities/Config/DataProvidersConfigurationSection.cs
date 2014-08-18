@@ -50,7 +50,7 @@ using System.Linq;
 using System.Text;
 using System.Configuration;
 
-namespace CprBroker.Engine
+namespace CprBroker.Utilities.Config
 {
     public class DataProvidersConfigurationSection : ConfigurationSection
     {

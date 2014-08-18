@@ -51,6 +51,7 @@ using System.Text;
 using System.IO;
 using System.Data.SqlClient;
 using CprBroker.Utilities;
+using CprBroker.Utilities.Config;
 
 namespace CprBroker.Providers.CPRDirect
 {
@@ -62,7 +63,7 @@ namespace CprBroker.Providers.CPRDirect
 
         public static void ImportText(string text)
         {
-            using (var conn = new SqlConnection(CprBroker.Config.ConfigManager.Current.Settings.CprBrokerConnectionString))
+            using (var conn = new SqlConnection(ConfigManager.Current.Settings.CprBrokerConnectionString))
             {
                 conn.Open();
                 ImportText(text, conn);

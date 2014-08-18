@@ -48,6 +48,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using CprBroker.Utilities.Config;
 
 namespace CprBroker.Data.Events
 {
@@ -58,7 +59,7 @@ namespace CprBroker.Data.Events
     public partial class DataChangeEventDataContext
     {
         public DataChangeEventDataContext()
-            : base(Config.ConfigManager.Current.Settings.CprBrokerConnectionString)
+            : base(ConfigManager.Current.Settings.CprBrokerConnectionString)
         {
             OnCreated();
         }

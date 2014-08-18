@@ -56,6 +56,7 @@ using CprBroker.Data;
 using CprBroker.Data.DataProviders;
 using CprBroker.Utilities;
 using CprBroker.Schemas;
+using CprBroker.Utilities.Config;
 
 namespace CprBroker.Engine
 {
@@ -115,7 +116,7 @@ namespace CprBroker.Engine
 
         public static IEnumerable<Type> GetAvailableDataProviderTypes(Type interfaceType, bool isExternal)
         {
-            return GetAvailableDataProviderTypes(Config.ConfigManager.Current.DataProvidersSection, interfaceType, isExternal);
+            return GetAvailableDataProviderTypes(ConfigManager.Current.DataProvidersSection, interfaceType, isExternal);
 
         }
 

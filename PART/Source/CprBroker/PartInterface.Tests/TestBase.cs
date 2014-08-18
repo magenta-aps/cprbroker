@@ -10,7 +10,7 @@ using CprBroker.Schemas.Part;
 using CprBroker.Data.Part;
 using Microsoft.Practices.EnterpriseLibrary.Logging;
 using Microsoft.Practices.EnterpriseLibrary.Logging.Configuration;
-
+using CprBroker.Utilities.Config;
 using System.Configuration;
 
 namespace CprBroker.Tests.PartInterface
@@ -48,14 +48,14 @@ namespace CprBroker.Tests.PartInterface
                 CprBroker.Installers.EventBrokerInstallers.Properties.ResourcesExtensions.AllEventBrokerDatabaseObjectsSql,
                 CprBroker.Installers.EventBrokerInstallers.Properties.ResourcesExtensions.Lookups);
 
-            CprBroker.Config.ConfigManager.Current.Settings["CprBrokerConnectionString"] = CprDatabase.ConnectionString;
-            CprBroker.Config.ConfigManager.Current.Settings["EventBrokerConnectionString"] = EventDatabase.ConnectionString;
-            CprBroker.Config.ConfigManager.Current.Commit();
+            ConfigManager.Current.Settings["CprBrokerConnectionString"] = CprDatabase.ConnectionString;
+            ConfigManager.Current.Settings["EventBrokerConnectionString"] = EventDatabase.ConnectionString;
+            ConfigManager.Current.Commit();
         }
 
         public void InitLogging()
         {
-            var log = CprBroker.Config.ConfigManager.Current.LoggingSettings;
+            var log = ConfigManager.Current.LoggingSettings;
 
             log.TraceListeners.Clear();
             log.TraceListeners.Add(new TraceListenerData()
@@ -71,7 +71,7 @@ namespace CprBroker.Tests.PartInterface
                 Name = "CprDatabase"
             });
 
-            CprBroker.Config.ConfigManager.Current.Commit();
+            ConfigManager.Current.Commit();
         }
 
         public DatabaseInfo CreateDatabase(string prefix, string ddl, KeyValuePair<string, string>[] lookups)

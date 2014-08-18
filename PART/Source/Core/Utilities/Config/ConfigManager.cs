@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace CprBroker.Config
+namespace CprBroker.Utilities.Config
 {
     public class ConfigManager
     {

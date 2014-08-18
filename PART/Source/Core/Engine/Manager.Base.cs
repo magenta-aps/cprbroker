@@ -53,6 +53,7 @@ using System.Threading;
 using System.Data.Linq;
 using CprBroker.Schemas.Part;
 using CprBroker.Utilities;
+using CprBroker.Utilities.Config;
 
 namespace CprBroker.Engine
 {
@@ -216,7 +217,7 @@ namespace CprBroker.Engine
                 // Wait for sub results to continue
                 DateTime executionStartTime = DateTime.Now;
 
-                while (System.Threading.Interlocked.Read(ref finishedThreads) < subMethodRunStates.Length && (DateTime.Now - executionStartTime).TotalMilliseconds < Config.ConfigManager.Current.Settings.DataProviderMillisecondsTimeout)
+                while (System.Threading.Interlocked.Read(ref finishedThreads) < subMethodRunStates.Length && (DateTime.Now - executionStartTime).TotalMilliseconds < ConfigManager.Current.Settings.DataProviderMillisecondsTimeout)
                 {
                     int waitMilliseconds = 100;
                     Thread.Sleep(waitMilliseconds);

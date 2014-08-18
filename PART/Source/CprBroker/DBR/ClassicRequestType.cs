@@ -6,6 +6,7 @@ using CprBroker.Engine;
 using CprBroker.Data.DataProviders;
 using CprBroker.Providers.CPRDirect;
 using CprBroker.Providers.DPR;
+using CprBroker.Utilities.Config;
 
 namespace CprBroker.DBR
 {

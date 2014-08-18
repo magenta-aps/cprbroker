@@ -133,7 +133,7 @@ namespace CprBroker.Utilities.WhereConditions
                            namespaces,
                            Environment.NewLine,
                            Path,
-                           CprBroker.Config.ConfigManager.Current.Settings.CprDirectReturnsNewestFirst ? "1" : "last()",
+                           CprBroker.Utilities.Config.ConfigManager.Current.Settings.CprDirectReturnsNewestFirst ? "1" : "last()",
                            valueExpression
                            );
         }

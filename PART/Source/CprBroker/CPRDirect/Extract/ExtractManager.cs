@@ -56,6 +56,7 @@ using CprBroker.Engine.Part;
 using CprBroker.Data.DataProviders;
 using System.Transactions;
 using CprBroker.Engine.Queues;
+using CprBroker.Utilities.Config;
 
 namespace CprBroker.Providers.CPRDirect
 {
@@ -94,7 +95,7 @@ namespace CprBroker.Providers.CPRDirect
 
             using (var transactionScope = CreateTransactionScope())
             {
-                using (var conn = new SqlConnection(CprBroker.Config.ConfigManager.Current.Settings.CprBrokerConnectionString))
+                using (var conn = new SqlConnection(ConfigManager.Current.Settings.CprBrokerConnectionString))
                 {
                     conn.Open();
 
@@ -144,7 +145,7 @@ namespace CprBroker.Providers.CPRDirect
                 var extractResult = new ExtractParseResult();
 
                 long totalReadLinesCount = 0;
-                using (var conn = new SqlConnection(CprBroker.Config.ConfigManager.Current.Settings.CprBrokerConnectionString))
+                using (var conn = new SqlConnection(ConfigManager.Current.Settings.CprBrokerConnectionString))
                 {
                     conn.Open();
                     using (var dataContext = new ExtractDataContext(conn))
@@ -288,7 +289,7 @@ namespace CprBroker.Providers.CPRDirect
                 try
                 {
                     Admin.LogFormattedSuccess("Reading file <{0}> ", file);
-                    ExtractManager.ImportFileInSteps(file, CprBroker.Config.ConfigManager.Current.Settings.CprDirectExtractImportBatchSize);
+                    ExtractManager.ImportFileInSteps(file, CprBroker.Utilities.Config.ConfigManager.Current.Settings.CprDirectExtractImportBatchSize);
                     Admin.LogFormattedSuccess("Importing file <{0}> succeeded", file);
 
                     MoveToProcessed(prov.ExtractsFolder, file);

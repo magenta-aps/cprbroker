@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using CprBroker.Engine;
 using System.Configuration;
 using Microsoft.Practices.EnterpriseLibrary.Logging.Configuration;
 
-namespace CprBroker.Config
+namespace CprBroker.Utilities.Config
 {
     public class StandardConfigProvider : IConfigProvider
     {
@@ -17,17 +16,17 @@ namespace CprBroker.Config
             {
                 if (_CurrentConfiguration == null)
                 {
-                    _CurrentConfiguration = Utilities.Config.GetConfigFile();
+                    _CurrentConfiguration = Utilities.Config.ConfigUtils.GetConfigFile();
                 }
                 return _CurrentConfiguration;
             }
         }
 
-        public Properties.Settings Settings
+        public CprBroker.Config.Properties.Settings Settings
         {
             get
             {
-                return Properties.Settings.Default;
+                return CprBroker.Config.Properties.Settings.Default;
             }
         }
 
@@ -74,7 +73,7 @@ namespace CprBroker.Config
             get
             {
                 // TODO: Check if the logic in the called method should be moved here
-                return CprBroker.Utilities.DataProviderKeysSection.GetFromConfig(Utilities.Config.GetConfigFile());
+                return CprBroker.Utilities.Config.DataProviderKeysSection.GetFromConfig(Utilities.Config.ConfigUtils.GetConfigFile());
             }
         }
 

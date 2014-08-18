@@ -57,7 +57,7 @@ namespace CprBroker.Data.DataProviders
     public partial class DataProvidersDataContext
     {
         public DataProvidersDataContext()
-            : base(CprBroker.Config.ConfigManager.Current.Settings.CprBrokerConnectionString)
+            : base(CprBroker.Utilities.Config.ConfigManager.Current.Settings.CprBrokerConnectionString)
         {
             OnCreated();
         }

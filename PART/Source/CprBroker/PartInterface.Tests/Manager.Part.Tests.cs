@@ -54,6 +54,7 @@ using CprBroker.Engine.Part;
 using CprBroker.Schemas;
 using CprBroker.Schemas.Part;
 using CprBroker.Data.DataProviders;
+using CprBroker.Utilities.Config;
 
 namespace CprBroker.Tests.PartInterface
 {
