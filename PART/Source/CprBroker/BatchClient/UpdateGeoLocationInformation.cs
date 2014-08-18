@@ -76,10 +76,8 @@ namespace BatchClient
         {
             DateTime startTime = DateTime.Now;
             Log("Started at " + startTime);
-            using (var dataStream = new FileStream(dataFile, FileMode.Open, FileAccess.Read))
-            {
-                CprConverter.ImportGeoInformationFileInSteps(dataStream, 20, Encoding.GetEncoding(1252), BrokerConnectionString);
-            }
+
+            CprConverter.ImportLookups(dataFile, 1000, Encoding.GetEncoding(1252), OtherConnectionString);
             DateTime endTime = DateTime.Now;
             TimeSpan diff = endTime.Subtract(startTime);
             var diffText = "Ended at " + DateTime.Now + "\nTotal time spent: " + diff.Hours + ":" + diff.Minutes + ":" + diff.Seconds;

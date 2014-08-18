@@ -30,51 +30,9 @@ namespace CprBroker.Providers.DPR
 		
     #region Extensibility Method Definitions
     partial void OnCreated();
-    partial void InsertPostDistrict(PostDistrict instance);
-    partial void UpdatePostDistrict(PostDistrict instance);
-    partial void DeletePostDistrict(PostDistrict instance);
-    partial void InsertStreet(Street instance);
-    partial void UpdateStreet(Street instance);
-    partial void DeleteStreet(Street instance);
-    partial void InsertCity(City instance);
-    partial void UpdateCity(City instance);
-    partial void DeleteCity(City instance);
-    partial void InsertAreaRestorationDistrict(AreaRestorationDistrict instance);
-    partial void UpdateAreaRestorationDistrict(AreaRestorationDistrict instance);
-    partial void DeleteAreaRestorationDistrict(AreaRestorationDistrict instance);
-    partial void InsertDiverseDistrict(DiverseDistrict instance);
-    partial void UpdateDiverseDistrict(DiverseDistrict instance);
-    partial void DeleteDiverseDistrict(DiverseDistrict instance);
-    partial void InsertChurchAdministrationDistrict(ChurchAdministrationDistrict instance);
-    partial void UpdateChurchAdministrationDistrict(ChurchAdministrationDistrict instance);
-    partial void DeleteChurchAdministrationDistrict(ChurchAdministrationDistrict instance);
-    partial void InsertPopulationDistrict(PopulationDistrict instance);
-    partial void UpdatePopulationDistrict(PopulationDistrict instance);
-    partial void DeletePopulationDistrict(PopulationDistrict instance);
-    partial void InsertEvacuationDistrict(EvacuationDistrict instance);
-    partial void UpdateEvacuationDistrict(EvacuationDistrict instance);
-    partial void DeleteEvacuationDistrict(EvacuationDistrict instance);
-    partial void InsertSchoolDistrict(SchoolDistrict instance);
-    partial void UpdateSchoolDistrict(SchoolDistrict instance);
-    partial void DeleteSchoolDistrict(SchoolDistrict instance);
-    partial void InsertSocialDistrict(SocialDistrict instance);
-    partial void UpdateSocialDistrict(SocialDistrict instance);
-    partial void DeleteSocialDistrict(SocialDistrict instance);
-    partial void InsertChurchDistrict(ChurchDistrict instance);
-    partial void UpdateChurchDistrict(ChurchDistrict instance);
-    partial void DeleteChurchDistrict(ChurchDistrict instance);
-    partial void InsertElectionDistrict(ElectionDistrict instance);
-    partial void UpdateElectionDistrict(ElectionDistrict instance);
-    partial void DeleteElectionDistrict(ElectionDistrict instance);
-    partial void InsertHeatingDistrict(HeatingDistrict instance);
-    partial void UpdateHeatingDistrict(HeatingDistrict instance);
-    partial void DeleteHeatingDistrict(HeatingDistrict instance);
     partial void InsertPostNumber(PostNumber instance);
     partial void UpdatePostNumber(PostNumber instance);
     partial void DeletePostNumber(PostNumber instance);
-    partial void InsertCouncil(Council instance);
-    partial void UpdateCouncil(Council instance);
-    partial void DeleteCouncil(Council instance);
     #endregion
 		
 		public LookupDataContext(string connection) : 
@@ -223,10 +181,8 @@ namespace CprBroker.Providers.DPR
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DTPOSTDIST")]
-	public partial class PostDistrict : INotifyPropertyChanging, INotifyPropertyChanged
+	public partial class PostDistrict
 	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private decimal _KOMKOD;
 		
@@ -244,35 +200,8 @@ namespace CprBroker.Providers.DPR
 		
 		private string _DISTTXT;
 		
-		private int _ID;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnKOMKODChanging(decimal value);
-    partial void OnKOMKODChanged();
-    partial void OnVEJKODChanging(decimal value);
-    partial void OnVEJKODChanged();
-    partial void OnHUSNRFRAChanging(string value);
-    partial void OnHUSNRFRAChanged();
-    partial void OnHUSNRTILChanging(string value);
-    partial void OnHUSNRTILChanged();
-    partial void OnLIGEULIGEChanging(char value);
-    partial void OnLIGEULIGEChanged();
-    partial void OnAJFDTOChanging(decimal value);
-    partial void OnAJFDTOChanged();
-    partial void OnPOSTNRChanging(decimal value);
-    partial void OnPOSTNRChanged();
-    partial void OnDISTTXTChanging(string value);
-    partial void OnDISTTXTChanged();
-    partial void OnIDChanging(int value);
-    partial void OnIDChanged();
-    #endregion
-		
 		public PostDistrict()
 		{
-			OnCreated();
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_KOMKOD", DbType="Decimal(5,0) NOT NULL")]
@@ -286,11 +215,7 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._KOMKOD != value))
 				{
-					this.OnKOMKODChanging(value);
-					this.SendPropertyChanging();
 					this._KOMKOD = value;
-					this.SendPropertyChanged("KOMKOD");
-					this.OnKOMKODChanged();
 				}
 			}
 		}
@@ -306,11 +231,7 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._VEJKOD != value))
 				{
-					this.OnVEJKODChanging(value);
-					this.SendPropertyChanging();
 					this._VEJKOD = value;
-					this.SendPropertyChanged("VEJKOD");
-					this.OnVEJKODChanged();
 				}
 			}
 		}
@@ -326,11 +247,7 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._HUSNRFRA != value))
 				{
-					this.OnHUSNRFRAChanging(value);
-					this.SendPropertyChanging();
 					this._HUSNRFRA = value;
-					this.SendPropertyChanged("HUSNRFRA");
-					this.OnHUSNRFRAChanged();
 				}
 			}
 		}
@@ -346,11 +263,7 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._HUSNRTIL != value))
 				{
-					this.OnHUSNRTILChanging(value);
-					this.SendPropertyChanging();
 					this._HUSNRTIL = value;
-					this.SendPropertyChanged("HUSNRTIL");
-					this.OnHUSNRTILChanged();
 				}
 			}
 		}
@@ -366,11 +279,7 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._LIGEULIGE != value))
 				{
-					this.OnLIGEULIGEChanging(value);
-					this.SendPropertyChanging();
 					this._LIGEULIGE = value;
-					this.SendPropertyChanged("LIGEULIGE");
-					this.OnLIGEULIGEChanged();
 				}
 			}
 		}
@@ -386,11 +295,7 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._AJFDTO != value))
 				{
-					this.OnAJFDTOChanging(value);
-					this.SendPropertyChanging();
 					this._AJFDTO = value;
-					this.SendPropertyChanged("AJFDTO");
-					this.OnAJFDTOChanged();
 				}
 			}
 		}
@@ -406,11 +311,7 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._POSTNR != value))
 				{
-					this.OnPOSTNRChanging(value);
-					this.SendPropertyChanging();
 					this._POSTNR = value;
-					this.SendPropertyChanged("POSTNR");
-					this.OnPOSTNRChanged();
 				}
 			}
 		}
@@ -426,61 +327,15 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._DISTTXT != value))
 				{
-					this.OnDISTTXTChanging(value);
-					this.SendPropertyChanging();
 					this._DISTTXT = value;
-					this.SendPropertyChanged("DISTTXT");
-					this.OnDISTTXTChanged();
 				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int ID
-		{
-			get
-			{
-				return this._ID;
-			}
-			set
-			{
-				if ((this._ID != value))
-				{
-					this.OnIDChanging(value);
-					this.SendPropertyChanging();
-					this._ID = value;
-					this.SendPropertyChanged("ID");
-					this.OnIDChanged();
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DTAKTVEJ")]
-	public partial class Street : INotifyPropertyChanging, INotifyPropertyChanged
+	public partial class Street
 	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private decimal _KOMKOD;
 		
@@ -490,27 +345,8 @@ namespace CprBroker.Providers.DPR
 		
 		private string _SVEJADRNVN;
 		
-		private int _ID;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnKOMKODChanging(decimal value);
-    partial void OnKOMKODChanged();
-    partial void OnVEJKODChanging(decimal value);
-    partial void OnVEJKODChanged();
-    partial void OnVEJADNVNChanging(string value);
-    partial void OnVEJADNVNChanged();
-    partial void OnSVEJADRNVNChanging(string value);
-    partial void OnSVEJADRNVNChanged();
-    partial void OnIDChanging(int value);
-    partial void OnIDChanged();
-    #endregion
-		
 		public Street()
 		{
-			OnCreated();
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_KOMKOD", DbType="Decimal(5,0) NOT NULL")]
@@ -524,11 +360,7 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._KOMKOD != value))
 				{
-					this.OnKOMKODChanging(value);
-					this.SendPropertyChanging();
 					this._KOMKOD = value;
-					this.SendPropertyChanged("KOMKOD");
-					this.OnKOMKODChanged();
 				}
 			}
 		}
@@ -544,11 +376,7 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._VEJKOD != value))
 				{
-					this.OnVEJKODChanging(value);
-					this.SendPropertyChanging();
 					this._VEJKOD = value;
-					this.SendPropertyChanged("VEJKOD");
-					this.OnVEJKODChanged();
 				}
 			}
 		}
@@ -564,11 +392,7 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._VEJADNVN != value))
 				{
-					this.OnVEJADNVNChanging(value);
-					this.SendPropertyChanging();
 					this._VEJADNVN = value;
-					this.SendPropertyChanged("VEJADNVN");
-					this.OnVEJADNVNChanged();
 				}
 			}
 		}
@@ -584,61 +408,15 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._SVEJADRNVN != value))
 				{
-					this.OnSVEJADRNVNChanging(value);
-					this.SendPropertyChanging();
 					this._SVEJADRNVN = value;
-					this.SendPropertyChanged("SVEJADRNVN");
-					this.OnSVEJADRNVNChanged();
 				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int ID
-		{
-			get
-			{
-				return this._ID;
-			}
-			set
-			{
-				if ((this._ID != value))
-				{
-					this.OnIDChanging(value);
-					this.SendPropertyChanging();
-					this._ID = value;
-					this.SendPropertyChanged("ID");
-					this.OnIDChanged();
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DTBYNAVN")]
-	public partial class City : INotifyPropertyChanging, INotifyPropertyChanged
+	public partial class City
 	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private decimal _KOMKOD;
 		
@@ -654,33 +432,8 @@ namespace CprBroker.Providers.DPR
 		
 		private string _BYNVN;
 		
-		private int _ID;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnKOMKODChanging(decimal value);
-    partial void OnKOMKODChanged();
-    partial void OnVEJKODChanging(decimal value);
-    partial void OnVEJKODChanged();
-    partial void OnHUSNRFRAChanging(string value);
-    partial void OnHUSNRFRAChanged();
-    partial void OnHUSNRTILChanging(string value);
-    partial void OnHUSNRTILChanged();
-    partial void OnLIGEULIGEChanging(char value);
-    partial void OnLIGEULIGEChanged();
-    partial void OnAJFDTOChanging(decimal value);
-    partial void OnAJFDTOChanged();
-    partial void OnBYNVNChanging(string value);
-    partial void OnBYNVNChanged();
-    partial void OnIDChanging(int value);
-    partial void OnIDChanged();
-    #endregion
-		
 		public City()
 		{
-			OnCreated();
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_KOMKOD", DbType="Decimal(5,0) NOT NULL")]
@@ -694,11 +447,7 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._KOMKOD != value))
 				{
-					this.OnKOMKODChanging(value);
-					this.SendPropertyChanging();
 					this._KOMKOD = value;
-					this.SendPropertyChanged("KOMKOD");
-					this.OnKOMKODChanged();
 				}
 			}
 		}
@@ -714,11 +463,7 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._VEJKOD != value))
 				{
-					this.OnVEJKODChanging(value);
-					this.SendPropertyChanging();
 					this._VEJKOD = value;
-					this.SendPropertyChanged("VEJKOD");
-					this.OnVEJKODChanged();
 				}
 			}
 		}
@@ -734,11 +479,7 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._HUSNRFRA != value))
 				{
-					this.OnHUSNRFRAChanging(value);
-					this.SendPropertyChanging();
 					this._HUSNRFRA = value;
-					this.SendPropertyChanged("HUSNRFRA");
-					this.OnHUSNRFRAChanged();
 				}
 			}
 		}
@@ -754,11 +495,7 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._HUSNRTIL != value))
 				{
-					this.OnHUSNRTILChanging(value);
-					this.SendPropertyChanging();
 					this._HUSNRTIL = value;
-					this.SendPropertyChanged("HUSNRTIL");
-					this.OnHUSNRTILChanged();
 				}
 			}
 		}
@@ -774,11 +511,7 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._LIGEULIGE != value))
 				{
-					this.OnLIGEULIGEChanging(value);
-					this.SendPropertyChanging();
 					this._LIGEULIGE = value;
-					this.SendPropertyChanged("LIGEULIGE");
-					this.OnLIGEULIGEChanged();
 				}
 			}
 		}
@@ -794,11 +527,7 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._AJFDTO != value))
 				{
-					this.OnAJFDTOChanging(value);
-					this.SendPropertyChanging();
 					this._AJFDTO = value;
-					this.SendPropertyChanged("AJFDTO");
-					this.OnAJFDTOChanged();
 				}
 			}
 		}
@@ -814,61 +543,15 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._BYNVN != value))
 				{
-					this.OnBYNVNChanging(value);
-					this.SendPropertyChanging();
 					this._BYNVN = value;
-					this.SendPropertyChanged("BYNVN");
-					this.OnBYNVNChanged();
 				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int ID
-		{
-			get
-			{
-				return this._ID;
-			}
-			set
-			{
-				if ((this._ID != value))
-				{
-					this.OnIDChanging(value);
-					this.SendPropertyChanging();
-					this._ID = value;
-					this.SendPropertyChanged("ID");
-					this.OnIDChanged();
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DTBYFORNYDIST")]
-	public partial class AreaRestorationDistrict : INotifyPropertyChanging, INotifyPropertyChanged
+	public partial class AreaRestorationDistrict
 	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private decimal _KOMKOD;
 		
@@ -886,35 +569,8 @@ namespace CprBroker.Providers.DPR
 		
 		private string _DISTTXT;
 		
-		private int _ID;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnKOMKODChanging(decimal value);
-    partial void OnKOMKODChanged();
-    partial void OnVEJKODChanging(decimal value);
-    partial void OnVEJKODChanged();
-    partial void OnHUSNRFRAChanging(string value);
-    partial void OnHUSNRFRAChanged();
-    partial void OnHUSNRTILChanging(string value);
-    partial void OnHUSNRTILChanged();
-    partial void OnLIGEULIGEChanging(char value);
-    partial void OnLIGEULIGEChanged();
-    partial void OnAJFDTOChanging(decimal value);
-    partial void OnAJFDTOChanged();
-    partial void OnBYFORNYKODChanging(string value);
-    partial void OnBYFORNYKODChanged();
-    partial void OnDISTTXTChanging(string value);
-    partial void OnDISTTXTChanged();
-    partial void OnIDChanging(int value);
-    partial void OnIDChanged();
-    #endregion
-		
 		public AreaRestorationDistrict()
 		{
-			OnCreated();
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_KOMKOD", DbType="Decimal(5,0) NOT NULL")]
@@ -928,11 +584,7 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._KOMKOD != value))
 				{
-					this.OnKOMKODChanging(value);
-					this.SendPropertyChanging();
 					this._KOMKOD = value;
-					this.SendPropertyChanged("KOMKOD");
-					this.OnKOMKODChanged();
 				}
 			}
 		}
@@ -948,11 +600,7 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._VEJKOD != value))
 				{
-					this.OnVEJKODChanging(value);
-					this.SendPropertyChanging();
 					this._VEJKOD = value;
-					this.SendPropertyChanged("VEJKOD");
-					this.OnVEJKODChanged();
 				}
 			}
 		}
@@ -968,11 +616,7 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._HUSNRFRA != value))
 				{
-					this.OnHUSNRFRAChanging(value);
-					this.SendPropertyChanging();
 					this._HUSNRFRA = value;
-					this.SendPropertyChanged("HUSNRFRA");
-					this.OnHUSNRFRAChanged();
 				}
 			}
 		}
@@ -988,11 +632,7 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._HUSNRTIL != value))
 				{
-					this.OnHUSNRTILChanging(value);
-					this.SendPropertyChanging();
 					this._HUSNRTIL = value;
-					this.SendPropertyChanged("HUSNRTIL");
-					this.OnHUSNRTILChanged();
 				}
 			}
 		}
@@ -1008,11 +648,7 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._LIGEULIGE != value))
 				{
-					this.OnLIGEULIGEChanging(value);
-					this.SendPropertyChanging();
 					this._LIGEULIGE = value;
-					this.SendPropertyChanged("LIGEULIGE");
-					this.OnLIGEULIGEChanged();
 				}
 			}
 		}
@@ -1028,11 +664,7 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._AJFDTO != value))
 				{
-					this.OnAJFDTOChanging(value);
-					this.SendPropertyChanging();
 					this._AJFDTO = value;
-					this.SendPropertyChanged("AJFDTO");
-					this.OnAJFDTOChanged();
 				}
 			}
 		}
@@ -1048,11 +680,7 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._BYFORNYKOD != value))
 				{
-					this.OnBYFORNYKODChanging(value);
-					this.SendPropertyChanging();
 					this._BYFORNYKOD = value;
-					this.SendPropertyChanged("BYFORNYKOD");
-					this.OnBYFORNYKODChanged();
 				}
 			}
 		}
@@ -1068,61 +696,15 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._DISTTXT != value))
 				{
-					this.OnDISTTXTChanging(value);
-					this.SendPropertyChanging();
 					this._DISTTXT = value;
-					this.SendPropertyChanged("DISTTXT");
-					this.OnDISTTXTChanged();
 				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int ID
-		{
-			get
-			{
-				return this._ID;
-			}
-			set
-			{
-				if ((this._ID != value))
-				{
-					this.OnIDChanging(value);
-					this.SendPropertyChanging();
-					this._ID = value;
-					this.SendPropertyChanged("ID");
-					this.OnIDChanged();
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DTDIVDIST")]
-	public partial class DiverseDistrict : INotifyPropertyChanging, INotifyPropertyChanged
+	public partial class DiverseDistrict
 	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private decimal _KOMKOD;
 		
@@ -1142,37 +724,8 @@ namespace CprBroker.Providers.DPR
 		
 		private string _DISTTXT;
 		
-		private int _ID;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnKOMKODChanging(decimal value);
-    partial void OnKOMKODChanged();
-    partial void OnVEJKODChanging(decimal value);
-    partial void OnVEJKODChanged();
-    partial void OnHUSNRFRAChanging(string value);
-    partial void OnHUSNRFRAChanged();
-    partial void OnHUSNRTILChanging(string value);
-    partial void OnHUSNRTILChanged();
-    partial void OnLIGEULIGEChanging(char value);
-    partial void OnLIGEULIGEChanged();
-    partial void OnAJFDTOChanging(decimal value);
-    partial void OnAJFDTOChanged();
-    partial void OnDISTTYPChanging(decimal value);
-    partial void OnDISTTYPChanged();
-    partial void OnDIVDISTKODChanging(string value);
-    partial void OnDIVDISTKODChanged();
-    partial void OnDISTTXTChanging(string value);
-    partial void OnDISTTXTChanged();
-    partial void OnIDChanging(int value);
-    partial void OnIDChanged();
-    #endregion
-		
 		public DiverseDistrict()
 		{
-			OnCreated();
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_KOMKOD", DbType="Decimal(5,0) NOT NULL")]
@@ -1186,11 +739,7 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._KOMKOD != value))
 				{
-					this.OnKOMKODChanging(value);
-					this.SendPropertyChanging();
 					this._KOMKOD = value;
-					this.SendPropertyChanged("KOMKOD");
-					this.OnKOMKODChanged();
 				}
 			}
 		}
@@ -1206,11 +755,7 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._VEJKOD != value))
 				{
-					this.OnVEJKODChanging(value);
-					this.SendPropertyChanging();
 					this._VEJKOD = value;
-					this.SendPropertyChanged("VEJKOD");
-					this.OnVEJKODChanged();
 				}
 			}
 		}
@@ -1226,11 +771,7 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._HUSNRFRA != value))
 				{
-					this.OnHUSNRFRAChanging(value);
-					this.SendPropertyChanging();
 					this._HUSNRFRA = value;
-					this.SendPropertyChanged("HUSNRFRA");
-					this.OnHUSNRFRAChanged();
 				}
 			}
 		}
@@ -1246,11 +787,7 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._HUSNRTIL != value))
 				{
-					this.OnHUSNRTILChanging(value);
-					this.SendPropertyChanging();
 					this._HUSNRTIL = value;
-					this.SendPropertyChanged("HUSNRTIL");
-					this.OnHUSNRTILChanged();
 				}
 			}
 		}
@@ -1266,11 +803,7 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._LIGEULIGE != value))
 				{
-					this.OnLIGEULIGEChanging(value);
-					this.SendPropertyChanging();
 					this._LIGEULIGE = value;
-					this.SendPropertyChanged("LIGEULIGE");
-					this.OnLIGEULIGEChanged();
 				}
 			}
 		}
@@ -1286,11 +819,7 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._AJFDTO != value))
 				{
-					this.OnAJFDTOChanging(value);
-					this.SendPropertyChanging();
 					this._AJFDTO = value;
-					this.SendPropertyChanged("AJFDTO");
-					this.OnAJFDTOChanged();
 				}
 			}
 		}
@@ -1306,11 +835,7 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._DISTTYP != value))
 				{
-					this.OnDISTTYPChanging(value);
-					this.SendPropertyChanging();
 					this._DISTTYP = value;
-					this.SendPropertyChanged("DISTTYP");
-					this.OnDISTTYPChanged();
 				}
 			}
 		}
@@ -1326,11 +851,7 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._DIVDISTKOD != value))
 				{
-					this.OnDIVDISTKODChanging(value);
-					this.SendPropertyChanging();
 					this._DIVDISTKOD = value;
-					this.SendPropertyChanged("DIVDISTKOD");
-					this.OnDIVDISTKODChanged();
 				}
 			}
 		}
@@ -1346,61 +867,15 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._DISTTXT != value))
 				{
-					this.OnDISTTXTChanging(value);
-					this.SendPropertyChanging();
 					this._DISTTXT = value;
-					this.SendPropertyChanged("DISTTXT");
-					this.OnDISTTXTChanged();
 				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int ID
-		{
-			get
-			{
-				return this._ID;
-			}
-			set
-			{
-				if ((this._ID != value))
-				{
-					this.OnIDChanging(value);
-					this.SendPropertyChanging();
-					this._ID = value;
-					this.SendPropertyChanged("ID");
-					this.OnIDChanged();
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DTSOGNEDIST")]
-	public partial class ChurchAdministrationDistrict : INotifyPropertyChanging, INotifyPropertyChanged
+	public partial class ChurchAdministrationDistrict
 	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private decimal _KOMKOD;
 		
@@ -1416,33 +891,8 @@ namespace CprBroker.Providers.DPR
 		
 		private decimal _MYNKOD;
 		
-		private int _ID;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnKOMKODChanging(decimal value);
-    partial void OnKOMKODChanged();
-    partial void OnVEJKODChanging(decimal value);
-    partial void OnVEJKODChanged();
-    partial void OnHUSNRFRAChanging(string value);
-    partial void OnHUSNRFRAChanged();
-    partial void OnHUSNRTILChanging(string value);
-    partial void OnHUSNRTILChanged();
-    partial void OnLIGEULIGEChanging(char value);
-    partial void OnLIGEULIGEChanged();
-    partial void OnAJFDTOChanging(decimal value);
-    partial void OnAJFDTOChanged();
-    partial void OnMYNKODChanging(decimal value);
-    partial void OnMYNKODChanged();
-    partial void OnIDChanging(int value);
-    partial void OnIDChanged();
-    #endregion
-		
 		public ChurchAdministrationDistrict()
 		{
-			OnCreated();
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_KOMKOD", DbType="Decimal(5,0) NOT NULL")]
@@ -1456,11 +906,7 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._KOMKOD != value))
 				{
-					this.OnKOMKODChanging(value);
-					this.SendPropertyChanging();
 					this._KOMKOD = value;
-					this.SendPropertyChanged("KOMKOD");
-					this.OnKOMKODChanged();
 				}
 			}
 		}
@@ -1476,11 +922,7 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._VEJKOD != value))
 				{
-					this.OnVEJKODChanging(value);
-					this.SendPropertyChanging();
 					this._VEJKOD = value;
-					this.SendPropertyChanged("VEJKOD");
-					this.OnVEJKODChanged();
 				}
 			}
 		}
@@ -1496,11 +938,7 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._HUSNRFRA != value))
 				{
-					this.OnHUSNRFRAChanging(value);
-					this.SendPropertyChanging();
 					this._HUSNRFRA = value;
-					this.SendPropertyChanged("HUSNRFRA");
-					this.OnHUSNRFRAChanged();
 				}
 			}
 		}
@@ -1516,11 +954,7 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._HUSNRTIL != value))
 				{
-					this.OnHUSNRTILChanging(value);
-					this.SendPropertyChanging();
 					this._HUSNRTIL = value;
-					this.SendPropertyChanged("HUSNRTIL");
-					this.OnHUSNRTILChanged();
 				}
 			}
 		}
@@ -1536,11 +970,7 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._LIGEULIGE != value))
 				{
-					this.OnLIGEULIGEChanging(value);
-					this.SendPropertyChanging();
 					this._LIGEULIGE = value;
-					this.SendPropertyChanged("LIGEULIGE");
-					this.OnLIGEULIGEChanged();
 				}
 			}
 		}
@@ -1556,11 +986,7 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._AJFDTO != value))
 				{
-					this.OnAJFDTOChanging(value);
-					this.SendPropertyChanging();
 					this._AJFDTO = value;
-					this.SendPropertyChanged("AJFDTO");
-					this.OnAJFDTOChanged();
 				}
 			}
 		}
@@ -1576,61 +1002,15 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._MYNKOD != value))
 				{
-					this.OnMYNKODChanging(value);
-					this.SendPropertyChanging();
 					this._MYNKOD = value;
-					this.SendPropertyChanged("MYNKOD");
-					this.OnMYNKODChanged();
 				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int ID
-		{
-			get
-			{
-				return this._ID;
-			}
-			set
-			{
-				if ((this._ID != value))
-				{
-					this.OnIDChanging(value);
-					this.SendPropertyChanging();
-					this._ID = value;
-					this.SendPropertyChanged("ID");
-					this.OnIDChanged();
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DTBEFOLKDIST")]
-	public partial class PopulationDistrict : INotifyPropertyChanging, INotifyPropertyChanged
+	public partial class PopulationDistrict
 	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private decimal _KOMKOD;
 		
@@ -1648,35 +1028,8 @@ namespace CprBroker.Providers.DPR
 		
 		private string _DISTTXT;
 		
-		private int _ID;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnKOMKODChanging(decimal value);
-    partial void OnKOMKODChanged();
-    partial void OnVEJKODChanging(decimal value);
-    partial void OnVEJKODChanged();
-    partial void OnHUSNRFRAChanging(string value);
-    partial void OnHUSNRFRAChanged();
-    partial void OnHUSNRTILChanging(string value);
-    partial void OnHUSNRTILChanged();
-    partial void OnLIGEULIGEChanging(char value);
-    partial void OnLIGEULIGEChanged();
-    partial void OnAJFDTOChanging(decimal value);
-    partial void OnAJFDTOChanged();
-    partial void OnBEFOLKKODChanging(string value);
-    partial void OnBEFOLKKODChanged();
-    partial void OnDISTTXTChanging(string value);
-    partial void OnDISTTXTChanged();
-    partial void OnIDChanging(int value);
-    partial void OnIDChanged();
-    #endregion
-		
 		public PopulationDistrict()
 		{
-			OnCreated();
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_KOMKOD", DbType="Decimal(5,0) NOT NULL")]
@@ -1690,11 +1043,7 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._KOMKOD != value))
 				{
-					this.OnKOMKODChanging(value);
-					this.SendPropertyChanging();
 					this._KOMKOD = value;
-					this.SendPropertyChanged("KOMKOD");
-					this.OnKOMKODChanged();
 				}
 			}
 		}
@@ -1710,11 +1059,7 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._VEJKOD != value))
 				{
-					this.OnVEJKODChanging(value);
-					this.SendPropertyChanging();
 					this._VEJKOD = value;
-					this.SendPropertyChanged("VEJKOD");
-					this.OnVEJKODChanged();
 				}
 			}
 		}
@@ -1730,11 +1075,7 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._HUSNRFRA != value))
 				{
-					this.OnHUSNRFRAChanging(value);
-					this.SendPropertyChanging();
 					this._HUSNRFRA = value;
-					this.SendPropertyChanged("HUSNRFRA");
-					this.OnHUSNRFRAChanged();
 				}
 			}
 		}
@@ -1750,11 +1091,7 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._HUSNRTIL != value))
 				{
-					this.OnHUSNRTILChanging(value);
-					this.SendPropertyChanging();
 					this._HUSNRTIL = value;
-					this.SendPropertyChanged("HUSNRTIL");
-					this.OnHUSNRTILChanged();
 				}
 			}
 		}
@@ -1770,11 +1107,7 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._LIGEULIGE != value))
 				{
-					this.OnLIGEULIGEChanging(value);
-					this.SendPropertyChanging();
 					this._LIGEULIGE = value;
-					this.SendPropertyChanged("LIGEULIGE");
-					this.OnLIGEULIGEChanged();
 				}
 			}
 		}
@@ -1790,11 +1123,7 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._AJFDTO != value))
 				{
-					this.OnAJFDTOChanging(value);
-					this.SendPropertyChanging();
 					this._AJFDTO = value;
-					this.SendPropertyChanged("AJFDTO");
-					this.OnAJFDTOChanged();
 				}
 			}
 		}
@@ -1810,11 +1139,7 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._BEFOLKKOD != value))
 				{
-					this.OnBEFOLKKODChanging(value);
-					this.SendPropertyChanging();
 					this._BEFOLKKOD = value;
-					this.SendPropertyChanged("BEFOLKKOD");
-					this.OnBEFOLKKODChanged();
 				}
 			}
 		}
@@ -1830,61 +1155,15 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._DISTTXT != value))
 				{
-					this.OnDISTTXTChanging(value);
-					this.SendPropertyChanging();
 					this._DISTTXT = value;
-					this.SendPropertyChanged("DISTTXT");
-					this.OnDISTTXTChanged();
 				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int ID
-		{
-			get
-			{
-				return this._ID;
-			}
-			set
-			{
-				if ((this._ID != value))
-				{
-					this.OnIDChanging(value);
-					this.SendPropertyChanging();
-					this._ID = value;
-					this.SendPropertyChanged("ID");
-					this.OnIDChanged();
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DTEVAKUERDIST")]
-	public partial class EvacuationDistrict : INotifyPropertyChanging, INotifyPropertyChanged
+	public partial class EvacuationDistrict
 	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private decimal _KOMKOD;
 		
@@ -1902,35 +1181,8 @@ namespace CprBroker.Providers.DPR
 		
 		private string _DISTTXT;
 		
-		private int _ID;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnKOMKODChanging(decimal value);
-    partial void OnKOMKODChanged();
-    partial void OnVEJKODChanging(decimal value);
-    partial void OnVEJKODChanged();
-    partial void OnHUSNRFRAChanging(string value);
-    partial void OnHUSNRFRAChanged();
-    partial void OnHUSNRTILChanging(string value);
-    partial void OnHUSNRTILChanged();
-    partial void OnLIGEULIGEChanging(char value);
-    partial void OnLIGEULIGEChanged();
-    partial void OnAJFDTOChanging(decimal value);
-    partial void OnAJFDTOChanged();
-    partial void OnEVAKUERKODChanging(decimal value);
-    partial void OnEVAKUERKODChanged();
-    partial void OnDISTTXTChanging(string value);
-    partial void OnDISTTXTChanged();
-    partial void OnIDChanging(int value);
-    partial void OnIDChanged();
-    #endregion
-		
 		public EvacuationDistrict()
 		{
-			OnCreated();
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_KOMKOD", DbType="Decimal(5,0) NOT NULL")]
@@ -1944,11 +1196,7 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._KOMKOD != value))
 				{
-					this.OnKOMKODChanging(value);
-					this.SendPropertyChanging();
 					this._KOMKOD = value;
-					this.SendPropertyChanged("KOMKOD");
-					this.OnKOMKODChanged();
 				}
 			}
 		}
@@ -1964,11 +1212,7 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._VEJKOD != value))
 				{
-					this.OnVEJKODChanging(value);
-					this.SendPropertyChanging();
 					this._VEJKOD = value;
-					this.SendPropertyChanged("VEJKOD");
-					this.OnVEJKODChanged();
 				}
 			}
 		}
@@ -1984,11 +1228,7 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._HUSNRFRA != value))
 				{
-					this.OnHUSNRFRAChanging(value);
-					this.SendPropertyChanging();
 					this._HUSNRFRA = value;
-					this.SendPropertyChanged("HUSNRFRA");
-					this.OnHUSNRFRAChanged();
 				}
 			}
 		}
@@ -2004,11 +1244,7 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._HUSNRTIL != value))
 				{
-					this.OnHUSNRTILChanging(value);
-					this.SendPropertyChanging();
 					this._HUSNRTIL = value;
-					this.SendPropertyChanged("HUSNRTIL");
-					this.OnHUSNRTILChanged();
 				}
 			}
 		}
@@ -2024,11 +1260,7 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._LIGEULIGE != value))
 				{
-					this.OnLIGEULIGEChanging(value);
-					this.SendPropertyChanging();
 					this._LIGEULIGE = value;
-					this.SendPropertyChanged("LIGEULIGE");
-					this.OnLIGEULIGEChanged();
 				}
 			}
 		}
@@ -2044,11 +1276,7 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._AJFDTO != value))
 				{
-					this.OnAJFDTOChanging(value);
-					this.SendPropertyChanging();
 					this._AJFDTO = value;
-					this.SendPropertyChanged("AJFDTO");
-					this.OnAJFDTOChanged();
 				}
 			}
 		}
@@ -2064,11 +1292,7 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._EVAKUERKOD != value))
 				{
-					this.OnEVAKUERKODChanging(value);
-					this.SendPropertyChanging();
 					this._EVAKUERKOD = value;
-					this.SendPropertyChanged("EVAKUERKOD");
-					this.OnEVAKUERKODChanged();
 				}
 			}
 		}
@@ -2084,61 +1308,15 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._DISTTXT != value))
 				{
-					this.OnDISTTXTChanging(value);
-					this.SendPropertyChanging();
 					this._DISTTXT = value;
-					this.SendPropertyChanged("DISTTXT");
-					this.OnDISTTXTChanged();
 				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int ID
-		{
-			get
-			{
-				return this._ID;
-			}
-			set
-			{
-				if ((this._ID != value))
-				{
-					this.OnIDChanging(value);
-					this.SendPropertyChanging();
-					this._ID = value;
-					this.SendPropertyChanged("ID");
-					this.OnIDChanged();
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DTSKOLEDIST")]
-	public partial class SchoolDistrict : INotifyPropertyChanging, INotifyPropertyChanged
+	public partial class SchoolDistrict
 	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private decimal _KOMKOD;
 		
@@ -2156,35 +1334,8 @@ namespace CprBroker.Providers.DPR
 		
 		private string _DISTTXT;
 		
-		private int _ID;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnKOMKODChanging(decimal value);
-    partial void OnKOMKODChanged();
-    partial void OnVEJKODChanging(decimal value);
-    partial void OnVEJKODChanged();
-    partial void OnHUSNRFRAChanging(string value);
-    partial void OnHUSNRFRAChanged();
-    partial void OnHUSNRTILChanging(string value);
-    partial void OnHUSNRTILChanged();
-    partial void OnLIGEULIGEChanging(char value);
-    partial void OnLIGEULIGEChanged();
-    partial void OnAJFDTOChanging(decimal value);
-    partial void OnAJFDTOChanged();
-    partial void OnSKOLEKODChanging(decimal value);
-    partial void OnSKOLEKODChanged();
-    partial void OnDISTTXTChanging(string value);
-    partial void OnDISTTXTChanged();
-    partial void OnIDChanging(int value);
-    partial void OnIDChanged();
-    #endregion
-		
 		public SchoolDistrict()
 		{
-			OnCreated();
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_KOMKOD", DbType="Decimal(5,0) NOT NULL")]
@@ -2198,11 +1349,7 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._KOMKOD != value))
 				{
-					this.OnKOMKODChanging(value);
-					this.SendPropertyChanging();
 					this._KOMKOD = value;
-					this.SendPropertyChanged("KOMKOD");
-					this.OnKOMKODChanged();
 				}
 			}
 		}
@@ -2218,11 +1365,7 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._VEJKOD != value))
 				{
-					this.OnVEJKODChanging(value);
-					this.SendPropertyChanging();
 					this._VEJKOD = value;
-					this.SendPropertyChanged("VEJKOD");
-					this.OnVEJKODChanged();
 				}
 			}
 		}
@@ -2238,11 +1381,7 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._HUSNRFRA != value))
 				{
-					this.OnHUSNRFRAChanging(value);
-					this.SendPropertyChanging();
 					this._HUSNRFRA = value;
-					this.SendPropertyChanged("HUSNRFRA");
-					this.OnHUSNRFRAChanged();
 				}
 			}
 		}
@@ -2258,11 +1397,7 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._HUSNRTIL != value))
 				{
-					this.OnHUSNRTILChanging(value);
-					this.SendPropertyChanging();
 					this._HUSNRTIL = value;
-					this.SendPropertyChanged("HUSNRTIL");
-					this.OnHUSNRTILChanged();
 				}
 			}
 		}
@@ -2278,11 +1413,7 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._LIGEULIGE != value))
 				{
-					this.OnLIGEULIGEChanging(value);
-					this.SendPropertyChanging();
 					this._LIGEULIGE = value;
-					this.SendPropertyChanged("LIGEULIGE");
-					this.OnLIGEULIGEChanged();
 				}
 			}
 		}
@@ -2298,11 +1429,7 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._AJFDTO != value))
 				{
-					this.OnAJFDTOChanging(value);
-					this.SendPropertyChanging();
 					this._AJFDTO = value;
-					this.SendPropertyChanged("AJFDTO");
-					this.OnAJFDTOChanged();
 				}
 			}
 		}
@@ -2318,11 +1445,7 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._SKOLEKOD != value))
 				{
-					this.OnSKOLEKODChanging(value);
-					this.SendPropertyChanging();
 					this._SKOLEKOD = value;
-					this.SendPropertyChanged("SKOLEKOD");
-					this.OnSKOLEKODChanged();
 				}
 			}
 		}
@@ -2338,61 +1461,15 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._DISTTXT != value))
 				{
-					this.OnDISTTXTChanging(value);
-					this.SendPropertyChanging();
 					this._DISTTXT = value;
-					this.SendPropertyChanged("DISTTXT");
-					this.OnDISTTXTChanged();
 				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int ID
-		{
-			get
-			{
-				return this._ID;
-			}
-			set
-			{
-				if ((this._ID != value))
-				{
-					this.OnIDChanging(value);
-					this.SendPropertyChanging();
-					this._ID = value;
-					this.SendPropertyChanged("ID");
-					this.OnIDChanged();
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DTSOCIALDIST")]
-	public partial class SocialDistrict : INotifyPropertyChanging, INotifyPropertyChanged
+	public partial class SocialDistrict
 	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private decimal _KOMKOD;
 		
@@ -2410,35 +1487,8 @@ namespace CprBroker.Providers.DPR
 		
 		private string _DISTTXT;
 		
-		private int _ID;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnKOMKODChanging(decimal value);
-    partial void OnKOMKODChanged();
-    partial void OnVEJKODChanging(decimal value);
-    partial void OnVEJKODChanged();
-    partial void OnHUSNRFRAChanging(string value);
-    partial void OnHUSNRFRAChanged();
-    partial void OnHUSNRTILChanging(string value);
-    partial void OnHUSNRTILChanged();
-    partial void OnLIGEULIGEChanging(char value);
-    partial void OnLIGEULIGEChanged();
-    partial void OnAJFDTOChanging(decimal value);
-    partial void OnAJFDTOChanged();
-    partial void OnSOCIALKODChanging(decimal value);
-    partial void OnSOCIALKODChanged();
-    partial void OnDISTTXTChanging(string value);
-    partial void OnDISTTXTChanged();
-    partial void OnIDChanging(int value);
-    partial void OnIDChanged();
-    #endregion
-		
 		public SocialDistrict()
 		{
-			OnCreated();
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_KOMKOD", DbType="Decimal(5,0) NOT NULL")]
@@ -2452,11 +1502,7 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._KOMKOD != value))
 				{
-					this.OnKOMKODChanging(value);
-					this.SendPropertyChanging();
 					this._KOMKOD = value;
-					this.SendPropertyChanged("KOMKOD");
-					this.OnKOMKODChanged();
 				}
 			}
 		}
@@ -2472,11 +1518,7 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._VEJKOD != value))
 				{
-					this.OnVEJKODChanging(value);
-					this.SendPropertyChanging();
 					this._VEJKOD = value;
-					this.SendPropertyChanged("VEJKOD");
-					this.OnVEJKODChanged();
 				}
 			}
 		}
@@ -2492,11 +1534,7 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._HUSNRFRA != value))
 				{
-					this.OnHUSNRFRAChanging(value);
-					this.SendPropertyChanging();
 					this._HUSNRFRA = value;
-					this.SendPropertyChanged("HUSNRFRA");
-					this.OnHUSNRFRAChanged();
 				}
 			}
 		}
@@ -2512,11 +1550,7 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._HUSNRTIL != value))
 				{
-					this.OnHUSNRTILChanging(value);
-					this.SendPropertyChanging();
 					this._HUSNRTIL = value;
-					this.SendPropertyChanged("HUSNRTIL");
-					this.OnHUSNRTILChanged();
 				}
 			}
 		}
@@ -2532,11 +1566,7 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._LIGEULIGE != value))
 				{
-					this.OnLIGEULIGEChanging(value);
-					this.SendPropertyChanging();
 					this._LIGEULIGE = value;
-					this.SendPropertyChanged("LIGEULIGE");
-					this.OnLIGEULIGEChanged();
 				}
 			}
 		}
@@ -2552,11 +1582,7 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._AJFDTO != value))
 				{
-					this.OnAJFDTOChanging(value);
-					this.SendPropertyChanging();
 					this._AJFDTO = value;
-					this.SendPropertyChanged("AJFDTO");
-					this.OnAJFDTOChanged();
 				}
 			}
 		}
@@ -2572,11 +1598,7 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._SOCIALKOD != value))
 				{
-					this.OnSOCIALKODChanging(value);
-					this.SendPropertyChanging();
 					this._SOCIALKOD = value;
-					this.SendPropertyChanged("SOCIALKOD");
-					this.OnSOCIALKODChanged();
 				}
 			}
 		}
@@ -2592,61 +1614,15 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._DISTTXT != value))
 				{
-					this.OnDISTTXTChanging(value);
-					this.SendPropertyChanging();
 					this._DISTTXT = value;
-					this.SendPropertyChanged("DISTTXT");
-					this.OnDISTTXTChanged();
 				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int ID
-		{
-			get
-			{
-				return this._ID;
-			}
-			set
-			{
-				if ((this._ID != value))
-				{
-					this.OnIDChanging(value);
-					this.SendPropertyChanging();
-					this._ID = value;
-					this.SendPropertyChanged("ID");
-					this.OnIDChanged();
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DTKIRKEDIST")]
-	public partial class ChurchDistrict : INotifyPropertyChanging, INotifyPropertyChanged
+	public partial class ChurchDistrict
 	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private decimal _KOMKOD;
 		
@@ -2664,35 +1640,8 @@ namespace CprBroker.Providers.DPR
 		
 		private string _DISTTXT;
 		
-		private int _ID;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnKOMKODChanging(decimal value);
-    partial void OnKOMKODChanged();
-    partial void OnVEJKODChanging(decimal value);
-    partial void OnVEJKODChanged();
-    partial void OnHUSNRFRAChanging(string value);
-    partial void OnHUSNRFRAChanged();
-    partial void OnHUSNRTILChanging(string value);
-    partial void OnHUSNRTILChanged();
-    partial void OnLIGEULIGEChanging(char value);
-    partial void OnLIGEULIGEChanged();
-    partial void OnAJFDTOChanging(decimal value);
-    partial void OnAJFDTOChanged();
-    partial void OnKIRKEKODChanging(decimal value);
-    partial void OnKIRKEKODChanged();
-    partial void OnDISTTXTChanging(string value);
-    partial void OnDISTTXTChanged();
-    partial void OnIDChanging(int value);
-    partial void OnIDChanged();
-    #endregion
-		
 		public ChurchDistrict()
 		{
-			OnCreated();
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_KOMKOD", DbType="Decimal(5,0) NOT NULL")]
@@ -2706,11 +1655,7 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._KOMKOD != value))
 				{
-					this.OnKOMKODChanging(value);
-					this.SendPropertyChanging();
 					this._KOMKOD = value;
-					this.SendPropertyChanged("KOMKOD");
-					this.OnKOMKODChanged();
 				}
 			}
 		}
@@ -2726,11 +1671,7 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._VEJKOD != value))
 				{
-					this.OnVEJKODChanging(value);
-					this.SendPropertyChanging();
 					this._VEJKOD = value;
-					this.SendPropertyChanged("VEJKOD");
-					this.OnVEJKODChanged();
 				}
 			}
 		}
@@ -2746,11 +1687,7 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._HUSNRFRA != value))
 				{
-					this.OnHUSNRFRAChanging(value);
-					this.SendPropertyChanging();
 					this._HUSNRFRA = value;
-					this.SendPropertyChanged("HUSNRFRA");
-					this.OnHUSNRFRAChanged();
 				}
 			}
 		}
@@ -2766,11 +1703,7 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._HUSNRTIL != value))
 				{
-					this.OnHUSNRTILChanging(value);
-					this.SendPropertyChanging();
 					this._HUSNRTIL = value;
-					this.SendPropertyChanged("HUSNRTIL");
-					this.OnHUSNRTILChanged();
 				}
 			}
 		}
@@ -2786,11 +1719,7 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._LIGEULIGE != value))
 				{
-					this.OnLIGEULIGEChanging(value);
-					this.SendPropertyChanging();
 					this._LIGEULIGE = value;
-					this.SendPropertyChanged("LIGEULIGE");
-					this.OnLIGEULIGEChanged();
 				}
 			}
 		}
@@ -2806,11 +1735,7 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._AJFDTO != value))
 				{
-					this.OnAJFDTOChanging(value);
-					this.SendPropertyChanging();
 					this._AJFDTO = value;
-					this.SendPropertyChanged("AJFDTO");
-					this.OnAJFDTOChanged();
 				}
 			}
 		}
@@ -2826,11 +1751,7 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._KIRKEKOD != value))
 				{
-					this.OnKIRKEKODChanging(value);
-					this.SendPropertyChanging();
 					this._KIRKEKOD = value;
-					this.SendPropertyChanged("KIRKEKOD");
-					this.OnKIRKEKODChanged();
 				}
 			}
 		}
@@ -2846,61 +1767,15 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._DISTTXT != value))
 				{
-					this.OnDISTTXTChanging(value);
-					this.SendPropertyChanging();
 					this._DISTTXT = value;
-					this.SendPropertyChanged("DISTTXT");
-					this.OnDISTTXTChanged();
 				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int ID
-		{
-			get
-			{
-				return this._ID;
-			}
-			set
-			{
-				if ((this._ID != value))
-				{
-					this.OnIDChanging(value);
-					this.SendPropertyChanging();
-					this._ID = value;
-					this.SendPropertyChanged("ID");
-					this.OnIDChanged();
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DTVALGDIST")]
-	public partial class ElectionDistrict : INotifyPropertyChanging, INotifyPropertyChanged
+	public partial class ElectionDistrict
 	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private decimal _KOMKOD;
 		
@@ -2918,35 +1793,8 @@ namespace CprBroker.Providers.DPR
 		
 		private string _DISTTXT;
 		
-		private int _ID;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnKOMKODChanging(decimal value);
-    partial void OnKOMKODChanged();
-    partial void OnVEJKODChanging(decimal value);
-    partial void OnVEJKODChanged();
-    partial void OnHUSNRFRAChanging(string value);
-    partial void OnHUSNRFRAChanged();
-    partial void OnHUSNRTILChanging(string value);
-    partial void OnHUSNRTILChanged();
-    partial void OnLIGEULIGEChanging(char value);
-    partial void OnLIGEULIGEChanged();
-    partial void OnAJFDTOChanging(decimal value);
-    partial void OnAJFDTOChanged();
-    partial void OnVALGKODChanging(decimal value);
-    partial void OnVALGKODChanged();
-    partial void OnDISTTXTChanging(string value);
-    partial void OnDISTTXTChanged();
-    partial void OnIDChanging(int value);
-    partial void OnIDChanged();
-    #endregion
-		
 		public ElectionDistrict()
 		{
-			OnCreated();
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_KOMKOD", DbType="Decimal(5,0) NOT NULL")]
@@ -2960,11 +1808,7 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._KOMKOD != value))
 				{
-					this.OnKOMKODChanging(value);
-					this.SendPropertyChanging();
 					this._KOMKOD = value;
-					this.SendPropertyChanged("KOMKOD");
-					this.OnKOMKODChanged();
 				}
 			}
 		}
@@ -2980,11 +1824,7 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._VEJKOD != value))
 				{
-					this.OnVEJKODChanging(value);
-					this.SendPropertyChanging();
 					this._VEJKOD = value;
-					this.SendPropertyChanged("VEJKOD");
-					this.OnVEJKODChanged();
 				}
 			}
 		}
@@ -3000,11 +1840,7 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._HUSNRFRA != value))
 				{
-					this.OnHUSNRFRAChanging(value);
-					this.SendPropertyChanging();
 					this._HUSNRFRA = value;
-					this.SendPropertyChanged("HUSNRFRA");
-					this.OnHUSNRFRAChanged();
 				}
 			}
 		}
@@ -3020,11 +1856,7 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._HUSNRTIL != value))
 				{
-					this.OnHUSNRTILChanging(value);
-					this.SendPropertyChanging();
 					this._HUSNRTIL = value;
-					this.SendPropertyChanged("HUSNRTIL");
-					this.OnHUSNRTILChanged();
 				}
 			}
 		}
@@ -3040,11 +1872,7 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._LIGEULIGE != value))
 				{
-					this.OnLIGEULIGEChanging(value);
-					this.SendPropertyChanging();
 					this._LIGEULIGE = value;
-					this.SendPropertyChanged("LIGEULIGE");
-					this.OnLIGEULIGEChanged();
 				}
 			}
 		}
@@ -3060,11 +1888,7 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._AJFDTO != value))
 				{
-					this.OnAJFDTOChanging(value);
-					this.SendPropertyChanging();
 					this._AJFDTO = value;
-					this.SendPropertyChanged("AJFDTO");
-					this.OnAJFDTOChanged();
 				}
 			}
 		}
@@ -3080,11 +1904,7 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._VALGKOD != value))
 				{
-					this.OnVALGKODChanging(value);
-					this.SendPropertyChanging();
 					this._VALGKOD = value;
-					this.SendPropertyChanged("VALGKOD");
-					this.OnVALGKODChanged();
 				}
 			}
 		}
@@ -3100,61 +1920,15 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._DISTTXT != value))
 				{
-					this.OnDISTTXTChanging(value);
-					this.SendPropertyChanging();
 					this._DISTTXT = value;
-					this.SendPropertyChanged("DISTTXT");
-					this.OnDISTTXTChanged();
 				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int ID
-		{
-			get
-			{
-				return this._ID;
-			}
-			set
-			{
-				if ((this._ID != value))
-				{
-					this.OnIDChanging(value);
-					this.SendPropertyChanging();
-					this._ID = value;
-					this.SendPropertyChanged("ID");
-					this.OnIDChanged();
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DTVARMEDIST")]
-	public partial class HeatingDistrict : INotifyPropertyChanging, INotifyPropertyChanged
+	public partial class HeatingDistrict
 	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private decimal _KOMKOD;
 		
@@ -3172,35 +1946,8 @@ namespace CprBroker.Providers.DPR
 		
 		private string _DISTTXT;
 		
-		private int _ID;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnKOMKODChanging(decimal value);
-    partial void OnKOMKODChanged();
-    partial void OnVEJKODChanging(decimal value);
-    partial void OnVEJKODChanged();
-    partial void OnHUSNRFRAChanging(string value);
-    partial void OnHUSNRFRAChanged();
-    partial void OnHUSNRTILChanging(string value);
-    partial void OnHUSNRTILChanged();
-    partial void OnLIGEULIGEChanging(char value);
-    partial void OnLIGEULIGEChanged();
-    partial void OnAJFDTOChanging(decimal value);
-    partial void OnAJFDTOChanged();
-    partial void OnVARMEKODChanging(decimal value);
-    partial void OnVARMEKODChanged();
-    partial void OnDISTTXTChanging(string value);
-    partial void OnDISTTXTChanged();
-    partial void OnIDChanging(int value);
-    partial void OnIDChanged();
-    #endregion
-		
 		public HeatingDistrict()
 		{
-			OnCreated();
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_KOMKOD", DbType="Decimal(5,0) NOT NULL")]
@@ -3214,11 +1961,7 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._KOMKOD != value))
 				{
-					this.OnKOMKODChanging(value);
-					this.SendPropertyChanging();
 					this._KOMKOD = value;
-					this.SendPropertyChanged("KOMKOD");
-					this.OnKOMKODChanged();
 				}
 			}
 		}
@@ -3234,11 +1977,7 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._VEJKOD != value))
 				{
-					this.OnVEJKODChanging(value);
-					this.SendPropertyChanging();
 					this._VEJKOD = value;
-					this.SendPropertyChanged("VEJKOD");
-					this.OnVEJKODChanged();
 				}
 			}
 		}
@@ -3254,11 +1993,7 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._HUSNRFRA != value))
 				{
-					this.OnHUSNRFRAChanging(value);
-					this.SendPropertyChanging();
 					this._HUSNRFRA = value;
-					this.SendPropertyChanged("HUSNRFRA");
-					this.OnHUSNRFRAChanged();
 				}
 			}
 		}
@@ -3274,11 +2009,7 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._HUSNRTIL != value))
 				{
-					this.OnHUSNRTILChanging(value);
-					this.SendPropertyChanging();
 					this._HUSNRTIL = value;
-					this.SendPropertyChanged("HUSNRTIL");
-					this.OnHUSNRTILChanged();
 				}
 			}
 		}
@@ -3294,11 +2025,7 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._LIGEULIGE != value))
 				{
-					this.OnLIGEULIGEChanging(value);
-					this.SendPropertyChanging();
 					this._LIGEULIGE = value;
-					this.SendPropertyChanged("LIGEULIGE");
-					this.OnLIGEULIGEChanged();
 				}
 			}
 		}
@@ -3314,11 +2041,7 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._AJFDTO != value))
 				{
-					this.OnAJFDTOChanging(value);
-					this.SendPropertyChanging();
 					this._AJFDTO = value;
-					this.SendPropertyChanged("AJFDTO");
-					this.OnAJFDTOChanged();
 				}
 			}
 		}
@@ -3334,11 +2057,7 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._VARMEKOD != value))
 				{
-					this.OnVARMEKODChanging(value);
-					this.SendPropertyChanging();
 					this._VARMEKOD = value;
-					this.SendPropertyChanged("VARMEKOD");
-					this.OnVARMEKODChanged();
 				}
 			}
 		}
@@ -3354,52 +2073,8 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._DISTTXT != value))
 				{
-					this.OnDISTTXTChanging(value);
-					this.SendPropertyChanging();
 					this._DISTTXT = value;
-					this.SendPropertyChanged("DISTTXT");
-					this.OnDISTTXTChanged();
 				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int ID
-		{
-			get
-			{
-				return this._ID;
-			}
-			set
-			{
-				if ((this._ID != value))
-				{
-					this.OnIDChanging(value);
-					this.SendPropertyChanging();
-					this._ID = value;
-					this.SendPropertyChanged("ID");
-					this.OnIDChanged();
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}
@@ -3515,10 +2190,8 @@ namespace CprBroker.Providers.DPR
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DTMYN")]
-	public partial class Council : INotifyPropertyChanging, INotifyPropertyChanged
+	public partial class Council
 	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private decimal _MYNKOD;
 		
@@ -3528,27 +2201,8 @@ namespace CprBroker.Providers.DPR
 		
 		private string _MYNNVN;
 		
-		private int _ID;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnMYNKODChanging(decimal value);
-    partial void OnMYNKODChanged();
-    partial void OnMYNTYPChanging(decimal value);
-    partial void OnMYNTYPChanged();
-    partial void OnMYNGRPChanging(decimal value);
-    partial void OnMYNGRPChanged();
-    partial void OnMYNNVNChanging(string value);
-    partial void OnMYNNVNChanged();
-    partial void OnIDChanging(int value);
-    partial void OnIDChanged();
-    #endregion
-		
 		public Council()
 		{
-			OnCreated();
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MYNKOD", DbType="Decimal(5,0) NOT NULL")]
@@ -3562,11 +2216,7 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._MYNKOD != value))
 				{
-					this.OnMYNKODChanging(value);
-					this.SendPropertyChanging();
 					this._MYNKOD = value;
-					this.SendPropertyChanged("MYNKOD");
-					this.OnMYNKODChanged();
 				}
 			}
 		}
@@ -3582,11 +2232,7 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._MYNTYP != value))
 				{
-					this.OnMYNTYPChanging(value);
-					this.SendPropertyChanging();
 					this._MYNTYP = value;
-					this.SendPropertyChanged("MYNTYP");
-					this.OnMYNTYPChanged();
 				}
 			}
 		}
@@ -3602,11 +2248,7 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._MYNGRP != value))
 				{
-					this.OnMYNGRPChanging(value);
-					this.SendPropertyChanging();
 					this._MYNGRP = value;
-					this.SendPropertyChanged("MYNGRP");
-					this.OnMYNGRPChanged();
 				}
 			}
 		}
@@ -3622,52 +2264,8 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._MYNNVN != value))
 				{
-					this.OnMYNNVNChanging(value);
-					this.SendPropertyChanging();
 					this._MYNNVN = value;
-					this.SendPropertyChanged("MYNNVN");
-					this.OnMYNNVNChanged();
 				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int ID
-		{
-			get
-			{
-				return this._ID;
-			}
-			set
-			{
-				if ((this._ID != value))
-				{
-					this.OnIDChanging(value);
-					this.SendPropertyChanging();
-					this._ID = value;
-					this.SendPropertyChanged("ID");
-					this.OnIDChanged();
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}

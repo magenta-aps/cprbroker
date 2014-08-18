@@ -56,15 +56,19 @@ namespace CprBroker.Utilities
 {
     public static class DataLinq
     {
+        public static string GetTableName<TTable>()
+        {
+            Type tableType = typeof(TTable);
+            return GetTableName(tableType);
+        }
         /// <summary>
         /// Gets the name of the table that the <typeparamref name="TTable"/> is mapped to
         /// </summary>
         /// <typeparam name="TTable">Type of object</typeparam>
         /// <exception cref="ArgumentException"><typeparamref name="TTable"/> has no TableAttribute defined</exception>
         /// <returns>Table name</returns>
-        public static string GetTableName<TTable>()
-        {
-            Type tableType = typeof(TTable);
+        public static string GetTableName(Type tableType)
+        {            
             var tableAttribute = tableType.GetCustomAttributes(typeof(TableAttribute), true).FirstOrDefault() as TableAttribute;
             if (tableAttribute == null)
             {

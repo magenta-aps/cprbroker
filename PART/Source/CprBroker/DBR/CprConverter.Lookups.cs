@@ -50,41 +50,62 @@ namespace CprBroker.DBR
             return ret;
         }
 
-        public int ImportLookups(string fileName, Encoding encoding, string dprConnectionString)
+        public static int ImportLookups(string fileName, int batchSize, Encoding encoding, string dprConnectionString)
         {
             var ret = 0;
             var objectMap = CprBroker.Providers.CPRDirect.Constants.DataObjectMap_P05780;
-            int batchSize = 1000;
 
             var fileMap = SplitFile(fileName);
-            var reverseObjectMap = objectMap
-                .ToDictionary(kvp => kvp.Value, kvp => kvp.Key);
 
-            ret += ImportLookup<StreetType, Street>(fileMap[reverseObjectMap[typeof(StreetType)]], dprConnectionString, CprConverterExtensions.ToDprStreet, encoding, batchSize, objectMap);
+            var extensionType = typeof(CprConverterExtensions);
+            foreach (var kvp in fileMap)
+            {
+                // Init type parameters
+                var typeKey = kvp.Key;
+                var typeFile = kvp.Value;
+                var sourceType = objectMap[kvp.Key];
+                var method = extensionType.GetMethods().Where(m =>
+                    {
+                        var pars = m.GetParameters();
+                        return pars.Length == 1 && pars.Where(p => p.ParameterType.Equals(sourceType)).Count() == 1;
+                    }).SingleOrDefault();
+                if (method != null)
+                {
+                    var targetType = method.ReturnType;
+                    Converter<object, object> converter = (o) => method.Invoke(o, new object[] { o });
+                    
+                    // Call batch conversion and insertion
+                    ret += ImportLookup(typeFile, targetType, batchSize, encoding, dprConnectionString, converter, objectMap);
+                }
+            }
             return ret;
         }
 
-        public int ImportLookup<TCpr, TDpr>(string fileName, string dprConnectionString, Converter<TCpr, TDpr> func,
-            Encoding encoding, int batchSize, Dictionary<string, Type> objectMap)
-            where TCpr : class
-            where TDpr : class
+        public static int ImportLookup(string fileName, Type targetType, int batchSize, Encoding encoding, string dprConnectionString,
+            Converter<object, object> func, Dictionary<string, Type> objectMap)
         {
             int totalReadLinesCount = 0;
+            var tableName = Utilities.DataLinq.GetTableName(targetType);
 
             using (var file = new StreamReader(fileName, encoding))
             {
                 using (var conn = new SqlConnection(dprConnectionString))
                 {
                     conn.Open();
+                    using(var cmd = new SqlCommand(string.Format("truncate table [{0}];",tableName),conn))
+                    {
+                        cmd.ExecuteNonQuery();
+                    }
+                    
                     // Start reading the file
                     while (!file.EndOfStream)
                     {
                         var wrappers = CompositeWrapper.Parse(file, objectMap, batchSize);
                         var batchReadLinesCount = wrappers.Count;
 
-                        var dprObjects = wrappers.Select(w => func(w as TCpr)).ToArray();
+                        var dprObjects = wrappers.Select(w => func(w)).ToArray();
 
-                        conn.BulkInsertAll<TDpr>(dprObjects);
+                        conn.BulkInsertAll(targetType, dprObjects);
                         totalReadLinesCount += batchReadLinesCount;
                     }
                 }
