@@ -54,6 +54,9 @@ using CprBroker.Data;
 using CprBroker.Data.DataProviders;
 using CprBroker.Installers;
 using CprBroker.Installers.EventBrokerInstallers;
+using CprBroker.Utilities.Config;
+using System.Xml;
+using System.Xml.XPath;
 
 namespace CprBrokerWixInstallers
 {
@@ -137,5 +140,26 @@ namespace CprBrokerWixInstallers
             CprBroker.Installers.Installation.AddKnownDataProviderTypes(types, configFilePath);
         }
 
+        private static void PatchWebsite_2_2_3(Session session)
+        {
+            var webInstallationInfo = WebInstallationInfo.CreateFromFeature(session, "CPR");
+            var configFilePaths = new string[]
+            {
+                WebInstallationInfo.CreateFromFeature(session, "CPR").GetWebConfigFilePath(EventBrokerCustomActions.PathConstants.CprBrokerWebsiteDirectoryRelativePath),
+                WebInstallationInfo.CreateFromFeature(session, "EVENT").GetWebConfigFilePath(EventBrokerCustomActions.PathConstants.CprBrokerWebsiteDirectoryRelativePath),
+                EventBrokerCustomActions.GetServiceExeConfigFullFileName(session)
+            };
+
+            foreach (var configFilePath in configFilePaths)
+            {
+                var doc = new XmlDocument();
+                doc.Load(configFilePath);
+                var dataProviderKeysNode = doc.SelectSingleNode("//section[@name='dataProviderKeys']");
+                var dataProvidersNode = doc.SelectSingleNode("//section[@name='dataProviders']");
+                dataProviderKeysNode.Attributes["type"].Value = typeof(DataProviderKeysSection).AssemblyQualifiedName;
+                dataProvidersNode.Attributes["type"].Value = typeof(DataProvidersConfigurationSection).AssemblyQualifiedName;
+                doc.Save(configFilePath);
+            }
+        }
     }
 }

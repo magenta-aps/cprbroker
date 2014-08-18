@@ -70,7 +70,7 @@ namespace CprBroker.Installers.EventBrokerInstallers
             return string.Format("{0}{1}bin\\CprBroker.EventBroker.Backend.exe", session.GetInstallDirProperty(), PathConstants.EventBrokerWebsiteDirectoryRelativePath);
         }
 
-        private static string GetServiceExeConfigFullFileName(Session session)
+        public static string GetServiceExeConfigFullFileName(Session session)
         {
             return GetServiceExeFullFileName(session) + ".config";
         }

@@ -57,6 +57,7 @@ using CprBroker.Engine;
 using CprBroker.EventBroker.Data;
 using CprBroker.Installers.EventBrokerInstallers;
 using System.Data.SqlClient;
+using CprBroker.Utilities.Config;
 
 namespace CprBrokerWixInstallers
 {
@@ -481,6 +482,10 @@ namespace CprBrokerWixInstallers
                     new WebPatchInfo(){
                         Version = new Version(2,2,2),
                         PatchAction = () => PatchWebsite_2_2_2(session)
+                    },
+                    new WebPatchInfo(){
+                        Version = new Version(2,2,3),
+                        PatchAction = () => PatchWebsite_2_2_3(session)
                     }
                 };
 
