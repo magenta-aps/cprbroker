@@ -45,6 +45,7 @@
  * ***** END LICENSE BLOCK ***** */
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -59,10 +60,12 @@ namespace CprBroker.Providers.CPRDirect
     {
         public static void BulkInsertAll<T>(this SqlConnection conn, IEnumerable<T> entities, SqlTransaction trans = null)
         {
-            entities = entities.ToArray();
-
             Type t = typeof(T);
+            BulkInsertAll(conn, t, entities, trans);
+        }
 
+        public static void BulkInsertAll(this SqlConnection conn, Type t, IEnumerable entities, SqlTransaction trans = null)
+        {
             var tableAttribute = (TableAttribute)t.GetCustomAttributes(typeof(TableAttribute), false).Single();
 
             SqlBulkCopy bulkCopy = trans == null ?
