@@ -86,39 +86,6 @@ namespace BatchClient
             Log(diffText);
         }
 
-        public static void SplitFile()
-        {
-            var path = @"C:\Magenta Workspace\broker\PART\Doc\Data Providers\CPR Direct\Lookups\vejregister_hele_landet_pr_140801\A370715.txt";
-            var streams = new Dictionary<string, StreamWriter>();
-
-            using (var source = new System.IO.StreamReader(path, Encoding.GetEncoding(1252)))
-            {
-                while (!source.EndOfStream)
-                {
-                    int batchSize = 100;
-                    var wrappers = CprBroker.Providers.CPRDirect.CompositeWrapper.Parse(source, CprBroker.Providers.CPRDirect.Constants.DataObjectMap_P05780, batchSize);
-
-                    foreach (var w in wrappers)
-                    {
-                        var code = w.Contents.Substring(0, 3);
-                        StreamWriter target;
-                        if (streams.ContainsKey(code))
-                        {
-                            target = streams[code];
-                        }
-                        else
-                        {
-                            target = new StreamWriter(string.Format("{0}-{1}-{2}.txt", path, code, w.GetType().Name), false, Encoding.GetEncoding(1252));
-                            streams[code] = target;
-                        }
-                        target.Write(w.Contents);
-                    }
-                }
-            }
-            foreach (var kvp in streams)
-            {
-                kvp.Value.Close();
-            }
-        }
+        
     }
 }

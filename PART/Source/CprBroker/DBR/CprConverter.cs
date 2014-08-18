@@ -11,7 +11,7 @@ using CprBroker.DBR.Extensions;
 
 namespace CprBroker.DBR
 {
-    public class CprConverter
+    public partial class CprConverter
     {
 
         public static void DeletePersonRecords(string cprNumber, DPRDataContext dataContext)
