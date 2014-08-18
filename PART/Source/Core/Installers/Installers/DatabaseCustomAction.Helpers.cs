@@ -82,6 +82,7 @@ namespace CprBroker.Installers
         public static void ExecuteDDL(string createDatabaseObjectsSql, DatabaseSetupInfo databaseSetupInfo)
         {
             string adminConnectionStringWithDb = databaseSetupInfo.CreateConnectionString(true, true);
+            ExecuteDDL(createDatabaseObjectsSql, adminConnectionStringWithDb);
         }
 
         public static void ExecuteDDL(string createDatabaseObjectsSql, string adminConnectionStringWithDb)
@@ -207,8 +208,9 @@ namespace CprBroker.Installers
         public static void InsertLookups(KeyValuePair<string, string>[] lookupDataArray, DatabaseSetupInfo databaseSetupInfo)
         {
             string adminConnectionWithDB = databaseSetupInfo.CreateConnectionString(true, true);
+            InsertLookups(lookupDataArray, adminConnectionWithDB);
         }
- 
+
         public static void InsertLookups(KeyValuePair<string, string>[] lookupDataArray, string adminConnectionWithDB)
         {
             foreach (var lookupData in lookupDataArray)
