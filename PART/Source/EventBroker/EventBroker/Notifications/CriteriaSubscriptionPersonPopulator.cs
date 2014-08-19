@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using CprBroker.Engine.Local;
 using CprBroker.Engine.Tasks;
+using CprBroker.Utilities.Config;
 
 namespace CprBroker.EventBroker.Notifications
 {
@@ -19,7 +20,7 @@ namespace CprBroker.EventBroker.Notifications
 
         protected override void PerformTimerAction()
         {
-            int batchSize = CprBroker.Config.ConfigManager.Current.Settings.SubscriptionCriteriaMatchingBatchSize;
+            int batchSize = ConfigManager.Current.Settings.SubscriptionCriteriaMatchingBatchSize;
 
             Admin.LogFormattedSuccess("DataChangeEventEnqueuer.UpdateSubscriptionCriteriaLists() started, batch size <{0}>", batchSize);
 

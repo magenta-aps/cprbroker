@@ -51,6 +51,7 @@ using System.ServiceProcess;
 using System.Text;
 using CprBroker.Engine;
 using CprBroker.Utilities;
+using CprBroker.Utilities.Config;
 
 namespace CprBroker.EventBroker.Backend
 {
@@ -65,7 +66,7 @@ namespace CprBroker.EventBroker.Backend
 
             try
             {
-                string s = CprBroker.Config.ConfigManager.Current.Settings.CprBrokerConnectionString;
+                string s = ConfigManager.Current.Settings.CprBrokerConnectionString;
                 ServiceBase[] ServicesToRun;
                 ServicesToRun = new ServiceBase[] 
 			    { 
