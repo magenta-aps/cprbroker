@@ -111,8 +111,8 @@ namespace CprBroker.Web.Services
             return PartManager.GetUuid(applicationHeader.UserToken, applicationHeader.ApplicationToken, cprNumber);
         }
 
-        //[SoapHeader(ApplicationHeaderName)]
-        //[WebMethod(MessageName = CprBroker.Schemas.Part.ServiceNames.Part.Methods.GetUuidArray, Description = CprBroker.Schemas.ServiceDescription.Part.Methods.GetUuidArray)]
+        [SoapHeader(ApplicationHeaderName)]
+        [WebMethod(MessageName = CprBroker.Schemas.Part.ServiceNames.Part.Methods.GetUuidArray, Description = CprBroker.Schemas.ServiceDescription.Part.Methods.GetUuidArray)]
         public GetUuidArrayOutputType GetUuidArray(string[] cprNumberArray)
         {
             return PartManager.GetUuidArray(applicationHeader.UserToken, applicationHeader.ApplicationToken, cprNumberArray);
