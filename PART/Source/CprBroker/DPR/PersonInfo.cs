@@ -70,6 +70,8 @@ namespace CprBroker.Providers.DPR
         public Separation Separation { get; set; }
         public CivilStatus[] CivilStates { get; set; }
         public Child[] Children { get; set; }
+        public GuardianAndParentalAuthority[] CustodyHolders { get; set; }
+        public GuardianAndParentalAuthority[] CustodyChildren { get; set; }
 
         public List<ICivilStatus> CivilStatesAsInterface
         {
@@ -317,7 +319,7 @@ namespace CprBroker.Providers.DPR
             ret.Boern = Child.ToPersonFlerRelationTypeArray(Children, cpr2uuidFunc);
 
             // TODO : Fill custody children
-            ret.Foraeldremyndighedsboern = null;
+            ret.Foraeldremyndighedsboern = CustodyHolders.Select(ch => ch.ToRelationTypeFromChildPNR(cpr2uuidFunc)).ToArray();
 
             // Normal spouse(s)
             ret.Aegtefaelle = CivilStatusWrapper.ToSpouses(null, this.CivilStatesAsInterface, cpr2uuidConverter);
@@ -328,8 +330,8 @@ namespace CprBroker.Providers.DPR
             //TODO: Has legal authority on
             ret.RetligHandleevneVaergeForPersonen = null;
 
-            //TODO: People who have legal authority on this person
-            ret.Foraeldremyndighedsindehaver = null;
+            //TODO: People who have custody for this person
+            ret.Foraeldremyndighedsindehaver = CustodyHolders.Select(ch => ch.ToRelationTypeFromParentPNR(cpr2uuidFunc)).ToArray();
 
             return ret;
         }
@@ -343,10 +345,13 @@ namespace CprBroker.Providers.DPR
                 decimalPnrs.Add(Utilities.ToParentPnr(this.PersonTotal.FatherPersonalOrBirthdate));
                 decimalPnrs.Add(Utilities.ToParentPnr(this.PersonTotal.FatherPersonalOrBirthdate));
                 decimalPnrs.AddRange(Children.Select(ch => ch.ChildPNR));
-                
+                decimalPnrs.AddRange(CustodyChildren.Select(c => (decimal?)c.ChildPNR));
+                decimalPnrs.AddRange(CustodyHolders.Select(c => (decimal?)c.ParentPNR));
+
                 var ret = new List<string>();
-                ret.AddRange(decimalPnrs.Where(pnr=>pnr.HasValue).Select(pnr=>pnr.Value.ToPnrDecimalString()));
-                ret.AddRange(this.CivilStatesAsInterface.Select(civ=>civ.ToSpousePnr()));
+                ret.AddRange(decimalPnrs.Where(pnr => pnr.HasValue).Select(pnr => pnr.Value.ToPnrDecimalString()));
+                ret.AddRange(this.CivilStatesAsInterface.Select(civ => civ.ToSpousePnr()));
+
 
                 return ret.Where(pnr => PartInterface.Strings.IsValidPersonNumber(pnr)).ToArray();
             }

@@ -78,6 +78,7 @@ namespace CprBroker.Providers.DPR
 
         public PersonInfo ToPersonInfo()
         {
+            var relationTypes = new decimal[] { 3, 4, 5, 6 };
             return new PersonInfo()
             {
                 // Main object
@@ -102,7 +103,11 @@ namespace CprBroker.Providers.DPR
                 CivilStates = this.CivilStatus.Where(civ => civ.CorrectionMarker == null).OrderBy(civ => civ.MaritalStatusDate).ToArray(),
 
                 // Get All Children
-                Children = this.Children.ToArray()
+                Children = this.Children.ToArray(),
+
+                // Parental authority
+                CustodyChildren = this.ParentalAuthorityChildren.Where(p => relationTypes.Contains(p.RelationType)).ToArray(),
+                CustodyHolders = this.ParentalAuthorityHolders.Where(p => relationTypes.Contains(p.RelationType)).ToArray(),
             };
         }
 

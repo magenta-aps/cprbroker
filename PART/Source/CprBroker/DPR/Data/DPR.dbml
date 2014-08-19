@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Database Name="DPR" EntityNamespace="CprBroker.Providers.DPR" ContextNamespace="CprBroker.Providers.DPR" Class="DPRDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="DPR7" EntityNamespace="CprBroker.Providers.DPR" ContextNamespace="CprBroker.Providers.DPR" Class="DPRDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
   <Table Name="dbo.DTNAVNE" Member="PersonNames">
     <Type Name="PersonName">
       <Column Name="PNR" Type="System.Decimal" DbType="Decimal(11,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
@@ -97,6 +97,8 @@
       <Association Name="PersonTotal_Separation" Member="Separations" ThisKey="PNR" OtherKey="PNR" Type="Separation" />
       <Association Name="PersonTotal_Departure" Member="Departures" ThisKey="PNR" OtherKey="PNR" Type="Departure" />
       <Association Name="PersonTotal_ContactAddress" Member="ContactAddress" ThisKey="PNR" OtherKey="PNR" Type="ContactAddress" Cardinality="One" />
+      <Association Name="PersonTotal_GuardianAndParentalAuthority" Member="ParentalAuthorityHolders" ThisKey="PNR" OtherKey="ChildPNR" Type="GuardianAndParentalAuthority" />
+      <Association Name="PersonTotal_GuardianAndParentalAuthority1" Member="ParentalAuthorityChildren" ThisKey="PNR" OtherKey="ParentPNR" Type="GuardianAndParentalAuthority" />
     </Type>
   </Table>
   <Table Name="dbo.DTCIV" Member="CivilStatus">
@@ -214,6 +216,19 @@
       <Column Name="KADR4" Member="ContactAddressLine4" Type="System.String" DbType="VarChar(34)" CanBeNull="true" />
       <Column Name="KADR5" Member="ContactAddressLine5" Type="System.String" DbType="VarChar(34)" CanBeNull="true" />
       <Association Name="PersonTotal_ContactAddress" Member="PersonTotal" ThisKey="PNR" OtherKey="PNR" Type="PersonTotal" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DTRELPNR_PNR" Member="GuardianAndParentalAuthorities">
+    <Type Name="GuardianAndParentalAuthority">
+      <Column Name="PNR" Member="ChildPNR" Type="System.Decimal" DbType="Decimal(11,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="RELPNR" Member="ParentPNR" Type="System.Decimal" DbType="Decimal(11,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="RELTYP" Member="RelationType" Type="System.Decimal" DbType="Decimal(4,0) NOT NULL" CanBeNull="false" />
+      <Column Name="AJFDTO" Member="CprUpdateDate" Type="System.Decimal" DbType="Decimal(13,0) NOT NULL" CanBeNull="false" />
+      <Column Name="STARTDATE" Member="StartDate" Type="System.DateTime" DbType="SmallDateTime NOT NULL" CanBeNull="false" />
+      <Column Name="SLETDATE" Member="EndDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="MYNKOD" Member="AuthorityCode" Type="System.Decimal" DbType="Decimal(5,0) NOT NULL" CanBeNull="false" />
+      <Association Name="PersonTotal_GuardianAndParentalAuthority" Member="PersonTotal" ThisKey="ChildPNR" OtherKey="PNR" Type="PersonTotal" IsForeignKey="true" />
+      <Association Name="PersonTotal_GuardianAndParentalAuthority1" Member="PersonTotal1" ThisKey="ParentPNR" OtherKey="PNR" Type="PersonTotal" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>
