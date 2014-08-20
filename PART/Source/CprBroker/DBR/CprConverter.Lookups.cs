@@ -50,10 +50,9 @@ namespace CprBroker.DBR
             return ret;
         }
 
-        public static int ImportLookups(string fileName, int batchSize, Encoding encoding, string dprConnectionString)
+        public static int ImportLookups(string fileName, int batchSize, Encoding encoding, string dprConnectionString, Dictionary<string, Type> objectMap)
         {
             var ret = 0;
-            var objectMap = CprBroker.Providers.CPRDirect.Constants.DataObjectMap_P05780;
 
             var fileMap = SplitFile(fileName);
 
