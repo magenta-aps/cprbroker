@@ -70,8 +70,8 @@ namespace CprBroker.Providers.DPR
         public Separation Separation { get; set; }
         public CivilStatus[] CivilStates { get; set; }
         public Child[] Children { get; set; }
-        public GuardianAndParentalAuthority[] CustodyHolders { get; set; }
-        public GuardianAndParentalAuthority[] CustodyChildren { get; set; }
+        public Relation[] CustodyHolderRelations { get; set; }
+        public ParentalAuthority[] ParentalAuthority { get; set; }
 
         public List<ICivilStatus> CivilStatesAsInterface
         {
@@ -319,7 +319,7 @@ namespace CprBroker.Providers.DPR
             ret.Boern = Child.ToPersonFlerRelationTypeArray(Children, cpr2uuidFunc);
 
             // TODO : Fill custody children
-            ret.Foraeldremyndighedsboern = CustodyHolders.Select(ch => ch.ToRelationTypeFromChildPNR(cpr2uuidFunc)).ToArray();
+            ret.Foraeldremyndighedsboern = null;
 
             // Normal spouse(s)
             ret.Aegtefaelle = CivilStatusWrapper.ToSpouses(null, this.CivilStatesAsInterface, cpr2uuidConverter);
@@ -331,7 +331,7 @@ namespace CprBroker.Providers.DPR
             ret.RetligHandleevneVaergeForPersonen = null;
 
             //TODO: People who have custody for this person
-            ret.Foraeldremyndighedsindehaver = CustodyHolders.Select(ch => ch.ToRelationTypeFromParentPNR(PersonTotal, cpr2uuidFunc)).ToArray();
+            ret.Foraeldremyndighedsindehaver = this.ParentalAuthority.Select(pa => pa.ToRelationType(PersonTotal, CustodyHolderRelations, cpr2uuidFunc)).ToArray();
 
             return ret;
         }
@@ -345,8 +345,7 @@ namespace CprBroker.Providers.DPR
                 decimalPnrs.Add(Utilities.ToParentPnr(this.PersonTotal.FatherPersonalOrBirthdate));
                 decimalPnrs.Add(Utilities.ToParentPnr(this.PersonTotal.FatherPersonalOrBirthdate));
                 decimalPnrs.AddRange(Children.Select(ch => ch.ChildPNR));
-                decimalPnrs.AddRange(CustodyChildren.Select(c => (decimal?)c.ChildPNR));
-                decimalPnrs.AddRange(CustodyHolders.Select(c => (decimal?)c.ParentPNR));
+                decimalPnrs.AddRange(CustodyHolderRelations.Select(c => (decimal?)c.RelationPNR));
 
                 var ret = new List<string>();
                 ret.AddRange(decimalPnrs.Where(pnr => pnr.HasValue).Select(pnr => pnr.Value.ToPnrDecimalString()));

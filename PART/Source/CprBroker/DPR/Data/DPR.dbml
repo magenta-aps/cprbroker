@@ -97,8 +97,8 @@
       <Association Name="PersonTotal_Separation" Member="Separations" ThisKey="PNR" OtherKey="PNR" Type="Separation" />
       <Association Name="PersonTotal_Departure" Member="Departures" ThisKey="PNR" OtherKey="PNR" Type="Departure" />
       <Association Name="PersonTotal_ContactAddress" Member="ContactAddress" ThisKey="PNR" OtherKey="PNR" Type="ContactAddress" Cardinality="One" />
-      <Association Name="PersonTotal_GuardianAndParentalAuthority" Member="ParentalAuthorityHolders" ThisKey="PNR" OtherKey="ChildPNR" Type="GuardianAndParentalAuthority" />
-      <Association Name="PersonTotal_GuardianAndParentalAuthority1" Member="ParentalAuthorityChildren" ThisKey="PNR" OtherKey="ParentPNR" Type="GuardianAndParentalAuthority" />
+      <Association Name="PersonTotal_GuardianAndParentalAuthority" Member="ParentalAuthorityHolders_Relations" Storage="_ParentalAuthorityHolders" ThisKey="PNR" OtherKey="PNR" Type="Relation" />
+      <Association Name="PersonTotal_ParentalAuthority" Member="ParentalAuthorities" ThisKey="PNR" OtherKey="PNR" Type="ParentalAuthority" />
     </Type>
   </Table>
   <Table Name="dbo.DTCIV" Member="CivilStatus">
@@ -218,17 +218,28 @@
       <Association Name="PersonTotal_ContactAddress" Member="PersonTotal" ThisKey="PNR" OtherKey="PNR" Type="PersonTotal" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.DTRELPNR_PNR" Member="GuardianAndParentalAuthorities">
-    <Type Name="GuardianAndParentalAuthority">
-      <Column Name="PNR" Member="ChildPNR" Type="System.Decimal" DbType="Decimal(11,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="RELPNR" Member="ParentPNR" Type="System.Decimal" DbType="Decimal(11,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+  <Table Name="dbo.DTRELPNR_PNR" Member="Relations">
+    <Type Name="Relation">
+      <Column Name="PNR" Storage="_ChildPNR" Type="System.Decimal" DbType="Decimal(11,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="RELPNR" Member="RelationPNR" Storage="_ParentPNR" Type="System.Decimal" DbType="Decimal(11,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="RELTYP" Member="RelationType" Type="System.Decimal" DbType="Decimal(4,0) NOT NULL" CanBeNull="false" />
       <Column Name="AJFDTO" Member="CprUpdateDate" Type="System.Decimal" DbType="Decimal(13,0) NOT NULL" CanBeNull="false" />
       <Column Name="STARTDATE" Member="StartDate" Type="System.DateTime" DbType="SmallDateTime NOT NULL" CanBeNull="false" />
       <Column Name="SLETDATE" Member="EndDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
       <Column Name="MYNKOD" Member="AuthorityCode" Type="System.Decimal" DbType="Decimal(5,0) NOT NULL" CanBeNull="false" />
-      <Association Name="PersonTotal_GuardianAndParentalAuthority" Member="PersonTotal" ThisKey="ChildPNR" OtherKey="PNR" Type="PersonTotal" IsForeignKey="true" />
-      <Association Name="PersonTotal_GuardianAndParentalAuthority1" Member="PersonTotal1" ThisKey="ParentPNR" OtherKey="PNR" Type="PersonTotal" IsForeignKey="true" />
+      <Association Name="PersonTotal_GuardianAndParentalAuthority" Member="PersonTotal" ThisKey="PNR" OtherKey="PNR" Type="PersonTotal" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DTFORALDREMYND" Member="ParentalAuthorities">
+    <Type Name="ParentalAuthority">
+      <Column Name="PNR" Type="System.Decimal" DbType="Decimal(11,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="RELTYP" Member="RelationType" Type="System.Decimal" DbType="Decimal(4,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="AJFDTO" Member="CprUpdateDate" Type="System.Decimal" DbType="Decimal(13,0) NOT NULL" CanBeNull="false" />
+      <Column Name="START_MYNKOD" Member="CustodyStartAuthorityCode" Type="System.Decimal" DbType="Decimal(5,0) NOT NULL" CanBeNull="false" />
+      <Column Name="STARTDATE" Member="StartDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="STARTDATE_UMRK" Member="StartDateMarker" Type="System.Char" DbType="Char(1)" CanBeNull="true" />
+      <Column Name="SLETDATE" Member="EndDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="PersonTotal_ParentalAuthority" Member="PersonTotal" ThisKey="PNR" OtherKey="PNR" Type="PersonTotal" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

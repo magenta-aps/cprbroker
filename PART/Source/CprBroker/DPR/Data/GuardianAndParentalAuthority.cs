@@ -51,36 +51,11 @@ using CprBroker.Utilities;
 
 namespace CprBroker.Providers.DPR
 {
-    public partial class GuardianAndParentalAuthority
+    public partial class Relation
     {
-        public PersonRelationType ToRelationTypeFromParentPNR(PersonTotal personTotal, Func<decimal, Guid> cpr2uuidConverter)
-        {
-            string pnr = null;
-            switch ((int)this.RelationType)
-            {
-                case 3:
-                    pnr = personTotal.MotherPersonalOrBirthDate;
-                    break;
-                case 4:
-                    pnr = personTotal.FatherPersonalOrBirthdate;
-                    break;
-                case 5:
-                    pnr = ParentPNR.ToPnrDecimalString();
-                    break;
-                case 6:
-                    pnr = ParentPNR.ToPnrDecimalString();
-                    break;
-            }
-            if (pnr != null && PartInterface.Strings.IsValidPersonNumber(pnr))
-            {
-                return PersonRelationType.Create(cpr2uuidConverter(decimal.Parse(pnr)), StartDate, EndDate);
-            }
-            return null;
-        }
-
         public PersonFlerRelationType ToRelationTypeFromChildPNR(Func<decimal, Guid> cpr2uuidConverter)
         {
-            return PersonFlerRelationType.Create(cpr2uuidConverter(ChildPNR), StartDate, EndDate);
+            return PersonFlerRelationType.Create(cpr2uuidConverter(PNR), StartDate, EndDate);
         }
     }
 }

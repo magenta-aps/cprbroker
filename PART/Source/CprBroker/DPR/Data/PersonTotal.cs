@@ -106,8 +106,8 @@ namespace CprBroker.Providers.DPR
                 Children = this.Children.ToArray(),
 
                 // Parental authority
-                CustodyChildren = this.ParentalAuthorityChildren.Where(p => relationTypes.Contains(p.RelationType)).ToArray(),
-                CustodyHolders = this.ParentalAuthorityHolders.Where(p => relationTypes.Contains(p.RelationType)).ToArray(),
+                ParentalAuthority = this.ParentalAuthorities.ToArray(),                
+                CustodyHolderRelations = this.ParentalAuthorityHolders_Relations.Where(p => relationTypes.Contains(p.RelationType)).ToArray(),
             };
         }
 
