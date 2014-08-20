@@ -70,7 +70,7 @@
     <Compile Include="ClientDataProvider.cs" />
     <Compile Include="Data\CivilStatus.cs" />
     <Compile Include="Data\Departure.cs" />
-    <Compile Include="Data\GuardianAndParentalAuthority.cs" />
+    <Compile Include="Data\Relation.cs" />
     <Compile Include="Data\ParentalAuthority.cs" />
     <Compile Include="Data\PersonTotal.NotImplemented.cs" />
     <Compile Include="Data\Nationality.cs" />

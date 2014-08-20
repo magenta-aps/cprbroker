@@ -9,10 +9,10 @@ namespace CprBroker.Providers.DPR
 {
     public partial class ParentalAuthority
     {
-        public PersonRelationType ToRelationType(PersonTotal personTotal,Relation[] relations, Func<decimal, Guid> cpr2uuidConverter)
+        public PersonRelationType ToRelationType(PersonTotal personTotal, Relation[] relations, Func<decimal, Guid> cpr2uuidConverter)
         {
             string pnr = null;
-            var relation = relations.Where(r=>r.PNR == this.PNR && r.RelationType == this.RelationType).SingleOrDefault();
+            var relation = relations.Where(r => r.PNR == this.PNR && r.RelationType == this.RelationType).SingleOrDefault();
             switch ((int)this.RelationType)
             {
                 case 3:
@@ -28,9 +28,11 @@ namespace CprBroker.Providers.DPR
                     pnr = relation.RelationPNR.ToPnrDecimalString();
                     break;
             }
-            if (pnr != null && PartInterface.Strings.IsValidPersonNumber(pnr))
+            if (pnr != null)
             {
-                return PersonRelationType.Create(cpr2uuidConverter(decimal.Parse(pnr)), StartDate, EndDate);
+                var pnrDec = Utilities.ToParentPnr(pnr);
+                if (pnrDec.HasValue)
+                    return PersonRelationType.Create(cpr2uuidConverter(pnrDec.Value), StartDate, EndDate);
             }
             return null;
         }
