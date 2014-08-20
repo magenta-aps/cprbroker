@@ -331,7 +331,7 @@ namespace CprBroker.Providers.DPR
             ret.RetligHandleevneVaergeForPersonen = null;
 
             //TODO: People who have custody for this person
-            ret.Foraeldremyndighedsindehaver = CustodyHolders.Select(ch => ch.ToRelationTypeFromParentPNR(cpr2uuidFunc)).ToArray();
+            ret.Foraeldremyndighedsindehaver = CustodyHolders.Select(ch => ch.ToRelationTypeFromParentPNR(PersonTotal, cpr2uuidFunc)).ToArray();
 
             return ret;
         }

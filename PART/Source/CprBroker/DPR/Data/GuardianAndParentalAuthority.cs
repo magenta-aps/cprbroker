@@ -46,14 +46,36 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using CprBroker.Schemas.Part;
+using PartInterface;
+using CprBroker.Utilities;
 
 namespace CprBroker.Providers.DPR
 {
     public partial class GuardianAndParentalAuthority
     {
-        public PersonRelationType ToRelationTypeFromParentPNR(Func<decimal, Guid> cpr2uuidConverter)
+        public PersonRelationType ToRelationTypeFromParentPNR(PersonTotal personTotal, Func<decimal, Guid> cpr2uuidConverter)
         {
-            return PersonRelationType.Create(cpr2uuidConverter(ParentPNR), StartDate, EndDate);
+            string pnr = null;
+            switch ((int)this.RelationType)
+            {
+                case 3:
+                    pnr = personTotal.MotherPersonalOrBirthDate;
+                    break;
+                case 4:
+                    pnr = personTotal.FatherPersonalOrBirthdate;
+                    break;
+                case 5:
+                    pnr = ParentPNR.ToPnrDecimalString();
+                    break;
+                case 6:
+                    pnr = ParentPNR.ToPnrDecimalString();
+                    break;
+            }
+            if (pnr != null && PartInterface.Strings.IsValidPersonNumber(pnr))
+            {
+                return PersonRelationType.Create(cpr2uuidConverter(decimal.Parse(pnr)), StartDate, EndDate);
+            }
+            return null;
         }
 
         public PersonFlerRelationType ToRelationTypeFromChildPNR(Func<decimal, Guid> cpr2uuidConverter)
