@@ -51,7 +51,7 @@ namespace CprBroker.EventBroker.Data
     /// </summary>
     partial class EventBrokerDataContext
     {
-        public EventBrokerDataContext():this(CprBroker.Config.ConfigManager.Current.Settings.EventBrokerConnectionString)
+        public EventBrokerDataContext():this(CprBroker.Utilities.Config.ConfigManager.Current.Settings.EventBrokerConnectionString)
         {
  
         }

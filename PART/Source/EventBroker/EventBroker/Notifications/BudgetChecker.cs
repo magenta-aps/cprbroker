@@ -59,7 +59,7 @@ namespace CprBroker.EventBroker.Notifications
     {
         protected override TimeSpan CalculateActionTimerInterval(TimeSpan currentInterval)
         {
-            return TimeSpan.FromMilliseconds(CprBroker.Config.ConfigManager.Current.Settings.BudgetCheckIntervalMilliseconds);
+            return TimeSpan.FromMilliseconds(CprBroker.Utilities.Config.ConfigManager.Current.Settings.BudgetCheckIntervalMilliseconds);
         }
 
         protected override void PerformTimerAction()

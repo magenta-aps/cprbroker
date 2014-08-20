@@ -54,6 +54,7 @@ using CprBroker.Utilities;
 using CprBroker.Schemas.Part;
 using CprBroker.Engine.Local;
 using CprBroker.Engine.Tasks;
+using CprBroker.Utilities.Config;
 
 namespace CprBroker.EventBroker.Notifications
 {
@@ -80,7 +81,7 @@ namespace CprBroker.EventBroker.Notifications
 
         protected override void PerformTimerAction()
         {
-            var batchSize = CprBroker.Config.ConfigManager.Current.Settings.DataChangeDequeueBatchSize;
+            var batchSize = ConfigManager.Current.Settings.DataChangeDequeueBatchSize;
 
             using (var dataContext = new Data.EventBrokerDataContext())
             {
