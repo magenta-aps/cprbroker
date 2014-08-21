@@ -4,224 +4,123 @@ using System.Linq;
 using System.Text;
 using System.Reflection;
 using NUnit.Framework;
+using CprBroker.Providers.DPR;
 
 namespace CprBroker.Tests.DBR.Comparison
 {
 
-    public abstract class GeoLookupCityComparisonTest<T> : ComparisonTest<T, CprBroker.Providers.DPR.LookupDataContext>
+    public class GeoLookupStreetComparisonTest : GeoLookupComparisonTest<Street>
     {
         public override string[] LoadKeys()
         {
             using (var dataContext = new CprBroker.Providers.DPR.LookupDataContext(RealDprDatabaseConnectionString))
             {
-                return dataContext.Cities.Select(ei => ei.BYNVN).Distinct().ToArray();
+                return dataContext.Streets.Select(ei => ei.VEJKOD.ToString()).ToArray();
             }
         }
 
-        public override IQueryable<T> Get(CprBroker.Providers.DPR.LookupDataContext dataContext, string key)
+        public override IQueryable<Street> Get(LookupDataContext dataContext, decimal key)
         {
-            return Get(dataContext, decimal.Parse(key));
+            return dataContext.Streets.Where(s => s.VEJKOD == key).OrderBy(s => s.KOMKOD).ThenBy(s => s.VEJADNVN);
         }
-
-        public abstract IQueryable<T> Get(CprBroker.Providers.DPR.LookupDataContext dataContext, decimal pnr);
-
     }
 
-    public abstract class GeoLookupAreaRestorationDistrictComparisonTest<T> : ComparisonTest<T, CprBroker.Providers.DPR.LookupDataContext>
+    [TestFixture]
+    public class CityComparisonTests : GeoLookupComparisonTest<City>
     {
-        public override string[] LoadKeys()
+        public override IQueryable<City> Get(LookupDataContext dataContext, decimal cn)
         {
-            using (var dataContext = new CprBroker.Providers.DPR.LookupDataContext(RealDprDatabaseConnectionString))
-            {
-                return dataContext.AreaRestorationDistricts.Select(ei => ei.BYFORNYKOD).Distinct().ToArray();
-            }
+            return dataContext.Cities.Where(o => o.BYNVN == cn.ToString());
         }
-
-        public override IQueryable<T> Get(CprBroker.Providers.DPR.LookupDataContext dataContext, string key)
-        {
-            return Get(dataContext, decimal.Parse(key));
-        }
-
-        public abstract IQueryable<T> Get(CprBroker.Providers.DPR.LookupDataContext dataContext, decimal pnr);
     }
 
-    public abstract class GeoLookupPostDistrictComparisonTest<T> : ComparisonTest<T, CprBroker.Providers.DPR.LookupDataContext>
+    [TestFixture]
+    public class AreaRestorationDistrictComparisonTests : GeoLookupComparisonTest<AreaRestorationDistrict>
     {
-        public override string[] LoadKeys()
+        public override IQueryable<AreaRestorationDistrict> Get(LookupDataContext dataContext, decimal ardc)
         {
-            using (var dataContext = new CprBroker.Providers.DPR.LookupDataContext(RealDprDatabaseConnectionString))
-            {
-                return dataContext.PostDistricts.Select(ei => ei.POSTNR.ToString()).Distinct().ToArray();
-            }
+            return dataContext.AreaRestorationDistricts.Where(o => o.BYFORNYKOD == ardc.ToString());
         }
-
-        public override IQueryable<T> Get(CprBroker.Providers.DPR.LookupDataContext dataContext, string key)
-        {
-            return Get(dataContext, decimal.Parse(key));
-        }
-
-        public abstract IQueryable<T> Get(CprBroker.Providers.DPR.LookupDataContext dataContext, decimal pnr);
     }
 
-    public abstract class GeoLookupDiverseDistrictComparisonTest<T> : ComparisonTest<T, CprBroker.Providers.DPR.LookupDataContext>
+    [TestFixture]
+    public class DiverseDistrictComparisonTests : GeoLookupDiverseDistrictComparisonTest<DiverseDistrict>
     {
-        public override string[] LoadKeys()
+        public override IQueryable<DiverseDistrict> Get(LookupDataContext dataContext, decimal ddc)
         {
-            using (var dataContext = new CprBroker.Providers.DPR.LookupDataContext(RealDprDatabaseConnectionString))
-            {
-                return dataContext.DiverseDistricts.Select(ei => ei.DIVDISTKOD).Distinct().ToArray();
-            }
+            return dataContext.DiverseDistricts.Where(o => o.DIVDISTKOD == ddc.ToString());
         }
-
-        public override IQueryable<T> Get(CprBroker.Providers.DPR.LookupDataContext dataContext, string key)
-        {
-            return Get(dataContext, decimal.Parse(key));
-        }
-
-        public abstract IQueryable<T> Get(CprBroker.Providers.DPR.LookupDataContext dataContext, decimal pnr);
     }
 
-    public abstract class GeoLookupEvacuationDistrictComparisonTest<T> : ComparisonTest<T, CprBroker.Providers.DPR.LookupDataContext>
+    [TestFixture]
+    public class EvacuationDistrictComparisonTests : GeoLookupEvacuationDistrictComparisonTest<EvacuationDistrict>
     {
-        public override string[] LoadKeys()
+        public override IQueryable<EvacuationDistrict> Get(LookupDataContext dataContext, decimal edc)
         {
-            using (var dataContext = new CprBroker.Providers.DPR.LookupDataContext(RealDprDatabaseConnectionString))
-            {
-                return dataContext.EvacuationDistricts.Select(ei => ei.EVAKUERKOD.ToString()).Distinct().ToArray();
-            }
+            return dataContext.EvacuationDistricts.Where(o => o.EVAKUERKOD == edc);
         }
-
-        public override IQueryable<T> Get(CprBroker.Providers.DPR.LookupDataContext dataContext, string key)
-        {
-            return Get(dataContext, decimal.Parse(key));
-        }
-
-        public abstract IQueryable<T> Get(CprBroker.Providers.DPR.LookupDataContext dataContext, decimal pnr);
     }
 
-    public abstract class GeoLookupChurchDistrictComparisonTest<T> : ComparisonTest<T, CprBroker.Providers.DPR.LookupDataContext>
+    [TestFixture]
+    public class ChurchDistrictComparisonTests : GeoLookupChurchDistrictComparisonTest<ChurchDistrict>
     {
-        public override string[] LoadKeys()
+        public override IQueryable<ChurchDistrict> Get(LookupDataContext dataContext, decimal edc)
         {
-            using (var dataContext = new CprBroker.Providers.DPR.LookupDataContext(RealDprDatabaseConnectionString))
-            {
-                return dataContext.ChurchDistricts.Select(ei => ei.KIRKEKOD.ToString()).Distinct().ToArray();
-            }
+            return dataContext.ChurchDistricts.Where(o => o.KIRKEKOD == edc);
         }
-
-        public override IQueryable<T> Get(CprBroker.Providers.DPR.LookupDataContext dataContext, string key)
-        {
-            return Get(dataContext, decimal.Parse(key));
-        }
-
-        public abstract IQueryable<T> Get(CprBroker.Providers.DPR.LookupDataContext dataContext, decimal pnr);
     }
 
-    public abstract class GeoLookupSchoolDistrictComparisonTest<T> : ComparisonTest<T, CprBroker.Providers.DPR.LookupDataContext>
+    [TestFixture]
+    public class SchoolDistrictComparisonTests : GeoLookupSchoolDistrictComparisonTest<SchoolDistrict>
     {
-        public override string[] LoadKeys()
+        public override IQueryable<SchoolDistrict> Get(LookupDataContext dataContext, decimal edc)
         {
-            using (var dataContext = new CprBroker.Providers.DPR.LookupDataContext(RealDprDatabaseConnectionString))
-            {
-                return dataContext.SchoolDistricts.Select(ei => ei.SKOLEKOD.ToString()).Distinct().ToArray();
-            }
+            return dataContext.SchoolDistricts.Where(o => o.SKOLEKOD == edc);
         }
-
-        public override IQueryable<T> Get(CprBroker.Providers.DPR.LookupDataContext dataContext, string key)
-        {
-            return Get(dataContext, decimal.Parse(key));
-        }
-
-        public abstract IQueryable<T> Get(CprBroker.Providers.DPR.LookupDataContext dataContext, decimal pnr);
     }
 
-    public abstract class GeoLookupPopulationDistrictComparisonTest<T> : ComparisonTest<T, CprBroker.Providers.DPR.LookupDataContext>
+    [TestFixture]
+    public class PopulationDistrictComparisonTests : GeoLookupPopulationDistrictComparisonTest<PopulationDistrict>
     {
-        public override string[] LoadKeys()
+        public override IQueryable<PopulationDistrict> Get(LookupDataContext dataContext, decimal edc)
         {
-            using (var dataContext = new CprBroker.Providers.DPR.LookupDataContext(RealDprDatabaseConnectionString))
-            {
-                return dataContext.PopulationDistricts.Select(ei => ei.BEFOLKKOD).Distinct().ToArray();
-            }
+            return dataContext.PopulationDistricts.Where(o => o.BEFOLKKOD == edc.ToString());
         }
-
-        public override IQueryable<T> Get(CprBroker.Providers.DPR.LookupDataContext dataContext, string key)
-        {
-            return Get(dataContext, decimal.Parse(key));
-        }
-
-        public abstract IQueryable<T> Get(CprBroker.Providers.DPR.LookupDataContext dataContext, decimal pnr);
     }
 
-    public abstract class GeoLookupSocialDistrictComparisonTest<T> : ComparisonTest<T, CprBroker.Providers.DPR.LookupDataContext>
+    [TestFixture]
+    public class SocialDistrictComparisonTests : GeoLookupSocialDistrictComparisonTest<SocialDistrict>
     {
-        public override string[] LoadKeys()
+        public override IQueryable<SocialDistrict> Get(LookupDataContext dataContext, decimal edc)
         {
-            using (var dataContext = new CprBroker.Providers.DPR.LookupDataContext(RealDprDatabaseConnectionString))
-            {
-                return dataContext.SocialDistricts.Select(ei => ei.SOCIALKOD.ToString()).Distinct().ToArray();
-            }
+            return dataContext.SocialDistricts.Where(o => o.SOCIALKOD == edc);
         }
-
-        public override IQueryable<T> Get(CprBroker.Providers.DPR.LookupDataContext dataContext, string key)
-        {
-            return Get(dataContext, decimal.Parse(key));
-        }
-
-        public abstract IQueryable<T> Get(CprBroker.Providers.DPR.LookupDataContext dataContext, decimal pnr);
     }
 
-    public abstract class GeoLookupChurchAdministrationDistrictComparisonTest<T> : ComparisonTest<T, CprBroker.Providers.DPR.LookupDataContext>
+    [TestFixture]
+    public class ChurchAdministrationDistrictComparisonTests : GeoLookupChurchAdministrationDistrictComparisonTest<ChurchAdministrationDistrict>
     {
-        public override string[] LoadKeys()
+        public override IQueryable<ChurchAdministrationDistrict> Get(LookupDataContext dataContext, decimal edc)
         {
-            using (var dataContext = new CprBroker.Providers.DPR.LookupDataContext(RealDprDatabaseConnectionString))
-            {
-                return dataContext.ChurchAdministrationDistricts.Select(ei => ei.MYNKOD.ToString()).Distinct().ToArray();
-            }
+            return dataContext.ChurchAdministrationDistricts.Where(o => o.MYNKOD == edc);
         }
-
-        public override IQueryable<T> Get(CprBroker.Providers.DPR.LookupDataContext dataContext, string key)
-        {
-            return Get(dataContext, decimal.Parse(key));
-        }
-
-        public abstract IQueryable<T> Get(CprBroker.Providers.DPR.LookupDataContext dataContext, decimal pnr);
     }
 
-    public abstract class GeoLookupElectionDistrictComparisonTest<T> : ComparisonTest<T, CprBroker.Providers.DPR.LookupDataContext>
+    [TestFixture]
+    public class ElectionDistrictComparisonTests : GeoLookupElectionDistrictComparisonTest<ElectionDistrict>
     {
-        public override string[] LoadKeys()
+        public override IQueryable<ElectionDistrict> Get(LookupDataContext dataContext, decimal edc)
         {
-            using (var dataContext = new CprBroker.Providers.DPR.LookupDataContext(RealDprDatabaseConnectionString))
-            {
-                return dataContext.ElectionDistricts.Select(ei => ei.VALGKOD.ToString()).Distinct().ToArray();
-            }
+            return dataContext.ElectionDistricts.Where(o => o.VALGKOD == edc);
         }
-
-        public override IQueryable<T> Get(CprBroker.Providers.DPR.LookupDataContext dataContext, string key)
-        {
-            return Get(dataContext, decimal.Parse(key));
-        }
-
-        public abstract IQueryable<T> Get(CprBroker.Providers.DPR.LookupDataContext dataContext, decimal pnr);
     }
 
-    public abstract class GeoLookupHeatingDistrictComparisonTest<T> : ComparisonTest<T, CprBroker.Providers.DPR.LookupDataContext>
+    [TestFixture]
+    public class HeatingDistrictComparisonTests : GeoLookupHeatingDistrictComparisonTest<HeatingDistrict>
     {
-        public override string[] LoadKeys()
+        public override IQueryable<HeatingDistrict> Get(LookupDataContext dataContext, decimal edc)
         {
-            using (var dataContext = new CprBroker.Providers.DPR.LookupDataContext(RealDprDatabaseConnectionString))
-            {
-                return dataContext.HeatingDistricts.Select(ei => ei.VARMEKOD.ToString()).Distinct().ToArray();
-            }
+            return dataContext.HeatingDistricts.Where(o => o.VARMEKOD == edc);
         }
-
-        public override IQueryable<T> Get(CprBroker.Providers.DPR.LookupDataContext dataContext, string key)
-        {
-            return Get(dataContext, decimal.Parse(key));
-        }
-
-        public abstract IQueryable<T> Get(CprBroker.Providers.DPR.LookupDataContext dataContext, decimal pnr);
     }
 }
