@@ -97,8 +97,9 @@
       <Association Name="PersonTotal_Separation" Member="Separations" ThisKey="PNR" OtherKey="PNR" Type="Separation" />
       <Association Name="PersonTotal_Departure" Member="Departures" ThisKey="PNR" OtherKey="PNR" Type="Departure" />
       <Association Name="PersonTotal_ContactAddress" Member="ContactAddress" ThisKey="PNR" OtherKey="PNR" Type="ContactAddress" Cardinality="One" />
-      <Association Name="PersonTotal_GuardianAndParentalAuthority" Member="ParentalAuthorityHolders_Relations" Storage="_ParentalAuthorityHolders" ThisKey="PNR" OtherKey="PNR" Type="Relation" />
       <Association Name="PersonTotal_ParentalAuthority" Member="ParentalAuthorities" ThisKey="PNR" OtherKey="PNR" Type="ParentalAuthority" />
+      <Association Name="PersonTotal_Relation" Member="ParentalAuthorityHolders_Relations" Storage="_ParentalAuthorityHolders_Relations" ThisKey="PNR" OtherKey="PNR" Type="Relation" />
+      <Association Name="PersonTotal_Relation2" Member="ChildrenInCustody_Relations" Storage="_ChildrenInCustody_Relations" ThisKey="PNR" OtherKey="RelationPNR" Type="Relation" />
     </Type>
   </Table>
   <Table Name="dbo.DTCIV" Member="CivilStatus">
@@ -227,7 +228,8 @@
       <Column Name="STARTDATE" Member="StartDate" Type="System.DateTime" DbType="SmallDateTime NOT NULL" CanBeNull="false" />
       <Column Name="SLETDATE" Member="EndDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
       <Column Name="MYNKOD" Member="AuthorityCode" Type="System.Decimal" DbType="Decimal(5,0) NOT NULL" CanBeNull="false" />
-      <Association Name="PersonTotal_GuardianAndParentalAuthority" Member="PersonTotal" ThisKey="PNR" OtherKey="PNR" Type="PersonTotal" IsForeignKey="true" />
+      <Association Name="PersonTotal_Relation" Member="PersonTotal" ThisKey="PNR" OtherKey="PNR" Type="PersonTotal" IsForeignKey="true" />
+      <Association Name="PersonTotal_Relation2" Member="PersonTotal2" ThisKey="RelationPNR" OtherKey="PNR" Type="PersonTotal" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.DTFORALDREMYND" Member="ParentalAuthorities">

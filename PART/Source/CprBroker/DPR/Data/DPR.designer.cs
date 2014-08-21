@@ -994,7 +994,9 @@ namespace CprBroker.Providers.DPR
 		
 		private EntityRef<ContactAddress> _ContactAddress;
 		
-		private EntitySet<Relation> _ParentalAuthorityHolders;
+		private EntitySet<Relation> _ParentalAuthorityHolders_Relations;
+		
+		private EntitySet<Relation> _ChildrenInCustody_Relations;
 		
 		private EntitySet<ParentalAuthority> _ParentalAuthorities;
 		
@@ -1126,7 +1128,8 @@ namespace CprBroker.Providers.DPR
 			this._Separations = new EntitySet<Separation>(new Action<Separation>(this.attach_Separations), new Action<Separation>(this.detach_Separations));
 			this._Departures = new EntitySet<Departure>(new Action<Departure>(this.attach_Departures), new Action<Departure>(this.detach_Departures));
 			this._ContactAddress = default(EntityRef<ContactAddress>);
-			this._ParentalAuthorityHolders = new EntitySet<Relation>(new Action<Relation>(this.attach_ParentalAuthorityHolders), new Action<Relation>(this.detach_ParentalAuthorityHolders));
+			this._ParentalAuthorityHolders_Relations = new EntitySet<Relation>(new Action<Relation>(this.attach_ParentalAuthorityHolders_Relations), new Action<Relation>(this.detach_ParentalAuthorityHolders_Relations));
+			this._ChildrenInCustody_Relations = new EntitySet<Relation>(new Action<Relation>(this.attach_ChildrenInCustody_Relations), new Action<Relation>(this.detach_ChildrenInCustody_Relations));
 			this._ParentalAuthorities = new EntitySet<ParentalAuthority>(new Action<ParentalAuthority>(this.attach_ParentalAuthorities), new Action<ParentalAuthority>(this.detach_ParentalAuthorities));
 			OnCreated();
 		}
@@ -2371,16 +2374,29 @@ namespace CprBroker.Providers.DPR
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PersonTotal_GuardianAndParentalAuthority", Storage="_ParentalAuthorityHolders", ThisKey="PNR", OtherKey="PNR")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PersonTotal_Relation", Storage="_ParentalAuthorityHolders_Relations", ThisKey="PNR", OtherKey="PNR")]
 		public EntitySet<Relation> ParentalAuthorityHolders_Relations
 		{
 			get
 			{
-				return this._ParentalAuthorityHolders;
+				return this._ParentalAuthorityHolders_Relations;
 			}
 			set
 			{
-				this._ParentalAuthorityHolders.Assign(value);
+				this._ParentalAuthorityHolders_Relations.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PersonTotal_Relation1", Storage="_ChildrenInCustody_Relations", ThisKey="PNR", OtherKey="RelationPNR")]
+		public EntitySet<Relation> ChildrenInCustody_Relations
+		{
+			get
+			{
+				return this._ChildrenInCustody_Relations;
+			}
+			set
+			{
+				this._ChildrenInCustody_Relations.Assign(value);
 			}
 		}
 		
@@ -2501,16 +2517,28 @@ namespace CprBroker.Providers.DPR
 			entity.PersonTotal = null;
 		}
 		
-		private void attach_ParentalAuthorityHolders(Relation entity)
+		private void attach_ParentalAuthorityHolders_Relations(Relation entity)
 		{
 			this.SendPropertyChanging();
 			entity.PersonTotal = this;
 		}
 		
-		private void detach_ParentalAuthorityHolders(Relation entity)
+		private void detach_ParentalAuthorityHolders_Relations(Relation entity)
 		{
 			this.SendPropertyChanging();
 			entity.PersonTotal = null;
+		}
+		
+		private void attach_ChildrenInCustody_Relations(Relation entity)
+		{
+			this.SendPropertyChanging();
+			entity.PersonTotal2 = this;
+		}
+		
+		private void detach_ChildrenInCustody_Relations(Relation entity)
+		{
+			this.SendPropertyChanging();
+			entity.PersonTotal2 = null;
 		}
 		
 		private void attach_ParentalAuthorities(ParentalAuthority entity)
@@ -5110,6 +5138,8 @@ namespace CprBroker.Providers.DPR
 		
 		private EntityRef<PersonTotal> _PersonTotal;
 		
+		private EntityRef<PersonTotal> _PersonTotal2;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -5133,6 +5163,7 @@ namespace CprBroker.Providers.DPR
 		public Relation()
 		{
 			this._PersonTotal = default(EntityRef<PersonTotal>);
+			this._PersonTotal2 = default(EntityRef<PersonTotal>);
 			OnCreated();
 		}
 		
@@ -5280,7 +5311,7 @@ namespace CprBroker.Providers.DPR
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PersonTotal_GuardianAndParentalAuthority", Storage="_PersonTotal", ThisKey="PNR", OtherKey="PNR", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PersonTotal_Relation", Storage="_PersonTotal", ThisKey="PNR", OtherKey="PNR", IsForeignKey=true)]
 		public PersonTotal PersonTotal
 		{
 			get
@@ -5310,6 +5341,40 @@ namespace CprBroker.Providers.DPR
 						this._ChildPNR = default(decimal);
 					}
 					this.SendPropertyChanged("PersonTotal");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PersonTotal_Relation1", Storage="_PersonTotal2", ThisKey="RelationPNR", OtherKey="PNR", IsForeignKey=true)]
+		public PersonTotal PersonTotal2
+		{
+			get
+			{
+				return this._PersonTotal2.Entity;
+			}
+			set
+			{
+				PersonTotal previousValue = this._PersonTotal2.Entity;
+				if (((previousValue != value) 
+							|| (this._PersonTotal2.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._PersonTotal2.Entity = null;
+						previousValue.ChildrenInCustody_Relations.Remove(this);
+					}
+					this._PersonTotal2.Entity = value;
+					if ((value != null))
+					{
+						value.ChildrenInCustody_Relations.Add(this);
+						this._ParentPNR = value.PNR;
+					}
+					else
+					{
+						this._ParentPNR = default(decimal);
+					}
+					this.SendPropertyChanged("PersonTotal2");
 				}
 			}
 		}
