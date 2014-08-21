@@ -76,9 +76,7 @@ namespace BatchClient
         {
             DateTime startTime = DateTime.Now;
             Log("Started at " + startTime);
-            var dataStream = new FileStream(dataFile, FileMode.Open, FileAccess.Read);
-            CprConverter.ImportPostCodeFileInSteps(dataStream, 20, Encoding.GetEncoding(1252), BrokerConnectionString);
-            dataStream.Close();
+            CprConverter.ImportLookups(dataFile, 1000, Encoding.GetEncoding(1252), OtherConnectionString, CprBroker.Providers.CPRDirect.Constants.DataObjectMap_P11980);
             DateTime endTime = DateTime.Now;
             TimeSpan diff = endTime.Subtract(startTime);
             var diffText = "Ended at " + DateTime.Now + "\nTotal time spent: " + diff.Hours + ":" + diff.Minutes + ":" + diff.Seconds;

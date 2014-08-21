@@ -148,7 +148,6 @@ namespace CprBroker.Providers.CPRDirect
             _DataObjectMap_P05780["013"] = typeof(ChurchAdministrationDistrictType);
             _DataObjectMap_P05780["014"] = typeof(ElectionDistrictType);
             _DataObjectMap_P05780["015"] = typeof(HeatingDistrictType);
-            _DataObjectMap_P05780["010"] = typeof(SchoolDistrictType);
             _DataObjectMap_P05780["999"] = typeof(GeoEndRecordType);
 
             _DataObjectMap_P11980 = new Dictionary<string, Type>();
