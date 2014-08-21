@@ -14,7 +14,7 @@ namespace BatchClient
         {
             using (var dataContext = new DPRDataContext(OtherConnectionString))
             {
-                return dataContext.PersonTotals.Select(t => t.PNR).ToArray().Select(pnr=>pnr.ToPnrDecimalString()).ToArray();
+                return dataContext.PersonTotals.Select(t => t.PNR).ToArray().Select(pnr => pnr.ToPnrDecimalString()).ToArray();
             }
         }
 
