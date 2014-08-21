@@ -69,7 +69,7 @@
   <ItemGroup>
     <Compile Include="Comparison\ComparisonTest.cs" />
     <Compile Include="Comparison\ComparisonTest.Concrete.cs" />
-    <Compile Include="Comparison\GeoLookupStreetComparisonTest.cs" />
+    <Compile Include="Comparison\GeoLookupComparisonTest.cs" />
     <Compile Include="Comparison\PersonComparisonTest.cs" />
     <Compile Include="DbrTestBase.cs" />
     <Compile Include="DprDiversionManagerTests.cs" />
