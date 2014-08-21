@@ -69,6 +69,8 @@
   <ItemGroup>
     <Compile Include="Comparison\ComparisonTest.cs" />
     <Compile Include="Comparison\ComparisonTest.Concrete.cs" />
+    <Compile Include="Comparison\GeoLookupStreetComparisonTest.cs" />
+    <Compile Include="Comparison\PersonComparisonTest.cs" />
     <Compile Include="DbrTestBase.cs" />
     <Compile Include="DprDiversionManagerTests.cs" />
     <Compile Include="PerPerson\CprConverterExtensionTests_GoesIntoDatabase.cs" />
@@ -117,6 +119,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="PerPerson\CprConverterExtensionTests.cs" />
+    <Compile Include="Comparison\GeoLookupComparisonTest.Concrete.cs" />
     <None Include="Resources\CreateDbr.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
