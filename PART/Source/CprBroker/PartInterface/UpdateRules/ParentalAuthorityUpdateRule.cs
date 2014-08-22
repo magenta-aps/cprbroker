@@ -51,7 +51,7 @@ using CprBroker.Schemas.Part;
 namespace CprBroker.Engine.UpdateRules
 {
     // TODO: This rule only applies to DPR
-    public class ParentalAuthorityUpdateRule : MatchRule<RelationListeType>
+    public class ParentalAuthorityChildrenUpdateRule : MatchRule<RelationListeType>
     {
         public override RelationListeType GetObject(RegistreringType1 oio)
         {
@@ -60,15 +60,32 @@ namespace CprBroker.Engine.UpdateRules
 
         public override bool AreCandidates(RelationListeType existingObj, RelationListeType newObj)
         {
-            return
-                existingObj.Foraeldremyndighedsboern == null && existingObj.Foraeldremyndighedsindehaver == null
-                && newObj.Foraeldremyndighedsboern != null && newObj.Foraeldremyndighedsindehaver != null;
+            return (existingObj.Foraeldremyndighedsboern == null || existingObj.Foraeldremyndighedsboern.Length == 0)
+                && newObj.Foraeldremyndighedsboern != null;
+        }
+
+        public override void UpdateOioFromXmlType(RelationListeType existingObj, RelationListeType newObj)
+        {
+            existingObj.Foraeldremyndighedsboern = newObj.Foraeldremyndighedsboern;
+        }
+    }
+
+    public class ParentalAuthorityHoldersUpdateRule : MatchRule<RelationListeType>
+    {
+        public override RelationListeType GetObject(RegistreringType1 oio)
+        {
+            return oio.RelationListe;
+        }
+
+        public override bool AreCandidates(RelationListeType existingObj, RelationListeType newObj)
+        {
+            return (existingObj.Foraeldremyndighedsindehaver == null || existingObj.Foraeldremyndighedsindehaver.Length == 0)
+                && newObj.Foraeldremyndighedsindehaver != null;
         }
 
         public override void UpdateOioFromXmlType(RelationListeType existingObj, RelationListeType newObj)
         {
             existingObj.Foraeldremyndighedsindehaver = newObj.Foraeldremyndighedsindehaver;
-            existingObj.Foraeldremyndighedsboern = newObj.Foraeldremyndighedsboern;
         }
 
     }
