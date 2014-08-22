@@ -10,7 +10,7 @@ using CprBroker.DBR;
 
 namespace CprBroker.Tests.DBR.Comparison
 {
-    public abstract class PersonComparisonTest<T> : ComparisonTest<T, DPRDataContext>
+    public abstract class PersonComparisonTest<TObject> : ComparisonTest<TObject, DPRDataContext>
     {
 
         public override string[] LoadKeys()
@@ -21,12 +21,12 @@ namespace CprBroker.Tests.DBR.Comparison
             }
         }
 
-        public override IQueryable<T> Get(DPRDataContext dataContext, string key)
+        public override IQueryable<TObject> Get(DPRDataContext dataContext, string key)
         {
             return Get(dataContext, decimal.Parse(key));
         }
 
-        public abstract IQueryable<T> Get(DPRDataContext dataContext, decimal pnr);
+        public abstract IQueryable<TObject> Get(DPRDataContext dataContext, decimal pnr);
 
         [Test]
         [TestCaseSource("LoadPnrs")]
@@ -42,29 +42,9 @@ namespace CprBroker.Tests.DBR.Comparison
                 using (var realDprDataContext = new DPRDataContext(FakeDprDatabaseConnectionString))
                 {
                     var realObjects = Get(realDprDataContext, pnr).ToArray();
-
                     Assert.AreEqual(realObjects.Length, fakeObjects.Length);
                 }
             }
-        }
-
-        public void CompareObject(T fakeObject, T realObject)
-        {
-            var t = typeof(T);
-            var props = t.GetProperties()
-                .Where(p => p.GetCustomAttributes(typeof(System.Data.Linq.Mapping.ColumnAttribute), true).FirstOrDefault() != null)
-                .ToArray();
-            foreach (var prop in props)
-            {
-                CompareProperty(fakeObject, realObject, prop);
-            }
-        }
-
-        public void CompareProperty(T fakeObject, T realObject, PropertyInfo prop)
-        {
-            var f = prop.GetValue(fakeObject, null);
-            var r = prop.GetValue(realObject, null);
-            Assert.AreEqual(r, f, "{0}.{1}: Expected <{2} but was<{3}>", prop.DeclaringType.Name, prop.Name, r, f);
         }
 
     }

@@ -19,6 +19,25 @@ namespace CprBroker.Tests.DBR.Comparison
 
         public abstract string[] LoadKeys();
         public abstract IQueryable<TObject> Get(TDataContext dataContext, string key);
+
+        public void CompareObject(TObject fakeObject, TObject realObject)
+        {
+            var t = typeof(TObject);
+            var props = t.GetProperties()
+                .Where(p => p.GetCustomAttributes(typeof(System.Data.Linq.Mapping.ColumnAttribute), true).FirstOrDefault() != null)
+                .ToArray();
+            foreach (var prop in props)
+            {
+                CompareProperty(fakeObject, realObject, prop);
+            }
+        }
+
+        public void CompareProperty(TObject fakeObject, TObject realObject, PropertyInfo prop)
+        {
+            var f = prop.GetValue(fakeObject, null);
+            var r = prop.GetValue(realObject, null);
+            Assert.AreEqual(r, f, "{0}.{1}: Expected <{2} but was<{3}>", prop.DeclaringType.Name, prop.Name, r, f);
+        }
     }
 
 }
