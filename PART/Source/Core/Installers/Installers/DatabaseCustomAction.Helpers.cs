@@ -223,6 +223,12 @@ namespace CprBroker.Installers
             }
         }
 
+        public static void InsertLookup<T>(string csv, SqlConnection conn)
+        {
+            var tableName = Utilities.DataLinq.GetTableName<T>();
+            InsertLookup(tableName, csv, conn);
+        }
+
         public static void InsertLookup(string tableName, string csv, SqlConnection conn)
         {
             string[] lines = csv.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
