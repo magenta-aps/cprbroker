@@ -58,7 +58,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClassicRequestType.cs" />
-    <Compile Include="DprDiversionManager.cs" />
+    <Compile Include="DprDiversionManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Extensions\CprConverterExtensions.ContactAddress.cs" />
     <Compile Include="Extensions\CprConverterExtensions.Child.cs" />
     <Compile Include="Extensions\CprConverterExtensions.Administrative.cs" />

@@ -58,8 +58,11 @@ namespace CprBroker.DBR
                     {
                         try
                         {
-                            CprConverter.DeletePersonRecords(item.PNR, dprDataContext);                            
                             var person = Extract.ToIndividualResponseType(item.Extract, item.ExtractItems, CprBroker.Providers.CPRDirect.Constants.DataObjectMap);
+                            
+                            CprConverter.DeletePersonRecords(item.PNR, dprDataContext);
+                            dprDataContext.SubmitChanges();
+                            
                             CprConverter.AppendPerson(person, dprDataContext);
                             dprDataContext.SubmitChanges();
                             ret.Add(item);
