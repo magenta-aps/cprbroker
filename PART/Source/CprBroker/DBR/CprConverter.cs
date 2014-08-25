@@ -14,28 +14,35 @@ namespace CprBroker.DBR
     public partial class CprConverter
     {
 
-        public static void DeletePersonRecords(string cprNumber, DPRDataContext dataContext)
+        public static int DeletePersonRecords(string cprNumber, DPRDataContext dataContext)
         {
             decimal pnr = decimal.Parse(cprNumber);
-
-            dataContext.PersonTotals.DeleteAllOnSubmit(dataContext.PersonTotals.Where(t => t.PNR == pnr));
-            dataContext.Persons.DeleteAllOnSubmit(dataContext.Persons.Where(t => t.PNR == pnr));
-            dataContext.Childs.DeleteAllOnSubmit(dataContext.Childs.Where(t => t.ParentPNR == pnr));
-            dataContext.PersonNames.DeleteAllOnSubmit(dataContext.PersonNames.Where(t => t.PNR == pnr));
-            dataContext.CivilStatus.DeleteAllOnSubmit(dataContext.CivilStatus.Where(t => t.PNR == pnr));
-            dataContext.Separations.DeleteAllOnSubmit(dataContext.Separations.Where(t => t.PNR == pnr));
-            dataContext.Nationalities.DeleteAllOnSubmit(dataContext.Nationalities.Where(t => t.PNR == pnr));
-            dataContext.Departures.DeleteAllOnSubmit(dataContext.Departures.Where(t => t.PNR == pnr));
-            dataContext.ContactAddresses.DeleteAllOnSubmit(dataContext.ContactAddresses.Where(t => t.PNR == pnr));
-            dataContext.PersonAddresses.DeleteAllOnSubmit(dataContext.PersonAddresses.Where(t => t.PNR == pnr));
-            dataContext.Protections.DeleteAllOnSubmit(dataContext.Protections.Where(t => t.PNR == pnr));
-            dataContext.Disappearances.DeleteAllOnSubmit(dataContext.Disappearances.Where(t => t.PNR == pnr));
-            dataContext.Events.DeleteAllOnSubmit(dataContext.Events.Where(t => t.PNR == pnr));
-            dataContext.Notes.DeleteAllOnSubmit(dataContext.Notes.Where(t => t.PNR == pnr));
-            dataContext.MunicipalConditions.DeleteAllOnSubmit(dataContext.MunicipalConditions.Where(t => t.PNR == pnr));
-            dataContext.ParentalAuthorities.DeleteAllOnSubmit(dataContext.ParentalAuthorities.Where(t => t.ChildPNR == pnr));
-            dataContext.GuardianAndParentalAuthorityRelations.DeleteAllOnSubmit(dataContext.GuardianAndParentalAuthorityRelations.Where(t => t.PNR == pnr));
-            dataContext.GuardianAddresses.DeleteAllOnSubmit(dataContext.GuardianAddresses.Where(t => t.PNR == pnr));
+            var types = new Type[]{
+                typeof(PersonTotal),
+                typeof(Person),
+                typeof(Child),
+                typeof(PersonName),
+                typeof(CivilStatus),
+                typeof(Separation),
+                typeof(Nationality),
+                typeof(Departure),
+                typeof(ContactAddress),
+                typeof(PersonAddress),
+                typeof(Protection),
+                typeof(Disappearance),
+                typeof(Event),
+                typeof(Note),
+                typeof(MunicipalCondition),
+                typeof(ParentalAuthority),
+                typeof(GuardianAndParentalAuthorityRelation),
+                typeof(GuardianAddress),
+            };
+            var cmd =
+                string.Join(
+                    Environment.NewLine,
+                    types.Select(t => "DELETE " + CprBroker.Utilities.DataLinq.GetTableName(t) + " WHERE PNR = {0};").ToArray()
+                    );
+            return dataContext.ExecuteCommand(cmd, cprNumber);
         }
 
         public static void AppendPerson(IndividualResponseType person, DPRDataContext dataContext)
