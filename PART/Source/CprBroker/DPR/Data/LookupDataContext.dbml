@@ -154,7 +154,6 @@
     <Type Name="PostNumber">
       <Column Name="POSTNR" Type="System.Decimal" DbType="Decimal(5,0) NOT NULL" CanBeNull="false" />
       <Column Name="POSTTXT" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
-      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
     </Type>
   </Table>
   <Table Name="dbo.DTMYN" Member="Councils">

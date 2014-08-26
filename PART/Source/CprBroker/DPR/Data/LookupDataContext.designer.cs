@@ -30,9 +30,6 @@ namespace CprBroker.Providers.DPR
 		
     #region Extensibility Method Definitions
     partial void OnCreated();
-    partial void InsertPostNumber(PostNumber instance);
-    partial void UpdatePostNumber(PostNumber instance);
-    partial void DeletePostNumber(PostNumber instance);
     #endregion
 		
 		public LookupDataContext(string connection) : 
@@ -2080,32 +2077,15 @@ namespace CprBroker.Providers.DPR
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DTPOSTNR")]
-	public partial class PostNumber : INotifyPropertyChanging, INotifyPropertyChanged
+	public partial class PostNumber
 	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private decimal _POSTNR;
 		
 		private string _POSTTXT;
 		
-		private int _ID;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnPOSTNRChanging(decimal value);
-    partial void OnPOSTNRChanged();
-    partial void OnPOSTTXTChanging(string value);
-    partial void OnPOSTTXTChanged();
-    partial void OnIDChanging(int value);
-    partial void OnIDChanged();
-    #endregion
-		
 		public PostNumber()
 		{
-			OnCreated();
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_POSTNR", DbType="Decimal(5,0) NOT NULL")]
@@ -2119,11 +2099,7 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._POSTNR != value))
 				{
-					this.OnPOSTNRChanging(value);
-					this.SendPropertyChanging();
 					this._POSTNR = value;
-					this.SendPropertyChanged("POSTNR");
-					this.OnPOSTNRChanged();
 				}
 			}
 		}
@@ -2139,52 +2115,8 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._POSTTXT != value))
 				{
-					this.OnPOSTTXTChanging(value);
-					this.SendPropertyChanging();
 					this._POSTTXT = value;
-					this.SendPropertyChanged("POSTTXT");
-					this.OnPOSTTXTChanged();
 				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int ID
-		{
-			get
-			{
-				return this._ID;
-			}
-			set
-			{
-				if ((this._ID != value))
-				{
-					this.OnIDChanging(value);
-					this.SendPropertyChanging();
-					this._ID = value;
-					this.SendPropertyChanged("ID");
-					this.OnIDChanged();
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}
