@@ -15,5 +15,10 @@ namespace CprBroker.Tests.DBR.Comparison
         }
 
         public abstract IQueryable<T> Get(Providers.DPR.LookupDataContext dataContext, decimal key);
+
+        public override Providers.DPR.LookupDataContext CreateDataContext(string connectionString)
+        {
+            return new Providers.DPR.LookupDataContext(connectionString);
+        }
     }
 }
