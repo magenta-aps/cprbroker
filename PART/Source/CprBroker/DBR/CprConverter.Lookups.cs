@@ -72,7 +72,7 @@ namespace CprBroker.DBR
                 {
                     var targetType = method.ReturnType;
                     Converter<object, object> converter = (o) => method.Invoke(o, new object[] { o });
-                    
+
                     // Call batch conversion and insertion
                     ret += ImportLookup(typeFile, targetType, batchSize, encoding, dprConnectionString, converter, objectMap);
                 }
@@ -91,11 +91,11 @@ namespace CprBroker.DBR
                 using (var conn = new SqlConnection(dprConnectionString))
                 {
                     conn.Open();
-                    using(var cmd = new SqlCommand(string.Format("truncate table [{0}];",tableName),conn))
+                    using (var cmd = new SqlCommand(string.Format("truncate table [{0}];", tableName), conn))
                     {
                         cmd.ExecuteNonQuery();
                     }
-                    
+
                     // Start reading the file
                     while (!file.EndOfStream)
                     {
