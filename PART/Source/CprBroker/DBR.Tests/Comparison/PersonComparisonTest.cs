@@ -8,7 +8,7 @@ using CprBroker.Providers.CPRDirect;
 using System.Reflection;
 using CprBroker.DBR;
 
-namespace CprBroker.Tests.DBR.Comparison
+namespace CprBroker.Tests.DBR.Comparison.Person
 {
     public abstract class PersonComparisonTest<TObject> : ComparisonTest<TObject, DPRDataContext>
     {

@@ -5,13 +5,13 @@ using System.Text;
 using CprBroker.Providers.DPR;
 using NUnit.Framework;
 
-namespace CprBroker.Tests.DBR.Comparison
+namespace CprBroker.Tests.DBR.Comparison.Person
 {
     [TestFixture]
     public class PersonTotalComparisonTest : PersonComparisonTest<PersonTotal> { }
 
     [TestFixture]
-    public class PersonComparisonTest : PersonComparisonTest<Person> { }
+    public class PersonComparisonTest : PersonComparisonTest<CprBroker.Providers.DPR.Person> { }
 
     [TestFixture]
     public class ChildComparisonTests : PersonComparisonTest<Child> { }

@@ -68,6 +68,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Comparison\ComparisonTest.cs" />
+    <Compile Include="Comparison\GeoLookupComparisonTest.Concrete.cs" />
+    <Compile Include="Comparison\GeoLookupComparisonTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Comparison\KeysHolder.cs" />
     <Compile Include="Comparison\PersonComparisonTest.Concrete.cs" />
     <Compile Include="Comparison\PersonComparisonTest.cs" />
