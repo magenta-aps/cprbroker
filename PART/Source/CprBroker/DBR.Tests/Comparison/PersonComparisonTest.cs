@@ -12,24 +12,23 @@ namespace CprBroker.Tests.DBR.Comparison
 {
     public abstract class PersonComparisonTest<TObject> : ComparisonTest<TObject, DPRDataContext>
     {
-        private static string[] _Keys = null;
+
         public override string[] LoadKeys()
         {
-            if (_Keys == null)
+            if (KeysHolder._Keys == null)
             {
                 using (var dataContext = new ExtractDataContext(CprBrokerConnectionString))
                 {
-                    _Keys = dataContext.ExecuteQuery<string>("select * FROM DbrPerson ORDER BY PNR").Skip(10).Take(10).ToArray();
+                    KeysHolder._Keys = dataContext.ExecuteQuery<string>("select * FROM DbrPerson ORDER BY PNR").Skip(10).Take(10).ToArray();
                     //return dataContext.ExtractItems.Select(ei => ei.PNR).Distinct().ToArray();
                 }
             }
-            return _Keys;
+            return KeysHolder._Keys;
         }
 
-        Dictionary<string, bool> _ConvertedPersons = new Dictionary<string, bool>();
         public void ConvertPerson(string pnr)
         {
-            if (!_ConvertedPersons.ContainsKey(pnr))
+            if (!KeysHolder._ConvertedPersons.ContainsKey(pnr))
             {
                 using (var fakeDprDataContext = new DPRDataContext(FakeDprDatabaseConnectionString))
                 {
@@ -39,7 +38,7 @@ namespace CprBroker.Tests.DBR.Comparison
                     CprConverter.AppendPerson(person, fakeDprDataContext);
                     fakeDprDataContext.SubmitChanges();
                 }
-                _ConvertedPersons[pnr] = true;
+                KeysHolder._ConvertedPersons[pnr] = true;
             }
         }
 

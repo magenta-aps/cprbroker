@@ -68,6 +68,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Comparison\ComparisonTest.cs" />
+    <Compile Include="Comparison\KeysHolder.cs" />
     <Compile Include="Comparison\PersonComparisonTest.Concrete.cs" />
     <Compile Include="Comparison\PersonComparisonTest.cs" />
     <Compile Include="DbrTestBase.cs" />
