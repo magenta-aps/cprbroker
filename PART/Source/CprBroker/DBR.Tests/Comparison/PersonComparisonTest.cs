@@ -50,9 +50,6 @@ namespace CprBroker.Tests.DBR.Comparison
             return dataContext.ExecuteQuery<TObject>("select * from " + tableName + " WHERE PNR={0}", key).AsQueryable();
         }
 
-        public abstract IQueryable<TObject> Get(DPRDataContext dataContext, decimal pnr);
-
-
         [Test]
         [TestCaseSource("LoadKeys")]
         public void T1_CompareCount(string pnr)
