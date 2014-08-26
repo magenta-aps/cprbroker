@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Configuration;
+using CprBroker.Utilities.Config;
 using CprBroker.Providers.DPR;
 using NUnit.Framework;
 using CprBroker.Providers.CPRDirect;
@@ -13,10 +15,15 @@ namespace CprBroker.Tests.DBR.Comparison
 {
     public abstract class ComparisonTest<TObject, TDataContext>
     {
-        public string CprBrokerConnectionString = "data source=localhost\\sqlexpress;initial catalog=part;integrated security=sspi";
-        public string RealDprDatabaseConnectionString = "";
-        public string FakeDprDatabaseConnectionString = "";
-
+        public static string CprBrokerConnectionString       = "data source=localhost\\sqlexpress; database=cprbroker;  integrated security=sspi";
+        public static string RealDprDatabaseConnectionString = "data source=localhost\\sqlexpress; database=dbr_source; integrated security=sspi";
+        public static string FakeDprDatabaseConnectionString = "data source=localhost\\sqlexpress; database=dbr_target; integrated security=sspi";
+        
+        static ComparisonTest()
+        {
+            BatchClient.Utilities.UpdateConnectionString(CprBrokerConnectionString);
+        }
+        
         public abstract string[] LoadKeys();
         public abstract IQueryable<TObject> Get(TDataContext dataContext, string key);
 
@@ -39,5 +46,4 @@ namespace CprBroker.Tests.DBR.Comparison
             Assert.AreEqual(r, f, "{0}.{1}: Expected <{2} but was<{3}>", prop.DeclaringType.Name, prop.Name, r, f);
         }
     }
-
 }
