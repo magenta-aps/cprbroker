@@ -14,13 +14,18 @@ namespace CprBroker.Tests.DBR.Comparison.Geo
     {
         public override string GetKey(Street obj)
         {
-            return obj.VEJKOD.ToString();
+            string[] keys = {obj.VEJKOD.ToString(), obj.KOMKOD.ToString()};
+            return string.Join(",", keys, 0, 2);
         }
 
-        public override IQueryable<Street> Get(LookupDataContext dataContext, decimal key)
+        public override IQueryable<Street> Get(LookupDataContext dataContext, string keys)
         {
-            return dataContext.Streets.Where(s => s.VEJKOD == key).OrderBy(s => s.KOMKOD).ThenBy(s => s.VEJADNVN);
+            string[] splittedKeys = keys.Split(',');
+            decimal streetCode = decimal.Parse(splittedKeys[0]);
+            decimal munCode = decimal.Parse(splittedKeys[1]);
+            return dataContext.Streets.Where(s => s.VEJKOD == streetCode && s.KOMKOD == munCode).OrderBy(s => s.KOMKOD).ThenBy(s => s.VEJADNVN);
         }
+
     }
 
     [TestFixture]
