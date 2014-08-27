@@ -91,12 +91,24 @@ namespace CprBroker.Utilities
         {
             String decimalValue = "";
             decimalValue += date.Year;
-            decimalValue += date.Month;
-            decimalValue += date.Day;
+            if (date.Month.ToString().Length < 2)
+                decimalValue += "0" + date.Month;
+            else
+                decimalValue += date.Month;
+            if (date.Day.ToString().Length < 2)
+                decimalValue += "0" + date.Day;
+            else
+                decimalValue += date.Day;
             if (length > 8)
             {
-                decimalValue += date.Hour;
-                decimalValue += date.Minute;
+                if (date.Hour.ToString().Length < 2)
+                    decimalValue += "0" + date.Hour;
+                else
+                    decimalValue += date.Hour;
+                if (date.Minute.ToString().Length < 2)
+                    decimalValue += "0" + date.Minute;
+                else
+                    decimalValue += date.Minute;
             }
             if (length > 12)
             {
