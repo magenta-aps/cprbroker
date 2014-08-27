@@ -20,6 +20,8 @@ namespace CprBroker.Tests.DBR.Comparison
         public static string RealDprDatabaseConnectionString = "data source=localhost\\sqlexpress; database=dbr_source; integrated security=sspi";
         public static string FakeDprDatabaseConnectionString = "data source=localhost\\sqlexpress; database=dbr_target; integrated security=sspi";
 
+        public virtual string[] ExcludedProperties { get; }
+
         static ComparisonTest()
         {
             BatchClient.Utilities.UpdateConnectionString(CprBrokerConnectionString);
@@ -33,6 +35,7 @@ namespace CprBroker.Tests.DBR.Comparison
             var t = typeof(TObject);
             return t.GetProperties(BindingFlags.Public | BindingFlags.Instance)
                 .Where(p => p.GetCustomAttributes(typeof(System.Data.Linq.Mapping.ColumnAttribute), true).FirstOrDefault() != null)
+                .Where(p=> !this.ExcludedProperties.Contains(p.Name))
                 .ToArray();
         }
 
