@@ -12,7 +12,7 @@ namespace CprBroker.DBR
 {
     public partial class CprConverter
     {
-        public static Dictionary<string, string> SplitFile(string path)
+        public static Dictionary<string, string> SplitFile(string path, Dictionary<string, Type> objectMap)
         {
             var ret = new Dictionary<string, string>();
             var streams = new Dictionary<string, StreamWriter>();
@@ -22,7 +22,7 @@ namespace CprBroker.DBR
                 while (!source.EndOfStream)
                 {
                     int batchSize = 100;
-                    var wrappers = CprBroker.Providers.CPRDirect.CompositeWrapper.Parse(source, CprBroker.Providers.CPRDirect.Constants.DataObjectMap_P05780, batchSize);
+                    var wrappers = CprBroker.Providers.CPRDirect.CompositeWrapper.Parse(source, objectMap, batchSize);
 
                     foreach (var w in wrappers)
                     {
@@ -54,7 +54,7 @@ namespace CprBroker.DBR
         {
             var ret = 0;
 
-            var fileMap = SplitFile(fileName);
+            var fileMap = SplitFile(fileName, objectMap);
 
             var extensionType = typeof(CprConverterExtensions);
             foreach (var kvp in fileMap)
