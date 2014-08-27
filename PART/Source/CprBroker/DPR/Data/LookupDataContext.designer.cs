@@ -30,6 +30,9 @@ namespace CprBroker.Providers.DPR
 		
     #region Extensibility Method Definitions
     partial void OnCreated();
+    partial void InsertPostNumber(PostNumber instance);
+    partial void UpdatePostNumber(PostNumber instance);
+    partial void DeletePostNumber(PostNumber instance);
     #endregion
 		
 		public LookupDataContext(string connection) : 
@@ -2077,18 +2080,31 @@ namespace CprBroker.Providers.DPR
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DTPOSTNR")]
-	public partial class PostNumber
+	public partial class PostNumber : INotifyPropertyChanging, INotifyPropertyChanged
 	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private decimal _POSTNR;
 		
 		private string _POSTTXT;
 		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnPOSTNRChanging(decimal value);
+    partial void OnPOSTNRChanged();
+    partial void OnPOSTTXTChanging(string value);
+    partial void OnPOSTTXTChanged();
+    #endregion
+		
 		public PostNumber()
 		{
+			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_POSTNR", DbType="Decimal(5,0) NOT NULL")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_POSTNR", DbType="Decimal(5,0) NOT NULL", IsPrimaryKey=true)]
 		public decimal POSTNR
 		{
 			get
@@ -2099,7 +2115,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._POSTNR != value))
 				{
+					this.OnPOSTNRChanging(value);
+					this.SendPropertyChanging();
 					this._POSTNR = value;
+					this.SendPropertyChanged("POSTNR");
+					this.OnPOSTNRChanged();
 				}
 			}
 		}
@@ -2115,8 +2135,32 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._POSTTXT != value))
 				{
+					this.OnPOSTTXTChanging(value);
+					this.SendPropertyChanging();
 					this._POSTTXT = value;
+					this.SendPropertyChanged("POSTTXT");
+					this.OnPOSTTXTChanged();
 				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}
