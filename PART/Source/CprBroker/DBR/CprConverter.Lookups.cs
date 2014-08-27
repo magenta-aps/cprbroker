@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Data.SqlClient;
+using System.Data.Linq.Mapping;
 using CprBroker.Providers.DPR;
 using CprBroker.Providers.CPRDirect;
 using CprBroker.DBR.Extensions;
@@ -86,6 +87,13 @@ namespace CprBroker.DBR
             int totalReadLinesCount = 0;
             var tableName = Utilities.DataLinq.GetTableName(targetType);
 
+            var loadedKeys = new Dictionary<string, bool>();
+            var keyProps = targetType.GetProperties()
+                .Select(p => new { Property = p, Attribute = p.GetCustomAttributes(typeof(ColumnAttribute), true).FirstOrDefault() as ColumnAttribute })
+                .Where(p => p.Attribute != null && p.Attribute.IsPrimaryKey)
+                .Select(p => p.Property)
+                .ToArray();
+
             using (var file = new StreamReader(fileName, encoding))
             {
                 using (var conn = new SqlConnection(dprConnectionString))
@@ -103,6 +111,23 @@ namespace CprBroker.DBR
                         var batchReadLinesCount = wrappers.Count;
 
                         var dprObjects = wrappers.Select(w => func(w)).ToArray();
+                        if (keyProps.Length > 0)
+                        {
+                            var filtered = dprObjects
+                                .GroupBy(o =>
+                                {
+                                    var values = keyProps.Select(p => p.GetValue(o, null).ToString()).ToArray();
+                                    return string.Join("_", values);
+                                });
+                            filtered = filtered
+                                .Where(g => !loadedKeys.ContainsKey(g.Key))
+                                .ToArray();
+                            dprObjects = filtered.Select(g => g.First()).ToArray();
+                            foreach (var g in filtered)
+                            {
+                                loadedKeys[g.Key] = true;
+                            }   
+                        }
 
                         conn.BulkInsertAll(targetType, dprObjects);
                         totalReadLinesCount += batchReadLinesCount;
