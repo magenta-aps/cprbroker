@@ -47,10 +47,23 @@ namespace CprBroker.DBR.Extensions
                         pt.MunicipalityCode = resp.CurrentAddressInformation.MunicipalityCode;
                         pt.StreetCode = resp.CurrentAddressInformation.StreetCode;
                         pt.HouseNumber = resp.CurrentAddressInformation.HouseNumber;
-                        pt.Floor = resp.CurrentAddressInformation.Floor;
-                        pt.Door = resp.CurrentAddressInformation.Door;
-                        pt.ConstructionNumber = resp.CurrentAddressInformation.BuildingNumber;
-
+                        if (!string.IsNullOrEmpty(resp.CurrentAddressInformation.Floor))
+                            pt.Floor = resp.CurrentAddressInformation.Floor;
+                        else
+                            pt.Floor = null;
+                        if (!string.IsNullOrEmpty(resp.CurrentAddressInformation.Door))
+                        {
+                            if (resp.CurrentAddressInformation.Door == "th" || resp.CurrentAddressInformation.Door == "tv")
+                                pt.Door = " " + resp.CurrentAddressInformation.Door;
+                            else
+                                pt.Door = resp.CurrentAddressInformation.Door;
+                        }
+                        else
+                            pt.Door = null;
+                        if (!string.IsNullOrEmpty(resp.CurrentAddressInformation.BuildingNumber))
+                            pt.ConstructionNumber = resp.CurrentAddressInformation.BuildingNumber;
+                        else
+                            pt.ConstructionNumber = null;
                         if (resp.CurrentAddressInformation.RelocationDate.HasValue)
                             pt.AddressDate = CprBroker.Utilities.Dates.DateToDecimal(resp.CurrentAddressInformation.RelocationDate.Value, 12);
                         if (resp.CurrentAddressInformation.MunicipalityArrivalDate.HasValue)
@@ -64,14 +77,20 @@ namespace CprBroker.DBR.Extensions
                             Console.WriteLine("resp.CurrentAddressInformation.LeavingMunicipalityDepartureDate was NULL");
                             pt.MunicipalityLeavingDate = null;
                         }
-                        pt.CareOfName = resp.CurrentAddressInformation.CareOfName;
-                        pt.CityName = resp.ClearWrittenAddress.CityName;
+                        if (!string.IsNullOrEmpty(resp.CurrentAddressInformation.CareOfName))
+                            pt.CareOfName = resp.CurrentAddressInformation.CareOfName;
+                        else
+                            pt.CareOfName = null;
+                        if (!string.IsNullOrEmpty(resp.ClearWrittenAddress.CityName))
+                            pt.CityName = resp.ClearWrittenAddress.CityName;
+                        else
+                            pt.CityName = null;
                     }
                 }
                 /*
                  * TODO: FIX THE METHOD IN AUTHORITY!!!
                  */
-                pt.CurrentMunicipalityName = null;//CprBroker.Providers.CPRDirect.Authority.GetNameByCode(pt.MunicipalityCode.ToString());
+                //pt.CurrentMunicipalityName = CprBroker.Providers.CPRDirect.Authority.GetNameByCode(pt.MunicipalityCode.ToString());
             }
 
             // TODO: Get from protection records
@@ -83,8 +102,7 @@ namespace CprBroker.DBR.Extensions
             pt.ChristianMark = resp.ChurchInformation.ChurchRelationship;
             pt.BirthPlaceOfRegistration = resp.BirthRegistrationInformation.AdditionalBirthRegistrationText; //TODO: validate whether this is correct...
 
-            if (resp.PersonInformation.PersonStartDate.HasValue)
-                pt.PnrMarkingDate = CprBroker.Utilities.Dates.DateToDecimal(resp.PersonInformation.PersonStartDate.Value, 12);
+            pt.PnrMarkingDate = null; // Seems to be always null in DPR.
 
             pt.MotherPersonalOrBirthDate = resp.ParentsInformation.MotherPNR.Substring(0, 6) + "-" + resp.ParentsInformation.MotherPNR.Substring(6, 4);
             pt.MotherMarker = null; //DPR SPECIFIC
@@ -102,10 +120,8 @@ namespace CprBroker.DBR.Extensions
                 Console.WriteLine("resp.Disempowerment was NULL");
                 pt.UnderGuardianshipDate = null;
             }
-
             if (resp.ParentsInformation.FatherDate.HasValue)
-                pt.PaternityDate = CprBroker.Utilities.Dates.DateToDecimal(resp.ParentsInformation.FatherDate.Value, 8);
-
+                pt.PaternityDate = CprBroker.Utilities.Dates.DateToDecimal(resp.ParentsInformation.FatherDate.Value, 12);
             pt.MaritalStatus = resp.CurrentCivilStatus.CivilStatusCode;
 
             if (resp.CurrentCivilStatus.CivilStatusStartDate.HasValue)
@@ -138,24 +154,36 @@ namespace CprBroker.DBR.Extensions
             pt.FormerPersonalMarker = null; //DPR SPECIFIC
             pt.PaternityAuthorityName = null; //TODO: Retrieve this from the CPR Service field far_mynkod
             pt.MaritalAuthorityName = null; //TODO: Retrieve this from the CPR Service field mynkod
-            pt.Occupation = resp.PersonInformation.Job;
-            pt.NationalityRight = null; // Find the mun. name by country code via method Authority.GetNameByCountryCode - how?
+            if (!string.IsNullOrEmpty(resp.PersonInformation.Job))
+                pt.Occupation = resp.PersonInformation.Job;
+            else
+                pt.Occupation = null;
+            pt.NationalityRight = null; // TODO: HOW DO WE OBTAIN THE COUNTRY NAME??
+            /*
+             * WE DON'T SET THE PreviousAddress FIELD, BECAUSE IT IS NOT USED, AT THE MOMENT, AND WILL TAKE SOME TIME TO IMPLEMENT.
             var prevAdr = resp.HistoricalAddress
                 .Where(e => (e as CprBroker.Schemas.Part.IHasCorrectionMarker).CorrectionMarker == CprBroker.Schemas.Part.CorrectionMarker.OK)
                 .OrderByDescending(e => e.ToStartTS())
                 .FirstOrDefault();
-
-            // TODO: What to do with previous address??
-            /*
-            var prevMun = resp.HistoricalAddress.OrderByDescending(e => e.MunicipalityCode).FirstOrDefault(); //Find municipality name in GeoLookup, based on mun. code
-            pt.PreviousAddress = prevAdr + "(" + prevMun + ")";
+            var prevMun = resp.HistoricalAddress.OrderByDescending(e => e.MunicipalityCode).FirstOrDefault();
+            // TODO: Find municipality name in GeoLookup, based on mun. code
+            pt.PreviousAddress = prevAdr.ToAddressCompleteType() + "(" + prevMun + ")";
             //pt.PreviousMunicipalityName = prevMun;
-            */
-            pt.SearchName = resp.CurrentNameInformation.FirstName_s.ToUpper();
+             */
+            // In DPR SearchName contains both the first name and the middlename.
+            if (!string.IsNullOrEmpty(resp.CurrentNameInformation.MiddleName))
+                pt.SearchName = resp.CurrentNameInformation.FirstName_s.ToUpper() + " " + resp.CurrentNameInformation.MiddleName.ToUpper();
+            else if (!string.IsNullOrEmpty(pt.SearchName = resp.CurrentNameInformation.FirstName_s))
+                pt.SearchName = resp.CurrentNameInformation.FirstName_s.ToUpper();
+            else
+                pt.SearchName = null;
             pt.SearchSurname = resp.CurrentNameInformation.LastName.ToUpper();
             pt.AddressingName = resp.ClearWrittenAddress.AddressingName;
             pt.StandardAddress = resp.ClearWrittenAddress.LabelledAddress;
-            pt.Location = resp.ClearWrittenAddress.Location;
+            if (!string.IsNullOrEmpty(resp.ClearWrittenAddress.Location))
+                pt.Location = resp.ClearWrittenAddress.Location;
+            else
+                pt.Location = null;
             pt.ContactAddressMarker = null; //DPR SPECIFIC
             return pt;
         }
