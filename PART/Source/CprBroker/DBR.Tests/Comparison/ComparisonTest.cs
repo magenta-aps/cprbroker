@@ -20,7 +20,12 @@ namespace CprBroker.Tests.DBR.Comparison
         public static string RealDprDatabaseConnectionString = "data source=localhost\\sqlexpress; database=dbr_source; integrated security=sspi";
         public static string FakeDprDatabaseConnectionString = "data source=localhost\\sqlexpress; database=dbr_target; integrated security=sspi";
 
-        public virtual string[] ExcludedProperties { get; }
+        public virtual string[] ExcludedProperties {
+            get
+            {
+                return new string[] {};
+            }
+        }
 
         static ComparisonTest()
         {
