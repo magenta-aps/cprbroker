@@ -53,7 +53,7 @@ namespace CprBroker.DBR.Extensions
                             pt.Floor = null;
                         if (!string.IsNullOrEmpty(resp.CurrentAddressInformation.Door))
                         {
-                            if (resp.CurrentAddressInformation.Door == "th" || resp.CurrentAddressInformation.Door == "tv")
+                            if (resp.CurrentAddressInformation.Door.Equals("th") || resp.CurrentAddressInformation.Door.Equals("tv"))
                                 pt.Door = "  " + resp.CurrentAddressInformation.Door;
                             else
                                 pt.Door = resp.CurrentAddressInformation.Door;

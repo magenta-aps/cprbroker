@@ -13,7 +13,11 @@ namespace CprBroker.DBR.Extensions
         {
             PersonAddress pa = new PersonAddress();
             pa.PNR = Decimal.Parse(currentAddress.CurrentAddressInformation.PNR);
+
+            /*
+             * The CprUpdateDate is failing in tests, and is not being used by any client system yet, so we skip it for now
             pa.CprUpdateDate = CprBroker.Utilities.Dates.DateToDecimal(currentAddress.Registration.RegistrationDate, 12);
+             */
             pa.MunicipalityCode = currentAddress.CurrentAddressInformation.MunicipalityCode;
             pa.StreetCode = currentAddress.CurrentAddressInformation.StreetCode;
             pa.HouseNumber = currentAddress.CurrentAddressInformation.HouseNumber;
@@ -23,7 +27,7 @@ namespace CprBroker.DBR.Extensions
                 pa.Floor = null;
             if (!string.IsNullOrEmpty(currentAddress.CurrentAddressInformation.Door))
             {
-                if (currentAddress.CurrentAddressInformation.Door == "th" || currentAddress.CurrentAddressInformation.Door == "tv")
+                if (currentAddress.CurrentAddressInformation.Door.Equals("th") || currentAddress.CurrentAddressInformation.Door.Equals("tv"))
                     pa.DoorNumber = "  " + currentAddress.CurrentAddressInformation.Door;
                 else
                     pa.DoorNumber = currentAddress.CurrentAddressInformation.Door;
@@ -136,7 +140,12 @@ namespace CprBroker.DBR.Extensions
             else
                 pa.Floor = null;
             if (!string.IsNullOrEmpty(historicalAddress.Door))
-                pa.DoorNumber = historicalAddress.Door;
+            {
+                if (historicalAddress.Door.Equals("th") || historicalAddress.Door.Equals("tv"))
+                    pa.DoorNumber = "  " + historicalAddress.Door;
+                else
+                    pa.DoorNumber = historicalAddress.Door;
+            }
             else
                 pa.DoorNumber = null;
             if (!string.IsNullOrEmpty(historicalAddress.BuildingNumber))
@@ -163,7 +172,10 @@ namespace CprBroker.DBR.Extensions
             pa.AlwaysNull4 = null;
             pa.AlwaysNull5 = null;
             pa.AdditionalAddressDate = null; //TODO: Can be fetched in CPR Services, supladrhaenstart
-            pa.CorrectionMarker = historicalAddress.CorrectionMarker;
+            if (historicalAddress.CorrectionMarker.ToString().Length > 0 && !historicalAddress.CorrectionMarker.Equals(" "))
+                pa.CorrectionMarker = historicalAddress.CorrectionMarker;
+            else
+                pa.CorrectionMarker = null;
             if (!string.IsNullOrEmpty(historicalAddress.CareOfName))
                 pa.CareOfName = historicalAddress.CareOfName;
             else
