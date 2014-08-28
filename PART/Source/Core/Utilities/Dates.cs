@@ -112,7 +112,10 @@ namespace CprBroker.Utilities
             }
             if (length > 12)
             {
-                decimalValue += date.Second;
+                if (date.Second.ToString().Length < 2)
+                    decimalValue += "0" + date.Second;
+                else
+                    decimalValue += date.Second;
             }
             return Decimal.Parse(decimalValue);
         }
