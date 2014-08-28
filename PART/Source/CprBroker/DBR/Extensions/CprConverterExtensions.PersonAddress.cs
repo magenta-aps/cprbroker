@@ -24,7 +24,7 @@ namespace CprBroker.DBR.Extensions
             if (!string.IsNullOrEmpty(currentAddress.CurrentAddressInformation.Door))
             {
                 if (currentAddress.CurrentAddressInformation.Door == "th" || currentAddress.CurrentAddressInformation.Door == "tv")
-                    pa.DoorNumber = " " + currentAddress.CurrentAddressInformation.Door;
+                    pa.DoorNumber = "  " + currentAddress.CurrentAddressInformation.Door;
                 else
                     pa.DoorNumber = currentAddress.CurrentAddressInformation.Door;
             }
