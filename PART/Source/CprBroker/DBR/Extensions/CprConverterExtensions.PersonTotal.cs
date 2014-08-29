@@ -12,6 +12,9 @@ namespace CprBroker.DBR.Extensions
     {
         public static PersonTotal ToPersonTotal(this IndividualResponseType resp)
         {
+            /*
+             * TODO: implement INDLAESDTO             * 
+             */
             PersonTotal pt = new PersonTotal();
             /*
              * PERSON DETAILS
