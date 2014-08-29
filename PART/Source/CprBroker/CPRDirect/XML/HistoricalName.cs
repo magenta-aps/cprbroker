@@ -66,17 +66,17 @@ namespace CprBroker.Providers.CPRDirect
 
         public string ToFirstName()
         {
-            return Converters.ToString(this.FirstName_s, this.FirstNameMarker);
+            return Converters.ToNameString(this.FirstName_s, this.FirstNameMarker);
         }
 
         public string ToMiddleName()
         {
-            return Converters.ToString(this.MiddleName, this.MiddleNameMarker);
+            return Converters.ToNameString(this.MiddleName, this.MiddleNameMarker);
         }
 
         public string ToLastName()
         {
-            return Converters.ToString(this.LastName, this.LastNameMarker);
+            return Converters.ToNameString(this.LastName, this.LastNameMarker);
         }
 
         DateTime? ITimedType.ToStartTS()
