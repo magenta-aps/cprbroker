@@ -69,7 +69,7 @@ namespace BatchClient
             IndividualResponseType individualResponse;
             if (sourceString.StartsWith("<guid>"))
             {
-                Console.WriteLine("By Extract: {0}", pnr);
+                Log("By Extract: {0}", pnr);
                 var extractId = Strings.Deserialize<Guid>(sourceString);
                 using (var extractDataContext = new ExtractDataContext(this.BrokerConnectionString))
                 {
@@ -79,7 +79,7 @@ namespace BatchClient
             }
             else
             {
-                Console.WriteLine("By TCP: {0}", pnr);
+                Log("By TCP: {0}", pnr);
                 var responseData = Strings.Deserialize<string>(sourceString);
                 individualResponse = new IndividualResponseType() { Contents = new string(' ', 28), Data = responseData };
 

@@ -267,6 +267,11 @@ namespace CprBroker.Utilities.ConsoleApps
             }
         }
 
+        public void Log(string text, params object[] args)
+        {
+            Log(string.Format(text, args));
+        }
+
         public void Log(string text)
         {
             lock (this)
