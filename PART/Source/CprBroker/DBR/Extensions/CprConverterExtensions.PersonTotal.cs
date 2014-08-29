@@ -101,6 +101,7 @@ namespace CprBroker.DBR.Extensions
 
             pt.ChristianMark = resp.ChurchInformation.ChurchRelationship;
             pt.BirthPlaceOfRegistration = resp.BirthRegistrationInformation.AdditionalBirthRegistrationText; //TODO: validate whether this is correct...
+            pt.BirthplaceText = resp.BirthRegistrationInformation.AdditionalBirthRegistrationText; //TODO: validate whether this is correct...
 
             pt.PnrMarkingDate = null; // Seems to be always null in DPR.
 

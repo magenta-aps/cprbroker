@@ -35,10 +35,13 @@ namespace CprBroker.DBR.Extensions
             pn.CorrectionMarker = null; // This is the current name
             pn.AddressingNameReportingMarker = null; //TODO: Can be fetched in CPR Services, indrap
             pn.AuthorityTextUpdateDate = null; //TODO: Can be fetched in CPR Services, myntxttimestamp
-            pn.SearchNameDate = 0; //Said to be always 0
+            pn.SearchNameDate = null; //Said to be always 0
             pn.FirstName = currentName.FirstName_s;
             pn.LastName = currentName.LastName;
-            pn.AddressingName = currentName.AddressingName;
+            if (string.IsNullOrEmpty(currentName.AddressingName))
+                pn.AddressingName = currentName.AddressingName;
+            else
+                pn.AddressingName = null;
             pn.SearchName = ""; //Said to be always blank
             pn.NameAuthorityText = null; //TODO: Can be fetched in CPR Services, myntxt
             return pn;
@@ -64,7 +67,7 @@ namespace CprBroker.DBR.Extensions
             pn.CorrectionMarker = historicalName.CorrectionMarker;
             pn.AddressingNameReportingMarker = null; //TODO: Can be fetched in CPR Services, indrap
             pn.AuthorityTextUpdateDate = null; //TODO: Can be fetched in CPR Services, myntxttimestamp
-            pn.SearchNameDate = 0; //Said to be always 0
+            pn.SearchNameDate = null; //Said to be always 0
             pn.FirstName = historicalName.FirstName_s;
             pn.LastName = historicalName.LastName;
             pn.AddressingName = null; // Seems not available in historical records....

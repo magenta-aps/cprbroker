@@ -172,7 +172,7 @@ namespace CprBroker.DBR.Extensions
             pa.AlwaysNull4 = null;
             pa.AlwaysNull5 = null;
             pa.AdditionalAddressDate = null; //TODO: Can be fetched in CPR Services, supladrhaenstart
-            if (historicalAddress.CorrectionMarker.ToString().Length > 0 && !historicalAddress.CorrectionMarker.Equals(" "))
+            if (historicalAddress.CorrectionMarker != null && !historicalAddress.CorrectionMarker.Equals(" "))
                 pa.CorrectionMarker = historicalAddress.CorrectionMarker;
             else
                 pa.CorrectionMarker = null;
