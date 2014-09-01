@@ -38,7 +38,8 @@ namespace CprBroker.DBR.Extensions
             pn.SearchNameDate = 0; //Said to be always 0
             pn.FirstName = string.Format("{0} {1}", currentName.FirstName_s, currentName.MiddleName).Trim();
             pn.LastName = currentName.LastName;
-            pn.AddressingName = currentName.AddressingName;
+            // Special logic for addressing name
+            pn.AddressingName = ToDprAddressingName(currentName.AddressingName, currentName.LastName);
             pn.SearchName = ""; //Said to be always blank
             pn.NameAuthorityText = null; //TODO: Can be fetched in CPR Services, myntxt
             return pn;
@@ -71,6 +72,21 @@ namespace CprBroker.DBR.Extensions
             pn.SearchName = ""; //Said to be always blank
             pn.NameAuthorityText = null; //TODO: Can be fetched in CPR Services, myntxt
             return pn;
+        }
+
+        public static string ToDprAddressingName(string addressingName, string lastName)
+        {
+            if (!string.IsNullOrEmpty(addressingName))
+            {
+                var lastNamePartCount = lastName.Split(' ').Length;
+                var addressingNameParts = addressingName.Split(' ');
+                var otherNamesPartCount = addressingNameParts.Length - lastNamePartCount;
+                return string.Format("{0},{1}",
+                    string.Join(" ", addressingNameParts.Skip(otherNamesPartCount).ToArray()),
+                    string.Join(" ", addressingNameParts.Take(otherNamesPartCount).ToArray())
+                );
+            }
+            return null;
         }
 
     }

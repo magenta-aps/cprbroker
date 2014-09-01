@@ -17,7 +17,14 @@ namespace CprBroker.Tests.DBR.Comparison.Person
     public class ChildComparisonTests : PersonComparisonTest<Child> { }
 
     [TestFixture]
-    public class PersonNameComparisonTests : PersonComparisonTest<PersonName> { }
+    public class PersonNameComparisonTests : PersonComparisonTest<PersonName>
+    {
+        public override IQueryable<PersonName> Get(DPRDataContext dataContext, string key)
+        {
+            var pnr = decimal.Parse(key);
+            return dataContext.PersonNames.Where(pn => pn.PNR == pnr).OrderByDescending(pn => pn.NameStartDate).ThenBy(pn => pn.CorrectionMarker);
+        }
+    }
 
     [TestFixture]
     public class CivilStatusComparisonTests : PersonComparisonTest<CivilStatus> { }
