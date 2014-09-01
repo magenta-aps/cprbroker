@@ -50,7 +50,7 @@ namespace CprBroker.DBR.Extensions
                         pt.MunicipalityCode = resp.CurrentAddressInformation.MunicipalityCode;
                         pt.StreetCode = resp.CurrentAddressInformation.StreetCode;
                         pt.HouseNumber = resp.CurrentAddressInformation.HouseNumber;
-                        
+
                         if (!string.IsNullOrEmpty(resp.CurrentAddressInformation.Floor))
                             pt.Floor = resp.CurrentAddressInformation.Floor;
                         else
@@ -108,7 +108,7 @@ namespace CprBroker.DBR.Extensions
                 pt.BirthPlaceOfRegistration = resp.BirthRegistrationInformation.AdditionalBirthRegistrationText; //TODO: validate whether this is correct...
             else
                 pt.BirthPlaceOfRegistration = null;
-            
+
             pt.PnrMarkingDate = null; // Seems to be always null in DPR.
 
             pt.MotherPersonalOrBirthDate = resp.ParentsInformation.MotherPNR.Substring(0, 6) + "-" + resp.ParentsInformation.MotherPNR.Substring(6, 4);
@@ -165,7 +165,7 @@ namespace CprBroker.DBR.Extensions
                 pt.Occupation = resp.PersonInformation.Job;
             else
                 pt.Occupation = null;
-            pt.NationalityRight = null; // TODO: HOW DO WE OBTAIN THE COUNTRY NAME??
+            pt.NationalityRight = Authority.GetNameByCode(resp.CurrentCitizenship.CountryCode.ToString());
             /*
              * WE DON'T SET THE PreviousAddress FIELD, BECAUSE IT IS NOT USED, AT THE MOMENT, AND WILL TAKE SOME TIME TO IMPLEMENT.
             var prevAdr = resp.HistoricalAddress
@@ -185,7 +185,7 @@ namespace CprBroker.DBR.Extensions
             else
                 pt.SearchName = null;
             pt.SearchSurname = resp.CurrentNameInformation.LastName.ToUpper();
-            
+
             // Special logic for addressing name
             pt.AddressingName = ToDprAddressingName(resp.ClearWrittenAddress.AddressingName, resp.CurrentNameInformation.LastName);
 
