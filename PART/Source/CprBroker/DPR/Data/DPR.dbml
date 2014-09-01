@@ -252,7 +252,7 @@
       <Column Name="AJFDTO" Member="CprUpdateDate" Type="System.Decimal" DbType="Decimal(13,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="HAENST" Member="NationalRegisterMemoDate" Type="System.Decimal" DbType="Decimal(13,0) NOT NULL" CanBeNull="false" />
       <Column Name="SLETDTO" Member="DeletionDate" Type="System.Decimal" DbType="Decimal(13,0)" CanBeNull="true" />
-      <Column Name="NOTATNR" Member="NoteNumber" Type="System.Decimal" DbType="Decimal(3,0) NOT NULL" CanBeNull="false" />
+      <Column Name="NOTATNR" Member="NoteNumber" Type="System.Decimal" DbType="Decimal(3,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="NOTATLI" Member="NationalRegisterNoteLine" Type="System.String" DbType="VarChar(40)" CanBeNull="true" />
       <Column Name="KOMKOD" Member="MunicipalityCode" Type="System.Decimal" DbType="Decimal(5,0) NOT NULL" CanBeNull="false" />
     </Type>

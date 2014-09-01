@@ -5780,7 +5780,7 @@ namespace CprBroker.Providers.DPR
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="NOTATNR", Storage="_NoteNumber", DbType="Decimal(3,0) NOT NULL")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="NOTATNR", Storage="_NoteNumber", DbType="Decimal(3,0) NOT NULL", IsPrimaryKey=true)]
 		public decimal NoteNumber
 		{
 			get
