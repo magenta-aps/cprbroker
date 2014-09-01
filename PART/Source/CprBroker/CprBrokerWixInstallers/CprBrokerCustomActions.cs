@@ -271,7 +271,11 @@ namespace CprBrokerWixInstallers
                     new DatabasePatchInfo(){ 
                         Version = new Version(2,2,3),
                         SqlScript = Properties.Resources.PatchDatabase_2_2_3,
-                        PatchAction = conn=> DatabaseCustomAction.InsertLookup<CprBroker.Data.Queues.DbQueue>(Properties.Resources.Queue_Csv, conn)
+                        PatchAction = conn=> 
+                            {
+                                DatabaseCustomAction.InsertLookup<CprBroker.Data.Queues.DbQueue>(Properties.Resources.Queue_Csv, conn);
+                                CprBroker.Providers.CPRDirect.Authority.ImportText(Properties.Resources.Authority_4357, conn);
+                            }
                     },
                 };
 
