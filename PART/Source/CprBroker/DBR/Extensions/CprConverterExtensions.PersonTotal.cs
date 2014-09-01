@@ -153,7 +153,19 @@ namespace CprBroker.DBR.Extensions
             */
             pt.SearchName = resp.CurrentNameInformation.FirstName_s.ToUpper();
             pt.SearchSurname = resp.CurrentNameInformation.LastName.ToUpper();
-            pt.AddressingName = resp.ClearWrittenAddress.AddressingName;
+
+            // Special logic for addressing name
+            if (!string.IsNullOrEmpty(resp.ClearWrittenAddress.AddressingName))
+            {
+                var lastNamePartCount = resp.CurrentNameInformation.LastName.Split(' ').Length;
+                var addressingNameParts = resp.ClearWrittenAddress.AddressingName.Split(' ');
+                var otherNamesPartCount = addressingNameParts.Length - lastNamePartCount;
+                pt.AddressingName = string.Format("{0},{1}",
+                    string.Join(" ", addressingNameParts.Skip(otherNamesPartCount).ToArray()),
+                    string.Join(" ", addressingNameParts.Take(otherNamesPartCount).ToArray())
+                );
+            }
+
             pt.StandardAddress = resp.ClearWrittenAddress.LabelledAddress;
             pt.Location = resp.ClearWrittenAddress.Location;
             pt.ContactAddressMarker = null; //DPR SPECIFIC
