@@ -51,7 +51,7 @@ namespace CprBroker.DBR.Extensions
                 Console.WriteLine("currentAddress.CurrentAddressInformation.RelocationDate.Value. was NULL");
                 pa.AddressStartDate = 0;
             }
-            if (char.IsWhiteSpace(currentAddress.CurrentAddressInformation.RelocationDateUncertainty))
+            if (!char.IsWhiteSpace(currentAddress.CurrentAddressInformation.RelocationDateUncertainty))
                 pa.AddressStartDateMarker = currentAddress.CurrentAddressInformation.RelocationDateUncertainty;
             pa.AddressEndDate = null; // This is the current date
             if (currentAddress.CurrentAddressInformation.LeavingMunicipalityCode > 0)
@@ -171,10 +171,8 @@ namespace CprBroker.DBR.Extensions
             pa.AlwaysNull4 = null;
             pa.AlwaysNull5 = null;
             pa.AdditionalAddressDate = null; //TODO: Can be fetched in CPR Services, supladrhaenstart
-            if (char.IsWhiteSpace(historicalAddress.CorrectionMarker))
+            if (!char.IsWhiteSpace(historicalAddress.CorrectionMarker))
                 pa.CorrectionMarker = historicalAddress.CorrectionMarker;
-            else
-                pa.CorrectionMarker = null;
             if (!string.IsNullOrEmpty(historicalAddress.CareOfName))
                 pa.CareOfName = historicalAddress.CareOfName;
             else
