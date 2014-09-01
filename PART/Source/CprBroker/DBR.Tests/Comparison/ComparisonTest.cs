@@ -70,18 +70,23 @@ namespace CprBroker.Tests.DBR.Comparison
             }
         }
 
+        public virtual void ConvertObject(string key)
+        { }
+
+
         [Test]
         public void T2_CompareContents(
             [ValueSource("GetProperties")]PropertyInfo property,
-            [ValueSource("LoadKeys")]string pnr)
+            [ValueSource("LoadKeys")]string key)
         {
+            ConvertObject(key);
             using (var fakeDprDataContext = CreateDataContext(FakeDprDatabaseConnectionString))
             {
-                var fakeObjects = Get(fakeDprDataContext, pnr).ToArray();
+                var fakeObjects = Get(fakeDprDataContext, key).ToArray();
                 using (var realDprDataContext = CreateDataContext(RealDprDatabaseConnectionString))
                 {
-                    var realObjects = Get(realDprDataContext, pnr).ToArray();
-                    for (int i = 0; i < Math.Min(realObjects.Length, fakeObjects.Length); i++)
+                    var realObjects = Get(realDprDataContext, key).ToArray();
+                    for (int i = 0; i < realObjects.Length; i++)
                     {
                         var r = realObjects[i];
                         var f = fakeObjects[i];
