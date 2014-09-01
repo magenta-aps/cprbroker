@@ -14,10 +14,8 @@ namespace CprBroker.DBR.Extensions
             PersonAddress pa = new PersonAddress();
             pa.PNR = Decimal.Parse(currentAddress.CurrentAddressInformation.PNR);
 
-            /*
-             * The CprUpdateDate is failing in tests, and is not being used by any client system yet, so we skip it for now
             pa.CprUpdateDate = CprBroker.Utilities.Dates.DateToDecimal(currentAddress.Registration.RegistrationDate, 12);
-             */
+
             pa.MunicipalityCode = currentAddress.CurrentAddressInformation.MunicipalityCode;
             pa.StreetCode = currentAddress.CurrentAddressInformation.StreetCode;
             pa.HouseNumber = currentAddress.CurrentAddressInformation.HouseNumber;
@@ -39,7 +37,7 @@ namespace CprBroker.DBR.Extensions
             else
                 pa.GreenlandConstructionNumber = null;
             pa.PostCode = currentAddress.ClearWrittenAddress.PostCode;
-            pa.MunicipalityName = null; // CprBroker.Providers.CPRDirect.Authority.GetNameByCode(pa.MunicipalityCode.ToString());
+            pa.MunicipalityName = CprBroker.Providers.CPRDirect.Authority.GetNameByCode(pa.MunicipalityCode.ToString());
             if (!string.IsNullOrEmpty(currentAddress.ClearWrittenAddress.StreetAddressingName))
                 pa.StreetAddressingName = currentAddress.ClearWrittenAddress.StreetAddressingName;
             else
@@ -53,7 +51,8 @@ namespace CprBroker.DBR.Extensions
                 Console.WriteLine("currentAddress.CurrentAddressInformation.RelocationDate.Value. was NULL");
                 pa.AddressStartDate = 0;
             }
-            pa.AddressStartDateMarker = null;
+            if (char.IsWhiteSpace(currentAddress.CurrentAddressInformation.RelocationDateUncertainty))
+                pa.AddressStartDateMarker = currentAddress.CurrentAddressInformation.RelocationDateUncertainty;
             pa.AddressEndDate = null; // This is the current date
             if (currentAddress.CurrentAddressInformation.LeavingMunicipalityCode > 0)
                 pa.LeavingFromMunicipalityCode = currentAddress.CurrentAddressInformation.LeavingMunicipalityCode;
@@ -159,8 +158,8 @@ namespace CprBroker.DBR.Extensions
             // TODO: Shall we use length 12 or 13?
             if (historicalAddress.RelocationDate.HasValue)
                 pa.AddressStartDate = CprBroker.Utilities.Dates.DateToDecimal(historicalAddress.RelocationDate.Value, 12);
-
-            pa.AddressStartDateMarker = historicalAddress.RelocationDateUncertainty;
+            if (!char.IsWhiteSpace(historicalAddress.RelocationDateUncertainty))
+                pa.AddressStartDateMarker = historicalAddress.RelocationDateUncertainty;
             if (historicalAddress.LeavingDate.HasValue)
                 pa.AddressEndDate = CprBroker.Utilities.Dates.DateToDecimal(historicalAddress.LeavingDate.Value, 12);
             pa.LeavingFromMunicipalityCode = null; // Seems not available in historical records....
@@ -172,7 +171,7 @@ namespace CprBroker.DBR.Extensions
             pa.AlwaysNull4 = null;
             pa.AlwaysNull5 = null;
             pa.AdditionalAddressDate = null; //TODO: Can be fetched in CPR Services, supladrhaenstart
-            if (historicalAddress.CorrectionMarker != null && !historicalAddress.CorrectionMarker.Equals(" "))
+            if (char.IsWhiteSpace(historicalAddress.CorrectionMarker))
                 pa.CorrectionMarker = historicalAddress.CorrectionMarker;
             else
                 pa.CorrectionMarker = null;
