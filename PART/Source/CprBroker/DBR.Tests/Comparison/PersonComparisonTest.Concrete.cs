@@ -33,7 +33,28 @@ namespace CprBroker.Tests.DBR.Comparison.Person
     public class ChildComparisonTests : PersonComparisonTest<Child> { }
 
     [TestFixture]
-    public class PersonNameComparisonTests : PersonComparisonTest<PersonName> { }
+    public class PersonNameComparisonTests : PersonComparisonTest<PersonName> {
+        /*
+        override public string[] ExcludedProperties
+        {
+            get
+            {
+                string[] excluded = {
+                                        "NameAuthorityCode", // This one can only be fetched by CPR Services
+                                        "AddressingNameDate", // This one can only be fetched by CPR Services
+
+                                     BELOW EXCLUSIONS ARE ONCE THAT ARE NOT, CURRENTLY, USED BY ANY SYSTEMS - AND FAIL IN TESTS 
+                                };
+                return excluded;
+            }
+        }
+         */
+        public override IQueryable<PersonName> Get(DPRDataContext dataContext, string pnr)
+        {
+            Console.WriteLine(dataContext.Connection.ConnectionString);
+            return dataContext.PersonNames.Where(c => c.PNR == decimal.Parse(pnr)).OrderByDescending(c => c.NameStartDate).ToArray().AsQueryable();
+        }
+    }
 
     [TestFixture]
     public class CivilStatusComparisonTests : PersonComparisonTest<CivilStatus> { }
@@ -52,6 +73,7 @@ namespace CprBroker.Tests.DBR.Comparison.Person
 
     [TestFixture]
     public class PersonAddressComparisonTests : PersonComparisonTest<PersonAddress> {
+        /*
         override public string[] ExcludedProperties
         {
             get
@@ -59,12 +81,13 @@ namespace CprBroker.Tests.DBR.Comparison.Person
                 string[] excluded = {
                                     "AddressStartDateMarker", // We do not know the origin of this marker.
 
-                                    /* BELOW EXCLUSIONS ARE ONCE THAT ARE NOT, CURRENTLY, USED BY ANY SYSTEMS - AND FAIL IN TESTS */
+                                     BELOW EXCLUSIONS ARE ONCE THAT ARE NOT, CURRENTLY, USED BY ANY SYSTEMS - AND FAIL IN TESTS 
                                     "CprUpdateDate", // It is skipped for now, as the contents are wrong
                                 };
                 return excluded;
             }
         }
+         */
 
         public override IQueryable<PersonAddress> Get(DPRDataContext dataContext, string pnr)
         {
