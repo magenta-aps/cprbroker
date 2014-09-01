@@ -26,7 +26,7 @@ namespace CprBroker.Tests.DBR.Comparison.Person
             return KeysHolder._Keys;
         }
 
-        public void ConvertPerson(string pnr)
+        public override void ConvertObject(string pnr)
         {
             if (!KeysHolder._ConvertedPersons.ContainsKey(pnr))
             {
@@ -44,9 +44,10 @@ namespace CprBroker.Tests.DBR.Comparison.Person
 
         public override IQueryable<TObject> Get(DPRDataContext dataContext, string key)
         {
-            ConvertPerson(key);
             var tableName = Utilities.DataLinq.GetTableName<TObject>();
-            return dataContext.ExecuteQuery<TObject>("select * from " + tableName + " WHERE PNR={0}", key).AsQueryable();
+            var propNames = string.Join(", ", GetPkColumnNames());
+            Console.WriteLine(propNames);
+            return dataContext.ExecuteQuery<TObject>("select * from " + tableName + " WHERE PNR={0} ORDER BY " + propNames, key).AsQueryable();
         }
 
         public override DPRDataContext CreateDataContext(string connectionString)

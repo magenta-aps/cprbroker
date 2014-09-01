@@ -50,6 +50,7 @@ namespace CprBroker.DBR.Extensions
                         pt.MunicipalityCode = resp.CurrentAddressInformation.MunicipalityCode;
                         pt.StreetCode = resp.CurrentAddressInformation.StreetCode;
                         pt.HouseNumber = resp.CurrentAddressInformation.HouseNumber;
+                        
                         if (!string.IsNullOrEmpty(resp.CurrentAddressInformation.Floor))
                             pt.Floor = resp.CurrentAddressInformation.Floor;
                         else
@@ -107,11 +108,7 @@ namespace CprBroker.DBR.Extensions
                 pt.BirthPlaceOfRegistration = resp.BirthRegistrationInformation.AdditionalBirthRegistrationText; //TODO: validate whether this is correct...
             else
                 pt.BirthPlaceOfRegistration = null;
-            if (string.IsNullOrEmpty(resp.BirthRegistrationInformation.AdditionalBirthRegistrationText))
-                pt.BirthplaceText = resp.BirthRegistrationInformation.AdditionalBirthRegistrationText; //TODO: validate whether this is correct...
-            else
-                pt.BirthplaceText = null;
-
+            
             pt.PnrMarkingDate = null; // Seems to be always null in DPR.
 
             pt.MotherPersonalOrBirthDate = resp.ParentsInformation.MotherPNR.Substring(0, 6) + "-" + resp.ParentsInformation.MotherPNR.Substring(6, 4);
@@ -188,7 +185,10 @@ namespace CprBroker.DBR.Extensions
             else
                 pt.SearchName = null;
             pt.SearchSurname = resp.CurrentNameInformation.LastName.ToUpper();
-            pt.AddressingName = resp.ClearWrittenAddress.AddressingName;
+            
+            // Special logic for addressing name
+            pt.AddressingName = ToDprAddressingName(resp.ClearWrittenAddress.AddressingName, resp.CurrentNameInformation.LastName);
+
             pt.StandardAddress = resp.ClearWrittenAddress.LabelledAddress;
             if (!string.IsNullOrEmpty(resp.ClearWrittenAddress.Location))
                 pt.Location = resp.ClearWrittenAddress.Location;

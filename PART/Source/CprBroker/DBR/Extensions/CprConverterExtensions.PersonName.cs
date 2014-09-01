@@ -29,7 +29,7 @@ namespace CprBroker.DBR.Extensions
             if (!char.IsWhiteSpace(currentName.FirstNameMarker))
                 pn.FirstNameMarker = currentName.FirstNameMarker;
             if (!char.IsWhiteSpace(currentName.LastNameMarker))
-            pn.SurnameMarker = currentName.FirstNameMarker;
+                pn.SurnameMarker = currentName.FirstNameMarker;
             if (currentName.NameStartDate.HasValue)
                 pn.NameStartDate = CprBroker.Utilities.Dates.DateToDecimal(currentName.NameStartDate.Value, 12);
             pn.NameTerminationDate = null; //This is the current name
@@ -38,12 +38,11 @@ namespace CprBroker.DBR.Extensions
             pn.AddressingNameReportingMarker = null; //TODO: Can be fetched in CPR Services, indrap
             pn.AuthorityTextUpdateDate = null; //TODO: Can be fetched in CPR Services, myntxttimestamp
             pn.SearchNameDate = null; //Said to be always 0
-            pn.FirstName = currentName.FirstName_s;
+            pn.FirstName = string.Format("{0} {1}", currentName.FirstName_s, currentName.MiddleName).Trim();
             pn.LastName = currentName.LastName;
-            if (string.IsNullOrEmpty(currentName.AddressingName))
-                pn.AddressingName = currentName.AddressingName;
-            else
-                pn.AddressingName = null;
+            
+            // Special logic for addressing name
+            pn.AddressingName = ToDprAddressingName(currentName.AddressingName, currentName.LastName);
             pn.SearchName = null; //Said to be always blank
             pn.NameAuthorityText = null; //TODO: Can be fetched in CPR Services, myntxt
             return pn;
@@ -73,12 +72,27 @@ namespace CprBroker.DBR.Extensions
             pn.AddressingNameReportingMarker = null; //TODO: Can be fetched in CPR Services, indrap
             pn.AuthorityTextUpdateDate = null; //TODO: Can be fetched in CPR Services, myntxttimestamp
             pn.SearchNameDate = null; //Said to be always 0
-            pn.FirstName = historicalName.FirstName_s;
+            pn.FirstName = string.Format("{0} {1}", historicalName.FirstName_s, historicalName.MiddleName).Trim();
             pn.LastName = historicalName.LastName;
             pn.AddressingName = null; // Seems not available in historical records....
             pn.SearchName = null; //Said to be always blank
             pn.NameAuthorityText = null; //TODO: Can be fetched in CPR Services, myntxt
             return pn;
+        }
+
+        public static string ToDprAddressingName(string addressingName, string lastName)
+        {
+            if (!string.IsNullOrEmpty(addressingName))
+            {
+                var lastNamePartCount = lastName.Split(' ').Length;
+                var addressingNameParts = addressingName.Split(' ');
+                var otherNamesPartCount = addressingNameParts.Length - lastNamePartCount;
+                return string.Format("{0},{1}",
+                    string.Join(" ", addressingNameParts.Skip(otherNamesPartCount).ToArray()),
+                    string.Join(" ", addressingNameParts.Take(otherNamesPartCount).ToArray())
+                );
+            }
+            return null;
         }
 
     }

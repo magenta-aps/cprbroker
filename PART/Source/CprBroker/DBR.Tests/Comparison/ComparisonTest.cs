@@ -16,9 +16,9 @@ namespace CprBroker.Tests.DBR.Comparison
     public abstract class ComparisonTest<TObject, TDataContext>
         where TDataContext : System.Data.Linq.DataContext
     {
-        public static string CprBrokerConnectionString = "data source=localhost\\sqlexpress; database=cprbroker;  integrated security=sspi";
-        public static string RealDprDatabaseConnectionString = "data source=localhost\\sqlexpress; database=dbr_source; integrated security=sspi";
-        public static string FakeDprDatabaseConnectionString = "data source=localhost\\sqlexpress; database=dbr_target; integrated security=sspi";
+        public static string CprBrokerConnectionString = "data source=tcp:ltkcprtest\\sqlexpress; database=cprbroker;  integrated security=sspi";
+        public static string RealDprDatabaseConnectionString = "data source=tcp:ltkcprtest\\sqlexpress; database=dbr_source; integrated security=sspi";
+        public static string FakeDprDatabaseConnectionString = "data source=tcp:ltkcprtest\\sqlexpress; database=dbr_target; integrated security=sspi";
 
         public virtual string[] ExcludedProperties {
             get
@@ -44,6 +44,16 @@ namespace CprBroker.Tests.DBR.Comparison
                 .ToArray();
         }
 
+        public string[] GetPkColumnNames()
+        {
+            var t = typeof(TObject);
+            return t.GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                .Select(p => new { Prop = p, Attr = p.GetCustomAttributes(typeof(System.Data.Linq.Mapping.ColumnAttribute), true).FirstOrDefault() as System.Data.Linq.Mapping.ColumnAttribute })
+                .Where(p => p.Attr != null && p.Attr.IsPrimaryKey)
+                .Select(p => string.IsNullOrEmpty(p.Attr.Name) ? p.Prop.Name : p.Attr.Name)
+                .ToArray();
+        }
+
         public void CompareProperty(TObject fakeObject, TObject realObject, PropertyInfo prop)
         {
             var f = prop.GetValue(fakeObject, null);
@@ -63,23 +73,28 @@ namespace CprBroker.Tests.DBR.Comparison
                 using (var realDprDataContext = CreateDataContext(RealDprDatabaseConnectionString))
                 {
                     var realObjects = Get(realDprDataContext, pnr).ToArray();
-                    Assert.AreEqual(realObjects.Length, fakeObjects.Length);
+                    Assert.GreaterOrEqual(fakeObjects.Length, realObjects.Length);
                 }
             }
         }
 
+        public virtual void ConvertObject(string key)
+        { }
+
+
         [Test]
         public void T2_CompareContents(
             [ValueSource("GetProperties")]PropertyInfo property,
-            [ValueSource("LoadKeys")]string pnr)
+            [ValueSource("LoadKeys")]string key)
         {
+            ConvertObject(key);
             using (var fakeDprDataContext = CreateDataContext(FakeDprDatabaseConnectionString))
             {
-                var fakeObjects = Get(fakeDprDataContext, pnr).ToArray();
+                var fakeObjects = Get(fakeDprDataContext, key).ToArray();
                 using (var realDprDataContext = CreateDataContext(RealDprDatabaseConnectionString))
                 {
-                    var realObjects = Get(realDprDataContext, pnr).ToArray();
-                    for (int i = 0; i < Math.Min(realObjects.Length, fakeObjects.Length); i++)
+                    var realObjects = Get(realDprDataContext, key).ToArray();
+                    for (int i = 0; i < realObjects.Length; i++)
                     {
                         var r = realObjects[i];
                         var f = fakeObjects[i];

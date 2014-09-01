@@ -90,32 +90,17 @@ namespace CprBroker.Utilities
         public static Decimal DateToDecimal(DateTime date, int length)
         {
             String decimalValue = "";
-            decimalValue += date.Year;
-            if (date.Month.ToString().Length < 2)
-                decimalValue += "0" + date.Month;
-            else
-                decimalValue += date.Month;
-            if (date.Day.ToString().Length < 2)
-                decimalValue += "0" + date.Day;
-            else
-                decimalValue += date.Day;
+            decimalValue += date.Year.ToString("0000");
+            decimalValue += date.Month.ToString("00");
+            decimalValue += date.Day.ToString("00");
             if (length > 8)
             {
-                if (date.Hour.ToString().Length < 2)
-                    decimalValue += "0" + date.Hour;
-                else
-                    decimalValue += date.Hour;
-                if (date.Minute.ToString().Length < 2)
-                    decimalValue += "0" + date.Minute;
-                else
-                    decimalValue += date.Minute;
+                decimalValue += date.Hour.ToString("00");
+                decimalValue += date.Minute.ToString("00");
             }
             if (length > 12)
             {
-                if (date.Second.ToString().Length < 2)
-                    decimalValue += "0" + date.Second;
-                else
-                    decimalValue += date.Second;
+                decimalValue += date.Second.ToString("00");
             }
             return Decimal.Parse(decimalValue);
         }
