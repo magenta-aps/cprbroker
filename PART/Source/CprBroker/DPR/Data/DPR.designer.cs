@@ -3174,7 +3174,7 @@ namespace CprBroker.Providers.DPR
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="VEJKOD", Storage="_StreetCode", DbType="Decimal(5,0) NOT NULL")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="VEJKOD", Storage="_StreetCode", DbType="Decimal(5,0) NOT NULL", IsPrimaryKey=true)]
 		public decimal StreetCode
 		{
 			get

@@ -123,7 +123,7 @@
       <Column Name="PNR" Type="System.Decimal" DbType="Decimal(11,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="AJFDTO" Member="CprUpdateDate" Type="System.Decimal" DbType="Decimal(13,0) NOT NULL" CanBeNull="false" />
       <Column Name="KOMKOD" Member="MunicipalityCode" Type="System.Decimal" DbType="Decimal(5,0) NOT NULL" CanBeNull="false" />
-      <Column Name="VEJKOD" Member="StreetCode" Type="System.Decimal" DbType="Decimal(5,0) NOT NULL" CanBeNull="false" />
+      <Column Name="VEJKOD" Member="StreetCode" Type="System.Decimal" DbType="Decimal(5,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="HUSNR" Member="HouseNumber" Type="System.String" DbType="VarChar(4)" CanBeNull="true" />
       <Column Name="ETAGE" Member="Floor" Type="System.String" DbType="VarChar(2)" CanBeNull="true" />
       <Column Name="SIDEDOER" Member="DoorNumber" Type="System.String" DbType="VarChar(4)" CanBeNull="true" />
