@@ -26,8 +26,10 @@ namespace CprBroker.DBR.Extensions
                 Console.WriteLine("personInformation.StatusStartDate was NULL");
                 pn.StatusDate = null;//CprBroker.Utilities.Dates.DateToDecimal(resp.PersonInformation.StatusStartDate.Value, 12);
             }
-            pn.FirstNameMarker = currentName.FirstNameMarker;
-            pn.SurnameMarker = currentName.LastNameMarker;
+            if (!char.IsWhiteSpace(currentName.FirstNameMarker))
+                pn.FirstNameMarker = currentName.FirstNameMarker;
+            if (!char.IsWhiteSpace(currentName.LastNameMarker))
+            pn.SurnameMarker = currentName.FirstNameMarker;
             if (currentName.NameStartDate.HasValue)
                 pn.NameStartDate = CprBroker.Utilities.Dates.DateToDecimal(currentName.NameStartDate.Value, 12);
             pn.NameTerminationDate = null; //This is the current name
@@ -42,7 +44,7 @@ namespace CprBroker.DBR.Extensions
                 pn.AddressingName = currentName.AddressingName;
             else
                 pn.AddressingName = null;
-            pn.SearchName = ""; //Said to be always blank
+            pn.SearchName = null; //Said to be always blank
             pn.NameAuthorityText = null; //TODO: Can be fetched in CPR Services, myntxt
             return pn;
         }
@@ -56,22 +58,25 @@ namespace CprBroker.DBR.Extensions
             //TODO: Tjek om status angives på historiske data
             pn.Status = null;//personInformation.Status;
             //pn.StatusDate = CprBroker.Utilities.Dates.DateToDecimal(personInformation.StatusStartDate.Value, 13);
-            pn.FirstNameMarker = historicalName.FirstNameMarker;
-            pn.SurnameMarker = historicalName.LastNameMarker;
+            if (!char.IsWhiteSpace(historicalName.FirstNameMarker))
+                pn.FirstNameMarker = historicalName.FirstNameMarker;
+            if (!char.IsWhiteSpace(historicalName.LastNameMarker))
+                pn.SurnameMarker = historicalName.FirstNameMarker;
 
             if (historicalName.NameStartDate.HasValue)
                 pn.NameStartDate = CprBroker.Utilities.Dates.DateToDecimal(historicalName.NameStartDate.Value, 12);
 
             pn.NameTerminationDate = CprBroker.Utilities.Dates.DateToDecimal(historicalName.NameEndDate.Value, 12);
             pn.AddressingNameDate = null; //TODO: Can be fetched in CPR Services, adrnvnhaenstart
-            pn.CorrectionMarker = historicalName.CorrectionMarker;
+            if (!char.IsWhiteSpace(historicalName.CorrectionMarker))
+                pn.CorrectionMarker = historicalName.CorrectionMarker;
             pn.AddressingNameReportingMarker = null; //TODO: Can be fetched in CPR Services, indrap
             pn.AuthorityTextUpdateDate = null; //TODO: Can be fetched in CPR Services, myntxttimestamp
             pn.SearchNameDate = null; //Said to be always 0
             pn.FirstName = historicalName.FirstName_s;
             pn.LastName = historicalName.LastName;
             pn.AddressingName = null; // Seems not available in historical records....
-            pn.SearchName = ""; //Said to be always blank
+            pn.SearchName = null; //Said to be always blank
             pn.NameAuthorityText = null; //TODO: Can be fetched in CPR Services, myntxt
             return pn;
         }
