@@ -33,7 +33,10 @@ namespace CprBroker.DBR.Extensions
             cs.CorrectionMarker = null; //This is the current status
             cs.AuthorityTextUpdateDate = null; //TODO: Can be fetched in CPR Services,  myntxttimestamp
             cs.MaritalStatusAuthorityText = null; //TODO: Can be fetched in CPR Services,  myntxt
-            cs.SpouseName = currentCivilStatus.SpouseName;
+            if (!string.IsNullOrEmpty(currentCivilStatus.SpouseName))
+                cs.SpouseName = currentCivilStatus.SpouseName;
+            else
+                cs.SpouseName = null;
 
             if (currentCivilStatus.ReferenceToAnySeparation.HasValue)
             {

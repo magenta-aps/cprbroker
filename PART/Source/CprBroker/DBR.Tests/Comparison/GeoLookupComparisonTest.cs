@@ -12,12 +12,15 @@ namespace CprBroker.Tests.DBR.Comparison.Geo
     public abstract class GeoLookupComparisonTest<T> : ComparisonTest<T, LookupDataContext>
         where T : class
     {
-        public sealed override IQueryable<T> Get(Providers.DPR.LookupDataContext dataContext, string key)
+        public override IQueryable<T> Get(Providers.DPR.LookupDataContext dataContext, string key)
         {
             return Get(dataContext, decimal.Parse(key));
         }
 
-        public abstract IQueryable<T> Get(Providers.DPR.LookupDataContext dataContext, decimal key);
+        public virtual IQueryable<T> Get(Providers.DPR.LookupDataContext dataContext, decimal key)
+        {
+            throw new NotImplementedException();
+        }
 
         public override sealed Providers.DPR.LookupDataContext CreateDataContext(string connectionString)
         {

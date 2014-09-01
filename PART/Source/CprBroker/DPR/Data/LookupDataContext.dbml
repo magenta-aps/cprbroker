@@ -152,7 +152,7 @@
   </Table>
   <Table Name="dbo.DTPOSTNR" Member="PostNumbers">
     <Type Name="PostNumber">
-      <Column Name="POSTNR" Type="System.Decimal" DbType="Decimal(5,0) NOT NULL" CanBeNull="false" />
+      <Column Name="POSTNR" Type="System.Decimal" DbType="Decimal(5,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="POSTTXT" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
     </Type>
   </Table>
