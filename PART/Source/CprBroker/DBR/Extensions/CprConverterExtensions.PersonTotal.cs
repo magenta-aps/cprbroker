@@ -108,7 +108,7 @@ namespace CprBroker.DBR.Extensions
                 pt.BirthPlaceOfRegistration = Authority.GetAuthorityNameByCode(resp.BirthRegistrationInformation.BirthRegistrationAuthorityCode);
             else
                 pt.BirthPlaceOfRegistration = null;
-            
+
             pt.PnrMarkingDate = null; // Seems to be always null in DPR.
 
             pt.MotherPersonalOrBirthDate = resp.ParentsInformation.MotherPNR.Substring(0, 6) + "-" + resp.ParentsInformation.MotherPNR.Substring(6, 4);
@@ -166,17 +166,20 @@ namespace CprBroker.DBR.Extensions
             else
                 pt.Occupation = null;
             pt.NationalityRight = Authority.GetAuthorityNameByCode(resp.CurrentCitizenship.CountryCode.ToString());
-            /*
-             * WE DON'T SET THE PreviousAddress FIELD, BECAUSE IT IS NOT USED, AT THE MOMENT, AND WILL TAKE SOME TIME TO IMPLEMENT.
+
+            // * WE DON'T SET THE PreviousAddress FIELD, BECAUSE IT IS NOT USED, AT THE MOMENT, AND WILL TAKE SOME TIME TO IMPLEMENT.
             var prevAdr = resp.HistoricalAddress
                 .Where(e => (e as CprBroker.Schemas.Part.IHasCorrectionMarker).CorrectionMarker == CprBroker.Schemas.Part.CorrectionMarker.OK)
+                .Where(e => e.MunicipalityCode != resp.ClearWrittenAddress.MunicipalityCode)
                 .OrderByDescending(e => e.ToStartTS())
                 .FirstOrDefault();
-            var prevMun = resp.HistoricalAddress.OrderByDescending(e => e.MunicipalityCode).FirstOrDefault();
-            // TODO: Find municipality name in GeoLookup, based on mun. code
-            pt.PreviousAddress = prevAdr.ToAddressCompleteType() + "(" + prevMun + ")";
-            //pt.PreviousMunicipalityName = prevMun;
-             */
+            if (prevAdr != null)
+            {
+                var prevMun = resp.HistoricalAddress.OrderByDescending(e => e.MunicipalityCode).FirstOrDefault();
+                // TODO: Find municipality name in GeoLookup, based on mun. code
+                //pt.PreviousAddress = prevAdr.ToAddressCompleteType() + "(" + prevMun + ")";
+                pt.PreviousMunicipalityName = Authority.GetAuthorityNameByCode(prevAdr.MunicipalityCode.ToString());
+            }
             // In DPR SearchName contains both the first name and the middlename.
             if (!string.IsNullOrEmpty(resp.CurrentNameInformation.MiddleName))
                 pt.SearchName = resp.CurrentNameInformation.FirstName_s.ToUpper() + " " + resp.CurrentNameInformation.MiddleName.ToUpper();
