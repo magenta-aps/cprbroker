@@ -90,6 +90,7 @@ namespace CprBroker.Providers.CPRDirect
             public string Code;
             public string AuthorityName;
             public string FullName;
+            public string Address;
         }
 
         private static Dictionary<string, AuthorityShortInfo> _AuthorityMap;
@@ -115,7 +116,8 @@ namespace CprBroker.Providers.CPRDirect
                                         {
                                             FullName = au.FullName,
                                             AuthorityName = au.AuthorityName,
-                                            Code = au.AuthorityCode
+                                            Code = au.AuthorityCode,
+                                            Address = au.Address
                                         });
                             }
                         }
@@ -175,32 +177,32 @@ namespace CprBroker.Providers.CPRDirect
             return code;
         }
 
-        public static string GetFullNameByCode(string code)
+        private static string GetFieldByCode(string code, Func<AuthorityShortInfo, string> func)
         {
             FillAuthorityMap();
             code = NormalizeAuthorityCode(code);
             if (!string.IsNullOrEmpty(code) && _AuthorityMap.ContainsKey(code))
             {
-                return _AuthorityMap[code].FullName;
+                return func(_AuthorityMap[code]);
             }
             else
             {
                 return null;
             }
         }
+        public static string GetFullNameByCode(string code)
+        {
+            return GetFieldByCode(code, a => a.FullName);
+        }
 
         public static string GetAuthorityNameByCode(string code)
         {
-            FillAuthorityMap();
-            code = NormalizeAuthorityCode(code); 
-            if (!string.IsNullOrEmpty(code) && _AuthorityMap.ContainsKey(code))
-            {
-                return _AuthorityMap[code].AuthorityName;
-            }
-            else
-            {
-                return null;
-            }
+            return GetFieldByCode(code, a => a.AuthorityName);
+        }
+
+        public static string GetAuthorityAddressByCode(string code)
+        {
+            return GetFieldByCode(code, a => a.Address);
         }
 
         public static string GetNameByCountryCode(string code)

@@ -10,7 +10,8 @@ namespace CprBroker.DBR.Extensions
 {
     public partial class CprConverterExtensions
     {
-        public static PersonTotal ToPersonTotal(this IndividualResponseType resp)
+
+        public static PersonTotal ToPersonTotal(this IndividualResponseType resp, Func<HistoricalAddressType, string> streetNameLocator = null)
         {
             /*
              * TODO: implement INDLAESDTO             * 
@@ -166,17 +167,26 @@ namespace CprBroker.DBR.Extensions
             pt.NationalityRight = Authority.GetAuthorityNameByCode(resp.CurrentCitizenship.CountryCode.ToString());
 
             // * WE DON'T SET THE PreviousAddress FIELD, BECAUSE IT IS NOT USED, AT THE MOMENT, AND WILL TAKE SOME TIME TO IMPLEMENT.
-            var prevAdr = resp.HistoricalAddress
+            var previousAddresses = resp.HistoricalAddress
                 .Where(e => (e as CprBroker.Schemas.Part.IHasCorrectionMarker).CorrectionMarker == CprBroker.Schemas.Part.CorrectionMarker.OK)
-                .Where(e => e.MunicipalityCode != resp.ClearWrittenAddress.MunicipalityCode)
-                .OrderByDescending(e => e.ToStartTS())
-                .FirstOrDefault();
-            if (prevAdr != null)
+                .OrderByDescending(e => e.RelocationDate);
+
+            var prevAddress = previousAddresses.FirstOrDefault();
+            if (prevAddress != null && streetNameLocator != null)
             {
-                var prevMun = resp.HistoricalAddress.OrderByDescending(e => e.MunicipalityCode).FirstOrDefault();
-                // TODO: Find municipality name in GeoLookup, based on mun. code
-                //pt.PreviousAddress = prevAdr.ToAddressCompleteType() + "(" + prevMun + ")";
-                pt.PreviousMunicipalityName = Authority.GetAuthorityNameByCode(prevAdr.MunicipalityCode.ToString());
+                Console.WriteLine("<{0}> <{1}> <{2}>", prevAddress.RelocationDate, prevAddress.CorrectionMarker, prevAddress.MunicipalityCode);
+                pt.PreviousAddress = string.Format("{0} {1},{2} {3} ({4})",
+                                        streetNameLocator(prevAddress),
+                                        prevAddress.HouseNumber.TrimStart('0', ' '),
+                                        prevAddress.Floor.TrimStart('0', ' '),
+                                        prevAddress.Door.TrimStart('0', ' '),
+                                        Authority.GetAuthorityAddressByCode(prevAddress.MunicipalityCode.ToString()));
+            }
+
+            var previousMunicipalityAddress = previousAddresses.Where(e => e.MunicipalityCode != resp.ClearWrittenAddress.MunicipalityCode).FirstOrDefault();
+            if (previousMunicipalityAddress != null)
+            {
+                pt.PreviousMunicipalityName = Authority.GetAuthorityNameByCode(previousMunicipalityAddress.MunicipalityCode.ToString());
             }
             // In DPR SearchName contains both the first name and the middlename.
             if (!string.IsNullOrEmpty(resp.CurrentNameInformation.MiddleName))
@@ -198,5 +208,6 @@ namespace CprBroker.DBR.Extensions
             pt.ContactAddressMarker = null; //DPR SPECIFIC
             return pt;
         }
+
     }
 }
