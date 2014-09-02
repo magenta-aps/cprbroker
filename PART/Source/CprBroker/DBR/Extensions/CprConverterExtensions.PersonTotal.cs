@@ -91,10 +91,7 @@ namespace CprBroker.DBR.Extensions
                             pt.CityName = null;
                     }
                 }
-                /*
-                 * TODO: FIX THE METHOD IN AUTHORITY!!!
-                 */
-                //pt.CurrentMunicipalityName = CprBroker.Providers.CPRDirect.Authority.GetNameByCode(pt.MunicipalityCode.ToString());
+                pt.CurrentMunicipalityName = CprBroker.Providers.CPRDirect.Authority.GetAuthorityNameByCode(pt.MunicipalityCode.ToString());
             }
 
             // TODO: Get from protection records

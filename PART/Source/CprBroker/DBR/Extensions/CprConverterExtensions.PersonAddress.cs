@@ -37,7 +37,7 @@ namespace CprBroker.DBR.Extensions
             else
                 pa.GreenlandConstructionNumber = null;
             pa.PostCode = currentAddress.ClearWrittenAddress.PostCode;
-            pa.MunicipalityName = CprBroker.Providers.CPRDirect.Authority.GetNameByCode(pa.MunicipalityCode.ToString());
+            pa.MunicipalityName = CprBroker.Providers.CPRDirect.Authority.GetAuthorityNameByCode(pa.MunicipalityCode.ToString());
             if (!string.IsNullOrEmpty(currentAddress.ClearWrittenAddress.StreetAddressingName))
                 pa.StreetAddressingName = currentAddress.ClearWrittenAddress.StreetAddressingName;
             else
@@ -152,7 +152,7 @@ namespace CprBroker.DBR.Extensions
             else
                 pa.GreenlandConstructionNumber = null;
             pa.PostCode = 0; //Find in GeoLookup, based on streetCode and houseNumber
-            pa.MunicipalityName = CprBroker.Providers.CPRDirect.Authority.GetNameByCode(pa.MunicipalityCode.ToString());
+            pa.MunicipalityName = CprBroker.Providers.CPRDirect.Authority.GetAuthorityNameByCode(pa.MunicipalityCode.ToString());
             pa.StreetAddressingName = null; //TODO: Can be fetched in CPR Services, vejadrnvn
 
             // TODO: Shall we use length 12 or 13?
