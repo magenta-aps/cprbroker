@@ -10,7 +10,7 @@ namespace CprBroker.DBR.Extensions
 {
     public partial class CprConverterExtensions
     {
-        public static PersonTotal ToPersonTotal(this IndividualResponseType resp)
+        public static PersonTotal ToPersonTotal(this IndividualResponseType resp, CurrentAddressInformationType curAdr, CurrentDepartureDataType curDep)
         {
             /*
              * TODO: implement INDLAESDTO             * 
@@ -115,7 +115,8 @@ namespace CprBroker.DBR.Extensions
             pt.MotherMarker = null; //DPR SPECIFIC
             pt.FatherPersonalOrBirthdate = resp.ParentsInformation.FatherPNR.Substring(0, 6) + "-" + resp.ParentsInformation.FatherPNR.Substring(6, 4);
             pt.FatherMarker = null; //DPR SPECIFIC
-            pt.ExitEntryMarker = null; //DPR SPECIFIC
+            if (curDep != null && !curDep.IsEmpty)
+                pt.ExitEntryMarker = '1'; //DPR SPECIFIC
             pt.DisappearedMarker = null; //DPR SPECIFIC
 
             if (resp.Disempowerment != null && resp.Disempowerment.DisempowermentStartDate.HasValue)
@@ -155,7 +156,14 @@ namespace CprBroker.DBR.Extensions
                 pt.VotingDate = null;
 
             pt.ChildMarker = null; //DPR SPECIFIC
-            pt.SupplementaryAddressMarker = null; //DPR SPECIFIC
+            if (
+                !string.IsNullOrEmpty(curAdr.SupplementaryAddress1) ||
+                !string.IsNullOrEmpty(curAdr.SupplementaryAddress2) ||
+                !string.IsNullOrEmpty(curAdr.SupplementaryAddress3) ||
+                !string.IsNullOrEmpty(curAdr.SupplementaryAddress4) ||
+                !string.IsNullOrEmpty(curAdr.SupplementaryAddress5)
+                )
+                pt.SupplementaryAddressMarker = '1'; //DPR SPECIFIC
             pt.MunicipalRelationMarker = null; //DPR SPECIFIC
             pt.NationalMemoMarker = null; //DPR SPECIFIC
             pt.FormerPersonalMarker = null; //DPR SPECIFIC

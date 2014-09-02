@@ -47,7 +47,9 @@ namespace CprBroker.DBR
 
         public static void AppendPerson(IndividualResponseType person, DPRDataContext dataContext)
         {
-            dataContext.PersonTotals.InsertOnSubmit(person.ToPersonTotal());
+            CurrentAddressInformationType curAdr = person.CurrentAddressInformation;
+            CurrentDepartureDataType curDep = person.CurrentDepartureData;
+            dataContext.PersonTotals.InsertOnSubmit(person.ToPersonTotal(curAdr, curDep));
 
             dataContext.Persons.InsertOnSubmit(person.ToPerson());
 
