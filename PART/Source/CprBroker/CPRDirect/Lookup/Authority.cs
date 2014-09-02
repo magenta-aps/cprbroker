@@ -85,7 +85,14 @@ namespace CprBroker.Providers.CPRDirect
             }
         }
 
-        private static Dictionary<string, string> _AuthorityMap;
+        class AuthorityShortInfo
+        {
+            public string Code;
+            public string AuthorityName;
+            public string FullName;
+        }
+
+        private static Dictionary<string, AuthorityShortInfo> _AuthorityMap;
 
         static void FillAuthorityMap()
         {
@@ -103,7 +110,13 @@ namespace CprBroker.Providers.CPRDirect
                             {
                                 _AuthorityMap = dataContext
                                     .Authorities
-                                    .ToDictionary(au => au.AuthorityCode, au => au.FullName);
+                                    .ToDictionary(
+                                        au => au.AuthorityCode, au => new AuthorityShortInfo()
+                                        {
+                                            FullName = au.FullName,
+                                            AuthorityName = au.AuthorityName,
+                                            Code = au.AuthorityCode
+                                        });
                             }
                         }
                     }
@@ -153,12 +166,25 @@ namespace CprBroker.Providers.CPRDirect
             }
         }
 
-        public static string GetNameByCode(string code)
+        public static string GetFullNameByCode(string code)
         {
             FillAuthorityMap();
             if (!string.IsNullOrEmpty(code) && _AuthorityMap.ContainsKey(code))
             {
-                return _AuthorityMap[code];
+                return _AuthorityMap[code].FullName;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public static string GetAuthorityNameByCode(string code)
+        {
+            FillAuthorityMap();
+            if (!string.IsNullOrEmpty(code) && _AuthorityMap.ContainsKey(code))
+            {
+                return _AuthorityMap[code].AuthorityName;
             }
             else
             {

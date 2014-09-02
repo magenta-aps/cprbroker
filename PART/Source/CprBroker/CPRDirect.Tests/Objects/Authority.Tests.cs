@@ -71,7 +71,7 @@ namespace CprBroker.Tests.CPRDirect.Objects
             [Test]
             public void GetNameByCode_Denmark_Denmark()
             {
-                var name = Authority.GetNameByCode("5100");
+                var name = Authority.GetFullNameByCode("5100");
                 Assert.AreEqual("Danmark", name);
             }
 
@@ -79,7 +79,7 @@ namespace CprBroker.Tests.CPRDirect.Objects
             public void GetNameByCode_Invalid_Null(
                 [Values("jhjk", null, "-111")]string code)
             {
-                var name = Authority.GetNameByCode(code);
+                var name = Authority.GetFullNameByCode(code);
                 Assert.IsNullOrEmpty(name);
             }
         }

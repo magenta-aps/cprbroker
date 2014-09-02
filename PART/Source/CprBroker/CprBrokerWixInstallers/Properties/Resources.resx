@@ -122,16 +122,16 @@
     <value>..\Resources\CreatePartDatabaseObjects.sql;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
   </data>
   <data name="LifecycleStatus" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\LifecycleStatus.csv;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1256</value>
+    <value>..\Resources\LifecycleStatus.csv;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1252</value>
   </data>
   <data name="LogType" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\LogType.csv;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
   </data>
   <data name="PatchDatabase_1_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\PatchDatabase_1_3.sql;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1256</value>
+    <value>..\Resources\PatchDatabase_1_3.sql;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1252</value>
   </data>
   <data name="Authority_4357" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Authority_4357.txt;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1256</value>
+    <value>..\Resources\Authority_4357.txt;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1252</value>
   </data>
   <data name="PatchDatabase_1_3_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\PatchDatabase_1_3_2.sql;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
@@ -158,10 +158,10 @@
     <value>..\Resources\Extract.sql;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="Queue" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Queue.sql;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1256</value>
+    <value>..\Resources\Queue.sql;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1252</value>
   </data>
   <data name="QueueItem" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\QueueItem.sql;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1256</value>
+    <value>..\Resources\QueueItem.sql;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1252</value>
   </data>
   <data name="Queue_Csv" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Queue.csv;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>

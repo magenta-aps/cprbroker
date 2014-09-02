@@ -50,7 +50,7 @@ namespace CprBroker.DBR.Extensions
                         pt.MunicipalityCode = resp.CurrentAddressInformation.MunicipalityCode;
                         pt.StreetCode = resp.CurrentAddressInformation.StreetCode;
                         pt.HouseNumber = resp.CurrentAddressInformation.HouseNumber;
-                        
+
                         if (!string.IsNullOrEmpty(resp.CurrentAddressInformation.Floor))
                             pt.Floor = resp.CurrentAddressInformation.Floor;
                         else
@@ -104,8 +104,8 @@ namespace CprBroker.DBR.Extensions
 
 
             pt.ChristianMark = resp.ChurchInformation.ChurchRelationship;
-            if (string.IsNullOrEmpty(resp.BirthRegistrationInformation.AdditionalBirthRegistrationText))
-                pt.BirthPlaceOfRegistration = resp.BirthRegistrationInformation.AdditionalBirthRegistrationText; //TODO: validate whether this is correct...
+            if (!string.IsNullOrEmpty(resp.BirthRegistrationInformation.BirthRegistrationAuthorityCode))
+                pt.BirthPlaceOfRegistration = Authority.GetAuthorityNameByCode(resp.BirthRegistrationInformation.BirthRegistrationAuthorityCode);
             else
                 pt.BirthPlaceOfRegistration = null;
             
@@ -173,7 +173,7 @@ namespace CprBroker.DBR.Extensions
                 pt.Occupation = resp.PersonInformation.Job;
             else
                 pt.Occupation = null;
-            pt.NationalityRight = null; // TODO: HOW DO WE OBTAIN THE COUNTRY NAME??
+            pt.NationalityRight = Authority.GetAuthorityNameByCode(resp.CurrentCitizenship.CountryCode.ToString());
             /*
              * WE DON'T SET THE PreviousAddress FIELD, BECAUSE IT IS NOT USED, AT THE MOMENT, AND WILL TAKE SOME TIME TO IMPLEMENT.
             var prevAdr = resp.HistoricalAddress
@@ -193,7 +193,7 @@ namespace CprBroker.DBR.Extensions
             else
                 pt.SearchName = null;
             pt.SearchSurname = resp.CurrentNameInformation.LastName.ToUpper();
-            
+
             // Special logic for addressing name
             pt.AddressingName = ToDprAddressingName(resp.ClearWrittenAddress.AddressingName, resp.CurrentNameInformation.LastName);
 
