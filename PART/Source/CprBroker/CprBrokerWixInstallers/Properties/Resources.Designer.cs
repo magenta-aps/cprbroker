@@ -22,7 +22,7 @@ namespace CprBrokerWixInstallers.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace CprBrokerWixInstallers.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("CprBrokerWixInstallers.Properties.Resources", typeof(Resources).Assembly);
@@ -51,7 +51,7 @@ namespace CprBrokerWixInstallers.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -66,7 +66,7 @@ namespace CprBrokerWixInstallers.Properties {
         ///{C98F9BE7-2DDE-404a-BAB5-5A7B1BBC3063};Event Broker;FCD568A0-8F18-4b6f-8691-C09239F158F3;2011-01-01;True;
         ///{4A78A5C8-B39B-41B9-9707-5782DAA56E2A};CPR Business Application Demo;5f8b7af5-422e-46bb-9273-5e244dc37505;2011-01-01;True;.
         /// </summary>
-        internal static string Application {
+        public static string Application {
             get {
                 return ResourceManager.GetString("Application", resourceCulture);
             }
@@ -77,7 +77,7 @@ namespace CprBrokerWixInstallers.Properties {
         ///001000000019910923120000000000199109231200000000000000Ukendt Myndighed                                                                                                                                                                                      Ukendt Myndighed                                                                                                                                                     000
         ///001000139020110819105772269735201107010000000000000000Cpr-Kontoret      [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string Authority_4357 {
+        public static string Authority_4357 {
             get {
                 return ResourceManager.GetString("Authority_4357", resourceCulture);
             }
@@ -90,7 +90,7 @@ namespace CprBrokerWixInstallers.Properties {
         ///604800000;Week;;;
         ///2592000000;Month;;;.
         /// </summary>
-        internal static string BudgetEntry {
+        public static string BudgetEntry {
             get {
                 return ResourceManager.GetString("BudgetEntry", resourceCulture);
             }
@@ -111,7 +111,7 @@ namespace CprBrokerWixInstallers.Properties {
         ///	[DataProviderType] [varchar](250) NOT NULL,
         ///	[Cost] [decimal](18, 4) [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string CreatePartDatabaseObjects {
+        public static string CreatePartDatabaseObjects {
             get {
                 return ResourceManager.GetString("CreatePartDatabaseObjects", resourceCulture);
             }
@@ -130,7 +130,7 @@ namespace CprBrokerWixInstallers.Properties {
         ///	    [StartRecord] [nvarchar](max) NOT NULL,
         ///	 [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string Extract {
+        public static string Extract {
             get {
                 return ResourceManager.GetString("Extract", resourceCulture);
             }
@@ -145,7 +145,7 @@ namespace CprBrokerWixInstallers.Properties {
         ///4;Updated
         ///.
         /// </summary>
-        internal static string LifecycleStatus {
+        public static string LifecycleStatus {
             get {
                 return ResourceManager.GetString("LifecycleStatus", resourceCulture);
             }
@@ -165,7 +165,7 @@ namespace CprBrokerWixInstallers.Properties {
         ///4096;Transfer
         ///.
         /// </summary>
-        internal static string LogType {
+        public static string LogType {
             get {
                 return ResourceManager.GetString("LogType", resourceCulture);
             }
@@ -184,7 +184,7 @@ namespace CprBrokerWixInstallers.Properties {
         ///	ALTER TABLE [dbo].[PersonRegistration] ADD [SourceObjects] [xml] NULL
         ///E [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string PatchDatabase_1_3 {
+        public static string PatchDatabase_1_3 {
             get {
                 return ResourceManager.GetString("PatchDatabase_1_3", resourceCulture);
             }
@@ -214,7 +214,7 @@ namespace CprBrokerWixInstallers.Properties {
         ///GO
         /// [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string PatchDatabase_1_3_2 {
+        public static string PatchDatabase_1_3_2 {
             get {
                 return ResourceManager.GetString("PatchDatabase_1_3_2", resourceCulture);
             }
@@ -225,7 +225,7 @@ namespace CprBrokerWixInstallers.Properties {
         ///ALTER TABLE [dbo].[PersonProperties] ALTER COLUMN [BirthRegistrationAuthority] varchar(60) 
         ///GO.
         /// </summary>
-        internal static string PatchDatabase_1_4 {
+        public static string PatchDatabase_1_4 {
             get {
                 return ResourceManager.GetString("PatchDatabase_1_4", resourceCulture);
             }
@@ -248,7 +248,7 @@ namespace CprBrokerWixInstallers.Properties {
         ///    ExtractErrorId uniqueidentifier NOT NULL DEFAULT(newid()),
         ///    ExtractId unique [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string PatchDatabase_2_1 {
+        public static string PatchDatabase_2_1 {
             get {
                 return ResourceManager.GetString("PatchDatabase_2_1", resourceCulture);
             }
@@ -266,7 +266,7 @@ namespace CprBrokerWixInstallers.Properties {
         ///-----------------------------------------------------------------
         ///------------  Enables parameterized subscr [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string PatchDatabase_2_2 {
+        public static string PatchDatabase_2_2 {
             get {
                 return ResourceManager.GetString("PatchDatabase_2_2", resourceCulture);
             }
@@ -288,7 +288,7 @@ namespace CprBrokerWixInstallers.Properties {
         ///	[ActivityId] [uniqueidentifier] NOT NULL,
         /// [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string PatchDatabase_2_2_1 {
+        public static string PatchDatabase_2_2_1 {
             get {
                 return ResourceManager.GetString("PatchDatabase_2_2_1", resourceCulture);
             }
@@ -316,7 +316,7 @@ namespace CprBrokerWixInstallers.Properties {
         ///		[CostThreshold] [decimal](18, 4) NULL,
         ///		[La [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string PatchDatabase_2_2_2 {
+        public static string PatchDatabase_2_2_2 {
             get {
                 return ResourceManager.GetString("PatchDatabase_2_2_2", resourceCulture);
             }
@@ -336,7 +336,7 @@ namespace CprBrokerWixInstallers.Properties {
         ///            CONSTRAINT [DF_Semaphore_SemaphoreId]  DEFAULT (newid()),
         ///	    [CreatedDate] [datetime] NOT NUL [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string PatchDatabase_2_2_3 {
+        public static string PatchDatabase_2_2_3 {
             get {
                 return ResourceManager.GetString("PatchDatabase_2_2_3", resourceCulture);
             }
@@ -356,7 +356,7 @@ namespace CprBrokerWixInstallers.Properties {
         ///	    [EncryptedData] [varbinary](max) NULL
         ///    ) O [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string Queue {
+        public static string Queue {
             get {
                 return ResourceManager.GetString("Queue", resourceCulture);
             }
@@ -369,7 +369,7 @@ namespace CprBrokerWixInstallers.Properties {
         ///200;CprBroker.Providers.CPRDirect.DbrBaseQueue, CprBroker.Providers.CPRDirect;100;100
         ///.
         /// </summary>
-        internal static string Queue_Csv {
+        public static string Queue_Csv {
             get {
                 return ResourceManager.GetString("Queue_Csv", resourceCulture);
             }
@@ -383,7 +383,7 @@ namespace CprBrokerWixInstallers.Properties {
         ///	    [QueueId]       uniqueidentifier    NOT NULL CONSTRAINT [FK_QueueItem_Queue]        FOREIGN KEY ([QueueId]) REFERENCES [dbo].[Queue] ([QueueId]) ON UPDATE CASCADE ON DELETE CASCADE,
         ///	    [ItemKey]       varchar(50)    [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string QueueItem {
+        public static string QueueItem {
             get {
                 return ResourceManager.GetString("QueueItem", resourceCulture);
             }
@@ -402,7 +402,7 @@ namespace CprBrokerWixInstallers.Properties {
         ///END
         ///GO.
         /// </summary>
-        internal static string Semaphore {
+        public static string Semaphore {
             get {
                 return ResourceManager.GetString("Semaphore", resourceCulture);
             }
