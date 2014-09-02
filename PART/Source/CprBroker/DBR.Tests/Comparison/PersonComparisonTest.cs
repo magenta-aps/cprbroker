@@ -19,7 +19,7 @@ namespace CprBroker.Tests.DBR.Comparison.Person
             {
                 using (var dataContext = new ExtractDataContext(CprBrokerConnectionString))
                 {
-                    KeysHolder._Keys = dataContext.ExecuteQuery<string>("select * FROM DbrPerson ORDER BY PNR").Skip(10).Take(10).ToArray();
+                    KeysHolder._Keys = dataContext.ExecuteQuery<string>("select * FROM DbrPerson ORDER BY PNR").Skip(150).Take(10).ToArray();
                     //return dataContext.ExtractItems.Select(ei => ei.PNR).Distinct().ToArray();
                 }
             }
