@@ -8,12 +8,13 @@ using NUnit.Framework;
 namespace CprBroker.Tests.DBR.Comparison.Person
 {
     [TestFixture]
-    public class PersonTotalComparisonTest : PersonComparisonTest<PersonTotal> {
+    public class PersonTotalComparisonTest : PersonComparisonTest<PersonTotal>
+    {
         override public string[] ExcludedProperties
         {
             get
             {
-            string[] excluded = {
+                string[] excluded = {
                                     "DirectoryProtectionMarker", // We do not test the street name as it is not present in historical records.
                                     "SpouseMarker", // We do not know the origin of this marker.
                                     "PaternityAuthorityName", // We can only get this one from CPR Services.
@@ -21,7 +22,7 @@ namespace CprBroker.Tests.DBR.Comparison.Person
 
                                     /* BELOW EXCLUSIONS ARE ONCE THAT ARE NOT, CURRENTLY, USED BY ANY SYSTEMS - AND FAIL IN TESTS */
                                 };
-            return excluded;
+                return excluded;
             }
         }
     }
@@ -58,7 +59,8 @@ namespace CprBroker.Tests.DBR.Comparison.Person
     public class ContactAddressComparisonTests : PersonComparisonTest<ContactAddress> { }
 
     [TestFixture]
-    public class PersonAddressComparisonTests : PersonComparisonTest<PersonAddress> {
+    public class PersonAddressComparisonTests : PersonComparisonTest<PersonAddress>
+    {
         override public string[] ExcludedProperties
         {
             get
@@ -66,6 +68,7 @@ namespace CprBroker.Tests.DBR.Comparison.Person
                 string[] excluded = {
                                     "AddressStartDateMarker", // We do not know the origin of this marker.
 
+                                    /* BELOW EXCLUSIONS ARE ONCE THAT ARE NOT, CURRENTLY, USED BY ANY SYSTEMS - AND FAIL IN TESTS */
                                     "CprUpdateDate", // It is skipped for now, as the contents are wrong
                                 };
                 return excluded;

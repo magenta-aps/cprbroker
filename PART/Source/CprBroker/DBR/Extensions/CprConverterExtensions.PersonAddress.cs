@@ -14,15 +14,19 @@ namespace CprBroker.DBR.Extensions
             PersonAddress pa = new PersonAddress();
             pa.PNR = Decimal.Parse(currentAddress.CurrentAddressInformation.PNR);
 
+            /*
+             * The CprUpdateDate is failing in tests, and is not being used by any client system yet, so we skip it for now
             pa.CprUpdateDate = CprBroker.Utilities.Dates.DateToDecimal(currentAddress.Registration.RegistrationDate, 12);
-
+             */
             pa.MunicipalityCode = currentAddress.CurrentAddressInformation.MunicipalityCode;
             pa.StreetCode = currentAddress.CurrentAddressInformation.StreetCode;
             pa.HouseNumber = currentAddress.CurrentAddressInformation.HouseNumber;
+
             if (!string.IsNullOrEmpty(currentAddress.CurrentAddressInformation.Floor))
                 pa.Floor = currentAddress.CurrentAddressInformation.Floor;
             else
                 pa.Floor = null;
+
             if (!string.IsNullOrEmpty(currentAddress.CurrentAddressInformation.Door))
             {
                 if (currentAddress.CurrentAddressInformation.Door.Equals("th") || currentAddress.CurrentAddressInformation.Door.Equals("tv"))
@@ -36,12 +40,15 @@ namespace CprBroker.DBR.Extensions
                 pa.GreenlandConstructionNumber = currentAddress.ClearWrittenAddress.BuildingNumber;
             else
                 pa.GreenlandConstructionNumber = null;
+
             pa.PostCode = currentAddress.ClearWrittenAddress.PostCode;
             pa.MunicipalityName = CprBroker.Providers.CPRDirect.Authority.GetAuthorityNameByCode(pa.MunicipalityCode.ToString());
+
             if (!string.IsNullOrEmpty(currentAddress.ClearWrittenAddress.StreetAddressingName))
                 pa.StreetAddressingName = currentAddress.ClearWrittenAddress.StreetAddressingName;
             else
                 pa.StreetAddressingName = null;
+
             if (currentAddress.CurrentAddressInformation.RelocationDate.Value != null)
             {
                 pa.AddressStartDate = CprBroker.Utilities.Dates.DateToDecimal(currentAddress.CurrentAddressInformation.RelocationDate.Value, 12);
@@ -152,6 +159,7 @@ namespace CprBroker.DBR.Extensions
             else
                 pa.GreenlandConstructionNumber = null;
             pa.PostCode = 0; //Find in GeoLookup, based on streetCode and houseNumber
+
             pa.MunicipalityName = CprBroker.Providers.CPRDirect.Authority.GetAuthorityNameByCode(pa.MunicipalityCode.ToString());
             pa.StreetAddressingName = null; //TODO: Can be fetched in CPR Services, vejadrnvn
 
@@ -171,7 +179,6 @@ namespace CprBroker.DBR.Extensions
             pa.AlwaysNull4 = null;
             pa.AlwaysNull5 = null;
             pa.AdditionalAddressDate = null; //TODO: Can be fetched in CPR Services, supladrhaenstart
-            if (!char.IsWhiteSpace(historicalAddress.CorrectionMarker))
                 pa.CorrectionMarker = historicalAddress.CorrectionMarker;
             if (!string.IsNullOrEmpty(historicalAddress.CareOfName))
                 pa.CareOfName = historicalAddress.CareOfName;

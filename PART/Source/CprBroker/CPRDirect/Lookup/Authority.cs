@@ -166,9 +166,19 @@ namespace CprBroker.Providers.CPRDirect
             }
         }
 
+        static string NormalizeAuthorityCode(string code)
+        {
+            while (code.Length < 4)
+            {
+                code = "0" + code;
+            }
+            return code;
+        }
+
         public static string GetFullNameByCode(string code)
         {
             FillAuthorityMap();
+            code = NormalizeAuthorityCode(code);
             if (!string.IsNullOrEmpty(code) && _AuthorityMap.ContainsKey(code))
             {
                 return _AuthorityMap[code].FullName;
@@ -182,6 +192,7 @@ namespace CprBroker.Providers.CPRDirect
         public static string GetAuthorityNameByCode(string code)
         {
             FillAuthorityMap();
+            code = NormalizeAuthorityCode(code); 
             if (!string.IsNullOrEmpty(code) && _AuthorityMap.ContainsKey(code))
             {
                 return _AuthorityMap[code].AuthorityName;
