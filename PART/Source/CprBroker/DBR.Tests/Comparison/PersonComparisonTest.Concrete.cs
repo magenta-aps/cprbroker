@@ -77,7 +77,7 @@ namespace CprBroker.Tests.DBR.Comparison.Person
 
         public override IQueryable<PersonAddress> Get(DPRDataContext dataContext, string pnr)
         {
-            return dataContext.PersonAddresses.Where(c => c.PNR == decimal.Parse(pnr)).OrderBy(c => c.CorrectionMarker).ThenByDescending(c => c.AddressStartDate).ThenBy(c => c.MunicipalityCode);
+            return dataContext.PersonAddresses.Where(c => c.PNR == decimal.Parse(pnr)).OrderByDescending(c => c.AddressStartDate);
         }
     }
 
