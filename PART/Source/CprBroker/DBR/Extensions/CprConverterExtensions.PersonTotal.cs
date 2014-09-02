@@ -89,12 +89,10 @@ namespace CprBroker.DBR.Extensions
                             pt.CityName = resp.ClearWrittenAddress.CityName;
                         else
                             pt.CityName = null;
+
+                        pt.CurrentMunicipalityName = CprBroker.Providers.CPRDirect.Authority.GetAuthorityNameByCode(pt.MunicipalityCode.ToString());
                     }
                 }
-                /*
-                 * TODO: FIX THE METHOD IN AUTHORITY!!!
-                 */
-                //pt.CurrentMunicipalityName = CprBroker.Providers.CPRDirect.Authority.GetNameByCode(pt.MunicipalityCode.ToString());
             }
 
             // TODO: Get from protection records
