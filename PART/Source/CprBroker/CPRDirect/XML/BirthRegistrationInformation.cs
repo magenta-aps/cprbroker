@@ -62,7 +62,7 @@ namespace CprBroker.Providers.CPRDirect
             }
             else
             {
-                return Authority.GetNameByCode(this.BirthRegistrationAuthorityCode);
+                return Authority.GetFullNameByCode(this.BirthRegistrationAuthorityCode);
             }
         }
 
