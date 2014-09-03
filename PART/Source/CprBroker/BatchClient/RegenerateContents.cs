@@ -67,13 +67,20 @@ namespace BatchClient
         {
             Utilities.UpdateConnectionString(this.BrokerConnectionString);
 
-            using (var dataContext = new PartDataContext(this.BrokerConnectionString))
+            if (!string.IsNullOrEmpty(SourceFile))
             {
-                return dataContext.PersonRegistrations
-                    .Where(pr => pr.SourceObjects != null && pr.ActorRef.Value == ActorId.ToString())
-                    .OrderBy(pr => pr.PersonRegistrationId)
-                    .Select(pr => pr.PersonRegistrationId.ToString())
-                    .ToArray();
+                return System.IO.File.ReadAllLines(SourceFile).Where(l => !string.IsNullOrEmpty(l)).ToArray();
+            }
+            else
+            {
+                using (var dataContext = new PartDataContext(this.BrokerConnectionString))
+                {
+                    return dataContext.PersonRegistrations
+                        .Where(pr => pr.SourceObjects != null && pr.ActorRef.Value == ActorId.ToString())
+                        .OrderBy(pr => pr.PersonRegistrationId)
+                        .Select(pr => pr.PersonRegistrationId.ToString())
+                        .ToArray();
+                }
             }
         }
 
@@ -94,7 +101,13 @@ namespace BatchClient
                     Func<string, Guid> cpr2uuidFunc = relPnr =>
                     {
                         relPnr = relPnr.PadLeft(10, ' ');
-                        return dataContext.PersonMappings.Where(pm => pm.CprNumber == relPnr).Select(pm => pm.UUID).First();
+                        var ret = dataContext.PersonMappings.Where(pm => pm.CprNumber == relPnr).Select(pm => pm.UUID).FirstOrDefault();
+                        if (ret.Equals(Guid.Empty))
+                        {
+                            var res = PartManager.GetUuid("", AppToken.ToString(), relPnr);
+                            ret = new Guid(res.UUID);
+                        }
+                        return ret;
                     };
 
                     //string oldContentsXml, oldSourceXml, newContentsXml, newSourceXml;
