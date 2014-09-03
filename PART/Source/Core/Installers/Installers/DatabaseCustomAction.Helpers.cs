@@ -181,7 +181,7 @@ namespace CprBroker.Installers
                         {
                             if (neededTables == null || neededTables.Length == 0)
                             {
-                                if (!databaseSetupInfo.IsDatabaseRoleMember("db_owner", userName, adminConnectionWithDb))
+                                if (!Utilities.Sql.IsDatabaseRoleMember("db_owner", userName, adminConnectionWithDb))
                                 {
                                     permissionsCommand.CommandText = "sp_addrolemember";
                                     permissionsCommand.CommandType = System.Data.CommandType.StoredProcedure;
@@ -348,7 +348,7 @@ namespace CprBroker.Installers
                                 using (var adminConnectionWithDB = new SqlConnection(setupInfo.CreateConnectionString(true, true)))
                                 {
                                     adminConnectionWithDB.Open();
-                                    if (!setupInfo.IsDatabaseRoleMember("db_owner", setupInfo.ApplicationAuthenticationInfo.UserName, adminConnectionWithDB))
+                                    if (!Utilities.Sql.IsDatabaseRoleMember("db_owner", setupInfo.ApplicationAuthenticationInfo.UserName, adminConnectionWithDB))
                                     {
                                         using (var dropUserCommand = new SqlCommand(string.Format("DROP USER [{0}]", setupInfo.ApplicationAuthenticationInfo.UserName), adminConnectionWithDB))
                                         {
