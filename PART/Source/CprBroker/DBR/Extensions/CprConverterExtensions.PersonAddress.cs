@@ -14,10 +14,8 @@ namespace CprBroker.DBR.Extensions
             PersonAddress pa = new PersonAddress();
             pa.PNR = Decimal.Parse(currentAddress.CurrentAddressInformation.PNR);
 
-            /*
-             * The CprUpdateDate is failing in tests, and is not being used by any client system yet, so we skip it for now
-            pa.CprUpdateDate = CprBroker.Utilities.Dates.DateToDecimal(currentAddress.Registration.RegistrationDate, 12);
-             */
+            if (currentAddress.CurrentAddressInformation.RelocationDate.HasValue)
+                pa.CprUpdateDate = CprBroker.Utilities.Dates.DateToDecimal(currentAddress.CurrentAddressInformation.RelocationDate.Value, 12);
             pa.MunicipalityCode = currentAddress.CurrentAddressInformation.MunicipalityCode;
             pa.StreetCode = currentAddress.CurrentAddressInformation.StreetCode;
             pa.HouseNumber = currentAddress.CurrentAddressInformation.HouseNumber;
@@ -137,7 +135,8 @@ namespace CprBroker.DBR.Extensions
         {
             PersonAddress pa = new PersonAddress();
             pa.PNR = Decimal.Parse(historicalAddress.PNR);
-            pa.CprUpdateDate = CprBroker.Utilities.Dates.DateToDecimal(historicalAddress.Registration.RegistrationDate, 12);
+            if (historicalAddress.RelocationDate.HasValue)
+                pa.CprUpdateDate = CprBroker.Utilities.Dates.DateToDecimal(historicalAddress.RelocationDate.Value, 12);
             pa.MunicipalityCode = historicalAddress.MunicipalityCode;
             pa.StreetCode = historicalAddress.StreetCode;
             pa.HouseNumber = historicalAddress.HouseNumber;
