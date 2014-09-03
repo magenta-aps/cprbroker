@@ -155,14 +155,14 @@ namespace CprBroker.DBR.Extensions
                 pt.VotingDate = null;
 
             pt.ChildMarker = null; //DPR SPECIFIC
-            if (curAdr != null)
+            if (resp.CurrentAddressInformation != null)
             {
                 if (
-                    !string.IsNullOrEmpty(curAdr.SupplementaryAddress1) ||
-                    !string.IsNullOrEmpty(curAdr.SupplementaryAddress2) ||
-                    !string.IsNullOrEmpty(curAdr.SupplementaryAddress3) ||
-                    !string.IsNullOrEmpty(curAdr.SupplementaryAddress4) ||
-                    !string.IsNullOrEmpty(curAdr.SupplementaryAddress5)
+                    !string.IsNullOrEmpty(resp.CurrentAddressInformation.SupplementaryAddress1) ||
+                    !string.IsNullOrEmpty(resp.CurrentAddressInformation.SupplementaryAddress2) ||
+                    !string.IsNullOrEmpty(resp.CurrentAddressInformation.SupplementaryAddress3) ||
+                    !string.IsNullOrEmpty(resp.CurrentAddressInformation.SupplementaryAddress4) ||
+                    !string.IsNullOrEmpty(resp.CurrentAddressInformation.SupplementaryAddress5)
                     )
                     pt.SupplementaryAddressMarker = '1'; //DPR SPECIFIC
             }
