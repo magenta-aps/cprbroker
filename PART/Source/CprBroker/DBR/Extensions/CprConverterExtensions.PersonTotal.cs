@@ -11,7 +11,7 @@ namespace CprBroker.DBR.Extensions
     public partial class CprConverterExtensions
     {
 
-        public static PersonTotal ToPersonTotal(this IndividualResponseType resp, Func<HistoricalAddressType, string> streetNameLocator = null)
+        public static PersonTotal ToPersonTotal(this IndividualResponseType resp/*, Func<HistoricalAddressType, string> streetNameLocator = null*/)
         {
             /*
              * TODO: implement INDLAESDTO             * 
@@ -183,11 +183,11 @@ namespace CprBroker.DBR.Extensions
                 .OrderByDescending(e => e.RelocationDate);
 
             var prevAddress = previousAddresses.FirstOrDefault();
-            if (prevAddress != null && streetNameLocator != null)
+            if (prevAddress != null/* && streetNameLocator != null*/)
             {
                 Console.WriteLine("<{0}> <{1}> <{2}>", prevAddress.RelocationDate, prevAddress.CorrectionMarker, prevAddress.MunicipalityCode);
                 pt.PreviousAddress = string.Format("{0} {1},{2} {3} ({4})",
-                                        streetNameLocator(prevAddress),
+                                        "",//streetNameLocator(prevAddress),
                                         prevAddress.HouseNumber.TrimStart('0', ' '),
                                         prevAddress.Floor.TrimStart('0', ' '),
                                         prevAddress.Door.TrimStart('0', ' '),
