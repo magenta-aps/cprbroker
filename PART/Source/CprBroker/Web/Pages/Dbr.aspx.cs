@@ -30,7 +30,7 @@ namespace CprBroker.Web.Pages
         #region Select/Edit/Cancel
         protected void dsDbr_Selecting(object sender, LinqDataSourceSelectEventArgs e)
         {
-            dsDbr.SelectParameters["@TypeId"].DefaultValue = CprBroker.Providers.CPRDirect.DbrBaseQueue.TargetQueueTypeId.ToString();
+            e.WhereParameters["TypeId"] = CprBroker.Providers.CPRDirect.DbrBaseQueue.TargetQueueTypeId;
         }
 
         protected IHasConfigurationProperties grdDbrPropertiesField_ObjectCreating(IHasEncryptedAttributes arg)
