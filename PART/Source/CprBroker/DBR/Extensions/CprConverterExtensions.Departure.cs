@@ -86,7 +86,8 @@ namespace CprBroker.DBR.Extensions
                 d.EntryDate = CprBroker.Utilities.Dates.DateToDecimal(historicalDeparture.EntryDate.Value, 12);
 
             d.EntryUpdateDate = null; //TODO: Can be fetched in CPR Services, indrtimestamp
-            d.CorrectionMarker = historicalDeparture.CorrectionMarker.ToString();
+            if (!char.IsWhiteSpace(historicalDeparture.CorrectionMarker))
+                d.CorrectionMarker = historicalDeparture.CorrectionMarker.ToString();
             if (!string.IsNullOrEmpty(historicalDeparture.ForeignAddress1))
                 d.ForeignAddressLine1 = historicalDeparture.ForeignAddress1;
             if (!string.IsNullOrEmpty(historicalDeparture.ForeignAddress2))
