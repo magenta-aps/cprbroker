@@ -17,7 +17,7 @@ namespace CprBroker.Tests.DBR.PerPerson
         public void PersonTotal_Passes([ValueSource(typeof(PersonBaseTest), "CprNumbers")]string pnr)
         {
             var pers = Persons[pnr];
-            pers.ToPersonTotal(pers.CurrentAddressInformation, pers.CurrentDepartureData);
+            pers.ToPersonTotal();
         }
 
         [Test]
