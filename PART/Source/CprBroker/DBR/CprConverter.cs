@@ -16,7 +16,13 @@ namespace CprBroker.DBR
 
         public static int DeletePersonRecords(string cprNumber, DPRDataContext dataContext)
         {
-            decimal pnr = decimal.Parse(cprNumber);
+            return DeletePersonRecords(new string[] { cprNumber }, dataContext);
+        }
+
+        public static int DeletePersonRecords(string[] cprNumbers, DPRDataContext dataContext)
+        {
+            decimal[] pnrs = cprNumbers.Select(cpr => decimal.Parse(cpr)).ToArray();
+
             var types = new Type[]{
                 typeof(PersonTotal),
                 typeof(Person),
@@ -37,12 +43,13 @@ namespace CprBroker.DBR
                 typeof(GuardianAndParentalAuthorityRelation),
                 typeof(GuardianAddress),
             };
+            string paramArray = string.Join(", ", Enumerable.Range(0, pnrs.Length - 1).Select(i => string.Format("{{{0}}}", i)).ToArray());
             var cmd =
                 string.Join(
                     Environment.NewLine,
-                    types.Select(t => "DELETE " + CprBroker.Utilities.DataLinq.GetTableName(t) + " WHERE PNR = {0};").ToArray()
+                    types.Select(t => "DELETE " + CprBroker.Utilities.DataLinq.GetTableName(t) + " WHERE PNR IN ( {0});").ToArray()
                     );
-            return dataContext.ExecuteCommand(cmd, cprNumber);
+            return dataContext.ExecuteCommand(cmd, pnrs.Select(p => p as object).ToArray());
         }
 
         public static void AppendPerson(IndividualResponseType person, DPRDataContext dataContext)
