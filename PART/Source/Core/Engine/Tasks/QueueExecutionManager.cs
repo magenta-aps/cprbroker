@@ -16,7 +16,6 @@ namespace CprBroker.Engine.Tasks
 
         public override void DisposeTask(QueueExecuter q)
         {
-            CprBroker.Engine.Local.Admin.LogSuccess(string.Format("Stopping queue <{0}>", q.Queue.QueueId));
             q.Stop();
             q.Dispose();
         }

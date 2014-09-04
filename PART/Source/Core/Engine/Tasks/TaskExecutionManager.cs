@@ -30,7 +30,6 @@ namespace CprBroker.Engine.Tasks
             foreach (var q in CurrentTasks)
             {
                 DisposeTask(q);
-                CurrentTasks.Remove(q);
             }
         }
 
@@ -41,7 +40,9 @@ namespace CprBroker.Engine.Tasks
         public virtual void DisposeTask(T task)
         {
             if (task != null && task is IDisposable)
+            {
                 (task as IDisposable).Dispose();
+            }
         }
 
         public virtual T[] GetTasks()
