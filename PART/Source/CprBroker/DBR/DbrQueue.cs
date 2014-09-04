@@ -52,27 +52,17 @@ namespace CprBroker.DBR
             {
                 items.LoadExtractAndItems(cprDataContext);
 
-                using (var dprDataContext = new DPRDataContext(this.ConnectionString))
+                foreach (var item in items)
                 {
-                    foreach (var item in items)
+                    using (var dprDataContext = new DPRDataContext(this.ConnectionString))
                     {
-                        try
-                        {
-                            var person = Extract.ToIndividualResponseType(item.Extract, item.ExtractItems, CprBroker.Providers.CPRDirect.Constants.DataObjectMap);
-                            
-                            CprConverter.DeletePersonRecords(item.PNR, dprDataContext);
-                            dprDataContext.SubmitChanges();
-                            
-                            CprConverter.AppendPerson(person, dprDataContext);
-                            dprDataContext.SubmitChanges();
-                            ret.Add(item);
-                        }
-                        catch (Exception ex)
-                        {
-                            CprBroker.Engine.Local.Admin.LogException(ex);
-                        }
-                    }
+                        CprConverter.DeletePersonRecords(item.PNR, dprDataContext);
 
+                        var person = Extract.ToIndividualResponseType(item.Extract, item.ExtractItems, CprBroker.Providers.CPRDirect.Constants.DataObjectMap);
+                        CprConverter.AppendPerson(person, dprDataContext);
+                        dprDataContext.SubmitChanges();
+                        ret.Add(item);
+                    }
                 }
             }
             return ret.ToArray();
