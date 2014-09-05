@@ -80,7 +80,8 @@ namespace CprBroker.DBR
                     }
                     catch (Exception ex)
                     {
-                        CprBroker.Engine.Local.Admin.LogException(ex);
+                        // TODO: Handle the rare case when item.PNR fails
+                        CprBroker.Engine.Local.Admin.LogException(ex, item.PNR);
                     }
                 }
             }
