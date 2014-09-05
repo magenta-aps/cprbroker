@@ -65,7 +65,7 @@ namespace CprBroker.Web.Pages
 
         protected void newDbr_InsertCommand(object sender, Dictionary<string, string> props)
         {
-            var queue = Queue.AddQueue<DbrQueue>(CprBroker.Providers.CPRDirect.DbrBaseQueue.TargetQueueTypeId, props, 10, 10);
+            var queue = Queue.AddQueue<DbrQueue>(CprBroker.Providers.CPRDirect.DbrBaseQueue.TargetQueueTypeId, props, 500, 10);
             this.grdDbr.DataBind();
             this.newDbr.DataBind();
         }
