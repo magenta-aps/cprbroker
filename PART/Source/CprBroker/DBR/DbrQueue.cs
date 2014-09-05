@@ -54,17 +54,33 @@ namespace CprBroker.DBR
 
                 foreach (var item in items)
                 {
-                    if (item.Extract != null)
+                    try
                     {
-                        using (var dprDataContext = new DPRDataContext(this.ConnectionString))
+                        if (item.Extract != null)
                         {
-                            CprConverter.DeletePersonRecords(item.PNR, dprDataContext);
+                            using (var conn = new SqlConnection(this.ConnectionString))
+                            {
+                                conn.Open();
+                                using (var trans = conn.BeginTransaction())
+                                {
+                                    using (var dprDataContext = new DPRDataContext(conn))
+                                    {
+                                        dprDataContext.Transaction = trans;
+                                        CprConverter.DeletePersonRecords(item.PNR, dprDataContext);
 
-                            var person = Extract.ToIndividualResponseType(item.Extract, item.ExtractItems, CprBroker.Providers.CPRDirect.Constants.DataObjectMap);
-                            CprConverter.AppendPerson(person, dprDataContext);
-                            dprDataContext.SubmitChanges();
-                            ret.Add(item);
+                                        var person = Extract.ToIndividualResponseType(item.Extract, item.ExtractItems, CprBroker.Providers.CPRDirect.Constants.DataObjectMap);
+                                        CprConverter.AppendPerson(person, dprDataContext);
+                                        dprDataContext.SubmitChanges();
+                                        trans.Commit();
+                                        ret.Add(item);
+                                    }
+                                }
+                            }
                         }
+                    }
+                    catch (Exception ex)
+                    {
+                        CprBroker.Engine.Local.Admin.LogException(ex);
                     }
                 }
             }
