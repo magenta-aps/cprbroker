@@ -63,20 +63,7 @@ namespace CprBroker.EventBroker.Backend
         static void Main()
         {
             BrokerContext.Initialize(Constants.EventBrokerApplicationToken.ToString(), Constants.UserToken);
-            try
-            {
-                var q = CprBroker.Engine.Queues.Queue.GetById<CprBroker.DBR.DbrQueue>(new Guid("53FE1859-3D96-4B41-B238-9F842F02BE81"));
-                //var q = CprBroker.Engine.Queues.Queue.GetById<CprBroker.Providers.CPRDirect.PartConversionQueue>(new Guid("C62506DC-3B20-48C7-BC58-1A5B9E30D98F"));
-                CprBroker.Engine.Local.Admin.LogSuccess("Starting ");
-                q.RunOneBatch();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.ToString());
-                CprBroker.Engine.Local.Admin.LogException(ex);
-            }
-            return;
-            
+
             try
             {
                 string s = ConfigManager.Current.Settings.CprBrokerConnectionString;
