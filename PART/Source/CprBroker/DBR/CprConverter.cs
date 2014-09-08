@@ -43,7 +43,7 @@ namespace CprBroker.DBR
                 typeof(GuardianAndParentalAuthorityRelation),
                 typeof(GuardianAddress),
             };
-            string paramArray = string.Join(", ", Enumerable.Range(0, pnrs.Length - 1).Select(i => string.Format("{{{0}}}", i)).ToArray());
+            string paramArray = string.Join(", ", Enumerable.Range(0, pnrs.Length).Select(i => string.Format("{{{0}}}", i)).ToArray());
             var cmd =
                 string.Join(
                     Environment.NewLine,
