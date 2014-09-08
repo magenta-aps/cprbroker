@@ -16,7 +16,8 @@ namespace CprBroker.DBR.Extensions
             if (currentDeparture != null)
             {
                 d.PNR = Decimal.Parse(currentDeparture.PNR);
-                d.CprUpdateDate = CprBroker.Utilities.Dates.DateToDecimal(currentDeparture.Registration.RegistrationDate, 12);
+                if (currentDeparture.ExitDate.HasValue)
+                    d.CprUpdateDate = CprBroker.Utilities.Dates.DateToDecimal(currentDeparture.ExitDate.Value, 12);
                 d.ExitCountryCode = currentDeparture.ExitCountryCode;
 
                 if (currentDeparture.ExitDate.HasValue)
@@ -32,11 +33,16 @@ namespace CprBroker.DBR.Extensions
                 d.EntryDate = null; //This is the current date
                 d.EntryUpdateDate = null; //TODO: Can be fetched in CPR Services, indrtimestamp
                 d.CorrectionMarker = null; //This is the current status
-                d.ForeignAddressLine1 = currentDeparture.ForeignAddress1;
-                d.ForeignAddressLine2 = currentDeparture.ForeignAddress2;
-                d.ForeignAddressLine3 = currentDeparture.ForeignAddress3;
-                d.ForeignAddressLine4 = currentDeparture.ForeignAddress4;
-                d.ForeignAddressLine5 = currentDeparture.ForeignAddress5;
+                if (!string.IsNullOrEmpty(currentDeparture.ForeignAddress1))
+                    d.ForeignAddressLine1 = currentDeparture.ForeignAddress1;
+                if (!string.IsNullOrEmpty(currentDeparture.ForeignAddress2))
+                    d.ForeignAddressLine2 = currentDeparture.ForeignAddress2;
+                if (!string.IsNullOrEmpty(currentDeparture.ForeignAddress3))
+                    d.ForeignAddressLine3 = currentDeparture.ForeignAddress3;
+                if (!string.IsNullOrEmpty(currentDeparture.ForeignAddress4))
+                    d.ForeignAddressLine4 = currentDeparture.ForeignAddress4;
+                if (!string.IsNullOrEmpty(currentDeparture.ForeignAddress5))
+                    d.ForeignAddressLine5 = currentDeparture.ForeignAddress5;
             }
             else
             {
@@ -49,7 +55,8 @@ namespace CprBroker.DBR.Extensions
         {
             Departure d = new Departure();
             d.PNR = Decimal.Parse(historicalDeparture.PNR);
-            d.CprUpdateDate = CprBroker.Utilities.Dates.DateToDecimal(historicalDeparture.Registration.RegistrationDate, 12);
+            if (historicalDeparture.EntryDate.HasValue)
+                d.CprUpdateDate = CprBroker.Utilities.Dates.DateToDecimal(historicalDeparture.EntryDate.Value, 12);
             if (historicalDeparture.ExitCountryCode > 0)
             {
                 d.ExitCountryCode = historicalDeparture.ExitCountryCode;
@@ -79,12 +86,18 @@ namespace CprBroker.DBR.Extensions
                 d.EntryDate = CprBroker.Utilities.Dates.DateToDecimal(historicalDeparture.EntryDate.Value, 12);
 
             d.EntryUpdateDate = null; //TODO: Can be fetched in CPR Services, indrtimestamp
-            d.CorrectionMarker = historicalDeparture.CorrectionMarker.ToString();
-            d.ForeignAddressLine1 = historicalDeparture.ForeignAddress1;
-            d.ForeignAddressLine2 = historicalDeparture.ForeignAddress2;
-            d.ForeignAddressLine3 = historicalDeparture.ForeignAddress3;
-            d.ForeignAddressLine4 = historicalDeparture.ForeignAddress4;
-            d.ForeignAddressLine5 = historicalDeparture.ForeignAddress5;
+            if (!char.IsWhiteSpace(historicalDeparture.CorrectionMarker))
+                d.CorrectionMarker = historicalDeparture.CorrectionMarker.ToString();
+            if (!string.IsNullOrEmpty(historicalDeparture.ForeignAddress1))
+                d.ForeignAddressLine1 = historicalDeparture.ForeignAddress1;
+            if (!string.IsNullOrEmpty(historicalDeparture.ForeignAddress2))
+                d.ForeignAddressLine2 = historicalDeparture.ForeignAddress2;
+            if (!string.IsNullOrEmpty(historicalDeparture.ForeignAddress3))
+                d.ForeignAddressLine3 = historicalDeparture.ForeignAddress3;
+            if (!string.IsNullOrEmpty(historicalDeparture.ForeignAddress4))
+                d.ForeignAddressLine4 = historicalDeparture.ForeignAddress4;
+            if (!string.IsNullOrEmpty(historicalDeparture.ForeignAddress5))
+                d.ForeignAddressLine5 = historicalDeparture.ForeignAddress5;
             return d;
         }
 

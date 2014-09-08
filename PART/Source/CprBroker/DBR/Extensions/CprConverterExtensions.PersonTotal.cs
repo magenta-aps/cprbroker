@@ -11,7 +11,7 @@ namespace CprBroker.DBR.Extensions
     public partial class CprConverterExtensions
     {
 
-        public static PersonTotal ToPersonTotal(this IndividualResponseType resp)
+        public static PersonTotal ToPersonTotal(this IndividualResponseType resp, Func<HistoricalAddressType, string> streetNameLocator = null)
         {
             /*
              * TODO: implement INDLAESDTO             * 
@@ -155,14 +155,17 @@ namespace CprBroker.DBR.Extensions
                 pt.VotingDate = null;
 
             pt.ChildMarker = null; //DPR SPECIFIC
-            if (
-                !string.IsNullOrEmpty(resp.CurrentAddressInformation.SupplementaryAddress1) ||
-                !string.IsNullOrEmpty(resp.CurrentAddressInformation.SupplementaryAddress2) ||
-                !string.IsNullOrEmpty(resp.CurrentAddressInformation.SupplementaryAddress3) ||
-                !string.IsNullOrEmpty(resp.CurrentAddressInformation.SupplementaryAddress4) ||
-                !string.IsNullOrEmpty(resp.CurrentAddressInformation.SupplementaryAddress5)
-                )
-                pt.SupplementaryAddressMarker = '1'; //DPR SPECIFIC
+            if (resp.CurrentAddressInformation != null)
+            {
+                if (
+                    !string.IsNullOrEmpty(resp.CurrentAddressInformation.SupplementaryAddress1) ||
+                    !string.IsNullOrEmpty(resp.CurrentAddressInformation.SupplementaryAddress2) ||
+                    !string.IsNullOrEmpty(resp.CurrentAddressInformation.SupplementaryAddress3) ||
+                    !string.IsNullOrEmpty(resp.CurrentAddressInformation.SupplementaryAddress4) ||
+                    !string.IsNullOrEmpty(resp.CurrentAddressInformation.SupplementaryAddress5)
+                    )
+                    pt.SupplementaryAddressMarker = '1'; //DPR SPECIFIC
+            }
             pt.MunicipalRelationMarker = null; //DPR SPECIFIC
             pt.NationalMemoMarker = null; //DPR SPECIFIC
             pt.FormerPersonalMarker = null; //DPR SPECIFIC
@@ -175,16 +178,16 @@ namespace CprBroker.DBR.Extensions
             pt.NationalityRight = Authority.GetAuthorityNameByCode(resp.CurrentCitizenship.CountryCode.ToString());
 
             // * WE DON'T SET THE PreviousAddress FIELD, BECAUSE IT IS NOT USED, AT THE MOMENT, AND WILL TAKE SOME TIME TO IMPLEMENT.
-
             var previousAddresses = resp.HistoricalAddress
                 .Where(e => (e as CprBroker.Schemas.Part.IHasCorrectionMarker).CorrectionMarker == CprBroker.Schemas.Part.CorrectionMarker.OK)
                 .OrderByDescending(e => e.RelocationDate);
 
             var prevAddress = previousAddresses.FirstOrDefault();
-            if (prevAddress != null)
+            if (prevAddress != null && streetNameLocator != null)
             {
+                Console.WriteLine("<{0}> <{1}> <{2}>", prevAddress.RelocationDate, prevAddress.CorrectionMarker, prevAddress.MunicipalityCode);
                 pt.PreviousAddress = string.Format("{0} {1},{2} {3} ({4})",
-                                        "", //TODO: Put street name here
+                                        streetNameLocator(prevAddress),
                                         prevAddress.HouseNumber.TrimStart('0', ' '),
                                         prevAddress.Floor.TrimStart('0', ' '),
                                         prevAddress.Door.TrimStart('0', ' '),

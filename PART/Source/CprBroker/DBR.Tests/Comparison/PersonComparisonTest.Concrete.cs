@@ -53,7 +53,23 @@ namespace CprBroker.Tests.DBR.Comparison.Person
     public class NationalityComparisonTests : PersonComparisonTest<Nationality> { }
 
     [TestFixture]
-    public class DepartureComparisonTests : PersonComparisonTest<Departure> { }
+    public class DepartureComparisonTests : PersonComparisonTest<Departure> {
+        override public string[] ExcludedProperties
+        {
+            get
+            {
+                string[] excluded = {
+                                    "ExitUpdateDate", // The values in this columns are wrong, but not used.
+                                };
+                return excluded;
+            }
+        }
+
+        public override IQueryable<Departure> Get(DPRDataContext dataContext, string pnr)
+        {
+            return dataContext.Departures.Where(c => c.PNR == decimal.Parse(pnr)).OrderBy(c => c.EntryDate).ThenBy(c => c.ExitDate);
+        }
+    }
 
     [TestFixture]
     public class ContactAddressComparisonTests : PersonComparisonTest<ContactAddress> { }
