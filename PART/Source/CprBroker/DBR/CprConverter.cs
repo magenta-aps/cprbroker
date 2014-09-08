@@ -47,9 +47,10 @@ namespace CprBroker.DBR
             var cmd =
                 string.Join(
                     Environment.NewLine,
-                    types.Select(t => "DELETE " + CprBroker.Utilities.DataLinq.GetTableName(t) + " WHERE PNR IN ( {0});").ToArray()
+                    types.Select(t => string.Format("DELETE {0} WHERE PNR IN ({1});", CprBroker.Utilities.DataLinq.GetTableName(t), paramArray)).ToArray()
                     );
-            return dataContext.ExecuteCommand(cmd, pnrs.Select(p => p as object).ToArray());
+            var ret =dataContext.ExecuteCommand(cmd, pnrs.Select(p => p as object).ToArray());
+            return ret;
         }
 
         public static void AppendPerson(IndividualResponseType person, DPRDataContext dataContext)
