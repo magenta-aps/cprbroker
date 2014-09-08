@@ -80,7 +80,7 @@ namespace CprBroker.Providers.CPRDirect
                 .Where(o => o.ColumnAttribute != null)
                 .ToArray();
             var table = new DataTable();
-            
+
             foreach (var property in properties)
             {
                 Type propertyType = property.Property.PropertyType;
@@ -108,11 +108,13 @@ namespace CprBroker.Providers.CPRDirect
         public static void BulkInsertChanges(this SqlConnection conn, DataContext dataContext, SqlTransaction trans = null)
         {
             var inserts = dataContext.GetChangeSet().Inserts;
+            BulkInsertChanges(conn, inserts, trans);
+        }
+        public static void BulkInsertChanges(this SqlConnection conn, IList<object> inserts, SqlTransaction trans = null)
+        {
             var groups = inserts.GroupBy(i => i.GetType()).ToArray();
-            Console.WriteLine("Inserting : {0} groups", groups.Count());
             foreach (var group in groups)
             {
-                Console.WriteLine("Inserting : {0}", group.Key.Name);
                 BulkInsertAll(conn, group.Key, group.ToArray(), trans);
             }
         }

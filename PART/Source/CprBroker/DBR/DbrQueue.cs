@@ -44,6 +44,12 @@ namespace CprBroker.DBR
             get { return Port.HasValue; }
         }
 
+        class Batch
+        {
+            public List<ExtractQueueItem> Items = new List<ExtractQueueItem>();
+            public List<Object> Inserts = new List<object>();
+        }
+
         public override ExtractQueueItem[] Process(ExtractQueueItem[] items)
         {
             var ret = new List<ExtractQueueItem>();
@@ -52,24 +58,38 @@ namespace CprBroker.DBR
             {
                 items.LoadExtractAndItems(cprDataContext);
 
-                // Ignore those that cannot be converted
-                items = items.Where(item => IsDbrConvertible(item)).ToArray();
+                var itemGroups = new List<Batch>();
+                itemGroups.Add(new Batch());
 
                 // Group in batches
-                var itemGroups = new List<List<ExtractQueueItem>>();
-                itemGroups.Add(new List<ExtractQueueItem>());
-
                 foreach (var item in items)
                 {
-                    var currentGroup = itemGroups.Last();
-                    if (currentGroup.Where(gi => gi.PNR == item.PNR).FirstOrDefault() != null)
+                    try
                     {
-                        currentGroup = new List<ExtractQueueItem>();
-                        itemGroups.Add(currentGroup);
+                        if (item.Extract != null)
+                        {
+                            using (var dprDataContext = new DPRDataContext(""))
+                            {
+                                var response = Extract.ToIndividualResponseType(item.Extract, item.ExtractItems, CprBroker.Providers.CPRDirect.Constants.DataObjectMap);
+                                CprConverter.AppendPerson(response, dprDataContext);
+
+                                var currentGroup = itemGroups.Last();
+                                if (currentGroup.Items.Where(gi => gi.PNR == item.PNR).FirstOrDefault() != null)
+                                {
+                                    currentGroup = new Batch();
+                                    itemGroups.Add(currentGroup);
+                                }
+                                currentGroup.Items.Add(item);
+                                currentGroup.Inserts.AddRange(dprDataContext.GetChangeSet().Inserts);
+                            }
+                        }
                     }
-                    currentGroup.Add(item);
+                    catch (Exception ex)
+                    {
+                        CprBroker.Engine.Local.Admin.LogException(ex, string.Format("<{0}>", item.PNR));
+                    }
                 }
-                itemGroups = itemGroups.Where(g => g.Count > 0).ToList();
+                itemGroups = itemGroups.Where(g => g.Items.Count > 0).ToList();
 
                 // Now run the batches
                 foreach (var itemGroup in itemGroups)
@@ -80,22 +100,16 @@ namespace CprBroker.DBR
                         {
                             using (var dprDataContext = new DPRDataContext(conn))
                             {
-                                foreach (var item in itemGroup)
-                                {
-                                    var person = Extract.ToIndividualResponseType(item.Extract, item.ExtractItems, CprBroker.Providers.CPRDirect.Constants.DataObjectMap);
-                                    CprConverter.AppendPerson(person, dprDataContext);
-                                }
                                 conn.Open();
                                 using (var trans = conn.BeginTransaction())
                                 {
                                     dprDataContext.Transaction = trans;
-                                    CprConverter.DeletePersonRecords(itemGroup.Select(i => i.PNR).ToArray(), dprDataContext);
-                                    var changes = dprDataContext.GetChangeSet();
-                                    Console.WriteLine("Inserts {0}, Deletes {1}, Updates {2}", changes.Inserts.Count, changes.Deletes.Count, changes.Updates.Count);
-                                    conn.BulkInsertChanges(dprDataContext, trans);
+
+                                    CprConverter.DeletePersonRecords(itemGroup.Items.Select(i => i.PNR).ToArray(), dprDataContext);
+                                    conn.BulkInsertChanges(itemGroup.Inserts, trans);
 
                                     trans.Commit();
-                                    ret.AddRange(itemGroup);
+                                    ret.AddRange(itemGroup.Items);
                                 }
                             }
                         }
@@ -109,26 +123,6 @@ namespace CprBroker.DBR
             return ret.ToArray();
         }
 
-        public bool IsDbrConvertible(ExtractQueueItem item)
-        {
-            try
-            {
-                if (item.Extract != null)
-                {
-                    using (var dprDataContext = new DPRDataContext(""))
-                    {
-                        var response = Extract.ToIndividualResponseType(item.Extract, item.ExtractItems, CprBroker.Providers.CPRDirect.Constants.DataObjectMap);
-                        CprConverter.AppendPerson(response, dprDataContext);
-                        return true;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                CprBroker.Engine.Local.Admin.LogException(ex, string.Format("<{0}>", item.PNR));
-            }
-            return false;
-        }
 
         public override Engine.DataProviderConfigPropertyInfo[] ConfigurationKeys
         {
