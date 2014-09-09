@@ -23,7 +23,6 @@ namespace CprBroker.DBR.Extensions
             }
             else
             {
-                Console.WriteLine("personInformation.StatusStartDate was NULL");
                 pn.StatusDate = null;//CprBroker.Utilities.Dates.DateToDecimal(resp.PersonInformation.StatusStartDate.Value, 12);
             }
             if (!char.IsWhiteSpace(currentName.FirstNameMarker))

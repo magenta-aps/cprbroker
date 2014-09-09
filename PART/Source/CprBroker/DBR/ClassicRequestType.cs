@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Data.SqlClient;
 using CprBroker.Engine;
 using CprBroker.Data.DataProviders;
 using CprBroker.Providers.CPRDirect;
@@ -16,12 +17,7 @@ namespace CprBroker.DBR
         {
             if (this.LargeData == Providers.DPR.DetailType.ExtendedData && this.Type == Providers.DPR.InquiryType.DataUpdatedAutomaticallyFromCpr)
             {
-                DataProvidersConfigurationSection section = ConfigManager.Current.DataProvidersSection;
-                DataProvider[] dbProviders = DataProviderManager.ReadDatabaseDataProviders();
-
-                var providers = DataProviderManager
-                    .GetDataProviderList(section, dbProviders, typeof(ICprDirectPersonDataProvider), Schemas.SourceUsageOrder.LocalThenExternal)
-                    .Select(p => p as ICprDirectPersonDataProvider);
+                var providers = LoadDataProviders();
 
                 var response = providers
                     .Select(p => p.GetPerson(this.PNR))
@@ -29,20 +25,31 @@ namespace CprBroker.DBR
 
                 if (response != null)
                 {
-                    using (var dataContext = new DPRDataContext(dprConnectionString))
+                    using (var conn = new SqlConnection(dprConnectionString))
                     {
-                        CprConverter.DeletePersonRecords(this.PNR, dataContext);
-                        CprConverter.AppendPerson(response, dataContext);
-                        dataContext.SubmitChanges();
-                        var ret = new ClassicResponseType()
+                        using (var dataContext = new DPRDataContext(conn))
                         {
-                            Type = this.Type,
-                            LargeData = this.LargeData,
-                            PNR = this.PNR,
-                            ErrorNumber = "00",
-                            Data = "Basen er opdateret"
-                        };
-                        return ret;
+                            CprConverter.AppendPerson(response, dataContext);
+
+                            conn.Open();
+                            using (var trans = conn.BeginTransaction())
+                            {
+                                dataContext.Transaction = trans;
+                                CprConverter.DeletePersonRecords(this.PNR, dataContext);
+                                conn.BulkInsertChanges(dataContext.GetChangeSet().Inserts, trans);
+                                trans.Commit();
+                            }
+                            var ret = new ClassicResponseType()
+                            {
+                                Type = this.Type,
+                                LargeData = this.LargeData,
+                                PNR = this.PNR,
+                                ErrorNumber = "00",
+                                Data = "Basen er opdateret"
+                            };
+
+                            return ret;
+                        }
                     }
                 }
                 else
@@ -56,6 +63,17 @@ namespace CprBroker.DBR
                 // TODO: unimplemented mode of operation
                 throw new NotImplementedException();
             }
+        }
+
+        public virtual IEnumerable<ICprDirectPersonDataProvider> LoadDataProviders()
+        {
+            DataProvidersConfigurationSection section = ConfigManager.Current.DataProvidersSection;
+            DataProvider[] dbProviders = DataProviderManager.ReadDatabaseDataProviders();
+
+            var providers = DataProviderManager
+                .GetDataProviderList(section, dbProviders, typeof(ICprDirectPersonDataProvider), Schemas.SourceUsageOrder.LocalThenExternal)
+                .Select(p => p as ICprDirectPersonDataProvider);
+            return providers;
         }
     }
 }

@@ -67,6 +67,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClassicRequestTypeTests.cs" />
     <Compile Include="Comparison\ComparisonTest.cs" />
     <Compile Include="Comparison\GeoLookupComparisonTest.Concrete.cs" />
     <Compile Include="Comparison\GeoLookupComparisonTest.cs">
@@ -77,6 +78,8 @@
     <Compile Include="Comparison\PersonComparisonTest.cs" />
     <Compile Include="DbrTestBase.cs" />
     <Compile Include="DprDiversionManagerTests.cs" />
+    <Compile Include="DprDiversionServerTests.cs" />
+    <Compile Include="DprDiversionTcpTests.cs" />
     <Compile Include="PerPerson\CprConverterExtensionTests_GoesIntoDatabase.cs" />
     <Compile Include="PerPerson\CprConverterTests.cs" />
     <Compile Include="PerPerson\PersonBaseTest.cs" />

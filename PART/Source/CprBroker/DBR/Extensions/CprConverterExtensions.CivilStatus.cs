@@ -44,7 +44,6 @@ namespace CprBroker.DBR.Extensions
             }
             else
             {
-                Console.WriteLine("resp.PersonInformation.StatusStartDate was NULL");
                 cs.SeparationReferralTimestamp = null;
             }
             return cs;

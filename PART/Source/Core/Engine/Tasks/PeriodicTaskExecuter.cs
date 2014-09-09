@@ -62,6 +62,10 @@ namespace CprBroker.Engine.Tasks
     {
         // TODO: Shall SyncObject be defined per each task class?
         private System.Threading.AutoResetEvent SyncObject = new System.Threading.AutoResetEvent(true);
+        public virtual bool LogTimerEvents
+        {
+            get { return false; }
+        }
 
         public PeriodicTaskExecuter()
         {
@@ -125,7 +129,8 @@ namespace CprBroker.Engine.Tasks
                 try
                 {
                     BrokerContext.Initialize(Constants.EventBrokerApplicationToken.ToString(), Constants.UserToken);
-                    CprBroker.Engine.Local.Admin.LogSuccess(string.Format("{0} : {1}", TextMessages.TimerEventStarted, this.GetType()));
+                    if (LogTimerEvents)
+                        CprBroker.Engine.Local.Admin.LogSuccess(string.Format("{0} : {1}", TextMessages.TimerEventStarted, this.GetType()));
                     SetActionTimerInterval();
 
                     try
@@ -137,7 +142,8 @@ namespace CprBroker.Engine.Tasks
                         CprBroker.Engine.Local.Admin.LogException(ex);
                     }
 
-                    CprBroker.Engine.Local.Admin.LogSuccess(string.Format("{0} : {1}", TextMessages.TimerEventFinished, this.GetType()));
+                    if (LogTimerEvents)
+                        CprBroker.Engine.Local.Admin.LogSuccess(string.Format("{0} : {1}", TextMessages.TimerEventFinished, this.GetType()));
                 }
                 finally
                 {

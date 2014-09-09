@@ -13,12 +13,12 @@ namespace CprBroker.DBR
     {
         public DbrQueue DbrQueue;
 
-        protected override byte[] ProcessMessage(byte[] message)
+        public override byte[] ProcessMessage(byte[] message)
         {
             var req = DiversionRequest.Parse(message);
             if (req != null)
             {
-                var ret = req.Process(this.DbrQueue.ConnectionString);
+                var ret = req.Process(ConnectionString);
                 return ret.ToBytes();
             }
             else
@@ -26,6 +26,14 @@ namespace CprBroker.DBR
                 // Invalid request.
                 // TODO: Handle invalid request
                 return new byte[0];
+            }
+        }
+
+        public virtual string ConnectionString
+        {
+            get
+            {
+                return this.DbrQueue.ConnectionString;
             }
         }
 

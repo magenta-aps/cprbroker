@@ -53,7 +53,6 @@ namespace CprBroker.DBR.Extensions
             }
             else
             {
-                Console.WriteLine("currentAddress.CurrentAddressInformation.RelocationDate.Value. was NULL");
                 pa.AddressStartDate = 0;
             }
             if (!char.IsWhiteSpace(currentAddress.CurrentAddressInformation.RelocationDateUncertainty))
@@ -69,7 +68,6 @@ namespace CprBroker.DBR.Extensions
             }
             else
             {
-                Console.WriteLine("currentAddress.CurrentAddressInformation.LeavingMunicipalityDepartureDate was NULL");
                 pa.LeavingFromMunicipalityDate = null;
             }
             if (currentAddress.CurrentAddressInformation.MunicipalityArrivalDate != null)
@@ -78,7 +76,6 @@ namespace CprBroker.DBR.Extensions
             }
             else
             {
-                Console.WriteLine("currentAddress.CurrentAddressInformation.MunicipalityArrivalDate was NULL");
                 pa.MunicipalityArrivalDate = null;
             }
             pa.AlwaysNull1 = null;
@@ -92,7 +89,6 @@ namespace CprBroker.DBR.Extensions
             }
             else
             {
-                Console.WriteLine("currentAddress.CurrentAddressInformation.StartDate was NULL");
                 pa.AdditionalAddressDate = null;
             }
             pa.CorrectionMarker = null; //This is the current status

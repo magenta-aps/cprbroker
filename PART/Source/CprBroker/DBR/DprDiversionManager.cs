@@ -17,7 +17,6 @@ namespace CprBroker.DBR
 
         public override void DisposeTask(DprDiversionServer task)
         {
-            CprBroker.Engine.Local.Admin.LogSuccess(string.Format("Stopping DBR diversion: queue<{0}> on port<{1}>", task.DbrQueue.QueueId, task.Port));
             task.Stop();
             task.Dispose();
         }

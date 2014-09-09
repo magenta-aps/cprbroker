@@ -44,7 +44,6 @@ namespace CprBroker.DBR.Extensions
             }
             else
             {
-                Console.WriteLine("person.Disempowerment was NULL");
                 p.UnderGuardianshipDate = null;
             }
             /*
@@ -59,7 +58,6 @@ namespace CprBroker.DBR.Extensions
             }
             else
             {
-                Console.WriteLine("person.PersonInformation.CurrentCprNumber was NULL or empty");
                 p.CurrentPnr = null;
             }
             if (person.PersonInformation.PersonEndDate != null)
@@ -68,7 +66,6 @@ namespace CprBroker.DBR.Extensions
             }
             else
             {
-                Console.WriteLine("person.PersonInformation.PersonEndDate was NULL");
                 p.PnrDeletionDate = null;
             }
             /*
@@ -86,7 +83,6 @@ namespace CprBroker.DBR.Extensions
             }
             else
             {
-                Console.WriteLine("person.ParentsInformation.MotherPNR was NULL or empty");
                 p.MotherPnr = 0;
             }
             p.KinshipUpdateDate = 0; //TODO: Can be fetched in CPR Services: timestamp
@@ -96,7 +92,6 @@ namespace CprBroker.DBR.Extensions
             }
             else
             {
-                Console.WriteLine("person.ParentsInformation.MotherBirthDate was NULL or empty");
                 p.MotherBirthdate = null;
             }
             p.MotherDocumentation = null; //TODO: Can be fetched in CPR Services: mor_dok
@@ -107,7 +102,6 @@ namespace CprBroker.DBR.Extensions
             }
             else
             {
-                Console.WriteLine("person.ParentsInformation.FatherBirthDate was NULL or empty");
                 p.FatherBirthdate = null;
             }
             p.FatherDocumentation = null; //TODO: Can be fetched in CPR Services: far_dok
@@ -123,7 +117,6 @@ namespace CprBroker.DBR.Extensions
             }
             else
             {
-                Console.WriteLine("person.Disempowerment was NULL");
                 p.UnderGuardianshipDeleteDate = null;
                 p.UnderGuardianshipRelationType = null;
             }

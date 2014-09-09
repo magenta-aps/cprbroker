@@ -75,37 +75,48 @@ namespace CprBroker.Providers.CPRDirect
             bulkCopy.DestinationTableName = tableAttribute.Name;
             bulkCopy.BatchSize = 100;
 
-            var properties = t.GetProperties().Where(EventTypeFilter).ToArray();
+            var properties = t.GetProperties()
+                .Select(p => new { Property = p, ColumnAttribute = Attribute.GetCustomAttribute(p, typeof(ColumnAttribute)) as ColumnAttribute })
+                .Where(o => o.ColumnAttribute != null)
+                .ToArray();
             var table = new DataTable();
 
             foreach (var property in properties)
             {
-                Type propertyType = property.PropertyType;
+                Type propertyType = property.Property.PropertyType;
                 if (propertyType.IsGenericType &&
                     propertyType.GetGenericTypeDefinition() == typeof(Nullable<>))
                 {
                     propertyType = Nullable.GetUnderlyingType(propertyType);
                 }
-                table.Columns.Add(new DataColumn(property.Name, propertyType));
-                bulkCopy.ColumnMappings.Add(property.Name, property.Name);
+
+                var columnName = string.IsNullOrEmpty(property.ColumnAttribute.Name) ? property.Property.Name : property.ColumnAttribute.Name;
+                table.Columns.Add(new DataColumn(property.Property.Name, propertyType));
+                bulkCopy.ColumnMappings.Add(property.Property.Name, columnName);
             }
 
             foreach (var entity in entities)
             {
                 table.Rows.Add(properties.Select(
                   property => GetPropertyValue(
-                  property.GetValue(entity, null))).ToArray());
+                  property.Property.GetValue(entity, null))).ToArray());
             }
 
             bulkCopy.WriteToServer(table);
         }
 
-        private static bool EventTypeFilter(System.Reflection.PropertyInfo p)
+        public static void BulkInsertChanges(this SqlConnection conn, DataContext dataContext, SqlTransaction trans = null)
         {
-            var attribute = Attribute.GetCustomAttribute(p,
-                typeof(ColumnAttribute)) as ColumnAttribute;
-
-            return attribute != null;
+            var inserts = dataContext.GetChangeSet().Inserts;
+            BulkInsertChanges(conn, inserts, trans);
+        }
+        public static void BulkInsertChanges(this SqlConnection conn, IList<object> inserts, SqlTransaction trans = null)
+        {
+            var groups = inserts.GroupBy(i => i.GetType()).ToArray();
+            foreach (var group in groups)
+            {
+                BulkInsertAll(conn, group.Key, group.ToArray(), trans);
+            }
         }
 
         private static object GetPropertyValue(object o)
