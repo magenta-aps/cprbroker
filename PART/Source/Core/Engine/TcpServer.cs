@@ -25,6 +25,7 @@ namespace CprBroker.Engine
 
         public bool Start()
         {
+            CprBroker.Engine.Local.Admin.LogFormattedSuccess("Starting TCP server <{0}> ", Port);
             _Running = true;
             System.Net.IPHostEntry localhost = System.Net.Dns.GetHostEntry(System.Net.Dns.GetHostName());
             System.Net.IPEndPoint serverEndPoint;
@@ -40,6 +41,7 @@ namespace CprBroker.Engine
             //BeginAccept running
 
             BeginAccept();
+            CprBroker.Engine.Local.Admin.LogFormattedSuccess("TCP server started at<{0}> ", Port);
             return true;
         }
 

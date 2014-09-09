@@ -69,10 +69,6 @@ namespace CprBroker.Tests.DBR
         [TestFixture]
         public class Process : ClassicRequestTypeTestsBase
         {
-            public string address = "localhost";
-            public int port = 999;
-
-
 
             public ClassicRequestType CreateRequest(string pnr)
             {

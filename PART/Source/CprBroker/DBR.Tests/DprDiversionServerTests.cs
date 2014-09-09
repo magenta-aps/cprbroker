@@ -62,7 +62,6 @@ namespace CprBroker.Tests.DBR
                 var strRet = Encoding.ASCII.GetString(ret);
                 Assert.AreEqual("00", strRet.Substring(2, 2));
             }
-
         }
     }
 }
