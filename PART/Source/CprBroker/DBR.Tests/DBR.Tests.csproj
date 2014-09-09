@@ -67,6 +67,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClassicRequestTypeTests.cs" />
     <Compile Include="Comparison\ComparisonTest.cs" />
     <Compile Include="Comparison\GeoLookupComparisonTest.Concrete.cs" />
     <Compile Include="Comparison\GeoLookupComparisonTest.cs">
