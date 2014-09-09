@@ -88,8 +88,8 @@ namespace CprBroker.DBR.Extensions
                             pt.CityName = resp.ClearWrittenAddress.CityName;
                         else
                             pt.CityName = null;
-
-                        pt.CurrentMunicipalityName = CprBroker.Providers.CPRDirect.Authority.GetAuthorityNameByCode(pt.MunicipalityCode.ToString());
+                        if (pt.MunicipalityCode > 0)
+                            pt.CurrentMunicipalityName = CprBroker.Providers.CPRDirect.Authority.GetAuthorityNameByCode(pt.MunicipalityCode.ToString());
                     }
                 }
             }
@@ -194,6 +194,8 @@ namespace CprBroker.DBR.Extensions
             if (previousMunicipalityAddress != null)
             {
                 pt.PreviousMunicipalityName = Authority.GetAuthorityNameByCode(previousMunicipalityAddress.MunicipalityCode.ToString());
+                if (string.IsNullOrEmpty(pt.CurrentMunicipalityName))
+                    pt.CurrentMunicipalityName = pt.PreviousMunicipalityName;
             }
             // In DPR SearchName contains both the first name and the middlename.
             if (!string.IsNullOrEmpty(resp.CurrentNameInformation.MiddleName))
