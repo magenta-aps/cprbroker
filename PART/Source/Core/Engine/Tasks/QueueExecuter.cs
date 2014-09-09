@@ -19,7 +19,7 @@ namespace CprBroker.Engine.Tasks
 
         protected override TimeSpan CalculateActionTimerInterval(TimeSpan currentInterval)
         {
-            return TimeSpan.FromSeconds(60);
+            return TimeSpan.FromSeconds(10);
         }
 
         protected override void PerformTimerAction()

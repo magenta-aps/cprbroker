@@ -40,13 +40,14 @@ namespace CprBroker.Providers.CPRDirect
                 dataContext.LoadOptions = loadOptions;
             }
 
-            var pnrs = items.Select(i => i.PNR).Distinct().ToArray();            
+            var pnrs = items.Select(i => i.PNR).Distinct().ToArray();
             var dbExtractItems = dataContext.ExtractItems.Where(ei => pnrs.Contains(ei.PNR)).ToArray();
 
             foreach (var item in items)
             {
                 item.ExtractItems = dbExtractItems.Where(ei => ei.ExtractId == item.ExtractId && ei.PNR == item.PNR).ToArray().AsQueryable();
-                item.Extract = item.ExtractItems.First().Extract;
+                if (item.ExtractItems.FirstOrDefault() != null)
+                    item.Extract = item.ExtractItems.First().Extract;
             }
         }
     }

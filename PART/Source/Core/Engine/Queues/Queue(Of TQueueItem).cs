@@ -67,12 +67,7 @@ namespace CprBroker.Engine.Queues
             var items = GetNext(Impl.BatchSize);
             while (items.FirstOrDefault() != null)
             {
-                var succeeded = Process(items);
-                Remove(succeeded);
-
-                var failedItems = items.Except(succeeded).ToArray();
-                MarkFailure(failedItems);
-
+                RunItems(items);
                 items = GetNext(Impl.BatchSize);
             }
         }
@@ -82,12 +77,25 @@ namespace CprBroker.Engine.Queues
             var items = GetNext(Impl.BatchSize);
             if (items.FirstOrDefault() != null)
             {
-                var succeeded = Process(items);
-                Remove(succeeded);
-
-                var failedItems = items.Except(succeeded).ToArray();
-                MarkFailure(failedItems);
+                RunItems(items);
             }
+        }
+
+        private void RunItems(TQueueItem[] items)
+        {
+            var succeeded = new TQueueItem[0];
+            try
+            {
+                succeeded = Process(items);
+            }
+            catch (Exception ex)
+            {
+                CprBroker.Engine.Local.Admin.LogException(ex);
+            }
+            Remove(succeeded);
+
+            var failedItems = items.Except(succeeded).ToArray();
+            MarkFailure(failedItems);
         }
     }
 

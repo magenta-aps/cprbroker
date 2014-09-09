@@ -30,7 +30,7 @@ namespace CprBroker.Web.Pages
         #region Select/Edit/Cancel
         protected void dsDbr_Selecting(object sender, LinqDataSourceSelectEventArgs e)
         {
-            dsDbr.SelectParameters["@TypeId"].DefaultValue = CprBroker.Providers.CPRDirect.DbrBaseQueue.TargetQueueTypeId.ToString();
+            e.WhereParameters["TypeId"] = CprBroker.Providers.CPRDirect.DbrBaseQueue.TargetQueueTypeId;
         }
 
         protected IHasConfigurationProperties grdDbrPropertiesField_ObjectCreating(IHasEncryptedAttributes arg)
@@ -65,7 +65,7 @@ namespace CprBroker.Web.Pages
 
         protected void newDbr_InsertCommand(object sender, Dictionary<string, string> props)
         {
-            var queue = Queue.AddQueue<DbrQueue>(CprBroker.Providers.CPRDirect.DbrBaseQueue.TargetQueueTypeId, props, 10, 10);
+            var queue = Queue.AddQueue<DbrQueue>(CprBroker.Providers.CPRDirect.DbrBaseQueue.TargetQueueTypeId, props, 500, 10);
             this.grdDbr.DataBind();
             this.newDbr.DataBind();
         }

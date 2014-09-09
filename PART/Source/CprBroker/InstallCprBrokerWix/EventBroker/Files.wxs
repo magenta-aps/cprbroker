@@ -76,6 +76,11 @@
           <CopyFile Id="FILE_EVENT_bin_Backend_CprBroker.Providers.PersonMaster.dll" DestinationDirectory="EVENT_Backend"/>
         </File>
       </Component>
+      <Component Id="CMP_EVENT_bin_CprBroker.Providers.DPR.dll" Directory="EVENT_bin">
+          <File Id="FILE_EVENT_bin_CprBroker.Providers.DPR.dll" Source="$(var.SitePath)bin\CprBroker.Providers.DPR.dll" KeyPath="yes">
+              <CopyFile Id="FILE_EVENT_bin_Backend_CprBroker.Providers.DPR.dll" DestinationDirectory="EVENT_Backend"/>
+          </File>
+      </Component>
       <Component Id="CMP_EVENT_bin_CprBroker.Dbr.dll" Directory="EVENT_bin">
           <File Id="FILE_EVENT_bin_CprBroker.Dbr.dll" Source="$(var.SitePath)bin\CprBroker.Dbr.dll" KeyPath="yes">
               <CopyFile Id="FILE_EVENT_bin_Backend_CprBroker.Dbr.dll" DestinationDirectory="EVENT_Backend"/>

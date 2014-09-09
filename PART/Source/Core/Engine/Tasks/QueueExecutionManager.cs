@@ -8,6 +8,11 @@ namespace CprBroker.Engine.Tasks
 {
     public class QueueExecutionManager : TaskExecutionManager<QueueExecuter, QueueExecuter.EqualityComparer>
     {
+        protected override TimeSpan CalculateActionTimerInterval(TimeSpan currentInterval)
+        {
+            return TimeSpan.FromSeconds(10);
+        }
+
         public override void StartTask(QueueExecuter task)
         {
             CprBroker.Engine.Local.Admin.LogSuccess(string.Format("Staring freshly loaded queue <{0}>", task.Queue.QueueId));
@@ -16,7 +21,6 @@ namespace CprBroker.Engine.Tasks
 
         public override void DisposeTask(QueueExecuter q)
         {
-            CprBroker.Engine.Local.Admin.LogSuccess(string.Format("Stopping queue <{0}>", q.Queue.QueueId));
             q.Stop();
             q.Dispose();
         }

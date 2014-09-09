@@ -62,11 +62,8 @@ namespace CprBroker.EventBroker.Backend
         /// </summary>
         static void Main()
         {
-            BrokerContext.Initialize(Constants.EventBrokerApplicationToken.ToString(), Constants.UserToken);
-
             try
             {
-                string s = ConfigManager.Current.Settings.CprBrokerConnectionString;
                 ServiceBase[] ServicesToRun;
                 ServicesToRun = new ServiceBase[] 
 			    { 

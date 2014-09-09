@@ -15,8 +15,11 @@
         DBR</h3>
     <h4>
         Sync targets</h4>
-    <asp:LinqDataSource runat="server" ID="dsDbr" ContextTypeName="CprBroker.Data.Queues.QueueDataContext"
+    <asp:LinqDataSource runat="server" ID="dsDbr" ContextTypeName="CprBroker.Data.Queues.QueueDataContext" OnSelecting="dsDbr_Selecting"
         TableName="Queues" Where="TypeId==@TypeId" EnableDelete="true" EnableUpdate="true">
+        <WhereParameters>
+            <asp:Parameter Name="TypeId" Type="Int32"/>
+        </WhereParameters>
     </asp:LinqDataSource>
     <asp:GridView runat="server" ID="grdDbr" AutoGenerateColumns="false" OnRowCommand="grdDbr_RowCommand"        
         DataKeyNames="QueueId" DataSourceID="dsDbr">

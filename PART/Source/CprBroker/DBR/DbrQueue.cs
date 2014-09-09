@@ -52,27 +52,37 @@ namespace CprBroker.DBR
             {
                 items.LoadExtractAndItems(cprDataContext);
 
-                using (var dprDataContext = new DPRDataContext(this.ConnectionString))
+                foreach (var item in items)
                 {
-                    foreach (var item in items)
+                    try
                     {
-                        try
+                        if (item.Extract != null)
                         {
-                            var person = Extract.ToIndividualResponseType(item.Extract, item.ExtractItems, CprBroker.Providers.CPRDirect.Constants.DataObjectMap);
-                            
-                            CprConverter.DeletePersonRecords(item.PNR, dprDataContext);
-                            dprDataContext.SubmitChanges();
-                            
-                            CprConverter.AppendPerson(person, dprDataContext);
-                            dprDataContext.SubmitChanges();
-                            ret.Add(item);
-                        }
-                        catch (Exception ex)
-                        {
-                            CprBroker.Engine.Local.Admin.LogException(ex);
+                            using (var conn = new SqlConnection(this.ConnectionString))
+                            {
+                                conn.Open();
+                                using (var trans = conn.BeginTransaction())
+                                {
+                                    using (var dprDataContext = new DPRDataContext(conn))
+                                    {
+                                        dprDataContext.Transaction = trans;
+                                        CprConverter.DeletePersonRecords(item.PNR, dprDataContext);
+
+                                        var person = Extract.ToIndividualResponseType(item.Extract, item.ExtractItems, CprBroker.Providers.CPRDirect.Constants.DataObjectMap);
+                                        CprConverter.AppendPerson(person, dprDataContext);
+                                        dprDataContext.SubmitChanges();
+                                        trans.Commit();
+                                        ret.Add(item);
+                                    }
+                                }
+                            }
                         }
                     }
-
+                    catch (Exception ex)
+                    {
+                        // TODO: Handle the rare case when item.PNR fails
+                        CprBroker.Engine.Local.Admin.LogException(ex, item.PNR);
+                    }
                 }
             }
             return ret.ToArray();
