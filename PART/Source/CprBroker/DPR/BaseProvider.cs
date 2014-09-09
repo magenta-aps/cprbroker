@@ -196,7 +196,7 @@ namespace CprBroker.Providers.DPR
                             data = new Byte[3500];
                             bytes = stream.Read(data, 0, data.Length);
                         }
-                        response = System.Text.Encoding.UTF7.GetString(data, 0, bytes);
+                        response = Constants.DiversionEncoding.GetString(data, 0, bytes);
                     }
 
                     string errorCode = response.Substring(2, 2);
