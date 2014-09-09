@@ -44,10 +44,6 @@ namespace CprBroker.DBR.Extensions
                 if (!string.IsNullOrEmpty(currentDeparture.ForeignAddress5))
                     d.ForeignAddressLine5 = currentDeparture.ForeignAddress5;
             }
-            else
-            {
-                Console.WriteLine("currentDeparture was NULL");
-            }
             return d;
         }
 
@@ -63,7 +59,6 @@ namespace CprBroker.DBR.Extensions
             }
             else
             {
-                Console.WriteLine("historicalDeparture.ExitCountryCode was NULL");
                 d.ExitCountryCode = null;
             }
             d.ExitCountryCode = historicalDeparture.ExitCountryCode;
@@ -73,7 +68,6 @@ namespace CprBroker.DBR.Extensions
             }
             else
             {
-                Console.WriteLine("historicalDeparture.ExitDate was NULL");
                 d.ExitDate = null;
             }
             d.ExitUpdateDate = null; //TODO: Can be fetched in CPR Services, udrtimestamp

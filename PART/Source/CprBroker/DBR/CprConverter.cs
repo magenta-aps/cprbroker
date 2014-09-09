@@ -49,7 +49,7 @@ namespace CprBroker.DBR
                     Environment.NewLine,
                     types.Select(t => string.Format("DELETE {0} WHERE PNR IN ({1});", CprBroker.Utilities.DataLinq.GetTableName(t), paramArray)).ToArray()
                     );
-            var ret =dataContext.ExecuteCommand(cmd, pnrs.Select(p => p as object).ToArray());
+            var ret = dataContext.ExecuteCommand(cmd, pnrs.Select(p => p as object).ToArray());
             return ret;
         }
 
@@ -85,11 +85,6 @@ namespace CprBroker.DBR
 
             if (person.ContactAddress != null)
                 dataContext.ContactAddresses.InsertOnSubmit(person.ContactAddress.ToDpr());
-
-            else
-            {
-                Console.WriteLine("contactAddress was NULL");
-            }
 
             var currentAddress = person.GetFolkeregisterAdresseSource(false) as CurrentAddressWrapper;
             if (currentAddress != null)

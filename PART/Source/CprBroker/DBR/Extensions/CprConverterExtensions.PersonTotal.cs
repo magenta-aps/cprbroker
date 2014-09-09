@@ -27,7 +27,6 @@ namespace CprBroker.DBR.Extensions
             }
             else
             {
-                Console.WriteLine("resp.PersonInformation.StatusStartDate was NULL");
                 pt.StatusDate = null;//CprBroker.Utilities.Dates.DateToDecimal(resp.PersonInformation.StatusStartDate.Value, 12);
             }
             pt.Status = resp.PersonInformation.Status;
@@ -79,7 +78,6 @@ namespace CprBroker.DBR.Extensions
                         }
                         else
                         {
-                            Console.WriteLine("resp.CurrentAddressInformation.LeavingMunicipalityDepartureDate was NULL");
                             pt.MunicipalityLeavingDate = null;
                         }
                         if (!string.IsNullOrEmpty(resp.CurrentAddressInformation.CareOfName))
@@ -124,7 +122,6 @@ namespace CprBroker.DBR.Extensions
             }
             else
             {
-                Console.WriteLine("resp.Disempowerment was NULL");
                 pt.UnderGuardianshipDate = null;
             }
             if (resp.ParentsInformation.FatherDate.HasValue)
@@ -185,7 +182,6 @@ namespace CprBroker.DBR.Extensions
             var prevAddress = previousAddresses.FirstOrDefault();
             if (prevAddress != null && streetNameLocator != null)
             {
-                Console.WriteLine("<{0}> <{1}> <{2}>", prevAddress.RelocationDate, prevAddress.CorrectionMarker, prevAddress.MunicipalityCode);
                 pt.PreviousAddress = string.Format("{0} {1},{2} {3} ({4})",
                                         streetNameLocator(prevAddress),
                                         prevAddress.HouseNumber.TrimStart('0', ' '),
