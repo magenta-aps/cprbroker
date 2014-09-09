@@ -169,7 +169,7 @@ namespace CprBroker.Engine
             }
         }
 
-        protected virtual byte[] ProcessMessage(byte[] message)
+        public virtual byte[] ProcessMessage(byte[] message)
         {
             return new byte[] { };
         }

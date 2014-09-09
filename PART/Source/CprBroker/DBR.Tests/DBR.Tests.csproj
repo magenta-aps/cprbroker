@@ -78,6 +78,7 @@
     <Compile Include="Comparison\PersonComparisonTest.cs" />
     <Compile Include="DbrTestBase.cs" />
     <Compile Include="DprDiversionManagerTests.cs" />
+    <Compile Include="DprDiversionServerTests.cs" />
     <Compile Include="PerPerson\CprConverterExtensionTests_GoesIntoDatabase.cs" />
     <Compile Include="PerPerson\CprConverterTests.cs" />
     <Compile Include="PerPerson\PersonBaseTest.cs" />
