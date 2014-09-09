@@ -12,14 +12,24 @@ namespace CprBroker.Tests.DBR.Comparison.Person
 {
     public abstract class PersonComparisonTest<TObject> : ComparisonTest<TObject, DPRDataContext>
     {
-
+        int timesRun = 0;
+        int randomTestNumber;
         public override string[] LoadKeys()
         {
             if (KeysHolder._Keys == null)
             {
                 using (var dataContext = new ExtractDataContext(CprBrokerConnectionString))
                 {
-                    KeysHolder._Keys = dataContext.ExecuteQuery<string>("select * FROM DbrPerson ORDER BY PNR").Skip(100).Take(10).ToArray();
+                    if (timesRun < 1)
+                    {
+                        Random random = new Random();
+                        randomTestNumber = random.Next(85416); // We have 85426 records in the Extract table.
+                        timesRun++;
+                    }
+                    else
+                        timesRun = 0;
+                    Console.WriteLine("NUMBER: " + randomTestNumber);
+                    KeysHolder._Keys = dataContext.ExecuteQuery<string>("select * FROM DbrPerson ORDER BY PNR").Skip(5678).Take(10).ToArray();
                     //return dataContext.ExtractItems.Select(ei => ei.PNR).Distinct().ToArray();
                 }
             }
