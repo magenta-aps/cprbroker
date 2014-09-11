@@ -91,4 +91,10 @@ namespace CprBroker.Providers.DPR
         MasterData = 0, // Only to client
         ExtendedData = 1 // Put to DPR database
     }
+
+    public class EvenOdd
+    {
+        public const char Even = 'L';
+        public const char Odd = 'U';
+    }
 }
