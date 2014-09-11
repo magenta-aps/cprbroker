@@ -128,7 +128,7 @@ namespace CprBroker.DBR.Extensions
             return pa;
         }
 
-        public static PersonAddress ToDpr(this HistoricalAddressType historicalAddress)
+        public static PersonAddress ToDpr(this HistoricalAddressType historicalAddress, DPRDataContext dataContext)
         {
             PersonAddress pa = new PersonAddress();
             pa.PNR = Decimal.Parse(historicalAddress.PNR);
@@ -154,7 +154,10 @@ namespace CprBroker.DBR.Extensions
                 pa.GreenlandConstructionNumber = historicalAddress.BuildingNumber;
             else
                 pa.GreenlandConstructionNumber = null;
-            pa.PostCode = 0; //Find in GeoLookup, based on streetCode and houseNumber
+
+            var postCode = PostDistrict.GetPostCode(dataContext.Connection.ConnectionString, historicalAddress.MunicipalityCode, historicalAddress.StreetCode, historicalAddress.HouseNumber);
+            if (postCode.HasValue)
+                pa.PostCode = postCode.Value;
 
             pa.MunicipalityName = CprBroker.Providers.CPRDirect.Authority.GetAuthorityNameByCode(pa.MunicipalityCode.ToString());
             pa.StreetAddressingName = null; //TODO: Can be fetched in CPR Services, vejadrnvn
