@@ -11,12 +11,12 @@ namespace CprBroker.DBR.Extensions
     public partial class CprConverterExtensions
     {
 
-        public static PersonTotal ToPersonTotal(this IndividualResponseType resp, Func<HistoricalAddressType, string> streetNameLocator = null)
+        public static PersonTotal7 ToPersonTotal(this IndividualResponseType resp, Func<HistoricalAddressType, string> streetNameLocator = null)
         {
             /*
              * TODO: implement INDLAESDTO             * 
              */
-            PersonTotal pt = new PersonTotal();
+            var pt = new PersonTotal7();
             /*
              * PERSON DETAILS
              */
@@ -213,6 +213,8 @@ namespace CprBroker.DBR.Extensions
             else
                 pt.Location = null;
             pt.ContactAddressMarker = null; //DPR SPECIFIC
+
+            pt.DprLoadDate = DateTime.Now;
             return pt;
         }
 

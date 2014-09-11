@@ -66,13 +66,11 @@ namespace CprBroker.Providers.CPRDirect
 
         public static void BulkInsertAll(this SqlConnection conn, Type t, IEnumerable entities, SqlTransaction trans = null)
         {
-            var tableAttribute = (TableAttribute)t.GetCustomAttributes(typeof(TableAttribute), false).Single();
-
             SqlBulkCopy bulkCopy = trans == null ?
                 new SqlBulkCopy(conn)
                 : new SqlBulkCopy(conn, SqlBulkCopyOptions.Default, trans);
 
-            bulkCopy.DestinationTableName = tableAttribute.Name;
+            bulkCopy.DestinationTableName = Utilities.DataLinq.GetTableName(t);
             bulkCopy.BatchSize = 100;
 
             var properties = t.GetProperties()
@@ -110,6 +108,7 @@ namespace CprBroker.Providers.CPRDirect
             var inserts = dataContext.GetChangeSet().Inserts;
             BulkInsertChanges(conn, inserts, trans);
         }
+
         public static void BulkInsertChanges(this SqlConnection conn, IList<object> inserts, SqlTransaction trans = null)
         {
             var groups = inserts.GroupBy(i => i.GetType()).ToArray();

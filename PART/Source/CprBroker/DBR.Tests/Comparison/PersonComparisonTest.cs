@@ -7,10 +7,12 @@ using CprBroker.Providers.DPR;
 using CprBroker.Providers.CPRDirect;
 using System.Reflection;
 using CprBroker.DBR;
+using CprBroker.Utilities;
 
 namespace CprBroker.Tests.DBR.Comparison.Person
 {
     public abstract class PersonComparisonTest<TObject> : ComparisonTest<TObject, DPRDataContext>
+        where TObject : new()
     {
 
         public override string[] LoadKeys()
@@ -47,7 +49,7 @@ namespace CprBroker.Tests.DBR.Comparison.Person
             var tableName = Utilities.DataLinq.GetTableName<TObject>();
             var propNames = string.Join(", ", GetPkColumnNames());
             Console.WriteLine(propNames);
-            return dataContext.ExecuteQuery<TObject>("select * from " + tableName + " WHERE PNR={0} ORDER BY " + propNames, key).AsQueryable();
+            return dataContext.Fill<TObject>(string.Format("select * from " + tableName + " WHERE PNR={0} ORDER BY " + propNames, key)).AsQueryable();
         }
 
         public override DPRDataContext CreateDataContext(string connectionString)

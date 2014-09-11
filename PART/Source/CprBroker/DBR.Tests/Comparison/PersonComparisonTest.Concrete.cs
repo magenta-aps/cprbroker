@@ -8,7 +8,7 @@ using NUnit.Framework;
 namespace CprBroker.Tests.DBR.Comparison.Person
 {
     [TestFixture]
-    public class PersonTotalComparisonTest : PersonComparisonTest<PersonTotal>
+    public class PersonTotalComparisonTest : PersonComparisonTest<PersonTotal7>
     {
         override public string[] ExcludedProperties
         {
