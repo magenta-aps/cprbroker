@@ -82,6 +82,7 @@
     <Compile Include="Data\PersonAddress.cs" />
     <Compile Include="Data\PersonTotal7.cs" />
     <Compile Include="Data\PostDistrict.cs" />
+    <Compile Include="Data\Street.cs" />
     <Compile Include="PersonInfo.cs" />
     <Compile Include="Data\Child.cs" />
     <Compile Include="Data\DPR.designer.cs">
