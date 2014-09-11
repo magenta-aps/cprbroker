@@ -51,6 +51,8 @@ using System.Text;
 using System.Reflection;
 using System.Data.Linq;
 using System.Data.Linq.Mapping;
+using System.Data;
+using System.Data.SqlClient;
 
 namespace CprBroker.Utilities
 {
@@ -68,11 +70,20 @@ namespace CprBroker.Utilities
         /// <exception cref="ArgumentException"><typeparamref name="TTable"/> has no TableAttribute defined</exception>
         /// <returns>Table name</returns>
         public static string GetTableName(Type tableType)
-        {            
-            var tableAttribute = tableType.GetCustomAttributes(typeof(TableAttribute), true).FirstOrDefault() as TableAttribute;
+        {
+            var attrType = typeof(TableAttribute);
+            TableAttribute tableAttribute = null;
+            var tempTableType = tableType;
+            do
+            {
+                tableAttribute = tempTableType.GetCustomAttributes(attrType, true).FirstOrDefault() as TableAttribute;
+                tempTableType = tempTableType.BaseType;
+            }
+            while (tableAttribute == null && tempTableType.BaseType != null);
+
             if (tableAttribute == null)
             {
-                throw new ArgumentException(string.Format("{0} is not defined on type {0}", tableType.FullName));
+                throw new ArgumentException(string.Format("{0} is not defined on type {1}", attrType.Name, tableType.FullName));
             }
             if (string.IsNullOrEmpty(tableAttribute.Name))
             {
@@ -81,6 +92,56 @@ namespace CprBroker.Utilities
             else
             {
                 return tableAttribute.Name.Split('.').Last();
+            }
+        }
+
+        /// <summary>
+        /// Fills a LINQ table object from a SQL query
+        /// Used mainly to handle the case of new columns that do not exist in all setups, so we can dynamically fill the objects without defining a LINQ discriminator column
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dataContext"></param>
+        /// <param name="cmd"></param>
+        /// <returns></returns>
+        public static IEnumerable<T> Fill<T>(this DataContext dataContext, string cmd)
+            where T : new()
+        {
+            using (SqlDataAdapter adpt = new SqlDataAdapter(cmd, dataContext.Connection as SqlConnection))
+            {
+                var props = typeof(T).GetProperties()
+                    .Select(p => new { Prop = p, Attr = Attribute.GetCustomAttribute(p, typeof(ColumnAttribute)) as ColumnAttribute })
+                    .Where(p => p.Attr != null)
+                    .ToDictionary(p => string.IsNullOrEmpty(p.Attr.Name) ? p.Prop.Name : p.Attr.Name);
+
+                DataTable t = new DataTable();
+                adpt.Fill(t);
+
+                var ret = new List<T>();
+                var rows = new DataRow[t.Rows.Count];
+                t.Rows.CopyTo(rows, 0);
+
+                ret.AddRange(rows.Select(r =>
+                {
+                    var o = new T();
+                    foreach (DataColumn c in t.Columns)
+                    {
+                        var p = props[c.ColumnName].Prop;
+                        var val = r[c];
+                        if (val != DBNull.Value)
+                        {
+                            if (p.PropertyType.Equals(typeof(char)) || p.PropertyType.Equals(typeof(char?)))
+                            {
+                                p.SetValue(o, val.ToString()[0], null);
+                            }
+                            else
+                            {
+                                p.SetValue(o, val, null);
+                            }
+                        }
+                    }
+                    return o;
+                }));
+                return ret;
             }
         }
 
