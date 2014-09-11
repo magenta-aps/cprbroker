@@ -12,6 +12,9 @@ namespace CprBroker.Tests.DBR.Comparison.Geo
     public abstract class GeoLookupComparisonTest<T> : ComparisonTest<T, LookupDataContext>
         where T : class
     {
+        int timesRun = 0;
+        int randomTestNumber;
+
         public override IQueryable<T> Get(Providers.DPR.LookupDataContext dataContext, string key)
         {
             return Get(dataContext, decimal.Parse(key));
@@ -31,10 +34,19 @@ namespace CprBroker.Tests.DBR.Comparison.Geo
         {
             using (var dataContext = new LookupDataContext(RealDprDatabaseConnectionString))
             {
+                if (timesRun < 1)
+                {
+                    Random random = new Random();
+                    randomTestNumber = random.Next(8416);
+                    timesRun++;
+                }
+                else
+                    timesRun = 0;
+                Console.WriteLine("NUMBER: " + randomTestNumber);
                 var propType = typeof(Table<>).MakeGenericType(typeof(T));
                 var prop = dataContext.GetType().GetProperties().Where(p => p.PropertyType == propType).Single();
                 var objects = prop.GetValue(dataContext, null) as Table<T>;
-                var arr = objects.Skip(10).Take(10).ToArray();
+                var arr = objects.Skip(randomTestNumber).Take(10).ToArray();
                 return arr.Select(o => GetKey(o)).ToArray();
             }
         }
