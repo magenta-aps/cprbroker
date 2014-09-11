@@ -89,7 +89,7 @@ namespace CprBroker.DBR
             var currentAddress = person.GetFolkeregisterAdresseSource(false) as CurrentAddressWrapper;
             if (currentAddress != null)
                 dataContext.PersonAddresses.InsertOnSubmit(currentAddress.ToDpr());
-            dataContext.PersonAddresses.InsertAllOnSubmit(person.HistoricalAddress.Select(c => c.ToDpr()));
+            dataContext.PersonAddresses.InsertAllOnSubmit(person.HistoricalAddress.Select(c => c.ToDpr(dataContext)));
 
             dataContext.Protections.InsertAllOnSubmit(person.Protection.Select(p => p.ToDpr()));
 

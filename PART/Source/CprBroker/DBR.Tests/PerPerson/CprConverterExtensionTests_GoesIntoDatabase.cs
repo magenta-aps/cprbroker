@@ -195,7 +195,7 @@ namespace CprBroker.Tests.DBR.PerPerson
             using (var dataContext = new DPRDataContext(DbrDatabase.ConnectionString))
             {
                 foreach (var a in pers.HistoricalAddress)
-                    dataContext.PersonAddresses.InsertOnSubmit(a.ToDpr());
+                    dataContext.PersonAddresses.InsertOnSubmit(a.ToDpr(null));
                 dataContext.SubmitChanges();
             }
         }
