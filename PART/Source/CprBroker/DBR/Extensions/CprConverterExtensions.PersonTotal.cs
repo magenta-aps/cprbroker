@@ -196,8 +196,6 @@ namespace CprBroker.DBR.Extensions
             if (previousMunicipalityAddress != null)
             {
                 pt.PreviousMunicipalityName = Authority.GetAuthorityNameByCode(previousMunicipalityAddress.MunicipalityCode.ToString());
-                if (string.IsNullOrEmpty(pt.CurrentMunicipalityName))
-                    pt.CurrentMunicipalityName = pt.PreviousMunicipalityName;
             }
             // In DPR SearchName contains both the first name and the middlename.
             if (!string.IsNullOrEmpty(resp.CurrentNameInformation.MiddleName))

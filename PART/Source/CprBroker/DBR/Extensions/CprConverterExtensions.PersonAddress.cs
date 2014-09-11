@@ -91,7 +91,8 @@ namespace CprBroker.DBR.Extensions
             {
                 pa.AdditionalAddressDate = null;
             }
-            pa.CorrectionMarker = null; //This is the current status
+
+            pa.CorrectionMarker = null;
             if (!string.IsNullOrEmpty(currentAddress.CurrentAddressInformation.CareOfName))
                 pa.CareOfName = currentAddress.CurrentAddressInformation.CareOfName;
             else
@@ -174,6 +175,7 @@ namespace CprBroker.DBR.Extensions
             pa.AlwaysNull4 = null;
             pa.AlwaysNull5 = null;
             pa.AdditionalAddressDate = null; //TODO: Can be fetched in CPR Services, supladrhaenstart
+            if (!char.IsWhiteSpace(historicalAddress.CorrectionMarker))
                 pa.CorrectionMarker = historicalAddress.CorrectionMarker;
             if (!string.IsNullOrEmpty(historicalAddress.CareOfName))
                 pa.CareOfName = historicalAddress.CareOfName;
