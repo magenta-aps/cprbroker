@@ -9,7 +9,7 @@ namespace CprBroker.DBR.Extensions
 {
     public static partial class CprConverterExtensions
     {
-        public static PersonAddress ToDpr(this CurrentAddressWrapper currentAddress)
+        public static PersonAddress ToDpr(this CurrentAddressWrapper currentAddress, DPRDataContext dataContext)
         {
             PersonAddress pa = new PersonAddress();
             pa.PNR = Decimal.Parse(currentAddress.CurrentAddressInformation.PNR);
@@ -45,7 +45,7 @@ namespace CprBroker.DBR.Extensions
             if (!string.IsNullOrEmpty(currentAddress.ClearWrittenAddress.StreetAddressingName))
                 pa.StreetAddressingName = currentAddress.ClearWrittenAddress.StreetAddressingName;
             else
-                pa.StreetAddressingName = null;
+                pa.StreetAddressingName = Street.GetAddressingName(dataContext.Connection.ConnectionString, currentAddress.CurrentAddressInformation.MunicipalityCode, currentAddress.CurrentAddressInformation.StreetCode);
 
             if (currentAddress.CurrentAddressInformation.RelocationDate.Value != null)
             {
@@ -159,7 +159,7 @@ namespace CprBroker.DBR.Extensions
                 pa.PostCode = postCode.Value;
 
             pa.MunicipalityName = CprBroker.Providers.CPRDirect.Authority.GetAuthorityNameByCode(pa.MunicipalityCode.ToString());
-            pa.StreetAddressingName = null; //TODO: Can be fetched in CPR Services, vejadrnvn
+            pa.StreetAddressingName = Street.GetAddressingName(dataContext.Connection.ConnectionString, historicalAddress.MunicipalityCode, historicalAddress.StreetCode); //TODO: Can be fetched in CPR Services, vejadrnvn
 
             // TODO: Shall we use length 12 or 13?
             if (historicalAddress.RelocationDate.HasValue)
