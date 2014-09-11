@@ -70,6 +70,7 @@
     <Compile Include="ClientDataProvider.cs" />
     <Compile Include="Data\CivilStatus.cs" />
     <Compile Include="Data\Departure.cs" />
+    <Compile Include="Data\DPRDataContext.cs" />
     <Compile Include="Data\LookupDataContext.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -79,6 +80,7 @@
     <Compile Include="Data\Nationality.cs" />
     <Compile Include="Data\PersonTotal.Converters.cs" />
     <Compile Include="Data\PersonAddress.cs" />
+    <Compile Include="Data\PersonTotal7.cs" />
     <Compile Include="PersonInfo.cs" />
     <Compile Include="Data\Child.cs" />
     <Compile Include="Data\DPR.designer.cs">

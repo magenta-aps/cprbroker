@@ -40,7 +40,7 @@ namespace CprBroker.Tests.DBR.Comparison
         {
             var t = typeof(TObject);
             return t.GetProperties(BindingFlags.Public | BindingFlags.Instance)
-                .Where(p => p.GetCustomAttributes(typeof(System.Data.Linq.Mapping.ColumnAttribute), true).FirstOrDefault() != null)
+                .Where(p => Attribute.GetCustomAttribute(p, typeof(System.Data.Linq.Mapping.ColumnAttribute), true) != null)
                 .Where(p => !this.ExcludedProperties.Contains(p.Name))
                 .OrderBy(p => p.Name)
                 .ToArray();

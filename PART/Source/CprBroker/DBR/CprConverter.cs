@@ -55,7 +55,7 @@ namespace CprBroker.DBR
 
         public static void AppendPerson(IndividualResponseType person, DPRDataContext dataContext)
         {
-            dataContext.PersonTotals.InsertOnSubmit(person.ToPersonTotal());
+            dataContext.PersonTotal7s.InsertOnSubmit(person.ToPersonTotal());
 
             dataContext.Persons.InsertOnSubmit(person.ToPerson());
 
