@@ -144,7 +144,8 @@ namespace CprBroker.DBR.Extensions
 
             pt.SpouseMarker = null; //DPR SPECIFIC
             pt.PostCode = resp.ClearWrittenAddress.PostCode;
-            pt.PostDistrictName = resp.ClearWrittenAddress.PostDistrictText;
+            if (string.IsNullOrEmpty(resp.ClearWrittenAddress.PostDistrictText))
+                pt.PostDistrictName = resp.ClearWrittenAddress.PostDistrictText;
             var voting = resp.ElectionInformation.OrderByDescending(e => e.ElectionInfoStartDate).FirstOrDefault();
 
             if (voting != null && voting.VotingDate.HasValue)
