@@ -30,7 +30,6 @@ namespace CprBroker.Tests.DBR.Comparison.Person
                     }
                     else
                         timesRun = 0;
-                    Console.WriteLine("NUMBER: " + randomTestNumber);
                     KeysHolder._Keys = dataContext.ExecuteQuery<string>("select * FROM DbrPerson ORDER BY PNR").Skip(5678).Take(10).ToArray();
                     //return dataContext.ExtractItems.Select(ei => ei.PNR).Distinct().ToArray();
                 }

@@ -180,14 +180,16 @@ namespace CprBroker.DBR.Extensions
                 .OrderByDescending(e => e.RelocationDate);
 
             var prevAddress = previousAddresses.FirstOrDefault();
-            if (prevAddress != null && streetNameLocator != null)
+            if (prevAddress != null/* && streetNameLocator != null*/) // Street name is not implemented, yet.
             {
                 pt.PreviousAddress = string.Format("{0} {1},{2} {3} ({4})",
-                                        streetNameLocator(prevAddress),
+                                        "Ukendt Vej",//streetNameLocator(prevAddress), // Street name is not implemented, yet.
                                         prevAddress.HouseNumber.TrimStart('0', ' '),
                                         prevAddress.Floor.TrimStart('0', ' '),
                                         prevAddress.Door.TrimStart('0', ' '),
-                                        Authority.GetAuthorityAddressByCode(prevAddress.MunicipalityCode.ToString()));
+                                        Authority.GetAuthorityNameByCode(prevAddress.MunicipalityCode.ToString()));
+                if (string.IsNullOrEmpty(pt.CurrentMunicipalityName))
+                    pt.CurrentMunicipalityName = Authority.GetAuthorityNameByCode(prevAddress.MunicipalityCode.ToString());
             }
 
             var previousMunicipalityAddress = previousAddresses.Where(e => e.MunicipalityCode != resp.ClearWrittenAddress.MunicipalityCode).FirstOrDefault();
