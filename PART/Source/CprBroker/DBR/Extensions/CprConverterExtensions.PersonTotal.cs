@@ -20,6 +20,7 @@ namespace CprBroker.DBR.Extensions
             /*
              * PERSON DETAILS
              */
+            pt.DprLoadDate = resp.RegistrationDate;
             pt.PNR = Decimal.Parse(resp.PersonInformation.PNR);
             if (resp.PersonInformation.StatusStartDate != null)
             {

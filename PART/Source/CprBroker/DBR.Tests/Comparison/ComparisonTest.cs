@@ -40,7 +40,7 @@ namespace CprBroker.Tests.DBR.Comparison
         {
             var t = typeof(TObject);
             return t.GetProperties(BindingFlags.Public | BindingFlags.Instance)
-                .Where(p => Attribute.GetCustomAttribute(p, typeof(System.Data.Linq.Mapping.ColumnAttribute), true) != null)
+                .Where(p => p.GetCustomAttributes(typeof(System.Data.Linq.Mapping.ColumnAttribute), true).FirstOrDefault() != null)
                 .Where(p => !this.ExcludedProperties.Contains(p.Name))
                 .OrderBy(p => p.Name)
                 .ToArray();
@@ -60,7 +60,7 @@ namespace CprBroker.Tests.DBR.Comparison
         {
             var f = prop.GetValue(fakeObject, null);
             var r = prop.GetValue(realObject, null);
-            Assert.AreEqual(r, f, "{0}.{1}: Expected <{2} but was<{3}>", prop.DeclaringType.Name, prop.Name, r, f);
+            Assert.AreEqual(r, f, "{0}.{1}: Expected <{2}> but was<{3}>", prop.DeclaringType.Name, prop.Name, r, f);
         }
 
         public abstract TDataContext CreateDataContext(string connectionString);
