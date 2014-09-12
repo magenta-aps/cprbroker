@@ -67,7 +67,7 @@ namespace CprBroker.Tests.DBR.Comparison.Person
 
         public override IQueryable<Departure> Get(DPRDataContext dataContext, string pnr)
         {
-            return dataContext.Departures.Where(c => c.PNR == decimal.Parse(pnr)).OrderBy(c => c.EntryDate).ThenBy(c => c.ExitDate);
+            return dataContext.Departures.Where(c => c.PNR == decimal.Parse(pnr)).OrderByDescending(c => c.ExitDate).ThenBy(c => c.EntryDate);
         }
     }
 
