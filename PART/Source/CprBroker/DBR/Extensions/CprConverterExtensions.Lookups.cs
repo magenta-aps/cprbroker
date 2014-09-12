@@ -13,7 +13,14 @@ namespace CprBroker.DBR.Extensions
         {
             Street st = new Street();
             st.KOMKOD = s.MunicipalityCode;
-            st.SVEJADRNVN = s.StreetAddressingName.ToUpper();
+            st.SVEJADRNVN = s.StreetAddressingName
+                .ToUpper()
+                .Replace('É', 'E')
+                .Replace('Ä', 'Æ')
+                .Replace('Ö', 'Ø')
+                .Replace('Ÿ', 'Y')
+                //.Replace('Ü', 'Y') causes more failures than solutions
+                ;
             st.VEJKOD = s.StreetCode;
             st.VEJADNVN = s.StreetAddressingName;
             return st;
