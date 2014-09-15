@@ -19,7 +19,7 @@ namespace CprBroker.Tests.Engine
             {
                 public int Calls = 0;
 
-                protected override byte[] ProcessMessage(byte[] message)
+                public override byte[] ProcessMessage(byte[] message)
                 {
                     System.Threading.Interlocked.Increment(ref Calls);
                     return _ProcessMessage(message);
