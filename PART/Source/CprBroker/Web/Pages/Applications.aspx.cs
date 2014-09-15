@@ -125,13 +125,13 @@ namespace CprBroker.Web.Pages
             e.Cancel=true;
             
             CprBroker.Data.Applications.Application newApp = e.NewObject as CprBroker.Data.Applications.Application;
-            var result = Manager.Admin.RequestAppRegistration(Constants.UserToken, Constants.BaseApplicationToken.ToString(), newApp.Name);
+            var result = AdminManager.RequestAppRegistration(Constants.UserToken, Constants.BaseApplicationToken.ToString(), newApp.Name);
             Master.AppendErrorIfPossible(result);
             if (StandardReturType.IsSucceeded(result.StandardRetur))
             {
                 if (newApp.IsApproved)
                 {
-                    var approveResult = Manager.Admin.ApproveAppRegistration(Constants.UserToken, Constants.BaseApplicationToken.ToString(), result.Item.Token);
+                    var approveResult = AdminManager.ApproveAppRegistration(Constants.UserToken, Constants.BaseApplicationToken.ToString(), result.Item.Token);
                     Master.AppendErrorIfPossible(approveResult);
                 }
             }
