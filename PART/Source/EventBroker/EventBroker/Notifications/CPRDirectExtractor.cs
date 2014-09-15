@@ -52,6 +52,7 @@ using CprBroker.Providers.CPRDirect;
 
 namespace CprBroker.EventBroker.Notifications
 {
+    [Obsolete]
     public class CPRDirectExtractor : CPRDirectIOExecuter
     {
         protected override TimeSpan CalculateActionTimerInterval(TimeSpan currentInterval)
