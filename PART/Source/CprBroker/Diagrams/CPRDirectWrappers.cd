@@ -1,0 +1,169 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Comment CommentText="CPR Direct wrappers">
+    <Position X="0.5" Y="0.5" Height="0.75" Width="1.7" />
+  </Comment>
+  <Class Name="CprBroker.Providers.CPRDirect.PersonRecordWrapper" Collapsed="true">
+    <Position X="4.75" Y="5.75" Width="2" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="CprBroker.Providers.CPRDirect.BirthRegistrationInformationType" Collapsed="true">
+    <Position X="1.25" Y="3.75" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CprBroker.Providers.CPRDirect.CurrentDisappearanceInformationType" Collapsed="true">
+    <Position X="8" Y="11.75" Width="3" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CprBroker.Providers.CPRDirect.CurrentNameInformationType" Collapsed="true">
+    <Position X="8" Y="13.25" Width="2.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CprBroker.Providers.CPRDirect.CurrentSeparationType" Collapsed="true">
+    <Position X="8" Y="4.5" Width="2.25" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CprBroker.Providers.CPRDirect.PersonInformationType" Collapsed="true">
+    <Position X="2" Y="7.25" Width="2" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CprBroker.Providers.CPRDirect.CurrentAddressInformationType" Collapsed="true">
+    <Position X="9.5" Y="2.5" Width="2.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="CprBroker.Providers.CPRDirect.ProtectionType" Collapsed="true">
+    <Position X="2.25" Y="10.75" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CprBroker.Providers.CPRDirect.ContactAddressType" Collapsed="true">
+    <Position X="1.75" Y="5.25" Width="2.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="CprBroker.Providers.CPRDirect.ParentalAuthorityType" Collapsed="true">
+    <Position X="1.75" Y="13" Width="2" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CprBroker.Providers.CPRDirect.DisempowermentType" Collapsed="true">
+    <Position X="2.25" Y="16.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CprBroker.Providers.CPRDirect.MunicipalConditionsType" Collapsed="true">
+    <Position X="0.75" Y="18.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="CprBroker.Providers.CPRDirect.NotesType" Collapsed="true">
+    <Position X="11" Y="18.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="CprBroker.Providers.CPRDirect.ElectionInformationType" Collapsed="true">
+    <Position X="9" Y="18.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="CprBroker.Providers.CPRDirect.RelocationOrderType" Collapsed="true">
+    <Position X="2" Y="14.75" Width="1.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="CprBroker.Providers.CPRDirect.HistoricalPNRType" Collapsed="true">
+    <Position X="2" Y="9" Width="2" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CprBroker.Providers.CPRDirect.HistoricalAddressType" Collapsed="true">
+    <Position X="12.75" Y="2.5" Width="2" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CprBroker.Providers.CPRDirect.HistoricalDepartureType" Collapsed="true">
+    <Position X="11.75" Y="8.25" Width="2.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CprBroker.Providers.CPRDirect.HistoricalDisappearanceType" Collapsed="true">
+    <Position X="11.75" Y="11.75" Width="2.25" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CprBroker.Providers.CPRDirect.HistoricalNameType" Collapsed="true">
+    <Position X="11.75" Y="13.25" Width="2" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CprBroker.Providers.CPRDirect.HistoricalCitizenshipType" Collapsed="true">
+    <Position X="11.75" Y="10" Width="2" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CprBroker.Providers.CPRDirect.HistoricalChurchInformationType" Collapsed="true">
+    <Position X="11.75" Y="15" Width="2.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CprBroker.Providers.CPRDirect.HistoricalCivilStatusType" Collapsed="true">
+    <Position X="11.75" Y="6.5" Width="2.25" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CprBroker.Providers.CPRDirect.HistoricalSeparationType" Collapsed="true">
+    <Position X="11.75" Y="4.5" Width="2" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CprBroker.Providers.CPRDirect.EventsType" Collapsed="true">
+    <Position X="2.75" Y="18.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="CprBroker.Providers.CPRDirect.ErrorRecordType" Collapsed="true">
+    <Position X="4.75" Y="18.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="CprBroker.Providers.CPRDirect.SubscriptionDeletionReceiptType" Collapsed="true">
+    <Position X="6.75" Y="18.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="CprBroker.Providers.CPRDirect.ChildType" Collapsed="true">
+    <Position X="2.25" Y="2" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CprBroker.Providers.CPRDirect.ChurchInformationType" Collapsed="true">
+    <Position X="8" Y="15" Width="2" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CprBroker.Providers.CPRDirect.ClearWrittenAddressType" Collapsed="true">
+    <Position X="7.25" Y="2.5" Width="2" />
+    <InheritanceLine Type="CprBroker.Providers.CPRDirect.PersonRecordWrapper" FixedToPoint="true">
+      <Path>
+        <Point X="5.75" Y="5.75" />
+        <Point X="5.75" Y="3.566" />
+        <Point X="8.312" Y="3.566" />
+        <Point X="8.312" Y="3.191" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier />
+  </Class>
+  <Class Name="CprBroker.Providers.CPRDirect.CurrentCitizenshipType" Collapsed="true">
+    <Position X="8" Y="10" Width="2" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CprBroker.Providers.CPRDirect.CurrentCivilStatusType" Collapsed="true">
+    <Position X="8" Y="6.5" Width="2" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CprBroker.Providers.CPRDirect.CurrentDepartureDataType" Collapsed="true">
+    <Position X="8" Y="8.25" Width="2.25" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

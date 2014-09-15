@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Comment CommentText="Queues">
+    <Position X="0.5" Y="0.5" Height="0.75" Width="1.7" />
+  </Comment>
+  <Class Name="CprBroker.Engine.Queues.Queue">
+    <Position X="4" Y="3.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CprBroker.Engine.Queues.Queue&lt;TQueueItem&gt;">
+    <Position X="0.5" Y="2.5" Width="2" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="CprBroker.Engine.Queues.QueueItemBase">
+    <Position X="4" Y="0.75" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CprBroker.Engine.Tasks.QueueExecuter">
+    <Position X="7.25" Y="3" Width="1.5" />
+    <NestedTypes>
+      <Class Name="CprBroker.Engine.Tasks.QueueExecuter.EqualityComparer" Collapsed="true">
+        <TypeIdentifier />
+        <Lollipop Position="0.2" />
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier />
+    <ShowAsAssociation>
+      <Property Name="Queue" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="CprBroker.Providers.CPRDirect.DbrBaseQueue">
+    <Position X="5.25" Y="8" Width="1.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="CprBroker.Providers.CPRDirect.ExtractStagingQueue">
+    <Position X="7.75" Y="8" Width="1.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="CprBroker.Providers.CPRDirect.PartConversionQueue">
+    <Position X="0.5" Y="8" Width="2" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="CprBroker.DBR.DbrQueue">
+    <Position X="3" Y="8" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Interface Name="CprBroker.Engine.Queues.IQueueItem">
+    <Position X="7.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
