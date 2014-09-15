@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Comment CommentText="Facades">
+    <Position X="0.5" Y="0.5" Height="0.75" Width="1.7" />
+  </Comment>
+  <Class Name="CprBroker.Engine.FacadeMethodInfo&lt;TOutput, TItem&gt;">
+    <Position X="3.25" Y="1.75" Width="2.75" />
+    <TypeIdentifier />
+    <ShowAsCollectionAssociation>
+      <Field Name="SubMethodInfos" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="CprBroker.Engine.GenericFacadeMethodInfo&lt;TItem&gt;">
+    <Position X="3" Y="6.25" Width="3.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="CprBroker.Engine.SubMethodInfo">
+    <Position X="7.5" Y="3.25" Width="2" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="CprBroker.Engine.SubMethodInfo&lt;TInterface, TOutput&gt;">
+    <Position X="11" Y="0.5" Width="2.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="CprBroker.Engine.SubMethodRunState">
+    <Position X="11" Y="5.75" Width="1.75" />
+    <TypeIdentifier />
+    <ShowAsAssociation>
+      <Field Name="SubMethodInfo" />
+    </ShowAsAssociation>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -118,6 +118,7 @@
     <None Include="DataProviders.cd" />
     <None Include="Intervals.cd" />
     <None Include="Queues.cd" />
+    <None Include="RequestAndFacades.cd" />
     <None Include="Tasks.cd" />
     <None Include="TimedInterfaces.cd" />
     <None Include="BaseWrappers.cd" />
