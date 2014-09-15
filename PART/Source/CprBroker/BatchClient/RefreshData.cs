@@ -56,7 +56,7 @@ using CprBroker.Utilities.ConsoleApps;
 
 namespace BatchClient
 {
-    class RefreshData : PartClient
+    public class RefreshData : PartClient
     {
         public override string[] LoadCprNumbers()
         {

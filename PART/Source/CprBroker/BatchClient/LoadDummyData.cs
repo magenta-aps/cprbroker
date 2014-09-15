@@ -58,7 +58,7 @@ using CprBroker.Data.Part;
 
 namespace BatchClient
 {
-    class LoadDummyData : PartClient
+    public class LoadDummyData : PartClient
     {
         public override string[] LoadCprNumbers()
         {

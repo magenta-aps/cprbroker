@@ -59,7 +59,7 @@ using CprBroker.Engine;
 
 namespace BatchClient
 {
-    class CleanInvalidPNRs : ConsoleEnvironment
+    public class CleanInvalidPNRs : ConsoleEnvironment
     {
         public override string[] LoadCprNumbers()
         {
