@@ -339,7 +339,7 @@ namespace PersonMasterInstallers
                     var configFilePath = webInstallationInfo.GetWebConfigFilePath(webInstallationOptions["PM"]);
                     var dic = new Dictionary<string, string>();
                     dic["multipleSiteBindingsEnabled"] = "true";
-                    CprBroker.Installers.Installation.AddSectionNode("serviceHostingEnvironment", dic, configFilePath, "system.serviceModel");
+                    CprBroker.Installers.Installation.AddSectionNode("serviceHostingEnvironment", dic, "//serviceHostingEnvironment", configFilePath, "system.serviceModel");
                 };
 
                 var infos = new Dictionary<string, WebPatchInfo[]>();
