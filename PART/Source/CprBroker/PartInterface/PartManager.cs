@@ -51,32 +51,15 @@ using System.Text;
 using CprBroker.Schemas;
 using CprBroker.Schemas.Part;
 using CprBroker.Engine.Part;
+using CprBroker.Engine;
 
-namespace CprBroker.Engine
+namespace CprBroker.PartInterface
 {
     /// <summary>
     /// This section implements the PART interface methods as of the PART standard
     /// </summary>
-    public static partial class PartManager
+    public partial class PartManager : Manager
     {
-        public static BasicOutputType<TItem> GetMethodOutput<TItem>(GenericFacadeMethodInfo<TItem> facade)
-        {
-            return CprBroker.Engine.Manager.GetMethodOutput<TItem>(facade);
-        }
-
-        public static TOutput GetMethodOutput<TOutput, TItem>(FacadeMethodInfo<TOutput, TItem> facade) where TOutput : class, IBasicOutput<TItem>, new()
-        {
-            return CprBroker.Engine.Manager.GetMethodOutput<TOutput, TItem>(facade);
-        }
-
-        public static TOutput GetBatchMethodOutput<TInterface, TOutput, TSingleInputItem, TSingleOutputItem>(BatchFacadeMethodInfo<TInterface, TOutput, TSingleInputItem, TSingleOutputItem> facadeMethod)
-            where TInterface : class, IDataProvider
-            where TOutput : class, IBasicOutput<TSingleOutputItem[]>, new()
-        {
-            return CprBroker.Engine.Manager.GetBatchMethodOutput<TInterface, TOutput, TSingleInputItem, TSingleOutputItem>(facadeMethod);
-        }
-
-
         public static LaesOutputType Read(string userToken, string appToken, LaesInputType input, SourceUsageOrder localAction, out QualityLevel? qualityLevel)
         {
             ReadFacadeMethodInfo facadeMethod = new ReadFacadeMethodInfo(input, localAction, appToken, userToken);

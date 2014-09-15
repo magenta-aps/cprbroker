@@ -52,13 +52,14 @@ using CprBroker.Schemas;
 using CprBroker.Schemas.Part;
 using CprBroker.Engine.Period;
 using CprBroker.Engine.Local;
+using CprBroker.Engine;
 
-namespace CprBroker.Engine
+namespace CprBroker.PartInterface
 {
     /// <summary>
     /// This section implements the PART interface methods as of the PART standard
     /// </summary>
-    public static partial class PartManager
+    public partial class PartManager
     {
 
         // TODO: Move the validation logic to facade method

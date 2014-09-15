@@ -61,8 +61,10 @@ namespace CprBroker.Engine
     /// The main class of the system's engine.
     /// Manages calls to data providers
     /// </summary>
-    public static partial class Manager
+    public partial class Manager
     {
+        protected Manager()
+        { }
 
         public static BasicOutputType<TItem> GetMethodOutput<TItem>(GenericFacadeMethodInfo<TItem> facade)
         {

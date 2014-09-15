@@ -53,6 +53,7 @@ using System.Web.Services.Protocols;
 using CprBroker.Engine;
 using CprBroker.Schemas;
 using CprBroker.Schemas.Part;
+using CprBroker.PartInterface;
 
 namespace CprBroker.Web.Services
 {

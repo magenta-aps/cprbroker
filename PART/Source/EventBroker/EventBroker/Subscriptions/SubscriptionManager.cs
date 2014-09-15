@@ -58,13 +58,8 @@ namespace CprBroker.EventBroker.Subscriptions
     /// This part contains methods related to admin interface
     /// All methods here simply delegate the code to Manager.CallMethod&lt;&gt;()
     /// </summary>
-    public class SubscriptionManager
+    public class SubscriptionManager : Manager
     {
-        public static BasicOutputType<TItem> GetMethodOutput<TItem>(GenericFacadeMethodInfo<TItem> facade)
-        {
-            return CprBroker.Engine.Manager.GetMethodOutput<TItem>(facade);
-        }
-
         #region Subscription
         public static BasicOutputType<ChangeSubscriptionType> Subscribe(string userToken, string appToken, ChannelBaseType notificationChannel, Guid[] personUuids)
         {

@@ -107,7 +107,7 @@ namespace CprBroker.Engine.Part
 
         public static Guid CprToUuid(string cprNumber)
         {
-            var uuid = PartManager.GetUuid(BrokerContext.Current.UserToken, BrokerContext.Current.ApplicationToken, cprNumber);
+            var uuid = PartInterface.PartManager.GetUuid(BrokerContext.Current.UserToken, BrokerContext.Current.ApplicationToken, cprNumber);
             if (StandardReturType.IsSucceeded(uuid.StandardRetur))
             {
                 return new Guid(uuid.UUID);

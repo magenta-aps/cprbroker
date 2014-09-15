@@ -51,6 +51,7 @@ using System.Text;
 using NUnit.Framework;
 using CprBroker.Engine;
 using CprBroker.Engine.Part;
+using CprBroker.PartInterface;
 using CprBroker.Schemas;
 using CprBroker.Schemas.Part;
 using CprBroker.Data.DataProviders;
