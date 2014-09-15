@@ -131,7 +131,7 @@
     </Compile>
     <Compile Include="TcpServer.cs" />
     <Compile Include="ThreadRunner.cs" />
-    <Compile Include="Manager.Admin.cs" />
+    <Compile Include="AdminManager.cs" />
     <Compile Include="Manager.Base.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
