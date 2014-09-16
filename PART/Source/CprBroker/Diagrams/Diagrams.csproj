@@ -116,9 +116,10 @@
     <None Include="CPRDataProviders.cd" />
     <None Include="CPRDirectWrappers.cd" />
     <None Include="DataProviders.cd" />
+    <None Include="Facades.cd" />
     <None Include="Intervals.cd" />
     <None Include="Queues.cd" />
-    <None Include="RequestAndFacades.cd" />
+    <None Include="ManagerClasses.cd" />
     <None Include="Tasks.cd" />
     <None Include="TimedInterfaces.cd" />
     <None Include="BaseWrappers.cd" />
