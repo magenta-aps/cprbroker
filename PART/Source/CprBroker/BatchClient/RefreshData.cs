@@ -68,7 +68,7 @@ namespace BatchClient
             var partService = new BatchClient.Part.Part();
             partService.Url = this.PartServiceUrl;
             partService.ApplicationHeaderValue = new BatchClient.Part.ApplicationHeader() { ApplicationToken = this.ApplicationToken, UserToken = this.UserToken };
-            partService.Credentials = new System.Net.NetworkCredential("magenta", "Alfresco2ltk", "ltkdom");
+            //partService.Credentials = new System.Net.NetworkCredential("", "", "");
             
 
             string uuid;
