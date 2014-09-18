@@ -33,7 +33,7 @@ BEGIN
     BEGIN
         RETURN
     END
-        
+
     -------------------
     -- Root variables
     -------------------
@@ -43,6 +43,7 @@ BEGIN
     
     INSERT INTO @ContentsTable SELECT @Contents;
 
+    -- Select the nodes that are currently in effect
     WITH XMLNAMESPACES(
         'urn:oio:sagdok:person:1.0.0' as ns0,
         'urn:oio:sagdok:2.0.0' as ns1 )
@@ -94,7 +95,10 @@ BEGIN
     DECLARE @UserInterfaceKeyText VARCHAR(MAX), @PersonCivilRegistrationIdentifier VARCHAR(max),
         @PersonNummerGyldighedStatusIndikator bit, @PersonNationalityCode VARCHAR(MAX),
         @NavneAdresseBeskyttelseIndikator VARCHAR(MAX),@TelefonNummerBeskyttelseIndikator VARCHAR(MAX), @ForskerBeskyttelseIndikator bit;
-        
+
+    -- CprBorger fields - after address
+    DECLARE @AdresseNoteTekst VARCHAR(MAX), @FolkekirkeMedlemIndikator bit; 
+    
     -- FolkeregisterAdresse fields
     DECLARE @NoteTekst_DanskAdresse VARCHAR(MAX), @UkendtAdresseIndikator bit, 
         @SpecielVejkodeIndikator bit, @PostDistriktTekst VARCHAR(MAX);
@@ -110,9 +114,7 @@ BEGIN
         @PostCodeIdentifier int, @DistrictName VARCHAR(MAX), 
         @CountryIdentificationCode VARCHAR(MAX);
         
-    -- CprBorger fields - after address
-    DECLARE @AdresseNoteTekst VARCHAR(MAX), @FolkekirkeMedlemIndikator bit; 
-
+    
     IF LEN (CAST (@RegisterOplysningNode AS VARCHAR(MAX))) > 0
     BEGIN	
         DECLARE @RegisterOplysningTable TABLE (X XML);
@@ -131,6 +133,17 @@ BEGIN
             @TelefonNummerBeskyttelseIndikator     = X.value('(/ns0:RegisterOplysning/ns0:CprBorger/ns0:TelefonNummerBeskyttelseIndikator)[last()]' , 'varchar(max)'),
             @ForskerBeskyttelseIndikator           = X.value('(/ns0:RegisterOplysning/ns0:CprBorger/ns0:ForskerBeskyttelseIndikator)[last()]'       , 'bit'         )
         FROM @RegisterOplysningTable;
+
+        -- CprBorger - after address
+        WITH XMLNAMESPACES (
+            'urn:oio:sagdok:person:1.0.0' as ns0,
+            'http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/' as ns1,
+            'http://rep.oio.dk/ebxml/xml/schemas/dkcc/2006/01/03/' as ns2)
+        SELECT
+            @AdresseNoteTekst           = X.value('(/ns0:RegisterOplysning/ns0:CprBorger/ns0:AdresseNoteTekst)[last()]'          , 'varchar(max)'),
+            @FolkekirkeMedlemIndikator  = X.value('(/ns0:RegisterOplysning/ns0:CprBorger/ns0:FolkekirkeMedlemIndikator)[last()]' , 'bit')
+        FROM @RegisterOplysningTable;
+
         
         DECLARE @DanskAdresseTable TABLE(X XML);
         WITH XMLNAMESPACES ('urn:oio:sagdok:person:1.0.0' as ns0)
@@ -184,16 +197,6 @@ BEGIN
         FROM 
             (SELECT X.query('/ns0:DanskAdresse/ns1:AddressComplete/ns1:AddressPostal') FROM @DanskAdresseTable) AS tmp_AddressPostalTable(X);
 
-        -- CprBorger - after address
-        WITH XMLNAMESPACES (
-            'urn:oio:sagdok:person:1.0.0' as ns0,
-            'http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/' as ns1,
-            'http://rep.oio.dk/ebxml/xml/schemas/dkcc/2006/01/03/' as ns2)
-        SELECT
-            @AdresseNoteTekst           = X.value('(/ns0:RegisterOplysning/ns0:CprBorger/ns0:AdresseNoteTekst)[last()]'          , 'varchar(max)'),
-            @FolkekirkeMedlemIndikator  = X.value('(/ns0:RegisterOplysning/ns0:CprBorger/ns0:FolkekirkeMedlemIndikator)[last()]' , 'bit')
-        FROM @RegisterOplysningTable;
-       
     END
     
 
@@ -207,7 +210,29 @@ BEGIN
             AddressingName = @AddressingName, NickName = @NickName, Note = @Note, 
             PersonGivenName = @PersonGivenName, PersonMiddleName = @PersonMiddleName, PersonSurnameName = @PersonSurnameName, 
             PersonGenderCode = @PersonGenderCode, Birthdate = @Birthdate,
-            UserInterfaceKeyText = @UserInterfaceKeyText
+            UserInterfaceKeyText = @UserInterfaceKeyText,
+            
+            -- CprBorger
+            UserInterfaceKeyText = @UserInterfaceKeyText, PersonCivilRegistrationIdentifier = @PersonCivilRegistrationIdentifier,
+            PersonNummerGyldighedStatusIndikator = @PersonNummerGyldighedStatusIndikator, PersonNationalityCode = @PersonNationalityCode,
+            NavneAdresseBeskyttelseIndikator = @NavneAdresseBeskyttelseIndikator, TelefonNummerBeskyttelseIndikator = @TelefonNummerBeskyttelseIndikator, ForskerBeskyttelseIndikator = @ForskerBeskyttelseIndikator,
+            
+            -- CprBorger - after address
+            AdresseNoteTekst = @AdresseNoteTekst, FolkekirkeMedlemIndikator =@FolkekirkeMedlemIndikator, 
+
+            -- FolkeregisterAdresse
+            NoteTekst_DanskAdresse = @NoteTekst_DanskAdresse, UkendtAdresseIndikator = @UkendtAdresseIndikator,
+            SpecielVejkodeIndikator = @SpecielVejkodeIndikator, 
+
+            -- AddressAccess
+            MunicipalityCode = @MunicipalityCode, StreetCode = @StreetCode, StreetBuildingIdentifier = @StreetBuildingIdentifier,
+
+            -- AddressPostal
+            MailDeliverySublocationIdentifier = @MailDeliverySublocationIdentifier, StreetName = @StreetName, StreetNameForAddressingName = @StreetNameForAddressingName,
+            StreetBuildingIdentifier_Postal = @StreetBuildingIdentifier_Postal, FloorIdentifier = @FloorIdentifier, SuiteIdentifier = @SuiteIdentifier,
+            DistrictSubdivisionIdentifier = @DistrictSubdivisionIdentifier, PostOfficeBoxIdentifier = @PostOfficeBoxIdentifier,
+            PostCodeIdentifier = @PostCodeIdentifier, DistrictName = @DistrictName,
+            CountryIdentificationCode = @CountryIdentificationCode
         WHERE 
             UUID = @UUID
     END
