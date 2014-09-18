@@ -225,7 +225,7 @@ BEGIN
 
             -- FolkeregisterAdresse
             NoteTekst_DanskAdresse = @NoteTekst_DanskAdresse, UkendtAdresseIndikator = @UkendtAdresseIndikator,
-            SpecielVejkodeIndikator = @SpecielVejkodeIndikator, 
+            SpecielVejkodeIndikator = @SpecielVejkodeIndikator, PostDistriktTekst = @PostDistriktTekst,
 
             -- AddressAccess
             MunicipalityCode = @MunicipalityCode, StreetCode = @StreetCode, StreetBuildingIdentifier = @StreetBuildingIdentifier,
@@ -260,7 +260,7 @@ BEGIN
 
             -- FolkeregisterAdresse
             NoteTekst_DanskAdresse, UkendtAdresseIndikator,
-            SpecielVejkodeIndikator, 
+            SpecielVejkodeIndikator, PostDistriktTekst,
 
             -- AddressAccess
             MunicipalityCode, StreetCode, StreetBuildingIdentifier,
@@ -292,7 +292,7 @@ BEGIN
 
             -- FolkeregisterAdresse
             @NoteTekst_DanskAdresse, @UkendtAdresseIndikator,
-            @SpecielVejkodeIndikator, 
+            @SpecielVejkodeIndikator, @PostDistriktTekst,
 
             -- AddressAccess
             @MunicipalityCode, @StreetCode, @StreetBuildingIdentifier,

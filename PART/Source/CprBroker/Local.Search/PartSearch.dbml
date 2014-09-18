@@ -1,18 +1,44 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Database Name="PART" Class="PartSearchDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="part" Class="PartSearchDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
   <Table Name="dbo.PersonSearchCache" Member="PersonSearchCaches">
     <Type Name="PersonSearchCache">
       <Column Name="PersonRegistrationId" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
       <Column Name="UUID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="UserInterfaceKeyText" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
-      <Column Name="Birthdate" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="LivscyklusKode" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="AddressingName" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
       <Column Name="NickName" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
       <Column Name="Note" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
-      <Column Name="AddressingName" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
       <Column Name="PersonGivenName" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
       <Column Name="PersonMiddleName" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
       <Column Name="PersonSurnameName" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
       <Column Name="PersonGenderCode" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
-      <Column Name="LivscyklusKode" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="Birthdate" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="UserInterfaceKeyText" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="PersonCivilRegistrationIdentifier" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="PersonNummerGyldighedStatusIndikator" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="PersonNationalityCode" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="NavneAdresseBeskyttelseIndikator" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="TelefonNummerBeskyttelseIndikator" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="ForskerBeskyttelseIndikator" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="AdresseNoteTekst" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="FolkekirkeMedlemIndikator" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="NoteTekst_DanskAdresse" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="UkendtAdresseIndikator" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="SpecielVejkodeIndikator" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="PostDistriktTekst" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="MunicipalityCode" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="StreetCode" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="StreetBuildingIdentifier" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="MailDeliverySublocationIdentifier" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="StreetName" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="StreetNameForAddressingName" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="StreetBuildingIdentifier_Postal" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="FloorIdentifier" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="SuiteIdentifier" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="DistrictSubdivisionIdentifier" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="PostOfficeBoxIdentifier" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="PostCodeIdentifier" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="DistrictName" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="CountryIdentificationCode" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
     </Type>
   </Table>
 </Database>

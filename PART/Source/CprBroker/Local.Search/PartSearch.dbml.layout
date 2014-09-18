@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="PartSearch">
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 10.875" name="PartSearch">
   <DataContextMoniker Name="/PartSearchDataContext" />
   <nestedChildShapes>
-    <classShape Id="11d1f370-a1ba-458d-a2e5-08df012da612" absoluteBounds="5, 1.625, 2, 3.1170068359375">
+    <classShape Id="01641f12-a19e-4d16-a90e-35f95fd144f0" absoluteBounds="6.125, 2.5, 2, 8.1168440755208326">
       <DataClassMoniker Name="/PartSearchDataContext/PersonSearchCache" />
       <nestedChildShapes>
-        <elementListCompartment Id="2a4559ce-8eb5-43e1-9179-0e8ab664972a" absoluteBounds="5.015, 2.085, 1.9700000000000002, 2.5570068359375" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="5bedaeb3-c3e6-4a23-8d75-06821576f0b2" absoluteBounds="6.14, 2.96, 1.9700000000000002, 7.556844075520833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Linq.Expressions;
-
+using CprBroker.Schemas.Part;
 using CprBroker.Engine;
 using CprBroker.Utilities;
 
@@ -61,6 +61,7 @@ namespace CprBroker.Providers.Local.Search
                 // Search by cpr number
                 if (!string.IsNullOrEmpty(searchCriteria.SoegObjekt.BrugervendtNoegleTekst))
                 {
+                    // TODO: In theory, this is the same as RegisterOplysning/CprBorger/UserInterfaceKeyText
                     pred = pred.And(pr => pr.UserInterfaceKeyText == searchCriteria.SoegObjekt.BrugervendtNoegleTekst);
                 }
 
@@ -71,20 +72,20 @@ namespace CprBroker.Providers.Local.Search
                     {
                         foreach (var prop in searchCriteria.SoegObjekt.SoegAttributListe.SoegEgenskab)
                         {
-                            if (prop.BirthDateSpecified)
-                            {
-                                // TODO: Check formatting of dates, could be different between webserver and database
-                                pred = pred.And((pt) => pt.Birthdate == prop.BirthDate.ToShortDateString());
-                            }
-                            if (prop.PersonGenderCodeSpecified)
-                            {
-                                pred = pred.And((pt) => pt.PersonGenderCode == prop.PersonGenderCode.ToString());
-                            }
-
                             if (prop != null)
                             {
+                                if (!string.IsNullOrEmpty(prop.FoedestedNavn))
+                                {
+                                    // TODO: Add this
+                                    //pred = pred.And((pt) => pt.birt == prop.PersonGenderCode.ToString());
+                                }
+
                                 if (prop.NavnStruktur != null)
                                 {
+                                    if (!string.IsNullOrEmpty(prop.NavnStruktur.PersonNameForAddressingName))
+                                    {
+                                        pred = pred.And((pt) => pt.AddressingName == prop.NavnStruktur.PersonNameForAddressingName);
+                                    }
                                     if (!string.IsNullOrEmpty(prop.NavnStruktur.KaldenavnTekst))
                                     {
                                         pred = pred.And((pt) => pt.NickName == prop.NavnStruktur.KaldenavnTekst);
@@ -92,10 +93,6 @@ namespace CprBroker.Providers.Local.Search
                                     if (!string.IsNullOrEmpty(prop.NavnStruktur.NoteTekst))
                                     {
                                         pred = pred.And((pt) => pt.Note == prop.NavnStruktur.NoteTekst);
-                                    }
-                                    if (!string.IsNullOrEmpty(prop.NavnStruktur.PersonNameForAddressingName))
-                                    {
-                                        pred = pred.And((pt) => pt.AddressingName == prop.NavnStruktur.PersonNameForAddressingName);
                                     }
                                     if (prop.NavnStruktur.PersonNameStructure != null)
                                     {
@@ -118,6 +115,158 @@ namespace CprBroker.Providers.Local.Search
                                         }
                                     }
                                 }
+                                if (prop.PersonGenderCodeSpecified)
+                                {
+                                    pred = pred.And((pt) => pt.PersonGenderCode == prop.PersonGenderCode.ToString());
+                                }
+                                if (prop.BirthDateSpecified)
+                                {
+                                    // TODO: Check formatting of dates, could be different between webserver and database
+                                    pred = pred.And((pt) => pt.Birthdate == prop.BirthDate.ToShortDateString());
+                                }
+                            }
+                        }
+
+                        foreach (var prop in searchCriteria.SoegObjekt.SoegAttributListe.SoegRegisterOplysning)
+                        {
+                            // TODO: What about other Item values?
+                            if (prop != null && prop.Item is CprBroker.Schemas.Part.CprBorgerType)
+                            {
+                                // CprBorger fields
+                                // --------------------
+                                var cprBorger = prop.Item as CprBroker.Schemas.Part.CprBorgerType;
+                                if (!string.IsNullOrEmpty(cprBorger.PersonCivilRegistrationIdentifier))
+                                {
+                                    pred = pred.And(pt => pt.PersonCivilRegistrationIdentifier == cprBorger.PersonCivilRegistrationIdentifier);
+                                }
+                                if (cprBorger.PersonNummerGyldighedStatusIndikator)// TODO: Check null values for boolean
+                                {
+                                    pred = pred.And(pt => pt.PersonNummerGyldighedStatusIndikator == cprBorger.PersonNummerGyldighedStatusIndikator.ToString());
+                                }
+                                if (cprBorger.PersonNationalityCode != null && !string.IsNullOrEmpty(cprBorger.PersonNationalityCode.Value))
+                                {
+                                    pred = pred.And(pt => pt.PersonNationalityCode == cprBorger.PersonNationalityCode.Value);
+                                }
+                                if (cprBorger.NavneAdresseBeskyttelseIndikator)// TODO: Check null values for boolean
+                                {
+                                    pred = pred.And(pt => pt.NavneAdresseBeskyttelseIndikator == cprBorger.NavneAdresseBeskyttelseIndikator.ToString());
+                                }
+                                if (cprBorger.TelefonNummerBeskyttelseIndikator)// TODO: Check null values for boolean
+                                {
+                                    pred = pred.And(pt => pt.TelefonNummerBeskyttelseIndikator == cprBorger.TelefonNummerBeskyttelseIndikator.ToString());
+                                }
+                                // TODO: Check null values for boolean
+                                if (cprBorger.ForskerBeskyttelseIndikator)
+                                {
+                                    pred = pred.And(pt => pt.ForskerBeskyttelseIndikator == cprBorger.ForskerBeskyttelseIndikator.ToString());
+                                }
+
+                                // CprBorger fields - After address
+                                // --------------------------------
+                                if (!string.IsNullOrEmpty(cprBorger.AdresseNoteTekst))
+                                {
+                                    pred = pred.And(pt => pt.AdresseNoteTekst == cprBorger.AdresseNoteTekst);
+                                }
+                                if (cprBorger.FolkekirkeMedlemIndikator)// TODO: Check null values for boolean
+                                {
+                                    pred = pred.And(pt => pt.FolkekirkeMedlemIndikator == cprBorger.FolkekirkeMedlemIndikator.ToString());
+                                }
+
+                                //  FolkeregisterAdresse fields
+                                // ----------------------------
+                                if (cprBorger.FolkeregisterAdresse != null && cprBorger.FolkeregisterAdresse.Item is DanskAdresseType)
+                                {
+                                    var danskAddress = cprBorger.FolkeregisterAdresse.Item as DanskAdresseType;
+                                    if (!string.IsNullOrEmpty(danskAddress.NoteTekst))
+                                    {
+                                        pred = pred.And(pt => pt.NoteTekst_DanskAdresse == danskAddress.NoteTekst);
+                                    }
+                                    if (danskAddress.UkendtAdresseIndikator)// TODO: Check null values for boolean
+                                    {
+                                        pred = pred.And(pt => pt.UkendtAdresseIndikator == danskAddress.UkendtAdresseIndikator.ToString());
+                                    }
+                                    if (danskAddress.SpecielVejkodeIndikatorSpecified)
+                                    {
+                                        pred = pred.And(pt => pt.SpecielVejkodeIndikator == danskAddress.SpecielVejkodeIndikator.ToString());
+                                    }
+                                    if (!string.IsNullOrEmpty(danskAddress.PostDistriktTekst))
+                                    {
+                                        pred = pred.And(pt => pt.PostDistriktTekst == danskAddress.PostDistriktTekst);
+                                    }
+
+                                    if (danskAddress.AddressComplete != null)
+                                    {
+                                        if (danskAddress.AddressComplete.AddressAccess != null)
+                                        {
+                                            var access = danskAddress.AddressComplete.AddressAccess;
+                                            if (!string.IsNullOrEmpty(access.MunicipalityCode))
+                                            {
+                                                pred = pred.And(pt => pt.MunicipalityCode == access.MunicipalityCode);
+                                            }
+                                            if (!string.IsNullOrEmpty(access.StreetCode))
+                                            {
+                                                pred = pred.And(pt => pt.StreetCode == access.StreetCode);
+                                            }
+                                            if (!string.IsNullOrEmpty(access.StreetBuildingIdentifier))
+                                            {
+                                                pred = pred.And(pt => pt.StreetBuildingIdentifier == access.StreetBuildingIdentifier);
+                                            }
+                                        }
+                                        if (danskAddress.AddressComplete.AddressPostal != null)
+                                        {
+                                            var postal = danskAddress.AddressComplete.AddressPostal;
+                                            if (!string.IsNullOrEmpty(postal.MailDeliverySublocationIdentifier))
+                                            {
+                                                pred = pred.And(pt => pt.MailDeliverySublocationIdentifier == postal.MailDeliverySublocationIdentifier);
+                                            }
+                                            if (!string.IsNullOrEmpty(postal.StreetName))
+                                            {
+                                                pred = pred.And(pt => pt.StreetName == postal.StreetName);
+                                            }
+                                            if (!string.IsNullOrEmpty(postal.StreetNameForAddressingName))
+                                            {
+                                                pred = pred.And(pt => pt.StreetNameForAddressingName == postal.StreetNameForAddressingName);
+                                            }
+
+                                            if (!string.IsNullOrEmpty(postal.StreetBuildingIdentifier))
+                                            {
+                                                pred = pred.And(pt => pt.StreetBuildingIdentifier_Postal == postal.StreetBuildingIdentifier);
+                                            }
+                                            if (!string.IsNullOrEmpty(postal.FloorIdentifier))
+                                            {
+                                                pred = pred.And(pt => pt.FloorIdentifier == postal.FloorIdentifier);
+                                            }
+                                            if (!string.IsNullOrEmpty(postal.SuiteIdentifier))
+                                            {
+                                                pred = pred.And(pt => pt.SuiteIdentifier == postal.SuiteIdentifier);
+                                            }
+
+                                            if (!string.IsNullOrEmpty(postal.DistrictSubdivisionIdentifier))
+                                            {
+                                                pred = pred.And(pt => pt.DistrictSubdivisionIdentifier == postal.DistrictSubdivisionIdentifier);
+                                            }
+                                            if (!string.IsNullOrEmpty(postal.PostOfficeBoxIdentifier))
+                                            {
+                                                pred = pred.And(pt => pt.PostOfficeBoxIdentifier == postal.PostOfficeBoxIdentifier);
+                                            }
+
+                                            if (!string.IsNullOrEmpty(postal.PostCodeIdentifier))
+                                            {
+                                                pred = pred.And(pt => pt.PostCodeIdentifier == postal.PostCodeIdentifier);
+                                            }
+                                            if (!string.IsNullOrEmpty(postal.DistrictName))
+                                            {
+                                                pred = pred.And(pt => pt.DistrictName == postal.DistrictName);
+                                            }
+
+                                            if (postal.CountryIdentificationCode != null && !string.IsNullOrEmpty(postal.CountryIdentificationCode.Value))
+                                            {
+                                                pred = pred.And(pt => pt.CountryIdentificationCode == postal.CountryIdentificationCode.Value);
+                                            }
+                                        }
+                                    }
+                                }
+
                             }
                         }
                     }
@@ -125,6 +274,7 @@ namespace CprBroker.Providers.Local.Search
             }
             return pred;
         }
+
         public bool IsAlive()
         {
             using (var dataContext = new PartSearchDataContext())

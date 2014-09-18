@@ -24,7 +24,7 @@ BEGIN
 
         -- FolkeregisterAdresse
         NoteTekst_DanskAdresse VARCHAR(MAX), UkendtAdresseIndikator VARCHAR(MAX),
-        SpecielVejkodeIndikator VARCHAR(MAX), 
+        SpecielVejkodeIndikator VARCHAR(MAX), PostDistriktTekst VARCHAR(MAX),
 
         -- AddressAccess
         MunicipalityCode VARCHAR(MAX), StreetCode VARCHAR(MAX), StreetBuildingIdentifier VARCHAR(MAX),
