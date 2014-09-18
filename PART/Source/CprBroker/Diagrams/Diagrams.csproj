@@ -118,6 +118,7 @@
     <None Include="DataProviders.cd" />
     <None Include="Facades.cd" />
     <None Include="Intervals.cd" />
+    <None Include="PartSchemas.cd" />
     <None Include="Queues.cd" />
     <None Include="ManagerClasses.cd" />
     <None Include="Tasks.cd" />
