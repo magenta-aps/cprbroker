@@ -206,12 +206,15 @@ BEGIN
     IF EXISTS (SELECT UUID FROM PersonSearchCache WHERE UUID = @UUID)
     BEGIN			
         UPDATE PersonSearchCache 
-        SET PersonRegistrationId = @PersonRegistrationId, LivscyklusKode = @LivscyklusKode,	
+        SET 
+            -- Root fields
+            PersonRegistrationId = @PersonRegistrationId, LivscyklusKode = @LivscyklusKode,	
+
+            -- Egenskab fields
             AddressingName = @AddressingName, NickName = @NickName, Note = @Note, 
             PersonGivenName = @PersonGivenName, PersonMiddleName = @PersonMiddleName, PersonSurnameName = @PersonSurnameName, 
             PersonGenderCode = @PersonGenderCode, Birthdate = @Birthdate,
-            UserInterfaceKeyText = @UserInterfaceKeyText,
-            
+
             -- CprBorger
             UserInterfaceKeyText = @UserInterfaceKeyText, PersonCivilRegistrationIdentifier = @PersonCivilRegistrationIdentifier,
             PersonNummerGyldighedStatusIndikator = @PersonNummerGyldighedStatusIndikator, PersonNationalityCode = @PersonNationalityCode,
@@ -239,16 +242,68 @@ BEGIN
     ELSE
     BEGIN
         INSERT INTO PersonSearchCache (
+            -- Root fields
             UUID, PersonRegistrationId, LivscyklusKode, 
+            
+            -- Egenskab fields
             AddressingName, NickName, Note, 
             PersonGivenName, PersonMiddleName, PersonSurnameName, 
             PersonGenderCode, Birthdate, 
-            UserInterfaceKeyText)
-        VALUES (@UUID, @PersonRegistrationId, @LivscyklusKode, 
+            
+            -- CprBorger
+            UserInterfaceKeyText, PersonCivilRegistrationIdentifier,
+            PersonNummerGyldighedStatusIndikator, PersonNationalityCode,
+            NavneAdresseBeskyttelseIndikator, TelefonNummerBeskyttelseIndikator, ForskerBeskyttelseIndikator,
+            
+            -- CprBorger - after address
+            AdresseNoteTekst, FolkekirkeMedlemIndikator,
+
+            -- FolkeregisterAdresse
+            NoteTekst_DanskAdresse, UkendtAdresseIndikator,
+            SpecielVejkodeIndikator, 
+
+            -- AddressAccess
+            MunicipalityCode, StreetCode, StreetBuildingIdentifier,
+
+            -- AddressPostal
+            MailDeliverySublocationIdentifier, StreetName, StreetNameForAddressingName,
+            StreetBuildingIdentifier_Postal, FloorIdentifier, SuiteIdentifier,
+            DistrictSubdivisionIdentifier, PostOfficeBoxIdentifier,
+            PostCodeIdentifier, DistrictName,
+            CountryIdentificationCode
+            )
+
+        VALUES (
+            -- Root fields
+            @UUID, @PersonRegistrationId, @LivscyklusKode, 
+
+            -- Egenskab fields
             @AddressingName, @NickName, @Note, 
             @PersonGivenName, @PersonMiddleName, @PersonSurnameName, 
             @PersonGenderCode, @Birthdate, 
-            @UserInterfaceKeyText)
+
+            -- CprBorger
+            @UserInterfaceKeyText, @PersonCivilRegistrationIdentifier,
+            @PersonNummerGyldighedStatusIndikator, @PersonNationalityCode,
+            @NavneAdresseBeskyttelseIndikator, @TelefonNummerBeskyttelseIndikator, @ForskerBeskyttelseIndikator,
+            
+            -- CprBorger - after address
+            @AdresseNoteTekst, @FolkekirkeMedlemIndikator,
+
+            -- FolkeregisterAdresse
+            @NoteTekst_DanskAdresse, @UkendtAdresseIndikator,
+            @SpecielVejkodeIndikator, 
+
+            -- AddressAccess
+            @MunicipalityCode, @StreetCode, @StreetBuildingIdentifier,
+
+            -- AddressPostal
+            @MailDeliverySublocationIdentifier, @StreetName, @StreetNameForAddressingName,
+            @StreetBuildingIdentifier_Postal, @FloorIdentifier, @SuiteIdentifier,
+            @DistrictSubdivisionIdentifier, @PostOfficeBoxIdentifier,
+            @PostCodeIdentifier, @DistrictName,
+            @CountryIdentificationCode
+            )
     END
 END
 GO
