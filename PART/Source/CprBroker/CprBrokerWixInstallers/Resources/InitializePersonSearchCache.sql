@@ -127,7 +127,7 @@ BEGIN
         SELECT
             @UserInterfaceKeyText                  = X.value('(/ns0:RegisterOplysning/ns0:CprBorger/ns1:PersonCivilRegistrationIdentifier)[last()]' , 'varchar(max)'),
             @PersonCivilRegistrationIdentifier     = X.value('(/ns0:RegisterOplysning/ns0:CprBorger/ns1:PersonCivilRegistrationIdentifier)[last()]' , 'varchar(max)'),
-            @PersonNummerGyldighedStatusIndikator  = X.value('(/ns0:RegisterOplysning/ns0:CprBorger/ns1:PersonCivilRegistrationIdentifier)[last()]' , 'bit'         ),
+            @PersonNummerGyldighedStatusIndikator  = X.value('(/ns0:RegisterOplysning/ns0:CprBorger/ns0:PersonNummerGyldighedStatusIndikator)[last()]' , 'bit'         ),
             @PersonNationalityCode                 = X.value('(/ns0:RegisterOplysning/ns0:CprBorger/ns2:PersonNationalityCode)[last()]'             , 'varchar(max)'),
             @NavneAdresseBeskyttelseIndikator      = X.value('(/ns0:RegisterOplysning/ns0:CprBorger/ns0:NavneAdresseBeskyttelseIndikator)[last()]'  , 'varchar(max)'),
             @TelefonNummerBeskyttelseIndikator     = X.value('(/ns0:RegisterOplysning/ns0:CprBorger/ns0:TelefonNummerBeskyttelseIndikator)[last()]' , 'varchar(max)'),
@@ -186,7 +186,7 @@ BEGIN
             @MailDeliverySublocationIdentifier  = X.value('(/ns1:AddressPostal/ns2:MailDeliverySublocationIdentifier)[last()]'    , 'varchar(max)'),
             @StreetName                         = X.value('(/ns1:AddressPostal/ns3:StreetName)[last()]'                           , 'varchar(max)') ,
             @StreetNameForAddressingName        = X.value('(/ns1:AddressPostal/ns4:StreetNameForAddressingName)[last()]'          , 'varchar(max)'),
-            @StreetBuildingIdentifier           = X.value('(/ns1:AddressPostal/ns2:StreetBuildingIdentifier)[last()]'             , 'varchar(max)'),
+            @StreetBuildingIdentifier_Postal    = X.value('(/ns1:AddressPostal/ns2:StreetBuildingIdentifier)[last()]'             , 'varchar(max)'),
             @FloorIdentifier                    = X.value('(/ns1:AddressPostal/ns2:FloorIdentifier)[last()]'                      , 'varchar(max)'),
             @SuiteIdentifier                    = X.value('(/ns1:AddressPostal/ns2:SuiteIdentifier)[last()]'                      , 'varchar(max)'),
             @DistrictSubdivisionIdentifier      = X.value('(/ns1:AddressPostal/ns3:DistrictSubdivisionIdentifier)[last()]'        , 'varchar(max)'),

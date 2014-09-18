@@ -267,6 +267,13 @@ namespace CprBrokerWixInstallers
                         SqlScript = Properties.Resources.PatchDatabase_2_2_2,
                         PatchAction = conn=> DatabaseCustomAction.InsertLookup(typeof(CprBroker.Data.DataProviders.BudgetInterval).Name, Properties.Resources.BudgetEntry, conn) 
                     },
+                    new DatabasePatchInfo(){ 
+                        Version = new Version(2,2,3),
+                        SqlScript = Properties.Resources.PatchDatabase_2_2_3 
+                            + Properties.Resources.PersonSearchCache 
+                            + Properties.Resources.InitializePersonSearchCache,
+                        PatchAction = null
+                    },
                 };
 
                 patchInfos["EVENT"] = new DatabasePatchInfo[] { 

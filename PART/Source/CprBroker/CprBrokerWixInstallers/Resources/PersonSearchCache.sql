@@ -5,7 +5,6 @@ IF NOT EXISTS (SELECT * FROM sys.tables WHERE Name = 'PersonSearchCache')
 BEGIN
 	CREATE TABLE [dbo].[PersonSearchCache](
 		-- Root fields
-        
         [PersonRegistrationId] [uniqueidentifier] NULL,
 		[UUID] [uniqueidentifier] NOT NULL,		
         LivscyklusKode VARCHAR(MAX),

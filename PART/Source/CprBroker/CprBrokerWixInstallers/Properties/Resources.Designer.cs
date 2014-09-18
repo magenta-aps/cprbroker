@@ -143,19 +143,20 @@ namespace CprBrokerWixInstallers.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to -- =============================================
-        ///-- Procedure:   InitializePersonSearchCache
-        ///-- Author:		Beemen Beshara
-        ///-- Create date: 24-Jan-2014
-        ///-- Description:	Initializes the cashed version of persons&apos; searchable fields
-        ///-- =============================================
+        ///   Looks up a localized string similar to /* 
+        ///  ===========================================================================
+        ///    Procedure:   InitializePersonSearchCache
+        ///    Author:		 Beemen Beshara
+        ///    Create date: 24-Jan-2014
+        ///    Description: Initializes the cashed version of persons&apos; searchable fields
+        /// ============================================================================
+        ///*/
+        ///
         ///IF EXISTS (SELECT * FROM sys.procedures WHERE name = &apos;InitializePersonSearchCache&apos;)
-        ///	DROP PROCEDURE dbo.InitializePersonSearchCache
+        ///    DROP PROCEDURE dbo.InitializePersonSearchCache
         ///GO
         ///
-        ///CREATE PROCEDURE [dbo].[InitializePersonSearchCache]
-        ///	@UUID UNIQUEIDENTIFIER, 
-        ///	@PersonReg [rest of string was truncated]&quot;;.
+        ///CREATE PROCEDUR [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string InitializePersonSearchCache {
             get {
@@ -350,19 +351,33 @@ namespace CprBrokerWixInstallers.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to /****** Object:  Table [dbo].[PersonRegistration]    Script Date: 11/21/2013 10:16:51 ******/
-        ///SET ANSI_NULLS ON
-        ///GO
-        ///SET QUOTED_IDENTIFIER ON
-        ///GO
+        ///   Looks up a localized string similar to -- If the new columns are not there, drop the cache table
+        ///IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(&apos;PersonSearchCache&apos;) AND name = &apos;MunicipalityCode&apos; )
+        ///    -- Only if the table exists
+        ///    IF EXISTS (SELECT * FROM sys.tables WHERE name = &apos;PersonSearchCache&apos;)
+        ///        DROP TABLE PersonSearchCache
+        ///GO.
+        /// </summary>
+        internal static string PatchDatabase_2_2_3 {
+            get {
+                return ResourceManager.GetString("PatchDatabase_2_2_3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /*
+        ///    =========================
+        ///    Table: PersonRegistration
+        ///    =========================
+        ///*/
         ///IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N&apos;[dbo].[PersonRegistration]&apos;) AND type in (N&apos;U&apos;))
         ///BEGIN
-        ///CREATE TABLE [dbo].[PersonRegistration](
-        ///	[PersonRegistrationId] [uniqueidentifier] NOT NULL,
-        ///	[UUID] [uniqueidentifier] NOT NULL,
-        ///	[ActorRefId] [uniqueidentifier] NULL,
-        ///	[RegistrationDate] [datetime] NOT NULL,
-        ///	[BrokerUpdateDate]  [rest of string was truncated]&quot;;.
+        ///    CREATE TABLE [dbo].[PersonRegistration](
+        ///        [PersonRegistrationId] [uniqueidentifier] NOT NULL,
+        ///        [UUID] [uniqueidentifier] NOT NULL,
+        ///        [ActorRefId] [uniqueidentifier] NULL,
+        ///        [RegistrationDate] [datetime] NOT NULL,
+        ///        [BrokerUpdateDate] [datetim [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string PersonRegistration {
             get {
@@ -399,12 +414,13 @@ namespace CprBrokerWixInstallers.Properties {
         ///IF NOT EXISTS (SELECT * FROM sys.tables WHERE Name = &apos;PersonSearchCache&apos;)
         ///BEGIN
         ///	CREATE TABLE [dbo].[PersonSearchCache](
-        ///		[PersonRegistrationId] [uniqueidentifier] NULL,
-        ///		[UUID] [uniqueidentifier] NOT NULL,
-        ///		[UserInterfaceKeyText] [varchar](max) NULL,
-        ///		[Birthdate] [varchar](max) NULL,
-        ///		[NickName] [varchar](max) NULL,
-        ///		[Note] [varchar](max) NUL [rest of string was truncated]&quot;;.
+        ///		-- Root fields
+        ///        [PersonRegistrationId] [uniqueidentifier] NULL,
+        ///		[UUID] [uniqueidentifier] NOT NULL,		
+        ///        LivscyklusKode VARCHAR(MAX),
+        ///            
+        ///        -- Egenskab fields
+        ///        AddressingName VARCHAR(MAX), Ni [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string PersonSearchCache {
             get {
