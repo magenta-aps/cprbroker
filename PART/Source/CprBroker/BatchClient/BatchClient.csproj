@@ -103,6 +103,7 @@
     <Compile Include="CompareDatabasePerformance.cs" />
     <Compile Include="CompareExpressionToSimplified.cs" />
     <Compile Include="ConvertCprDirectToFiles.cs" />
+    <Compile Include="GenerateCprDirectFromExtracts.cs" />
     <Compile Include="List.cs" />
     <Compile Include="DoNothing.cs" />
     <Compile Include="GetUuids.cs" />
