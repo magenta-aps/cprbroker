@@ -207,6 +207,7 @@ namespace CprBroker.Providers.Local.Search
                                             {
                                                 pred = pred.And(pt => pt.StreetCode == access.StreetCode);
                                             }
+                                            access.StreetBuildingIdentifier = PartInterface.Strings.TrimAddressString(access.StreetBuildingIdentifier);
                                             if (!string.IsNullOrEmpty(access.StreetBuildingIdentifier))
                                             {
                                                 pred = pred.And(pt => pt.StreetBuildingIdentifier == access.StreetBuildingIdentifier);
@@ -227,15 +228,17 @@ namespace CprBroker.Providers.Local.Search
                                             {
                                                 pred = pred.And(pt => pt.StreetNameForAddressingName == postal.StreetNameForAddressingName);
                                             }
-
+                                            postal.StreetBuildingIdentifier = PartInterface.Strings.TrimAddressString(postal.StreetBuildingIdentifier);
                                             if (!string.IsNullOrEmpty(postal.StreetBuildingIdentifier))
                                             {
                                                 pred = pred.And(pt => pt.StreetBuildingIdentifier_Postal == postal.StreetBuildingIdentifier);
                                             }
+                                            postal.FloorIdentifier = PartInterface.Strings.TrimAddressString(postal.FloorIdentifier);
                                             if (!string.IsNullOrEmpty(postal.FloorIdentifier))
                                             {
                                                 pred = pred.And(pt => pt.FloorIdentifier == postal.FloorIdentifier);
                                             }
+                                            postal.SuiteIdentifier = PartInterface.Strings.TrimAddressString(postal.SuiteIdentifier);
                                             if (!string.IsNullOrEmpty(postal.SuiteIdentifier))
                                             {
                                                 pred = pred.And(pt => pt.SuiteIdentifier == postal.SuiteIdentifier);

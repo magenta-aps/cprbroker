@@ -57,6 +57,7 @@
     <Compile Include="DataLinqTests.cs" />
     <Compile Include="DatesTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StringsTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Utilities\Utilities.csproj">

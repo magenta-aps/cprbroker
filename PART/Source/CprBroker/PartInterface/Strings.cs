@@ -154,5 +154,15 @@ namespace CprBroker.PartInterface
             catch { }
             return null;
         }
+
+        public static string TrimAddressString(string s)
+        {
+            char[] skipChars = new char[] { '0', ' ' };
+            if (s != null)
+            {
+                return s.TrimStart(' ', '0').TrimEnd(' ');
+            }
+            return s;
+        }
     }
 }
