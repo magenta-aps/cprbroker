@@ -271,6 +271,7 @@ namespace CprBrokerWixInstallers
                         Version = new Version(2,2,3),
                         SqlScript = Properties.Resources.PatchDatabase_2_2_3 
                             + Properties.Resources.PersonSearchCache 
+                            + Properties.Resources.TrimAddressString
                             + Properties.Resources.InitializePersonSearchCache,
                         PatchAction = null
                     },

@@ -64,6 +64,7 @@ namespace CprBrokerWixInstallers.Properties
                     Resources.Extract,
                     Resources.CreatePartDatabaseObjects,
                     Resources.PersonSearchCache,
+                    Resources.TrimAddressString,
                     Resources.InitializePersonSearchCache,
                     Resources.PersonRegistration,
                     Resources.PersonRegistration_PopulateSearchCache

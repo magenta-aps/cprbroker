@@ -427,5 +427,35 @@ namespace CprBrokerWixInstallers.Properties {
                 return ResourceManager.GetString("PersonSearchCache", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /*
+        ///    Trims strings that are used in address numbers
+        ///    - Removed spaces and zeros from the left
+        ///    - Removes spaces from the right
+        ///*/
+        ///
+        ///IF EXISTS (SELECT * FROM sys.objects WHERE type = &apos;FN&apos; AND name = &apos;TrimAddressString&apos;)
+        ///	DROP FUNCTION TrimAddressString
+        ///GO
+        ///
+        ///CREATE FUNCTION TrimAddressString(@s VARCHAR(MAX))
+        ///    RETURNS VARCHAR(MAX)
+        ///AS
+        ///BEGIN
+        ///    DECLARE @i int, @l INT
+        ///    SET @i = 0;
+        ///	SET @l = LEN(@s)
+        ///
+        ///    WHILE SUBSTRING(@s,@i+1,1) in (&apos;0&apos;, &apos; &apos;) AND @i &lt; @l
+        ///	    SET @i = @i + 1
+        ///
+        ///   [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string TrimAddressString {
+            get {
+                return ResourceManager.GetString("TrimAddressString", resourceCulture);
+            }
+        }
     }
 }

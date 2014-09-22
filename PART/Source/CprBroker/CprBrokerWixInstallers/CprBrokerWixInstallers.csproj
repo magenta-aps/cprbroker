@@ -112,6 +112,7 @@
     <Content Include="Resources\PersonRegistration_PopulateSearchCache.sql" />
     <Content Include="Resources\PersonSearchCache.sql" />
     <Content Include="Resources\Script generation.txt" />
+    <Content Include="Resources\TrimAddressString.sql" />
     <None Include="Resources\CreatePartDatabaseObjects.ChildObjects.sql" />
     <Content Include="Resources\PatchDatabase_1_3_2.sql" />
     <Content Include="Resources\PatchDatabase_1_4.sql" />
