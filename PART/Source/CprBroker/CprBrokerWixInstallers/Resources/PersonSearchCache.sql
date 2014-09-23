@@ -23,8 +23,8 @@ BEGIN
         AdresseNoteTekst VARCHAR(MAX), FolkekirkeMedlemIndikator bit,
 
         -- FolkeregisterAdresse
-        NoteTekst_DanskAdresse VARCHAR(MAX), UkendtAdresseIndikator VARCHAR(MAX),
-        SpecielVejkodeIndikator VARCHAR(MAX), PostDistriktTekst VARCHAR(MAX),
+        NoteTekst_DanskAdresse VARCHAR(MAX), UkendtAdresseIndikator bit,
+        SpecielVejkodeIndikator bit, PostDistriktTekst VARCHAR(MAX),
 
         -- AddressAccess
         MunicipalityCode VARCHAR(MAX), StreetCode VARCHAR(MAX), StreetBuildingIdentifier VARCHAR(MAX),

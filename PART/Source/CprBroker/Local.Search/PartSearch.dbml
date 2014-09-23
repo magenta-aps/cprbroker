@@ -1,5 +1,4 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="part" Class="PartSearchDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=localhost\sqlexpress;Initial Catalog=part;Integrated Security=True" SettingsObjectName="CprBroker.Providers.Local.Search.Properties.Settings" SettingsPropertyName="partConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.PersonSearchCache" Member="PersonSearchCaches">
     <Type Name="PersonSearchCache">
       <Column Name="PersonRegistrationId" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
@@ -25,8 +24,8 @@
       <Column Name="AdresseNoteTekst" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
       <Column Name="FolkekirkeMedlemIndikator" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
       <Column Name="NoteTekst_DanskAdresse" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
-      <Column Name="UkendtAdresseIndikator" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
-      <Column Name="SpecielVejkodeIndikator" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="UkendtAdresseIndikator" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="SpecielVejkodeIndikator" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
       <Column Name="PostDistriktTekst" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
       <Column Name="MunicipalityCode" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
       <Column Name="StreetCode" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />

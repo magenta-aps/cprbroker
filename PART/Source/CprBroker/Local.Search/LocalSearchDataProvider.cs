@@ -187,13 +187,15 @@ namespace CprBroker.Providers.Local.Search
                                     {
                                         pred = pred.And(pt => pt.NoteTekst_DanskAdresse == danskAddress.NoteTekst);
                                     }
-                                    if (danskAddress.UkendtAdresseIndikator)// TODO: Check null values for boolean
+                                    if (danskAddress.UkendtAdresseIndikator)
                                     {
-                                        pred = pred.And(pt => pt.UkendtAdresseIndikator == danskAddress.UkendtAdresseIndikator.ToString());
+                                        // False is treated like Not specified    
+                                        pred = pred.And(pt => pt.UkendtAdresseIndikator == danskAddress.UkendtAdresseIndikator);
                                     }
                                     if (danskAddress.SpecielVejkodeIndikatorSpecified)
                                     {
-                                        pred = pred.And(pt => pt.SpecielVejkodeIndikator == danskAddress.SpecielVejkodeIndikator.ToString());
+                                        // False is treated like Not specified    
+                                        pred = pred.And(pt => pt.SpecielVejkodeIndikator == danskAddress.SpecielVejkodeIndikator);
                                     }
                                     if (!string.IsNullOrEmpty(danskAddress.PostDistriktTekst))
                                     {

@@ -120,9 +120,9 @@ namespace CprBroker.Providers.Local.Search
 		
 		private string _NoteTekst_DanskAdresse;
 		
-		private string _UkendtAdresseIndikator;
+		private System.Nullable<bool> _UkendtAdresseIndikator;
 		
-		private string _SpecielVejkodeIndikator;
+		private System.Nullable<bool> _SpecielVejkodeIndikator;
 		
 		private string _PostDistriktTekst;
 		
@@ -204,9 +204,9 @@ namespace CprBroker.Providers.Local.Search
     partial void OnFolkekirkeMedlemIndikatorChanged();
     partial void OnNoteTekst_DanskAdresseChanging(string value);
     partial void OnNoteTekst_DanskAdresseChanged();
-    partial void OnUkendtAdresseIndikatorChanging(string value);
+    partial void OnUkendtAdresseIndikatorChanging(System.Nullable<bool> value);
     partial void OnUkendtAdresseIndikatorChanged();
-    partial void OnSpecielVejkodeIndikatorChanging(string value);
+    partial void OnSpecielVejkodeIndikatorChanging(System.Nullable<bool> value);
     partial void OnSpecielVejkodeIndikatorChanged();
     partial void OnPostDistriktTekstChanging(string value);
     partial void OnPostDistriktTekstChanged();
@@ -705,8 +705,8 @@ namespace CprBroker.Providers.Local.Search
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UkendtAdresseIndikator", DbType="VarChar(MAX)")]
-		public string UkendtAdresseIndikator
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UkendtAdresseIndikator", DbType="Bit")]
+		public System.Nullable<bool> UkendtAdresseIndikator
 		{
 			get
 			{
@@ -725,8 +725,8 @@ namespace CprBroker.Providers.Local.Search
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SpecielVejkodeIndikator", DbType="VarChar(MAX)")]
-		public string SpecielVejkodeIndikator
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SpecielVejkodeIndikator", DbType="Bit")]
+		public System.Nullable<bool> SpecielVejkodeIndikator
 		{
 			get
 			{
