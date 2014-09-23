@@ -12,7 +12,7 @@ BEGIN
         -- Egenskab fields
         AddressingName VARCHAR(MAX), NickName VARCHAR(MAX), Note VARCHAR(MAX), 
         PersonGivenName VARCHAR(MAX), PersonMiddleName VARCHAR(MAX), PersonSurnameName VARCHAR(MAX), 
-        PersonGenderCode VARCHAR(MAX), Birthdate VARCHAR(MAX), 
+        PersonGenderCode VARCHAR(MAX), Birthdate VARCHAR(MAX), FoedestedNavn VARCHAR(MAX), FoedselsregistreringMyndighedNavn VARCHAR(MAX),
             
         -- CprBorger
         UserInterfaceKeyText VARCHAR(MAX), PersonCivilRegistrationIdentifier VARCHAR(MAX),

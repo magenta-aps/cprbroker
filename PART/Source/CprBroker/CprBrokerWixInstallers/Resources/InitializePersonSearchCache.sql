@@ -59,7 +59,7 @@ BEGIN
     --------------
     DECLARE @AddressingName VARCHAR(MAX), @NickName VARCHAR(MAX), @Note VARCHAR(MAX), 
         @PersonGivenName VARCHAR(MAX), @PersonMiddleName VARCHAR(MAX), @PersonSurnameName VARCHAR(MAX), 
-        @PersonGenderCode VARCHAR(MAX), @Birthdate VARCHAR(MAX)
+        @PersonGenderCode VARCHAR(MAX), @Birthdate VARCHAR(MAX), @FoedestedNavn VARCHAR(MAX), @FoedselsregistreringMyndighedNavn VARCHAR(MAX)
 
     IF LEN (CAST (@EgenskabNode AS VARCHAR(MAX))) > 0
     BEGIN	
@@ -75,14 +75,16 @@ BEGIN
             'http://rep.oio.dk/ebxml/xml/schemas/dkcc/2006/01/23/' as ns5,
             'http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/03/15/' as ns6) 
         SELECT 
-            @AddressingName     = X.value('(/ns0:Egenskab/ns0:NavnStruktur/ns1:PersonNameForAddressingName)[last()]'               , 'varchar(max)'),
-            @NickName           = X.value('(/ns0:Egenskab/ns0:NavnStruktur/ns2:KaldenavnTekst)[last()]'                            , 'varchar(max)'),
-            @Note               = X.value('(/ns0:Egenskab/ns0:NavnStruktur/ns2:NoteTekst)[last()]'                                 , 'varchar(max)'),		
-            @PersonGivenName    = X.value('(/ns0:Egenskab/ns0:NavnStruktur/ns3:PersonNameStructure/ns4:PersonGivenName)[last()]'   , 'varchar(max)'),
-            @PersonMiddleName   = X.value('(/ns0:Egenskab/ns0:NavnStruktur/ns3:PersonNameStructure/ns4:PersonMiddleName)[last()]'  , 'varchar(max)'),
-            @PersonSurnameName  = X.value('(/ns0:Egenskab/ns0:NavnStruktur/ns3:PersonNameStructure/ns4:PersonSurnameName)[last()]' , 'varchar(max)'),
-            @PersonGenderCode   = X.value('(/ns0:Egenskab/ns5:PersonGenderCode)[last()]'                                           , 'varchar(max)'),
-            @Birthdate          = X.value('(/ns0:Egenskab/ns6:BirthDate)[last()]'                                                  , 'varchar(max)')
+            @AddressingName                     = X.value('(/ns0:Egenskab/ns0:NavnStruktur/ns1:PersonNameForAddressingName)[last()]'               , 'varchar(max)'),
+            @NickName                           = X.value('(/ns0:Egenskab/ns0:NavnStruktur/ns2:KaldenavnTekst)[last()]'                            , 'varchar(max)'),
+            @Note                               = X.value('(/ns0:Egenskab/ns0:NavnStruktur/ns2:NoteTekst)[last()]'                                 , 'varchar(max)'),		
+            @PersonGivenName                    = X.value('(/ns0:Egenskab/ns0:NavnStruktur/ns3:PersonNameStructure/ns4:PersonGivenName)[last()]'   , 'varchar(max)'),
+            @PersonMiddleName                   = X.value('(/ns0:Egenskab/ns0:NavnStruktur/ns3:PersonNameStructure/ns4:PersonMiddleName)[last()]'  , 'varchar(max)'),
+            @PersonSurnameName                  = X.value('(/ns0:Egenskab/ns0:NavnStruktur/ns3:PersonNameStructure/ns4:PersonSurnameName)[last()]' , 'varchar(max)'),
+            @PersonGenderCode                   = X.value('(/ns0:Egenskab/ns5:PersonGenderCode)[last()]'                                           , 'varchar(max)'),
+            @Birthdate                          = X.value('(/ns0:Egenskab/ns6:BirthDate)[last()]'                                                  , 'varchar(max)'),
+            @FoedestedNavn                      = X.value('(/ns0:Egenskab/ns0:FoedestedNavn)[last()]'                                              , 'varchar(max)'),
+            @FoedselsregistreringMyndighedNavn  = X.value('(/ns0:Egenskab/ns0:FoedselsregistreringMyndighedNavn)[last()]'                          , 'varchar(max)')
         FROM 
             @EgenskabTable
     END

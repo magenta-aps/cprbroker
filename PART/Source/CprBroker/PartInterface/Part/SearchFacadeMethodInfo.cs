@@ -118,10 +118,20 @@ namespace CprBroker.Engine.Part
             }
 
             // Not implemented criteria
-            if (Input.SoegObjekt.SoegRegistrering != null)
+            #region Not implemented root objects
+            if (Input.SoegObjekt.SoegRegistrering.AktoerRef != null)
             {
-                return StandardReturType.NotImplemented("SoegRegistrering");
+                return StandardReturType.NotImplemented("SoegRegistrering.AktoerRef");
             }
+            if (Input.SoegObjekt.SoegRegistrering.CommentText != null)
+            {
+                return StandardReturType.NotImplemented("SoegRegistrering.CommentText");
+            }
+            if (Input.SoegObjekt.SoegRegistrering.Tidspunkt != null)
+            {
+                return StandardReturType.NotImplemented("SoegRegistrering.Tidspunkt");
+            }
+
             if (Input.SoegObjekt.SoegRelationListe != null)
             {
                 return StandardReturType.NotImplemented("SoegRelationListe");
@@ -136,57 +146,93 @@ namespace CprBroker.Engine.Part
             {
                 return StandardReturType.NotImplemented("SoegVirkning");
             }
+            #endregion
 
             // Now validate attribute lists
+            // ------------------------------
             if (Input.SoegObjekt.SoegAttributListe != null)
             {
+                #region Non implemented attributes
                 if (Input.SoegObjekt.SoegAttributListe.LokalUdvidelse != null)
                 {
                     return StandardReturType.NotImplemented("SoegAttributListe.LokalUdvidelse");
-                }
-
-                if (Input.SoegObjekt.SoegAttributListe.SoegRegisterOplysning != null)
-                {
-                    return StandardReturType.NotImplemented("SoegAttributListe.SoegRegisterOplysning");
                 }
 
                 if (Input.SoegObjekt.SoegAttributListe.SoegSundhedOplysning != null)
                 {
                     return StandardReturType.NotImplemented("SoegAttributListe.SoegSundhedOplysning");
                 }
+                #endregion
+
+
+                if (Input.SoegObjekt.SoegAttributListe.SoegRegisterOplysning != null)
+                {
+                    foreach (var regop in Input.SoegObjekt.SoegAttributListe.SoegRegisterOplysning)
+                    {
+                        // Null & effect dates 
+                        if (regop == null)
+                        {
+                            return StandardReturType.NullInput("SoegRegisterOplysning");
+                        }
+                        if (regop.Virkning != null)
+                        {
+                            return StandardReturType.NotImplemented("SoegRegisterOplysning.Virkning");
+                        }
+                        // Unsupported item types
+                        if (regop.Item is UdenlandskBorgerType)
+                        {
+                            return StandardReturType.NotImplemented("SoegRegisterOplysning.UdenlandskBorger");
+                        }
+                        if (regop.Item is UkendtBorgerType)
+                        {
+                            return StandardReturType.NotImplemented("SoegRegisterOplysning.UkendtBorger");
+                        }
+                        // Unsupported address types
+                        if (regop.Item is CprBorgerType)
+                        {
+                            var cprBorger = regop.Item as CprBorgerType;
+                            if (cprBorger.FolkeregisterAdresse != null)
+                            {
+                                if (cprBorger.FolkeregisterAdresse.Item is GroenlandAdresseType)
+                                {
+                                    StandardReturType.NotImplemented("FolkeregisterAdresse.GroenlandAdresse");
+                                }
+                                else if (cprBorger.FolkeregisterAdresse.Item is VerdenAdresseType)
+                                {
+                                    StandardReturType.NotImplemented("FolkeregisterAdresse.VerdenAdresse");
+                                }
+                                else if (!(cprBorger.FolkeregisterAdresse.Item is DanskAdresseType))
+                                {
+                                    StandardReturType.NotImplemented("FolkeregisterAdresse.Item");
+                                }
+                            }
+                        }
+                    }
+                }
 
                 if (Input.SoegObjekt.SoegAttributListe.SoegEgenskab != null)
                 {
                     foreach (var egen in Input.SoegObjekt.SoegAttributListe.SoegEgenskab)
                     {
+                        if (egen == null)
+                        {
+                            return StandardReturType.NullInput("SoegEgenskab");
+                        }
                         if (egen.AndreAdresser != null)
                         {
-                            return StandardReturType.NotImplemented("AndreAdresser");
-                        }
-                        if (!string.IsNullOrEmpty(egen.FoedestedNavn))
-                        {
-                            return StandardReturType.NotImplemented("FoedestedNavn");
-                        }
-
-                        if (!string.IsNullOrEmpty(egen.FoedselsregistreringMyndighedNavn))
-                        {
-                            return StandardReturType.NotImplemented("FoedselsregistreringMyndighedNavn");
+                            return StandardReturType.NotImplemented("SoegEgenskab.AndreAdresser");
                         }
                         if (egen.KontaktKanal != null)
                         {
-                            return StandardReturType.NotImplemented("KontaktKanal");
+                            return StandardReturType.NotImplemented("SoegEgenskab.KontaktKanal");
                         }
                         if (egen.NaermestePaaroerende != null)
                         {
-                            return StandardReturType.NotImplemented("NaermestePaaroerende");
+                            return StandardReturType.NotImplemented("SoegEgenskab.NaermestePaaroerende");
                         }
                         if (egen.SoegVirkning != null)
                         {
-                            return StandardReturType.NotImplemented("SoegVirkning");
-                        }
-                        if (egen.SoegVirkning != null)
-                        {
-                            return StandardReturType.NotImplemented("SoegVirkning");
+                            return StandardReturType.NotImplemented("SoegEgenskab.SoegVirkning");
                         }
                     }
                 }

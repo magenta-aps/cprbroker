@@ -76,8 +76,11 @@ namespace CprBroker.Providers.Local.Search
                             {
                                 if (!string.IsNullOrEmpty(prop.FoedestedNavn))
                                 {
-                                    // TODO: Add this
-                                    //pred = pred.And((pt) => pt.birt == prop.PersonGenderCode.ToString());
+                                    pred = pred.And((pt) => pt.FoedestedNavn == prop.FoedestedNavn);
+                                }
+                                if (!string.IsNullOrEmpty(prop.FoedselsregistreringMyndighedNavn))
+                                {
+                                    pred = pred.And((pt) => pt.FoedselsregistreringMyndighedNavn == prop.FoedselsregistreringMyndighedNavn);
                                 }
 
                                 if (prop.NavnStruktur != null)

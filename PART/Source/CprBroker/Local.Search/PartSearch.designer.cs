@@ -96,6 +96,10 @@ namespace CprBroker.Providers.Local.Search
 		
 		private string _Birthdate;
 		
+		private string _FoedestedNavn;
+		
+		private string _FoedselsregistreringMyndighedNavn;
+		
 		private string _UserInterfaceKeyText;
 		
 		private string _PersonCivilRegistrationIdentifier;
@@ -176,6 +180,10 @@ namespace CprBroker.Providers.Local.Search
     partial void OnPersonGenderCodeChanged();
     partial void OnBirthdateChanging(string value);
     partial void OnBirthdateChanged();
+    partial void OnFoedestedNavnChanging(string value);
+    partial void OnFoedestedNavnChanged();
+    partial void OnFoedselsregistreringMyndighedNavnChanging(string value);
+    partial void OnFoedselsregistreringMyndighedNavnChanged();
     partial void OnUserInterfaceKeyTextChanging(string value);
     partial void OnUserInterfaceKeyTextChanged();
     partial void OnPersonCivilRegistrationIdentifierChanging(string value);
@@ -453,6 +461,46 @@ namespace CprBroker.Providers.Local.Search
 					this._Birthdate = value;
 					this.SendPropertyChanged("Birthdate");
 					this.OnBirthdateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FoedestedNavn", DbType="VarChar(MAX)")]
+		public string FoedestedNavn
+		{
+			get
+			{
+				return this._FoedestedNavn;
+			}
+			set
+			{
+				if ((this._FoedestedNavn != value))
+				{
+					this.OnFoedestedNavnChanging(value);
+					this.SendPropertyChanging();
+					this._FoedestedNavn = value;
+					this.SendPropertyChanged("FoedestedNavn");
+					this.OnFoedestedNavnChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FoedselsregistreringMyndighedNavn", DbType="VarChar(MAX)")]
+		public string FoedselsregistreringMyndighedNavn
+		{
+			get
+			{
+				return this._FoedselsregistreringMyndighedNavn;
+			}
+			set
+			{
+				if ((this._FoedselsregistreringMyndighedNavn != value))
+				{
+					this.OnFoedselsregistreringMyndighedNavnChanging(value);
+					this.SendPropertyChanging();
+					this._FoedselsregistreringMyndighedNavn = value;
+					this.SendPropertyChanged("FoedselsregistreringMyndighedNavn");
+					this.OnFoedselsregistreringMyndighedNavnChanged();
 				}
 			}
 		}

@@ -12,6 +12,8 @@
       <Column Name="PersonSurnameName" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
       <Column Name="PersonGenderCode" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
       <Column Name="Birthdate" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="FoedestedNavn" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="FoedselsregistreringMyndighedNavn" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
       <Column Name="UserInterfaceKeyText" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
       <Column Name="PersonCivilRegistrationIdentifier" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
       <Column Name="PersonNummerGyldighedStatusIndikator" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
