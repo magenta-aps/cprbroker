@@ -186,27 +186,7 @@ namespace CprBroker.Engine.Part
                         if (regop.Item is UkendtBorgerType)
                         {
                             return StandardReturType.NotImplemented("SoegRegisterOplysning.UkendtBorger");
-                        }
-                        // Unsupported address types
-                        if (regop.Item is CprBorgerType)
-                        {
-                            var cprBorger = regop.Item as CprBorgerType;
-                            if (cprBorger.FolkeregisterAdresse != null)
-                            {
-                                if (cprBorger.FolkeregisterAdresse.Item is GroenlandAdresseType)
-                                {
-                                    StandardReturType.NotImplemented("FolkeregisterAdresse.GroenlandAdresse");
-                                }
-                                else if (cprBorger.FolkeregisterAdresse.Item is VerdenAdresseType)
-                                {
-                                    StandardReturType.NotImplemented("FolkeregisterAdresse.VerdenAdresse");
-                                }
-                                else if (!(cprBorger.FolkeregisterAdresse.Item is DanskAdresseType))
-                                {
-                                    StandardReturType.NotImplemented("FolkeregisterAdresse.Item");
-                                }
-                            }
-                        }
+                        }                        
                     }
                 }
 
