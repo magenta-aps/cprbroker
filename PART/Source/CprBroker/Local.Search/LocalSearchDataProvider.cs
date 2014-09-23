@@ -9,7 +9,7 @@ using CprBroker.Utilities;
 
 namespace CprBroker.Providers.Local.Search
 {
-    public class LocalSearchDataProvider : IPartSearchDataProvider
+    public partial class LocalSearchDataProvider : IPartSearchDataProvider
     {
 
         public Guid[] Search(CprBroker.Schemas.Part.SoegInputType1 searchCriteria)
@@ -85,38 +85,7 @@ namespace CprBroker.Providers.Local.Search
 
                                 if (prop.NavnStruktur != null)
                                 {
-                                    if (!string.IsNullOrEmpty(prop.NavnStruktur.PersonNameForAddressingName))
-                                    {
-                                        pred = pred.And((pt) => pt.AddressingName == prop.NavnStruktur.PersonNameForAddressingName);
-                                    }
-                                    if (!string.IsNullOrEmpty(prop.NavnStruktur.KaldenavnTekst))
-                                    {
-                                        pred = pred.And((pt) => pt.NickName == prop.NavnStruktur.KaldenavnTekst);
-                                    }
-                                    if (!string.IsNullOrEmpty(prop.NavnStruktur.NoteTekst))
-                                    {
-                                        pred = pred.And((pt) => pt.Note == prop.NavnStruktur.NoteTekst);
-                                    }
-                                    if (prop.NavnStruktur.PersonNameStructure != null)
-                                    {
-                                        // Search by name
-                                        var name = prop.NavnStruktur.PersonNameStructure;
-                                        if (!name.IsEmpty)
-                                        {
-                                            if (!string.IsNullOrEmpty(name.PersonGivenName))
-                                            {
-                                                pred = pred.And((pt) => pt.PersonGivenName == name.PersonGivenName);
-                                            }
-                                            if (!string.IsNullOrEmpty(name.PersonMiddleName))
-                                            {
-                                                pred = pred.And((pt) => pt.PersonMiddleName == name.PersonMiddleName);
-                                            }
-                                            if (!string.IsNullOrEmpty(name.PersonSurnameName))
-                                            {
-                                                pred = pred.And((pt) => pt.PersonSurnameName == name.PersonSurnameName);
-                                            }
-                                        }
-                                    }
+                                    pred = AddNamePredicates(pred, prop.NavnStruktur);
                                 }
                                 if (prop.PersonGenderCodeSpecified)
                                 {
@@ -285,6 +254,8 @@ namespace CprBroker.Providers.Local.Search
             }
             return pred;
         }
+
+
 
         public bool IsAlive()
         {

@@ -76,7 +76,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CodeGen.cs" />
     <Compile Include="LocalSearchDataProvider.cs" />
+    <Compile Include="LocalSearchDataProvider.Predicates.cs" />
     <Compile Include="PartSearch.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
