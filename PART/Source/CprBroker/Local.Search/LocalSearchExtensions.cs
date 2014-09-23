@@ -11,6 +11,59 @@ namespace CprBroker.Providers.Local.Search
 {
     public static class LocalSearchExtensions
     {
+        public static Expression<Func<PersonSearchCache, bool>> And(this Expression<Func<PersonSearchCache, bool>> pred, CprBroker.Schemas.Part.SoegObjektType searchCriteria)
+        {
+            if (!string.IsNullOrEmpty(searchCriteria.UUID))
+            {
+                var personUuid = new Guid(searchCriteria.UUID);
+                pred = pred.And(p => p.UUID == personUuid);
+            }
+
+            // Lifecycle status
+            if (searchCriteria.SoegRegistrering != null)
+            {
+                if (searchCriteria.SoegRegistrering.LivscyklusKodeSpecified)
+                {
+                    pred = pred.And(p => p.LivscyklusKode == searchCriteria.SoegRegistrering.LivscyklusKode.ToString());
+                }
+            }
+
+            // Search by cpr number
+            if (!string.IsNullOrEmpty(searchCriteria.BrugervendtNoegleTekst))
+            {
+                // TODO: In theory, this is the same as RegisterOplysning/CprBorger/UserInterfaceKeyText
+                pred = pred.And(pr => pr.UserInterfaceKeyText == searchCriteria.BrugervendtNoegleTekst);
+            }
+
+            // Attributes
+            if (searchCriteria.SoegAttributListe != null)
+            {
+                if (searchCriteria.SoegAttributListe.SoegEgenskab != null)
+                {
+                    foreach (var prop in searchCriteria.SoegAttributListe.SoegEgenskab)
+                    {
+                        if (prop != null)
+                        {
+                            pred = pred.And(prop);
+                        }
+                    }
+
+                    foreach (var prop in searchCriteria.SoegAttributListe.SoegRegisterOplysning)
+                    {
+                        // TODO: What about other Item values?
+                        if (prop != null)
+                        {
+                            if (prop.Item is CprBroker.Schemas.Part.CprBorgerType)
+                            {
+                                var cprBorger = prop.Item as CprBroker.Schemas.Part.CprBorgerType;
+                                pred = pred.And(cprBorger);
+                            }
+                        }
+                    }
+                }
+            }
+            return pred;
+        }
 
         public static Expression<Func<PersonSearchCache, bool>> And(this Expression<Func<PersonSearchCache, bool>> pred, SoegEgenskabType prop)
         {

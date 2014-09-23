@@ -43,55 +43,7 @@ namespace CprBroker.Providers.Local.Search
             var pred = PredicateBuilder.True<PersonSearchCache>();
             if (searchCriteria.SoegObjekt != null)
             {
-                if (!string.IsNullOrEmpty(searchCriteria.SoegObjekt.UUID))
-                {
-                    var personUuid = new Guid(searchCriteria.SoegObjekt.UUID);
-                    pred = pred.And(p => p.UUID == personUuid);
-                }
-
-                // Lifecycle status
-                if (searchCriteria.SoegObjekt.SoegRegistrering != null)
-                {
-                    if (searchCriteria.SoegObjekt.SoegRegistrering.LivscyklusKodeSpecified)
-                    {
-                        pred = pred.And(p => p.LivscyklusKode == searchCriteria.SoegObjekt.SoegRegistrering.LivscyklusKode.ToString());
-                    }
-                }
-
-                // Search by cpr number
-                if (!string.IsNullOrEmpty(searchCriteria.SoegObjekt.BrugervendtNoegleTekst))
-                {
-                    // TODO: In theory, this is the same as RegisterOplysning/CprBorger/UserInterfaceKeyText
-                    pred = pred.And(pr => pr.UserInterfaceKeyText == searchCriteria.SoegObjekt.BrugervendtNoegleTekst);
-                }
-
-                // Attributes
-                if (searchCriteria.SoegObjekt.SoegAttributListe != null)
-                {
-                    if (searchCriteria.SoegObjekt.SoegAttributListe.SoegEgenskab != null)
-                    {
-                        foreach (var prop in searchCriteria.SoegObjekt.SoegAttributListe.SoegEgenskab)
-                        {
-                            if (prop != null)
-                            {
-                                pred = pred.And(prop);
-                            }
-                        }
-
-                        foreach (var prop in searchCriteria.SoegObjekt.SoegAttributListe.SoegRegisterOplysning)
-                        {
-                            // TODO: What about other Item values?
-                            if (prop != null)
-                            {
-                                if (prop.Item is CprBroker.Schemas.Part.CprBorgerType)
-                                {
-                                    var cprBorger = prop.Item as CprBroker.Schemas.Part.CprBorgerType;
-                                    pred = pred.And(cprBorger);
-                                }
-                            }
-                        }
-                    }
-                }
+                pred = pred.And(searchCriteria.SoegObjekt);
             }
             return pred;
         }

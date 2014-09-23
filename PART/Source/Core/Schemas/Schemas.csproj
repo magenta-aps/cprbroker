@@ -81,6 +81,7 @@
     <Compile Include="Addresses\CurrentAddressStrategies.cs" />
     <Compile Include="Addresses\DummyAddressSource.cs" />
     <Compile Include="Addresses\IAddressSource.cs" />
+    <Compile Include="Addresses\IDanishAddress.cs" />
     <Compile Include="ApplicationHeader.cs" />
     <Compile Include="CountryIdentificationCodeType.cs" />
     <Compile Include="FiltreretOejebliksbilledeType.cs" />
