@@ -30,8 +30,16 @@ BEGIN
 	
 	WHILE @@FETCH_STATUS = 0
 	BEGIN
-		EXEC dbo.InitializePersonSearchCache @UUID, @PersonRegistrationId, @RegistrationDate, @Contents
-		FETCH NEXT FROM CUR INTO @UUID, @PersonRegistrationId, @RegistrationDate, @Contents
+        -- Do not allow errors (i.e. conversion to bool or datetime) to break the data update
+        BEGIN TRY
+		    EXEC dbo.InitializePersonSearchCache @UUID, @PersonRegistrationId, @RegistrationDate, @Contents
+        END TRY
+        BEGIN CATCH
+            
+        END CATCH
+        
+        -- Fetch the next row anyway
+        FETCH NEXT FROM CUR INTO @UUID, @PersonRegistrationId, @RegistrationDate, @Contents
 	END
 	
 	CLOSE CUR
