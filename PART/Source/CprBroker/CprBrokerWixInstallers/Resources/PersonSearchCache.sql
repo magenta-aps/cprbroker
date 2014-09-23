@@ -13,7 +13,7 @@ BEGIN
         AddressingName VARCHAR(MAX), NickName VARCHAR(MAX), Note VARCHAR(MAX), 
         PersonGivenName VARCHAR(MAX), PersonMiddleName VARCHAR(MAX), PersonSurnameName VARCHAR(MAX), 
         PersonGenderCode VARCHAR(MAX), Birthdate DATETIME, FoedestedNavn VARCHAR(MAX), FoedselsregistreringMyndighedNavn VARCHAR(MAX),
-            
+
         -- CprBorger
         UserInterfaceKeyText VARCHAR(MAX), PersonCivilRegistrationIdentifier VARCHAR(MAX),
         PersonNummerGyldighedStatusIndikator bit, PersonNationalityCode VARCHAR(MAX),
@@ -23,10 +23,12 @@ BEGIN
         AdresseNoteTekst VARCHAR(MAX), FolkekirkeMedlemIndikator bit,
 
         -- FolkeregisterAdresse
+        AddressType char, 
         NoteTekst_DanskAdresse VARCHAR(MAX), UkendtAdresseIndikator bit,
         SpecielVejkodeIndikator bit, PostDistriktTekst VARCHAR(MAX),
 
         -- AddressAccess
+        -- TODO Municilaiy , StreetCode as int??
         MunicipalityCode VARCHAR(MAX), StreetCode VARCHAR(MAX), StreetBuildingIdentifier VARCHAR(MAX),
 
         -- AddressPostal
@@ -34,7 +36,15 @@ BEGIN
         StreetBuildingIdentifier_Postal VARCHAR(MAX), FloorIdentifier VARCHAR(MAX), SuiteIdentifier VARCHAR(MAX),
         DistrictSubdivisionIdentifier VARCHAR(MAX), PostOfficeBoxIdentifier VARCHAR(MAX),
         PostCodeIdentifier VARCHAR(MAX), DistrictName VARCHAR(MAX),
-        CountryIdentificationCode VARCHAR(MAX)
+        CountryIdentificationCode VARCHAR(MAX),
+
+        -- Greenlandic address
+        GreenlandBuildingIdentifier VARCHAR(MAX),
+
+        -- World address
+        LocationDescriptionText VARCHAR(MAX),
+        PostalAddressFirstLineText VARCHAR(MAX), PostalAddressSecondLineText VARCHAR(MAX), PostalAddressThirdLineText VARCHAR(MAX), 
+        PostalAddressFourthLineText VARCHAR(MAX), PostalAddressFifthLineText VARCHAR(MAX)
 
 	 CONSTRAINT [PK_PersonSearchCache] PRIMARY KEY CLUSTERED 
 	(

@@ -176,25 +176,49 @@ namespace CprBroker.Providers.Local.Search
 
             //  FolkeregisterAdresse fields
             // ----------------------------
-            if (cprBorger.FolkeregisterAdresse != null && cprBorger.FolkeregisterAdresse.Item is DanskAdresseType)
+            if (cprBorger.FolkeregisterAdresse != null)
             {
-                var danskAddress = cprBorger.FolkeregisterAdresse.Item as DanskAdresseType;
-                pred = pred.And(danskAddress);
+                var item = cprBorger.FolkeregisterAdresse.Item;
+                if (!string.IsNullOrEmpty(item.NoteTekst))
+                {
+                    pred = pred.And(pt => pt.NoteTekst_DanskAdresse == item.NoteTekst);
+                }
+                if (item.UkendtAdresseIndikator)
+                {
+                    // False is treated like Not specified    
+                    pred = pred.And(pt => pt.UkendtAdresseIndikator == item.UkendtAdresseIndikator);
+                }
+
+                // Type specific predicates
+                if (item is DanskAdresseType)
+                {
+                    pred = pred.And(cprBorger.FolkeregisterAdresse.Item as DanskAdresseType);
+                }
+                else if (item is GroenlandAdresseType)
+                {
+                    pred = pred.And(item as GroenlandAdresseType);
+                }
+                else if (item is VerdenAdresseType)
+                {
+                    pred = pred.And(item as VerdenAdresseType);
+                }
+            }
+            return pred;
+        }
+
+        public static Expression<Func<PersonSearchCache, bool>> And(this Expression<Func<PersonSearchCache, bool>> pred, CountryIdentificationCodeType countryIdentificationCode)
+        {
+            if (!string.IsNullOrEmpty(countryIdentificationCode.Value))
+            {
+                pred = pred.And(pt => pt.CountryIdentificationCode == countryIdentificationCode.Value);
             }
             return pred;
         }
 
         public static Expression<Func<PersonSearchCache, bool>> And(this Expression<Func<PersonSearchCache, bool>> pred, DanskAdresseType danskAddress)
         {
-            if (!string.IsNullOrEmpty(danskAddress.NoteTekst))
-            {
-                pred = pred.And(pt => pt.NoteTekst_DanskAdresse == danskAddress.NoteTekst);
-            }
-            if (danskAddress.UkendtAdresseIndikator)
-            {
-                // False is treated like Not specified    
-                pred = pred.And(pt => pt.UkendtAdresseIndikator == danskAddress.UkendtAdresseIndikator);
-            }
+            pred = pred.And(p => p.AddressType == 'D');
+
             if (danskAddress.SpecielVejkodeIndikatorSpecified)
             {
                 // False is treated like Not specified    
@@ -273,10 +297,117 @@ namespace CprBroker.Providers.Local.Search
                         pred = pred.And(pt => pt.DistrictName == postal.DistrictName);
                     }
 
-                    if (postal.CountryIdentificationCode != null && !string.IsNullOrEmpty(postal.CountryIdentificationCode.Value))
+                    if (postal.CountryIdentificationCode != null)
                     {
-                        pred = pred.And(pt => pt.CountryIdentificationCode == postal.CountryIdentificationCode.Value);
+                        pred = pred.And(postal.CountryIdentificationCode);
                     }
+                }
+            }
+            return pred;
+        }
+
+        public static Expression<Func<PersonSearchCache, bool>> And(this Expression<Func<PersonSearchCache, bool>> pred, GroenlandAdresseType groenlandskAddress)
+        {
+            if (groenlandskAddress.AddressCompleteGreenland != null)
+            {
+                var addressCompleteGreenland = groenlandskAddress.AddressCompleteGreenland;
+
+                pred = pred.And(p => p.AddressType == 'G');
+
+                if (addressCompleteGreenland.CountryIdentificationCode != null)
+                {
+                    pred = pred.And(addressCompleteGreenland.CountryIdentificationCode);
+                }
+                if (addressCompleteGreenland.DistrictName != null)
+                {
+                    pred.And(p => p.DistrictName == addressCompleteGreenland.DistrictName);
+                }
+                if (addressCompleteGreenland.DistrictSubdivisionIdentifier != null)
+                {
+                    pred.And(p => p.DistrictSubdivisionIdentifier == addressCompleteGreenland.DistrictSubdivisionIdentifier);
+                }
+                if (addressCompleteGreenland.FloorIdentifier != null)
+                {
+                    pred.And(p => p.FloorIdentifier == addressCompleteGreenland.FloorIdentifier);
+                }
+                if (addressCompleteGreenland.GreenlandBuildingIdentifier != null)
+                {
+                    pred.And(p => p.GreenlandBuildingIdentifier == addressCompleteGreenland.GreenlandBuildingIdentifier);
+                }
+                if (addressCompleteGreenland.MailDeliverySublocationIdentifier != null)
+                {
+                    pred.And(p => p.MailDeliverySublocationIdentifier == addressCompleteGreenland.MailDeliverySublocationIdentifier);
+                }
+                if (addressCompleteGreenland.MunicipalityCode != null)
+                {
+                    pred.And(p => p.MunicipalityCode == addressCompleteGreenland.MunicipalityCode);
+                }
+                if (addressCompleteGreenland.PostCodeIdentifier != null)
+                {
+                    pred.And(p => p.PostCodeIdentifier == addressCompleteGreenland.PostCodeIdentifier);
+                }
+                if (addressCompleteGreenland.StreetBuildingIdentifier != null)
+                {
+                    pred.And(p => p.StreetBuildingIdentifier == addressCompleteGreenland.StreetBuildingIdentifier);
+                }
+                if (addressCompleteGreenland.StreetCode != null)
+                {
+                    pred.And(p => p.StreetCode == addressCompleteGreenland.StreetCode);
+                }
+                if (addressCompleteGreenland.StreetName != null)
+                {
+                    pred.And(p => p.StreetName == addressCompleteGreenland.StreetName);
+                }
+                if (addressCompleteGreenland.StreetNameForAddressingName != null)
+                {
+                    pred.And(p => p.StreetNameForAddressingName == addressCompleteGreenland.StreetNameForAddressingName);
+                }
+                if (addressCompleteGreenland.SuiteIdentifier != null)
+                {
+                    pred.And(p => p.SuiteIdentifier == addressCompleteGreenland.SuiteIdentifier);
+                }
+            }
+            if (groenlandskAddress.SpecielVejkodeIndikatorSpecified)
+            {
+                pred = pred.And(p => p.SpecielVejkodeIndikator == groenlandskAddress.SpecielVejkodeIndikator);
+            }
+            return pred;
+        }
+
+        public static Expression<Func<PersonSearchCache, bool>> And(this Expression<Func<PersonSearchCache, bool>> pred, VerdenAdresseType verdenAdresse)
+        {
+            pred = pred.And(p => p.AddressType == 'V');
+            
+            var foreignAddress = verdenAdresse.ForeignAddressStructure;
+            if(foreignAddress!=null)
+            {
+                if (foreignAddress.CountryIdentificationCode != null)
+                {
+                    pred = pred.And(foreignAddress.CountryIdentificationCode);
+                }
+                if (!string.IsNullOrEmpty(foreignAddress.LocationDescriptionText))
+                {
+                    pred = pred.And(p => p.LocationDescriptionText == foreignAddress.LocationDescriptionText);
+                }
+                if (!string.IsNullOrEmpty(foreignAddress.PostalAddressFirstLineText))
+                {
+                    pred = pred.And(p => p.PostalAddressFirstLineText == foreignAddress.PostalAddressFirstLineText);
+                }
+                if (!string.IsNullOrEmpty(foreignAddress.PostalAddressSecondLineText))
+                {
+                    pred = pred.And(p => p.PostalAddressSecondLineText == foreignAddress.PostalAddressSecondLineText);
+                }
+                if (!string.IsNullOrEmpty(foreignAddress.PostalAddressThirdLineText))
+                {
+                    pred = pred.And(p => p.PostalAddressThirdLineText == foreignAddress.PostalAddressThirdLineText);
+                }
+                if (!string.IsNullOrEmpty(foreignAddress.PostalAddressFourthLineText))
+                {
+                    pred = pred.And(p => p.PostalAddressFourthLineText == foreignAddress.PostalAddressFourthLineText);
+                }
+                if (!string.IsNullOrEmpty(foreignAddress.PostalAddressFirstLineText))
+                {
+                    pred = pred.And(p => p.PostalAddressFifthLineText == foreignAddress.PostalAddressFifthLineText);
                 }
             }
             return pred;
