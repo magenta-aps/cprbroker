@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="part" Class="PartSearchDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=localhost\sqlexpress;Initial Catalog=part;Integrated Security=True" SettingsObjectName="CprBroker.Providers.Local.Search.Properties.Settings" SettingsPropertyName="partConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.PersonSearchCache" Member="PersonSearchCaches">
     <Type Name="PersonSearchCache">
       <Column Name="PersonRegistrationId" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
@@ -11,18 +12,18 @@
       <Column Name="PersonMiddleName" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
       <Column Name="PersonSurnameName" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
       <Column Name="PersonGenderCode" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
-      <Column Name="Birthdate" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="Birthdate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="FoedestedNavn" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
       <Column Name="FoedselsregistreringMyndighedNavn" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
       <Column Name="UserInterfaceKeyText" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
       <Column Name="PersonCivilRegistrationIdentifier" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
-      <Column Name="PersonNummerGyldighedStatusIndikator" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="PersonNummerGyldighedStatusIndikator" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
       <Column Name="PersonNationalityCode" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
-      <Column Name="NavneAdresseBeskyttelseIndikator" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
-      <Column Name="TelefonNummerBeskyttelseIndikator" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
-      <Column Name="ForskerBeskyttelseIndikator" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="NavneAdresseBeskyttelseIndikator" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="TelefonNummerBeskyttelseIndikator" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ForskerBeskyttelseIndikator" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
       <Column Name="AdresseNoteTekst" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
-      <Column Name="FolkekirkeMedlemIndikator" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="FolkekirkeMedlemIndikator" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
       <Column Name="NoteTekst_DanskAdresse" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
       <Column Name="UkendtAdresseIndikator" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
       <Column Name="SpecielVejkodeIndikator" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />

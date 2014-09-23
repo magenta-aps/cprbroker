@@ -94,7 +94,7 @@ namespace CprBroker.Providers.Local.Search
 		
 		private string _PersonGenderCode;
 		
-		private string _Birthdate;
+		private System.Nullable<System.DateTime> _Birthdate;
 		
 		private string _FoedestedNavn;
 		
@@ -104,19 +104,19 @@ namespace CprBroker.Providers.Local.Search
 		
 		private string _PersonCivilRegistrationIdentifier;
 		
-		private string _PersonNummerGyldighedStatusIndikator;
+		private System.Nullable<bool> _PersonNummerGyldighedStatusIndikator;
 		
 		private string _PersonNationalityCode;
 		
-		private string _NavneAdresseBeskyttelseIndikator;
+		private System.Nullable<bool> _NavneAdresseBeskyttelseIndikator;
 		
-		private string _TelefonNummerBeskyttelseIndikator;
+		private System.Nullable<bool> _TelefonNummerBeskyttelseIndikator;
 		
-		private string _ForskerBeskyttelseIndikator;
+		private System.Nullable<bool> _ForskerBeskyttelseIndikator;
 		
 		private string _AdresseNoteTekst;
 		
-		private string _FolkekirkeMedlemIndikator;
+		private System.Nullable<bool> _FolkekirkeMedlemIndikator;
 		
 		private string _NoteTekst_DanskAdresse;
 		
@@ -178,7 +178,7 @@ namespace CprBroker.Providers.Local.Search
     partial void OnPersonSurnameNameChanged();
     partial void OnPersonGenderCodeChanging(string value);
     partial void OnPersonGenderCodeChanged();
-    partial void OnBirthdateChanging(string value);
+    partial void OnBirthdateChanging(System.Nullable<System.DateTime> value);
     partial void OnBirthdateChanged();
     partial void OnFoedestedNavnChanging(string value);
     partial void OnFoedestedNavnChanged();
@@ -188,19 +188,19 @@ namespace CprBroker.Providers.Local.Search
     partial void OnUserInterfaceKeyTextChanged();
     partial void OnPersonCivilRegistrationIdentifierChanging(string value);
     partial void OnPersonCivilRegistrationIdentifierChanged();
-    partial void OnPersonNummerGyldighedStatusIndikatorChanging(string value);
+    partial void OnPersonNummerGyldighedStatusIndikatorChanging(System.Nullable<bool> value);
     partial void OnPersonNummerGyldighedStatusIndikatorChanged();
     partial void OnPersonNationalityCodeChanging(string value);
     partial void OnPersonNationalityCodeChanged();
-    partial void OnNavneAdresseBeskyttelseIndikatorChanging(string value);
+    partial void OnNavneAdresseBeskyttelseIndikatorChanging(System.Nullable<bool> value);
     partial void OnNavneAdresseBeskyttelseIndikatorChanged();
-    partial void OnTelefonNummerBeskyttelseIndikatorChanging(string value);
+    partial void OnTelefonNummerBeskyttelseIndikatorChanging(System.Nullable<bool> value);
     partial void OnTelefonNummerBeskyttelseIndikatorChanged();
-    partial void OnForskerBeskyttelseIndikatorChanging(string value);
+    partial void OnForskerBeskyttelseIndikatorChanging(System.Nullable<bool> value);
     partial void OnForskerBeskyttelseIndikatorChanged();
     partial void OnAdresseNoteTekstChanging(string value);
     partial void OnAdresseNoteTekstChanged();
-    partial void OnFolkekirkeMedlemIndikatorChanging(string value);
+    partial void OnFolkekirkeMedlemIndikatorChanging(System.Nullable<bool> value);
     partial void OnFolkekirkeMedlemIndikatorChanged();
     partial void OnNoteTekst_DanskAdresseChanging(string value);
     partial void OnNoteTekst_DanskAdresseChanged();
@@ -445,8 +445,8 @@ namespace CprBroker.Providers.Local.Search
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Birthdate", DbType="VarChar(MAX)")]
-		public string Birthdate
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Birthdate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> Birthdate
 		{
 			get
 			{
@@ -545,8 +545,8 @@ namespace CprBroker.Providers.Local.Search
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PersonNummerGyldighedStatusIndikator", DbType="VarChar(MAX)")]
-		public string PersonNummerGyldighedStatusIndikator
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PersonNummerGyldighedStatusIndikator", DbType="Bit")]
+		public System.Nullable<bool> PersonNummerGyldighedStatusIndikator
 		{
 			get
 			{
@@ -585,8 +585,8 @@ namespace CprBroker.Providers.Local.Search
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NavneAdresseBeskyttelseIndikator", DbType="VarChar(MAX)")]
-		public string NavneAdresseBeskyttelseIndikator
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NavneAdresseBeskyttelseIndikator", DbType="Bit")]
+		public System.Nullable<bool> NavneAdresseBeskyttelseIndikator
 		{
 			get
 			{
@@ -605,8 +605,8 @@ namespace CprBroker.Providers.Local.Search
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TelefonNummerBeskyttelseIndikator", DbType="VarChar(MAX)")]
-		public string TelefonNummerBeskyttelseIndikator
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TelefonNummerBeskyttelseIndikator", DbType="Bit")]
+		public System.Nullable<bool> TelefonNummerBeskyttelseIndikator
 		{
 			get
 			{
@@ -625,8 +625,8 @@ namespace CprBroker.Providers.Local.Search
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ForskerBeskyttelseIndikator", DbType="VarChar(MAX)")]
-		public string ForskerBeskyttelseIndikator
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ForskerBeskyttelseIndikator", DbType="Bit")]
+		public System.Nullable<bool> ForskerBeskyttelseIndikator
 		{
 			get
 			{
@@ -665,8 +665,8 @@ namespace CprBroker.Providers.Local.Search
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FolkekirkeMedlemIndikator", DbType="VarChar(MAX)")]
-		public string FolkekirkeMedlemIndikator
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FolkekirkeMedlemIndikator", DbType="Bit")]
+		public System.Nullable<bool> FolkekirkeMedlemIndikator
 		{
 			get
 			{

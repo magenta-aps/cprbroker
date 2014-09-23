@@ -12,15 +12,15 @@ BEGIN
         -- Egenskab fields
         AddressingName VARCHAR(MAX), NickName VARCHAR(MAX), Note VARCHAR(MAX), 
         PersonGivenName VARCHAR(MAX), PersonMiddleName VARCHAR(MAX), PersonSurnameName VARCHAR(MAX), 
-        PersonGenderCode VARCHAR(MAX), Birthdate VARCHAR(MAX), FoedestedNavn VARCHAR(MAX), FoedselsregistreringMyndighedNavn VARCHAR(MAX),
+        PersonGenderCode VARCHAR(MAX), Birthdate DATETIME, FoedestedNavn VARCHAR(MAX), FoedselsregistreringMyndighedNavn VARCHAR(MAX),
             
         -- CprBorger
         UserInterfaceKeyText VARCHAR(MAX), PersonCivilRegistrationIdentifier VARCHAR(MAX),
-        PersonNummerGyldighedStatusIndikator VARCHAR(MAX), PersonNationalityCode VARCHAR(MAX),
-        NavneAdresseBeskyttelseIndikator VARCHAR(MAX), TelefonNummerBeskyttelseIndikator VARCHAR(MAX), ForskerBeskyttelseIndikator VARCHAR(MAX),
+        PersonNummerGyldighedStatusIndikator bit, PersonNationalityCode VARCHAR(MAX),
+        NavneAdresseBeskyttelseIndikator bit, TelefonNummerBeskyttelseIndikator bit, ForskerBeskyttelseIndikator bit,
             
         -- CprBorger - after address
-        AdresseNoteTekst VARCHAR(MAX), FolkekirkeMedlemIndikator VARCHAR(MAX),
+        AdresseNoteTekst VARCHAR(MAX), FolkekirkeMedlemIndikator bit,
 
         -- FolkeregisterAdresse
         NoteTekst_DanskAdresse VARCHAR(MAX), UkendtAdresseIndikator VARCHAR(MAX),

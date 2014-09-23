@@ -59,7 +59,7 @@ BEGIN
     --------------
     DECLARE @AddressingName VARCHAR(MAX), @NickName VARCHAR(MAX), @Note VARCHAR(MAX), 
         @PersonGivenName VARCHAR(MAX), @PersonMiddleName VARCHAR(MAX), @PersonSurnameName VARCHAR(MAX), 
-        @PersonGenderCode VARCHAR(MAX), @Birthdate VARCHAR(MAX), @FoedestedNavn VARCHAR(MAX), @FoedselsregistreringMyndighedNavn VARCHAR(MAX)
+        @PersonGenderCode VARCHAR(MAX), @Birthdate Datetime, @FoedestedNavn VARCHAR(MAX), @FoedselsregistreringMyndighedNavn VARCHAR(MAX)
 
     IF LEN (CAST (@EgenskabNode AS VARCHAR(MAX))) > 0
     BEGIN	
@@ -82,7 +82,7 @@ BEGIN
             @PersonMiddleName                   = X.value('(/ns0:Egenskab/ns0:NavnStruktur/ns3:PersonNameStructure/ns4:PersonMiddleName)[last()]'  , 'varchar(max)'),
             @PersonSurnameName                  = X.value('(/ns0:Egenskab/ns0:NavnStruktur/ns3:PersonNameStructure/ns4:PersonSurnameName)[last()]' , 'varchar(max)'),
             @PersonGenderCode                   = X.value('(/ns0:Egenskab/ns5:PersonGenderCode)[last()]'                                           , 'varchar(max)'),
-            @Birthdate                          = X.value('(/ns0:Egenskab/ns6:BirthDate)[last()]'                                                  , 'varchar(max)'),
+            @Birthdate                          = X.value('(/ns0:Egenskab/ns6:BirthDate)[last()]'                                                  , 'datetime'),
             @FoedestedNavn                      = X.value('(/ns0:Egenskab/ns0:FoedestedNavn)[last()]'                                              , 'varchar(max)'),
             @FoedselsregistreringMyndighedNavn  = X.value('(/ns0:Egenskab/ns0:FoedselsregistreringMyndighedNavn)[last()]'                          , 'varchar(max)')
         FROM 
@@ -96,10 +96,10 @@ BEGIN
     -- CprBorger fields
     DECLARE @UserInterfaceKeyText VARCHAR(MAX), @PersonCivilRegistrationIdentifier VARCHAR(max),
         @PersonNummerGyldighedStatusIndikator bit, @PersonNationalityCode VARCHAR(MAX),
-        @NavneAdresseBeskyttelseIndikator VARCHAR(MAX),@TelefonNummerBeskyttelseIndikator VARCHAR(MAX), @ForskerBeskyttelseIndikator bit;
+        @NavneAdresseBeskyttelseIndikator bit,@TelefonNummerBeskyttelseIndikator bit, @ForskerBeskyttelseIndikator bit;
 
     -- CprBorger fields - after address
-    DECLARE @AdresseNoteTekst VARCHAR(MAX), @FolkekirkeMedlemIndikator bit; 
+    DECLARE @AdresseNoteTekst VARCHAR(MAX), @FolkekirkeMedlemIndikator bit;
     
     -- FolkeregisterAdresse fields
     DECLARE @NoteTekst_DanskAdresse VARCHAR(MAX), @UkendtAdresseIndikator bit, 
@@ -127,13 +127,13 @@ BEGIN
             'http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/' as ns1,
             'http://rep.oio.dk/ebxml/xml/schemas/dkcc/2006/01/03/' as ns2)
         SELECT
-            @UserInterfaceKeyText                  = X.value('(/ns0:RegisterOplysning/ns0:CprBorger/ns1:PersonCivilRegistrationIdentifier)[last()]' , 'varchar(max)'),
-            @PersonCivilRegistrationIdentifier     = X.value('(/ns0:RegisterOplysning/ns0:CprBorger/ns1:PersonCivilRegistrationIdentifier)[last()]' , 'varchar(max)'),
-            @PersonNummerGyldighedStatusIndikator  = X.value('(/ns0:RegisterOplysning/ns0:CprBorger/ns0:PersonNummerGyldighedStatusIndikator)[last()]' , 'bit'         ),
-            @PersonNationalityCode                 = X.value('(/ns0:RegisterOplysning/ns0:CprBorger/ns2:PersonNationalityCode)[last()]'             , 'varchar(max)'),
-            @NavneAdresseBeskyttelseIndikator      = X.value('(/ns0:RegisterOplysning/ns0:CprBorger/ns0:NavneAdresseBeskyttelseIndikator)[last()]'  , 'varchar(max)'),
-            @TelefonNummerBeskyttelseIndikator     = X.value('(/ns0:RegisterOplysning/ns0:CprBorger/ns0:TelefonNummerBeskyttelseIndikator)[last()]' , 'varchar(max)'),
-            @ForskerBeskyttelseIndikator           = X.value('(/ns0:RegisterOplysning/ns0:CprBorger/ns0:ForskerBeskyttelseIndikator)[last()]'       , 'bit'         )
+            @UserInterfaceKeyText                  = X.value('(/ns0:RegisterOplysning/ns0:CprBorger/ns1:PersonCivilRegistrationIdentifier)[last()]'    , 'varchar(max)' ),
+            @PersonCivilRegistrationIdentifier     = X.value('(/ns0:RegisterOplysning/ns0:CprBorger/ns1:PersonCivilRegistrationIdentifier)[last()]'    , 'varchar(max)' ),
+            @PersonNummerGyldighedStatusIndikator  = X.value('(/ns0:RegisterOplysning/ns0:CprBorger/ns0:PersonNummerGyldighedStatusIndikator)[last()]' , 'bit'          ),
+            @PersonNationalityCode                 = X.value('(/ns0:RegisterOplysning/ns0:CprBorger/ns2:PersonNationalityCode)[last()]'                , 'varchar(max)' ),
+            @NavneAdresseBeskyttelseIndikator      = X.value('(/ns0:RegisterOplysning/ns0:CprBorger/ns0:NavneAdresseBeskyttelseIndikator)[last()]'     , 'bit'          ),
+            @TelefonNummerBeskyttelseIndikator     = X.value('(/ns0:RegisterOplysning/ns0:CprBorger/ns0:TelefonNummerBeskyttelseIndikator)[last()]'    , 'bit'          ),
+            @ForskerBeskyttelseIndikator           = X.value('(/ns0:RegisterOplysning/ns0:CprBorger/ns0:ForskerBeskyttelseIndikator)[last()]'          , 'bit'          )
         FROM @RegisterOplysningTable;
 
         -- CprBorger - after address

@@ -124,8 +124,7 @@ namespace CprBroker.Providers.Local.Search
                                 }
                                 if (prop.BirthDateSpecified)
                                 {
-                                    // TODO: Check formatting of dates, could be different between webserver and database
-                                    pred = pred.And((pt) => pt.Birthdate == prop.BirthDate.ToShortDateString());
+                                    pred = pred.And((pt) => pt.Birthdate == prop.BirthDate);
                                 }
                             }
                         }
@@ -142,26 +141,29 @@ namespace CprBroker.Providers.Local.Search
                                 {
                                     pred = pred.And(pt => pt.PersonCivilRegistrationIdentifier == cprBorger.PersonCivilRegistrationIdentifier);
                                 }
-                                if (cprBorger.PersonNummerGyldighedStatusIndikator)// TODO: Check null values for boolean
+                                if (cprBorger.PersonNummerGyldighedStatusIndikator)
                                 {
-                                    pred = pred.And(pt => pt.PersonNummerGyldighedStatusIndikator == cprBorger.PersonNummerGyldighedStatusIndikator.ToString());
+                                    // False is treated like Not specified
+                                    pred = pred.And(pt => pt.PersonNummerGyldighedStatusIndikator == cprBorger.PersonNummerGyldighedStatusIndikator);
                                 }
                                 if (cprBorger.PersonNationalityCode != null && !string.IsNullOrEmpty(cprBorger.PersonNationalityCode.Value))
                                 {
                                     pred = pred.And(pt => pt.PersonNationalityCode == cprBorger.PersonNationalityCode.Value);
                                 }
-                                if (cprBorger.NavneAdresseBeskyttelseIndikator)// TODO: Check null values for boolean
+                                if (cprBorger.NavneAdresseBeskyttelseIndikator)
                                 {
-                                    pred = pred.And(pt => pt.NavneAdresseBeskyttelseIndikator == cprBorger.NavneAdresseBeskyttelseIndikator.ToString());
+                                    // False is treated like Not specified
+                                    pred = pred.And(pt => pt.NavneAdresseBeskyttelseIndikator == cprBorger.NavneAdresseBeskyttelseIndikator);
                                 }
-                                if (cprBorger.TelefonNummerBeskyttelseIndikator)// TODO: Check null values for boolean
+                                if (cprBorger.TelefonNummerBeskyttelseIndikator)
                                 {
-                                    pred = pred.And(pt => pt.TelefonNummerBeskyttelseIndikator == cprBorger.TelefonNummerBeskyttelseIndikator.ToString());
+                                    // False is treated like Not specified
+                                    pred = pred.And(pt => pt.TelefonNummerBeskyttelseIndikator == cprBorger.TelefonNummerBeskyttelseIndikator);
                                 }
-                                // TODO: Check null values for boolean
                                 if (cprBorger.ForskerBeskyttelseIndikator)
                                 {
-                                    pred = pred.And(pt => pt.ForskerBeskyttelseIndikator == cprBorger.ForskerBeskyttelseIndikator.ToString());
+                                    // False is treated like Not specified 
+                                    pred = pred.And(pt => pt.ForskerBeskyttelseIndikator == cprBorger.ForskerBeskyttelseIndikator);
                                 }
 
                                 // CprBorger fields - After address
@@ -170,9 +172,10 @@ namespace CprBroker.Providers.Local.Search
                                 {
                                     pred = pred.And(pt => pt.AdresseNoteTekst == cprBorger.AdresseNoteTekst);
                                 }
-                                if (cprBorger.FolkekirkeMedlemIndikator)// TODO: Check null values for boolean
+                                if (cprBorger.FolkekirkeMedlemIndikator)
                                 {
-                                    pred = pred.And(pt => pt.FolkekirkeMedlemIndikator == cprBorger.FolkekirkeMedlemIndikator.ToString());
+                                    // False is treated like Not specified
+                                    pred = pred.And(pt => pt.FolkekirkeMedlemIndikator == cprBorger.FolkekirkeMedlemIndikator);
                                 }
 
                                 //  FolkeregisterAdresse fields
