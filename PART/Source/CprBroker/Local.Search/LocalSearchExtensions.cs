@@ -9,10 +9,10 @@ using CprBroker.Utilities;
 
 namespace CprBroker.Providers.Local.Search
 {
-    public partial class LocalSearchDataProvider : IPartSearchDataProvider
+    public static class LocalSearchExtensions
     {
 
-        public static Expression<Func<PersonSearchCache, bool>> AddEgenskabPredicate(Expression<Func<PersonSearchCache, bool>> pred, SoegEgenskabType prop)
+        public static Expression<Func<PersonSearchCache, bool>> And(this Expression<Func<PersonSearchCache, bool>> pred, SoegEgenskabType prop)
         {
             if (!string.IsNullOrEmpty(prop.FoedestedNavn))
             {
@@ -25,7 +25,7 @@ namespace CprBroker.Providers.Local.Search
 
             if (prop.NavnStruktur != null)
             {
-                pred = AddNamePredicates(pred, prop.NavnStruktur);
+                pred = pred.And(prop);
             }
             if (prop.PersonGenderCodeSpecified)
             {
@@ -38,7 +38,7 @@ namespace CprBroker.Providers.Local.Search
             return pred;
         }
 
-        public static Expression<Func<PersonSearchCache, bool>> AddNamePredicates(Expression<Func<PersonSearchCache, bool>> pred, NavnStrukturType prop)
+        public static Expression<Func<PersonSearchCache, bool>> And(this Expression<Func<PersonSearchCache, bool>> pred, NavnStrukturType prop)
         {
             if (!string.IsNullOrEmpty(prop.PersonNameForAddressingName))
             {
@@ -75,11 +75,11 @@ namespace CprBroker.Providers.Local.Search
             return pred;
         }
 
-        public static Expression<Func<PersonSearchCache, bool>> AddCprBorgerPredicates(Expression<Func<PersonSearchCache, bool>> pred, CprBorgerType cprBorger)
+        public static Expression<Func<PersonSearchCache, bool>> And(this Expression<Func<PersonSearchCache, bool>> pred, CprBorgerType cprBorger)
         {
             // CprBorger fields
             // --------------------
-                                    
+
             if (!string.IsNullOrEmpty(cprBorger.PersonCivilRegistrationIdentifier))
             {
                 pred = pred.And(pt => pt.PersonCivilRegistrationIdentifier == cprBorger.PersonCivilRegistrationIdentifier);
@@ -126,12 +126,12 @@ namespace CprBroker.Providers.Local.Search
             if (cprBorger.FolkeregisterAdresse != null && cprBorger.FolkeregisterAdresse.Item is DanskAdresseType)
             {
                 var danskAddress = cprBorger.FolkeregisterAdresse.Item as DanskAdresseType;
-                pred = AddDanskAddressPredicates(pred, danskAddress);
+                pred = pred.And(danskAddress);
             }
             return pred;
         }
 
-        public static Expression<Func<PersonSearchCache, bool>> AddDanskAddressPredicates(Expression<Func<PersonSearchCache, bool>> pred, DanskAdresseType danskAddress)
+        public static Expression<Func<PersonSearchCache, bool>> And(this Expression<Func<PersonSearchCache, bool>> pred, DanskAdresseType danskAddress)
         {
             if (!string.IsNullOrEmpty(danskAddress.NoteTekst))
             {

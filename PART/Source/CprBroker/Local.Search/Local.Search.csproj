@@ -77,7 +77,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="LocalSearchDataProvider.cs" />
-    <Compile Include="LocalSearchDataProvider.Predicates.cs" />
+    <Compile Include="LocalSearchExtensions.cs" />
     <Compile Include="PartSearch.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

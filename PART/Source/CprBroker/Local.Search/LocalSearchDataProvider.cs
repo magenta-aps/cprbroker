@@ -74,7 +74,7 @@ namespace CprBroker.Providers.Local.Search
                         {
                             if (prop != null)
                             {
-                                pred = AddEgenskabPredicate(pred, prop);
+                                pred = pred.And(prop);
                             }
                         }
 
@@ -86,7 +86,7 @@ namespace CprBroker.Providers.Local.Search
                                 if (prop.Item is CprBroker.Schemas.Part.CprBorgerType)
                                 {
                                     var cprBorger = prop.Item as CprBroker.Schemas.Part.CprBorgerType;
-                                    pred = AddCprBorgerPredicates(pred, cprBorger);
+                                    pred = pred.And(cprBorger);
                                 }
                             }
                         }
