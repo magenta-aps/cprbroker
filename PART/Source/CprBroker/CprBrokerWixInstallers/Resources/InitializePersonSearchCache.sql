@@ -159,116 +159,126 @@ BEGIN
         WITH XMLNAMESPACES ('urn:oio:sagdok:person:1.0.0' as ns0)
         INSERT INTO @DanskAdresseTable SELECT X.query('/ns0:RegisterOplysning/ns0:CprBorger/ns0:FolkeregisterAdresse/ns0:DanskAdresse') FROM @RegisterOplysningTable;
         
-        WITH XMLNAMESPACES (
-            'urn:oio:sagdok:person:1.0.0' as ns0,
-            'urn:oio:sagdok:2.0.0' AS ns1)
-        SELECT 
-            @AddressType             = 'D',
-            @NoteTekst_DanskAdresse  = X.value('(/ns0:DanskAdresse/ns1:NoteTekst)[last()]'               , 'varchar(max)'),
-            @UkendtAdresseIndikator  = X.value('(/ns0:DanskAdresse/ns0:UkendtAdresseIndikator)[last()]'  , 'bit'),
-            @SpecielVejkodeIndikator = X.value('(/ns0:DanskAdresse/ns0:SpecielVejkodeIndikator)[last()]' , 'bit'),
-            @PostDistriktTekst       = X.value('(/ns0:DanskAdresse/ns0:PostDistriktTekst)[last()]'       , 'varchar(max)')
-        FROM @DanskAdresseTable;
+        IF (SELECT LEN(CAST(X AS VARCHAR(MAX))) FROM @DanskAdresseTable) > 0
+        BEGIN
+            WITH XMLNAMESPACES (
+                'urn:oio:sagdok:person:1.0.0' as ns0,
+                'urn:oio:sagdok:2.0.0' AS ns1)
+            SELECT 
+                @AddressType             = 'D',
+                @NoteTekst_DanskAdresse  = X.value('(/ns0:DanskAdresse/ns1:NoteTekst)[last()]'               , 'varchar(max)'),
+                @UkendtAdresseIndikator  = X.value('(/ns0:DanskAdresse/ns0:UkendtAdresseIndikator)[last()]'  , 'bit'),
+                @SpecielVejkodeIndikator = X.value('(/ns0:DanskAdresse/ns0:SpecielVejkodeIndikator)[last()]' , 'bit'),
+                @PostDistriktTekst       = X.value('(/ns0:DanskAdresse/ns0:PostDistriktTekst)[last()]'       , 'varchar(max)')
+            FROM @DanskAdresseTable;
         
-        -- AddressAccess
-        WITH XMLNAMESPACES (
-            'urn:oio:sagdok:person:1.0.0' as ns0,
-            'http://rep.oio.dk/xkom.dk/xml/schemas/2006/01/06/' AS ns1,
-            'http://rep.oio.dk/xkom.dk/xml/schemas/2005/03/15/' as ns2,
-            'http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/' as ns3,            
-            'http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/' as ns4 )
-        SELECT
-            @MunicipalityCode         =                         X.value('(/ns2:AddressAccess/ns3:MunicipalityCode)[last()]'         , 'int'),
-            @StreetCode               =                         X.value('(/ns2:AddressAccess/ns3:StreetCode)[last()]'               , 'int'),
-            @StreetBuildingIdentifier = dbo.TrimAddressString(  X.value('(/ns2:AddressAccess/ns4:StreetBuildingIdentifier)[last()]' , 'varchar(max)'))
-        FROM 
-            (SELECT X.query('/ns0:DanskAdresse/ns1:AddressComplete/ns2:AddressAccess') FROM @DanskAdresseTable) AS tmp_AddressPostalTable(X);
+            -- AddressAccess
+            WITH XMLNAMESPACES (
+                'urn:oio:sagdok:person:1.0.0' as ns0,
+                'http://rep.oio.dk/xkom.dk/xml/schemas/2006/01/06/' AS ns1,
+                'http://rep.oio.dk/xkom.dk/xml/schemas/2005/03/15/' as ns2,
+                'http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/' as ns3,            
+                'http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/' as ns4 )
+            SELECT
+                @MunicipalityCode         =                         X.value('(/ns2:AddressAccess/ns3:MunicipalityCode)[last()]'         , 'int'),
+                @StreetCode               =                         X.value('(/ns2:AddressAccess/ns3:StreetCode)[last()]'               , 'int'),
+                @StreetBuildingIdentifier = dbo.TrimAddressString(  X.value('(/ns2:AddressAccess/ns4:StreetBuildingIdentifier)[last()]' , 'varchar(max)'))
+            FROM 
+                (SELECT X.query('/ns0:DanskAdresse/ns1:AddressComplete/ns2:AddressAccess') FROM @DanskAdresseTable) AS tmp_AddressPostalTable(X);
 
-        -- AddressPostal
-        WITH XMLNAMESPACES (
-            'urn:oio:sagdok:person:1.0.0' as ns0,
-            'http://rep.oio.dk/xkom.dk/xml/schemas/2006/01/06/' AS ns1,
-            'http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/' AS ns2,
-            'http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/03/15/' as ns3,
-            'http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/' as ns4,
-            'http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/13/' as ns5
-            )
-        SELECT
-            @MailDeliverySublocationIdentifier  =                   X.value('(/ns1:AddressPostal/ns2:MailDeliverySublocationIdentifier)[last()]'    , 'varchar(max)'),
-            @StreetName                         =                   X.value('(/ns1:AddressPostal/ns3:StreetName)[last()]'                           , 'varchar(max)') ,
-            @StreetNameForAddressingName        =                   X.value('(/ns1:AddressPostal/ns4:StreetNameForAddressingName)[last()]'          , 'varchar(max)'),
-            @StreetBuildingIdentifier_Postal    = TrimAddressString(X.value('(/ns1:AddressPostal/ns2:StreetBuildingIdentifier)[last()]'             , 'varchar(max)')),
-            @FloorIdentifier                    = TrimAddressString(X.value('(/ns1:AddressPostal/ns2:FloorIdentifier)[last()]'                      , 'varchar(max)')),
-            @SuiteIdentifier                    = TrimAddressString(X.value('(/ns1:AddressPostal/ns2:SuiteIdentifier)[last()]'                      , 'varchar(max)')),
-            @DistrictSubdivisionIdentifier      =                   X.value('(/ns1:AddressPostal/ns3:DistrictSubdivisionIdentifier)[last()]'        , 'varchar(max)'),
-            @PostOfficeBoxIdentifier            =                   X.value('(/ns1:AddressPostal/ns5:PostOfficeBoxIdentifier)[last()]'              , 'varchar(max)'),
-            @PostCodeIdentifier                 =                   X.value('(/ns1:AddressPostal/ns3:PostCodeIdentifier)[last()]'                   , 'int'),
-            @DistrictName                       =                   X.value('(/ns1:AddressPostal/ns3:DistrictName)[last()]'                         , 'varchar(max)'),
-            @CountryIdentificationCode          =                   X.value('(/ns1:AddressPostal/ns2:CountryIdentificationCode)[last()]'            , 'varchar(max)')
-        FROM 
-            (SELECT X.query('/ns0:DanskAdresse/ns1:AddressComplete/ns1:AddressPostal') FROM @DanskAdresseTable) AS tmp_AddressPostalTable(X);
+            -- AddressPostal
+            WITH XMLNAMESPACES (
+                'urn:oio:sagdok:person:1.0.0' as ns0,
+                'http://rep.oio.dk/xkom.dk/xml/schemas/2006/01/06/' AS ns1,
+                'http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/' AS ns2,
+                'http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/03/15/' as ns3,
+                'http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/' as ns4,
+                'http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/13/' as ns5
+                )
+            SELECT
+                @MailDeliverySublocationIdentifier  =                       X.value('(/ns1:AddressPostal/ns2:MailDeliverySublocationIdentifier)[last()]'    , 'varchar(max)'),
+                @StreetName                         =                       X.value('(/ns1:AddressPostal/ns3:StreetName)[last()]'                           , 'varchar(max)') ,
+                @StreetNameForAddressingName        =                       X.value('(/ns1:AddressPostal/ns4:StreetNameForAddressingName)[last()]'          , 'varchar(max)'),
+                @StreetBuildingIdentifier_Postal    = dbo.TrimAddressString(X.value('(/ns1:AddressPostal/ns2:StreetBuildingIdentifier)[last()]'             , 'varchar(max)')),
+                @FloorIdentifier                    = dbo.TrimAddressString(X.value('(/ns1:AddressPostal/ns2:FloorIdentifier)[last()]'                      , 'varchar(max)')),
+                @SuiteIdentifier                    = dbo.TrimAddressString(X.value('(/ns1:AddressPostal/ns2:SuiteIdentifier)[last()]'                      , 'varchar(max)')),
+                @DistrictSubdivisionIdentifier      =                       X.value('(/ns1:AddressPostal/ns3:DistrictSubdivisionIdentifier)[last()]'        , 'varchar(max)'),
+                @PostOfficeBoxIdentifier            =                       X.value('(/ns1:AddressPostal/ns5:PostOfficeBoxIdentifier)[last()]'              , 'varchar(max)'),
+                @PostCodeIdentifier                 =                       X.value('(/ns1:AddressPostal/ns3:PostCodeIdentifier)[last()]'                   , 'int'),
+                @DistrictName                       =                       X.value('(/ns1:AddressPostal/ns3:DistrictName)[last()]'                         , 'varchar(max)'),
+                @CountryIdentificationCode          =                       X.value('(/ns1:AddressPostal/ns2:CountryIdentificationCode)[last()]'            , 'varchar(max)')
+            FROM 
+                (SELECT X.query('/ns0:DanskAdresse/ns1:AddressComplete/ns1:AddressPostal') FROM @DanskAdresseTable) AS tmp_AddressPostalTable(X);
 
-        -- Greenlandic address
-        DECLARE @GroenlandskAdresseTable TABLE(X XML);
-        WITH XMLNAMESPACES ('urn:oio:sagdok:person:1.0.0' as ns0)
-        INSERT INTO @GroenlandskAdresseTable SELECT X.query('/ns0:RegisterOplysning/ns0:CprBorger/ns0:FolkeregisterAdresse/ns0:GroenlandAdresse') FROM @RegisterOplysningTable;
+            -- Greenlandic address
+            DECLARE @GroenlandskAdresseTable TABLE(X XML);
+            WITH XMLNAMESPACES ('urn:oio:sagdok:person:1.0.0' as ns0)
+            INSERT INTO @GroenlandskAdresseTable SELECT X.query('/ns0:RegisterOplysning/ns0:CprBorger/ns0:FolkeregisterAdresse/ns0:GroenlandAdresse') FROM @RegisterOplysningTable;
+        END
 
-        WITH XMLNAMESPACES (
-            'urn:oio:sagdok:person:1.0.0' as ns0,
-            'urn:oio:sagdok:2.0.0' AS ns1)
-        SELECT 
-            @AddressType             = 'G',
-            @NoteTekst_DanskAdresse  = X.value('(/ns0:GroenlandAdresse/ns1:NoteTekst)[last()]'               , 'varchar(max)'),
-            @UkendtAdresseIndikator  = X.value('(/ns0:GroenlandAdresse/ns0:UkendtAdresseIndikator)[last()]'  , 'bit'),
-            @SpecielVejkodeIndikator = X.value('(/ns0:GroenlandAdresse/ns0:SpecielVejkodeIndikator)[last()]' , 'bit')
-        FROM @GroenlandskAdresseTable;
+        IF (SELECT LEN(CAST(X AS VARCHAR(MAX))) FROM @GroenlandskAdresseTable) > 0
+        BEGIN
+            WITH XMLNAMESPACES (
+                'urn:oio:sagdok:person:1.0.0' as ns0,
+                'urn:oio:sagdok:2.0.0' AS ns1)
+            SELECT 
+                @AddressType             = 'G',
+                @NoteTekst_DanskAdresse  = X.value('(/ns0:GroenlandAdresse/ns1:NoteTekst)[last()]'               , 'varchar(max)'),
+                @UkendtAdresseIndikator  = X.value('(/ns0:GroenlandAdresse/ns0:UkendtAdresseIndikator)[last()]'  , 'bit'),
+                @SpecielVejkodeIndikator = X.value('(/ns0:GroenlandAdresse/ns0:SpecielVejkodeIndikator)[last()]' , 'bit')
+            FROM @GroenlandskAdresseTable;
 
-        -- AddressCompleteGreenland
-        WITH XMLNAMESPACES (
-            'urn:oio:sagdok:person:1.0.0' as ns0,
-            'http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/' AS ns1,
-            'http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/' as ns2,
-            'http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/' as ns3,
-            'http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/03/15/' as ns4)
-        SELECT
-            @MunicipalityCode                   =                        X.value('(/ns1:AddressCompleteGreenland/ns2:MunicipalityCode)[last()]'                  , 'int'),
-            @StreetCode                         =                        X.value('(/ns1:AddressCompleteGreenland/ns2:StreetCode)[last()]'                        , 'int'),
-            @MailDeliverySublocationIdentifier  =                        X.value('(/ns1:AddressCompleteGreenland/ns3:MailDeliverySublocationIdentifier)[last()]' , 'varchar(max)'),
-            @StreetName                         =                        X.value('(/ns1:AddressCompleteGreenland/ns4:StreetName)[last()]'                        , 'varchar(max)'),
-            @StreetNameForAddressingName        =                        X.value('(/ns1:AddressCompleteGreenland/ns2:StreetCode)[last()]'                        , 'varchar(max)'),
-            @StreetBuildingIdentifier           = dbo.TrimAddressString( X.value('(/ns1:AddressCompleteGreenland/ns3:StreetBuildingIdentifier)[last()]'          , 'varchar(max)')),
-            @GreenlandBuildingIdentifier        = dbo.TrimAddressString( X.value('(/ns1:AddressCompleteGreenland/ns1:GreenlandBuildingIdentifier)[last()]'       , 'varchar(max)')),
-            @SuiteIdentifier                    = dbo.TrimAddressString( X.value('(/ns1:AddressCompleteGreenland/ns3:SuiteIdentifier)[last()]'                   , 'varchar(max)')),
-            @FloorIdentifier                    = dbo.TrimAddressString( X.value('(/ns1:AddressCompleteGreenland/ns3:FloorIdentifier)[last()]'                   , 'varchar(max)')),
-            @DistrictSubdivisionIdentifier      =                        X.value('(/ns1:AddressCompleteGreenland/ns4:DistrictSubdivisionIdentifier)[last()]'     , 'varchar(max)'),
-            @PostCodeIdentifier                 =                        X.value('(/ns1:AddressCompleteGreenland/ns4:PostCodeIdentifier)[last()]'                , 'varchar(max)'),
-            @DistrictName                       =                        X.value('(/ns1:AddressCompleteGreenland/ns4:DistrictName)[last()]'                      , 'varchar(max)'),
-            @CountryIdentificationCode          =                        X.value('(/ns1:AddressCompleteGreenland/ns3:CountryIdentificationCode)[last()]'         , 'varchar(max)')
-        FROM 
-            (SELECT X.query('/ns0:GroenlandAdresse/ns1:AddressCompleteGreenland') FROM @GroenlandskAdresseTable) AS tmp_AddressPostalTable(X);
+            -- AddressCompleteGreenland
+            WITH XMLNAMESPACES (
+                'urn:oio:sagdok:person:1.0.0' as ns0,
+                'http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/' AS ns1,
+                'http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/' as ns2,
+                'http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/' as ns3,
+                'http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/03/15/' as ns4)
+            SELECT
+                @MunicipalityCode                   =                        X.value('(/ns1:AddressCompleteGreenland/ns2:MunicipalityCode)[last()]'                  , 'int'),
+                @StreetCode                         =                        X.value('(/ns1:AddressCompleteGreenland/ns2:StreetCode)[last()]'                        , 'int'),
+                @MailDeliverySublocationIdentifier  =                        X.value('(/ns1:AddressCompleteGreenland/ns3:MailDeliverySublocationIdentifier)[last()]' , 'varchar(max)'),
+                @StreetName                         =                        X.value('(/ns1:AddressCompleteGreenland/ns4:StreetName)[last()]'                        , 'varchar(max)'),
+                @StreetNameForAddressingName        =                        X.value('(/ns1:AddressCompleteGreenland/ns2:StreetCode)[last()]'                        , 'varchar(max)'),
+                @StreetBuildingIdentifier           = dbo.TrimAddressString( X.value('(/ns1:AddressCompleteGreenland/ns3:StreetBuildingIdentifier)[last()]'          , 'varchar(max)')),
+                @GreenlandBuildingIdentifier        = dbo.TrimAddressString( X.value('(/ns1:AddressCompleteGreenland/ns1:GreenlandBuildingIdentifier)[last()]'       , 'varchar(max)')),
+                @SuiteIdentifier                    = dbo.TrimAddressString( X.value('(/ns1:AddressCompleteGreenland/ns3:SuiteIdentifier)[last()]'                   , 'varchar(max)')),
+                @FloorIdentifier                    = dbo.TrimAddressString( X.value('(/ns1:AddressCompleteGreenland/ns3:FloorIdentifier)[last()]'                   , 'varchar(max)')),
+                @DistrictSubdivisionIdentifier      =                        X.value('(/ns1:AddressCompleteGreenland/ns4:DistrictSubdivisionIdentifier)[last()]'     , 'varchar(max)'),
+                @PostCodeIdentifier                 =                        X.value('(/ns1:AddressCompleteGreenland/ns4:PostCodeIdentifier)[last()]'                , 'varchar(max)'),
+                @DistrictName                       =                        X.value('(/ns1:AddressCompleteGreenland/ns4:DistrictName)[last()]'                      , 'varchar(max)'),
+                @CountryIdentificationCode          =                        X.value('(/ns1:AddressCompleteGreenland/ns3:CountryIdentificationCode)[last()]'         , 'varchar(max)')
+            FROM 
+                (SELECT X.query('/ns0:GroenlandAdresse/ns1:AddressCompleteGreenland') FROM @GroenlandskAdresseTable) AS tmp_AddressPostalTable(X);
+        END
 
         -- World address
         DECLARE @VerdenAdresseTable TABLE(X XML);
         WITH XMLNAMESPACES ('urn:oio:sagdok:person:1.0.0' as ns0)
         INSERT INTO @VerdenAdresseTable SELECT X.query('/ns0:RegisterOplysning/ns0:CprBorger/ns0:FolkeregisterAdresse/ns0:VerdenAdresse') FROM @RegisterOplysningTable;
 
-        WITH XMLNAMESPACES (
-            'urn:oio:sagdok:person:1.0.0' as ns0,
-            'http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/' as ns1,
-            'http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/' as ns2,
-            'http://rep.oio.dk/capevo.dk/xml/schemas/2007/08/01/' as ns3
-            )
-        SELECT
-            @AddressType                    = 'V',
-            @LocationDescriptionText        = X.value('(ns1:ForeignAddressStructure/ns3:LocationDescriptionText)[last()]'       , 'varchar(max)'),
-            @PostalAddressFirstLineText     = X.value('(ns1:ForeignAddressStructure/ns2:PostalAddressFirstLineText)[last()]'    , 'varchar(max)'),
-            @PostalAddressSecondLineText    = X.value('(ns1:ForeignAddressStructure/ns2:PostalAddressSecondLineText)[last()]'   , 'varchar(max)'),
-            @PostalAddressThirdLineText     = X.value('(ns1:ForeignAddressStructure/ns2:PostalAddressThirdLineText)[last()]'    , 'varchar(max)'),
-            @PostalAddressFourthLineText    = X.value('(ns1:ForeignAddressStructure/ns2:PostalAddressFourthLineText)[last()]'   , 'varchar(max)'),
-            @PostalAddressFifthLineText     = X.value('(ns1:ForeignAddressStructure/ns2:PostalAddressFifthLineText)[last()]'    , 'varchar(max)'),
-            @CountryIdentificationCode      = X.value('(/ns1:ForeignAddressStructure/ns3:CountryIdentificationCode)[last()]'    , 'varchar(max)')
-        FROM
-            (SELECT X.query('/ns0:VerdenAdresse/ns1:ForeignAddressStructure') FROM @GroenlandskAdresseTable) AS tmp_AddressPostalTable(X);
+        IF (SELECT LEN(CAST(X AS VARCHAR(MAX))) FROM @VerdenAdresseTable) > 0
+        BEGIN
+            WITH XMLNAMESPACES (
+                'urn:oio:sagdok:person:1.0.0' as ns0,
+                'http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/' as ns1,
+                'http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/' as ns2,
+                'http://rep.oio.dk/capevo.dk/xml/schemas/2007/08/01/' as ns3,
+                'http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/' as ns4
+                )
+            SELECT
+                @AddressType                    = 'V',
+                @LocationDescriptionText        = X.value('(ns1:ForeignAddressStructure/ns3:LocationDescriptionText)[last()]'       , 'varchar(max)'),
+                @PostalAddressFirstLineText     = X.value('(ns1:ForeignAddressStructure/ns2:PostalAddressFirstLineText)[last()]'    , 'varchar(max)'),
+                @PostalAddressSecondLineText    = X.value('(ns1:ForeignAddressStructure/ns2:PostalAddressSecondLineText)[last()]'   , 'varchar(max)'),
+                @PostalAddressThirdLineText     = X.value('(ns1:ForeignAddressStructure/ns2:PostalAddressThirdLineText)[last()]'    , 'varchar(max)'),
+                @PostalAddressFourthLineText    = X.value('(ns1:ForeignAddressStructure/ns2:PostalAddressFourthLineText)[last()]'   , 'varchar(max)'),
+                @PostalAddressFifthLineText     = X.value('(ns1:ForeignAddressStructure/ns2:PostalAddressFifthLineText)[last()]'    , 'varchar(max)'),
+                @CountryIdentificationCode      = X.value('(/ns1:ForeignAddressStructure/ns4:CountryIdentificationCode)[last()]'    , 'varchar(max)')
+            FROM
+                (SELECT X.query('/ns0:VerdenAdresse/ns1:ForeignAddressStructure') FROM @VerdenAdresseTable) AS tmp_AddressPostalTable(X);
+        END
     END
     
 
@@ -277,7 +287,7 @@ BEGIN
     -----------------------------
     IF EXISTS (SELECT UUID FROM PersonSearchCache WHERE UUID = @UUID)
     BEGIN			
-        UPDATE PersonSearchCache 
+        UPDATE PersonSearchCache
         SET 
             -- Root fields
             PersonRegistrationId = @PersonRegistrationId, LivscyklusKode = @LivscyklusKode,	
