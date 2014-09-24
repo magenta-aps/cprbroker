@@ -689,6 +689,7 @@
     <Compile Include="VirkningType.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Diagrams\Addresses.cd" />
     <None Include="Diagrams\Operations.cd" />
     <None Include="Diagrams\Search.cd" />
     <None Include="Diagrams\Static.cd" />

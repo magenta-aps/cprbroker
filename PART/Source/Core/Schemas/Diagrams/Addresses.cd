@@ -1,0 +1,141 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="CprBroker.Schemas.Part.AddressCompleteType">
+    <Position X="11.5" Y="7.5" Width="2.75" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Properties" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEIAAABAACAAAIAACggAAAAEADAIgAAIAgA=</HashCode>
+      <FileName>Addresses\IDanishAddress.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="AddressAccess" />
+      <Property Name="AddressPostal" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CprBroker.Schemas.Part.AddressCompleteGreenlandType">
+    <Position X="15.75" Y="6.25" Width="2.75" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>gIwEAAAAAMAEgQCAAAAAAkABABgAgSAAwAQEAEIAAAA=</HashCode>
+      <FileName>Addresses\IDanishAddress.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CprBroker.Schemas.Part.AdresseBaseType">
+    <Position X="14" Y="0.5" Width="2.25" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAAAAAAAAAAAEAAAAAAAAIAAAgAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CprBroker.Schemas.Part.DanskAdresseType">
+    <Position X="11.5" Y="3.25" Width="2.75" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <AssociationLine Name="AddressComplete" Type="CprBroker.Schemas.Part.AddressCompleteType" ManuallyRouted="true">
+      <Path>
+        <Point X="12.875" Y="6.473" />
+        <Point X="12.875" Y="7.5" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AJUAAAACAEINAAAJEACACEBAQAAAAAAQAAAAABAgAAA=</HashCode>
+      <FileName>Addresses\IDanishAddress.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="AddressComplete" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CprBroker.Schemas.Part.GroenlandAdresseType">
+    <Position X="15.75" Y="3.25" Width="2.75" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAGAEAAAAEAAACAAAAAAAAAAAAAABAAAAAAA=</HashCode>
+      <FileName>Addresses\IDanishAddress.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="AddressCompleteGreenland" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CprBroker.Schemas.Part.VerdenAdresseType">
+    <Position X="19.75" Y="3.25" Width="2.25" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="ForeignAddressStructure" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="CprBroker.Schemas.Part.AddressAccessType">
+    <Position X="8" Y="5.75" Width="2.25" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAEAAAAAAAAAAAAABgAACAAAAAAAAIAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CprBroker.Schemas.Part.AddressPostalType">
+    <Position X="7.75" Y="8.5" Width="2.75" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>gIgEAAAAAMAEgUCAAAAAAkABABAAgQAQQAQAAEIAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CprBroker.Schemas.Part.ForeignAddressStructureType">
+    <Position X="20" Y="5.75" Width="2.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAAQAAAAgAQggAAAAAIASECAEAAAAAAAAI=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CprBroker.Schemas.Part.CprBorgerType">
+    <Position X="3.5" Y="1.75" Width="3" />
+    <TypeIdentifier>
+      <HashCode>BACAQAIEKIACAAAAACQAACIBAAAAEAAABAAAABQAAAA=</HashCode>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="FolkeregisterAdresse" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="CprBroker.Schemas.Part.AdresseType">
+    <Position X="8" Y="2.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAgAAAAAAA=</HashCode>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Item" />
+    </ShowAsAssociation>
+  </Class>
+  <Interface Name="CprBroker.Schemas.Part.IDanishAddress">
+    <Position X="8.25" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAAAAAAAAAEAAACAAAAAAAAAAAAAgAAAAAAAA=</HashCode>
+      <FileName>Addresses\IDanishAddress.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
