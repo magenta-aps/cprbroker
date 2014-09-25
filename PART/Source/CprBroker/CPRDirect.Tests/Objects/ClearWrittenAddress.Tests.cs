@@ -153,6 +153,14 @@ namespace CprBroker.Tests.CPRDirect.Objects
                 var ret = db.ToAdresseType();
                 Assert.IsInstanceOf<DanskAdresseType>(ret.Item);
             }
+
+            [Test]
+            public void ToAdresseType_HighKomKod_GreenlandicAddress()
+            {
+                var db = new ClearWrittenAddressType() { PostCode = 0, MunicipalityCode = 999, StreetCode = 0 };
+                var ret = db.ToAdresseType();
+                Assert.IsInstanceOf<GroenlandAdresseType>(ret.Item);
+            }
         }
     }
 }

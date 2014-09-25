@@ -58,7 +58,7 @@ namespace CprBroker.Providers.CPRDirect
         {
             return new AdresseType()
             {
-                Item = ToDanskAdresseType()
+                Item = this.MunicipalityCode >= CprBroker.Schemas.Part.AddressConstants.GreenlandMunicipalCodeStart ? ToGroenlandAdresseType() as AdresseBaseType : ToDanskAdresseType()
             };
         }
 
@@ -164,7 +164,7 @@ namespace CprBroker.Providers.CPRDirect
             var ret = new CprBroker.Schemas.Part.AddressPostalType()
             {
                 // Set country code
-                CountryIdentificationCode = CountryIdentificationCodeType.Create(_CountryIdentificationSchemeType.imk, Constants.DenmarkCountryCode.ToString()),
+                CountryIdentificationCode = ToCountryIdentificationCodeType(),
 
                 // Put city name in DistrictSubdivisionIdentifier
                 DistrictSubdivisionIdentifier = this.CityName,
@@ -198,6 +198,72 @@ namespace CprBroker.Providers.CPRDirect
                 SuiteIdentifier = this.Door,
             };
             return ret;
+        }
+
+        public static CountryIdentificationCodeType ToCountryIdentificationCodeType()
+        {
+            return CountryIdentificationCodeType.Create(_CountryIdentificationSchemeType.imk, Constants.DenmarkCountryCode.ToString());
+        }
+
+        public GroenlandAdresseType ToGroenlandAdresseType()
+        {
+            return new GroenlandAdresseType()
+            {
+                AddressCompleteGreenland = ToAddressCompleteGreenland(),
+                NoteTekst = ToAddressNoteTekste(),
+                SpecielVejkodeIndikator = ToSpecielVejkodeIndikator(),
+                SpecielVejkodeIndikatorSpecified = true,
+                UkendtAdresseIndikator = IsEmpty
+            };
+        }
+
+        public AddressCompleteGreenlandType ToAddressCompleteGreenland()
+        {
+            return new AddressCompleteGreenlandType()
+            {
+                // Set country code
+                CountryIdentificationCode = ToCountryIdentificationCodeType(),
+
+                // Put city name in DistrictSubdivisionIdentifier
+                DistrictSubdivisionIdentifier = this.CityName,
+
+                // Set floor
+                FloorIdentifier = this.Floor,
+
+                // MailDeliverySublocationIdentifier is not supported - checked
+                MailDeliverySublocationIdentifier = null,
+
+                // Set post code
+                PostCodeIdentifier = Converters.DecimalToString(this.PostCode),
+
+                // Set postal district
+                DistrictName = this.PostDistrictText,
+
+                // Set building identifier
+                StreetBuildingIdentifier = this.HouseNumber,
+
+                // Set street name
+                // TODO: Get Street name by looking up street code
+                StreetName = this.StreetAddressingName,
+
+                // Set street addressing name
+                StreetNameForAddressingName = this.StreetAddressingName,
+
+                // Set suite identifier
+                SuiteIdentifier = this.Door,
+
+                // Extra greenlandic address fields
+                // --------------------------------
+
+                // Building identifier
+                GreenlandBuildingIdentifier = this.BuildingNumber,
+
+                // Municipality
+                MunicipalityCode = Converters.DecimalToString(this.MunicipalityCode),
+
+                // Street code
+                StreetCode = Converters.DecimalToString(this.StreetCode)
+            };
         }
 
     }
