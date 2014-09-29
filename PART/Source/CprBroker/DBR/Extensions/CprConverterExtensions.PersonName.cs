@@ -39,7 +39,7 @@ namespace CprBroker.DBR.Extensions
             pn.SearchNameDate = null; //Said to be always 0
             pn.FirstName = string.Format("{0} {1}", currentName.FirstName_s, currentName.MiddleName).Trim();
             pn.LastName = currentName.LastName;
-            
+
             // Special logic for addressing name
             pn.AddressingName = ToDprAddressingName(currentName.AddressingName, currentName.LastName);
             pn.SearchName = null; //Said to be always blank
@@ -64,7 +64,8 @@ namespace CprBroker.DBR.Extensions
             if (historicalName.NameStartDate.HasValue)
                 pn.NameStartDate = CprBroker.Utilities.Dates.DateToDecimal(historicalName.NameStartDate.Value, 12);
 
-            pn.NameTerminationDate = CprBroker.Utilities.Dates.DateToDecimal(historicalName.NameEndDate.Value, 12);
+            if (historicalName.NameEndDate.HasValue)
+                pn.NameTerminationDate = CprBroker.Utilities.Dates.DateToDecimal(historicalName.NameEndDate.Value, 12);
             pn.AddressingNameDate = null; //TODO: Can be fetched in CPR Services, adrnvnhaenstart
             if (!char.IsWhiteSpace(historicalName.CorrectionMarker))
                 pn.CorrectionMarker = historicalName.CorrectionMarker;
