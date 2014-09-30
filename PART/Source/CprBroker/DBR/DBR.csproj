@@ -105,10 +105,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Objects.xml" />
+    <Content Include="Resources\CreateDbrTables.sql" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CprConverter.Lookups.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>"$(ProjectDir)..\..\Dll\msxsl.exe" "$(ProjectDir)Objects.xml" "$(SolutionDir)..\Core\Schemas\Wrappers\ClassTransform.xslt" -o "$(ProjectDir)Objects.cs" namespace="$(TargetName)" using="CprBroker.Providers.DPR"</PreBuildEvent>
