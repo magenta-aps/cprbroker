@@ -23,7 +23,7 @@ namespace CprBroker.Engine.Queues
             {
                 return _Impl;
             }
-            private set
+            internal set
             {
                 _Impl = value;
                 if (_Impl != null)
