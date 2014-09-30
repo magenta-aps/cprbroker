@@ -33,5 +33,9 @@ namespace CprBroker.Engine.Tasks
                 .ToArray();
         }
 
+        public override void RefreshTask(QueueExecuter existingTask, QueueExecuter freshTask)
+        {
+            existingTask.Queue.Impl = freshTask.Queue.Impl;
+        }
     }
 }

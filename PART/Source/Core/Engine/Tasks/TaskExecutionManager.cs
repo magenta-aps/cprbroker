@@ -50,6 +50,10 @@ namespace CprBroker.Engine.Tasks
             return new T[] { };
         }
 
+        public virtual void RefreshTask(T existingTask, T freshTask)
+        {
+        }
+
         public void SyncTasks()
         {
             var dbTasks = GetTasks();
@@ -69,6 +73,16 @@ namespace CprBroker.Engine.Tasks
             {
                 DisposeTask(task);
                 CurrentTasks.Remove(task);
+            }
+
+            var existingTasks = from ex in runningTasks
+                                from db in dbTasks
+                                where comparer.Equals(ex, db)
+                                select new { Existing = ex, Fresh = db };
+
+            foreach (var pair in existingTasks)
+            {
+                RefreshTask(pair.Existing, pair.Fresh);
             }
         }
 
