@@ -76,7 +76,16 @@ namespace CprBroker.Web.Controls
         {
             var grd = this.Control as GridView;
             var editor = grd.Rows[grd.EditIndex].Cells[grd.Columns.IndexOf(this)].Controls[0] as ConfigPropertyEditor;
-            (e.NewObject as IHasEncryptedAttributes).SetAll(editor.ToDictionary());
+            
+            var originalObj = e.OriginalObject as IHasEncryptedAttributes;
+            var newObj = e.NewObject as IHasEncryptedAttributes;
+            originalObj.PreLoadAttributes();
+            
+            // First, fill with original attributes, to avoid clearing passwords
+            newObj.SetAll(originalObj.ToPropertiesDictionary());
+
+            // Now update with the new values
+            newObj.SetAll(editor.ToDictionary());
         }
     }
 }
