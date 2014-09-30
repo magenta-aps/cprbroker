@@ -199,13 +199,23 @@ namespace CprBroker.DBR.Extensions
             {
                 pt.PreviousMunicipalityName = Authority.GetAuthorityNameByCode(previousMunicipalityAddress.MunicipalityCode.ToString());
             }
+
             // In DPR SearchName contains both the first name and the middlename.
-            if (!string.IsNullOrEmpty(resp.CurrentNameInformation.MiddleName))
-                pt.SearchName = resp.CurrentNameInformation.FirstName_s.ToUpper() + " " + resp.CurrentNameInformation.MiddleName.ToUpper();
-            else if (!string.IsNullOrEmpty(pt.SearchName = resp.CurrentNameInformation.FirstName_s))
-                pt.SearchName = resp.CurrentNameInformation.FirstName_s.ToUpper();
-            else
+            var firstName = resp.CurrentNameInformation.FirstName_s;
+            var middleName = string.Format("{0}", resp.CurrentNameInformation.MiddleName);
+            if (firstName.Length + middleName.Length + 1 > 50)
+            {
+                middleName = string.Join(" ", middleName.Split(' ').Select(w => w[0].ToString().ToUpper()).ToArray());
+            }
+
+            pt.SearchName = string.Format("{0} {1}", firstName, middleName)
+                .Trim()
+                .ToUpper();
+            if (string.IsNullOrEmpty(pt.SearchName))
+            {
                 pt.SearchName = null;
+            }
+            
             pt.SearchSurname = resp.CurrentNameInformation.LastName.ToUpper();
 
             // Special logic for addressing name
