@@ -62,8 +62,13 @@ namespace CprBroker.DBR
             dataContext.Childs.InsertAllOnSubmit(person.Child.Select(c => c.ToDpr()));
 
             PersonInformationType pit = person.PersonInformation;
-            dataContext.PersonNames.InsertOnSubmit(person.CurrentNameInformation.ToDpr(pit));
-            dataContext.PersonNames.InsertAllOnSubmit(person.HistoricalName.Select(n => n.ToDpr(/*pit*/)));
+            var lst = new List<PersonName>();
+
+            lst.Add(person.CurrentNameInformation.ToDpr(pit));
+            lst.AddRange(person.HistoricalName.Select(n => n.ToDpr()));
+            dataContext.PersonNames.InsertAllOnSubmit(
+                CprBroker.Utilities.DataLinq.Distinct<PersonName>(lst)
+                );
 
             dataContext.CivilStatus.InsertOnSubmit(person.CurrentCivilStatus.ToDpr());
             dataContext.CivilStatus.InsertAllOnSubmit(person.HistoricalCivilStatus.Select(c => c.ToDpr()));

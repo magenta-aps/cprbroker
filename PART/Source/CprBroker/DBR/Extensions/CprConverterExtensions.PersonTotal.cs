@@ -201,21 +201,7 @@ namespace CprBroker.DBR.Extensions
             }
 
             // In DPR SearchName contains both the first name and the middlename.
-            var firstName = resp.CurrentNameInformation.FirstName_s;
-            var middleName = string.Format("{0}", resp.CurrentNameInformation.MiddleName);
-            if (firstName.Length + middleName.Length + 1 > 50)
-            {
-                middleName = string.Join(" ", middleName.Split(' ').Select(w => w[0].ToString().ToUpper()).ToArray());
-            }
-
-            pt.SearchName = string.Format("{0} {1}", firstName, middleName)
-                .Trim()
-                .ToUpper();
-            if (string.IsNullOrEmpty(pt.SearchName))
-            {
-                pt.SearchName = null;
-            }
-            
+            pt.SearchName = ToDprFirstName(resp.CurrentNameInformation.FirstName_s, resp.CurrentNameInformation.MiddleName, true);
             pt.SearchSurname = resp.CurrentNameInformation.LastName.ToUpper();
 
             // Special logic for addressing name

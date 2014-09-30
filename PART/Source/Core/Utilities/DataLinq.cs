@@ -145,5 +145,36 @@ namespace CprBroker.Utilities
             }
         }
 
+        /// <summary>
+        /// Limits the input to one entity per primary key instance
+        /// Used to avoid PK collisions in Linq2Sql
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="arr"></param>
+        /// <returns></returns>
+        public static IEnumerable<T> Distinct<T>(IEnumerable<T> arr)
+        {
+            var t = typeof(T);
+            var props = t.GetProperties()
+                .Select(p => new { Prop = p, Attr = Attribute.GetCustomAttribute(p, typeof(ColumnAttribute)) })
+                .Where(p => p.Attr != null);
+
+            Func<T, string> pkGetter = o =>
+                {
+                    var str = string.Join("|",
+                        Enumerable
+                        .Range(0, props.Count())
+                        .Select(i => "{" + i + "}")
+                        .ToArray()
+                        );
+                    var vals = props.Select(p => p.Prop.GetValue(o, null)).ToArray();
+                    return string.Format(str, vals);
+                };
+
+            return arr.GroupBy(o => pkGetter(o))
+                .Select(g => g.First())
+                .ToArray();
+        }
+
     }
 }
