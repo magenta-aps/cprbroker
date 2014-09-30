@@ -108,9 +108,14 @@ namespace CprBroker.DBR
             if (person.Disempowerment != null)
             {
                 // TODO: Shall we also create records from ParentalAuthorityType??            
-                dataContext.GuardianAndParentalAuthorityRelations.InsertOnSubmit(person.Disempowerment.ToDpr());
+                var gpar = person.Disempowerment.ToDpr();
+                if (gpar != null)
+                    dataContext.GuardianAndParentalAuthorityRelations.InsertOnSubmit(gpar);
+
                 // TODO: Shall we also create records from ParentalAuthorityType??            
-                dataContext.GuardianAddresses.InsertOnSubmit(person.Disempowerment.ToDprAddress());
+                var ga = person.Disempowerment.ToDprAddress();
+                if (ga != null)
+                    dataContext.GuardianAddresses.InsertOnSubmit(ga);
             }
         }
 

@@ -54,6 +54,20 @@ namespace CprBroker.Providers.CPRDirect
 {
     public partial class DisempowermentType : IReversibleRelationship, ITimedType, IOverwritable
     {
+        public enum GuardianshipTypes
+        {
+            GuardianshipDoesNotExistInCPR = 0,
+            ParentOrGuardianPnrFound = 1,
+            ParentOrGuardianAddressExists = 2
+        }
+
+        public GuardianshipTypes GuardianshipType
+        {
+            get
+            {
+                return (GuardianshipTypes)(int)this.GuardianRelationType;
+            }
+        }
         public PersonFlerRelationType ToPersonFlerRelationType(Func<string, Guid> cpr2uuidFunc)
         {
             return PersonFlerRelationType.Create(
@@ -94,7 +108,7 @@ namespace CprBroker.Providers.CPRDirect
         {
             return Converters.ToDateTimeUncertainty(DisempowermentStartDateUncertainty);
         }
-        
+
         public DateTime? ToEndTS()
         {
             return this.DisempowermentEndDate;
