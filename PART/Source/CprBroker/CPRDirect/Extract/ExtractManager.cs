@@ -141,8 +141,8 @@ namespace CprBroker.Providers.CPRDirect
             using (var file = new StreamReader(dataStream, encoding))
             {
                 // Init extract and skip already read lines
-                var extractId = InitExtract(path);
                 ExtractParseSession extractSession = new ExtractParseSession();
+                var extractId = InitExtract(path, extractSession);
                 SkipLines(file, extractId, extractSession, typeMap, batchSize);
 
                 while (!file.EndOfStream)
@@ -206,7 +206,7 @@ namespace CprBroker.Providers.CPRDirect
             }
         }
 
-        private static Guid InitExtract(string path)
+        private static Guid InitExtract(string path, ExtractParseSession extractSession)
         {
             Semaphore semaphore;
             Extract extract;
@@ -218,7 +218,6 @@ namespace CprBroker.Providers.CPRDirect
                 if (extract == null)
                 {
                     semaphore = Semaphore.Create();
-                    var extractSession = new ExtractParseSession();
                     extract = extractSession.ToExtract(path, false, 0, semaphore);
                     Admin.LogFormattedSuccess("Creating new extract <{0}>", extract.ExtractId);
                     dataContext.Extracts.InsertOnSubmit(extract);
@@ -253,7 +252,7 @@ namespace CprBroker.Providers.CPRDirect
                     while (extractSession.TotalReadLines < extract.ProcessedLines.Value)
                     {
                         long linesToRead = Math.Min(batchSize, extract.ProcessedLines.Value - extractSession.TotalReadLines);
-                        Admin.LogFormattedSuccess("Skipping extract lines: <{0}>", linesToRead);                        
+                        Admin.LogFormattedSuccess("Skipping extract lines: <{0}>", linesToRead);
 
                         // Read and consume the lines
                         extractSession.MarkNewBatch();
