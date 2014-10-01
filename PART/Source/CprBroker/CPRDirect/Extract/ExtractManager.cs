@@ -213,7 +213,7 @@ namespace CprBroker.Providers.CPRDirect
                                     conn.BulkInsertAll<ExtractItem>(extractResult.ToExtractItems(extract.ExtractId, Constants.DataObjectMap, Constants.RelationshipMap, Constants.MultiRelationshipMap));
                                     conn.BulkInsertAll<ExtractError>(extractResult.ToExtractErrors(extract.ExtractId));
 
-                                    var stagingQueue = new ExtractStagingQueue();
+                                    var stagingQueue = Queue.GetQueues<ExtractStagingQueue>().First();
                                     stagingQueue.Enqueue(extractResult.ToQueueItems(extract.ExtractId, allPnrs), semaphore);
 
                                     // Update counts and commit
