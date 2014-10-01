@@ -62,12 +62,6 @@ namespace CprBroker.Providers.CPRDirect
 {
     public static class ExtractManager
     {
-        public static void ImportFile(string path)
-        {
-            var text = File.ReadAllText(path, Constants.ExtractEncoding);
-            ImportText(text, path);
-        }
-
         public static void ImportText(string text)
         {
             ImportText(text, "");
@@ -92,20 +86,14 @@ namespace CprBroker.Providers.CPRDirect
             var queueItems = parseResult.ToQueueItems(extract.ExtractId);
             var extractErrors = parseResult.ToExtractErrors(extract.ExtractId);
 
-            using (var transactionScope = CreateTransactionScope())
+            using (var conn = new SqlConnection(ConfigManager.Current.Settings.CprBrokerConnectionString))
             {
-                using (var conn = new SqlConnection(ConfigManager.Current.Settings.CprBrokerConnectionString))
+                conn.Open();
+                using (var transactionScope = CreateTransactionScope())
                 {
-                    conn.Open();
-
-                    using (var trans = conn.BeginTransaction(System.Data.IsolationLevel.ReadUncommitted))
-                    {
-                        conn.BulkInsertAll<Extract>(new Extract[] { extract });
-                        conn.BulkInsertAll<ExtractItem>(extractItems);
-                        conn.BulkInsertAll<ExtractError>(extractErrors);
-                        trans.Commit();
-                    }
-
+                    conn.BulkInsertAll<Extract>(new Extract[] { extract });
+                    conn.BulkInsertAll<ExtractItem>(extractItems);
+                    conn.BulkInsertAll<ExtractError>(extractErrors);
 
                     var stagingQueue = CprBroker.Engine.Queues.Queue.GetQueues<ExtractStagingQueue>(ExtractStagingQueue.QueueId).First();
                     stagingQueue.Enqueue(queueItems);
@@ -116,8 +104,8 @@ namespace CprBroker.Providers.CPRDirect
                         extract.Ready = true;
                         dataContext.SubmitChanges();
                     }
+                    transactionScope.Complete();
                 }
-                transactionScope.Complete();
             }
         }
 
