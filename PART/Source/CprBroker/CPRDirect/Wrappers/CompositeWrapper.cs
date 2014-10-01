@@ -85,7 +85,7 @@ namespace CprBroker.Providers.CPRDirect
             return Parse(rd, typeMap, int.MaxValue);
         }
 
-        public static List<Wrapper> Parse(TextReader rd, Dictionary<string, Type> typeMap, int maxCount)
+        public static List<Wrapper> Parse(TextReader rd, Dictionary<string, Type> typeMap, long maxCount)
         {
             var ret = new List<Wrapper>();
 
@@ -102,32 +102,6 @@ namespace CprBroker.Providers.CPRDirect
                 var subData = Read(rd, wrapper.Length - typeCode.Length);
                 wrapper.Contents = typeCode + subData;
                 ret.Add(wrapper);
-
-                // Consume new line characters
-                while (new int[] { 10, 13 }.Contains((int)rd.Peek()))
-                {
-                    rd.Read();
-                }
-            }
-            return ret;
-        }
-
-        public static long Skip(TextReader rd, Dictionary<string, Type> typeMap, long maxCount)
-        {
-            long ret = 0;
-
-            while (rd.Peek() > -1 && ret < maxCount)
-            {
-                string typeCode = Read(rd, Constants.DataObjectCodeLength);
-                Type type;
-                try
-                {
-                    type = typeMap[typeCode];
-                }
-                catch { throw; }
-                var wrapper = Utilities.Reflection.CreateInstance(type) as Wrapper;
-                Read(rd, wrapper.Length - typeCode.Length); // read line is irrelevant, just pushing the cursor
-                ret++;
 
                 // Consume new line characters
                 while (new int[] { 10, 13 }.Contains((int)rd.Peek()))

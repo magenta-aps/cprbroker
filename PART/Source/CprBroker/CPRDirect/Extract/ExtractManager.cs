@@ -88,7 +88,7 @@ namespace CprBroker.Providers.CPRDirect
         {
             var parseResult = new ExtractParseSession(text, Constants.DataObjectMap);
             var extract = parseResult.ToExtract(sourceFileName);
-            var extractItems = parseResult.ToExtractItems(extract.ExtractId, Constants.DataObjectMap, Constants.RelationshipMap, Constants.MultiRelationshipMap);            
+            var extractItems = parseResult.ToExtractItems(extract.ExtractId, Constants.DataObjectMap, Constants.RelationshipMap, Constants.MultiRelationshipMap);
             var queueItems = parseResult.ToQueueItems(extract.ExtractId);
             var extractErrors = parseResult.ToExtractErrors(extract.ExtractId);
 
@@ -142,9 +142,9 @@ namespace CprBroker.Providers.CPRDirect
             {
                 // Init extract and skip already read lines
                 var extractId = InitExtract(path);
-                SkipLines(file, extractId, typeMap);
-
                 ExtractParseSession extractSession = new ExtractParseSession();
+                SkipLines(file, extractId, extractSession, typeMap, batchSize);
+
                 while (!file.EndOfStream)
                 {
                     extractSession.MarkNewBatch();
@@ -243,13 +243,25 @@ namespace CprBroker.Providers.CPRDirect
             }
         }
 
-        private static void SkipLines(TextReader file, Guid extractId, Dictionary<string, Type> typeMap)
+        private static void SkipLines(TextReader file, Guid extractId, ExtractParseSession extractSession, Dictionary<string, Type> typeMap, int batchSize)
         {
             using (var dataContext = new ExtractDataContext(CprBroker.Utilities.Config.ConfigManager.Current.Settings.CprBrokerConnectionString))
             {
                 var extract = dataContext.Extracts.Single(ex => ex.ExtractId == extractId);
                 if (extract.ProcessedLines.HasValue)
-                    CompositeWrapper.Skip(file, typeMap, extract.ProcessedLines.Value);
+                {
+                    while (extractSession.TotalReadLines < extract.ProcessedLines.Value)
+                    {
+                        long linesToRead = Math.Min(batchSize, extract.ProcessedLines.Value - extractSession.TotalReadLines);
+                        Admin.LogFormattedSuccess("Skipping extract lines: <{0}>", linesToRead);                        
+
+                        // Read and consume the lines
+                        extractSession.MarkNewBatch();
+                        var wrappers = CompositeWrapper.Parse(file, typeMap, linesToRead);
+                        extractSession.AddLines(wrappers);
+                    }
+                    Admin.LogFormattedSuccess("Skipped extract lines; total = <{0}>", extractSession.TotalReadLines);
+                }
             }
         }
 

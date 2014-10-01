@@ -55,6 +55,7 @@ namespace CprBroker.Providers.CPRDirect
 {
     public class ExtractParseSession
     {
+        public long TotalReadLines { get; private set; }
         public List<string> Pnrs { get; private set; }
         public List<LineWrapper> Lines { get; private set; }
         public StartRecordType StartWrapper { get; private set; }
@@ -71,6 +72,7 @@ namespace CprBroker.Providers.CPRDirect
 
         public ExtractParseSession()
         {
+            TotalReadLines = 0;
             Pnrs = new List<string>();
             Lines = new List<LineWrapper>();
             ErrorLines = new List<LineWrapper>();
@@ -128,6 +130,8 @@ namespace CprBroker.Providers.CPRDirect
             {
                 this.EndLine = endWrapperAndLine.Line;
             }
+
+            TotalReadLines += wrappers.Count;
         }
 
         public Extract ToExtract()

@@ -66,7 +66,7 @@ namespace CprBroker.Tests.CPRDirect.Tools
                 var wrappers = lines.Select(l => l.ToWrapper(Constants.DataObjectMap).Contents).ToArray();
                 var newText = string.Join("", wrappers);
 
-                var parseResult = new ExtractParseResult(newText, Constants.DataObjectMap);
+                var parseResult = new ExtractParseSession(newText, Constants.DataObjectMap);
                 var extract = parseResult.ToExtract();
                 var extractItems = parseResult.ToExtractItems(extract.ExtractId, Constants.DataObjectMap, Constants.RelationshipMap, Constants.MultiRelationshipMap);
                 Assert.AreEqual(lines.Length - 2, extractItems.Count);
@@ -79,7 +79,7 @@ namespace CprBroker.Tests.CPRDirect.Tools
                 var wrappers = lines.Select(l => l.ToWrapper(Constants.DataObjectMap).Contents).ToArray();
                 var newText = string.Join("", wrappers);
 
-                var parseResult = new ExtractParseResult(newText, Constants.DataObjectMap);
+                var parseResult = new ExtractParseSession(newText, Constants.DataObjectMap);
                 var extract = parseResult.ToExtract();
                 Assert.AreEqual(lines.First().Contents, extract.StartRecord);
             }
@@ -91,7 +91,7 @@ namespace CprBroker.Tests.CPRDirect.Tools
                 var wrappers = lines.Select(l => l.ToWrapper(Constants.DataObjectMap).Contents).ToArray();
                 var newText = string.Join("", wrappers);
 
-                var parseResult = new ExtractParseResult(newText, Constants.DataObjectMap);
+                var parseResult = new ExtractParseSession(newText, Constants.DataObjectMap);
                 var extract = parseResult.ToExtract();
                 Assert.AreEqual(lines.Last().Contents, extract.EndRecord);
             }
@@ -103,7 +103,7 @@ namespace CprBroker.Tests.CPRDirect.Tools
                 var wrappers = lines.Select(l => l.ToWrapper(Constants.DataObjectMap).Contents).ToArray();
                 var newText = string.Join("", wrappers);
 
-                var parseResult = new ExtractParseResult(newText, Constants.DataObjectMap);
+                var parseResult = new ExtractParseSession(newText, Constants.DataObjectMap);
                 var extract = parseResult.ToExtract();
                 var extractItems = parseResult.ToExtractItems(extract.ExtractId, Constants.DataObjectMap, Constants.RelationshipMap, Constants.MultiRelationshipMap);
                 var result = extractItems.Select(i => i.Contents).ToList();
@@ -126,7 +126,7 @@ namespace CprBroker.Tests.CPRDirect.Tools
                 var lines = LineWrapper.ParseBatch(Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE);
                 var wrappers = lines.Select(l => l.ToWrapper(Constants.DataObjectMap).Contents).ToArray();
                 var newText = string.Join("", wrappers);
-                var parseResult = new ExtractParseResult(newText, Constants.DataObjectMap);
+                var parseResult = new ExtractParseSession(newText, Constants.DataObjectMap);
 
                 var extract = parseResult.ToExtract("", true, 0);
                 var extractItems = parseResult.ToExtractItems(extract.ExtractId, Constants.DataObjectMap, Constants.RelationshipMap, Constants.MultiRelationshipMap);
@@ -145,7 +145,7 @@ namespace CprBroker.Tests.CPRDirect.Tools
                 var lines = LineWrapper.ParseBatch(Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE);
                 var wrappers = lines.Select(l => l.ToWrapper(Constants.DataObjectMap).Contents).ToArray();
                 var newText = string.Join("", wrappers);
-                var parseResult = new ExtractParseResult(newText, Constants.DataObjectMap);
+                var parseResult = new ExtractParseSession(newText, Constants.DataObjectMap);
 
                 var extract = parseResult.ToExtract("", true, 0);
                 var extractItems = parseResult.ToExtractItems(extract.ExtractId, Constants.DataObjectMap, Constants.RelationshipMap, Constants.MultiRelationshipMap);

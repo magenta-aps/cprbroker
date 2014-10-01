@@ -128,7 +128,7 @@ namespace CprBroker.DBR
         {
             using (var file = new StreamReader(dataStream, encoding))
             {
-                var extractResult = new ExtractParseResult();
+                var extractResult = new ExtractParseSession();
 
                 long totalReadLinesCount = 0;
                 using (var conn = new SqlConnection(connectionString))
@@ -232,7 +232,7 @@ namespace CprBroker.DBR
             var allPnrs = new List<string>();
             using (var file = new StreamReader(dataStream, encoding))
             {
-                var extractResult = new ExtractParseResult();
+                var extractResult = new ExtractParseSession();
 
                 long totalReadLinesCount = 0;
                 using (var conn = new SqlConnection(connectionString))
@@ -274,7 +274,7 @@ namespace CprBroker.DBR
             {
                 // TODO: This code reads the whole file at once, which could be extremely heavy for a computer (or even impossible),
                 // Code should utilise batchSize parameter
-                var extractResult = new ExtractParseResult(file.ReadToEnd(), CprBroker.Providers.CPRDirect.Constants.DataObjectMap);
+                var extractResult = new ExtractParseSession(file.ReadToEnd(), CprBroker.Providers.CPRDirect.Constants.DataObjectMap);
                 var extract = extractResult.ToExtract(filePath);
                 var extractItems = extractResult.ToExtractItems(
                     extract.ExtractId,
