@@ -86,10 +86,9 @@ namespace CprBroker.Providers.CPRDirect
 
         public static void ImportText(string text, string sourceFileName)
         {
-            var parseResult = new ExtractParseResult(text, Constants.DataObjectMap);
+            var parseResult = new ExtractParseSession(text, Constants.DataObjectMap);
             var extract = parseResult.ToExtract(sourceFileName);
-            var extractItems = parseResult.ToExtractItems(extract.ExtractId, Constants.DataObjectMap, Constants.RelationshipMap, Constants.MultiRelationshipMap);
-            var extractStaging = parseResult.ToExtractPersonStagings(extract.ExtractId);
+            var extractItems = parseResult.ToExtractItems(extract.ExtractId, Constants.DataObjectMap, Constants.RelationshipMap, Constants.MultiRelationshipMap);            
             var queueItems = parseResult.ToQueueItems(extract.ExtractId);
             var extractErrors = parseResult.ToExtractErrors(extract.ExtractId);
 
@@ -103,7 +102,6 @@ namespace CprBroker.Providers.CPRDirect
                     {
                         conn.BulkInsertAll<Extract>(new Extract[] { extract });
                         conn.BulkInsertAll<ExtractItem>(extractItems);
-                        //conn.BulkInsertAll<ExtractPersonStaging>(extractStaging);
                         conn.BulkInsertAll<ExtractError>(extractErrors);
                         trans.Commit();
                     }
@@ -146,19 +144,20 @@ namespace CprBroker.Providers.CPRDirect
                 var extractId = InitExtract(path);
                 SkipLines(file, extractId, typeMap);
 
+                ExtractParseSession extractSession = new ExtractParseSession();
                 while (!file.EndOfStream)
                 {
-                    ImportOneBatch(file, extractId, typeMap, batchSize);
+                    extractSession.MarkNewBatch();
+                    ImportOneBatch(file, extractId, extractSession, typeMap, batchSize);
                 }
             }
         }
 
-        private static void ImportOneBatch(StreamReader file, Guid extractId, Dictionary<string, Type> typeMap, int batchSize)
+        private static void ImportOneBatch(StreamReader file, Guid extractId, ExtractParseSession extractSession, Dictionary<string, Type> typeMap, int batchSize)
         {
             // Start reading the file
-            var extractResult = new ExtractParseResult();
             var wrappers = CompositeWrapper.Parse(file, typeMap, batchSize);
-            extractResult.AddLines(wrappers);
+            extractSession.AddLines(wrappers);
 
             // Database access
             using (var conn = new SqlConnection(ConfigManager.Current.Settings.CprBrokerConnectionString))
@@ -173,27 +172,27 @@ namespace CprBroker.Providers.CPRDirect
                     using (var transactionScope = CreateTransactionScope())
                     {
                         // Set start record
-                        if (string.IsNullOrEmpty(extract.StartRecord) && extractResult.StartWrapper != null)
+                        if (string.IsNullOrEmpty(extract.StartRecord) && extractSession.StartWrapper != null)
                         {
-                            extract.StartRecord = extractResult.StartWrapper.Contents;
-                            extract.ExtractDate = extractResult.StartWrapper.ProductionDate.Value;
+                            extract.StartRecord = extractSession.StartWrapper.Contents;
+                            extract.ExtractDate = extractSession.StartWrapper.ProductionDate.Value;
                         }
 
                         // Extract items and errors
-                        conn.BulkInsertAll<ExtractItem>(extractResult.ToExtractItems(extract.ExtractId, Constants.DataObjectMap, Constants.RelationshipMap, Constants.MultiRelationshipMap));
-                        conn.BulkInsertAll<ExtractError>(extractResult.ToExtractErrors(extract.ExtractId));
+                        conn.BulkInsertAll<ExtractItem>(extractSession.ToExtractItems(extract.ExtractId, Constants.DataObjectMap, Constants.RelationshipMap, Constants.MultiRelationshipMap));
+                        conn.BulkInsertAll<ExtractError>(extractSession.ToExtractErrors(extract.ExtractId));
 
                         // Staging queue
                         var stagingQueue = Queue.GetQueues<ExtractStagingQueue>().First();
-                        stagingQueue.Enqueue(extractResult.ToQueueItems(extract.ExtractId), semaphore);
+                        stagingQueue.Enqueue(extractSession.ToQueueItems(extract.ExtractId), semaphore);
 
                         // Update counts and commit
                         extract.ProcessedLines += wrappers.Count;
 
                         // End record and mark as ready, and signal the semaphore
-                        if (extractResult.EndLine != null)
+                        if (extractSession.EndLine != null)
                         {
-                            extract.EndRecord = extractResult.EndLine.Contents;
+                            extract.EndRecord = extractSession.EndLine.Contents;
                             extract.Ready = true;
                             semaphore.Signal();
                         }
@@ -219,8 +218,8 @@ namespace CprBroker.Providers.CPRDirect
                 if (extract == null)
                 {
                     semaphore = Semaphore.Create();
-                    var extractResult = new ExtractParseResult();
-                    extract = extractResult.ToExtract(path, false, 0, semaphore);
+                    var extractSession = new ExtractParseSession();
+                    extract = extractSession.ToExtract(path, false, 0, semaphore);
                     Admin.LogFormattedSuccess("Creating new extract <{0}>", extract.ExtractId);
                     dataContext.Extracts.InsertOnSubmit(extract);
                     dataContext.SubmitChanges();
