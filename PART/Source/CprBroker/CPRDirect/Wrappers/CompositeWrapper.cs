@@ -112,6 +112,32 @@ namespace CprBroker.Providers.CPRDirect
             return ret;
         }
 
+        public static long Skip(TextReader rd, Dictionary<string, Type> typeMap, long maxCount)
+        {
+            long ret = 0;
+
+            while (rd.Peek() > -1 && ret < maxCount)
+            {
+                string typeCode = Read(rd, Constants.DataObjectCodeLength);
+                Type type;
+                try
+                {
+                    type = typeMap[typeCode];
+                }
+                catch { throw; }
+                var wrapper = Utilities.Reflection.CreateInstance(type) as Wrapper;
+                Read(rd, wrapper.Length - typeCode.Length); // read line is irrelevant, just pushing the cursor
+                ret++;
+
+                // Consume new line characters
+                while (new int[] { 10, 13 }.Contains((int)rd.Peek()))
+                {
+                    rd.Read();
+                }
+            }
+            return ret;
+        }
+
         public virtual void FillPropertiesFromWrappers(IList<Wrapper> wrappersIList, params Wrapper[] extraWrappers)
         {
             var wrappers = new List<Wrapper>(wrappersIList);
