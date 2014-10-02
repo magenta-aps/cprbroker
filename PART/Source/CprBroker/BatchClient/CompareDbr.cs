@@ -32,12 +32,14 @@ namespace BatchClient
             }
         }
 
-        class TestInfo
+        public class TestInfo
         {
             public Type TestType;
             public Type DataType;
             public PropertyInfo[] Properties;
             public object TestInstance;
+            public MethodInfo CompareCountMethod;
+            public MethodInfo CompareContentsMethod;
 
             static TestInfo[] _All;
             public static TestInfo[] All()
@@ -70,6 +72,10 @@ namespace BatchClient
                                 t.TestInstance,
                                 null
                             ) as PropertyInfo[];
+
+                            t.CompareCountMethod = t.TestType.GetMethod("CompareCount");
+
+                            t.CompareContentsMethod = t.TestType.GetMethod("CompareContents");
                         }
                     );
                 }
@@ -92,30 +98,27 @@ namespace BatchClient
                         // Compare counts
                         try
                         {
-                            test.TestType.InvokeMember(
-                                "CompareCount",
-                                BindingFlags.Instance | BindingFlags.Public | BindingFlags.InvokeMethod,
-                                null,
+                            test.CompareCountMethod.Invoke(
                                 test.TestInstance,
                                 new object[] { pnr, realDataContext, dbrDataContext });
                         }
                         catch (Exception ex)
                         {
                             pass = false;
+                            while (ex.InnerException != null)
+                                ex = ex.InnerException;
+
                             Fail(
-                                    string.Format("{0} Count mismatch in <{1}>\r\n{2}", pnr, test.DataType.Name, ex.InnerException.Message),
-                                    ex.ToString());
+                                string.Format("{0} Count mismatch in <{1}>\r\n{2}", pnr, test.DataType.Name, ex.Message),
+                                ex.ToString());
                         }
-                        
+
                         // Compare contents
                         foreach (var prop in test.Properties)
                         {
                             try
                             {
-                                test.TestType.InvokeMember(
-                                    "CompareContents",
-                                    BindingFlags.Public | BindingFlags.Instance | BindingFlags.InvokeMethod,
-                                    null,
+                                test.CompareContentsMethod.Invoke(
                                     test.TestInstance,
                                     new object[] { prop, pnr, realDataContext, dbrDataContext }
                                     );
@@ -123,9 +126,10 @@ namespace BatchClient
                             catch (Exception ex)
                             {
                                 pass = false;
-                                Fail(string.Format("{0} {1}.{2}\r\n----------------------------------\r\n{3}\r\n", pnr, test.DataType.Name, prop.Name, ex.InnerException.Message), "");
+                                if (ex.InnerException != null)
+                                    ex = ex.InnerException;
+                                Fail(string.Format("{0} {1}.{2}\r\n----------------------------------\r\n{3}\r\n", pnr, test.DataType.Name, prop.Name, ex.Message), "");
                             }
-                            
                         }
                     }
                 }

@@ -24,11 +24,13 @@ namespace CprBroker.Tests.DBR.Comparison
             CprBroker.Tests.PartInterface.Utilities.UpdateConnectionString(CprBrokerConnectionString);
             if (CprBroker.Tests.PartInterface.Utilities.IsConsole)
             {
-                Console.Write("Real DPR connection string :");
-                RealDprDatabaseConnectionString = Console.ReadLine();
+                // TODO: Uncomment for nunit-console.exe
 
-                Console.Write("DBR (Generated) DPR connection string :");
-                FakeDprDatabaseConnectionString = Console.ReadLine();
+                //Console.Write("Real DPR connection string :");
+                //RealDprDatabaseConnectionString = Console.ReadLine();
+
+                //Console.Write("DBR (Generated) DPR connection string :");
+                //FakeDprDatabaseConnectionString = Console.ReadLine();
             }
         }
     }
