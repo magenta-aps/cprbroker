@@ -132,8 +132,6 @@ namespace BatchClient
             }
             if (!pass)
                 throw new Exception("Failed");
-
-
         }
 
         TableInfo[] _DprDataContextProperties;
