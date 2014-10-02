@@ -40,6 +40,7 @@ namespace BatchClient
             public object TestInstance;
             public MethodInfo CompareCountMethod;
             public MethodInfo CompareContentsMethod;
+            public MethodInfo GetObjectMethod;
 
             static TestInfo[] _All;
             public static TestInfo[] All()
@@ -76,6 +77,8 @@ namespace BatchClient
                             t.CompareCountMethod = t.TestType.GetMethod("CompareCount");
 
                             t.CompareContentsMethod = t.TestType.GetMethod("CompareContents");
+                            t.GetObjectMethod = t.TestType.GetMethod("Get");
+
                         }
                     );
                 }
@@ -114,21 +117,26 @@ namespace BatchClient
                         }
 
                         // Compare contents
+                        var realTable = (test.GetObjectMethod.Invoke(test.TestInstance, new object[] { realDataContext, pnr }) as IQueryable).Cast<object>().ToArray();
+                        var dbrTable = (test.GetObjectMethod.Invoke(test.TestInstance, new object[] { dbrDataContext, pnr }) as IQueryable).Cast<object>().ToArray();
+
+
                         foreach (var prop in test.Properties)
                         {
-                            try
+                            for (int i = 0; i < realTable.Length; i++)
                             {
-                                test.CompareContentsMethod.Invoke(
-                                    test.TestInstance,
-                                    new object[] { prop, pnr, realDataContext, dbrDataContext }
-                                    );
-                            }
-                            catch (Exception ex)
-                            {
-                                pass = false;
-                                if (ex.InnerException != null)
-                                    ex = ex.InnerException;
-                                Fail(string.Format("{0} {1}.{2}\r\n----------------------------------\r\n{3}\r\n", pnr, test.DataType.Name, prop.Name, ex.Message), "");
+                                var r = prop.GetValue(realTable[i], null);
+                                var d = prop.GetValue(dbrTable[i], null);
+                                
+                                if (!object.Equals(r, d))
+                                {
+                                    pass = false;
+                                    Fail(
+                                        string.Format("{0} {1}.{2}\r\n----------------------------------\r\nExpected<{3}>, Actual <{4}>\r\n",
+                                            pnr, test.DataType.Name, prop.Name,
+                                            r, d)
+                                        , "");
+                                }
                             }
                         }
                     }
