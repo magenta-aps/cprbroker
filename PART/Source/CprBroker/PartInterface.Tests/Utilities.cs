@@ -48,6 +48,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Configuration;
 using CprBroker.Schemas.Part;
 
 namespace CprBroker.Tests.PartInterface
@@ -142,7 +143,39 @@ namespace CprBroker.Tests.PartInterface
             {
                 return CprBroker.Utilities.Constants.BaseApplicationToken.ToString();
             }
-        }       
+        }
 
+        
+        public static bool _UpdateConnectionString = false;
+        
+        public static void UpdateConnectionString(string brokerConnectionString)
+        {
+            if (_UpdateConnectionString)
+                return;
+
+            Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            ConnectionStringsSection section = config.GetSection("connectionStrings") as ConnectionStringsSection;
+            Console.WriteLine("Setting connection string to : {0}", brokerConnectionString);
+            if (section == null)
+            {
+                section = new ConnectionStringsSection();
+                config.Sections.Add("connectionStrings", section);
+                config.Save();
+            }
+            var connStr = section.ConnectionStrings["CprBroker.Config.Properties.Settings.CprBrokerConnectionString"];
+            if (connStr == null)
+            {
+                connStr = new ConnectionStringSettings("CprBroker.Config.Properties.Settings.CprBrokerConnectionString", brokerConnectionString);
+                section.ConnectionStrings.Add(connStr);
+            }
+            else
+            {
+                connStr.ConnectionString = brokerConnectionString;
+            }
+            config.Save();
+            Console.WriteLine("Setting connection saved");
+
+            _UpdateConnectionString = true;
+        }
     }
 }

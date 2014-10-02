@@ -30,7 +30,7 @@ namespace CprBroker.Tests.DBR.Comparison
 
         static ComparisonTest()
         {
-            BatchClient.Utilities.UpdateConnectionString(CprBrokerConnectionString);
+            CprBroker.Tests.PartInterface.Utilities.UpdateConnectionString(CprBrokerConnectionString);
         }
 
         public abstract string[] LoadKeys();
@@ -56,10 +56,10 @@ namespace CprBroker.Tests.DBR.Comparison
                 .ToArray();
         }
 
-        public void CompareProperty(TObject fakeObject, TObject realObject, PropertyInfo prop)
+        public void CompareProperty(TObject realObject, TObject fakeObject, PropertyInfo prop)
         {
-            var f = prop.GetValue(fakeObject, null);
             var r = prop.GetValue(realObject, null);
+            var f = prop.GetValue(fakeObject, null);
             Assert.AreEqual(r, f, "{0}.{1}: Expected <{2}> but was<{3}>", prop.DeclaringType.Name, prop.Name, r, f);
         }
 
@@ -69,20 +69,24 @@ namespace CprBroker.Tests.DBR.Comparison
         [TestCaseSource("LoadKeys")]
         public void T1_CompareCount(string pnr)
         {
-            using (var fakeDprDataContext = CreateDataContext(FakeDprDatabaseConnectionString))
+            using (var realDprDataContext = CreateDataContext(RealDprDatabaseConnectionString))
             {
-                var fakeObjects = Get(fakeDprDataContext, pnr).ToArray();
-                using (var realDprDataContext = CreateDataContext(RealDprDatabaseConnectionString))
+                using (var fakeDprDataContext = CreateDataContext(FakeDprDatabaseConnectionString))
                 {
-                    var realObjects = Get(realDprDataContext, pnr).ToArray();
-                    Assert.GreaterOrEqual(fakeObjects.Length, realObjects.Length);
+                    CompareCount(pnr, realDprDataContext, fakeDprDataContext);
                 }
             }
         }
 
+        public void CompareCount(string pnr, TDataContext realDprDataContext, TDataContext fakeDprDataContext)
+        {
+            var realObjects = Get(realDprDataContext, pnr).ToArray();
+            var fakeObjects = Get(fakeDprDataContext, pnr).ToArray();
+            Assert.GreaterOrEqual(fakeObjects.Length, realObjects.Length);
+        }
+
         public virtual void ConvertObject(string key)
         { }
-
 
         [Test]
         public void T2_CompareContents(
@@ -90,19 +94,24 @@ namespace CprBroker.Tests.DBR.Comparison
             [ValueSource("LoadKeys")]string key)
         {
             ConvertObject(key);
-            using (var fakeDprDataContext = CreateDataContext(FakeDprDatabaseConnectionString))
+            using (var realDprDataContext = CreateDataContext(RealDprDatabaseConnectionString))
             {
-                var fakeObjects = Get(fakeDprDataContext, key).ToArray();
-                using (var realDprDataContext = CreateDataContext(RealDprDatabaseConnectionString))
+                using (var fakeDprDataContext = CreateDataContext(FakeDprDatabaseConnectionString))
                 {
-                    var realObjects = Get(realDprDataContext, key).ToArray();
-                    for (int i = 0; i < realObjects.Length; i++)
-                    {
-                        var r = realObjects[i];
-                        var f = fakeObjects[i];
-                        CompareProperty(f, r, property);
-                    }
+                    CompareContents(property, key, realDprDataContext, fakeDprDataContext);
                 }
+            }
+        }
+
+        public void CompareContents(PropertyInfo property, string key, TDataContext realDprDataContext, TDataContext fakeDprDataContext)
+        {
+            var realObjects = Get(realDprDataContext, key).ToArray();
+            var fakeObjects = Get(fakeDprDataContext, key).ToArray();
+            for (int i = 0; i < realObjects.Length; i++)
+            {
+                var r = realObjects[i];
+                var f = fakeObjects[i];
+                CompareProperty(r, f, property);
             }
         }
     }

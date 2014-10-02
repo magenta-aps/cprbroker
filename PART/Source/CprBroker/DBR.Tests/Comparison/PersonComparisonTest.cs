@@ -57,7 +57,6 @@ namespace CprBroker.Tests.DBR.Comparison.Person
         {
             var tableName = Utilities.DataLinq.GetTableName<TObject>();
             var propNames = string.Join(", ", GetPkColumnNames());
-            Console.WriteLine(propNames);
             return dataContext.Fill<TObject>(string.Format("select * from " + tableName + " WHERE PNR={0} ORDER BY " + propNames, key)).AsQueryable();
         }
 
