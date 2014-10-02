@@ -11,6 +11,7 @@ using CprBroker.Utilities;
 
 namespace CprBroker.Tests.DBR.Comparison.Person
 {
+    [Category("PersonComparison")]
     public abstract class PersonComparisonTest<TObject> : ComparisonTest<TObject, DPRDataContext>
         where TObject : new()
     {
@@ -20,21 +21,39 @@ namespace CprBroker.Tests.DBR.Comparison.Person
         {
             if (KeysHolder._Keys == null)
             {
-                using (var dataContext = new ExtractDataContext(CprBrokerConnectionString))
+                if (CprBroker.Tests.PartInterface.Utilities.IsConsole)
                 {
-                    if (timesRun < 1)
+                    Console.WriteLine("Loading PNRS");
+                    using (var dataContext = new DPRDataContext(RealDprDatabaseConnectionString))
                     {
-                        Random random = new Random();
-                        randomTestNumber = random.Next(85416); // We have 85426 records in the Extract table.
-                        timesRun++;
+                        KeysHolder._Keys = dataContext
+                            .PersonTotals
+                            .Select(p => p.PNR)
+                            .ToArray()
+                            .Select(p => p.ToPnrDecimalString())
+                            .ToArray();
+                        Console.WriteLine("Found PNRs <{0}>", KeysHolder._Keys.Count());
                     }
-                    else
-                        timesRun = 0;
-                    KeysHolder._Keys = dataContext.ExecuteQuery<string>("select * FROM DbrPerson ORDER BY PNR").Skip(randomTestNumber).Take(10).ToArray();
-                    //return dataContext.ExtractItems.Select(ei => ei.PNR).Distinct().ToArray();
+                }
+                else
+                {
+                    using (var dataContext = new ExtractDataContext(CprBrokerConnectionString))
+                    {
+                        if (timesRun < 1)
+                        {
+                            Random random = new Random();
+                            randomTestNumber = random.Next(85416); // We have 85426 records in the Extract table.
+                            timesRun++;
+                        }
+                        else
+                            timesRun = 0;
+                        KeysHolder._Keys = dataContext.ExecuteQuery<string>("select * FROM DbrPerson ORDER BY PNR").Skip(randomTestNumber).Take(10).ToArray();
+                        //return dataContext.ExtractItems.Select(ei => ei.PNR).Distinct().ToArray();
+                    }
                 }
             }
             return KeysHolder._Keys;
+
         }
 
         public override void ConvertObject(string pnr)

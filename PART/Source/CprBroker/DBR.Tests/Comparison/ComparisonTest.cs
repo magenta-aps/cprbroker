@@ -13,12 +13,30 @@ using CprBroker.Utilities;
 using CprBroker.PartInterface;
 namespace CprBroker.Tests.DBR.Comparison
 {
-    public abstract class ComparisonTest<TObject, TDataContext>
-        where TDataContext : System.Data.Linq.DataContext
+    public abstract class ComparisonTestBase
     {
         public static string CprBrokerConnectionString = "data source=tcp:ltkcprtest\\sqlexpress; database=cprbroker;  integrated security=sspi";
         public static string RealDprDatabaseConnectionString = "data source=tcp:ltkcprtest\\sqlexpress; database=dbr_source; integrated security=sspi";
         public static string FakeDprDatabaseConnectionString = "data source=tcp:ltkcprtest\\sqlexpress; database=dbr_target; integrated security=sspi";
+
+        static ComparisonTestBase()
+        {
+            CprBroker.Tests.PartInterface.Utilities.UpdateConnectionString(CprBrokerConnectionString);
+            if (CprBroker.Tests.PartInterface.Utilities.IsConsole)
+            {
+                Console.Write("Real DPR connection string :");
+                RealDprDatabaseConnectionString = Console.ReadLine();
+
+                Console.Write("DBR (Generated) DPR connection string :");
+                FakeDprDatabaseConnectionString = Console.ReadLine();
+            }
+        }
+    }
+
+    [Category("Comnparison")]
+    public abstract class ComparisonTest<TObject, TDataContext> : ComparisonTestBase
+        where TDataContext : System.Data.Linq.DataContext
+    {
 
         public virtual string[] ExcludedProperties
         {
@@ -26,11 +44,6 @@ namespace CprBroker.Tests.DBR.Comparison
             {
                 return new string[] { };
             }
-        }
-
-        static ComparisonTest()
-        {
-            CprBroker.Tests.PartInterface.Utilities.UpdateConnectionString(CprBrokerConnectionString);
         }
 
         public abstract string[] LoadKeys();
