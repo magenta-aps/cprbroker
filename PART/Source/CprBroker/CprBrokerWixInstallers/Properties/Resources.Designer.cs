@@ -97,21 +97,45 @@ namespace CprBrokerWixInstallers.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to /****** Object:  Table [dbo].[DataProvider]    Script Date: 11/21/2013 10:16:51 ******/
+        ///   Looks up a localized string similar to IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N&apos;[dbo].[BudgetInterval]&apos;) AND type in (N&apos;U&apos;))
+        ///BEGIN
+        ///    CREATE TABLE [dbo].[BudgetInterval](
+        ///	    [IntervalMilliseconds] [bigint] NOT NULL
+        ///            CONSTRAINT [PK_BudgetInterval] PRIMARY KEY CLUSTERED ([IntervalMilliseconds] ASC),
+        ///	    [Name] [varchar](50) NOT NULL,
+        ///	    [CallThreshold] [int] NULL,
+        ///	    [CostThreshold] [decimal](18, 4) NULL,
+        ///	    [LastChecked] [datetime] NULL
+        ///    ) ON [PRIMARY]
+        ///END
+        ///
+        ///GO
+        ///.
+        /// </summary>
+        public static string BudgetInterval {
+            get {
+                return ResourceManager.GetString("BudgetInterval", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /****** Object:  Table [dbo].[BudgetInterval]    Script Date: 11/28/2013 16:33:20 ******/
         ///SET ANSI_NULLS ON
         ///GO
+        ///
         ///SET QUOTED_IDENTIFIER ON
         ///GO
-        ///IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N&apos;[dbo].[DataProvider]&apos;) AND type in (N&apos;U&apos;))
-        ///BEGIN
-        ///CREATE TABLE [dbo].[DataProvider](
-        ///	[DataProviderId] [uniqueidentifier] NOT NULL,
-        ///	[TypeName] [varchar](250) NOT NULL,
-        ///	[Ordinal] [int] NOT NULL,
-        ///	[Data] [image] NULL,
-        ///	[IsExternal] [bit] NOT NULL,
-        ///	[IsEnabled] [bit] NOT NULL,
-        /// CONSTRAINT [P [rest of string was truncated]&quot;;.
+        ///
+        ///CREATE TABLE [dbo].[BudgetInterval](
+        ///	[IntervalMilliseconds] [bigint] NOT NULL,
+        ///	[Name] [varchar](50) NOT NULL,
+        ///	[CallThreshold] [int] NULL,
+        ///	[CostThreshold] [decimal](18, 4) NULL,
+        ///	[LastChecked] [datetime] NULL,
+        /// CONSTRAINT [PK_BudgetInterval] PRIMARY KEY CLUSTERED 
+        ///(
+        ///	[IntervalMilliseconds] ASC
+        ///)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, I [rest of string was truncated]&quot;;.
         /// </summary>
         public static string CreatePartDatabaseObjects {
             get {
