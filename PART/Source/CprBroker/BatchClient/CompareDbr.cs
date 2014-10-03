@@ -127,14 +127,14 @@ namespace BatchClient
                             {
                                 var r = prop.GetValue(realTable[i], null);
                                 var d = prop.GetValue(dbrTable[i], null);
-                                
+
                                 if (!object.Equals(r, d))
                                 {
                                     pass = false;
                                     Fail(
-                                        string.Format("{0} {1}.{2}\r\n----------------------------------\r\nExpected<{3}>, Actual <{4}>\r\n",
-                                            pnr, test.DataType.Name, prop.Name,
-                                            r, d)
+                                        string.Format("{0} {1}.{2}[{3}]\r\n   {4}",
+                                            pnr, test.DataType.Name, prop.Name, i,
+                                            ExpectedActual(r, d))
                                         , "");
                                 }
                             }
@@ -144,6 +144,15 @@ namespace BatchClient
             }
             if (!pass)
                 throw new Exception("Failed");
+        }
+
+        string ExpectedActual(object r, object d)
+        {
+            if (r == null)
+                r = "NULL";
+            if (d == null)
+                d = "NULL";
+            return string.Format("Expected <{0}>, Actual <{1}>", r, d);
         }
 
         TableInfo[] _DprDataContextProperties;
