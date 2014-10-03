@@ -266,7 +266,7 @@ namespace CprBrokerWixInstallers
                     new DatabasePatchInfo(){ 
                         Version = new Version(2,2,2),
                         SqlScript = Properties.Resources.PatchDatabase_2_2_2,
-                        PatchAction = conn=> DatabaseCustomAction.InsertLookup<CprBroker.Data.DataProviders.BudgetInterval>(Properties.Resources.BudgetEntry, conn) 
+                        PatchAction = conn=> DatabaseCustomAction.InsertLookup<CprBroker.Data.DataProviders.BudgetInterval>(Properties.Resources.BudgetInterval_Csv, conn) 
                     },
                     new DatabasePatchInfo(){ 
                         Version = new Version(2,2,3),

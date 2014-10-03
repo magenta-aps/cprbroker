@@ -87,7 +87,7 @@ namespace CprBrokerWixInstallers.Properties
                 cprLookups.Add(new KeyValuePair<string, string>(CprBroker.Utilities.DataLinq.GetTableName<Application>(), Properties.Resources.Application));
                 cprLookups.Add(new KeyValuePair<string, string>(CprBroker.Utilities.DataLinq.GetTableName<LifecycleStatus>(), Properties.Resources.LifecycleStatus));
                 cprLookups.Add(new KeyValuePair<string, string>(CprBroker.Utilities.DataLinq.GetTableName<LogType>(), Properties.Resources.LogType));
-                cprLookups.Add(new KeyValuePair<string, string>(CprBroker.Utilities.DataLinq.GetTableName<BudgetInterval>(), Properties.Resources.BudgetEntry));
+                cprLookups.Add(new KeyValuePair<string, string>(CprBroker.Utilities.DataLinq.GetTableName<BudgetInterval>(), Properties.Resources.BudgetInterval_Csv));
                 cprLookups.Add(new KeyValuePair<string, string>(CprBroker.Utilities.DataLinq.GetTableName<DbQueue>(), Properties.Resources.Queue_Csv));
 
                 return cprLookups.ToArray();
