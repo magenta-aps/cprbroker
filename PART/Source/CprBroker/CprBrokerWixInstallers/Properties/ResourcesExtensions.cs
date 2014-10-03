@@ -66,6 +66,7 @@ namespace CprBrokerWixInstallers.Properties
                     Resources.Extract,                    
                     Resources.Queue,
                     Resources.QueueItem,
+                    Resources.DataProviderCall,
                     Resources.CreatePartDatabaseObjects
                 };
 
