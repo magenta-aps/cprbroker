@@ -73,13 +73,15 @@ namespace CprBroker.DBR.Extensions
                             pt.AddressDate = CprBroker.Utilities.Dates.DateToDecimal(resp.CurrentAddressInformation.RelocationDate.Value, 12);
                         if (resp.CurrentAddressInformation.MunicipalityArrivalDate.HasValue)
                             pt.MunicipalityArrivalDate = CprBroker.Utilities.Dates.DateToDecimal(resp.CurrentAddressInformation.MunicipalityArrivalDate.Value, 12);
+                        else
+                            pt.MunicipalityArrivalDate = 0;
                         if (resp.CurrentAddressInformation.LeavingMunicipalityDepartureDate.HasValue)
                         {
                             pt.MunicipalityLeavingDate = CprBroker.Utilities.Dates.DateToDecimal(resp.CurrentAddressInformation.LeavingMunicipalityDepartureDate.Value, 12);
                         }
                         else
                         {
-                            pt.MunicipalityLeavingDate = null;
+                            pt.MunicipalityLeavingDate = 0;
                         }
                         if (!string.IsNullOrEmpty(resp.CurrentAddressInformation.CareOfName))
                             pt.CareOfName = resp.CurrentAddressInformation.CareOfName;
@@ -146,6 +148,8 @@ namespace CprBroker.DBR.Extensions
             pt.PostCode = resp.ClearWrittenAddress.PostCode;
             if (string.IsNullOrEmpty(resp.ClearWrittenAddress.PostDistrictText))
                 pt.PostDistrictName = resp.ClearWrittenAddress.PostDistrictText;
+            else
+                pt.PostDistrictName = null;
             var voting = resp.ElectionInformation.OrderByDescending(e => e.ElectionInfoStartDate).FirstOrDefault();
 
             if (voting != null && voting.VotingDate.HasValue)
