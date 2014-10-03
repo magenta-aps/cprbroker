@@ -220,7 +220,6 @@ namespace CprBroker.DBR.Extensions
                 pt.Occupation = null;
             pt.NationalityRight = Authority.GetAuthorityNameByCode(resp.CurrentCitizenship.CountryCode.ToString());
 
-            // * WE DON'T SET THE PreviousAddress FIELD, BECAUSE IT IS NOT USED, AT THE MOMENT, AND WILL TAKE SOME TIME TO IMPLEMENT.
             var previousAddresses = resp.HistoricalAddress
                 .Where(e => (e as CprBroker.Schemas.Part.IHasCorrectionMarker).CorrectionMarker == CprBroker.Schemas.Part.CorrectionMarker.OK)
                 .OrderByDescending(e => e.RelocationDate);
@@ -228,14 +227,29 @@ namespace CprBroker.DBR.Extensions
             var prevAddress = previousAddresses.FirstOrDefault();
             if (prevAddress != null)
             {
-                pt.PreviousAddress = string
-                    .Format("{0} {1},{2} {3} ({4})",
+                Console.WriteLine("Prev kom <{0}>", Authority.GetAuthorityAddressByCode(prevAddress.MunicipalityCode.ToString()));
+
+                var prevAdrStr = string.Format("{0} {1}",
                         Street.GetAddressingName(dataContext.Connection.ConnectionString, prevAddress.MunicipalityCode, prevAddress.StreetCode),
-                        prevAddress.HouseNumber.TrimStart('0', ' '),
-                        prevAddress.Floor.TrimStart('0', ' '),
-                        prevAddress.Door.TrimStart('0', ' '),
-                        Authority.GetAuthorityNameByCode(prevAddress.MunicipalityCode.ToString())
-                    ).Trim();
+                        System.Text.RegularExpressions.Regex.Replace(
+                            prevAddress.HouseNumber.TrimStart('0', ' '), 
+                            "(?<num>\\d+)(?<char>[a-zA-Z]+)", 
+                            "${num} ${char}"));
+
+                var floorDoor = string.Format("{0} {1}",
+                    prevAddress.Floor.TrimStart('0', ' '),
+                    prevAddress.Door.TrimStart('0', ' '))
+                 .Trim();
+
+                if (!string.IsNullOrEmpty(floorDoor))
+                    prevAdrStr += "," + floorDoor;
+
+                var kom = Authority.GetAuthorityAddressByCode(prevAddress.MunicipalityCode.ToString());
+                if (!string.IsNullOrEmpty(kom))
+                    prevAdrStr += string.Format(" ({0})", kom);
+
+                pt.PreviousAddress = prevAdrStr;
+
                 if (string.IsNullOrEmpty(pt.CurrentMunicipalityName))
                     pt.CurrentMunicipalityName = Authority.GetAuthorityNameByCode(prevAddress.MunicipalityCode.ToString());
             }

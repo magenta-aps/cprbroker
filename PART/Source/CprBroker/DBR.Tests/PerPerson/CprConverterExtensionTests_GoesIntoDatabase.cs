@@ -19,7 +19,7 @@ namespace CprBroker.Tests.DBR.PerPerson
             var pers = PersonBaseTest.Persons[pnr];
             using (var dataContext = new DPRDataContext(DbrDatabase.ConnectionString))
             {
-                dataContext.PersonTotals.InsertOnSubmit(pers.ToPersonTotal());
+                dataContext.PersonTotals.InsertOnSubmit(null);
                 dataContext.SubmitChanges();
             }
         }
