@@ -105,6 +105,7 @@
     <None Include="Resources\Queue.csv" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\DataProvider.sql" />
     <Content Include="Resources\DataProviderCall.sql" />
     <Content Include="Resources\Extract.sql" />
     <Content Include="Resources\PatchDatabase_2_2_2.sql" />

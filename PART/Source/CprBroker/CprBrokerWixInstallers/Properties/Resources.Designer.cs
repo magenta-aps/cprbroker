@@ -120,16 +120,37 @@ namespace CprBrokerWixInstallers.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N&apos;[dbo].[DataProvider]&apos;) AND type in (N&apos;U&apos;))
+        ///BEGIN
+        ///    CREATE TABLE [dbo].[DataProvider](
+        ///	    [DataProviderId] [uniqueidentifier] NOT NULL
+        ///            CONSTRAINT [PK_DataProvider] PRIMARY KEY CLUSTERED ([DataProviderId] ASC),
+        ///	    [TypeName] [varchar](250) NOT NULL,
+        ///	    [Ordinal] [int] NOT NULL,
+        ///	    [Data] [image] NULL,
+        ///	    [IsExternal] [bit] NOT NULL,
+        ///	    [IsEnabled] [bit] NOT NULL
+        ///    ) ON [PRIMARY] 
+        ///END
+        ///GO
+        ///.
+        /// </summary>
+        public static string DataProvider {
+            get {
+                return ResourceManager.GetString("DataProvider", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N&apos;[dbo].[DataProviderCall]&apos;) AND type in (N&apos;U&apos;))
         ///BEGIN
         ///    CREATE TABLE [dbo].[DataProviderCall](
         ///	    [DataProviderCallId] [uniqueidentifier] NOT NULL
+        ///            CONSTRAINT [DF_DataProviderCall_DataProviderCallId]  DEFAULT (newid())
         ///            CONSTRAINT [PK_DataProviderCall] PRIMARY KEY NONCLUSTERED ([DataProviderCallId] ASC),
         ///	    [ActivityId] [uniqueidentifier] NOT NULL,
-        ///	    [CallTime] [datetime] NOT NULL,
-        ///	    [DataProviderType] [varchar](250) NOT NULL,
-        ///	    [Cost] [decimal](18, 4) NOT NULL,
-        ///	    [Operat [rest of string was truncated]&quot;;.
+        ///	    [CallTime] [datetime] NOT NULL
+        ///            CONSTRA [rest of string was truncated]&quot;;.
         /// </summary>
         public static string DataProviderCall {
             get {
