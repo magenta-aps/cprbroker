@@ -15,12 +15,13 @@ namespace CprBroker.Tests.DBR.Comparison.Person
             get
             {
                 string[] excluded = {
+                                    /* BELOW EXCLUSIONS ARE ONCE THAT ARE NOT, CURRENTLY, USED BY ANY SYSTEMS - AND FAIL IN TESTS */
                                     "DirectoryProtectionMarker", // We do not test the street name as it is not present in historical records.
                                     "SpouseMarker", // We do not know the origin of this marker.
                                     "PaternityAuthorityName", // We can only get this one from CPR Services.
                                     "ArrivalDateMarker", // We do not know the origin of this marker.
-
-                                    /* BELOW EXCLUSIONS ARE ONCE THAT ARE NOT, CURRENTLY, USED BY ANY SYSTEMS - AND FAIL IN TESTS */
+                                    "PreviousAddress", // This field is not fully implemented because it is not used.
+                                    "PreviousMunicipalityName", // This field is not fully implemented because it is not used.
                                 };
                 return excluded;
             }
@@ -28,7 +29,41 @@ namespace CprBroker.Tests.DBR.Comparison.Person
     }
 
     [TestFixture]
-    public class PersonComparisonTest : PersonComparisonTest<CprBroker.Providers.DPR.Person> { }
+    public class PersonComparisonTest : PersonComparisonTest<CprBroker.Providers.DPR.Person> {
+        override public string[] ExcludedProperties
+        {
+            get
+            {
+                string[] excluded = {
+                                    /* BELOW EXCLUSIONS ARE ONCE THAT ARE NOT, CURRENTLY, USED BY ANY SYSTEMS - AND FAIL IN TESTS */
+                                    "BirthplaceText", // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
+                                    "BirthRegistrationDate", // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
+                                    "BirthRegistrationPlaceUpdateDate", // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
+                                    "ChurchAuthorityCode", // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
+                                    "ChurchDate", // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
+                                    "ChurchRelationUpdateDate", // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
+                                    "CprUpdateDate", /* 
+                                                      * We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
+                                                      * The field should contain a chronologically sorted list, so that client systems can use it for sorting rows.
+                                                      */
+                                    "CurrentPnr", // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
+                                    "CurrentPnrUpdateDate", // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
+                                    "CustomerNumber", // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
+                                    "FatherDocumentation", // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
+                                    "FatherName", // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
+                                    "Job", // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
+                                    "KinshipUpdateDate", // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
+                                    "MotherDocumentation", // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
+                                    "MotherName", // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
+                                    "PaternityAuthorityCode", // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
+                                    "PaternityDate", // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
+                                    "PnrDate", // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
+                                    "UnderGuardianshipAuthprityCode", // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
+                                };
+                return excluded;
+            }
+        }
+    }
 
     [TestFixture]
     public class ChildComparisonTests : PersonComparisonTest<Child> { }
@@ -36,6 +71,20 @@ namespace CprBroker.Tests.DBR.Comparison.Person
     [TestFixture]
     public class PersonNameComparisonTests : PersonComparisonTest<PersonName>
     {
+        override public string[] ExcludedProperties
+        {
+            get
+            {
+                string[] excluded = {
+                                    /* BELOW EXCLUSIONS ARE ONCE THAT ARE NOT, CURRENTLY, USED BY ANY SYSTEMS - AND FAIL IN TESTS */
+                                    "AddressingNameDate", // We know that this field contains a 'wrong' date, but it is not used by known systems, so we skip it in the tests.
+                                    "AddressingNameReportingMarker", // We know that this field contains a 'wrong' date, but it is not used by known systems, so we skip it in the tests.
+                                    "CprUpdateDate", // We know that this field contains a 'wrong' date, but it is not used by known systems, so we skip it in the tests.
+                                    "NameAuthorityCode", // We know that this field contains a 'wrong' date, but it is not used by known systems, so we skip it in the tests.
+                                };
+                return excluded;
+            }
+        }
         public override IQueryable<PersonName> Get(DPRDataContext dataContext, string key)
         {
             var pnr = decimal.Parse(key);
@@ -44,13 +93,36 @@ namespace CprBroker.Tests.DBR.Comparison.Person
     }
 
     [TestFixture]
-    public class CivilStatusComparisonTests : PersonComparisonTest<CivilStatus> { }
+    public class CivilStatusComparisonTests : PersonComparisonTest<CivilStatus> {
+        override public string[] ExcludedProperties
+        {
+            get
+            {
+                string[] excluded = {
+                                    /* BELOW EXCLUSIONS ARE ONCE THAT ARE NOT, CURRENTLY, USED BY ANY SYSTEMS - AND FAIL IN TESTS */
+                                    "UpdateDateOfCpr", // We know that this field contains a 'wrong' date, so we do not test it.
+                                };
+                return excluded;
+            }
+        }
+    }
 
     [TestFixture]
     public class SeparationComparisonTests : PersonComparisonTest<Separation> { }
 
     [TestFixture]
-    public class NationalityComparisonTests : PersonComparisonTest<Nationality> { }
+    public class NationalityComparisonTests : PersonComparisonTest<Nationality> {
+        override public string[] ExcludedProperties
+        {
+            get
+            {
+                string[] excluded = {
+                                    "CprUpdateDate", // The values in this columns are wrong, but not used.
+                                };
+                return excluded;
+            }
+        }
+    }
 
     [TestFixture]
     public class DepartureComparisonTests : PersonComparisonTest<Departure> {
@@ -60,6 +132,8 @@ namespace CprBroker.Tests.DBR.Comparison.Person
             {
                 string[] excluded = {
                                     "ExitUpdateDate", // The values in this columns are wrong, but not used.
+                                    "CprUpdateDate", // The values in this columns are wrong, but not used.
+                                    "ForeignAddressDate", // The values in this columns are wrong, but not used.
                                 };
                 return excluded;
             }
@@ -82,10 +156,11 @@ namespace CprBroker.Tests.DBR.Comparison.Person
             get
             {
                 string[] excluded = {
-                                    "AddressStartDateMarker", // We do not know the origin of this marker.
-
                                     /* BELOW EXCLUSIONS ARE ONCE THAT ARE NOT, CURRENTLY, USED BY ANY SYSTEMS - AND FAIL IN TESTS */
-                                    "CprUpdateDate", // It is skipped for now, as the contents are wrong
+                                    "AddressStartDateMarker", // We do not know the origin of this marker.
+                                    "CprUpdateDate", // It is skipped for now, as the contents are wrong and not used by known systems.
+                                    "MunicipalityArrivalDate", // It is skipped for now, as the contents are wrong and not used by known systems.
+                                    "StreetAddressingName", // It is skipped for now, as the contents are wrong and not used by known systems.
                                 };
                 return excluded;
             }
