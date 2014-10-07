@@ -160,7 +160,7 @@
     <Compile Include="Trace\LocalTraceListener.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataProviderManager.cs" />
+    <Compile Include="DataProviderFactory.cs" />
     <Compile Include="FacadeMethodInfo.cs" />
     <Compile Include="Local\ApplicationDataProvider.cs" />
     <Compile Include="SubMethodInfo.cs" />

@@ -63,8 +63,9 @@ namespace CprBroker.EventBroker.Notifications
 
             try
             {
-                var dbProv = CprBroker.Engine.DataProviderManager.ReadDatabaseDataProviders();
-                var result = CprBroker.Engine.DataProviderManager.LoadExternalDataProviders(dbProv, typeof(CPRDirectExtractDataProvider)).Select(p => p as CPRDirectExtractDataProvider).ToArray();
+                var providerFactory = new CprBroker.Engine.DataProviderFactory();
+                var dbProv = providerFactory.ReadDatabaseDataProviders();
+                var result = providerFactory.LoadExternalDataProviders(dbProv, typeof(CPRDirectExtractDataProvider)).Select(p => p as CPRDirectExtractDataProvider).ToArray();
 
                 Admin.LogFormattedSuccess("Found {0} CPR Direct providers", result.Length);
 

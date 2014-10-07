@@ -17,13 +17,13 @@ namespace CprBroker.Tests.Engine
             [ExpectedException]
             public void CreateDataProvider_Null_ThrowsException()
             {
-                DataProviderManager.CreateDataProvider(null);
+                new DataProviderFactory().CreateDataProvider(null);
             }
 
             [Test]
             public void CreateDataProvider_FakeType_ReturnsNull()
             {
-                var result = DataProviderManager.CreateDataProvider(new DataProvider() { TypeName = "kaaklsdflksah" });
+                var result = new DataProviderFactory().CreateDataProvider(new DataProvider() { TypeName = "kaaklsdflksah" });
                 Assert.Null(result);
             }
 
@@ -31,7 +31,7 @@ namespace CprBroker.Tests.Engine
             public void CreateDataProvider_RealInvalidType_ReturnsNull(
                 [Values(typeof(object), typeof(LocalDataProviderStub))]Type type)
             {
-                var result = DataProviderManager.CreateDataProvider(new DataProvider() { TypeName = type.AssemblyQualifiedName });
+                var result = new DataProviderFactory().CreateDataProvider(new DataProvider() { TypeName = type.AssemblyQualifiedName });
                 Assert.Null(result);
             }
 
@@ -39,7 +39,7 @@ namespace CprBroker.Tests.Engine
             public void CreateDataProvider_RealCorrectType_ReturnsNotNull(
                 [Values(typeof(CustomExternalDataProviderStub))]Type type)
             {
-                var result = DataProviderManager.CreateDataProvider(new DataProvider() { TypeName = type.AssemblyQualifiedName });
+                var result = new DataProviderFactory().CreateDataProvider(new DataProvider() { TypeName = type.AssemblyQualifiedName });
                 Assert.NotNull(result);
             }
 
@@ -50,7 +50,7 @@ namespace CprBroker.Tests.Engine
                 {
                     TypeName = typeof(DataProviderWithNewConfigProperty).AssemblyQualifiedName
                 };
-                var createdProvider = DataProviderManager.CreateDataProvider(dbProvider) as DataProviderWithNewConfigProperty;
+                var createdProvider = new DataProviderFactory().CreateDataProvider(dbProvider) as DataProviderWithNewConfigProperty;
                 createdProvider.PropertyType = DataProviderConfigPropertyInfoTypes.Boolean;
                 var result = createdProvider.BooleanPropertyValue;
 
