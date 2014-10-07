@@ -21,7 +21,9 @@ namespace CprBroker.Web.Controls
             {
                 SmartTextBox smartTextBox = item.FindControl("SmartTextBox") as SmartTextBox;
                 string propName = EditDataList.DataKeys[item.ItemIndex].ToString();
-                props[propName] = smartTextBox.Text;
+                // skip empty encrypted properties
+                if (!smartTextBox.Confidential || !String.IsNullOrEmpty(smartTextBox.Text))
+                    props[propName] = smartTextBox.Text;
             }
             return props;
         }

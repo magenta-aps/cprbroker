@@ -62,12 +62,6 @@ namespace CprBroker.Providers.CPRDirect
 {
     public static class ExtractManager
     {
-        public static void ImportFile(string path)
-        {
-            var text = File.ReadAllText(path, Constants.ExtractEncoding);
-            ImportText(text, path);
-        }
-
         public static void ImportText(string text)
         {
             ImportText(text, "");
@@ -86,28 +80,20 @@ namespace CprBroker.Providers.CPRDirect
 
         public static void ImportText(string text, string sourceFileName)
         {
-            var parseResult = new ExtractParseResult(text, Constants.DataObjectMap);
+            var parseResult = new ExtractParseSession(text, Constants.DataObjectMap);
             var extract = parseResult.ToExtract(sourceFileName);
             var extractItems = parseResult.ToExtractItems(extract.ExtractId, Constants.DataObjectMap, Constants.RelationshipMap, Constants.MultiRelationshipMap);
-            var extractStaging = parseResult.ToExtractPersonStagings(extract.ExtractId);
             var queueItems = parseResult.ToQueueItems(extract.ExtractId);
             var extractErrors = parseResult.ToExtractErrors(extract.ExtractId);
 
-            using (var transactionScope = CreateTransactionScope())
+            using (var conn = new SqlConnection(ConfigManager.Current.Settings.CprBrokerConnectionString))
             {
-                using (var conn = new SqlConnection(ConfigManager.Current.Settings.CprBrokerConnectionString))
+                conn.Open();
+                using (var transactionScope = CreateTransactionScope())
                 {
-                    conn.Open();
-
-                    using (var trans = conn.BeginTransaction(System.Data.IsolationLevel.ReadUncommitted))
-                    {
-                        conn.BulkInsertAll<Extract>(new Extract[] { extract });
-                        conn.BulkInsertAll<ExtractItem>(extractItems);
-                        //conn.BulkInsertAll<ExtractPersonStaging>(extractStaging);
-                        conn.BulkInsertAll<ExtractError>(extractErrors);
-                        trans.Commit();
-                    }
-
+                    conn.BulkInsertAll<Extract>(new Extract[] { extract });
+                    conn.BulkInsertAll<ExtractItem>(extractItems);
+                    conn.BulkInsertAll<ExtractError>(extractErrors);
 
                     var stagingQueue = CprBroker.Engine.Queues.Queue.GetQueues<ExtractStagingQueue>(ExtractStagingQueue.QueueId).First();
                     stagingQueue.Enqueue(queueItems);
@@ -118,8 +104,8 @@ namespace CprBroker.Providers.CPRDirect
                         extract.Ready = true;
                         dataContext.SubmitChanges();
                     }
+                    transactionScope.Complete();
                 }
-                transactionScope.Complete();
             }
         }
 
@@ -139,106 +125,129 @@ namespace CprBroker.Providers.CPRDirect
 
         public static void ImportFileInSteps(Stream dataStream, string path, int batchSize, Encoding encoding)
         {
-            var allPnrs = new List<string>();
+            var typeMap = Constants.DataObjectMap;
             using (var file = new StreamReader(dataStream, encoding))
             {
-                var extractResult = new ExtractParseResult();
+                // Init extract and skip already read lines
+                ExtractParseSession extractSession = new ExtractParseSession();
+                var extractId = InitExtract(path, extractSession);
+                SkipLines(file, extractId, extractSession, typeMap, batchSize);
 
-                long totalReadLinesCount = 0;
-                using (var conn = new SqlConnection(ConfigManager.Current.Settings.CprBrokerConnectionString))
+                while (!file.EndOfStream)
                 {
-                    conn.Open();
-                    using (var dataContext = new ExtractDataContext(conn))
+                    extractSession.MarkNewBatch();
+                    ImportOneBatch(file, extractId, extractSession, typeMap, batchSize);
+                }
+            }
+        }
+
+        private static void ImportOneBatch(StreamReader file, Guid extractId, ExtractParseSession extractSession, Dictionary<string, Type> typeMap, int batchSize)
+        {
+            // Start reading the file
+            var wrappers = CompositeWrapper.Parse(file, typeMap, batchSize);
+            extractSession.AddLines(wrappers);
+
+            // Database access
+            using (var conn = new SqlConnection(ConfigManager.Current.Settings.CprBrokerConnectionString))
+            {
+                conn.Open();
+                using (var dataContext = new ExtractDataContext(conn))
+                {
+                    var extract = dataContext.Extracts.Single(e => e.ExtractId == extractId);
+                    var semaphore = Semaphore.GetById(extract.SemaphoreId.Value);
+
+                    // Init transaction block
+                    using (var transactionScope = CreateTransactionScope())
                     {
-                        // Find existing extract or create a new one
-                        var extract = dataContext.Extracts.Where(e => e.Filename == path && e.ProcessedLines != null && !e.Ready).OrderByDescending(e => e.ImportDate).FirstOrDefault();
-                        Semaphore semaphore;
-                        if (extract == null)
+                        // Set start record
+                        if (string.IsNullOrEmpty(extract.StartRecord) && extractSession.StartWrapper != null)
                         {
-                            semaphore = Semaphore.Create();
-                            extract = extractResult.ToExtract(path, false, 0, semaphore);
-                            Admin.LogFormattedSuccess("Creating new extract <{0}>", extract.ExtractId);
-                            dataContext.Extracts.InsertOnSubmit(extract);
-                            dataContext.SubmitChanges();
-                        }
-                        else
-                        {
-                            if (extract.SemaphoreId.HasValue)
-                            {
-                                semaphore = Semaphore.GetById(extract.SemaphoreId.Value);
-                            }
-                            else
-                            {
-                                // Transitional logic for the rare case of an extract that has started before introduction of semaphores
-                                semaphore = Semaphore.Create();
-                                extract.SemaphoreId = semaphore.Impl.SemaphoreId;
-                                dataContext.SubmitChanges();
-                            }
-                            Admin.LogFormattedSuccess("Incomplete extract found <{0}>, resuming", extract.ExtractId);
+                            extract.StartRecord = extractSession.StartWrapper.Contents;
+                            extract.ExtractDate = extractSession.StartWrapper.ProductionDate.Value;
                         }
 
-                        // Start reading the file
-                        while (!file.EndOfStream)
+                        // Extract items and errors
+                        conn.BulkInsertAll<ExtractItem>(extractSession.ToExtractItems(extract.ExtractId, Constants.DataObjectMap, Constants.RelationshipMap, Constants.MultiRelationshipMap));
+                        conn.BulkInsertAll<ExtractError>(extractSession.ToExtractErrors(extract.ExtractId));
+
+                        // Staging queue
+                        var stagingQueue = Queue.GetQueues<ExtractStagingQueue>().First();
+                        stagingQueue.Enqueue(extractSession.ToQueueItems(extract.ExtractId), semaphore);
+
+                        // Update counts and commit
+                        extract.ProcessedLines += wrappers.Count;
+
+                        // End record and mark as ready, and signal the semaphore
+                        if (extractSession.EndLine != null)
                         {
-                            var wrappers = CompositeWrapper.Parse(file, Constants.DataObjectMap, batchSize);
-                            var batchReadLinesCount = wrappers.Count;
-                            totalReadLinesCount += batchReadLinesCount;
-
-                            Admin.LogFormattedSuccess("Batch read, records found <{0}>, total so far <{1}>", batchReadLinesCount, totalReadLinesCount);
-
-                            using (var transactionScope = CreateTransactionScope())
-                            {
-                                extractResult.ClearArrays();
-                                var uninsertedLinesCount = totalReadLinesCount - extract.ProcessedLines.Value;
-
-                                if (uninsertedLinesCount > 0)
-                                {
-                                    var linesToSkip = wrappers.Count - (int)uninsertedLinesCount;
-                                    if (linesToSkip > 0)
-                                    {
-                                        Admin.LogFormattedSuccess("Unaligned batch sizes, skipping <{0}> lines", linesToSkip);
-                                        wrappers = wrappers.Skip(linesToSkip).ToList();
-                                    }
-
-                                    extractResult.AddLines(wrappers);
-
-                                    // Set start record
-                                    if (string.IsNullOrEmpty(extract.StartRecord) && extractResult.StartWrapper != null)
-                                    {
-                                        extract.StartRecord = extractResult.StartWrapper.Contents;
-                                        extract.ExtractDate = extractResult.StartWrapper.ProductionDate.Value;
-                                    }
-
-                                    // Child records
-                                    conn.BulkInsertAll<ExtractItem>(extractResult.ToExtractItems(extract.ExtractId, Constants.DataObjectMap, Constants.RelationshipMap, Constants.MultiRelationshipMap));
-                                    conn.BulkInsertAll<ExtractError>(extractResult.ToExtractErrors(extract.ExtractId));
-
-                                    var stagingQueue = new ExtractStagingQueue();
-                                    stagingQueue.Enqueue(extractResult.ToQueueItems(extract.ExtractId, allPnrs), semaphore);
-
-                                    // Update counts and commit
-                                    extract.ProcessedLines = totalReadLinesCount;
-                                    dataContext.SubmitChanges();
-                                    Admin.LogFormattedSuccess("Batch committed");
-
-                                    // End record and mark as ready, and signal the semaphore
-                                    if (extractResult.EndLine != null)
-                                    {
-                                        extract.EndRecord = extractResult.EndLine.Contents;
-                                        extract.Ready = true;
-                                        dataContext.SubmitChanges();
-                                        semaphore.Signal();
-                                        Admin.LogFormattedSuccess("End record added");
-                                    }
-                                }
-                                else
-                                {
-                                    Admin.LogFormattedSuccess("Batch already inserted, skipping");
-                                }
-                                transactionScope.Complete();
-                            }
+                            extract.EndRecord = extractSession.EndLine.Contents;
+                            extract.Ready = true;
+                            semaphore.Signal();
                         }
+
+                        // Commit
+                        dataContext.SubmitChanges();
+                        transactionScope.Complete();
                     }
+                    Admin.LogFormattedSuccess("Batch committed, <{0}> lines, <{1}> total so far", wrappers.Count, extract.ProcessedLines.Value);
+                }
+            }
+        }
+
+        private static Guid InitExtract(string path, ExtractParseSession extractSession)
+        {
+            Semaphore semaphore;
+            Extract extract;
+            using (var dataContext = new ExtractDataContext(CprBroker.Utilities.Config.ConfigManager.Current.Settings.CprBrokerConnectionString))
+            {
+                // Find existing extract or create a new one
+                extract = dataContext.Extracts.Where(e => e.Filename == path && e.ProcessedLines != null && !e.Ready).OrderByDescending(e => e.ImportDate).FirstOrDefault();
+
+                if (extract == null)
+                {
+                    semaphore = Semaphore.Create();
+                    extract = extractSession.ToExtract(path, false, 0, semaphore);
+                    Admin.LogFormattedSuccess("Creating new extract <{0}>", extract.ExtractId);
+                    dataContext.Extracts.InsertOnSubmit(extract);
+                    dataContext.SubmitChanges();
+                }
+                else
+                {
+                    if (extract.SemaphoreId.HasValue)
+                    {
+                        semaphore = Semaphore.GetById(extract.SemaphoreId.Value);
+                    }
+                    else
+                    {
+                        // Transitional logic for the rare case of an extract that has started before introduction of semaphores
+                        semaphore = Semaphore.Create();
+                        extract.SemaphoreId = semaphore.Impl.SemaphoreId;
+                        dataContext.SubmitChanges();
+                    }
+                    Admin.LogFormattedSuccess("Incomplete extract found <{0}>, resuming", extract.ExtractId);
+                }
+                return extract.ExtractId;
+            }
+        }
+
+        private static void SkipLines(TextReader file, Guid extractId, ExtractParseSession extractSession, Dictionary<string, Type> typeMap, int batchSize)
+        {
+            using (var dataContext = new ExtractDataContext(CprBroker.Utilities.Config.ConfigManager.Current.Settings.CprBrokerConnectionString))
+            {
+                var extract = dataContext.Extracts.Single(ex => ex.ExtractId == extractId);
+                if (extract.ProcessedLines.HasValue)
+                {
+                    while (extractSession.TotalReadLines < extract.ProcessedLines.Value)
+                    {
+                        long linesToRead = Math.Min(batchSize, extract.ProcessedLines.Value - extractSession.TotalReadLines);
+                        Admin.LogFormattedSuccess("Skipping extract lines: <{0}>", linesToRead);
+
+                        // Read and consume the lines
+                        extractSession.MarkNewBatch();
+                        var wrappers = CompositeWrapper.Parse(file, typeMap, linesToRead);
+                        extractSession.AddLines(wrappers);
+                    }
+                    Admin.LogFormattedSuccess("Skipped extract lines; total = <{0}>", extractSession.TotalReadLines);
                 }
             }
         }
@@ -250,8 +259,6 @@ namespace CprBroker.Providers.CPRDirect
                 return Extract.GetPersonFromLatestExtract(pnr, dataContext.ExtractItems, Constants.DataObjectMap);
             }
         }
-
-
 
         public static void DownloadFtpFiles(CPRDirectExtractDataProvider prov)
         {

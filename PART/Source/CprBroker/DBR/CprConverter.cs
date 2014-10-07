@@ -62,8 +62,13 @@ namespace CprBroker.DBR
             dataContext.Childs.InsertAllOnSubmit(person.Child.Select(c => c.ToDpr()));
 
             PersonInformationType pit = person.PersonInformation;
-            dataContext.PersonNames.InsertOnSubmit(person.CurrentNameInformation.ToDpr(pit));
-            dataContext.PersonNames.InsertAllOnSubmit(person.HistoricalName.Select(n => n.ToDpr(/*pit*/)));
+            var lst = new List<PersonName>();
+
+            lst.Add(person.CurrentNameInformation.ToDpr(pit));
+            lst.AddRange(person.HistoricalName.Select(n => n.ToDpr()));
+            dataContext.PersonNames.InsertAllOnSubmit(
+                CprBroker.Utilities.DataLinq.Distinct<PersonName>(lst)
+                );
 
             dataContext.CivilStatus.InsertOnSubmit(person.CurrentCivilStatus.ToDpr());
             dataContext.CivilStatus.InsertAllOnSubmit(person.HistoricalCivilStatus.Select(c => c.ToDpr()));
@@ -108,9 +113,14 @@ namespace CprBroker.DBR
             if (person.Disempowerment != null)
             {
                 // TODO: Shall we also create records from ParentalAuthorityType??            
-                dataContext.GuardianAndParentalAuthorityRelations.InsertOnSubmit(person.Disempowerment.ToDpr());
+                var gpar = person.Disempowerment.ToDpr();
+                if (gpar != null)
+                    dataContext.GuardianAndParentalAuthorityRelations.InsertOnSubmit(gpar);
+
                 // TODO: Shall we also create records from ParentalAuthorityType??            
-                dataContext.GuardianAddresses.InsertOnSubmit(person.Disempowerment.ToDprAddress());
+                var ga = person.Disempowerment.ToDprAddress();
+                if (ga != null)
+                    dataContext.GuardianAddresses.InsertOnSubmit(ga);
             }
         }
 
@@ -118,7 +128,7 @@ namespace CprBroker.DBR
         {
             using (var file = new StreamReader(dataStream, encoding))
             {
-                var extractResult = new ExtractParseResult();
+                var extractResult = new ExtractParseSession();
 
                 long totalReadLinesCount = 0;
                 using (var conn = new SqlConnection(connectionString))
@@ -222,7 +232,7 @@ namespace CprBroker.DBR
             var allPnrs = new List<string>();
             using (var file = new StreamReader(dataStream, encoding))
             {
-                var extractResult = new ExtractParseResult();
+                var extractResult = new ExtractParseSession();
 
                 long totalReadLinesCount = 0;
                 using (var conn = new SqlConnection(connectionString))
@@ -264,7 +274,7 @@ namespace CprBroker.DBR
             {
                 // TODO: This code reads the whole file at once, which could be extremely heavy for a computer (or even impossible),
                 // Code should utilise batchSize parameter
-                var extractResult = new ExtractParseResult(file.ReadToEnd(), CprBroker.Providers.CPRDirect.Constants.DataObjectMap);
+                var extractResult = new ExtractParseSession(file.ReadToEnd(), CprBroker.Providers.CPRDirect.Constants.DataObjectMap);
                 var extract = extractResult.ToExtract(filePath);
                 var extractItems = extractResult.ToExtractItems(
                     extract.ExtractId,

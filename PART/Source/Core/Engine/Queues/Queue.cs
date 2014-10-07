@@ -9,7 +9,7 @@ namespace CprBroker.Engine.Queues
 {
     public abstract class Queue : IHasConfigurationProperties
     {
-        public CprBroker.Data.Queues.DbQueue Impl { get; internal set; }
+        private CprBroker.Data.Queues.DbQueue _Impl;
 
         public virtual Engine.DataProviderConfigPropertyInfo[] ConfigurationKeys { get { return new DataProviderConfigPropertyInfo[] { }; } }
         public Dictionary<string, string> ConfigurationProperties { get; set; }
@@ -17,13 +17,28 @@ namespace CprBroker.Engine.Queues
         public abstract void RunAll();
         public abstract void RunOneBatch();
 
+        public CprBroker.Data.Queues.DbQueue Impl
+        {
+            get
+            {
+                return _Impl;
+            }
+            internal set
+            {
+                _Impl = value;
+                if (_Impl != null)
+                {
+                    this.FillFromEncryptedStorage(_Impl);
+                }
+            }
+        }
+
         public static Queue ToQueue(DbQueue impl)
         {
             var ret = CprBroker.Utilities.Reflection.CreateInstance<Queue>(impl.TypeName);
             if (ret != null)
             {
                 ret.Impl = impl;
-                ret.FillFromEncryptedStorage(ret.Impl);
             }
             return ret;
         }

@@ -85,7 +85,7 @@ namespace CprBroker.Providers.CPRDirect
             return Parse(rd, typeMap, int.MaxValue);
         }
 
-        public static List<Wrapper> Parse(TextReader rd, Dictionary<string, Type> typeMap, int maxCount)
+        public static List<Wrapper> Parse(TextReader rd, Dictionary<string, Type> typeMap, long maxCount)
         {
             var ret = new List<Wrapper>();
 

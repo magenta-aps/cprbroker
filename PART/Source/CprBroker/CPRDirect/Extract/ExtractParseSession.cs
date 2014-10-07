@@ -53,8 +53,10 @@ using CprBroker.Engine.Queues;
 
 namespace CprBroker.Providers.CPRDirect
 {
-    public class ExtractParseResult
+    public class ExtractParseSession
     {
+        public long TotalReadLines { get; private set; }
+        public List<string> Pnrs { get; private set; }
         public List<LineWrapper> Lines { get; private set; }
         public StartRecordType StartWrapper { get; private set; }
         public LineWrapper EndLine { get; set; }
@@ -68,13 +70,15 @@ namespace CprBroker.Providers.CPRDirect
             Error
         }
 
-        public ExtractParseResult()
+        public ExtractParseSession()
         {
+            TotalReadLines = 0;
+            Pnrs = new List<string>();
             Lines = new List<LineWrapper>();
             ErrorLines = new List<LineWrapper>();
         }
 
-        public ExtractParseResult(string batchFileText, Dictionary<string, Type> dataObjectMap)
+        public ExtractParseSession(string batchFileText, Dictionary<string, Type> dataObjectMap)
             : this()
         {
             var wrappers = CompositeWrapper.Parse(batchFileText, dataObjectMap);
@@ -91,6 +95,20 @@ namespace CprBroker.Providers.CPRDirect
                 return WrapperParseGroup.Error;
             else
                 return WrapperParseGroup.Regular;
+        }
+
+        public string[] ToNewPnrs()
+        {
+            var newPnrs = Lines.Select(l => l.PNR).Distinct().ToArray();
+            newPnrs = newPnrs.Except(Pnrs).ToArray();
+            return newPnrs;
+        }
+
+        public void MarkNewBatch()
+        {
+            Pnrs.AddRange(ToNewPnrs());
+            this.Lines.Clear();
+            this.ErrorLines.Clear();
         }
 
         public void AddLines(List<Wrapper> wrappers)
@@ -112,12 +130,8 @@ namespace CprBroker.Providers.CPRDirect
             {
                 this.EndLine = endWrapperAndLine.Line;
             }
-        }
 
-        public void ClearArrays()
-        {
-            this.Lines.Clear();
-            this.ErrorLines.Clear();
+            TotalReadLines += wrappers.Count;
         }
 
         public Extract ToExtract()
@@ -154,12 +168,7 @@ namespace CprBroker.Providers.CPRDirect
                .ToList();
         }
 
-        public List<ExtractPersonStaging> ToExtractPersonStagings(Guid extractId)
-        {
-            return ToExtractPersonStagings(extractId, null);
-
-        }
-
+        [Obsolete]
         public List<ExtractPersonStaging> ToExtractPersonStagings(Guid extractId, List<string> skipPnrs)
         {
             var pnrs = this.Lines
@@ -182,25 +191,17 @@ namespace CprBroker.Providers.CPRDirect
                .ToList();
         }
 
-        public ExtractQueueItem[] ToQueueItems(Guid extractId, List<string> skipPnrs = null)
+        public ExtractQueueItem[] ToQueueItems(Guid extractId)
         {
-            var pnrs = this.Lines
-                .GroupBy(line => line.PNR)
-                .Select(line => line.Key);
-            if (skipPnrs != null)
-            {
-                pnrs = pnrs.Except(skipPnrs).ToArray();
-                skipPnrs.AddRange(pnrs);
-            }
-
-            return pnrs
-               .Select(
-                   pnr => new ExtractQueueItem()
-                   {
-                       ExtractId = extractId,
-                       PNR = pnr
-                   })
-               .ToArray();
+            return this
+                .ToNewPnrs()
+                .Select(
+                    pnr => new ExtractQueueItem()
+                    {
+                        ExtractId = extractId,
+                        PNR = pnr
+                    })
+                .ToArray();
         }
 
         public List<ExtractError> ToExtractErrors(Guid extractId)

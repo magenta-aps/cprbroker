@@ -101,6 +101,7 @@
     <Compile Include="CallSearch.cs" />
     <Compile Include="CleanInvalidPNRs.cs" />
     <Compile Include="CompareDatabasePerformance.cs" />
+    <Compile Include="CompareDbr.cs" />
     <Compile Include="CompareExpressionToSimplified.cs" />
     <Compile Include="ConvertCprDirectToFiles.cs" />
     <Compile Include="List.cs" />
@@ -210,6 +211,10 @@
       <Project>{EDDB494D-782D-4D45-8599-633057B9B203}</Project>
       <Name>CPRDirect</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DBR.Tests\DBR.Tests.csproj">
+      <Project>{FF2FFCD5-6091-4B10-8FD9-C737BD45C86B}</Project>
+      <Name>DBR.Tests</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DBR\DBR.csproj">
       <Project>{f6e48545-473f-4133-90f7-b93a4612f50f}</Project>
       <Name>DBR</Name>
@@ -225,6 +230,10 @@
     <ProjectReference Include="..\Local\Local.csproj">
       <Project>{74212D20-BB98-401F-A5F7-03669B2CD07A}</Project>
       <Name>Local</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PartInterface.Tests\PartInterface.Tests.csproj">
+      <Project>{06CCC703-83F2-44B9-B67A-F7F3A0071E2D}</Project>
+      <Name>PartInterface.Tests</Name>
     </ProjectReference>
     <ProjectReference Include="..\PartInterface\PartInterface.csproj">
       <Project>{DA42D8BB-24D3-4416-A0BD-B98857F249AD}</Project>

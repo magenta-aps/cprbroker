@@ -24,7 +24,7 @@ namespace CprBroker.Engine.Tasks
 
         protected override void PerformTimerAction()
         {
-            this.Queue.RunOneBatch();
+            this.Queue.RunAll();
         }
 
         public class EqualityComparer : IEqualityComparer<QueueExecuter>

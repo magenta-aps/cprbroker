@@ -87,6 +87,11 @@ namespace CprBroker.Data
             obj.EncryptedData = Encryption.EncryptObject(obj.Attributes.ToArray());
         }
 
+        public static Dictionary<string, string> ToPropertiesDictionary(this IHasEncryptedAttributes obj)
+        {
+            return obj.GetAttributes().ToDictionary(a => a.Name, a => a.Value);
+        }
+
         public static Dictionary<string, string> ToPropertiesDictionary(this IHasEncryptedAttributes obj, string[] keys)
         {
             Dictionary<string, string> ret = new Dictionary<string, string>();

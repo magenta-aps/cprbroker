@@ -93,10 +93,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BatchClient\BatchClient.csproj">
-      <Project>{895FDF74-8A3F-475B-B28D-B88BAB9C941E}</Project>
-      <Name>BatchClient</Name>
-    </ProjectReference>
     <ProjectReference Include="..\CPRDirect.Tests\CPRDirect.Tests.csproj">
       <Project>{F9F2357B-981F-4048-96C5-315EE3872276}</Project>
       <Name>CPRDirect.Tests</Name>

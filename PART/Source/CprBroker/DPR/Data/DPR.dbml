@@ -15,7 +15,7 @@
       <Column Name="INDRAP" Member="AddressingNameReportingMarker" Storage="_INDRAP" Type="System.String" DbType="VarChar(3)" CanBeNull="true" />
       <Column Name="MYTAJDTO" Member="AuthorityTextUpdateDate" Storage="_MYTAJDTO" Type="System.Decimal" DbType="Decimal(13,0)" CanBeNull="true" />
       <Column Name="SNHAENST" Member="SearchNameDate" Storage="_SNHAENST" Type="System.Decimal" DbType="Decimal(13,0)" CanBeNull="true" />
-      <Column Name="FORNVN" Member="FirstName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="FORNVN" Member="FirstName" Type="System.String" DbType="VarChar(50)" IsPrimaryKey="true" CanBeNull="true" />
       <Column Name="EFTERNVN" Member="LastName" Type="System.String" DbType="VarChar(40)" CanBeNull="true" />
       <Column Name="ADRNVN" Member="AddressingName" Type="System.String" DbType="VarChar(34)" CanBeNull="true" />
       <Column Name="SOEGNVN" Member="SearchName" Storage="_SOEGNVN" Type="System.String" DbType="VarChar(34)" CanBeNull="true" />

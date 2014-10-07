@@ -68,7 +68,7 @@ namespace CprBroker.DBR
                     {
                         if (item.Extract != null)
                         {
-                            using (var dprDataContext = new DPRDataContext(""))
+                            using (var dprDataContext = new DPRDataContext(this.ConnectionString))
                             {
                                 var response = Extract.ToIndividualResponseType(item.Extract, item.ExtractItems, CprBroker.Providers.CPRDirect.Constants.DataObjectMap);
                                 CprConverter.AppendPerson(response, dprDataContext);

@@ -72,6 +72,7 @@ namespace CprBroker.Utilities.ConsoleApps
         public string ApplicationToken = "";
         public string BrokerConnectionString = "";
         public string OtherConnectionString = "";
+        public string OtherConnectionString2 = "";
         public string SourceFile = "";
         public string StartCprNumber = "";
         public string AppToken = "";
@@ -97,6 +98,7 @@ namespace CprBroker.Utilities.ConsoleApps
             var partUrlArg = new CommandArgumentSpec() { Switch = "/partUrl", ValueRequirement = ValueRequirement.NotRequired, MaxOccurs = 1 };
             var brokerArg = new CommandArgumentSpec() { Switch = "/brokerDb", ValueRequirement = ValueRequirement.NotRequired, MaxOccurs = 1 };
             var otherDbArg = new CommandArgumentSpec() { Switch = "/otherDb", ValueRequirement = ValueRequirement.NotRequired, MaxOccurs = 1 };
+            var otherDbArg2 = new CommandArgumentSpec() { Switch = "/otherDb2", ValueRequirement = ValueRequirement.NotRequired, MaxOccurs = 1 };
             var appTokenArg = new CommandArgumentSpec() { Switch = "/appToken", ValueRequirement = ValueRequirement.NotRequired, MaxOccurs = 1 };
             var userTokenArg = new CommandArgumentSpec() { Switch = "/userToken", ValueRequirement = ValueRequirement.NotRequired, MaxOccurs = 1 };
             var pmUrlArg = new CommandArgumentSpec() { Switch = "/pmUrl", ValueRequirement = ValueRequirement.NotRequired, MaxOccurs = 1 };
@@ -104,7 +106,7 @@ namespace CprBroker.Utilities.ConsoleApps
             var maxThreadsArg = new CommandArgumentSpec() { Switch = "/maxThreads", ValueRequirement = ValueRequirement.NotRequired, MaxOccurs = 1 };
 
             var arguments = CommandlineParser.SplitCommandArguments(args);
-            CommandlineParser.ValidateCommandline(arguments, new CommandArgumentSpec[] { envTypeArg, startPnrArg, sourceArg, partUrlArg, brokerArg, otherDbArg, appTokenArg, userTokenArg, pmUrlArg, pmSpnArg, maxThreadsArg });
+            CommandlineParser.ValidateCommandline(arguments, new CommandArgumentSpec[] { envTypeArg, startPnrArg, sourceArg, partUrlArg, brokerArg, otherDbArg, otherDbArg2, appTokenArg, userTokenArg, pmUrlArg, pmSpnArg, maxThreadsArg });
 
             string envTypeName = envTypeArg.FoundArguments[0].Value;
             var ret = Reflection.CreateInstance<ConsoleEnvironment>(envTypeName);
@@ -115,6 +117,7 @@ namespace CprBroker.Utilities.ConsoleApps
                 ret.SourceFile = sourceArg.FoundArguments.Select(a => a.Value).FirstOrDefault();
                 ret.BrokerConnectionString = brokerArg.FoundArguments.Select(a => a.Value).FirstOrDefault();
                 ret.OtherConnectionString = otherDbArg.FoundArguments.Select(a => a.Value).FirstOrDefault();
+                ret.OtherConnectionString2 = otherDbArg2.FoundArguments.Select(a => a.Value).FirstOrDefault();
                 ret.ApplicationToken = appTokenArg.FoundArguments.Select(a => a.Value).FirstOrDefault();
                 ret.UserToken = userTokenArg.FoundArguments.Select(a => a.Value).FirstOrDefault();
                 ret.PersonMasterUrl = pmUrlArg.FoundArguments.Select(a => a.Value).FirstOrDefault();
@@ -161,7 +164,6 @@ namespace CprBroker.Utilities.ConsoleApps
         {
             return new string[0];
         }
-
 
         public void Run()
         {
@@ -267,12 +269,15 @@ namespace CprBroker.Utilities.ConsoleApps
             }
         }
 
-        public void Log(string text)
+        public void Log(string text, params object[] args)
         {
-            lock (this)
+            if (!string.IsNullOrEmpty(text))
             {
-                Console.WriteLine(text);
-                logFileWriter.WriteLine(text);
+                lock (this)
+                {
+                    Console.WriteLine(text, args);
+                    logFileWriter.WriteLine(text, args);
+                }
             }
         }
 

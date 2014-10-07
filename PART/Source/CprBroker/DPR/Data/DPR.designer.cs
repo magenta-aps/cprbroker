@@ -635,7 +635,7 @@ namespace CprBroker.Providers.DPR
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="FORNVN", Storage="_FirstName", DbType="VarChar(50)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="FORNVN", Storage="_FirstName", DbType="VarChar(50)", IsPrimaryKey=true)]
 		public string FirstName
 		{
 			get
