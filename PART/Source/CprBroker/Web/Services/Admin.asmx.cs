@@ -74,28 +74,28 @@ namespace CprBroker.Web.Services
         [WebMethod(MessageName = ServiceNames.Admin.MethodNames.RequestAppRegistration, Description = CprBroker.Schemas.ServiceDescription.Admin.RequestAppRegistration)]
         public BasicOutputType<ApplicationType> RequestAppRegistration(string ApplicationName)
         {
-            return AdminManager.RequestAppRegistration(Utilities.Constants.UserToken, Utilities.Constants.BaseApplicationToken.ToString(), ApplicationName);
+            return new AdminManager().RequestAppRegistration(Utilities.Constants.UserToken, Utilities.Constants.BaseApplicationToken.ToString(), ApplicationName);
         }
 
         [SoapHeader(ApplicationHeaderName)]
         [WebMethod(MessageName = ServiceNames.Admin.MethodNames.ApproveAppRegistration, Description = CprBroker.Schemas.ServiceDescription.Admin.ApproveAppRegistration)]
         public BasicOutputType<bool> ApproveAppRegistration(string ApplicationToken)
         {
-            return AdminManager.ApproveAppRegistration(applicationHeader.UserToken, applicationHeader.ApplicationToken, ApplicationToken);
+            return new AdminManager().ApproveAppRegistration(applicationHeader.UserToken, applicationHeader.ApplicationToken, ApplicationToken);
         }
 
         [SoapHeader(ApplicationHeaderName)]
         [WebMethod(MessageName = ServiceNames.Admin.MethodNames.ListAppRegistrations, Description = CprBroker.Schemas.ServiceDescription.Admin.ListAppRegistrations)]
         public BasicOutputType<ApplicationType[]> ListAppRegistrations()
         {
-            return AdminManager.ListAppRegistrations(applicationHeader.UserToken, applicationHeader.ApplicationToken);
+            return new AdminManager().ListAppRegistrations(applicationHeader.UserToken, applicationHeader.ApplicationToken);
         }
 
         [SoapHeader(ApplicationHeaderName)]
         [WebMethod(MessageName = ServiceNames.Admin.MethodNames.UnregisterApp, Description = CprBroker.Schemas.ServiceDescription.Admin.UnregisterApp)]
         public BasicOutputType<bool> UnregisterApp(string ApplicationToken)
         {
-            return AdminManager.UnregisterApp(applicationHeader.UserToken, applicationHeader.ApplicationToken, ApplicationToken);
+            return new AdminManager().UnregisterApp(applicationHeader.UserToken, applicationHeader.ApplicationToken, ApplicationToken);
         }
         #endregion
 
@@ -106,14 +106,14 @@ namespace CprBroker.Web.Services
             Description = CprBroker.Schemas.ServiceDescription.Admin.GetCapabilities)]
         public BasicOutputType<ServiceVersionType[]> GetCapabilities()
         {
-            return AdminManager.GetCapabilities(applicationHeader.UserToken, applicationHeader.ApplicationToken);
+            return new AdminManager().GetCapabilities(applicationHeader.UserToken, applicationHeader.ApplicationToken);
         }
 
         [SoapHeader(ApplicationHeaderName)]
         [WebMethod(MessageName = ServiceNames.Admin.MethodNames.IsImplementing, Description = CprBroker.Schemas.ServiceDescription.Admin.IsImplementing)]
         public BasicOutputType<bool> IsImplementing(string serviceName, string serviceVersion)
         {
-            return AdminManager.IsImplementing(applicationHeader.UserToken, applicationHeader.ApplicationToken, serviceName, serviceVersion);
+            return new AdminManager().IsImplementing(applicationHeader.UserToken, applicationHeader.ApplicationToken, serviceName, serviceVersion);
         }
         #endregion
 
@@ -122,14 +122,14 @@ namespace CprBroker.Web.Services
         [WebMethod(MessageName = ServiceNames.Admin.MethodNames.GetDataProviderList, Description = CprBroker.Schemas.ServiceDescription.Admin.GetDataProviderList)]
         public BasicOutputType<DataProviderType[]> GetDataProviderList()
         {
-            return AdminManager.GetDataProviderList(applicationHeader.UserToken, applicationHeader.ApplicationToken);
+            return new AdminManager().GetDataProviderList(applicationHeader.UserToken, applicationHeader.ApplicationToken);
         }
 
         [SoapHeader(ApplicationHeaderName)]
         [WebMethod(MessageName = ServiceNames.Admin.MethodNames.SetDataProviderList, Description = CprBroker.Schemas.ServiceDescription.Admin.SetDataProviderList)]
         public BasicOutputType<bool> SetDataProviderList(DataProviderType[] DataProviders)
         {
-            return AdminManager.SetDataProviderList(applicationHeader.UserToken, applicationHeader.ApplicationToken, DataProviders);
+            return new AdminManager().SetDataProviderList(applicationHeader.UserToken, applicationHeader.ApplicationToken, DataProviders);
         }
         #endregion
 
@@ -137,13 +137,13 @@ namespace CprBroker.Web.Services
         [WebMethod(MessageName = ServiceNames.Admin.MethodNames.Log, Description = CprBroker.Schemas.ServiceDescription.Admin.Log)]
         public BasicOutputType<bool> Log(string Text)
         {
-            return AdminManager.Log(applicationHeader.UserToken, applicationHeader.ApplicationToken, Text);
+            return new AdminManager().Log(applicationHeader.UserToken, applicationHeader.ApplicationToken, Text);
         }
 
         [WebMethod(MessageName = CprBroker.Schemas.Part.ServiceNames.Subscriptions.Methods.Ping)]
         public BasicOutputType<bool> Ping()
         {
-            return Engine.Ping.PingManager.Ping(Utilities.Constants.UserToken, Utilities.Constants.BaseApplicationToken.ToString());
+            return new Engine.Ping.PingManager().Ping(Utilities.Constants.UserToken, Utilities.Constants.BaseApplicationToken.ToString());
         }
     }
 }

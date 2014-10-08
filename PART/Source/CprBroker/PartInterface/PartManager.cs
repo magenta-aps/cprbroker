@@ -58,9 +58,9 @@ namespace CprBroker.PartInterface
     /// <summary>
     /// This section implements the PART interface methods as of the PART standard
     /// </summary>
-    public partial class PartManager : Manager
+    public partial class PartManager : RequestProcessor
     {
-        public static LaesOutputType Read(string userToken, string appToken, LaesInputType input, SourceUsageOrder localAction, out QualityLevel? qualityLevel)
+        public LaesOutputType Read(string userToken, string appToken, LaesInputType input, SourceUsageOrder localAction, out QualityLevel? qualityLevel)
         {
             ReadFacadeMethodInfo facadeMethod = new ReadFacadeMethodInfo(input, localAction, appToken, userToken);
             var ret = GetMethodOutput<LaesOutputType, LaesResultatType>(facadeMethod);
@@ -68,7 +68,7 @@ namespace CprBroker.PartInterface
             return ret;
         }
 
-        public static ListOutputType1 List(string userToken, string appToken, ListInputType input, SourceUsageOrder localAction, out QualityLevel? qualityLevel)
+        public ListOutputType1 List(string userToken, string appToken, ListInputType input, SourceUsageOrder localAction, out QualityLevel? qualityLevel)
         {
             ListOutputType1 ret = null;
 
@@ -81,7 +81,7 @@ namespace CprBroker.PartInterface
             return ret;
         }
 
-        public static SoegOutputType Search(string userToken, string appToken, SoegInputType1 searchCriteria, out QualityLevel? qualityLevel)
+        public SoegOutputType Search(string userToken, string appToken, SoegInputType1 searchCriteria, out QualityLevel? qualityLevel)
         {
             SearchFacadeMethodInfo facadeMethod = new SearchFacadeMethodInfo(searchCriteria, appToken, userToken);
             var ret = GetMethodOutput<SoegOutputType, string[]>(facadeMethod);
@@ -90,20 +90,20 @@ namespace CprBroker.PartInterface
             return ret;
         }
 
-        public static GetUuidOutputType GetUuid(string userToken, string appToken, string cprNumber)
+        public GetUuidOutputType GetUuid(string userToken, string appToken, string cprNumber)
         {
             var facadeMethod = new GetUuidFacadeMethodInfo(cprNumber, appToken, userToken);
             var ret = GetMethodOutput<GetUuidOutputType, string>(facadeMethod);
             return ret;
         }
 
-        public static GetUuidArrayOutputType GetUuidArray(string userToken, string appToken, string[] cprNumberArray)
+        public GetUuidArrayOutputType GetUuidArray(string userToken, string appToken, string[] cprNumberArray)
         {
             var facadeMethod = new GetUuidArrayFacadeMethodInfo(cprNumberArray, appToken, userToken);
             return GetBatchMethodOutput<IPartPersonMappingDataProvider, GetUuidArrayOutputType, string, string>(facadeMethod);
         }
 
-        public static IBasicOutput<bool> PutSubscription(string userToken, string appToken, Guid[] personUuids)
+        public IBasicOutput<bool> PutSubscription(string userToken, string appToken, Guid[] personUuids)
         {
             var facadeMethod = new PutSubscriptionFacadeMethodInfo(personUuids, appToken, userToken);
             return GetMethodOutput<bool>(facadeMethod);

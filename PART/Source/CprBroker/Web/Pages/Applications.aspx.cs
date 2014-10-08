@@ -123,15 +123,15 @@ namespace CprBroker.Web.Pages
         protected void applicationsLinqDataSource_Inserting(object sender, LinqDataSourceInsertEventArgs e)
         {
             e.Cancel=true;
-            
+            var mgr = new AdminManager();
             CprBroker.Data.Applications.Application newApp = e.NewObject as CprBroker.Data.Applications.Application;
-            var result = AdminManager.RequestAppRegistration(Constants.UserToken, Constants.BaseApplicationToken.ToString(), newApp.Name);
+            var result = mgr.RequestAppRegistration(Constants.UserToken, Constants.BaseApplicationToken.ToString(), newApp.Name);
             Master.AppendErrorIfPossible(result);
             if (StandardReturType.IsSucceeded(result.StandardRetur))
             {
                 if (newApp.IsApproved)
                 {
-                    var approveResult = AdminManager.ApproveAppRegistration(Constants.UserToken, Constants.BaseApplicationToken.ToString(), result.Item.Token);
+                    var approveResult = mgr.ApproveAppRegistration(Constants.UserToken, Constants.BaseApplicationToken.ToString(), result.Item.Token);
                     Master.AppendErrorIfPossible(approveResult);
                 }
             }

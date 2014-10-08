@@ -74,14 +74,14 @@ namespace CprService.Services
         [SoapHeader(ApplicationHeaderName)]
         public BasicOutputType<DataChangeEventInfo[]> DequeueDataChangeEvents(int maxCount)
         {
-            return EventsManager.DequeueDataChangeEvents(applicationHeader.UserToken, applicationHeader.ApplicationToken, maxCount);
+            return new EventsManager().DequeueDataChangeEvents(applicationHeader.UserToken, applicationHeader.ApplicationToken, maxCount);
         }
 
         [WebMethod]
         [SoapHeader(ApplicationHeaderName)]
         public BasicOutputType<PersonBirthdate[]> GetPersonBirthdates(Guid? personUuidToStartAfter, int maxCount)
         {
-            return EventsManager.GetPersonBirthdates(applicationHeader.UserToken, applicationHeader.ApplicationToken, personUuidToStartAfter, maxCount);
+            return new EventsManager().GetPersonBirthdates(applicationHeader.UserToken, applicationHeader.ApplicationToken, personUuidToStartAfter, maxCount);
         }
     }
 }
