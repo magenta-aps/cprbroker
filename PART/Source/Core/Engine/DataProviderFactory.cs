@@ -62,9 +62,13 @@ namespace CprBroker.Engine
     /// </summary>
     public class DataProviderFactory
     {
+        public IEnumerable<string> AvailableTypesSource { get; set; }
+        public IEnumerable<DataProvider> ConfiguredProvidersSource { get; set; }
+
         public DataProviderFactory()
         {
             this.AvailableTypesSource = CprBroker.Utilities.Config.ConfigManager.Current.DataProvidersSection;
+            this.ConfiguredProvidersSource = new DataProviderDatabaseReader();
         }
 
         #region Creators
@@ -110,7 +114,6 @@ namespace CprBroker.Engine
         #endregion
 
         #region Loaders
-        public IEnumerable<string> AvailableTypesSource { get; set; }
 
         public IEnumerable<Type> GetAvailableDataProviderTypes(bool isExternal)
         {
@@ -178,14 +181,7 @@ namespace CprBroker.Engine
 
         public DataProvider[] ReadDatabaseDataProviders()
         {
-            using (var dataContext = new CprBroker.Data.DataProviders.DataProvidersDataContext())
-            {
-                var dbProviders = (from prov in dataContext.DataProviders
-                                   where prov.IsEnabled == true
-                                   orderby prov.Ordinal
-                                   select prov).ToArray();
-                return dbProviders;
-            }
+            return this.ConfiguredProvidersSource.ToArray();
         }
 
         public IEnumerable<IDataProvider> LoadExternalDataProviders(DataProvider[] dbProviders, Type interfaceType)

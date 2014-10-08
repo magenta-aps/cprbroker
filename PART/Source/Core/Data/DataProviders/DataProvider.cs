@@ -108,4 +108,25 @@ namespace CprBroker.Data.DataProviders
             return dbProv;
         }
     }
+
+    public class DataProviderDatabaseReader : IEnumerable<DataProvider>
+    {
+
+        IEnumerator<DataProvider> IEnumerable<DataProvider>.GetEnumerator()
+        {
+            using (var dataContext = new CprBroker.Data.DataProviders.DataProvidersDataContext())
+            {
+                var dbProviders = (from prov in dataContext.DataProviders
+                                   where prov.IsEnabled == true
+                                   orderby prov.Ordinal
+                                   select prov).ToArray();
+                return dbProviders.AsEnumerable().GetEnumerator();
+            }
+        }
+
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+        {
+            return (this as IEnumerable<DataProvider>).GetEnumerator();
+        }
+    }
 }
