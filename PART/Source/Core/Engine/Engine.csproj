@@ -132,7 +132,7 @@
     <Compile Include="TcpServer.cs" />
     <Compile Include="ThreadRunner.cs" />
     <Compile Include="AdminManager.cs" />
-    <Compile Include="Manager.Base.cs" />
+    <Compile Include="RequestProcessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
