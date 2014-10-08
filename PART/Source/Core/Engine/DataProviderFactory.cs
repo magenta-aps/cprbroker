@@ -62,6 +62,11 @@ namespace CprBroker.Engine
     /// </summary>
     public class DataProviderFactory
     {
+        public DataProviderFactory()
+        {
+            this.AvailableTypesSource = CprBroker.Utilities.Config.ConfigManager.Current.DataProvidersSection;
+        }
+
         #region Creators
         /// <summary>
         /// Converts the current DataProvider (database object) to the appropriate IDataProvider object based on its type
@@ -105,6 +110,7 @@ namespace CprBroker.Engine
         #endregion
 
         #region Loaders
+        public IEnumerable<string> AvailableTypesSource { get; set; }
 
         public IEnumerable<Type> GetAvailableDataProviderTypes(bool isExternal)
         {
@@ -113,30 +119,26 @@ namespace CprBroker.Engine
 
         public IEnumerable<Type> GetAvailableDataProviderTypes(Type interfaceType, bool isExternal)
         {
-            return GetAvailableDataProviderTypes(ConfigManager.Current.DataProvidersSection, interfaceType, isExternal);
+            return GetAvailableDataProviderTypes(AvailableTypesSource, interfaceType, isExternal);
 
         }
 
-        public IEnumerable<Type> GetAvailableDataProviderTypes(DataProvidersConfigurationSection section, Type interfaceType, bool isExternal)
+        public IEnumerable<Type> GetAvailableDataProviderTypes(IEnumerable<string> typeNames, Type interfaceType, bool isExternal)
         {
             if (interfaceType == null)
             {
                 interfaceType = typeof(IDataProvider);
             }
 
-            if (section != null)
+            if (typeNames != null)
             {
                 try
                 {
-                    var typesConfigurationElements = new TypeElement[section.KnownTypes.Count];
-                    section.KnownTypes.CopyTo(typesConfigurationElements, 0);
-
-                    return typesConfigurationElements
-                        .Select(typeConfigElement =>
+                    return typeNames
+                        .Select(typeName =>
                         {
                             try
                             {
-                                string typeName = typeConfigElement.TypeName;
                                 Type t = Type.GetType(typeName);
                                 if (interfaceType.IsAssignableFrom(t))
                                 {
@@ -215,9 +217,9 @@ namespace CprBroker.Engine
                 .Where(prov => prov != null);
         }
 
-        public IEnumerable<IDataProvider> LoadLocalDataProviders(DataProvidersConfigurationSection section, Type interfaceType)
+        public IEnumerable<IDataProvider> LoadLocalDataProviders(IEnumerable<string> typeNames, Type interfaceType)
         {
-            return GetAvailableDataProviderTypes(section, interfaceType, false)
+            return GetAvailableDataProviderTypes(typeNames, interfaceType, false)
                 .Select(
                     t => Reflection.CreateInstance<IDataProvider>(t)
                 );
@@ -228,7 +230,7 @@ namespace CprBroker.Engine
         #region Filtration by type
 
 
-        public IEnumerable<IDataProvider> GetDataProviderList(DataProvidersConfigurationSection section, DataProvider[] dbProviders, Type interfaceType, SourceUsageOrder localOption)
+        public IEnumerable<IDataProvider> GetDataProviderList(IEnumerable<string> knownTypeNames, DataProvider[] dbProviders, Type interfaceType, SourceUsageOrder localOption)
         {
             switch (localOption)
             {
@@ -236,10 +238,10 @@ namespace CprBroker.Engine
                     return LoadExternalDataProviders(dbProviders, interfaceType);
 
                 case SourceUsageOrder.LocalOnly:
-                    return LoadLocalDataProviders(section, interfaceType);
+                    return LoadLocalDataProviders(knownTypeNames, interfaceType);
 
                 case SourceUsageOrder.LocalThenExternal:
-                    return LoadLocalDataProviders(section, interfaceType)
+                    return LoadLocalDataProviders(knownTypeNames, interfaceType)
                         .Concat(
                             LoadExternalDataProviders(dbProviders, interfaceType)
                         );
