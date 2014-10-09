@@ -159,6 +159,7 @@ namespace CprBroker.Providers.CPRDirect
             {
                 return new DataProviderConfigPropertyInfo[] { 
                     new DataProviderConfigPropertyInfo(){ Name=Constants.PropertyNames.ExtractsFolder, Type= DataProviderConfigPropertyInfoTypes.String, Required=true, Confidential=false},
+                    new DataProviderConfigPropertyInfo(){ Name=Constants.PropertyNames.MultiLine, Type= DataProviderConfigPropertyInfoTypes.Boolean, Required=true, Confidential=false},
                     new DataProviderConfigPropertyInfo(){ Name=Constants.PropertyNames.HasFtpSource, Type= DataProviderConfigPropertyInfoTypes.Boolean, Required=true, Confidential=false},
                     new DataProviderConfigPropertyInfo(){ Name=Constants.PropertyNames.FtpAddress, Type= DataProviderConfigPropertyInfoTypes.String, Required=false, Confidential=false},                    
                     new DataProviderConfigPropertyInfo(){ Name=Constants.PropertyNames.FtpUser, Type= DataProviderConfigPropertyInfoTypes.String, Required=false, Confidential=false},
@@ -205,6 +206,17 @@ namespace CprBroker.Providers.CPRDirect
             set { ConfigurationProperties[Constants.PropertyNames.FtpPassword] = value.ToString(); }
         }
 
+        public bool MultiLine
+        {
+            get
+            {
+                if (!ConfigurationProperties.ContainsKey(Constants.PropertyNames.MultiLine))
+                    return false;
+                else
+                    return Convert.ToBoolean(ConfigurationProperties[Constants.PropertyNames.MultiLine]);
+            }
+            set { ConfigurationProperties[Constants.PropertyNames.MultiLine] = value.ToString(); }
+        }
 
         public string FtpOutPath
         {
