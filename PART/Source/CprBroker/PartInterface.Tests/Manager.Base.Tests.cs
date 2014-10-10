@@ -65,7 +65,7 @@ namespace CprBroker.Tests.PartInterface
             [ValueSource("GuidCounts")]uint count)
         {
             var facade = new GuidFacade(count);
-            var result = Manager.GetMethodOutput<Guid[]>(facade);
+            var result = new RequestProcessor().GetMethodOutput<Guid[]>(facade);
             Assert.AreEqual("200", result.StandardRetur.StatusKode);
         }
 
@@ -74,7 +74,7 @@ namespace CprBroker.Tests.PartInterface
             [ValueSource("GuidCounts")]uint count)
         {
             var facade = new GuidFacade(count);
-            var result = Manager.GetMethodOutput<Guid[]>(facade);
+            var result = new RequestProcessor().GetMethodOutput<Guid[]>(facade);
             Assert.AreEqual(count, result.Item.Length);
         }
 
@@ -83,7 +83,7 @@ namespace CprBroker.Tests.PartInterface
             [ValueSource("GuidCounts")]uint count)
         {
             var facade = new GuidFacade(count);
-            var result = Manager.GetMethodOutput<Guid[]>(facade);
+            var result = new RequestProcessor().GetMethodOutput<Guid[]>(facade);
             for (uint i = 0; i < count; i++)
             {
                 Assert.AreEqual(facade.InputGuids[i], result.Item[i]);

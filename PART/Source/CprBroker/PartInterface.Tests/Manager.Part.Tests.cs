@@ -169,13 +169,13 @@ namespace CprBroker.Tests.PartInterface
 
         ListOutputType1 GetListMethodOutput(string[] uuids)
         {
-            return Manager.GetMethodOutput<ListOutputType1, LaesResultatType[]>(
+            return new RequestProcessor().GetMethodOutput<ListOutputType1, LaesResultatType[]>(
                     new ListFacadeMethodInfoStub(uuids));
         }
 
         LaesOutputType GetReadMethodOutput(string uuid)
         {
-            return Manager.GetMethodOutput<LaesOutputType, LaesResultatType>(
+            return new RequestProcessor().GetMethodOutput<LaesOutputType, LaesResultatType>(
                     new ReadFacadeMethodInfoStub(uuid));
         }
 
@@ -195,7 +195,7 @@ namespace CprBroker.Tests.PartInterface
         public void List_InvalidAppToken_ReturnsBadRequest()
         {
             CprBroker.Schemas.QualityLevel? ql;
-            var ret = PartManager.List("jkhfkjahkfj", "ahsdfkhkajh", new ListInputType(), SourceUsageOrder.LocalThenExternal, out ql);
+            var ret = new PartManager().List("jkhfkjahkfj", "ahsdfkhkajh", new ListInputType(), SourceUsageOrder.LocalThenExternal, out ql);
             Assert.AreEqual("400", ret.StandardRetur.StatusKode);
         }
 
@@ -204,7 +204,7 @@ namespace CprBroker.Tests.PartInterface
         public void List_InvalidAppToken_StatusTextContainsToken()
         {
             CprBroker.Schemas.QualityLevel? ql;
-            var ret = PartManager.List("jkhfkjahkfj", "ahsdfkhkajh", new ListInputType(), SourceUsageOrder.LocalThenExternal, out ql);
+            var ret = new PartManager().List("jkhfkjahkfj", "ahsdfkhkajh", new ListInputType(), SourceUsageOrder.LocalThenExternal, out ql);
             StringAssert.Contains("token", ret.StandardRetur.FejlbeskedTekst);
         }
 
