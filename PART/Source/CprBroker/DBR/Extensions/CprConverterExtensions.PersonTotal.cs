@@ -102,8 +102,8 @@ namespace CprBroker.DBR.Extensions
                             pt.Floor = null;
                         if (!string.IsNullOrEmpty(resp.CurrentAddressInformation.Door))
                         {
-                            if (resp.CurrentAddressInformation.Door.Equals("th") || resp.CurrentAddressInformation.Door.Equals("tv"))
-                                pt.Door = "  " + resp.CurrentAddressInformation.Door;
+                            if (new string[] { "th", "tv", "mf" }.Contains(resp.CurrentAddressInformation.Door))
+                                pt.Door = resp.CurrentAddressInformation.Door.PadLeft(4, ' ');
                             else
                                 pt.Door = resp.CurrentAddressInformation.Door;
                         }
@@ -236,8 +236,8 @@ namespace CprBroker.DBR.Extensions
                 var prevAdrStr = string.Format("{0} {1}",
                         Street.GetAddressingName(dataContext.Connection.ConnectionString, prevAddress.MunicipalityCode, prevAddress.StreetCode),
                         System.Text.RegularExpressions.Regex.Replace(
-                            prevAddress.HouseNumber.TrimStart('0', ' '), 
-                            "(?<num>\\d+)(?<char>[a-zA-Z]+)", 
+                            prevAddress.HouseNumber.TrimStart('0', ' '),
+                            "(?<num>\\d+)(?<char>[a-zA-Z]+)",
                             "${num} ${char}"));
 
                 var floorDoor = string.Format("{0} {1}",
