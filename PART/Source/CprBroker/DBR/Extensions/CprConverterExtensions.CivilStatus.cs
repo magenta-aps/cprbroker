@@ -118,7 +118,11 @@ namespace CprBroker.DBR.Extensions
             cs.CorrectionMarker = historicalCivilStatus.CorrectionMarker;
             cs.AuthorityTextUpdateDate = null; //TODO: Can be fetched in CPR Services, myntxttimestamp
             cs.MaritalStatusAuthorityText = null; //TODO: Can be fetched in CPR Services, myntxt
-            cs.SpouseName = historicalCivilStatus.SpouseName;
+
+            if (!string.IsNullOrEmpty(historicalCivilStatus.SpouseName))
+                cs.SpouseName = historicalCivilStatus.SpouseName;
+            else
+                cs.SpouseName = null;
 
             if (historicalCivilStatus.ReferenceToAnySeparation.HasValue)
                 cs.SeparationReferralTimestamp = historicalCivilStatus.ReferenceToAnySeparation.Value.ToString();

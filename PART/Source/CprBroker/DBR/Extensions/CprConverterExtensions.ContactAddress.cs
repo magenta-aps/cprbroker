@@ -60,15 +60,15 @@ namespace CprBroker.DBR.Extensions
             ca.PNR = Decimal.Parse(contactAddress.PNR);
             ca.CprUpdateDate = CprBroker.Utilities.Dates.DateToDecimal(contactAddress.Registration.RegistrationDate, 12);
             ca.MunicipalityCode = 0; //TODO: Can be fetched in CPR Services, CATX_STARTMYNKOD
-
+            
             if (contactAddress.StartDate.HasValue)
-                ca.AddressDate = CprBroker.Utilities.Dates.DateToDecimal(contactAddress.StartDate.Value, 8);
+                ca.AddressDate = CprBroker.Utilities.Dates.DateToDecimal(contactAddress.StartDate.Value, 12);
 
-            ca.ContactAddressLine1 = contactAddress.Line1;
-            ca.ContactAddressLine2 = contactAddress.Line2;
-            ca.ContactAddressLine3 = contactAddress.Line3;
-            ca.ContactAddressLine4 = contactAddress.Line4;
-            ca.ContactAddressLine5 = contactAddress.Line5;
+            ca.ContactAddressLine1 = contactAddress.Line1.NullIfEmpty();
+            ca.ContactAddressLine2 = contactAddress.Line2.NullIfEmpty();
+            ca.ContactAddressLine3 = contactAddress.Line3.NullIfEmpty();
+            ca.ContactAddressLine4 = contactAddress.Line4.NullIfEmpty();
+            ca.ContactAddressLine5 = contactAddress.Line5.NullIfEmpty();
 
             return ca;
         }

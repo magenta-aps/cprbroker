@@ -58,6 +58,12 @@ namespace CprBroker.DBR.Extensions
     /// </summary>
     public static partial class CprConverterExtensions
     {
-
+        public static string NullIfEmpty(this string s)
+        {
+            if (s == "")
+                return null;
+            else
+                return s;
+        }
     }
 }

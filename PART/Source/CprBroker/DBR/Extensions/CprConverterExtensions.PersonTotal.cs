@@ -190,10 +190,9 @@ namespace CprBroker.DBR.Extensions
 
             pt.SpouseMarker = null; //DPR SPECIFIC
             pt.PostCode = resp.ClearWrittenAddress.PostCode;
-            if (string.IsNullOrEmpty(resp.ClearWrittenAddress.PostDistrictText))
-                pt.PostDistrictName = resp.ClearWrittenAddress.PostDistrictText;
-            else
-                pt.PostDistrictName = null;
+
+            pt.PostDistrictName = resp.ClearWrittenAddress.PostDistrictText.NullIfEmpty();
+
             var voting = resp.ElectionInformation.OrderByDescending(e => e.ElectionInfoStartDate).FirstOrDefault();
 
             if (voting != null && voting.VotingDate.HasValue)
@@ -201,7 +200,9 @@ namespace CprBroker.DBR.Extensions
             else
                 pt.VotingDate = null;
 
-            pt.ChildMarker = null; //DPR SPECIFIC
+            pt.ChildMarker = resp.Child.Count > 0 ?
+                '1' : null as char?;
+
             if (resp.CurrentAddressInformation != null)
             {
                 if (
@@ -266,18 +267,19 @@ namespace CprBroker.DBR.Extensions
 
             // In DPR SearchName contains both the first name and the middlename.
             pt.SearchName = ToDprFirstName(resp.CurrentNameInformation.FirstName_s, resp.CurrentNameInformation.MiddleName, true);
-            pt.SearchSurname = resp.CurrentNameInformation.LastName.ToUpper();
+            if (!string.IsNullOrEmpty(resp.CurrentNameInformation.LastName))
+                pt.SearchSurname = resp.CurrentNameInformation.LastName.ToUpper();
+            else
+                pt.SearchSurname = null;
 
             // Special logic for addressing name
             pt.AddressingName = ToDprAddressingName(resp.ClearWrittenAddress.AddressingName, resp.CurrentNameInformation.LastName);
 
-            if (!string.IsNullOrEmpty(resp.ClearWrittenAddress.LabelledAddress))
-                pt.StandardAddress = resp.ClearWrittenAddress.LabelledAddress;
-            if (!string.IsNullOrEmpty(resp.ClearWrittenAddress.Location))
-                pt.Location = resp.ClearWrittenAddress.Location;
-            else
-                pt.Location = null;
-            pt.ContactAddressMarker = null; //DPR SPECIFIC
+            pt.StandardAddress = resp.ClearWrittenAddress.LabelledAddress.NullIfEmpty();
+            pt.Location = resp.ClearWrittenAddress.Location.NullIfEmpty();
+
+            pt.ContactAddressMarker = resp.ContactAddress == null ?
+                null as char? : '1';
 
             pt.DprLoadDate = DateTime.Now;
             return pt;

@@ -82,7 +82,7 @@ namespace CprBroker.DBR.Extensions
             pn.AuthorityTextUpdateDate = null; //TODO: Can be fetched in CPR Services, myntxttimestamp
             pn.SearchNameDate = null; //Said to be always 0
             pn.FirstName = ToDprFirstName(currentName.FirstName_s, currentName.MiddleName, false);
-            pn.LastName = currentName.LastName;
+            pn.LastName = currentName.LastName.NullIfEmpty();
 
             // Special logic for addressing name
             pn.AddressingName = ToDprAddressingName(currentName.AddressingName, currentName.LastName);
