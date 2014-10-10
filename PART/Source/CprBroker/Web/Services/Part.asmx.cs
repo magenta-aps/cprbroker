@@ -76,7 +76,7 @@ namespace CprBroker.Web.Services
         public LaesOutputType Read(LaesInputType input)
         {
             var localAction = SourceUsageOrderHeader.GetLocalDataProviderUsageOption(this.sourceUsageOrderHeader);
-            return PartManager.Read(applicationHeader.UserToken, applicationHeader.ApplicationToken, input, localAction, out qualityHeader.QualityLevel);
+            return new PartManager().Read(applicationHeader.UserToken, applicationHeader.ApplicationToken, input, localAction, out qualityHeader.QualityLevel);
         }
 
         [SoapHeader(ApplicationHeaderName)]
@@ -84,7 +84,7 @@ namespace CprBroker.Web.Services
         [WebMethod(MessageName = CprBroker.Schemas.Part.ServiceNames.Part.Methods.RefreshRead, Description = CprBroker.Schemas.ServiceDescription.Part.Methods.RefreshRead)]
         public LaesOutputType RefreshRead(LaesInputType input)
         {
-            return PartManager.Read(applicationHeader.UserToken, applicationHeader.ApplicationToken, input, SourceUsageOrder.ExternalOnly, out qualityHeader.QualityLevel);
+            return new PartManager().Read(applicationHeader.UserToken, applicationHeader.ApplicationToken, input, SourceUsageOrder.ExternalOnly, out qualityHeader.QualityLevel);
         }
 
         [SoapHeader(ApplicationHeaderName)]
@@ -94,7 +94,7 @@ namespace CprBroker.Web.Services
         public ListOutputType1 List(ListInputType input)
         {
             var localAction = SourceUsageOrderHeader.GetLocalDataProviderUsageOption(this.sourceUsageOrderHeader);
-            return PartManager.List(applicationHeader.UserToken, applicationHeader.ApplicationToken, input, localAction, out qualityHeader.QualityLevel);
+            return new PartManager().List(applicationHeader.UserToken, applicationHeader.ApplicationToken, input, localAction, out qualityHeader.QualityLevel);
         }
 
         [SoapHeader(ApplicationHeaderName)]
@@ -102,27 +102,27 @@ namespace CprBroker.Web.Services
         [WebMethod(MessageName = CprBroker.Schemas.Part.ServiceNames.Part.Methods.Search, Description = CprBroker.Schemas.ServiceDescription.Part.Methods.Search)]
         public SoegOutputType Search(SoegInputType1 searchCriteria)
         {
-            return PartManager.Search(applicationHeader.UserToken, applicationHeader.ApplicationToken, searchCriteria, out qualityHeader.QualityLevel);
+            return new PartManager().Search(applicationHeader.UserToken, applicationHeader.ApplicationToken, searchCriteria, out qualityHeader.QualityLevel);
         }
 
         [SoapHeader(ApplicationHeaderName)]
         [WebMethod(MessageName = CprBroker.Schemas.Part.ServiceNames.Part.Methods.GetUuid, Description = CprBroker.Schemas.ServiceDescription.Part.Methods.GetUuid)]
         public GetUuidOutputType GetUuid(string cprNumber)
         {
-            return PartManager.GetUuid(applicationHeader.UserToken, applicationHeader.ApplicationToken, cprNumber);
+            return new PartManager().GetUuid(applicationHeader.UserToken, applicationHeader.ApplicationToken, cprNumber);
         }
 
         //[SoapHeader(ApplicationHeaderName)]
         //[WebMethod(MessageName = CprBroker.Schemas.Part.ServiceNames.Part.Methods.GetUuidArray, Description = CprBroker.Schemas.ServiceDescription.Part.Methods.GetUuidArray)]
         public GetUuidArrayOutputType GetUuidArray(string[] cprNumberArray)
         {
-            return PartManager.GetUuidArray(applicationHeader.UserToken, applicationHeader.ApplicationToken, cprNumberArray);
+            return new PartManager().GetUuidArray(applicationHeader.UserToken, applicationHeader.ApplicationToken, cprNumberArray);
         }
 
         [SoapHeader(ApplicationHeaderName)]
         public IBasicOutput<bool> PutSubscription(Guid[] personUuids)
         {
-            return PartManager.PutSubscription(applicationHeader.UserToken, applicationHeader.ApplicationToken, personUuids);
+            return new PartManager().PutSubscription(applicationHeader.UserToken, applicationHeader.ApplicationToken, personUuids);
         }
 
         [WebMethod(Description = "Gets a single snapshot of one person's CPR data")]
@@ -131,7 +131,7 @@ namespace CprBroker.Web.Services
         public LaesOutputType ReadSnapshot(LaesOejebliksbilledeInputType input)
         {
             var sourceUsageOrder = SourceUsageOrderHeader.GetLocalDataProviderUsageOption(this.sourceUsageOrderHeader);
-            return PartManager.ReadAtTime(input, applicationHeader.ApplicationToken, applicationHeader.UserToken, sourceUsageOrder);
+            return new PartManager().ReadAtTime(input, applicationHeader.ApplicationToken, applicationHeader.UserToken, sourceUsageOrder);
         }
 
         [WebMethod(Description = "Gets all snapshots of one person's CPR data that fall between the input effect dates")]
@@ -140,7 +140,7 @@ namespace CprBroker.Web.Services
         public LaesOutputType ReadPeriod(LaesPeriodInputType input)
         {
             var sourceUsageOrder = SourceUsageOrderHeader.GetLocalDataProviderUsageOption(this.sourceUsageOrderHeader);
-            return PartManager.ReadPeriod(input, applicationHeader.ApplicationToken, applicationHeader.UserToken, sourceUsageOrder);
+            return new PartManager().ReadPeriod(input, applicationHeader.ApplicationToken, applicationHeader.UserToken, sourceUsageOrder);
         }
 
         [WebMethod(Description = "Gets a single snapshot of the given persons' CPR data")]
@@ -149,7 +149,7 @@ namespace CprBroker.Web.Services
         public ListOutputType1 ListSnapshot(ListOejebliksbilledeInputType input)
         {
             var sourceUsageOrder = SourceUsageOrderHeader.GetLocalDataProviderUsageOption(this.sourceUsageOrderHeader);
-            return PartManager.ListAtTime(input, applicationHeader.ApplicationToken, applicationHeader.UserToken, sourceUsageOrder);
+            return new PartManager().ListAtTime(input, applicationHeader.ApplicationToken, applicationHeader.UserToken, sourceUsageOrder);
         }
 
         [WebMethod(Description = "Gets all snapshots of the given persons' CPR data that fall between the input effect dates")]
@@ -158,7 +158,7 @@ namespace CprBroker.Web.Services
         public ListOutputType1 ListPeriod(ListPeriodInputType input)
         {
             var sourceUsageOrder = SourceUsageOrderHeader.GetLocalDataProviderUsageOption(this.sourceUsageOrderHeader);
-            return PartManager.ListPeriod(input, applicationHeader.ApplicationToken, applicationHeader.UserToken, sourceUsageOrder);
+            return new PartManager().ListPeriod(input, applicationHeader.ApplicationToken, applicationHeader.UserToken, sourceUsageOrder);
         }
     }
 

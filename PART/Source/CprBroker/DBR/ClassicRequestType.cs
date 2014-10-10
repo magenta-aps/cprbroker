@@ -111,9 +111,10 @@ namespace CprBroker.DBR
         public virtual IEnumerable<ICprDirectPersonDataProvider> LoadDataProviders()
         {
             DataProvidersConfigurationSection section = ConfigManager.Current.DataProvidersSection;
-            DataProvider[] dbProviders = DataProviderManager.ReadDatabaseDataProviders();
+            var providerFactory = new DataProviderFactory();
+            DataProvider[] dbProviders = providerFactory.ReadDatabaseDataProviders();
 
-            var providers = DataProviderManager
+            var providers = providerFactory
                 .GetDataProviderList(section, dbProviders, typeof(ICprDirectPersonDataProvider), Schemas.SourceUsageOrder.LocalThenExternal)
                 .Select(p => p as ICprDirectPersonDataProvider);
             return providers;

@@ -61,17 +61,17 @@ namespace CprBroker.Engine
     /// The main class of the system's engine.
     /// Manages calls to data providers
     /// </summary>
-    public partial class Manager
+    public class RequestProcessor
     {
-        protected Manager()
+        public RequestProcessor()
         { }
 
-        public static BasicOutputType<TItem> GetMethodOutput<TItem>(GenericFacadeMethodInfo<TItem> facade)
+        public BasicOutputType<TItem> GetMethodOutput<TItem>(GenericFacadeMethodInfo<TItem> facade)
         {
             return GetMethodOutput<BasicOutputType<TItem>, TItem>(facade);
         }
 
-        public static TOutput GetMethodOutput<TOutput, TItem>(FacadeMethodInfo<TOutput, TItem> facade) where TOutput : class, IBasicOutput<TItem>, new()
+        public TOutput GetMethodOutput<TOutput, TItem>(FacadeMethodInfo<TOutput, TItem> facade) where TOutput : class, IBasicOutput<TItem>, new()
         {
             try
             {
@@ -101,7 +101,7 @@ namespace CprBroker.Engine
             }
         }
 
-        public static StandardReturType Validate<TOutput, TItem>(FacadeMethodInfo<TOutput, TItem> facade) where TOutput : class, IBasicOutput<TItem>, new()
+        public StandardReturType Validate<TOutput, TItem>(FacadeMethodInfo<TOutput, TItem> facade) where TOutput : class, IBasicOutput<TItem>, new()
         {
             // Initialize context
             try
@@ -127,7 +127,7 @@ namespace CprBroker.Engine
             return StandardReturType.OK();
         }
 
-        public static StandardReturType Initialize<TOutput, TItem>(FacadeMethodInfo<TOutput, TItem> facade, out SubMethodRunState[] subMethodRunStates) where TOutput : class, IBasicOutput<TItem>, new()
+        public StandardReturType Initialize<TOutput, TItem>(FacadeMethodInfo<TOutput, TItem> facade, out SubMethodRunState[] subMethodRunStates) where TOutput : class, IBasicOutput<TItem>, new()
         {
             // Initialize facade method
             facade.Initialize();
@@ -144,7 +144,7 @@ namespace CprBroker.Engine
             return StandardReturType.OK();
         }
 
-        public static void RunThreads<TOutput, TItem>(FacadeMethodInfo<TOutput, TItem> facade, SubMethodRunState[] subMethodRunStates) where TOutput : class, IBasicOutput<TItem>, new()
+        public void RunThreads<TOutput, TItem>(FacadeMethodInfo<TOutput, TItem> facade, SubMethodRunState[] subMethodRunStates) where TOutput : class, IBasicOutput<TItem>, new()
         {
             #region Creation of sub results in threads
             // Catch the current broker context in a local variable
@@ -236,7 +236,7 @@ namespace CprBroker.Engine
             #endregion
         }
 
-        public static TOutput AggregateResults<TOutput, TItem>(FacadeMethodInfo<TOutput, TItem> facade, SubMethodRunState[] subMethodRunStates) where TOutput : class, IBasicOutput<TItem>, new()
+        public TOutput AggregateResults<TOutput, TItem>(FacadeMethodInfo<TOutput, TItem> facade, SubMethodRunState[] subMethodRunStates) where TOutput : class, IBasicOutput<TItem>, new()
         {
             #region Final aggregation
 
@@ -285,7 +285,7 @@ namespace CprBroker.Engine
         }
 
 
-        public static TOutput GetBatchMethodOutput<TInterface, TOutput, TSingleInputItem, TSingleOutputItem>(BatchFacadeMethodInfo<TInterface, TOutput, TSingleInputItem, TSingleOutputItem> facade)
+        public TOutput GetBatchMethodOutput<TInterface, TOutput, TSingleInputItem, TSingleOutputItem>(BatchFacadeMethodInfo<TInterface, TOutput, TSingleInputItem, TSingleOutputItem> facade)
             where TInterface : class,IDataProvider
             where TOutput : class, IBasicOutput<TSingleOutputItem[]>, new()
         {

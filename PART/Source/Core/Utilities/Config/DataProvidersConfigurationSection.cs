@@ -52,7 +52,7 @@ using System.Configuration;
 
 namespace CprBroker.Utilities.Config
 {
-    public class DataProvidersConfigurationSection : ConfigurationSection
+    public class DataProvidersConfigurationSection : ConfigurationSection, IEnumerable<string>
     {
         [ConfigurationProperty("knownTypes", IsDefaultCollection = false)]
         [ConfigurationCollection(typeof(TypeCollection),
@@ -72,6 +72,19 @@ namespace CprBroker.Utilities.Config
         }
 
         public const string SectionName = "dataProviders";
+
+        IEnumerator<string> IEnumerable<string>.GetEnumerator()
+        {
+            var typesConfigurationElements = new TypeElement[KnownTypes.Count];
+            KnownTypes.CopyTo(typesConfigurationElements, 0);
+
+            return typesConfigurationElements.Select(t => t.TypeName).AsEnumerable().GetEnumerator();
+        }
+
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+        {
+            return (this as IEnumerable<string>).GetEnumerator();
+        }
     }
 
     public class TypeCollection : ConfigurationElementCollection

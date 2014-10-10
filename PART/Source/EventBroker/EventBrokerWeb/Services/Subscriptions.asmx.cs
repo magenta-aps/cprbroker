@@ -74,49 +74,49 @@ namespace CprBroker.EventBroker.Web.Services
         [WebMethod(MessageName = CprBroker.Schemas.Part.ServiceNames.Subscriptions.Methods.Subscribe, Description = CprBroker.Schemas.ServiceDescription.Subscriptions.Subscribe)]
         public BasicOutputType<ChangeSubscriptionType> Subscribe(ChannelBaseType NotificationChannel, Guid[] personUuids)
         {
-            return SubscriptionManager.Subscribe(applicationHeader.UserToken, applicationHeader.ApplicationToken, NotificationChannel, personUuids);
+            return new SubscriptionManager().Subscribe(applicationHeader.UserToken, applicationHeader.ApplicationToken, NotificationChannel, personUuids);
         }
 
         [SoapHeader(ApplicationHeaderName)]
         [WebMethod(MessageName = CprBroker.Schemas.Part.ServiceNames.Subscriptions.Methods.Unsubscribe, Description = CprBroker.Schemas.ServiceDescription.Subscriptions.Unsubscribe)]
         public BasicOutputType<bool> Unsubscribe(Guid SubscriptionId)
         {
-            return SubscriptionManager.Unsubscribe(applicationHeader.UserToken, applicationHeader.ApplicationToken, SubscriptionId);
+            return new SubscriptionManager().Unsubscribe(applicationHeader.UserToken, applicationHeader.ApplicationToken, SubscriptionId);
         }
 
         [SoapHeader(ApplicationHeaderName)]
         [WebMethod(MessageName = CprBroker.Schemas.Part.ServiceNames.Subscriptions.Methods.SubscribeOnBirthdate, Description = CprBroker.Schemas.ServiceDescription.Subscriptions.SubscribeOnBirthdate)]
         public BasicOutputType<BirthdateSubscriptionType> SubscribeOnBirthdate(ChannelBaseType NotificationChannel, Nullable<int> Years, int PriorDays, Guid[] personUuids)
         {
-            return SubscriptionManager.SubscribeOnBirthdate(applicationHeader.UserToken, applicationHeader.ApplicationToken, NotificationChannel, Years, PriorDays, personUuids);
+            return new SubscriptionManager().SubscribeOnBirthdate(applicationHeader.UserToken, applicationHeader.ApplicationToken, NotificationChannel, Years, PriorDays, personUuids);
         }
 
         [SoapHeader(ApplicationHeaderName)]
         [WebMethod(MessageName = CprBroker.Schemas.Part.ServiceNames.Subscriptions.Methods.RemoveBirthDateSubscription, Description = CprBroker.Schemas.ServiceDescription.Subscriptions.RemoveBirthDateSubscriptions)]
         public BasicOutputType<bool> RemoveBirthDateSubscription(Guid SubscriptionId)
         {
-            return SubscriptionManager.RemoveBirthDateSubscription(applicationHeader.UserToken, applicationHeader.ApplicationToken, SubscriptionId);
+            return new SubscriptionManager().RemoveBirthDateSubscription(applicationHeader.UserToken, applicationHeader.ApplicationToken, SubscriptionId);
         }
 
         [SoapHeader(ApplicationHeaderName)]
         [WebMethod(MessageName = CprBroker.Schemas.Part.ServiceNames.Subscriptions.Methods.SubscribeOnCriteria, Description = CprBroker.Schemas.ServiceDescription.Subscriptions.SubscribeOnCriteria)]
         public BasicOutputType<ChangeSubscriptionType> SubscribeOnCriteria(ChannelBaseType NotificationChannel, SoegObjektType Criteria)
         {
-            return SubscriptionManager.SubscribeOnCriteria(applicationHeader.UserToken, applicationHeader.ApplicationToken, NotificationChannel, Criteria);
+            return new SubscriptionManager().SubscribeOnCriteria(applicationHeader.UserToken, applicationHeader.ApplicationToken, NotificationChannel, Criteria);
         }
 
         [SoapHeader(ApplicationHeaderName)]
         [WebMethod(MessageName = CprBroker.Schemas.Part.ServiceNames.Subscriptions.Methods.GetActiveSubscriptionsList, Description = CprBroker.Schemas.ServiceDescription.Subscriptions.GetActiveSubscriptionsList)]
         public BasicOutputType<SubscriptionType[]> GetActiveSubscriptionsList()
         {
-            return SubscriptionManager.GetActiveSubscriptionsList(applicationHeader.UserToken, applicationHeader.ApplicationToken);
+            return new SubscriptionManager().GetActiveSubscriptionsList(applicationHeader.UserToken, applicationHeader.ApplicationToken);
         }
 
         [SoapHeader(ApplicationHeaderName)]
         [WebMethod(MessageName = CprBroker.Schemas.Part.ServiceNames.Subscriptions.Methods.Ping)]
         public BasicOutputType<bool> Ping()
         {
-            return Engine.Ping.PingManager.Ping(applicationHeader.UserToken, applicationHeader.ApplicationToken);
+            return new Engine.Ping.PingManager().Ping(applicationHeader.UserToken, applicationHeader.ApplicationToken);
         }
     }
 }

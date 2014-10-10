@@ -53,12 +53,12 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Engine.Ping
 {
-    public class PingManager
+    public class PingManager : RequestProcessor
     {
-        public static BasicOutputType<bool> Ping(string userToken, string appToken)
+        public BasicOutputType<bool> Ping(string userToken, string appToken)
         {
             var facade = new PingFacadeMethod(appToken, userToken);
-            return Manager.GetMethodOutput<bool>(facade);
+            return GetMethodOutput<bool>(facade);
         }
     }
 }

@@ -23,9 +23,6 @@
  *
  * Contributor(s):
  * Beemen Beshara
- * Niels Elgaard Larsen
- * Leif Lodahl
- * Steen Deth
  *
  * The code is currently governed by IT- og Telestyrelsen / Danish National
  * IT and Telecom Agency
@@ -63,15 +60,24 @@ namespace CprBroker.Engine
     /// <summary>
     /// Manages the loading and selection of data providers
     /// </summary>
-    public static class DataProviderManager
+    public class DataProviderFactory
     {
+        public IEnumerable<string> AvailableTypesSource { get; set; }
+        public IEnumerable<DataProvider> ConfiguredProvidersSource { get; set; }
+
+        public DataProviderFactory()
+        {
+            this.AvailableTypesSource = CprBroker.Utilities.Config.ConfigManager.Current.DataProvidersSection;
+            this.ConfiguredProvidersSource = new DataProviderDatabaseReader();
+        }
+
         #region Creators
         /// <summary>
         /// Converts the current DataProvider (database object) to the appropriate IDataProvider object based on its type
         /// </summary>
         /// <param name="dbDataProvider">The database object that represents the data provider</param>
         /// <returns>The newly created IDataProvider</returns>
-        public static IExternalDataProvider CreateDataProvider(CprBroker.Data.DataProviders.DataProvider dbDataProvider)
+        public IExternalDataProvider CreateDataProvider(CprBroker.Data.DataProviders.DataProvider dbDataProvider)
         {
             IExternalDataProvider dataProvider = Utilities.Reflection.CreateInstance<IExternalDataProvider>(dbDataProvider.TypeName);
             if (dataProvider is IExternalDataProvider)
@@ -88,7 +94,7 @@ namespace CprBroker.Engine
             return dataProvider;
         }
 
-        public static IPerCallDataProvider CreatePaidDataProvider(CprBroker.Data.DataProviders.DataProvider dbDataProvider)
+        public IPerCallDataProvider CreatePaidDataProvider(CprBroker.Data.DataProviders.DataProvider dbDataProvider)
         {
             IPerCallDataProvider dataProvider = Utilities.Reflection.CreateInstance<IPerCallDataProvider>(dbDataProvider.TypeName);
             if (dataProvider is IPerCallDataProvider)
@@ -109,37 +115,33 @@ namespace CprBroker.Engine
 
         #region Loaders
 
-        public static IEnumerable<Type> GetAvailableDataProviderTypes(bool isExternal)
+        public IEnumerable<Type> GetAvailableDataProviderTypes(bool isExternal)
         {
             return GetAvailableDataProviderTypes(null, isExternal);
         }
 
-        public static IEnumerable<Type> GetAvailableDataProviderTypes(Type interfaceType, bool isExternal)
+        public IEnumerable<Type> GetAvailableDataProviderTypes(Type interfaceType, bool isExternal)
         {
-            return GetAvailableDataProviderTypes(ConfigManager.Current.DataProvidersSection, interfaceType, isExternal);
+            return GetAvailableDataProviderTypes(AvailableTypesSource, interfaceType, isExternal);
 
         }
 
-        public static IEnumerable<Type> GetAvailableDataProviderTypes(DataProvidersConfigurationSection section, Type interfaceType, bool isExternal)
+        public IEnumerable<Type> GetAvailableDataProviderTypes(IEnumerable<string> typeNames, Type interfaceType, bool isExternal)
         {
             if (interfaceType == null)
             {
                 interfaceType = typeof(IDataProvider);
             }
 
-            if (section != null)
+            if (typeNames != null)
             {
                 try
                 {
-                    var typesConfigurationElements = new TypeElement[section.KnownTypes.Count];
-                    section.KnownTypes.CopyTo(typesConfigurationElements, 0);
-
-                    return typesConfigurationElements
-                        .Select(typeConfigElement =>
+                    return typeNames
+                        .Select(typeName =>
                         {
                             try
                             {
-                                string typeName = typeConfigElement.TypeName;
                                 Type t = Type.GetType(typeName);
                                 if (interfaceType.IsAssignableFrom(t))
                                 {
@@ -177,19 +179,12 @@ namespace CprBroker.Engine
             return new Type[0];
         }
 
-        public static DataProvider[] ReadDatabaseDataProviders()
+        public DataProvider[] ReadDatabaseDataProviders()
         {
-            using (var dataContext = new CprBroker.Data.DataProviders.DataProvidersDataContext())
-            {
-                var dbProviders = (from prov in dataContext.DataProviders
-                                   where prov.IsEnabled == true
-                                   orderby prov.Ordinal
-                                   select prov).ToArray();
-                return dbProviders;
-            }
+            return this.ConfiguredProvidersSource.ToArray();
         }
 
-        public static IEnumerable<IDataProvider> LoadExternalDataProviders(DataProvider[] dbProviders, Type interfaceType)
+        public IEnumerable<IDataProvider> LoadExternalDataProviders(DataProvider[] dbProviders, Type interfaceType)
         {
             return dbProviders
                 .AsEnumerable()
@@ -218,9 +213,9 @@ namespace CprBroker.Engine
                 .Where(prov => prov != null);
         }
 
-        public static IEnumerable<IDataProvider> LoadLocalDataProviders(DataProvidersConfigurationSection section, Type interfaceType)
+        public IEnumerable<IDataProvider> LoadLocalDataProviders(IEnumerable<string> typeNames, Type interfaceType)
         {
-            return GetAvailableDataProviderTypes(section, interfaceType, false)
+            return GetAvailableDataProviderTypes(typeNames, interfaceType, false)
                 .Select(
                     t => Reflection.CreateInstance<IDataProvider>(t)
                 );
@@ -231,7 +226,7 @@ namespace CprBroker.Engine
         #region Filtration by type
 
 
-        public static IEnumerable<IDataProvider> GetDataProviderList(DataProvidersConfigurationSection section, DataProvider[] dbProviders, Type interfaceType, SourceUsageOrder localOption)
+        public IEnumerable<IDataProvider> GetDataProviderList(IEnumerable<string> knownTypeNames, DataProvider[] dbProviders, Type interfaceType, SourceUsageOrder localOption)
         {
             switch (localOption)
             {
@@ -239,10 +234,10 @@ namespace CprBroker.Engine
                     return LoadExternalDataProviders(dbProviders, interfaceType);
 
                 case SourceUsageOrder.LocalOnly:
-                    return LoadLocalDataProviders(section, interfaceType);
+                    return LoadLocalDataProviders(knownTypeNames, interfaceType);
 
                 case SourceUsageOrder.LocalThenExternal:
-                    return LoadLocalDataProviders(section, interfaceType)
+                    return LoadLocalDataProviders(knownTypeNames, interfaceType)
                         .Concat(
                             LoadExternalDataProviders(dbProviders, interfaceType)
                         );

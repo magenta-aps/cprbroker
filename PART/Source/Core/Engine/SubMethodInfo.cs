@@ -88,7 +88,7 @@ namespace CprBroker.Engine
 
         public override IEnumerable<IDataProvider> GetDataProviderList(DataProvidersConfigurationSection section, DataProvider[] dbProviders)
         {
-            return DataProviderManager.GetDataProviderList(section, dbProviders, this.InterfaceType, this.LocalDataProviderOption);
+            return new DataProviderFactory().GetDataProviderList(section, dbProviders, this.InterfaceType, this.LocalDataProviderOption);
         }
 
         public override sealed object Invoke(IDataProvider prov)

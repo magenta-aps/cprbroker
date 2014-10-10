@@ -123,7 +123,7 @@ namespace CprBroker.PartInterface
             return true;
         }
 
-        public static LaesOutputType ReadAtTime(LaesOejebliksbilledeInputType input, string appToken, string userToken, SourceUsageOrder sourceUsageOrder)
+        public LaesOutputType ReadAtTime(LaesOejebliksbilledeInputType input, string appToken, string userToken, SourceUsageOrder sourceUsageOrder)
         {
             var facade = new ReadPeriodLookupFacadeMethodInfo()
             {
@@ -145,7 +145,7 @@ namespace CprBroker.PartInterface
             return result;
         }
 
-        public static LaesOutputType ReadPeriod(LaesPeriodInputType input, string appToken, string userToken, SourceUsageOrder sourceUsageOrder)
+        public LaesOutputType ReadPeriod(LaesPeriodInputType input, string appToken, string userToken, SourceUsageOrder sourceUsageOrder)
         {
             var facade = new ReadPeriodLookupFacadeMethodInfo()
             {
@@ -167,7 +167,7 @@ namespace CprBroker.PartInterface
             return result;
         }
 
-        public static ListOutputType1 ListAtTime(ListOejebliksbilledeInputType input, string appToken, string userToken, SourceUsageOrder sourceUsageOrder)
+        public ListOutputType1 ListAtTime(ListOejebliksbilledeInputType input, string appToken, string userToken, SourceUsageOrder sourceUsageOrder)
         {
             var facade = new ListPeriodLookupFacadeMethodInfo()
             {
@@ -192,7 +192,7 @@ namespace CprBroker.PartInterface
             return result;
         }
 
-        public static ListOutputType1 ListPeriod(ListPeriodInputType input, string appToken, string userToken, SourceUsageOrder sourceUsageOrder)
+        public ListOutputType1 ListPeriod(ListPeriodInputType input, string appToken, string userToken, SourceUsageOrder sourceUsageOrder)
         {
             var facade = new ListPeriodLookupFacadeMethodInfo()
             {
