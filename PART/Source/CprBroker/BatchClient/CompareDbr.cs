@@ -14,13 +14,28 @@ using System.Data.SqlClient;
 using CprBroker.Tests.DBR;
 using CprBroker.Tests.DBR.Comparison;
 using CprBroker.Tests.DBR.Comparison.Person;
+using CprBroker.Providers.CPRDirect;
 
 namespace BatchClient
 {
+    /// <summary>
+    /// Compares DPR and DBR databases, after (optionally) converting persons from a CPR broker database
+    /// Paramatares
+    /// /brokerDb "connection string to CPR broker database", will be used to update current config
+    /// /otherDb "connection string to real DPR database"
+    /// /otherDb2 "connection string to the generated DBR database"
+    /// </summary>
     public class CompareDbr : ConsoleEnvironment
     {
         public override string[] LoadCprNumbers()
         {
+            // Set connection string
+            if (!string.IsNullOrEmpty(BrokerConnectionString))
+            {
+                Utilities.UpdateConnectionString(BrokerConnectionString);
+            }
+
+            // Load CPR numbers
             using (var dataContext = new DPRDataContext(OtherConnectionString))
             {
                 return dataContext
@@ -92,9 +107,20 @@ namespace BatchClient
 
             var tests = TestInfo.All();
 
-            using (var realDataContext = new DPRDataContext(OtherConnectionString))
+            using (var dbrDataContext = new DPRDataContext(OtherConnectionString2))
             {
-                using (var dbrDataContext = new DPRDataContext(OtherConnectionString2))
+                // Convert
+                if (!string.IsNullOrEmpty(BrokerConnectionString))
+                {
+                    CprConverter.DeletePersonRecords(pnr, dbrDataContext);
+                    dbrDataContext.SubmitChanges();
+                    var person = ExtractManager.GetPerson(pnr);
+                    CprConverter.AppendPerson(person, dbrDataContext);
+                    dbrDataContext.SubmitChanges();
+                }
+
+                // Compare
+                using (var realDataContext = new DPRDataContext(OtherConnectionString))
                 {
                     foreach (var test in tests)
                     {
