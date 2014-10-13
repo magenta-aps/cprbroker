@@ -114,6 +114,8 @@ namespace CprBroker.DBR
                 CprBroker.Utilities.DataLinq.Distinct<PersonName>(lst)
                 );
 
+            // TODO: We cannot directly map civil status records here, because CPR direct has 2 records for married->divorecd, while DPR represents this as one record
+            // Refer to DPR provider for a similar solution
             dataContext.CivilStatus.InsertOnSubmit(person.CurrentCivilStatus.ToDpr());
             dataContext.CivilStatus.InsertAllOnSubmit(person.HistoricalCivilStatus.Select(c => c.ToDpr()));
 

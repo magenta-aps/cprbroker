@@ -215,7 +215,8 @@ namespace CprBroker.DBR.Extensions
                     pt.SupplementaryAddressMarker = '1'; //DPR SPECIFIC
             }
             pt.MunicipalRelationMarker = null; //DPR SPECIFIC
-            pt.NationalMemoMarker = null; //DPR SPECIFIC
+            // TODO: Should rely on DTNOTAT
+            pt.NationalMemoMarker = null;
             pt.FormerPersonalMarker = null; //DPR SPECIFIC
             pt.PaternityAuthorityName = null; //TODO: Retrieve this from the CPR Service field far_mynkod
             pt.MaritalAuthorityName = null; //TODO: Retrieve this from the CPR Service field mynkod
@@ -232,8 +233,6 @@ namespace CprBroker.DBR.Extensions
             var prevAddress = previousAddresses.FirstOrDefault();
             if (prevAddress != null)
             {
-                Console.WriteLine("Prev kom <{0}>", Authority.GetAuthorityAddressByCode(prevAddress.MunicipalityCode.ToString()));
-
                 var prevAdrStr = string.Format("{0} {1}",
                         Street.GetAddressingName(dataContext.Connection.ConnectionString, prevAddress.MunicipalityCode, prevAddress.StreetCode),
                         System.Text.RegularExpressions.Regex.Replace(
