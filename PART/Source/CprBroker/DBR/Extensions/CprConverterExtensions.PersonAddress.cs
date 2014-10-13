@@ -62,7 +62,7 @@ namespace CprBroker.DBR.Extensions
                 pa.CprUpdateDate = CprBroker.Utilities.Dates.DateToDecimal(currentAddress.CurrentAddressInformation.RelocationDate.Value, 12);
             pa.MunicipalityCode = currentAddress.CurrentAddressInformation.MunicipalityCode;
             pa.StreetCode = currentAddress.CurrentAddressInformation.StreetCode;
-            pa.HouseNumber = currentAddress.CurrentAddressInformation.HouseNumber;
+            pa.HouseNumber = currentAddress.CurrentAddressInformation.HouseNumber.NullIfEmpty();
 
             if (!string.IsNullOrEmpty(currentAddress.CurrentAddressInformation.Floor))
                 pa.Floor = currentAddress.CurrentAddressInformation.Floor;
@@ -180,7 +180,7 @@ namespace CprBroker.DBR.Extensions
                 pa.CprUpdateDate = CprBroker.Utilities.Dates.DateToDecimal(historicalAddress.RelocationDate.Value, 12);
             pa.MunicipalityCode = historicalAddress.MunicipalityCode;
             pa.StreetCode = historicalAddress.StreetCode;
-            pa.HouseNumber = historicalAddress.HouseNumber;
+            pa.HouseNumber = historicalAddress.HouseNumber.NullIfEmpty();
             if (!string.IsNullOrEmpty(historicalAddress.Floor))
                 pa.Floor = historicalAddress.Floor;
             else

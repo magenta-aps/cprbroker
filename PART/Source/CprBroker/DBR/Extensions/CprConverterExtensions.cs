@@ -65,5 +65,13 @@ namespace CprBroker.DBR.Extensions
             else
                 return s;
         }
+
+        public static char? NullIfEmpty(this char c)
+        {
+            if (c == ' ')
+                return null;
+            else
+                return c;
+        }
     }
 }

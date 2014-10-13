@@ -82,7 +82,7 @@ namespace CprBroker.DBR.Extensions
             s.StartDateMarker = historicalSeparation.SeparationStartDateUncertainty;
             s.EndAuthorityCode = 0; //TODO: Can be fetched in CPR Services, mynkod_slut
             s.EndDate = historicalSeparation.SeparationEndDate.Value;
-            s.EndDateMarker = historicalSeparation.SeparationEndDateUncertainty;
+            s.EndDateMarker = historicalSeparation.SeparationEndDateUncertainty.NullIfEmpty();
             return s;
         }
 
