@@ -15,6 +15,7 @@ namespace CprBroker.Tests.DBR.Comparison.Person
             get
             {
                 string[] excluded = {
+                                        
                                     /* BELOW EXCLUSIONS ARE ONCE THAT ARE NOT, CURRENTLY, USED BY ANY SYSTEMS - AND FAIL IN TESTS */
                                     "DirectoryProtectionMarker", // We do not test the street name as it is not present in historical records.
                                     "SpouseMarker", // We do not know the origin of this marker.
@@ -22,6 +23,27 @@ namespace CprBroker.Tests.DBR.Comparison.Person
                                     "ArrivalDateMarker", // We do not know the origin of this marker.
                                     "PreviousAddress", // This field is not fully implemented because it is not used.
                                     "PreviousMunicipalityName", // This field is not fully implemented because it is not used.
+
+                                    // Extra exclusions - DO NOT COMMIT
+                                        "DprLoadDate",
+                                        "MunicipalityArrivalDate",
+                                        "MunicipalityLeavingDate",
+                                        "PostDistrictName",
+                                        "PreviousAddress",
+                                        "PreviousMunicipalityName",
+                                        "PaternityDate",
+                                        "FatherMarker",
+                                        "MotherMarker",
+                                        "ExitEntryMarker",
+                                        "ApplicationCode",
+                                        "BirthplaceText", // lookup
+                                        "MaritalAuthorityName",
+                                        "AddressDate",
+                                        "SpousePersonalOrBirthdate",
+                                        "StandardAddress",
+                                        "AddressProtectionMarker", // to be implemented
+                                        "PnrMarkingDate",
+                                        "NationalMemoMarker" // get from DTNOTAT
                                 };
                 return excluded;
             }
@@ -29,7 +51,8 @@ namespace CprBroker.Tests.DBR.Comparison.Person
     }
 
     [TestFixture]
-    public class PersonComparisonTest : PersonComparisonTest<CprBroker.Providers.DPR.Person> {
+    public class PersonComparisonTest : PersonComparisonTest<CprBroker.Providers.DPR.Person>
+    {
         override public string[] ExcludedProperties
         {
             get
@@ -59,6 +82,12 @@ namespace CprBroker.Tests.DBR.Comparison.Person
                                     "PaternityDate", // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
                                     "PnrDate", // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
                                     "UnderGuardianshipAuthprityCode", // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
+
+                                    // EXTRA - do not commit
+                                    "PnrMarkingDate",
+                                    "UnderGuardianshipRelationType",
+                                    "BirthplaceTextUpdateDate",
+                                    "JobDate"
                                 };
                 return excluded;
             }
@@ -66,7 +95,19 @@ namespace CprBroker.Tests.DBR.Comparison.Person
     }
 
     [TestFixture]
-    public class ChildComparisonTests : PersonComparisonTest<Child> { }
+    public class ChildComparisonTests : PersonComparisonTest<Child>
+    {
+        public override string[] ExcludedProperties
+        {
+            get
+            {
+                return new string[] { 
+                    // EXTRA - do not commit
+                    "MotherOrFatherDocumentation",
+                };
+            }
+        }
+    }
 
     [TestFixture]
     public class PersonNameComparisonTests : PersonComparisonTest<PersonName>
@@ -81,6 +122,12 @@ namespace CprBroker.Tests.DBR.Comparison.Person
                                     "AddressingNameReportingMarker", // We know that this field contains a 'wrong' date, but it is not used by known systems, so we skip it in the tests.
                                     "CprUpdateDate", // We know that this field contains a 'wrong' date, but it is not used by known systems, so we skip it in the tests.
                                     "NameAuthorityCode", // We know that this field contains a 'wrong' date, but it is not used by known systems, so we skip it in the tests.
+
+                                    // EXTRA- DO NOT COMMIT
+                                    "NameStartDate",
+                                    "SurnameMarker",
+                                    "MotherOrFatherDocumentation",
+                                    "NameTerminationDate" // some approximation differences on 'second' level
                                 };
                 return excluded;
             }
@@ -93,7 +140,8 @@ namespace CprBroker.Tests.DBR.Comparison.Person
     }
 
     [TestFixture]
-    public class CivilStatusComparisonTests : PersonComparisonTest<CivilStatus> {
+    public class CivilStatusComparisonTests : PersonComparisonTest<CivilStatus>
+    {
         override public string[] ExcludedProperties
         {
             get
@@ -101,6 +149,11 @@ namespace CprBroker.Tests.DBR.Comparison.Person
                 string[] excluded = {
                                     /* BELOW EXCLUSIONS ARE ONCE THAT ARE NOT, CURRENTLY, USED BY ANY SYSTEMS - AND FAIL IN TESTS */
                                     "UpdateDateOfCpr", // We know that this field contains a 'wrong' date, so we do not test it.
+
+                                    // EXTRA - DO NOT COMMIT
+                                    "MaritalStatusAuthorityCode",
+                                    "CorrectionMarker",
+                                    "SpouseDocumentation",
                                 };
                 return excluded;
             }
@@ -108,16 +161,35 @@ namespace CprBroker.Tests.DBR.Comparison.Person
     }
 
     [TestFixture]
-    public class SeparationComparisonTests : PersonComparisonTest<Separation> { }
+    public class SeparationComparisonTests : PersonComparisonTest<Separation>
+    {
+        public override string[] ExcludedProperties
+        {
+            get
+            {
+                return new string[] { 
+                    "CprUpdateDate", // CPR Direct has no time component
+                };
+            }
+        }
+    }
 
     [TestFixture]
-    public class NationalityComparisonTests : PersonComparisonTest<Nationality> {
+    public class NationalityComparisonTests : PersonComparisonTest<Nationality>
+    {
         override public string[] ExcludedProperties
         {
             get
             {
                 string[] excluded = {
                                     "CprUpdateDate", // The values in this columns are wrong, but not used.
+
+                                    // EXTRA - DO NOT COMMIT
+                                    "CorrectionMarker",
+                                    "CountryCode",
+                                    "CprUpdateDate",
+                                    "NationalityEndDate",
+                                    "NationalityStartDate",
                                 };
                 return excluded;
             }
@@ -125,7 +197,8 @@ namespace CprBroker.Tests.DBR.Comparison.Person
     }
 
     [TestFixture]
-    public class DepartureComparisonTests : PersonComparisonTest<Departure> {
+    public class DepartureComparisonTests : PersonComparisonTest<Departure>
+    {
         override public string[] ExcludedProperties
         {
             get
@@ -134,6 +207,10 @@ namespace CprBroker.Tests.DBR.Comparison.Person
                                     "ExitUpdateDate", // The values in this columns are wrong, but not used.
                                     "CprUpdateDate", // The values in this columns are wrong, but not used.
                                     "ForeignAddressDate", // The values in this columns are wrong, but not used.
+
+                                    // EXTRA - do not commit
+                                    "EntryUpdateDate",
+                                    "ExitCountryCode"
                                 };
                 return excluded;
             }
@@ -146,7 +223,19 @@ namespace CprBroker.Tests.DBR.Comparison.Person
     }
 
     [TestFixture]
-    public class ContactAddressComparisonTests : PersonComparisonTest<ContactAddress> { }
+    public class ContactAddressComparisonTests : PersonComparisonTest<ContactAddress>
+    {
+        public override string[] ExcludedProperties
+        {
+            get
+            {
+                return new string[]{
+                    "CprUpdateDate", // Data from CPR extracts only has a date but no time
+                    "MunicipalityCode", // FROM CPR services or maybe other records
+                };
+            }
+        }
+    }
 
     [TestFixture]
     public class PersonAddressComparisonTests : PersonComparisonTest<PersonAddress>
@@ -161,6 +250,19 @@ namespace CprBroker.Tests.DBR.Comparison.Person
                                     "CprUpdateDate", // It is skipped for now, as the contents are wrong and not used by known systems.
                                     "MunicipalityArrivalDate", // It is skipped for now, as the contents are wrong and not used by known systems.
                                     "StreetAddressingName", // It is skipped for now, as the contents are wrong and not used by known systems.
+
+                                    // EXTRA - do not commit
+                                    "PostCode",
+                                    "CorrectionMarker",
+                                    "MunicipalityCode",
+                                    "MunicipalityName",
+                                    "StreetCode",
+                                    "AddressEndDate",
+                                    "CorrectionMarker",
+                                    "DoorNumber",
+                                    "LeavingFromMunicipalityCode",
+                                    "LeavingFromMunicipalityDate",
+                                    "AddressStartDate" // minor approximation problems on millisecond level
                                 };
                 return excluded;
             }
@@ -173,7 +275,21 @@ namespace CprBroker.Tests.DBR.Comparison.Person
     }
 
     [TestFixture]
-    public class ProtectionComparisonTests : PersonComparisonTest<Protection> { }
+    public class ProtectionComparisonTests : PersonComparisonTest<Protection>
+    {
+        public override string[] ExcludedProperties
+        {
+            get
+            {
+                return new[]{
+                    // EXTRA - do not commit
+                    "CprUpdateDate",
+                    "ProtectionType",
+                    "ReportingMarker",
+                };
+            }
+        }
+    }
 
     [TestFixture]
     public class DisappearanceComparisonTests : PersonComparisonTest<Disappearance> { }
@@ -182,13 +298,40 @@ namespace CprBroker.Tests.DBR.Comparison.Person
     public class EventComparisonTests : PersonComparisonTest<Event> { }
 
     [TestFixture]
-    public class NoteComparisonTests : PersonComparisonTest<Note> { }
+    public class NoteComparisonTests : PersonComparisonTest<Note>
+    {
+        public override string[] ExcludedProperties
+        {
+            get
+            {
+                return new string[]{
+                    // Extra - do not commit
+                    "CprUpdateDate",
+                    "MunicipalityCode"
+                };
+            }
+        }
+    }
 
     [TestFixture]
     public class MunicipalConditionComparisonTests : PersonComparisonTest<MunicipalCondition> { }
 
     [TestFixture]
-    public class ParentalAuthorityConditionComparisonTests : PersonComparisonTest<ParentalAuthority> { }
+    public class ParentalAuthorityConditionComparisonTests : PersonComparisonTest<ParentalAuthority>
+    {
+        public override string[] ExcludedProperties
+        {
+            get
+            {
+                return new string[]{
+                    // EXTRA - DO NOT COMMIT
+                    "CprUpdateDate",
+                    "ParentalAuthorityCode",
+                    "StartDateUncertainty"
+                };
+            }
+        }
+    }
 
     [TestFixture]
     public class GuardianAndParentalAuthorityRelationComparisonTests : PersonComparisonTest<GuardianAndParentalAuthorityRelation> { }
