@@ -38,9 +38,7 @@ namespace BatchClient
             // Load CPR numbers
             using (var dataContext = new DPRDataContext(OtherConnectionString))
             {
-                return dataContext
-                    .PersonTotals
-                    .Select(p => p.PNR)
+                return dataContext.ExecuteQuery<decimal>("select PNR from DTTOTAL WHERE INDLAESDTO IS NOT NULL")
                     .ToArray()
                     .Select(p => p.ToPnrDecimalString())
                     .ToArray();
