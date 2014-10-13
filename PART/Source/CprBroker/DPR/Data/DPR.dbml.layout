@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 12.75, 12.625" name="DPR">
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 12.75, 15.375" name="DPR">
   <DataContextMoniker Name="/DPRDataContext" />
   <nestedChildShapes>
     <classShape Id="ad4c5d61-dbfb-400a-b829-0da01f27860b" absoluteBounds="4.5, 1.375, 2, 4.4631168619791666">
@@ -110,6 +110,32 @@
       <nodes>
         <classShapeMoniker Id="e41857ad-de04-40ac-b603-8b733e41b7d7" />
         <classShapeMoniker Id="541038e8-620c-4816-bae5-fc9a2d2b6002" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="cd8c84d6-ae29-4373-b446-25aff2fbfb87" absoluteBounds="0.875, 10.25, 2, 2.1554996744791666">
+      <DataClassMoniker Name="/DPRDataContext/Relation" />
+      <nestedChildShapes>
+        <elementListCompartment Id="e03bde0a-a420-4b5e-84b2-6f3024d9906f" absoluteBounds="0.89, 10.71, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(7.5 : 9.55370198567708); (2.84375 : 9.55370198567708); (2.84375 : 10.25)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/DPRDataContext/PersonTotal/PersonTotal_GuardianAndParentalAuthority" />
+      <nodes>
+        <classShapeMoniker Id="e41857ad-de04-40ac-b603-8b733e41b7d7" />
+        <classShapeMoniker Id="cd8c84d6-ae29-4373-b446-25aff2fbfb87" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="2b169636-b103-40bc-9742-b7f0d81c6ca7" absoluteBounds="5.875, 13, 2, 2.1554996744791666">
+      <DataClassMoniker Name="/DPRDataContext/ParentalAuthority" />
+      <nestedChildShapes>
+        <elementListCompartment Id="59af33d1-2941-429c-85ed-85213be9bce3" absoluteBounds="5.89, 13.46, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(8.6875005 : 12.2032698567708); (8.6875005 : 14.0777498372396); (7.875 : 14.0777498372396)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/DPRDataContext/PersonTotal/PersonTotal_ParentalAuthority" />
+      <nodes>
+        <classShapeMoniker Id="e41857ad-de04-40ac-b603-8b733e41b7d7" />
+        <classShapeMoniker Id="2b169636-b103-40bc-9742-b7f0d81c6ca7" />
       </nodes>
     </associationConnector>
   </nestedChildShapes>

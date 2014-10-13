@@ -205,6 +205,9 @@
     </WebReferenceUrl>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Web References\Part\GetUuidArrayOutputType.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
     <None Include="Web References\Part\GetUuidOutputType.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>

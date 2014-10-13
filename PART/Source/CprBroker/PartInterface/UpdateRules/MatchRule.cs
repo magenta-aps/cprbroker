@@ -65,7 +65,10 @@ namespace CprBroker.Engine.UpdateRules
         /// <returns>True </returns>
         public abstract bool UpdateXmlTypeIfPossible(RegistreringType1 existingReg, RegistreringType1 newReg);
 
-        private readonly static MatchRule[] _AllRules = new MatchRule[] { new AddressingNameMatchRule(), new SpecielVejkodeIndikatorMatchRule(), new CityNameMatchRule() };
+        private readonly static MatchRule[] _AllRules = new MatchRule[] { 
+            new AddressingNameMatchRule(), new SpecielVejkodeIndikatorMatchRule(), new CityNameMatchRule(),
+            new ParentalAuthorityChildrenUpdateRule(), new ParentalAuthorityHoldersUpdateRule()
+        };
 
         public static MatchRule[] AllRules()
         {
@@ -79,6 +82,8 @@ namespace CprBroker.Engine.UpdateRules
 
         public static bool ApplyRules(PersonRegistration dbReg, RegistreringType1 newReg, IEnumerable<MatchRule> matchRules)
         {
+            // TODO: Clear the effect dates directly under the registration object before applying the rules, restore them after applying
+            // These dates are calculated from other dates
             var existingReg = PersonRegistration.ToXmlType(dbReg);
             var appliedRules = new List<MatchRule>();
 
