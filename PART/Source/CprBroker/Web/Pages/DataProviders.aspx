@@ -37,10 +37,10 @@
             </asp:TemplateField>
             <asp:TemplateField HeaderText="Details">
                 <ItemTemplate>
-                    <uc1:ConfigPropertyViewer runat="server" DataSource='<%# DataProviderManager.CreateDataProvider(Container.DataItem as DataProvider).ToDisplayableProperties() %>' />
+                    <uc1:ConfigPropertyViewer runat="server" DataSource='<%# new DataProviderFactory().CreateDataProvider(Container.DataItem as DataProvider).ToDisplayableProperties() %>' />
                 </ItemTemplate>
                 <EditItemTemplate>
-                    <uc1:ConfigPropertyEditor ID="configEditor" runat="server" DataSource='<%# DataProviderManager.CreateDataProvider(Container.DataItem as DataProvider).ToDisplayableProperties() %>' />
+                    <uc1:ConfigPropertyEditor ID="configEditor" runat="server" DataSource='<%# new DataProviderFactory().CreateDataProvider(Container.DataItem as DataProvider).ToDisplayableProperties() %>' />
                 </EditItemTemplate>
             </asp:TemplateField>
             <asp:CommandField ShowEditButton="True" ControlStyle-CssClass="CommandButton" />
