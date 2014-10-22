@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Gctp v="1.0" >
+    <System r="CprSoeg">
+        <Service r="ADRSOG1">
+            <CprServiceHeader r="ADRSOG1">
+                <Key>
+                    <Field r="NVN" v=""/>
+                    <Field r="NVN1" v=""/>
+                    <Field r="NVN2" v=""/>
+                    <Field r="NVN3" v=""/>
+
+                    <Field r="KON" v=""/>
+
+
+                    <Field r="VEJK" v=""/>
+                    <Field r="VNVN" v=""/>
+                    <Field r="HNR" v=""/>
+                    <Field r="BNR" v=""/>
+                    <Field r="ETAG" v=""/>
+                    <Field r="SIDO" v=""/>
+                    <Field r="POST" v=""/>
+
+                    <Field r="KOMK" v=""/>
+
+                    <Field r="STAF" v=""/><!--Status-->
+                    <Field r="STB" v=""/><!--Nationality-->
+                    <Field r="AIA" v=""/><!--Restart index-->
+                    <Field r="MAXA" v="20"/>
+
+                </Key>
+            </CprServiceHeader>
+        </Service>
+    </System>
+</Gctp>
