@@ -4,7 +4,7 @@
     <Property Id="Dummy_ForgetOlderVersionFragmentRefProp" Value="-" />
 
     <Component Id="CMP_MsiZap" Directory="INSTALLDIR">
-      <File Id="File_MsiZap" Source="$(env.WindowsSDK)Bin\MsiZap.exe" KeyPath="yes"/>
+      <File Id="File_MsiZap" Source="..\..\Dll\MsiZap.exe" KeyPath="yes"/>
     </Component>
     
     <WixVariable Id="WindowsSDKPath" Value="-" Overridable="yes"/>
