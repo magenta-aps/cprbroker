@@ -7,7 +7,7 @@ using System.Xml.Serialization;
 
 namespace CprBroker.Providers.CprServices
 {
-    public class Kvit
+    public partial class Kvit
     {
         [XmlAttribute("r")]
         public string Row { get; set; }

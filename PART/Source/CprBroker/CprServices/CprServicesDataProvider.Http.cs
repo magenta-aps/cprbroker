@@ -60,7 +60,7 @@ namespace CprBroker.Providers.CprServices
             var doc = new XmlDocument();
             doc.LoadXml(inp);
             XmlNamespaceManager mgr = new XmlNamespaceManager(doc.NameTable);
-            mgr.AddNamespace("cpr", "http://www.cpr.dk");
+            mgr.AddNamespace("cpr", Constants.XmlNamespace);
             var node = doc.SelectSingleNode("//cpr:Sik", mgr);
             node.Attributes["userid"].Value = this.UserId;
             node.Attributes["password"].Value = this.Password;
@@ -81,7 +81,7 @@ namespace CprBroker.Providers.CprServices
             var doc = new XmlDocument();
             doc.LoadXml(inp);
             XmlNamespaceManager mgr = new XmlNamespaceManager(doc.NameTable);
-            mgr.AddNamespace("cpr", "http://www.cpr.dk");
+            mgr.AddNamespace("cpr", Constants.XmlNamespace);
             var node = doc.SelectSingleNode("//cpr:Sik", mgr);
             node.Attributes["userid"].Value = this.UserId;
             node.Attributes["password"].Value = this.Password;
