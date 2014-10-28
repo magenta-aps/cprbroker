@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="CprBroker.Providers.CprServices.SearchMethod">
+    <Position X="0.5" Y="1" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAgAAAAAAAAAAAAAAQAAAAAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>SearchMethod.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Field Name="InputFields" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="CprBroker.Providers.CprServices.SearchPlan">
+    <Position X="7.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAEAAAAAAAAAA=</HashCode>
+      <FileName>SearchPlan.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Field Name="PlannedCalls" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="CprBroker.Providers.CprServices.SearchRequest">
+    <Position X="10.25" Y="1" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SearchRequest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CprBroker.Providers.CprServices.InputField">
+    <Position X="4.25" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAEAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>InputField.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CprBroker.Providers.CprServices.SearchMethodCall">
+    <Position X="10" Y="4" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAEACAAAAAAgAAAAAA=</HashCode>
+      <FileName>SearchMethodCall.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CprBroker.Providers.CprServices.SearchPerson">
+    <Position X="4.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAgAAAAAQAAAAAEAACAAAAAAAAAAA=</HashCode>
+      <FileName>SearchPerson.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

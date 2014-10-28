@@ -67,7 +67,7 @@ namespace CprBroker.Providers.CprServices.Properties {
         ///        &lt;Service r=&quot;ADRESSE3&quot;&gt;
         ///            &lt;CprServiceHeader r=&quot;ADRESSE3&quot;&gt;
         ///                &lt;Key&gt;
-        ///                    &lt;Field r=&quot;PNR&quot; v=&quot;1312814435&quot;/&gt;
+        ///                    &lt;Field r=&quot;PNR&quot; v=&quot;&quot;/&gt;
         ///                    &lt;Field r=&quot;AKX&quot; v=&quot;X&quot;/&gt;
         ///                &lt;/Key&gt;
         ///            &lt;/CprServiceHeader&gt;
@@ -82,7 +82,7 @@ namespace CprBroker.Providers.CprServices.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;iso-8859-1&quot; standalone=&quot;yes&quot;?&gt;
         ///&lt;Gctp v=&quot;1.0&quot; &gt;
         ///    &lt;System r=&quot;CprSoeg&quot;&gt;
         ///        &lt;Service r=&quot;ADRSOG1&quot;&gt;
@@ -97,8 +97,7 @@ namespace CprBroker.Providers.CprServices.Properties {
         ///
         ///
         ///                    &lt;Field r=&quot;VEJK&quot; v=&quot;&quot;/&gt;
-        ///                    &lt;Field r=&quot;VNVN&quot; v=&quot;&quot;/&gt;
-        ///                   [rest of string was truncated]&quot;;.
+        ///                    &lt;Field r=&quot;VNVN&quot; v=&quot;&quot;/ [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string ADRSOG1 {
             get {
@@ -110,7 +109,7 @@ namespace CprBroker.Providers.CprServices.Properties {
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;iso-8859-1&quot; standalone=&quot;yes&quot;?&gt;
         ///&lt;root xmlns=&quot;http://www.cpr.dk&quot;&gt;
         ///    &lt;Gctp v=&quot;1.0&quot;&gt;
-        ///        &lt;Sik function=&quot;newpass&quot; userid=&quot;WUS00080&quot; password=&quot;7GO@xm]h&quot; newpass1=&quot;Mag2Cpr#&quot; /&gt;
+        ///        &lt;Sik function=&quot;newpass&quot; userid=&quot;&quot; password=&quot;&quot; newpass1=&quot;&quot; /&gt;
         ///    &lt;/Gctp&gt;
         ///&lt;/root&gt;.
         /// </summary>
@@ -122,9 +121,28 @@ namespace CprBroker.Providers.CprServices.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;iso-8859-1&quot; standalone=&quot;yes&quot;?&gt;
+        ///&lt;Gctp v=&quot;1.0&quot; &gt;
+        ///    &lt;System r=&quot;CprSoeg&quot;&gt;
+        ///        &lt;Service r=&quot;NVNSOG2&quot;&gt;
+        ///            &lt;CprServiceHeader r=&quot;NVNSOG2&quot;&gt;
+        ///                &lt;Key&gt;
+        ///                    &lt;Field r=&quot;AIA&quot; v=&quot;&quot;/&gt;&lt;!--Show how many people match the criteria--&gt;
+        ///                    &lt;Field r=&quot;ALDF&quot; v=&quot;&quot;/&gt;&lt;!--Age from--&gt;
+        ///                    &lt;Field r=&quot;ALDT&quot; v=&quot;&quot;/&gt;&lt;!--Age to--&gt;
+        ///                    &lt;Field r=&quot;HNVS&quot; v=&quot;&quot;/&gt;&lt;!--Search historical names--&gt;
+        ///                    &lt;Field r=&quot; [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string NVNSOG2 {
+            get {
+                return ResourceManager.GetString("NVNSOG2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;iso-8859-1&quot; standalone=&quot;yes&quot;?&gt;
         ///&lt;root xmlns=&quot;http://www.cpr.dk&quot;&gt;
         ///    &lt;Gctp v=&quot;1.0&quot;&gt;
-        ///        &lt;Sik function= &quot;signon&quot; userid=&quot;WUS00080&quot; password=&quot;Mag2Cpr#&quot;/&gt;
+        ///        &lt;Sik function= &quot;signon&quot; userid=&quot;&quot; password=&quot;&quot;/&gt;
         ///    &lt;/Gctp&gt;
         ///&lt;/root&gt;.
         /// </summary>

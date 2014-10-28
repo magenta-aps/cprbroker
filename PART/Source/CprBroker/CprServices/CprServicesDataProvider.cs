@@ -5,6 +5,7 @@ using System.Text;
 using CprBroker.PartInterface;
 using CprBroker.Engine;
 using CprBroker.Engine.Part;
+using CprBroker.Schemas.Part;
 
 namespace CprBroker.Providers.CprServices
 {
@@ -74,6 +75,55 @@ namespace CprBroker.Providers.CprServices
         {
             // TODO: Implement search here
             throw new NotImplementedException();
+        }
+
+        public AttributListeType[] Search(SoegAttributListeType attributes)
+        {
+            var request = new SearchRequest(attributes);
+            var availableMethods = new List<SearchMethod>();
+            var plan = new SearchPlan(request, availableMethods.ToArray());
+
+            List<SearchPerson> ret = null;
+
+            if (plan.IsSatisfactory)
+            {
+                bool searchOk = true;
+                string token = "";
+
+                foreach (var call in plan.PlannedCalls)
+                {
+                    if (ret != null && ret.Count == 0)// Discontinue search if a previous search returned zero results
+                    {
+                        searchOk = false;
+                        break;
+                    }
+                    var xml = call.ToRequestXml();
+                    var xmlOut = "";
+                    var kvit = Send(xml, ref token, out xmlOut);
+                    if (kvit.OK)
+                    {
+                        var persons = call.ParseResponse(xmlOut);
+                        if (ret == null)
+                            ret = persons;
+                        else
+                            ret = ret.Intersect(persons).ToList();
+                    }
+                    else
+                    {
+                        searchOk = false;
+                    }
+                }
+
+                if (searchOk)
+                {
+                    return ret.Select(p => p.ToAttributListeType()).ToArray();
+                }
+                else
+                {
+                    // TODO: What to do if search fails??
+                }
+            }
+            return null;
         }
 
 

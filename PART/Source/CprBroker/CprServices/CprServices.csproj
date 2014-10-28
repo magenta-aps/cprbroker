@@ -61,6 +61,7 @@
     <Compile Include="Gctp.cs">
       <DependentUpon>Gctp.xsd</DependentUpon>
     </Compile>
+    <Compile Include="InputField.cs" />
     <Compile Include="Kvit.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -71,6 +72,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="SearchMethod.cs" />
+    <Compile Include="SearchMethodCall.cs" />
+    <Compile Include="SearchPerson.cs" />
+    <Compile Include="SearchPlan.cs" />
+    <Compile Include="SearchRequest.cs" />
     <Compile Include="Utils.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -82,6 +88,7 @@
   <ItemGroup>
     <Content Include="Resources\ADRSOG1.xml" />
     <Content Include="Resources\ChangePassword.xml" />
+    <Content Include="Resources\NVNSOG2.xml" />
     <Content Include="Resources\OrdinaryLogon.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -99,6 +106,7 @@
     <None Include="Gctp.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="SearchClasses.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

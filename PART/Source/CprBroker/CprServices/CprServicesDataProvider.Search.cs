@@ -9,24 +9,48 @@ namespace CprBroker.Providers.CprServices
 {
     public partial class CprServicesDataProvider
     {
+        #region ADRSOG1
+        public bool CanCallADRSOG1(SoegAttributListeType attributes)
+        {
+            if (attributes.SoegRegisterOplysning != null
+                && attributes.SoegRegisterOplysning[0].Item is CprBorgerType)
+            {
+                var cpr = attributes.SoegRegisterOplysning[0].Item as CprBorgerType;
+                if (cpr.FolkeregisterAdresse.Item is DanskAdresseType)
+                {
+                    var dan = cpr.FolkeregisterAdresse.Item as DanskAdresseType;
+                    return !string.IsNullOrEmpty(dan.AddressComplete.AddressAccess.MunicipalityCode.Trim())
+                        && !string.IsNullOrEmpty(dan.AddressComplete.AddressAccess.StreetCode.Trim());
+                }
+                else if (cpr.FolkeregisterAdresse.Item is GroenlandAdresseType)
+                {
+                    var gr = cpr.FolkeregisterAdresse.Item as GroenlandAdresseType;
+                    return !string.IsNullOrEmpty(gr.AddressCompleteGreenland.MunicipalityCode.Trim())
+                        && !string.IsNullOrEmpty(gr.AddressCompleteGreenland.StreetCode.Trim());
+                }
+            }
+            return false;
+        }
+
         public string[] CallADRSOG1(string token, SoegAttributListeType attributes)
         {
             var inp = Properties.Resources.ADRSOG1;
+
             var doc = new XmlDocument();
             doc.LoadXml(inp);
 
-            AddSearchCriteria(doc, attributes);
             var resp = "";
             var kvit = Send(doc.OuterXml, ref token, out resp);
             return null;
         }
 
-        public void AddSearchCriteria(XmlDocument doc, SoegAttributListeType attributes)
+        public void AddADRSOG1SearchCriteria(XmlDocument doc, SoegAttributListeType attributes)
         {
+            // As a minimum, this method should add KOMK and VEJK
             var keyNode = InitKeyNode(doc);
 
-            // Add max records node - fixed by definition
-            AddKeyField(keyNode, "MAXA", "20");
+            // Add max records node - fixed by definition, but apparently not required            
+            //AddKeyField(keyNode, "MAXA", "20");
 
             if (attributes.SoegEgenskab != null)
             {
@@ -34,36 +58,7 @@ namespace CprBroker.Providers.CprServices
                 {
                     if (egen.NavnStruktur != null)
                     {
-                        // Names
-                        List<string> names = new List<string>();
-                        if (!string.IsNullOrEmpty(egen.NavnStruktur.PersonNameForAddressingName))
-                        {
-                            names.Add(egen.NavnStruktur.PersonNameForAddressingName);
-                        }
-                        if (egen.NavnStruktur.PersonNameStructure != null && egen.NavnStruktur.PersonNameStructure.IsEmpty)
-                        {
-                            if (!string.IsNullOrEmpty(egen.NavnStruktur.PersonNameStructure.PersonGivenName))
-                            {
-                                names.Add(egen.NavnStruktur.PersonNameStructure.PersonGivenName);
-                            }
-                            if (!string.IsNullOrEmpty(egen.NavnStruktur.PersonNameStructure.PersonMiddleName))
-                            {
-                                names.Add(egen.NavnStruktur.PersonNameStructure.PersonMiddleName);
-                            }
-                            if (!string.IsNullOrEmpty(egen.NavnStruktur.PersonNameStructure.PersonSurnameName))
-                            {
-                                names.Add(egen.NavnStruktur.PersonNameStructure.PersonSurnameName);
-                            }
-                        }
-                        for (int i = 0; i < names.Count; i++)
-                        {
-                            var propName = "NVN";
-                            if (i > 0)
-                                propName += i;
-                            AddKeyField(keyNode, propName, names[i]);
-                        }
-                        //egen.NavnStruktur.KaldenavnTekst
-                        //egen.NavnStruktur.NoteTekst
+                        AddNameSearchCriteria(keyNode, egen.NavnStruktur);
                     }
 
                     // Gender
@@ -194,6 +189,42 @@ namespace CprBroker.Providers.CprServices
             }
         }
 
+        public void AddNameSearchCriteria(XmlNode keyNode, NavnStrukturType egen)
+        {
+            // Names
+            List<string> names = new List<string>();
+            if (!string.IsNullOrEmpty(egen.PersonNameForAddressingName))
+            {
+                names.Add(egen.PersonNameForAddressingName);
+            }
+            if (egen.PersonNameStructure != null && egen.PersonNameStructure.IsEmpty)
+            {
+                if (!string.IsNullOrEmpty(egen.PersonNameStructure.PersonGivenName))
+                {
+                    names.Add(egen.PersonNameStructure.PersonGivenName);
+                }
+                if (!string.IsNullOrEmpty(egen.PersonNameStructure.PersonMiddleName))
+                {
+                    names.Add(egen.PersonNameStructure.PersonMiddleName);
+                }
+                if (!string.IsNullOrEmpty(egen.PersonNameStructure.PersonSurnameName))
+                {
+                    names.Add(egen.PersonNameStructure.PersonSurnameName);
+                }
+            }
+            for (int i = 0; i < names.Count; i++)
+            {
+                var propName = "NVN";
+                if (i > 0)
+                    propName += i;
+                AddKeyField(keyNode, propName, names[i]);
+            }
+            //egen.NavnStruktur.KaldenavnTekst
+            //egen.NavnStruktur.NoteTekst
+        }
+        #endregion
+
+        #region Utility functions
         private static XmlNode InitKeyNode(XmlDocument doc)
         {
             var keyNode = doc.SelectSingleNode("//Key");
@@ -226,7 +257,9 @@ namespace CprBroker.Providers.CprServices
                 }
             }
         }
+        #endregion
 
+        #region ADRESSE3
         public void CallADRESSE3(string token, string pnr)
         {
             var inp = Properties.Resources.ADRESSE3;
@@ -242,5 +275,40 @@ namespace CprBroker.Providers.CprServices
             }
             object o = "";
         }
+        #endregion
+
+        #region NVNSOG1
+        public bool CanCallNVNSOG2(SoegAttributListeType attributes)
+        {
+            if (attributes.SoegEgenskab.Length > 0)
+            {
+                var nvn = attributes.SoegEgenskab[0].NavnStruktur;
+                return !string.IsNullOrEmpty(nvn.PersonNameForAddressingName.Trim())
+                    //|| !string.IsNullOrEmpty(nvn.KaldenavnTekst.Trim())
+                    || (nvn.PersonNameStructure != null && nvn.PersonNameStructure.IsEmpty);
+            }
+            return false;
+        }
+
+        public void CallNVNSOG2(string token, SoegAttributListeType attribtues)
+        {
+            var inp = Properties.Resources.NVNSOG2;
+            var doc = new XmlDocument();
+            doc.LoadXml(inp);
+            AddNVNSOG2SearchCriteria(doc, attribtues);
+            var resp = "";
+            var kvit = Send(doc.OuterXml, ref token, out resp);
+        }
+
+        public void AddNVNSOG2SearchCriteria(XmlDocument doc, SoegAttributListeType attributes)
+        {
+            var nvn = attributes.SoegEgenskab[0].NavnStruktur;
+            var keyNode = InitKeyNode(doc);
+            AddNameSearchCriteria(keyNode, nvn);
+            AddKeyField(keyNode, "KON", "M");
+            AddKeyField(keyNode, "MAXA", "20");
+        }
+
+        #endregion
     }
 }
