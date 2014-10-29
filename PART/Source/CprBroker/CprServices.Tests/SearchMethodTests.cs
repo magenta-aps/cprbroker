@@ -7,24 +7,6 @@ using NUnit.Framework;
 
 namespace CprBroker.Tests.CprServices
 {
-    public class SearchMethodTestsBase
-    {
-        public string[] AvailableInputs
-        {
-            get
-            {
-                return new string[]{
-                        CprBroker.Providers.CprServices.Properties.Resources.ADRSOG1,
-                        CprBroker.Providers.CprServices.Properties.Resources.ADRESSE3,
-                        CprBroker.Providers.CprServices.Properties.Resources.NVNSOG2
-                    };
-            }
-        }
-
-        public string SearchTemplate { get { return CprBroker.Providers.CprServices.Properties.Resources.SearchTemplate; } }
-    }
-
-
     namespace SearchMethodTests
     {
         
