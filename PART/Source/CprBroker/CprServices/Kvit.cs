@@ -43,7 +43,7 @@ namespace CprBroker.Providers.CprServices
 
         public bool OK
         {
-            get { return ReturnCode == "900"; }
+            get { return ReturnCode == "900" || Row == "Ok"; }
         }
 
     }

@@ -95,7 +95,7 @@ namespace CprBroker.Providers.CprServices
                                     if (dansk.AddressComplete.AddressAccess != null)
                                     {
                                         AddCriteriaField("KOMK", dansk.AddressComplete.AddressAccess.MunicipalityCode);
-                                        AddCriteriaField("VEJK", dansk.AddressComplete.AddressAccess.StreetBuildingIdentifier);
+                                        AddCriteriaField("HNR", dansk.AddressComplete.AddressAccess.StreetBuildingIdentifier);
                                         AddCriteriaField("VEJK", dansk.AddressComplete.AddressAccess.StreetCode);
                                     }
                                     if (dansk.AddressComplete.AddressPostal != null)
@@ -181,7 +181,8 @@ namespace CprBroker.Providers.CprServices
 
         public void AddCriteriaField(string name, string value)
         {
-            CriteriaFields.Add(new KeyValuePair<string, string>(name, value));
+            if (!string.IsNullOrEmpty(value))
+                CriteriaFields.Add(new KeyValuePair<string, string>(name, value));
         }
 
         public List<KeyValuePair<string, string>> CriteriaFields = new List<KeyValuePair<string, string>>();
