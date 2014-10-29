@@ -19,6 +19,16 @@ namespace CprBroker.Tests.CprServices
             }
         }
 
+        public string[] AvailableOutputs
+        {
+            get
+            {
+                return new string[]{
+                        Properties.Resources.ADRSOG1_Response_OK,
+                    };
+            }
+        }
+
     }
 
 }

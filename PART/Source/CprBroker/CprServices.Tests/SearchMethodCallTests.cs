@@ -44,5 +44,44 @@ namespace CprBroker.Tests.CprServices
                 Assert.Greater(doc2.OuterXml.Length, doc.OuterXml.Length);
             }
         }
+
+        [TestFixture]
+        public class ParseResponse
+        {
+            [TestCaseSource(typeof(SearchMethodTestsBase), "AvailableOutputs")]
+            public void ParseResponse_Sample_NonEmpty(string responseXml)
+            {
+                var call = new SearchMethodCall() { };
+                var ret = call.ParseResponse(responseXml);
+                Assert.IsNotEmpty(ret);
+            }
+
+            [TestCaseSource(typeof(SearchMethodTestsBase), "AvailableOutputs")]
+            public void ParseResponse_Sample_AllHasPNR(string responseXml)
+            {
+                var call = new SearchMethodCall() { };
+                var ret = call.ParseResponse(responseXml);
+                foreach (var p in ret)
+                {
+                    Assert.IsNotNullOrEmpty(p.PNR);
+                }
+            }
+
+            [TestCaseSource(typeof(SearchMethodTestsBase), "AvailableOutputs")]
+            public void ParseResponse_Sample_SomeHasName(string responseXml)
+            {
+                var call = new SearchMethodCall() { };
+                var ret = call.ParseResponse(responseXml);
+                Assert.IsNotEmpty(ret.Where(r => r.Name != null));
+            }
+
+            [TestCaseSource(typeof(SearchMethodTestsBase), "AvailableOutputs")]
+            public void ParseResponse_Sample_SomeHasAddress(string responseXml)
+            {
+                var call = new SearchMethodCall() { };
+                var ret = call.ParseResponse(responseXml);
+                Assert.IsNotEmpty(ret.Where(r => r.Address != null));
+            }
+        }
     }
 }

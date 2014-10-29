@@ -62,17 +62,20 @@ namespace CprBroker.Providers.CprServices
             var nsmgr = new XmlNamespaceManager(doc.NameTable);
             nsmgr.AddNamespace("c", Constants.XmlNamespace);
 
-            var path = string.Format("//c:Table[@name='{0}']/Row", this.Name);
-            var elements = doc.SelectNodes(path).OfType<XmlElement>();
+            var path = string.Format("//c:Rolle[@r='HovedRolle']/c:Table/c:Row[not(@u)]", this.Name); //[@u<>]
+            var elements = doc.SelectNodes(path, nsmgr).OfType<XmlElement>();
 
             var ret = new List<SearchPerson>();
             foreach (var elm in elements)
             {
                 var p = new SearchPerson();
-                p.Name = NavnStrukturType.Create(GetFieldValue(elm, "CNVN_ADRNVN"));
+                var name = GetFieldValue(elm, "CNVN_ADRNVN");
+                if (!string.IsNullOrEmpty(name))
+                    p.Name = NavnStrukturType.Create();
                 p.PNR = GetFieldValue(elm, "PNR");
 
-                var kom = GetFieldValue(elm, "KOMK");
+                #region Address
+                var kom = GetFieldValue(elm, "KOMKOD");
                 if (!string.IsNullOrEmpty(kom))
                 {
                     var komK = decimal.Parse(kom);
@@ -86,7 +89,7 @@ namespace CprBroker.Providers.CprServices
                             AddressCompleteGreenland = new AddressCompleteGreenlandType()
                             {
                                 CountryIdentificationCode = CountryIdentificationCodeType.Create(_CountryIdentificationSchemeType.imk, Constants.DenmarkCountryCode.ToString()),
-                                MunicipalityCode = GetFieldValue(elm, "KOMKOD"),
+                                MunicipalityCode = kom,
                                 StreetCode = GetFieldValue(elm, "VEJKOD"),
 
                                 StreetBuildingIdentifier = GetFieldValue(elm, "HUSNR"),
@@ -120,7 +123,7 @@ namespace CprBroker.Providers.CprServices
                             {
                                 AddressAccess = new AddressAccessType()
                                 {
-                                    MunicipalityCode = GetFieldValue(elm, "KOMKOD"),
+                                    MunicipalityCode = kom,
                                     StreetCode = GetFieldValue(elm, "VEJKOD"),
                                     StreetBuildingIdentifier = GetFieldValue(elm, "HUSNR")
                                 },
@@ -167,7 +170,11 @@ namespace CprBroker.Providers.CprServices
                 {
                     // TODO: Fill Foreign address
                 }
+                #endregion
+
+                ret.Add(p);
             }
+            return ret;
         }
 
         public string GetFieldValue(XmlElement elm, string name)
@@ -182,8 +189,11 @@ namespace CprBroker.Providers.CprServices
 
         public string GetFieldAttributeValue(XmlElement elm, string name, string attributeName)
         {
-            var ndPath = string.Format("//c:Field[@r='{0}']", name);
-            var nd = elm.SelectSingleNode(ndPath);
+            var nsmgr = new XmlNamespaceManager(elm.OwnerDocument.NameTable);
+            nsmgr.AddNamespace("c", Constants.XmlNamespace);
+
+            var ndPath = string.Format("c:Field[@r='{0}']", name);
+            var nd = elm.SelectSingleNode(ndPath, nsmgr);
             if (nd != null && nd.Attributes[attributeName] != null)
                 return nd.Attributes[attributeName].Value.Trim();
             return null;
