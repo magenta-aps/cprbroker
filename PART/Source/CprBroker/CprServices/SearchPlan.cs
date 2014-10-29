@@ -25,16 +25,18 @@ namespace CprBroker.Providers.CprServices
                 if (method.CanBeUsedFor(request))
                 {
                     planMethods.Add(method);
-                    usedFieldNames.AddRange(
+                    var newUsedFieldNames =
                         from inp in inputFields
                         from mf in method.InputFields
                         where inp.Key == mf.Name
-                        select inp.Key
-                    );
+                        select inp.Key;
+
+                    usedFieldNames.AddRange(newUsedFieldNames.Except(usedFieldNames));
+                    if (usedFieldNames.Count == inputFields.Count)// No need to use the other search methods
+                        break;
                 }
             }
-            usedFieldNames = usedFieldNames.Distinct().ToList();
-            if (inputFields.Exists(f => !usedFieldNames.Contains(f.Key)))
+            if (usedFieldNames.Count < inputFields.Count)
             {
                 IsSatisfactory = false;
             }
