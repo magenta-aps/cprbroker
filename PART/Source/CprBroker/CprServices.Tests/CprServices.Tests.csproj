@@ -31,6 +31,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CprBroker.Schemas, Version=2.2.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Core\Output\CprBroker.Schemas.dll</HintPath>
+    </Reference>
     <Reference Include="nunit.framework, Version=2.6.2.12296, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Dll\nunit.framework.dll</HintPath>
@@ -43,8 +47,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="InputFieldTests.cs" />
     <Compile Include="KvitTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SearchMethodTests.cs" />
+    <Compile Include="SearchPlanTests.cs" />
     <Compile Include="UtilsTests.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -52,16 +59,6 @@
       <Project>{F9D6A4EA-9DB1-4BA7-A5BE-0C183FBABBF8}</Project>
       <Name>CprServices</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="ADRESSE3.Response.NoAccess.xml" />
-    <Content Include="ADRESSE3.Response.TokenUnknown.xml" />
-    <Content Include="ADRSOG1.Response.xml" />
-    <Content Include="ChangePassword.Response.xml" />
-    <Content Include="InvalidService.Response.xml" />
-    <Content Include="InvalidService.xml" />
-    <Content Include="OrdinaryLogon.Response.Expired.xml" />
-    <Content Include="OrdinaryLogon.Response.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

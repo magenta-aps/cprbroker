@@ -28,7 +28,7 @@ namespace CprBroker.Providers.CprServices
             //var ss = prov.ChangePassword("Mag2Cpr#");
 
             //prov.CallADRESSE3(token, "1312814435");
-            prov.CallNVNSOG2(token, new SoegAttributListeType()
+            prov.Search(new SoegAttributListeType()
             {
                 SoegEgenskab = new SoegEgenskabType[]{ 
                     new SoegEgenskabType(){

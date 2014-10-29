@@ -22,7 +22,7 @@ namespace CprBroker.Providers.CprServices.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace CprBroker.Providers.CprServices.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("CprBroker.Providers.CprServices.Properties.Resources", typeof(Resources).Assembly);
@@ -51,7 +51,7 @@ namespace CprBroker.Providers.CprServices.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -75,7 +75,7 @@ namespace CprBroker.Providers.CprServices.Properties {
         ///    &lt;/System&gt;
         ///&lt;/Gctp&gt;.
         /// </summary>
-        internal static string ADRESSE3 {
+        public static string ADRESSE3 {
             get {
                 return ResourceManager.GetString("ADRESSE3", resourceCulture);
             }
@@ -96,10 +96,10 @@ namespace CprBroker.Providers.CprServices.Properties {
         ///                    &lt;Field r=&quot;KON&quot; v=&quot;&quot;/&gt;
         ///
         ///
-        ///                    &lt;Field r=&quot;VEJK&quot; v=&quot;&quot;/&gt;
-        ///                    &lt;Field r=&quot;VNVN&quot; v=&quot;&quot;/ [rest of string was truncated]&quot;;.
+        ///                    &lt;Field r=&quot;VEJK&quot; v=&quot;&quot; required=&quot;true&quot; requiredGroup=&quot;vej&quot;/&gt;
+        ///      [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string ADRSOG1 {
+        public static string ADRSOG1 {
             get {
                 return ResourceManager.GetString("ADRSOG1", resourceCulture);
             }
@@ -113,7 +113,7 @@ namespace CprBroker.Providers.CprServices.Properties {
         ///    &lt;/Gctp&gt;
         ///&lt;/root&gt;.
         /// </summary>
-        internal static string ChangePassword {
+        public static string ChangePassword {
             get {
                 return ResourceManager.GetString("ChangePassword", resourceCulture);
             }
@@ -126,13 +126,18 @@ namespace CprBroker.Providers.CprServices.Properties {
         ///        &lt;Service r=&quot;NVNSOG2&quot;&gt;
         ///            &lt;CprServiceHeader r=&quot;NVNSOG2&quot;&gt;
         ///                &lt;Key&gt;
-        ///                    &lt;Field r=&quot;AIA&quot; v=&quot;&quot;/&gt;&lt;!--Show how many people match the criteria--&gt;
-        ///                    &lt;Field r=&quot;ALDF&quot; v=&quot;&quot;/&gt;&lt;!--Age from--&gt;
-        ///                    &lt;Field r=&quot;ALDT&quot; v=&quot;&quot;/&gt;&lt;!--Age to--&gt;
-        ///                    &lt;Field r=&quot;HNVS&quot; v=&quot;&quot;/&gt;&lt;!--Search historical names--&gt;
-        ///                    &lt;Field r=&quot; [rest of string was truncated]&quot;;.
+        ///                    &lt;!--Show how many people match the criteria--&gt;
+        ///                    &lt;Field r=&quot;AIA&quot; v=&quot;&quot;/&gt;
+        ///
+        ///                    &lt;!--Age from--&gt;
+        ///                    &lt;Field r=&quot;ALDF&quot; v=&quot;&quot;/&gt;
+        ///
+        ///                    &lt;!--Age to--&gt;
+        ///                    &lt;Field r=&quot;ALDT&quot; v=&quot;&quot;/&gt;
+        ///
+        ///                    &lt;!--Search h [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string NVNSOG2 {
+        public static string NVNSOG2 {
             get {
                 return ResourceManager.GetString("NVNSOG2", resourceCulture);
             }
@@ -146,9 +151,28 @@ namespace CprBroker.Providers.CprServices.Properties {
         ///    &lt;/Gctp&gt;
         ///&lt;/root&gt;.
         /// </summary>
-        internal static string OrdinaryLogon {
+        public static string OrdinaryLogon {
             get {
                 return ResourceManager.GetString("OrdinaryLogon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;iso-8859-1&quot; standalone=&quot;yes&quot;?&gt;
+        ///&lt;Gctp v=&quot;1.0&quot; &gt;
+        ///    &lt;System r=&quot;CprSoeg&quot;&gt;
+        ///        &lt;Service r=&quot;[MethodName]&quot;&gt;
+        ///            &lt;CprServiceHeader r=&quot;[MethodName]&quot;&gt;
+        ///                &lt;Key&gt;
+        ///                &lt;/Key&gt;
+        ///            &lt;/CprServiceHeader&gt;
+        ///        &lt;/Service&gt;
+        ///    &lt;/System&gt;
+        ///&lt;/Gctp&gt;.
+        /// </summary>
+        public static string SearchTemplate {
+            get {
+                return ResourceManager.GetString("SearchTemplate", resourceCulture);
             }
         }
     }

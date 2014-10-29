@@ -88,7 +88,12 @@
   <ItemGroup>
     <Content Include="Resources\ADRSOG1.xml" />
     <Content Include="Resources\ChangePassword.xml" />
-    <Content Include="Resources\NVNSOG2.xml" />
+    <Content Include="Resources\SearchTemplate.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Resources\NVNSOG2.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Resources\OrdinaryLogon.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -98,7 +103,7 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>

@@ -4,21 +4,44 @@
         <Service r="NVNSOG2">
             <CprServiceHeader r="NVNSOG2">
                 <Key>
-                    <Field r="AIA" v=""/><!--Show how many people match the criteria-->
-                    <Field r="ALDF" v=""/><!--Age from-->
-                    <Field r="ALDT" v=""/><!--Age to-->
-                    <Field r="HNVS" v=""/><!--Search historical names-->
-                    <Field r="KOMK" v=""/><!--Municipality code-->
-                    <Field r="KON" v=""/><!--Gender-->
-                    <Field r="LDEL" v=""/><!--Location. To be completed only if the residents of a particular province is desired. -->
-                    <Field r="MAXA" v="20"/><!--Max records-->
-                    <Field r="NVN" v=""/>
+                    <!--Show how many people match the criteria-->
+                    <Field r="AIA" v=""/>
+
+                    <!--Age from-->
+                    <Field r="ALDF" v=""/>
+
+                    <!--Age to-->
+                    <Field r="ALDT" v=""/>
+
+                    <!--Search historical names-->
+                    <Field r="HNVS" v=""/>
+
+                    <!--Municipality code-->
+                    <Field r="KOMK" v=""/>
+
+                    <!--Gender-->
+                    <Field r="KON" v="" required="true" enumValues="K,M"/>
+
+                    <!--Location. To be completed only if the residents of a particular province is desired. -->
+                    <Field r="LDEL" v=""/>
+
+                    <!--Max records-->
+                    <Field r="MAXA" v="20"/>
+
+                    <Field r="NVN" v="" required="true"/>
                     <Field r="NVN1" v=""/>
                     <Field r="NVN2" v=""/>
                     <Field r="NVN3" v=""/>
-                    <Field r="REST" v=""/><!--Restart key-->
-                    <Field r="STAF" v=""/><!--Status 01 -> 90-->
-                    <Field r="STB" v=""/><!--Nationality-->
+
+                    <!--Restart key-->
+                    <Field r="REST" v=""/>
+
+                    <!--Status 01 -> 90-->
+                    <Field r="STAF" v=""/>
+
+                    <!--Nationality-->
+                    <Field r="STB" v=""/>
+
                 </Key>
             </CprServiceHeader>
         </Service>

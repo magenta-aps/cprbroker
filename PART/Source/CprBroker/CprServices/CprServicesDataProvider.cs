@@ -81,6 +81,9 @@ namespace CprBroker.Providers.CprServices
         {
             var request = new SearchRequest(attributes);
             var availableMethods = new List<SearchMethod>();
+            availableMethods.Add(new SearchMethod(Properties.Resources.ADRSOG1));
+            availableMethods.Add(new SearchMethod(Properties.Resources.NVNSOG2));
+
             var plan = new SearchPlan(request, availableMethods.ToArray());
 
             List<SearchPerson> ret = null;
@@ -88,7 +91,7 @@ namespace CprBroker.Providers.CprServices
             if (plan.IsSatisfactory)
             {
                 bool searchOk = true;
-                string token = "";
+                string token = "iPl2fXcl";
 
                 foreach (var call in plan.PlannedCalls)
                 {
@@ -97,7 +100,8 @@ namespace CprBroker.Providers.CprServices
                         searchOk = false;
                         break;
                     }
-                    var xml = call.ToRequestXml();
+                    var xml = call.ToRequestXml(Properties.Resources.SearchTemplate);
+
                     var xmlOut = "";
                     var kvit = Send(xml, ref token, out xmlOut);
                     if (kvit.OK)

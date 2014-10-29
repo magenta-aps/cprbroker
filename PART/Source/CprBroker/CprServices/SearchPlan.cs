@@ -17,10 +17,32 @@ namespace CprBroker.Providers.CprServices
 
         public SearchPlan(SearchRequest request, params SearchMethod[] availableMethods)
         {
-            // TODO: Fill IsSatisfactory
-            // TODO: Fill planned calls here
+            var inputFields = request.CriteriaFields.Where(f => !string.IsNullOrEmpty(f.Value)).ToList();
+            var planMethods = new List<SearchMethod>();
+            var usedFieldNames = new List<string>();
+            foreach (var method in availableMethods)
+            {
+                if (method.CanBeUsedFor(request))
+                {
+                    planMethods.Add(method);
+                    usedFieldNames.AddRange(
+                        from inp in inputFields
+                        from mf in method.InputFields
+                        where inp.Key == mf.Name
+                        select inp.Key
+                    );
+                }
+            }
+            usedFieldNames = usedFieldNames.Distinct().ToList();
+            if (inputFields.Exists(f => !usedFieldNames.Contains(f.Key)))
+            {
+                IsSatisfactory = false;
+            }
+            else
+            {
+                IsSatisfactory = true;
+                PlannedCalls.AddRange(planMethods.Select(pm => new SearchMethodCall(pm, request)));
+            }
         }
-
-
     }
 }

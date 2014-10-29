@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>
 <Gctp v="1.0" >
     <System r="CprSoeg">
         <Service r="ADRSOG1">
@@ -12,19 +12,25 @@
                     <Field r="KON" v=""/>
 
 
-                    <Field r="VEJK" v=""/>
-                    <Field r="VNVN" v=""/>
+                    <Field r="VEJK" v="" required="true" requiredGroup="vej"/>
+                    <Field r="VNVN" v="" required="true" requiredGroup="vej"/>
                     <Field r="HNR" v=""/>
                     <Field r="BNR" v=""/>
                     <Field r="ETAG" v=""/>
                     <Field r="SIDO" v=""/>
                     <Field r="POST" v=""/>
 
-                    <Field r="KOMK" v=""/>
+                    <Field r="KOMK" v="" required="true"/>
 
-                    <Field r="STAF" v=""/><!--Status-->
-                    <Field r="STB" v=""/><!--Nationality-->
-                    <Field r="AIA" v=""/><!--Restart index-->
+                    <!--Status-->
+                    <Field r="STAF" v=""/>
+
+                    <!--Nationality-->
+                    <Field r="STB" v=""/>
+
+                    <!--Restart index-->
+                    <Field r="AIA" v=""/>
+
                     <Field r="MAXA" v="20"/>
 
                 </Key>

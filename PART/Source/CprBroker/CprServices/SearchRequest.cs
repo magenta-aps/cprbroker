@@ -8,11 +8,6 @@ namespace CprBroker.Providers.CprServices
 {
     public class SearchRequest
     {
-        public SearchRequest()
-        {
-
-        }
-
         public SearchRequest(SoegAttributListeType attributes)
         {
             #region Egenskab
