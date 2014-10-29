@@ -91,7 +91,8 @@ namespace CprBroker.Providers.CprServices
             if (plan.IsSatisfactory)
             {
                 bool searchOk = true;
-                string token = "iPl2fXcl";
+                // TODO: See if tokens could be saved an reused
+                string token = this.SignonAndGetToken();
 
                 foreach (var call in plan.PlannedCalls)
                 {
