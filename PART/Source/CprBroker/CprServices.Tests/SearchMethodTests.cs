@@ -7,24 +7,27 @@ using NUnit.Framework;
 
 namespace CprBroker.Tests.CprServices
 {
-
-    namespace SearchMethodTests
+    public class SearchMethodTestsBase
     {
-        public class SearchMethodTestsBase
+        public string[] AvailableInputs
         {
-            public string[] AvailableInputs
+            get
             {
-                get
-                {
-                    return new string[]{
+                return new string[]{
                         CprBroker.Providers.CprServices.Properties.Resources.ADRSOG1,
                         CprBroker.Providers.CprServices.Properties.Resources.ADRESSE3,
                         CprBroker.Providers.CprServices.Properties.Resources.NVNSOG2
                     };
-                }
             }
         }
 
+        public string SearchTemplate { get { return CprBroker.Providers.CprServices.Properties.Resources.SearchTemplate; } }
+    }
+
+
+    namespace SearchMethodTests
+    {
+        
         [TestFixture]
         public class _SearchMethod
         {
@@ -85,7 +88,7 @@ namespace CprBroker.Tests.CprServices
             public void CanBeUsedFor_RequiredGroup_AllMissing_False()
             {
                 var m = new SearchMethod();
-                m.InputFields.Add(new InputField() { Name = "DD", Required = true, RequiredGroup="G" });
+                m.InputFields.Add(new InputField() { Name = "DD", Required = true, RequiredGroup = "G" });
                 m.InputFields.Add(new InputField() { Name = "DD2", Required = true, RequiredGroup = "G" });
                 var r = new SearchRequest(new CprBroker.Schemas.Part.SoegAttributListeType());
                 var ret = m.CanBeUsedFor(r);

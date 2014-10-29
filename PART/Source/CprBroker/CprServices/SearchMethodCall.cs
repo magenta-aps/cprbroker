@@ -12,6 +12,11 @@ namespace CprBroker.Providers.CprServices
         public string Name;
         public List<KeyValuePair<string, string>> InputFields = new List<KeyValuePair<string, string>>();
 
+        public SearchMethodCall()
+        {
+
+        }
+
         public SearchMethodCall(SearchMethod template, SearchRequest request)
         {
             Name = template.Name;

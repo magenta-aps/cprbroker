@@ -50,6 +50,7 @@
     <Compile Include="InputFieldTests.cs" />
     <Compile Include="KvitTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SearchMethodCallTests.cs" />
     <Compile Include="SearchMethodTests.cs" />
     <Compile Include="SearchPlanTests.cs" />
     <Compile Include="UtilsTests.cs" />
