@@ -71,9 +71,6 @@
     <Content Include="Resources\ADRSOG1.Response.OK.xml">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="NVNSOG2.Input.xml">
-      <SubType>Designer</SubType>
-    </Content>
     <Content Include="Resources\NVNSOG2.Response.OK.xml" />
   </ItemGroup>
   <ItemGroup>
