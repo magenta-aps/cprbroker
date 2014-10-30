@@ -125,6 +125,8 @@
     <Compile Include="PartManager.cs" />
     <Compile Include="PartManager.Period.cs" />
     <Compile Include="Part\CityNameMapping.cs" />
+    <Compile Include="Part\SearchListSubMethodInfo.cs" />
+    <Compile Include="Part\SearchListFacadeMethodInfo.cs" />
     <Compile Include="Part\GetUuidArrayFacadeMethodInfo.cs" />
     <Compile Include="Part\GetUuidFacadeMethodInfo.cs" />
     <Compile Include="Part\ListFacadeMethodInfo.cs" />

@@ -9,7 +9,7 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Providers.CprServices
 {
-    public partial class CprServicesDataProvider : IPartSearchDataProvider, IExternalDataProvider, IPerCallDataProvider
+    public partial class CprServicesDataProvider : IPartSearchListDataProvider, IExternalDataProvider, IPerCallDataProvider
     {
         public CprServicesDataProvider()
         {
@@ -72,15 +72,9 @@ namespace CprBroker.Providers.CprServices
             return !string.IsNullOrEmpty(token);
         }
 
-        public Guid[] Search(CprBroker.Schemas.Part.SoegInputType1 searchCriteria)
+        public LaesResultatType[] Search(SoegInputType1 input)
         {
-            // TODO: Implement search here
-            throw new NotImplementedException();
-        }
-
-        public AttributListeType[] Search(SoegAttributListeType attributes)
-        {
-            var request = new SearchRequest(attributes);
+            var request = new SearchRequest(input.SoegObjekt.SoegAttributListe);
             var availableMethods = new List<SearchMethod>();
             availableMethods.Add(new SearchMethod(Properties.Resources.ADRSOG1));
             availableMethods.Add(new SearchMethod(Properties.Resources.NVNSOG2));
@@ -122,7 +116,12 @@ namespace CprBroker.Providers.CprServices
 
                 if (searchOk)
                 {
-                    return ret.Select(p => p.ToAttributListeType()).ToArray();
+                    // TODO: Can this break the result? is UUID assignment necessary?
+                    var cache = new UuidCache();
+                    var pnrs = ret.Select(p => p.PNR).ToArray();
+                    cache.FillCache(pnrs);
+
+                    return ret.Select(p => p.ToLaesResultatType(cache.GetUuid)).ToArray();
                 }
                 else
                 {
@@ -131,7 +130,5 @@ namespace CprBroker.Providers.CprServices
             }
             return null;
         }
-
-
     }
 }

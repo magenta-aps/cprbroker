@@ -104,6 +104,20 @@ namespace CprBroker.Schemas.Part
         }
     }
 
+    public partial class SoegListOutputType : IBasicOutput<LaesResultatType[]>
+    {
+        [XmlIgnore]
+        public LaesResultatType[] Item
+        {
+            get { return LaesResultat; }
+            set { LaesResultat = value; }
+        }
+        public void SetMainItem(LaesResultatType[] mainItem)
+        {
+            LaesResultat = mainItem;
+        }
+    }
+
     public partial class ListOutputType1 : IBasicOutput<LaesResultatType[]>
     {
         [XmlIgnore]

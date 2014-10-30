@@ -107,6 +107,13 @@ namespace CprBroker.Engine
             return ret;
         }
 
+        public static SoegListOutputType SearchList(string userToken, string appToken, SoegInputType1 searchCriteria, SourceUsageOrder sourceUsageOrder)
+        {
+            SearchListFacadeMethodInfo facadeMethod = new SearchListFacadeMethodInfo(searchCriteria, sourceUsageOrder, appToken, userToken);
+            var ret = GetMethodOutput<SoegListOutputType, LaesResultatType[]>(facadeMethod);
+            return ret;
+        }
+
         public static GetUuidOutputType GetUuid(string userToken, string appToken, string cprNumber)
         {
             var facadeMethod = new GetUuidFacadeMethodInfo(cprNumber, appToken, userToken);
