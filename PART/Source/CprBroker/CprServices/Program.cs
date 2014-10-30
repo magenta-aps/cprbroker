@@ -19,32 +19,42 @@ namespace CprBroker.Providers.CprServices
 
         public void Run()
         {
-            //var logonInp = File.ReadAllText(@"..\..\OrdinaryLogon.xml", Constants.XmlEncoding);
-            //var adr3Inp = File.ReadAllText(@"..\..\ADRSOG1.xml", Constants.XmlEncoding);
-            string token = "TPxKaXv4";
-
             var prov = new CprServicesDataProvider() { Address = "https://gctp-demo.cpr.dk/cpr-online-gctp/gctp", UserId = "WUS00082", Password = "Mag2Cpr#" };
-            //token = prov.SignonAndGetToken();
+
             //var ss = prov.ChangePassword("Mag2Cpr#");
 
-            //prov.CallADRESSE3(token, "1312814435");
-            prov.Search(new SoegAttributListeType()
+            var res = prov.Search(new SoegInputType1()
             {
-                SoegEgenskab = new SoegEgenskabType[]{ 
+                SoegObjekt = new SoegObjektType()
+                {
+                    SoegAttributListe = new
+                        SoegAttributListeType()
+                        {
+                            SoegEgenskab = new SoegEgenskabType[]{ 
                     new SoegEgenskabType(){
                         NavnStruktur =new NavnStrukturType(){
-                            PersonNameForAddressingName = "Niels Holm"
-                        }}}
+                            PersonNameForAddressingName = "Morten Hansen"
+                        }}},
+                            SoegRegisterOplysning = new RegisterOplysningType[] { 
+                    new RegisterOplysningType(){
+                        Item = new CprBorgerType(){
+                            FolkeregisterAdresse = new AdresseType(){
+                                Item = new DanskAdresseType(){
+                                    AddressComplete = new AddressCompleteType(){
+                                        AddressAccess = new AddressAccessType(){
+                                            //MunicipalityCode = "0851",
+                                            //StreetCode="8512"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                        }
+                }
             });
-            return;
-            prov.CallADRSOG1(token, new SoegAttributListeType()
-            {
-                SoegEgenskab = new SoegEgenskabType[]{ 
-                    new SoegEgenskabType(){
-                        NavnStruktur =new NavnStrukturType(){
-                            PersonNameForAddressingName = "Beemen"
-                        }}}
-            });
+            object o = res;
         }
     }
 }
