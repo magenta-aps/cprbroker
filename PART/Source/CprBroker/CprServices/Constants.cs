@@ -10,6 +10,7 @@ namespace CprBroker.Providers.CprServices
         public static class OperationKeys
         {
             public const string ADRSOG1 = "ADRSOG1";
+            public const string NVNSOG2 = "NVNSOG2";
             public const string newpass = "newpass";
             public const string signon = "signon";
         }

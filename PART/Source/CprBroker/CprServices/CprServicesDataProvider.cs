@@ -21,10 +21,11 @@ namespace CprBroker.Providers.CprServices
             get
             {
                 return new string[] { 
-                Constants.OperationKeys.signon,
-                Constants.OperationKeys.newpass,
-                Constants.OperationKeys.ADRSOG1,
-            };
+                    Constants.OperationKeys.signon,
+                    Constants.OperationKeys.newpass,
+                    Constants.OperationKeys.ADRSOG1,
+                    Constants.OperationKeys.NVNSOG2,
+                };
             }
         }
 
@@ -67,8 +68,8 @@ namespace CprBroker.Providers.CprServices
 
         public bool IsAlive()
         {
-            // TODO: Call signon here
-            throw new NotImplementedException();
+            var token = SignonAndGetToken();
+            return !string.IsNullOrEmpty(token);
         }
 
         public Guid[] Search(CprBroker.Schemas.Part.SoegInputType1 searchCriteria)
