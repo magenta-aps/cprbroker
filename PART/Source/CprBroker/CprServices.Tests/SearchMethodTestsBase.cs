@@ -25,6 +25,7 @@ namespace CprBroker.Tests.CprServices
             {
                 return new string[]{
                         Properties.Resources.ADRSOG1_Response_OK,
+                        Properties.Resources.NVNSOG2_Response_OK,
                     };
             }
         }

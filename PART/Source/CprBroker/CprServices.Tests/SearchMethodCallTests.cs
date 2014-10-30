@@ -72,7 +72,7 @@ namespace CprBroker.Tests.CprServices
             {
                 var call = new SearchMethodCall() { };
                 var ret = call.ParseResponse(responseXml);
-                Assert.IsNotEmpty(ret.Where(r => r.Name != null));
+                Assert.IsNotEmpty(ret.Where(r => r.Name != null && r.Name.PersonNameStructure != null && !r.Name.PersonNameStructure.IsEmpty));
             }
 
             [TestCaseSource(typeof(SearchMethodTestsBase), "AvailableOutputs")]

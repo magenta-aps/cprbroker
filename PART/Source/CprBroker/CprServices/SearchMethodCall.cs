@@ -71,7 +71,7 @@ namespace CprBroker.Providers.CprServices
                 var p = new SearchPerson();
                 var name = GetFieldValue(elm, "CNVN_ADRNVN");
                 if (!string.IsNullOrEmpty(name))
-                    p.Name = NavnStrukturType.Create();
+                    p.Name = NavnStrukturType.Create(name);
                 p.PNR = GetFieldValue(elm, "PNR");
 
                 #region Address
