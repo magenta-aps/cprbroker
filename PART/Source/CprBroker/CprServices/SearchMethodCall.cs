@@ -168,7 +168,74 @@ namespace CprBroker.Providers.CprServices
                 }
                 else
                 {
-                    // TODO: Fill Foreign address
+                    var streetAddress = GetFieldValue(elm, "STADR");
+                    if (!string.IsNullOrEmpty(streetAddress))
+                    {
+                        // Parse the strings
+                        var arr = streetAddress.Split(' ');
+                        string streetName, houseNr;
+                        if (arr.Length > 1)
+                        {
+                            streetName = string.Join(" ", arr.Take(arr.Length - 1).ToArray());
+                            houseNr = arr.Last();
+                        }
+                        else
+                        {
+                            streetName = streetAddress;
+                            houseNr = null;
+                        }
+                        var postCode = GetFieldValue(elm, "POSTNR");
+                        var postDist = GetFieldText(elm, "POSTNR");
+
+                        // Fill the object
+                        p.Address = new AdresseType()
+                        {
+                            Item = new DanskAdresseType()
+                            {
+                                AddressComplete = new AddressCompleteType()
+                                {
+                                    // TODO: Can we fill Address access by lookup?
+                                    AddressAccess = null,
+                                    AddressPostal = new AddressPostalType()
+                                    {
+                                        CountryIdentificationCode = CountryIdentificationCodeType.Create(_CountryIdentificationSchemeType.imk, Constants.DenmarkCountryCode.ToString()),
+                                        StreetName = streetName,
+                                        StreetBuildingIdentifier = houseNr,
+                                        StreetNameForAddressingName = streetName,
+                                        // TODO: See if we can get floor & suite
+                                        FloorIdentifier = null,
+                                        SuiteIdentifier = null,
+                                        DistrictName = postDist,
+                                        PostCodeIdentifier = postCode,
+
+                                        // Not implemented
+                                        MailDeliverySublocationIdentifier = null,
+                                        PostOfficeBoxIdentifier = null,
+                                        DistrictSubdivisionIdentifier = null,
+                                    }
+                                },
+                                PostDistriktTekst = postDist,
+                                SpecielVejkodeIndikator = false,
+                                SpecielVejkodeIndikatorSpecified = false,
+                                UkendtAdresseIndikator = false,
+
+                                // Not implemented
+                                NoteTekst = null,
+                                AddressPoint = null,
+                                PolitiDistriktTekst = null,
+                                SkoleDistriktTekst = null,
+                                SocialDistriktTekst = null,
+                                SogneDistriktTekst = null,
+                                ValgkredsDistriktTekst = null
+                            }
+                        };
+                        //TODO" Parse address here
+
+                    }
+                    else
+                    {
+                        // TODO: Fill Foreign address
+                    }
                 }
                 #endregion
 
