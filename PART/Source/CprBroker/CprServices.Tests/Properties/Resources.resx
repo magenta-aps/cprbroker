@@ -119,6 +119,9 @@
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="ADRSOG1_Response_OK" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\ADRSOG1.Response.OK.xml;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1256</value>
+    <value>..\Resources\ADRSOG1.Response.OK.xml;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1256</value>
+  </data>
+  <data name="NVNSOG2_Response_OK" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NVNSOG2.Response.OK.xml;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1256</value>
   </data>
 </root>

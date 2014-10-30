@@ -68,12 +68,19 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ADRSOG1.Response.OK.xml" />
+    <Content Include="Resources\ADRSOG1.Response.OK.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="NVNSOG2.Input.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Resources\NVNSOG2.Response.OK.xml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
