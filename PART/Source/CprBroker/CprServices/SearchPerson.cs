@@ -20,18 +20,29 @@ namespace CprBroker.Providers.CprServices
             return string.Equals(other.PNR, PNR);
         }
 
-        public AttributListeType ToAttributListeType()
+        public LaesResultatType ToLaesResultatType(Func<string, Guid> uuidGetter)
         {
-            return new AttributListeType()
+            return new LaesResultatType()
             {
-                Egenskab = new EgenskabType[]{
-                    new EgenskabType(){ NavnStruktur = Name}
-                },
-                RegisterOplysning = new RegisterOplysningType[]{
-                    new RegisterOplysningType() { Item = new CprBorgerType(){ 
-                        PersonCivilRegistrationIdentifier = PNR,
-                        FolkeregisterAdresse =  Address
-                    }}
+                Item = new FiltreretOejebliksbilledeType()
+                {
+                    AttributListe = new AttributListeType()
+                    {
+                        Egenskab = new EgenskabType[]{
+                            new EgenskabType(){ NavnStruktur = Name}
+                        },
+                        RegisterOplysning = new RegisterOplysningType[]
+                        {
+                            new RegisterOplysningType() { Item = new CprBorgerType(){ 
+                                PersonCivilRegistrationIdentifier = PNR,
+                                FolkeregisterAdresse =  Address
+                            }}
+                        }
+                    },
+                    BrugervendtNoegleTekst = PNR,
+                    RelationListe = null,
+                    TilstandListe = null,
+                    UUID = uuidGetter(PNR).ToString()
                 }
             };
         }

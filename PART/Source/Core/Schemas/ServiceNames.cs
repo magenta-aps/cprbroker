@@ -97,6 +97,7 @@ namespace CprBroker.Schemas.Part
                 public const string RefreshRead = "RefreshRead";
                 public const string List = "List";
                 public const string Search = "Search";
+                public const string SearchList = "SearchList";
 
                 public const string GetUuid = "GetUuid";
                 public const string GetUuidArray = "GetUuidArray";
