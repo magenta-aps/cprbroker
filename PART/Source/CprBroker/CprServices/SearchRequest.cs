@@ -22,7 +22,7 @@ namespace CprBroker.Providers.CprServices
                         {
                             names.Add(egen.NavnStruktur.PersonNameForAddressingName);
                         }
-                        if (egen.NavnStruktur.PersonNameStructure != null && egen.NavnStruktur.PersonNameStructure.IsEmpty)
+                        if (egen.NavnStruktur.PersonNameStructure != null && !egen.NavnStruktur.PersonNameStructure.IsEmpty)
                         {
                             if (!string.IsNullOrEmpty(egen.NavnStruktur.PersonNameStructure.PersonGivenName))
                             {

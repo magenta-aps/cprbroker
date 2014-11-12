@@ -18,9 +18,9 @@
                     <Field r="BNR" v=""/>
                     <Field r="ETAG" v=""/>
                     <Field r="SIDO" v=""/>
-                    <Field r="POST" v=""/>
+                    <Field r="POST" v="" required="true" requiredGroup="kom"/>
 
-                    <Field r="KOMK" v="" required="true"/>
+                    <Field r="KOMK" v="" required="true" requiredGroup="kom"/>
 
                     <!--Status-->
                     <Field r="STAF" v=""/>

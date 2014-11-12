@@ -145,11 +145,6 @@ namespace CprBroker.Engine.Part
                     return StandardReturType.NotImplemented("SoegAttributListe.LokalUdvidelse");
                 }
 
-                if (Input.SoegObjekt.SoegAttributListe.SoegRegisterOplysning != null)
-                {
-                    return StandardReturType.NotImplemented("SoegAttributListe.SoegRegisterOplysning");
-                }
-
                 if (Input.SoegObjekt.SoegAttributListe.SoegSundhedOplysning != null)
                 {
                     return StandardReturType.NotImplemented("SoegAttributListe.SoegSundhedOplysning");
