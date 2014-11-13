@@ -251,7 +251,7 @@ namespace CprBroker.Engine
                 {
                     Local.Admin.AddNewLog(TraceEventType.Information, BrokerContext.Current.WebMethodMessageName, TextMessages.Succeeded, null, null);
                     var output = new TOutput();
-                    output.SetMainItem(outputMainItem);
+                    facade.SetMainItem(output, outputMainItem);
                     if (succeededCount == subMethodRunStates.Length)
                     {
                         output.StandardRetur = StandardReturType.OK();

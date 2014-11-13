@@ -117,6 +117,11 @@ namespace CprBroker.Engine
             }
         }
 
+        public virtual void SetMainItem(TOutput output, TItem mainItem)
+        {
+            output.SetMainItem(mainItem);
+        }
+
         public virtual bool IsValidResult(TItem output)
         {
             return !object.Equals(output, default(TItem));
