@@ -127,13 +127,16 @@
   <data name="ChangePassword" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ChangePassword.xml;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1256</value>
   </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="NAVNE3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NAVNE3.xml;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
   <data name="NVNSOG2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\NVNSOG2.xml;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1256</value>
   </data>
   <data name="OrdinaryLogon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\OrdinaryLogon.xml;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1256</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="SearchTemplate" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\SearchTemplate.xml;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1256</value>
   </data>

@@ -120,6 +120,27 @@ namespace CprBroker.Providers.CprServices.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
+        ///&lt;Gctp v=&quot;1.0&quot; &gt;
+        ///    &lt;System r=&quot;CprSoeg&quot;&gt;
+        ///        &lt;Service r=&quot;NAVNE3&quot;&gt;
+        ///            &lt;CprServiceHeader r=&quot;NAVNE3&quot;&gt;
+        ///                &lt;Key&gt;
+        ///                    &lt;Field r=&quot;PNR&quot; v=&quot;&quot;/&gt;
+        ///                    &lt;Field r=&quot;AKX&quot; v=&quot;X&quot;/&gt;
+        ///                &lt;/Key&gt;
+        ///            &lt;/CprServiceHeader&gt;
+        ///        &lt;/Service&gt;
+        ///    &lt;/System&gt;
+        ///&lt;/Gctp&gt;.
+        /// </summary>
+        public static string NAVNE3 {
+            get {
+                return ResourceManager.GetString("NAVNE3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;iso-8859-1&quot; standalone=&quot;yes&quot;?&gt;
         ///&lt;Gctp v=&quot;1.0&quot; &gt;
         ///    &lt;System r=&quot;CprSoeg&quot;&gt;

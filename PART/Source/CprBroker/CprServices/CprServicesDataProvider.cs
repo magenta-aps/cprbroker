@@ -133,22 +133,40 @@ namespace CprBroker.Providers.CprServices
 
         public RegistreringType1 Read(Schemas.PersonIdentifier uuid, LaesInputType input, Func<string, Guid> cpr2uuidFunc, out Schemas.QualityLevel? ql)
         {
-            var method = new SearchMethod(Properties.Resources.ADRESSE3);
-            var request = new SearchRequest(uuid.CprNumber);
-            var call = new SearchMethodCall(method, request);
+            var addressMethod = new SearchMethod(Properties.Resources.ADRESSE3);
+            var addressRequest = new SearchRequest(uuid.CprNumber);
+            var addressCall = new SearchMethodCall(addressMethod, addressRequest);
 
-            var xml = call.ToRequestXml(Properties.Resources.SearchTemplate);
+            var xml = addressCall.ToRequestXml(Properties.Resources.SearchTemplate);
 
             var xmlOut = "";
             string token = this.SignonAndGetToken();
+
+            // Get address
             var kvit = Send(xml, ref token, out xmlOut);
             ql = Schemas.QualityLevel.Cpr;
             if (kvit.OK)
             {
-                var persons = call.ParseResponse(xmlOut, false);
+                var addressPersons = addressCall.ParseResponse(xmlOut, false);
                 var cache = new UuidCache();
-                cache.FillCache(persons.Select(p => p.PNR).ToArray());
-                return persons[0].ToRegistreringType1(cache.GetUuid);
+                cache.FillCache(addressPersons.Select(p => p.PNR).ToArray());
+                var ret = addressPersons[0].ToRegistreringType1(cache.GetUuid);
+
+                // Now get the name
+                var nameMethod = new SearchMethod(Properties.Resources.NAVNE3);
+                var nameRequest = new SearchRequest(uuid.CprNumber);
+                var nameCall = new SearchMethodCall(nameMethod, nameRequest);
+                var nameXml = nameCall.ToRequestXml(Properties.Resources.SearchTemplate);
+
+                kvit = Send(nameXml, ref token, out xmlOut);
+                if (kvit.OK)
+                {
+                    var namePersons = nameCall.ParseResponse(xmlOut, false);
+                    var nameRet = namePersons[0].ToRegistreringType1(cache.GetUuid);
+                    ret.AttributListe.Egenskab[0].NavnStruktur = nameRet.AttributListe.Egenskab[0].NavnStruktur;
+                    return ret;
+                }
+
             }
             return null;
         }
