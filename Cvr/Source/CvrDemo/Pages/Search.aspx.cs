@@ -30,13 +30,13 @@ namespace CvrDemo.Pages
                 if (Decimal.TryParse(CvrSearchBox.Text, out cvrNum))
                 {
                     unit = dataContext.Units.Where(u => u.LegalUnitIdentifier == cvrNum && u.ProductionUnitIdentifier == 0).FirstOrDefault() as LegalUnit;
-                    nameAddressMap.Add(unit.Name,
-                        "vejnavn=" + HttpUtility.UrlEncode(unit.AddressOfficialStreetName) +
-                        "&husnr=" + HttpUtility.UrlEncode(unit.AddressOfficialStreetBuildingIdentifier) +
-                        "&postnr=" + unit.AddressOfficialPostCodeIdentifier
-                        );
                     if (unit != null)
                     {
+                        nameAddressMap.Add(unit.Name,
+                            "vejnavn=" + HttpUtility.UrlEncode(unit.AddressOfficialStreetName) +
+                            "&husnr=" + HttpUtility.UrlEncode(unit.AddressOfficialStreetBuildingIdentifier) +
+                            "&postnr=" + unit.AddressOfficialPostCodeIdentifier
+                            );
                         var prod = unit.ProductionUnits.Where(pU => pU != null);
                         foreach (var pU in prod)
                         {
