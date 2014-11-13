@@ -29,6 +29,8 @@ namespace CprBroker.Schemas.Part {
         
         private LaesResultatType[] laesResultatField;
         
+        private string[] idlisteField;
+        
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oio:sagdok:2.0.0")]
         public StandardReturType StandardRetur {
@@ -48,6 +50,18 @@ namespace CprBroker.Schemas.Part {
             }
             set {
                 this.laesResultatField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlArrayAttribute(Namespace="urn:oio:sagdok:1.0.0")]
+        [System.Xml.Serialization.XmlArrayItemAttribute("UUID", Namespace="urn:oio:dkal:1.0.0", IsNullable=false)]
+        public string[] Idliste {
+            get {
+                return this.idlisteField;
+            }
+            set {
+                this.idlisteField = value;
             }
         }
     }

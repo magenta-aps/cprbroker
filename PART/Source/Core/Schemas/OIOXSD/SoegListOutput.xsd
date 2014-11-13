@@ -13,12 +13,14 @@
     <import schemaLocation="StandardRetur.xsd" />
     <import schemaLocation="Idliste.xsd" />
     <import schemaLocation="PersonOperationer.xsd" />
+    <import schemaLocation="Idliste.xsd" />
 
     <element name="SoegListOutput" type="person:SoegListOutputType" oio:definition="urn:oio:sagdok:soeglistoutput:ADD:1.0.0" />
     <complexType name="SoegListOutputType" oio:definition="urn:oio:sagdok:soeglistoutput:ADD:1.0.0">
         <sequence>
             <element ref="sd:StandardRetur" oio:content="standardretur" />
             <element ref="person:LaesResultat" minOccurs="0" maxOccurs="unbounded" oio:content="laesresultat"/>
+            <element ref="oio2:Idliste" minOccurs="0" oio:content="idliste" />
         </sequence>
     </complexType>
 
