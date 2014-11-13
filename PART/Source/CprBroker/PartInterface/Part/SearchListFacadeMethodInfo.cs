@@ -84,8 +84,37 @@ namespace CprBroker.Engine.Part
 
         public override LaesResultatType[] Aggregate(object[] results)
         {
-            var foundPersons = results.Select(r => r as LaesResultatType);
-            return foundPersons.ToArray();
+            var foundPersons = results.Select(r => r as LaesResultatType[]);
+            return foundPersons.ToArray()[0];
+        }
+
+        public override void SetMainItem(SoegListOutputType output, LaesResultatType[] mainItem)
+        {
+            base.SetMainItem(output, mainItem);
+            // Fill UUIDs
+            var cache = new UuidCache();
+            var pnrs = mainItem.Select(mi =>
+            {
+                if (mi.Item is RegistreringType1)
+                {
+                    var reg = mi.Item as RegistreringType1;
+                    if (reg.AttributListe != null)
+                        return reg.AttributListe.GetPnr();
+                }
+                else if (mi.Item is FiltreretOejebliksbilledeType)
+                {
+                    var f = mi.Item as FiltreretOejebliksbilledeType;
+                    if (f.AttributListe != null)
+                        return f.AttributListe.GetPnr();
+                }
+                return null;
+            })
+            .ToArray();
+
+            cache.FillCache(pnrs);
+            var uuids = pnrs.Select(p => cache.GetUuid(p).ToString()).ToArray();
+            output.Idliste = uuids;
+
         }
     }
 }
