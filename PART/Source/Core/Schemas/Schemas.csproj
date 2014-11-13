@@ -82,6 +82,7 @@
     <Compile Include="Addresses\DummyAddressSource.cs" />
     <Compile Include="Addresses\IAddressSource.cs" />
     <Compile Include="ApplicationHeader.cs" />
+    <Compile Include="AttributListeType.cs" />
     <Compile Include="CountryIdentificationCodeType.cs" />
     <Compile Include="FiltreretOejebliksbilledeType.cs" />
     <Compile Include="Intervals\CannotCloseOpenEndIntervalsAttribute.cs" />
