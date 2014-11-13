@@ -99,6 +99,7 @@
     </Content>
     <Content Include="Resources\ADRESSE3.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
   <ItemGroup>

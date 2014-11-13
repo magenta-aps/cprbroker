@@ -28,6 +28,7 @@ namespace CprBroker.Providers.CprServices
         public const string UserAgent = "CPR/1.0";
         public const string TokenCookieName = "TOKEN";
         public const string DefaultToken = "ZZZxxxxxxxx";
+        public static readonly Guid ActroId = new Guid("{C1B08A8E-3CE4-4C66-90AD-686F841A47FE}");
 
         public static readonly short DenmarkCountryCode = 5100;
         

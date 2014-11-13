@@ -9,7 +9,7 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Providers.CprServices
 {
-    public partial class CprServicesDataProvider : IPartSearchListDataProvider, IExternalDataProvider, IPerCallDataProvider
+    public partial class CprServicesDataProvider : IPartSearchListDataProvider, IExternalDataProvider, IPerCallDataProvider, IPartReadDataProvider
     {
         public CprServicesDataProvider()
         {
@@ -127,6 +127,28 @@ namespace CprBroker.Providers.CprServices
                 {
                     // TODO: What to do if search fails??
                 }
+            }
+            return null;
+        }
+
+        public RegistreringType1 Read(Schemas.PersonIdentifier uuid, LaesInputType input, Func<string, Guid> cpr2uuidFunc, out Schemas.QualityLevel? ql)
+        {
+            var method = new SearchMethod(Properties.Resources.ADRESSE3);
+            var request = new SearchRequest(uuid.CprNumber);
+            var call = new SearchMethodCall(method, request);
+
+            var xml = call.ToRequestXml(Properties.Resources.SearchTemplate);
+
+            var xmlOut = "";
+            string token = this.SignonAndGetToken();
+            var kvit = Send(xml, ref token, out xmlOut);
+            ql = Schemas.QualityLevel.Cpr;
+            if (kvit.OK)
+            {
+                var persons = call.ParseResponse(xmlOut);
+                var cache = new UuidCache();
+                cache.FillCache(persons.Select(p => p.PNR).ToArray());                
+                return persons[0].ToRegistreringType1(cache.GetUuid);                
             }
             return null;
         }

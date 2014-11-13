@@ -8,6 +8,11 @@ namespace CprBroker.Providers.CprServices
 {
     public class SearchRequest
     {
+        public SearchRequest(string pnr)
+        {
+            AddCriteriaField("PNR", pnr);
+        }
+
         public SearchRequest(SoegAttributListeType attributes)
         {
             #region Egenskab

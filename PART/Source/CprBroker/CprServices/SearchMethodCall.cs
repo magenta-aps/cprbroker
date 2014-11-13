@@ -63,7 +63,14 @@ namespace CprBroker.Providers.CprServices
             nsmgr.AddNamespace("c", Constants.XmlNamespace);
 
             var path = string.Format("//c:Rolle[@r='HovedRolle']/c:Table/c:Row[not(@u)]", this.Name); //[@u<>]
-            var elements = doc.SelectNodes(path, nsmgr).OfType<XmlElement>();
+            var elements = doc.SelectNodes(path, nsmgr).OfType<XmlElement>().ToArray();
+
+            if (elements.Count() == 0)
+            {
+                var singleElement = doc.SelectSingleNode("//c:Rolle[c:Field][@r='HovedRolle']", nsmgr) as XmlElement;
+                if (singleElement != null)
+                    elements = new XmlElement[] { singleElement };
+            }
 
             var ret = new List<SearchPerson>();
             foreach (var elm in elements)

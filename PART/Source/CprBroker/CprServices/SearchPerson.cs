@@ -46,5 +46,36 @@ namespace CprBroker.Providers.CprServices
                 }
             };
         }
+
+        public RegistreringType1 ToRegistreringType1(Func<string, Guid> uuidGetter)
+        {
+            return new RegistreringType1()
+            {
+
+                AttributListe = new AttributListeType()
+                {
+                    Egenskab = new EgenskabType[]{
+                            new EgenskabType(){ NavnStruktur = Name}
+                        },
+                    RegisterOplysning = new RegisterOplysningType[]
+                        {
+                            new RegisterOplysningType() { Item = new CprBorgerType(){ 
+                                PersonCivilRegistrationIdentifier = PNR,
+                                FolkeregisterAdresse =  Address
+                            }}
+                        }
+                },
+                RelationListe = null,
+                TilstandListe = null,
+                Tidspunkt = TidspunktType.Create(DateTime.Now),
+                LivscyklusKode = LivscyklusKodeType.Rettet,
+                AktoerRef = UnikIdType.Create(Constants.ActroId),
+                CommentText = null,
+                // TODO: Fill this
+                SourceObjectsXml = ""
+            };
+        }
+
+
     }
 }
