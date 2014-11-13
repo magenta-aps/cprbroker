@@ -54,7 +54,7 @@ namespace CprBroker.Providers.CprServices
             return doc.OuterXml;
         }
 
-        public List<SearchPerson> ParseResponse(string responseXml)
+        public List<SearchPerson> ParseResponse(string responseXml, bool multi)
         {
             var doc = new XmlDocument();
             doc.LoadXml(responseXml);
@@ -62,15 +62,13 @@ namespace CprBroker.Providers.CprServices
             var nsmgr = new XmlNamespaceManager(doc.NameTable);
             nsmgr.AddNamespace("c", Constants.XmlNamespace);
 
-            var path = string.Format("//c:Rolle[@r='HovedRolle']/c:Table/c:Row[not(@u)]", this.Name); //[@u<>]
-            var elements = doc.SelectNodes(path, nsmgr).OfType<XmlElement>().ToArray();
+            string path;
+            if (multi)// search method
+                path = "//c:Rolle[@r='HovedRolle']/c:Table/c:Row[not(@u)]";
+            else// lookup method
+                path = "//c:Rolle[c:Field][@r='HovedRolle']";
 
-            if (elements.Count() == 0)
-            {
-                var singleElement = doc.SelectSingleNode("//c:Rolle[c:Field][@r='HovedRolle']", nsmgr) as XmlElement;
-                if (singleElement != null)
-                    elements = new XmlElement[] { singleElement };
-            }
+            var elements = doc.SelectNodes(path, nsmgr).OfType<XmlElement>().ToArray();
 
             var ret = new List<SearchPerson>();
             foreach (var elm in elements)

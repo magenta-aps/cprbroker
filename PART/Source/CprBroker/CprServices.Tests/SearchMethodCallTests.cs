@@ -52,7 +52,7 @@ namespace CprBroker.Tests.CprServices
             public void ParseResponse_Sample_NonEmpty(string responseXml)
             {
                 var call = new SearchMethodCall() { };
-                var ret = call.ParseResponse(responseXml);
+                var ret = call.ParseResponse(responseXml, true);
                 Assert.IsNotEmpty(ret);
             }
 
@@ -60,7 +60,7 @@ namespace CprBroker.Tests.CprServices
             public void ParseResponse_Sample_AllHasPNR(string responseXml)
             {
                 var call = new SearchMethodCall() { };
-                var ret = call.ParseResponse(responseXml);
+                var ret = call.ParseResponse(responseXml, true);
                 foreach (var p in ret)
                 {
                     Assert.IsNotNullOrEmpty(p.PNR);
@@ -71,7 +71,7 @@ namespace CprBroker.Tests.CprServices
             public void ParseResponse_Sample_SomeHasName(string responseXml)
             {
                 var call = new SearchMethodCall() { };
-                var ret = call.ParseResponse(responseXml);
+                var ret = call.ParseResponse(responseXml, true);
                 Assert.IsNotEmpty(ret.Where(r => r.Name != null && r.Name.PersonNameStructure != null && !r.Name.PersonNameStructure.IsEmpty));
             }
 
@@ -79,7 +79,7 @@ namespace CprBroker.Tests.CprServices
             public void ParseResponse_Sample_SomeHasAddress(string responseXml)
             {
                 var call = new SearchMethodCall() { };
-                var ret = call.ParseResponse(responseXml);
+                var ret = call.ParseResponse(responseXml, true);
                 Assert.IsNotEmpty(ret.Where(r => r.Address != null));
             }
         }

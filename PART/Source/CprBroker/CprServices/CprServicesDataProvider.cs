@@ -102,7 +102,7 @@ namespace CprBroker.Providers.CprServices
                     var kvit = Send(xml, ref token, out xmlOut);
                     if (kvit.OK)
                     {
-                        var persons = call.ParseResponse(xmlOut);
+                        var persons = call.ParseResponse(xmlOut, true);
                         if (ret == null)
                             ret = persons;
                         else
@@ -145,10 +145,10 @@ namespace CprBroker.Providers.CprServices
             ql = Schemas.QualityLevel.Cpr;
             if (kvit.OK)
             {
-                var persons = call.ParseResponse(xmlOut);
+                var persons = call.ParseResponse(xmlOut, false);
                 var cache = new UuidCache();
-                cache.FillCache(persons.Select(p => p.PNR).ToArray());                
-                return persons[0].ToRegistreringType1(cache.GetUuid);                
+                cache.FillCache(persons.Select(p => p.PNR).ToArray());
+                return persons[0].ToRegistreringType1(cache.GetUuid);
             }
             return null;
         }
