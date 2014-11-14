@@ -81,6 +81,7 @@ namespace CprBroker.Providers.CprServices
 
                 #region Address
                 var kom = GetFieldValue(elm, "KOMKOD");
+                var foreignCountryCode = GetFieldValue(elm, "UDRLANDEKOD");
                 if (!string.IsNullOrEmpty(kom))
                 {
                     var komK = decimal.Parse(kom);
@@ -141,21 +142,22 @@ namespace CprBroker.Providers.CprServices
                                     SuiteIdentifier = GetFieldValue(elm, "SIDEDOER"),
 
                                     // TODO: Lookup
-                                    PostCodeIdentifier = null,
-                                    DistrictName = null,
+                                    PostCodeIdentifier = GetFieldValue(elm, "POSTNR"),
+                                    DistrictName = GetFieldText(elm, "POSTNR"),
 
-                                    // TODO: lookup street name and addressing name
-                                    StreetName = null,
-                                    StreetNameForAddressingName = null,
+                                    // TODO: This workd only in Lookup metrhods. Lookup street name and addressing name in Search methods
+                                    StreetName = GetFieldText(elm, "VEJKOD"),
+                                    // TODO: Shall we read from tm="xyz"?
+                                    StreetNameForAddressingName = GetFieldText(elm, "VEJKOD"),
 
                                     // Not implemented
-                                    DistrictSubdivisionIdentifier = null,
+                                    DistrictSubdivisionIdentifier = GetFieldValue(elm, "BYNVN"),
                                     MailDeliverySublocationIdentifier = null,
                                     PostOfficeBoxIdentifier = null,
                                 }
                             },
-                            // TODO: Fill post district
-                            PostDistriktTekst = null,
+                            // TODO: Fill post district in search methods
+                            PostDistriktTekst = GetFieldText(elm, "POSTNR"),
                             SpecielVejkodeIndikator = false,
                             SpecielVejkodeIndikatorSpecified = true,
                             UkendtAdresseIndikator = false,
@@ -171,7 +173,7 @@ namespace CprBroker.Providers.CprServices
                         };
                     }
                 }
-                else
+                else if (string.IsNullOrEmpty(foreignCountryCode))
                 {
                     var streetAddress = GetFieldValue(elm, "STADR");
                     if (!string.IsNullOrEmpty(streetAddress))
@@ -235,12 +237,27 @@ namespace CprBroker.Providers.CprServices
                             }
                         };
                         //TODO" Parse address here
-
                     }
-                    else
+                }
+                else
+                {
+                    p.Address = new AdresseType()
                     {
-                        // TODO: Fill Foreign address
-                    }
+                        Item = new VerdenAdresseType()
+                        {
+                            ForeignAddressStructure = new ForeignAddressStructureType()
+                            {
+                                CountryIdentificationCode = CountryIdentificationCodeType.Create(_CountryIdentificationSchemeType.imk, foreignCountryCode),
+                                PostalAddressFirstLineText = GetFieldValue(elm, "UDLANDSADR1"),
+                                PostalAddressSecondLineText = GetFieldValue(elm, "UDLANDSADR2"),
+                                PostalAddressThirdLineText = GetFieldValue(elm, "UDLANDSADR3"),
+                                PostalAddressFourthLineText = GetFieldValue(elm, "UDLANDSADR4"),
+                                PostalAddressFifthLineText = GetFieldValue(elm, "UDLANDSADR5"),
+                                LocationDescriptionText = null,
+
+                            }
+                        }
+                    };
                 }
                 #endregion
 

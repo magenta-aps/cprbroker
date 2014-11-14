@@ -86,7 +86,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\ADRSOG1.xml" />
+    <Content Include="Resources\ADRSOG1.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Resources\ChangePassword.xml" />
     <Content Include="Resources\NAVNE3.xml">
       <SubType>Designer</SubType>

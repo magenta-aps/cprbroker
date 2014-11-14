@@ -147,10 +147,13 @@ namespace CprBroker.Providers.CprServices
             ql = Schemas.QualityLevel.Cpr;
             if (kvit.OK)
             {
-                var addressPersons = addressCall.ParseResponse(xmlOut, false);
+                var addressPerson = addressCall.ParseResponse(xmlOut, false).First();
+                if (string.IsNullOrEmpty(addressPerson.PNR))
+                    addressPerson.PNR = uuid.CprNumber;
+
                 var cache = new UuidCache();
-                cache.FillCache(addressPersons.Select(p => p.PNR).ToArray());
-                var ret = addressPersons[0].ToRegistreringType1(cache.GetUuid);
+                cache.FillCache(new string[] { addressPerson.PNR });
+                var ret = addressPerson.ToRegistreringType1(cache.GetUuid);
 
                 // Now get the name
                 var nameMethod = new SearchMethod(Properties.Resources.NAVNE3);
