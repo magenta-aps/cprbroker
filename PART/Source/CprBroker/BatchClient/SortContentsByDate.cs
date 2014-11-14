@@ -68,6 +68,7 @@ namespace BatchClient
                     return dataContext.PersonRegistrations
                         .OrderBy(pr => pr.PersonRegistrationId)
                         .Where(pr => pr.SourceObjects != null)
+                        .Where(pr => pr.SourceObjects.ToString().ToLower().Contains("guid"))
                         .Select(pr => string.Format("{0},{1}", pr.UUID, pr.PersonRegistrationId))
                         .ToArray();
                 }
