@@ -65,6 +65,26 @@ namespace CprBroker.Tests.CprServices.Properties {
         ///&lt;root xmlns=&quot;http://www.cpr.dk&quot;&gt;
         ///    &lt;Gctp v=&quot;1.0&quot; env=&quot;Demo&quot;&gt;
         ///        &lt;System r=&quot;CprSoeg&quot;&gt;
+        ///            &lt;Service r=&quot;ADRESSE3&quot;&gt;
+        ///                &lt;CprServiceHeader r=&quot;ADRESSE3&quot; ts=&quot;20141027125146061349&quot;/&gt;
+        ///                &lt;CprData u=&quot;O&quot;&gt;
+        ///                    &lt;Rolle r=&quot;HovedRolle&quot;&gt;
+        ///                        &lt;Field r=&quot;TIDLADRMRK&quot;/&gt;
+        ///                        &lt;Field r=&quot;KONTAKTADRMRK&quot;/&gt;
+        ///                        &lt;Field r=&quot;TIDLKOMMRK&quot;/&gt;
+        ///                 [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string ADRESSE3_Response_OK {
+            get {
+                return ResourceManager.GetString("ADRESSE3_Response_OK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;iso-8859-1&quot; standalone=&quot;yes&quot;?&gt;
+        ///&lt;root xmlns=&quot;http://www.cpr.dk&quot;&gt;
+        ///    &lt;Gctp v=&quot;1.0&quot; env=&quot;Demo&quot;&gt;
+        ///        &lt;System r=&quot;CprSoeg&quot;&gt;
         ///            &lt;Service r=&quot;ADRSOG1&quot;&gt;
         ///                &lt;CprServiceHeader r=&quot;ADRSOG1&quot; ts=&quot;20141027133255410262&quot;/&gt;
         ///                &lt;CprData u=&quot;O&quot;&gt;
