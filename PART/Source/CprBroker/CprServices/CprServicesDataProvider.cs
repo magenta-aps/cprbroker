@@ -99,7 +99,7 @@ namespace CprBroker.Providers.CprServices
                     var xml = call.ToRequestXml(Properties.Resources.SearchTemplate);
 
                     var xmlOut = "";
-                    var kvit = Send(xml, ref token, out xmlOut);
+                    var kvit = Send(call.Name, xml, ref token, out xmlOut);
                     if (kvit.OK)
                     {
                         var persons = call.ParseResponse(xmlOut, true);
@@ -143,7 +143,7 @@ namespace CprBroker.Providers.CprServices
             string token = this.SignonAndGetToken();
 
             // Get address
-            var kvit = Send(xml, ref token, out xmlOut);
+            var kvit = Send(addressCall.Name, xml, ref token, out xmlOut);
             ql = Schemas.QualityLevel.Cpr;
             if (kvit.OK)
             {
@@ -161,7 +161,7 @@ namespace CprBroker.Providers.CprServices
                 var nameCall = new SearchMethodCall(nameMethod, nameRequest);
                 var nameXml = nameCall.ToRequestXml(Properties.Resources.SearchTemplate);
 
-                kvit = Send(nameXml, ref token, out xmlOut);
+                kvit = Send(nameCall.Name, nameXml, ref token, out xmlOut);
                 if (kvit.OK)
                 {
                     var namePersons = nameCall.ParseResponse(xmlOut, false);

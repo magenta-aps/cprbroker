@@ -57,7 +57,6 @@
     <Compile Include="Constants.cs" />
     <Compile Include="CprServicesDataProvider.cs" />
     <Compile Include="CprServicesDataProvider.Http.cs" />
-    <Compile Include="CprServicesDataProvider.Search.cs" />
     <Compile Include="Gctp.cs">
       <DependentUpon>Gctp.xsd</DependentUpon>
     </Compile>
