@@ -76,11 +76,11 @@ namespace CprBroker.Tests.CPRDirect.Objects
         public class ToNavnStrukturType
         {
             [Test]
-            public void ToNavnStrukturType_FirstNameValueNoFlag_EmptyFirstName()
+            public void ToNavnStrukturType_FirstNameValueWithFlag_NonEmptyFirstName()
             {
                 var name = new CurrentNameInformationType() { FirstName_s = "klasjlkdfakl", FirstNameMarker = '*' };
                 var partName = name.ToNavnStrukturType();
-                Assert.IsNullOrEmpty(partName.PersonNameStructure.PersonGivenName);
+                Assert.IsNotEmpty(partName.PersonNameStructure.PersonGivenName);
             }
 
             [Test]

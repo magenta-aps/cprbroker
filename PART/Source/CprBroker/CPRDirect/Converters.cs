@@ -88,12 +88,15 @@ namespace CprBroker.Providers.CPRDirect
                 return false;
         }
 
-        public static String ToString(string value, char uncertainty)
+        public static String ToNameString(string value, char uncertainty)
         {
-            if (uncertainty == ' ')
-                return value;
-            else
-                return string.Empty;
+            /*
+                Decision made to ignore the markers, interpretation written here for the sake of documentation
+                + : The name is abbreviated 
+                * : The name contains characters that can not be reported to the CPR 
+                = : The name is inadequately documented
+            */
+            return value;
         }
 
         public static string ToPnrStringOrNull(string pnr)
@@ -141,7 +144,7 @@ namespace CprBroker.Providers.CPRDirect
                     break;
                 case 'S':
                     return true;
-                    break;                
+                    break;
                 case 'U':
                     return false;
                     break;
