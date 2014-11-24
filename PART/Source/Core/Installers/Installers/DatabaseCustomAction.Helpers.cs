@@ -82,6 +82,7 @@ namespace CprBroker.Installers
         public static void ExecuteDDL(string createDatabaseObjectsSql, DatabaseSetupInfo databaseSetupInfo)
         {
             string adminConnectionStringWithDb = databaseSetupInfo.CreateConnectionString(true, true);
+            ExecuteDDL(createDatabaseObjectsSql, adminConnectionStringWithDb);
         }
 
         public static void ExecuteDDL(string createDatabaseObjectsSql, string adminConnectionStringWithDb)
