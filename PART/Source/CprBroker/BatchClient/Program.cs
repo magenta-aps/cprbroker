@@ -48,6 +48,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 
 using CprBroker.Utilities.ConsoleApps;
 
@@ -57,6 +58,46 @@ namespace BatchClient
     {
         public static void Main(params string[] args)
         {
+            /*String comma = "((\\s+)|(\\s*[,;\\.]{1}\\s*))";
+            String alpha = "[\\w[^0-9]";
+            String pat = "(?<streetName>[^0-9]+)" + comma
+                    + "(?<houseNumber>[0-9]+" + alpha + "*)" + comma
+                    + "(" + "(?<floor>[0-9]{1,2})?(\\.)?(sal)?" + comma + ")?"
+                    + "(" + "(?<door>[a-zA-Z]+)" + comma + ")?"
+                    + "(?<postCode>[0-9]{4})" + comma
+                    + "(?<postDistrict>" + alpha + "+)"
+                    ;
+            */
+
+            String comma = "((\\s+)|(\\s*[,;\\.]{1}\\s*))";
+            //String alpha = "[a-zA-Z]";
+            String pat = "(?<streetName>[^0-9]+)" + comma
+                    + "(?<houseNumber>[0-9]+[a-zA-Z]*)" + comma
+                    + "(" + "(?<floor>[0-9]{1,2})?(\\.)?(sal)?" + comma + ")?"
+                    + "(" + "(?<door>[a-zA-Z]+)" + comma + ")?"
+                    + "(?<postCode>[0-9]{4})" + comma                    
+                    + "(?<postDistrict>\\p{L}+(\\s+\\p{L}+)*)\\Z"
+                    ;
+
+            var adresses = new String[]{
+                "Bispebjerg Bakke 26B, 1. tv, 2400 København NV",
+             "Studiestraede 14 1.sal 1455 København K",
+             "Studiestraede 14 1 1455 København K",
+             "Studiestraede 14 1, 1455 København K",
+             "Bispebjerg bakke 26b 1, tv, 2400 CPH NV",
+             "Bispebjerg bakke 26b 1.tv, 2400 CPH NV",
+             "Industrivej 1 2600 Glostrup",
+             "Industrivej 1 2600 Øresund"
+            };
+
+            foreach (var adr in adresses)
+            {
+                var m = Regex.Match(adr, pat);
+                var s = m.Success;
+            }
+
+
+            return;
             ConsoleEnvironment env = ConsoleEnvironment.Create(args);
             env.Run();
         }
