@@ -22,5 +22,15 @@ namespace CprBroker.Providers.KMD.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://195.50.36.114/bccicste.asp?zservice=AS78205")]
+        public string CprBroker_Providers_KMD_WS_AS78205_WS_AS78205 {
+            get {
+                return ((string)(this["CprBroker_Providers_KMD_WS_AS78205_WS_AS78205"]));
+            }
+        }
     }
 }
