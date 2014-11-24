@@ -167,5 +167,20 @@ namespace CprBroker.Schemas.Part
                 return ret;
             }
         }
+
+        public static T[] TakeLatest<T>(T[] objects)
+            where T : ITypeWithVirkning
+        {
+            var sorted = OrderByStartDate<T>(objects, false);
+
+            if (sorted == null)
+            {
+                return null;
+            }
+            else
+            {
+                return sorted.Take(1).ToArray();
+            }
+        }
     }
 }

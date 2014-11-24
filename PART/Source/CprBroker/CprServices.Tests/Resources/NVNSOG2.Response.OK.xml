@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>
+<root xmlns="http://www.cpr.dk">
+    <Gctp v="1.0" env="Demo">
+        <System r="CprSoeg">
+            <Service r="NVNSOG2">
+                <CprServiceHeader r="NVNSOG2" ts="20141030113639908493"/>
+                <CprData u="O">
+                    <Rolle r="HovedRolle">
+                        <Table r="NAVNSOEG">
+                            <Row k="0410791005CDFB1BD606931A80">
+                                <Field r="PNR" v="0410791005"/>
+                                <Field r="CNVN_ADRNVN" v="Hansen,Morten Christian" t="Morten Christian Hansen"/>
+                                <Field r="CNVN_STATUS" v="01"/>
+                                <Field r="FOEDMYNTXT" v="Helsinge"/>
+                                <Field r="CNVN_KOEN" v="M"/>
+                                <Field r="ADRBESKYT"/>
+                                <Field r="STADR" v="Industrivej 1"/>
+                                <Field r="POSTNR" v="2600" t="Glostrup"/>
+                            </Row>
+                        </Table>
+                    </Rolle>
+                </CprData>
+                <Kvit r="Ok" t="" v="0"/>
+            </Service>
+        </System>
+    </Gctp>
+</root>

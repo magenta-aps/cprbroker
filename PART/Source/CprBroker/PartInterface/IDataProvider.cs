@@ -75,6 +75,11 @@ namespace CprBroker.Engine
         Guid[] Search(SoegInputType1 searchCriteria);
     }
 
+    public interface IPartSearchListDataProvider : IDataProvider
+    {
+        LaesResultatType[] SearchList(SoegInputType1 searchCriteria);
+    }
+
     /// <summary>
     /// Allows retrieval of person UUID from his CPR number
     /// </summary>

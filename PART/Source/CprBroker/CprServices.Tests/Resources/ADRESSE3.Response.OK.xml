@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>
+<root xmlns="http://www.cpr.dk">
+    <Gctp v="1.0" env="Demo">
+        <System r="CprSoeg">
+            <Service r="ADRESSE3">
+                <CprServiceHeader r="ADRESSE3" ts="20141027125146061349"/>
+                <CprData u="O">
+                    <Rolle r="HovedRolle">
+                        <Field r="TIDLADRMRK"/>
+                        <Field r="KONTAKTADRMRK"/>
+                        <Field r="TIDLKOMMRK"/>
+                        <Field r="SUPADRMRK"/>
+                        <Field r="ADRKOD" v="1"/>
+                        <Field r="TIMSTP" v="19931122133917353583"/>
+                        <Field r="SYSTEM_TS" v="19931122212052300236"/>
+                        <Field r="ADRTS" v="19931122133917353583"/>
+                        <Field r="MYNKOD" v="0000" t="Ukendt Myndighed" tl="Ukendt Myndighed"/>
+                        <Field r="VEJKOD" v="8512" t="Industrivænget" tm="Industrivænget"/>
+                        <Field r="HUSNR" v="002"/>
+                        <Field r="ETAGE" v="02"/>
+                        <Field r="SIDEDOER" v="  tv"/>
+                        <Field r="BNR"/>
+                        <Field r="TILFLYKOMDATO" v="198112131338"/>
+                        <Field r="TILFLYKOMDATOUSM"/>
+                        <Field r="CONVN"/>
+                        <Field r="CONVNTS"/>
+                        <Field r="BYNVN" v="Hasseris"/>
+                        <Field r="LOKALITET" v="Solhavehjemmet"/>
+                        <Field r="POSTNR" v="9000" t="Aalborg"/>
+                        <Field r="STARTDATO" v="198112131338"/>
+                        <Field r="STARTDATOUSM"/>
+                        <Field r="KOMKOD" v="0851" t="Aalborg" tl="Aalborg"/>
+                        <Field r="UDRLANDEKOD"/>
+                        <Field r="UDLANDSADR1"/>
+                        <Field r="UDLANDSADR2"/>
+                        <Field r="UDLANDSADR3"/>
+                        <Field r="UDLANDSADR4"/>
+                        <Field r="UDLANDSADR5"/>
+                        <Field r="UDLANDADR_TS"/>
+                        <Field r="UDLANDADR_MYNKOD"/>
+                        <Field r="FLYTPAMRK"/>
+                    </Rolle>
+                </CprData>
+                <Kvit r="Ok" t="" v="0"/>
+            </Service>
+        </System>
+    </Gctp>
+</root>

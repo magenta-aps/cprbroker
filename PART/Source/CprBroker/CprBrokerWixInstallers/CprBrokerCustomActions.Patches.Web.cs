@@ -136,5 +136,19 @@ namespace CprBrokerWixInstallers
             CprBroker.Installers.Installation.AddKnownDataProviderTypes(types, configFilePath);
         }
 
+        private static void PatchWebsite_2_2_3(Session session)
+        {
+            var types = new Type[]
+            {
+                typeof(CprBroker.Providers.CprServices.CprServicesDataProvider)
+            };
+            var webInstallationInfo = WebInstallationInfo.CreateFromFeature(session, "CPR");
+            var configFilePath = webInstallationInfo.GetWebConfigFilePath(EventBrokerCustomActions.PathConstants.CprBrokerWebsiteDirectoryRelativePath);
+
+
+            // Add new node(s) for data providers
+            CprBroker.Installers.Installation.AddKnownDataProviderTypes(types, configFilePath);
+        }
+
     }
 }

@@ -83,6 +83,7 @@
     <Compile Include="Addresses\IAddressSource.cs" />
     <Compile Include="Addresses\IDanishAddress.cs" />
     <Compile Include="ApplicationHeader.cs" />
+    <Compile Include="AttributListeType.cs" />
     <Compile Include="CountryIdentificationCodeType.cs" />
     <Compile Include="FiltreretOejebliksbilledeType.cs" />
     <Compile Include="Intervals\CannotCloseOpenEndIntervalsAttribute.cs" />
@@ -524,6 +525,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SoegInput.xsd</DependentUpon>
     </Compile>
+    <Compile Include="OIOXSD\SoegListOutput.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SoegListOutput.xsd</DependentUpon>
+    </Compile>
     <Compile Include="OIOXSD\SoegOutput.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -777,6 +783,11 @@
       <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
       <Generator>XsdSmart</Generator>
       <LastGenOutput>CAPEVO_LocationDescriptionText.designer.cs</LastGenOutput>
+    </None>
+    <None Include="OIOXSD\SoegListOutput.xsd">
+      <Generator>XsdSmart</Generator>
+      <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>
+      <SubType>Designer</SubType>
     </None>
     <None Include="OIOXSD\CPR_AddressCompleteGreenland.xsd">
       <CustomToolNamespace>CprBroker.Schemas.Part</CustomToolNamespace>

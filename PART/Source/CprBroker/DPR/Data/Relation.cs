@@ -46,7 +46,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using CprBroker.Schemas.Part;
-
+using CprBroker.PartInterface;
 using CprBroker.Utilities;
 
 namespace CprBroker.Providers.DPR

@@ -102,6 +102,16 @@ namespace CprBroker.Web.Services
         }
 
         [SoapHeader(ApplicationHeaderName)]
+        [SoapHeader(SourceUsageOrderHeaderName, Direction = SoapHeaderDirection.In)]
+        //[SoapHeader(QualityHeaderName, Direction = SoapHeaderDirection.Out)]
+        [WebMethod(MessageName = CprBroker.Schemas.Part.ServiceNames.Part.Methods.SearchList, Description = CprBroker.Schemas.ServiceDescription.Part.Methods.Search)]
+        public SoegListOutputType SearchList(SoegInputType1 searchCriteria)
+        {
+            var sourceUsageOrder = SourceUsageOrderHeader.GetLocalDataProviderUsageOption(this.sourceUsageOrderHeader);
+            return PartManager.SearchList(applicationHeader.UserToken, applicationHeader.ApplicationToken, searchCriteria, sourceUsageOrder);
+        }
+
+        [SoapHeader(ApplicationHeaderName)]
         [WebMethod(MessageName = CprBroker.Schemas.Part.ServiceNames.Part.Methods.GetUuid, Description = CprBroker.Schemas.ServiceDescription.Part.Methods.GetUuid)]
         public GetUuidOutputType GetUuid(string cprNumber)
         {

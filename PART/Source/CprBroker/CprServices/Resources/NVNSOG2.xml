@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>
+<Gctp v="1.0" >
+    <System r="CprSoeg">
+        <Service r="NVNSOG2">
+            <CprServiceHeader r="NVNSOG2">
+                <Key>
+                    <!--Show how many people match the criteria-->
+                    <Field r="AIA" v=""/>
+
+                    <!--Age from-->
+                    <Field r="ALDF" v=""/>
+
+                    <!--Age to-->
+                    <Field r="ALDT" v=""/>
+
+                    <!--Search historical names-->
+                    <Field r="HNVS" v=""/>
+
+                    <!--Municipality code-->
+                    <Field r="KOMK" v=""/>
+
+                    <!--Gender-->
+                    <Field r="KON" v="" required="true" enumValues="K,M"/>
+
+                    <!--Location. To be completed only if the residents of a particular province is desired. -->
+                    <Field r="LDEL" v=""/>
+
+                    <!--Max records-->
+                    <Field r="MAXA" v="20"/>
+
+                    <Field r="NVN" v="" required="true"/>
+                    <Field r="NVN1" v=""/>
+                    <Field r="NVN2" v=""/>
+                    <Field r="NVN3" v=""/>
+
+                    <!--Restart key-->
+                    <Field r="REST" v=""/>
+
+                    <!--Status 01 -> 90-->
+                    <Field r="STAF" v=""/>
+
+                    <!--Nationality-->
+                    <Field r="STB" v=""/>
+
+                </Key>
+            </CprServiceHeader>
+        </Service>
+    </System>
+</Gctp>

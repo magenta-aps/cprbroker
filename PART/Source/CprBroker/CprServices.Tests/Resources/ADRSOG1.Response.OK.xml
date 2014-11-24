@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>
+<root xmlns="http://www.cpr.dk">
+    <Gctp v="1.0" env="Demo">
+        <System r="CprSoeg">
+            <Service r="ADRSOG1">
+                <CprServiceHeader r="ADRSOG1" ts="20141027133255410262"/>
+                <CprData u="O">
+                    <Rolle r="HovedRolle">
+                        <Field r="BEMAERK"/>
+                        <Table r="ADRSOEG">
+                            <Row u="B" k="0001CDF77039FC88E948WUS00082">
+                                <Field r="KOMKOD" v="0851" t="Aalborg" tl="Aalborg"/>
+                                <Field r="VEJKOD" v="8512"/>
+                                <Field r="TABMRK"/>
+                            </Row>
+                            <Row k="0002CDF77039FC88E948WUS00082">
+                                <Field r="VEJKOD" v="8512"/>
+                                <Field r="KOMKOD" v="0851" t="Aalborg"/>
+                                <Field r="HUSNR" v="002"/>
+                                <Field r="ETAGE" v="02"/>
+                                <Field r="SIDEDOER" v="  tv"/>
+                                <Field r="BNR"/>
+                                <Field r="PNR" v="0812015028"/>
+                                <Field r="CNVN_ADRNVN"/>
+                                <Field r="ADRBESKYT"/>
+                                <Field r="STARTDATO" v="200112081525"/>
+                                <Field r="SLUTDATO"/>
+                                <Field r="CNVN_STATUS" v="01"/>
+                                <Field r="AKM"/>
+                                <Field r="TABMRK" v="1"/>
+                            </Row>
+                            <Row k="0003CDF77039FC88E948WUS00082">
+                                <Field r="VEJKOD" v="8512"/>
+                                <Field r="KOMKOD" v="0851" t="Aalborg"/>
+                                <Field r="HUSNR" v="002"/>
+                                <Field r="ETAGE" v="02"/>
+                                <Field r="SIDEDOER" v="  tv"/>
+                                <Field r="BNR"/>
+                                <Field r="PNR" v="0104005039"/>
+                                <Field r="CNVN_ADRNVN" v="Holm,Knud" t="Knud Holm"/>
+                                <Field r="ADRBESKYT"/>
+                                <Field r="STARTDATO" v="200004011356"/>
+                                <Field r="SLUTDATO"/>
+                                <Field r="CNVN_STATUS" v="01"/>
+                                <Field r="AKM"/>
+                                <Field r="TABMRK" v="1"/>
+                            </Row>
+                            <Row k="0004CDF77039FC88E948WUS00082">
+                                <Field r="VEJKOD" v="8512"/>
+                                <Field r="KOMKOD" v="0851" t="Aalborg"/>
+                                <Field r="HUSNR" v="002"/>
+                                <Field r="ETAGE" v="02"/>
+                                <Field r="SIDEDOER" v="  tv"/>
+                                <Field r="BNR"/>
+                                <Field r="PNR" v="1312814435"/>
+                                <Field r="CNVN_ADRNVN" v="Holm,Niels" t="Niels Holm"/>
+                                <Field r="ADRBESKYT"/>
+                                <Field r="STARTDATO" v="198112131338"/>
+                                <Field r="SLUTDATO"/>
+                                <Field r="CNVN_STATUS" v="01"/>
+                                <Field r="AKM"/>
+                                <Field r="TABMRK" v="1"/>
+                            </Row>
+                            <Row k="0005CDF77039FC88E948WUS00082">
+                                <Field r="VEJKOD" v="8512"/>
+                                <Field r="KOMKOD" v="0851" t="Aalborg"/>
+                                <Field r="HUSNR" v="002"/>
+                                <Field r="ETAGE" v="02"/>
+                                <Field r="SIDEDOER" v="  tv"/>
+                                <Field r="BNR"/>
+                                <Field r="PNR" v="0706614206"/>
+                                <Field r="CNVN_ADRNVN" v="Holm,Lotte" t="Lotte Holm"/>
+                                <Field r="ADRBESKYT"/>
+                                <Field r="STARTDATO" v="198010012000"/>
+                                <Field r="SLUTDATO"/>
+                                <Field r="CNVN_STATUS" v="01"/>
+                                <Field r="AKM"/>
+                                <Field r="TABMRK" v="1"/>
+                            </Row>
+                            <Row k="0006CDF77039FC88E948WUS00082">
+                                <Field r="VEJKOD" v="8512"/>
+                                <Field r="KOMKOD" v="0851" t="Aalborg"/>
+                                <Field r="HUSNR" v="002"/>
+                                <Field r="ETAGE" v="02"/>
+                                <Field r="SIDEDOER" v="  tv"/>
+                                <Field r="BNR"/>
+                                <Field r="PNR" v="0707614307"/>
+                                <Field r="CNVN_ADRNVN" v="Holm,Anders" t="Anders Holm"/>
+                                <Field r="ADRBESKYT"/>
+                                <Field r="STARTDATO" v="198010012000"/>
+                                <Field r="SLUTDATO"/>
+                                <Field r="CNVN_STATUS" v="01"/>
+                                <Field r="AKM"/>
+                                <Field r="TABMRK" v="1"/>
+                            </Row>
+                        </Table>
+                        <Field r="SEARCH_ID"/>
+                    </Rolle>
+                </CprData>
+                <Kvit r="Ok" t="" v="0"/>
+            </Service>
+        </System>
+    </Gctp>
+</root>

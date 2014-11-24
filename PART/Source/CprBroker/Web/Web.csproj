@@ -226,6 +226,10 @@
       <Project>{EDDB494D-782D-4D45-8599-633057B9B203}</Project>
       <Name>CPRDirect</Name>
     </ProjectReference>
+    <ProjectReference Include="..\CprServices\CprServices.csproj">
+      <Project>{F9D6A4EA-9DB1-4BA7-A5BE-0C183FBABBF8}</Project>
+      <Name>CprServices</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DPR\DPR.csproj">
       <Project>{F98E5179-88E3-404E-83BE-54F0A3E7DBC0}</Project>
       <Name>DPR</Name>
