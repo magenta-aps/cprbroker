@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using NUnit.Framework;
 using CprBroker.Engine;
+using CprBroker.Utilities;
 using CprBroker.Data.DataProviders;
 using CprBroker.Tests.Engine.Stubs;
 using System.Diagnostics;

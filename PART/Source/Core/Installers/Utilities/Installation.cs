@@ -57,6 +57,7 @@ using System.Security;
 using System.Security.AccessControl;
 using System.Diagnostics;
 using System.ServiceProcess;
+using CprBroker.Utilities;
 
 namespace CprBroker.Installers
 {
@@ -162,7 +163,8 @@ namespace CprBroker.Installers
             XmlNode newNode = null;
 
             // Search for existing node
-            newNode = parentNode.SelectSingleNode(existingXPath);
+            if (!string.IsNullOrEmpty(existingXPath))
+                newNode = parentNode.SelectSingleNode(existingXPath);
 
             // If not found, create a new one
             if (newNode == null)
@@ -173,14 +175,19 @@ namespace CprBroker.Installers
             return newNode;
         }
 
-        public static bool AddSectionNode(string nodeName, Dictionary<string, string> attributes,string existingXPath, string configFileName, string parentNodeXPath)
+        public static bool AddSectionNode(string nodeName, Dictionary<string, string> attributes, string configFileName, string parentNodeXPath)
+        {
+            return AddSectionNode(nodeName, attributes, null, configFileName, parentNodeXPath);
+        }
+
+        public static bool AddSectionNode(string nodeName, Dictionary<string, string> attributes, string existingXPath, string configFileName, string parentNodeXPath)
         {
             XmlDocument doc = new XmlDocument();
             doc.Load(configFileName);
             XmlNode parentNode = doc.SelectSingleNode(parentNodeXPath);
             if (parentNode != null)
             {
-                var newNode = AppendChildNodeIfNotExists(nodeName,existingXPath, parentNode);
+                var newNode = AppendChildNodeIfNotExists(nodeName, existingXPath, parentNode);
                 foreach (var attr in attributes)
                 {
                     var at = newNode.Attributes[attr.Key];
@@ -195,6 +202,31 @@ namespace CprBroker.Installers
                 return true;
             }
             return false;
+        }
+
+        public static void ResetDataProviderSectionDefinitions(string configFilePath)
+        {
+            var doc = new XmlDocument();
+            doc.Load(configFilePath);
+            var groupPath = "//" + Utilities.Constants.DataProvidersSectionGroupName;
+
+            var groupNode = GetConfigNode(groupPath, ref configFilePath);
+            groupNode.RemoveAll();
+            doc.Save(configFilePath);
+
+            AddConfigSectionDefinition(configFilePath, Utilities.Constants.DataProvidersSectionGroupName, DataProviderKeysSection.SectionName, typeof(DataProviderKeysSection));
+            AddConfigSectionDefinition(configFilePath, Utilities.Constants.DataProvidersSectionGroupName, DataProvidersConfigurationSection.SectionName, typeof(DataProvidersConfigurationSection));
+        }
+
+        public static void AddConfigSectionDefinition(string configFilePath, string groupName, string sectionName, Type sectionType)
+        {
+            var groupPath = "//" + groupName;
+
+            var attributes = new Dictionary<string, string>();
+            attributes["name"] = sectionName;
+            attributes["type"] = sectionType.FullName;
+
+            AddSectionNode("section", attributes, configFilePath, groupPath);
         }
 
         public static void AddKnownDataProviderTypes(Type[] types, string configFilePath)

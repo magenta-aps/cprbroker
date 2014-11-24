@@ -5,6 +5,7 @@ using System.Text;
 using NUnit.Framework;
 using CprBroker.Data.DataProviders;
 using CprBroker.Engine;
+using CprBroker.Utilities;
 
 namespace CprBroker.Tests.Engine
 {
