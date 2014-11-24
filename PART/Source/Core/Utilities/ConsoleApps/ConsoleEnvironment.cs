@@ -74,7 +74,6 @@ namespace CprBroker.Utilities.ConsoleApps
         public string OtherConnectionString = "";
         public string SourceFile = "";
         public string StartCprNumber = "";
-        public string AppToken = "";
         public string UserToken = "";
         public string PersonMasterUrl = "";
         public string PersonMasterSpnName = "";

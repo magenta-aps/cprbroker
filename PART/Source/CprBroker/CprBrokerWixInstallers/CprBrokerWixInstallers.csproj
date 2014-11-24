@@ -105,8 +105,14 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\Extract.sql" />
+    <Content Include="Resources\InitializePersonSearchCache.sql" />
     <Content Include="Resources\PatchDatabase_2_2_2.sql" />
+    <Content Include="Resources\PatchDatabase_2_2_3.sql" />
+    <Content Include="Resources\PersonRegistration.sql" />
+    <Content Include="Resources\PersonRegistration_PopulateSearchCache.sql" />
+    <Content Include="Resources\PersonSearchCache.sql" />
     <Content Include="Resources\Script generation.txt" />
+    <Content Include="Resources\TrimAddressString.sql" />
     <None Include="Resources\CreatePartDatabaseObjects.ChildObjects.sql" />
     <Content Include="Resources\PatchDatabase_1_3_2.sql" />
     <Content Include="Resources\PatchDatabase_1_4.sql" />

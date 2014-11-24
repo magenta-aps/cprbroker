@@ -143,6 +143,28 @@ namespace CprBrokerWixInstallers.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to /* 
+        ///  ===========================================================================
+        ///    Procedure:   InitializePersonSearchCache
+        ///    Author:		 Beemen Beshara
+        ///    Create date: 24-Jan-2014
+        ///    Description: Initializes the cashed version of persons&apos; searchable fields
+        /// ============================================================================
+        ///*/
+        ///
+        ///IF EXISTS (SELECT * FROM sys.procedures WHERE name = &apos;InitializePersonSearchCache&apos;)
+        ///    DROP PROCEDURE dbo.InitializePersonSearchCache
+        ///GO
+        ///
+        ///CREATE PROCEDUR [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string InitializePersonSearchCache {
+            get {
+                return ResourceManager.GetString("InitializePersonSearchCache", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to LifecycleStatusId;LifecycleStatusName
         ///0;Created
         ///1;Imported
@@ -325,6 +347,114 @@ namespace CprBrokerWixInstallers.Properties {
         internal static string PatchDatabase_2_2_2 {
             get {
                 return ResourceManager.GetString("PatchDatabase_2_2_2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -- If the new columns are not there, drop the cache table
+        ///IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(&apos;PersonSearchCache&apos;) AND name = &apos;MunicipalityCode&apos; )
+        ///    -- Only if the table exists
+        ///    IF EXISTS (SELECT * FROM sys.tables WHERE name = &apos;PersonSearchCache&apos;)
+        ///        DROP TABLE PersonSearchCache
+        ///GO.
+        /// </summary>
+        internal static string PatchDatabase_2_2_3 {
+            get {
+                return ResourceManager.GetString("PatchDatabase_2_2_3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /*
+        ///    =========================
+        ///    Table: PersonRegistration
+        ///    =========================
+        ///*/
+        ///IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N&apos;[dbo].[PersonRegistration]&apos;) AND type in (N&apos;U&apos;))
+        ///BEGIN
+        ///    CREATE TABLE [dbo].[PersonRegistration](
+        ///        [PersonRegistrationId] [uniqueidentifier] NOT NULL,
+        ///        [UUID] [uniqueidentifier] NOT NULL,
+        ///        [ActorRefId] [uniqueidentifier] NULL,
+        ///        [RegistrationDate] [datetime] NOT NULL,
+        ///        [BrokerUpdateDate] [datetim [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string PersonRegistration {
+            get {
+                return ResourceManager.GetString("PersonRegistration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -- =============================================
+        ///-- Author:		Beemen Beshara
+        ///-- Description:	Trigger for changes in PersonRegistration, 
+        ///--  refreshes the cached serach table by calling InitializePersonSearchCache for 
+        ///--  each record being inserted or updated
+        ///-- =============================================
+        ///
+        ///IF EXISTS (SELECT * FROM sys.triggers where name=&apos;PersonRegistration_PopulateSearchCache&apos;)
+        ///BEGIN
+        ///	DROP TRIGGER dbo.PersonRegistration_PopulateSearchCache
+        ///END
+        ///GO
+        ///
+        ///CREATE TRIGGER dbo.PersonRe [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string PersonRegistration_PopulateSearchCache {
+            get {
+                return ResourceManager.GetString("PersonRegistration_PopulateSearchCache", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -- ========================================================
+        ///-- Table  : PersonSearchCache
+        ///-- ========================================================
+        ///IF NOT EXISTS (SELECT * FROM sys.tables WHERE Name = &apos;PersonSearchCache&apos;)
+        ///BEGIN
+        ///	CREATE TABLE [dbo].[PersonSearchCache](
+        ///		-- Root fields
+        ///        [PersonRegistrationId] [uniqueidentifier] NULL,
+        ///		[UUID] [uniqueidentifier] NOT NULL,		
+        ///        LivscyklusKode VARCHAR(MAX),
+        ///            
+        ///        -- Egenskab fields
+        ///        AddressingName VARCHAR(MAX), Ni [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string PersonSearchCache {
+            get {
+                return ResourceManager.GetString("PersonSearchCache", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /*
+        ///    Trims strings that are used in address numbers
+        ///    - Removed spaces and zeros from the left
+        ///    - Removes spaces from the right
+        ///*/
+        ///
+        ///IF EXISTS (SELECT * FROM sys.objects WHERE type = &apos;FN&apos; AND name = &apos;TrimAddressString&apos;)
+        ///	DROP FUNCTION TrimAddressString
+        ///GO
+        ///
+        ///CREATE FUNCTION TrimAddressString(@s VARCHAR(MAX))
+        ///    RETURNS VARCHAR(MAX)
+        ///AS
+        ///BEGIN
+        ///    DECLARE @i int, @l INT
+        ///    SET @i = 0;
+        ///	SET @l = LEN(@s)
+        ///
+        ///    WHILE SUBSTRING(@s,@i+1,1) in (&apos;0&apos;, &apos; &apos;) AND @i &lt; @l
+        ///	    SET @i = @i + 1
+        ///
+        ///   [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string TrimAddressString {
+            get {
+                return ResourceManager.GetString("TrimAddressString", resourceCulture);
             }
         }
     }

@@ -48,46 +48,53 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using CprBroker.Data.Applications;
-using CprBroker.Data.DataProviders;
-using CprBroker.Data.Part;
+using CprBroker.Utilities;
+using NUnit.Framework;
 
-namespace CprBrokerWixInstallers.Properties
+namespace CprBroker.Tests.Utilities
 {
-    public static class ResourcesExtensions
+    class StringsTests
     {
-        public static String AllCprBrokerDatabaseObjectsSql
+        [TestFixture]
+        public class IsValidHostName
         {
-            get
-            {
-                var arr = new string[] { 
-                    Resources.Extract,
-                    Resources.CreatePartDatabaseObjects,
-                    Resources.PersonSearchCache,
-                    Resources.TrimAddressString,
-                    Resources.InitializePersonSearchCache,
-                    Resources.PersonRegistration,
-                    Resources.PersonRegistration_PopulateSearchCache
-                };
+            string[] ValidHostNames = new string[] { "hotmail.com", "personMaster", "1PersonMaster", "999pms.dk", "m.a.a", "code-valley", "c.m-ee.12kl", "ddd234", "kkk---ppp", "88-22", "f.92.15xyz", "12.code.abc" };
+            string[] InvalidHostNames = new string[] { "", "-ddd", "def-", "22", "77.76", "klm.", "..", "....." };
 
-                return string.Join(
-                        Environment.NewLine + "GO" + Environment.NewLine,
-                        arr);
+            [Test]
+            [TestCaseSource("ValidHostNames")]
+            public void IsValidHostName_OK_ReturnsTrue(string hostName)
+            {
+                var result = CprBroker.Utilities.Strings.IsValidHostName(hostName);
+                Assert.True(result);
+            }
+
+            [Test]
+            [TestCaseSource("InvalidHostNames")]
+            public void IsValidHostName_Invalid_ReturnsFalse(string hostName)
+            {
+                var result = CprBroker.Utilities.Strings.IsValidHostName(hostName);
+                Assert.False(result);
             }
         }
 
-        public static KeyValuePair<string, string>[] Lookups
+        [TestFixture]
+        public class EnsureStartString
         {
-            get
+            [Test]
+            [ExpectedException]
+            public void EnsureStartString_NullStart_Exception()
             {
-                List<KeyValuePair<string, string>> cprLookups = new List<KeyValuePair<string, string>>();
+                var ss = "ssss";
+                CprBroker.Utilities.Strings.EnsureStartString(ss, null, true);
+            }
 
-                cprLookups.Add(new KeyValuePair<string, string>(typeof(Application).Name, Properties.Resources.Application));
-                cprLookups.Add(new KeyValuePair<string, string>(typeof(LifecycleStatus).Name, Properties.Resources.LifecycleStatus));
-                cprLookups.Add(new KeyValuePair<string, string>(typeof(LogType).Name, Properties.Resources.LogType));
-                cprLookups.Add(new KeyValuePair<string, string>(typeof(BudgetInterval).Name, Properties.Resources.BudgetEntry));
-
-                return cprLookups.ToArray();
+            [Test]
+            [ExpectedException]
+            public void EnsureStartString_Null_Exception()
+            {
+                var ss = "ssss";
+                CprBroker.Utilities.Strings.EnsureStartString(null, ss, true);
             }
         }
     }

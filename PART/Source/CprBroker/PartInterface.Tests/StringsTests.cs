@@ -49,67 +49,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using NUnit.Framework;
-using CprBroker.Utilities;
+using CprBroker.PartInterface;
 
 namespace CprBroker.Tests.PartInterface
 {
     namespace StringsTests
     {
         [TestFixture]
-        public class IsValidHostName
-        {
-            string[] ValidHostNames = new string[] { "hotmail.com", "personMaster", "1PersonMaster", "999pms.dk", "m.a.a", "code-valley", "c.m-ee.12kl", "ddd234", "kkk---ppp", "88-22", "f.92.15xyz", "12.code.abc" };
-            string[] InvalidHostNames = new string[] { "", "-ddd", "def-", "22", "77.76", "klm.", "..", "....." };
-
-            [Test]
-            [TestCaseSource("ValidHostNames")]
-            public void IsValidHostName_OK_ReturnsTrue(string hostName)
-            {
-                var result = CprBroker.Utilities.Strings.IsValidHostName(hostName);
-                Assert.True(result);
-            }
-
-            [Test]
-            [TestCaseSource("InvalidHostNames")]
-            public void IsValidHostName_Invalid_ReturnsFalse(string hostName)
-            {
-                var result = CprBroker.Utilities.Strings.IsValidHostName(hostName);
-                Assert.False(result);
-            }
-        }
-
-        [TestFixture]
-        public class EnsureStartString
-        {
-            [Test]
-            [ExpectedException]
-            public void EnsureStartString_NullStart_Exception()
-            {
-                var ss = "ssss";
-                Strings.EnsureStartString(ss, null, true);
-            }
-
-            [Test]
-            [ExpectedException]
-            public void EnsureStartString_Null_Exception()
-            {
-                var ss = "ssss";
-                Strings.EnsureStartString(null, ss, true);
-            }
-        }
-
-        [TestFixture]
         public class IsModulus11OK
         {
-            [Test]            
+            [Test]
             public void IsModulus11OK_NormalCPR_True(
-                [Values("2311783656","1608593655")]string pnr)
+                [Values("2311783656", "1608593655")]string pnr)
             {
-                //System.Diagnostics.Debugger.Launch();
                 var ret = CprBroker.PartInterface.Strings.IsModulus11OK(pnr);
                 Assert.True(ret);
             }
-            
+
             [Test]
             public void IsModulus11_Zeros_False(
                 [Values("2311780000", "1608590000")]string pnr)
@@ -125,10 +81,36 @@ namespace CprBroker.Tests.PartInterface
                 var ret = CprBroker.PartInterface.Strings.IsModulus11OK(pnr);
                 Assert.False(ret);
             }
-
-            
         }
 
-       
+        [TestFixture]
+        public class TrimAddressString
+        {
+            [Test]
+            public void TrimAddressString_Null_Null()
+            {
+                var ret = Strings.TrimAddressString(null);
+                Assert.Null(ret);
+            }
+
+            [Test]
+            public void TrimAddressString_EmptyOrSemiEmpty_Empty(
+                [Values("", " ", "0 0", " 0 0 0 ")] string s)
+            {
+                var ret = Strings.TrimAddressString(s);
+                Assert.AreEqual("", ret);
+            }
+
+            [Test]
+            [Sequential]
+            public void TrimAddressString_abc_abc(
+                [Values("abc", "   abc", "   abc   ", "00abc", "00  abc", "  00abc  ")] string input)
+            {
+                var ret = Strings.TrimAddressString(input);
+                Assert.AreEqual("abc", ret);
+            }
+        }
+
+
     }
 }
