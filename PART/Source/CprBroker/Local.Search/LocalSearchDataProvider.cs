@@ -6,10 +6,11 @@ using System.Linq.Expressions;
 
 using CprBroker.Engine;
 using CprBroker.Utilities;
+using CprBroker.Schemas.Part;
 
 namespace CprBroker.Providers.Local.Search
 {
-    public class LocalSearchDataProvider : IPartSearchDataProvider
+    public class LocalSearchDataProvider : IPartSearchDataProvider, IPartSearchListDataProvider
     {
 
         public Guid[] Search(CprBroker.Schemas.Part.SoegInputType1 searchCriteria)
@@ -35,6 +36,76 @@ namespace CprBroker.Providers.Local.Search
                     .Skip(firstResults)
                     .Take(maxResults)
                     .ToArray();
+            }
+        }
+
+        public LaesResultatType[] SearchList(Schemas.Part.SoegInputType1 searchCriteria)
+        {
+            using (var dataContext = new PartSearchDataContext())
+            {
+                #region Search
+                int firstResults = 0;
+                int.TryParse(searchCriteria.FoersteResultatReference, out firstResults);
+
+                int maxResults = 0;
+                int.TryParse(searchCriteria.MaksimalAntalKvantitet, out maxResults);
+                if (maxResults <= 0)
+                {
+                    maxResults = 1000;
+                }
+
+                var expr = CreateWhereExpression(dataContext, searchCriteria);
+                var ids = dataContext
+                    .PersonSearchCaches
+                    .Where(expr)
+                    .OrderBy(psc => psc.UUID)
+                    .Select(psc => new { UUID = psc.UUID, psc.PersonRegistrationId })
+                    .Skip(firstResults)
+                    .Take(maxResults)
+                    .ToArray();
+
+                var uuids = ids.Select(uuid => uuid.UUID).ToArray();
+                #endregion
+
+                #region filling the result
+                using (var partDataContext = new CprBroker.Data.Part.PartDataContext())
+                {
+                    var ret = new List<LaesResultatType>(uuids.Count());
+                    
+                    var regs = partDataContext.PersonRegistrations
+                        .Where(pr => uuids.Contains(pr.UUID))
+                        .ToArray();
+
+                    foreach (var id in ids)
+                    {
+                        LaesResultatType laesResultat = null;
+
+                        var dbReg = regs.Where(r => r.PersonRegistrationId == id.PersonRegistrationId).SingleOrDefault();
+                        if(dbReg !=null)
+                        {
+                            var reg = CprBroker.Data.Part.PersonRegistration.ToXmlType(dbReg);
+                            
+                            if (reg != null)
+                            {
+                                reg.FilterToLatestSnapshot();
+                                laesResultat = new LaesResultatType()
+                                {
+                                    Item = new FiltreretOejebliksbilledeType()
+                                    {
+                                        AttributListe = reg.AttributListe,
+                                        BrugervendtNoegleTekst = null,
+                                        RelationListe = reg.RelationListe,
+                                        UUID = null,
+                                        TilstandListe = reg.TilstandListe
+                                    }
+                                };
+                            }
+                        }
+                        ret.Add(laesResultat);
+                    }
+                    return ret.ToArray();
+                }
+                #endregion
             }
         }
 
@@ -146,5 +217,7 @@ namespace CprBroker.Providers.Local.Search
         {
             get { return new Version(CprBroker.Utilities.Constants.Versioning.Major, CprBroker.Utilities.Constants.Versioning.Minor); }
         }
+
+
     }
 }

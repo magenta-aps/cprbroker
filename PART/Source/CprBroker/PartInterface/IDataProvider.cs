@@ -77,7 +77,7 @@ namespace CprBroker.Engine
 
     public interface IPartSearchListDataProvider : IDataProvider
     {
-        LaesResultatType[] Search(SoegInputType1 searchCriteria);
+        LaesResultatType[] SearchList(SoegInputType1 searchCriteria);
     }
 
     /// <summary>

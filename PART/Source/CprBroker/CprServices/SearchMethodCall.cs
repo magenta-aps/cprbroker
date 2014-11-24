@@ -74,6 +74,15 @@ namespace CprBroker.Providers.CprServices
             foreach (var elm in elements)
             {
                 var p = new SearchPerson();
+                p.SourceXml = elm.OuterXml;
+
+                DateTime.TryParseExact(
+                    GetFieldValue(elm, "STARTDATO"),
+                    "yyyyMMddHHmm", // 198112131338                    
+                    null,
+                     System.Globalization.DateTimeStyles.None,
+                     out p.Timestamp);
+
                 var name = GetFieldValue(elm, "CNVN_ADRNVN");
                 if (!string.IsNullOrEmpty(name))
                     p.Name = NavnStrukturType.Create(name);

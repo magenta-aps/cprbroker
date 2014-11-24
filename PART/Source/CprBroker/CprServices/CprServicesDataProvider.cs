@@ -72,7 +72,7 @@ namespace CprBroker.Providers.CprServices
             return !string.IsNullOrEmpty(token);
         }
 
-        public LaesResultatType[] Search(SoegInputType1 input)
+        public LaesResultatType[] SearchList(SoegInputType1 input)
         {
             var request = new SearchRequest(input.SoegObjekt.SoegAttributListe);
             var availableMethods = new List<SearchMethod>();
@@ -165,6 +165,7 @@ namespace CprBroker.Providers.CprServices
                 if (kvit.OK)
                 {
                     var namePersons = nameCall.ParseResponse(xmlOut, false);
+                    namePersons[0].PNR = uuid.CprNumber;
                     var nameRet = namePersons[0].ToRegistreringType1(cache.GetUuid);
                     ret.AttributListe.Egenskab[0].NavnStruktur = nameRet.AttributListe.Egenskab[0].NavnStruktur;
                     return ret;

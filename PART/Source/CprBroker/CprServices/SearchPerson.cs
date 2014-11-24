@@ -14,6 +14,8 @@ namespace CprBroker.Providers.CprServices
         public string PNR;
         public NavnStrukturType Name;
         public AdresseType Address;
+        public DateTime Timestamp;
+        public string SourceXml;
 
         public bool Equals(SearchPerson other)
         {
@@ -54,16 +56,27 @@ namespace CprBroker.Providers.CprServices
 
                 AttributListe = new AttributListeType()
                 {
-                    Egenskab = new EgenskabType[]{
-                            new EgenskabType(){ NavnStruktur = Name}
-                        },
+                    Egenskab = new EgenskabType[]
+                    {
+                        new EgenskabType()
+                        { 
+                            NavnStruktur = Name, 
+                            Virkning = VirkningType.Create(Timestamp,null), 
+                            BirthDate = PartInterface.Strings.PersonNumberToDate(this.PNR).Value
+                        }
+                    },
                     RegisterOplysning = new RegisterOplysningType[]
-                        {
-                            new RegisterOplysningType() { Item = new CprBorgerType(){ 
+                    {
+                        new RegisterOplysningType() 
+                        { 
+                            Item = new CprBorgerType()
+                            { 
                                 PersonCivilRegistrationIdentifier = PNR,
                                 FolkeregisterAdresse =  Address
-                            }}
+                            },
+                            Virkning = VirkningType.Create(Timestamp,null)
                         }
+                    }
                 },
                 RelationListe = null,
                 TilstandListe = null,
@@ -71,8 +84,7 @@ namespace CprBroker.Providers.CprServices
                 LivscyklusKode = LivscyklusKodeType.Rettet,
                 AktoerRef = UnikIdType.Create(Constants.ActroId),
                 CommentText = null,
-                // TODO: Fill this
-                SourceObjectsXml = ""
+                SourceObjectsXml = this.SourceXml
             };
         }
 

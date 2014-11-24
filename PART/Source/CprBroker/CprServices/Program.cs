@@ -23,7 +23,7 @@ namespace CprBroker.Providers.CprServices
 
             //var ss = prov.ChangePassword("Mag2Cpr#");
 
-            var res = prov.Search(new SoegInputType1()
+            var res = prov.SearchList(new SoegInputType1()
             {
                 SoegObjekt = new SoegObjektType()
                 {

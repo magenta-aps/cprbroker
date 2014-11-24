@@ -74,7 +74,7 @@ namespace CprBroker.Engine.Part
 
         public override LaesResultatType[] RunMainMethod(IPartSearchListDataProvider prov)
         {
-            return prov.Search(searchCriteria);
+            return prov.SearchList(searchCriteria);
         }
     }
 }
