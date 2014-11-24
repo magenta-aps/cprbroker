@@ -23,6 +23,7 @@
       <Column Name="ForskerBeskyttelseIndikator" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
       <Column Name="AdresseNoteTekst" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
       <Column Name="FolkekirkeMedlemIndikator" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="AddressType" Type="System.Char" DbType="Char(1)" CanBeNull="true" />
       <Column Name="NoteTekst_DanskAdresse" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
       <Column Name="UkendtAdresseIndikator" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
       <Column Name="SpecielVejkodeIndikator" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
@@ -41,6 +42,13 @@
       <Column Name="PostCodeIdentifier" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
       <Column Name="DistrictName" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
       <Column Name="CountryIdentificationCode" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="GreenlandBuildingIdentifier" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="LocationDescriptionText" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="PostalAddressFirstLineText" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="PostalAddressSecondLineText" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="PostalAddressThirdLineText" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="PostalAddressFourthLineText" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="PostalAddressFifthLineText" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
     </Type>
   </Table>
 </Database>

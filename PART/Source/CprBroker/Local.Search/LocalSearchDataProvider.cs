@@ -114,7 +114,7 @@ namespace CprBroker.Providers.Local.Search
                 using (var partDataContext = new CprBroker.Data.Part.PartDataContext())
                 {
                     var ret = new List<LaesResultatType>(uuids.Count());
-                    
+
                     var regs = partDataContext.PersonRegistrations
                         .Where(pr => uuids.Contains(pr.UUID))
                         .ToArray();
@@ -124,10 +124,10 @@ namespace CprBroker.Providers.Local.Search
                         LaesResultatType laesResultat = null;
 
                         var dbReg = regs.Where(r => r.PersonRegistrationId == id.PersonRegistrationId).SingleOrDefault();
-                        if(dbReg !=null)
+                        if (dbReg != null)
                         {
                             var reg = CprBroker.Data.Part.PersonRegistration.ToXmlType(dbReg);
-                            
+
                             if (reg != null)
                             {
                                 reg.FilterToLatestSnapshot();
@@ -188,7 +188,7 @@ namespace CprBroker.Providers.Local.Search
                             if (prop.BirthDateSpecified)
                             {
                                 // TODO: Check formatting of dates, could be different between webserver and database
-                                pred = pred.And((pt) => pt.Birthdate == prop.BirthDate.ToShortDateString());
+                                pred = pred.And((pt) => pt.Birthdate == prop.BirthDate);
                             }
                             if (prop.PersonGenderCodeSpecified)
                             {

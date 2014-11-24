@@ -118,6 +118,8 @@ namespace CprBroker.Providers.Local.Search
 		
 		private System.Nullable<bool> _FolkekirkeMedlemIndikator;
 		
+		private System.Nullable<char> _AddressType;
+		
 		private string _NoteTekst_DanskAdresse;
 		
 		private System.Nullable<bool> _UkendtAdresseIndikator;
@@ -153,6 +155,20 @@ namespace CprBroker.Providers.Local.Search
 		private string _DistrictName;
 		
 		private string _CountryIdentificationCode;
+		
+		private string _GreenlandBuildingIdentifier;
+		
+		private string _LocationDescriptionText;
+		
+		private string _PostalAddressFirstLineText;
+		
+		private string _PostalAddressSecondLineText;
+		
+		private string _PostalAddressThirdLineText;
+		
+		private string _PostalAddressFourthLineText;
+		
+		private string _PostalAddressFifthLineText;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -202,6 +218,8 @@ namespace CprBroker.Providers.Local.Search
     partial void OnAdresseNoteTekstChanged();
     partial void OnFolkekirkeMedlemIndikatorChanging(System.Nullable<bool> value);
     partial void OnFolkekirkeMedlemIndikatorChanged();
+    partial void OnAddressTypeChanging(System.Nullable<char> value);
+    partial void OnAddressTypeChanged();
     partial void OnNoteTekst_DanskAdresseChanging(string value);
     partial void OnNoteTekst_DanskAdresseChanged();
     partial void OnUkendtAdresseIndikatorChanging(System.Nullable<bool> value);
@@ -238,6 +256,20 @@ namespace CprBroker.Providers.Local.Search
     partial void OnDistrictNameChanged();
     partial void OnCountryIdentificationCodeChanging(string value);
     partial void OnCountryIdentificationCodeChanged();
+    partial void OnGreenlandBuildingIdentifierChanging(string value);
+    partial void OnGreenlandBuildingIdentifierChanged();
+    partial void OnLocationDescriptionTextChanging(string value);
+    partial void OnLocationDescriptionTextChanged();
+    partial void OnPostalAddressFirstLineTextChanging(string value);
+    partial void OnPostalAddressFirstLineTextChanged();
+    partial void OnPostalAddressSecondLineTextChanging(string value);
+    partial void OnPostalAddressSecondLineTextChanged();
+    partial void OnPostalAddressThirdLineTextChanging(string value);
+    partial void OnPostalAddressThirdLineTextChanged();
+    partial void OnPostalAddressFourthLineTextChanging(string value);
+    partial void OnPostalAddressFourthLineTextChanged();
+    partial void OnPostalAddressFifthLineTextChanging(string value);
+    partial void OnPostalAddressFifthLineTextChanged();
     #endregion
 		
 		public PersonSearchCache()
@@ -685,6 +717,26 @@ namespace CprBroker.Providers.Local.Search
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AddressType", DbType="Char(1)")]
+		public System.Nullable<char> AddressType
+		{
+			get
+			{
+				return this._AddressType;
+			}
+			set
+			{
+				if ((this._AddressType != value))
+				{
+					this.OnAddressTypeChanging(value);
+					this.SendPropertyChanging();
+					this._AddressType = value;
+					this.SendPropertyChanged("AddressType");
+					this.OnAddressTypeChanged();
+				}
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NoteTekst_DanskAdresse", DbType="VarChar(MAX)")]
 		public string NoteTekst_DanskAdresse
 		{
@@ -1041,6 +1093,146 @@ namespace CprBroker.Providers.Local.Search
 					this._CountryIdentificationCode = value;
 					this.SendPropertyChanged("CountryIdentificationCode");
 					this.OnCountryIdentificationCodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GreenlandBuildingIdentifier", DbType="VarChar(MAX)")]
+		public string GreenlandBuildingIdentifier
+		{
+			get
+			{
+				return this._GreenlandBuildingIdentifier;
+			}
+			set
+			{
+				if ((this._GreenlandBuildingIdentifier != value))
+				{
+					this.OnGreenlandBuildingIdentifierChanging(value);
+					this.SendPropertyChanging();
+					this._GreenlandBuildingIdentifier = value;
+					this.SendPropertyChanged("GreenlandBuildingIdentifier");
+					this.OnGreenlandBuildingIdentifierChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LocationDescriptionText", DbType="VarChar(MAX)")]
+		public string LocationDescriptionText
+		{
+			get
+			{
+				return this._LocationDescriptionText;
+			}
+			set
+			{
+				if ((this._LocationDescriptionText != value))
+				{
+					this.OnLocationDescriptionTextChanging(value);
+					this.SendPropertyChanging();
+					this._LocationDescriptionText = value;
+					this.SendPropertyChanged("LocationDescriptionText");
+					this.OnLocationDescriptionTextChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PostalAddressFirstLineText", DbType="VarChar(MAX)")]
+		public string PostalAddressFirstLineText
+		{
+			get
+			{
+				return this._PostalAddressFirstLineText;
+			}
+			set
+			{
+				if ((this._PostalAddressFirstLineText != value))
+				{
+					this.OnPostalAddressFirstLineTextChanging(value);
+					this.SendPropertyChanging();
+					this._PostalAddressFirstLineText = value;
+					this.SendPropertyChanged("PostalAddressFirstLineText");
+					this.OnPostalAddressFirstLineTextChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PostalAddressSecondLineText", DbType="VarChar(MAX)")]
+		public string PostalAddressSecondLineText
+		{
+			get
+			{
+				return this._PostalAddressSecondLineText;
+			}
+			set
+			{
+				if ((this._PostalAddressSecondLineText != value))
+				{
+					this.OnPostalAddressSecondLineTextChanging(value);
+					this.SendPropertyChanging();
+					this._PostalAddressSecondLineText = value;
+					this.SendPropertyChanged("PostalAddressSecondLineText");
+					this.OnPostalAddressSecondLineTextChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PostalAddressThirdLineText", DbType="VarChar(MAX)")]
+		public string PostalAddressThirdLineText
+		{
+			get
+			{
+				return this._PostalAddressThirdLineText;
+			}
+			set
+			{
+				if ((this._PostalAddressThirdLineText != value))
+				{
+					this.OnPostalAddressThirdLineTextChanging(value);
+					this.SendPropertyChanging();
+					this._PostalAddressThirdLineText = value;
+					this.SendPropertyChanged("PostalAddressThirdLineText");
+					this.OnPostalAddressThirdLineTextChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PostalAddressFourthLineText", DbType="VarChar(MAX)")]
+		public string PostalAddressFourthLineText
+		{
+			get
+			{
+				return this._PostalAddressFourthLineText;
+			}
+			set
+			{
+				if ((this._PostalAddressFourthLineText != value))
+				{
+					this.OnPostalAddressFourthLineTextChanging(value);
+					this.SendPropertyChanging();
+					this._PostalAddressFourthLineText = value;
+					this.SendPropertyChanged("PostalAddressFourthLineText");
+					this.OnPostalAddressFourthLineTextChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PostalAddressFifthLineText", DbType="VarChar(MAX)")]
+		public string PostalAddressFifthLineText
+		{
+			get
+			{
+				return this._PostalAddressFifthLineText;
+			}
+			set
+			{
+				if ((this._PostalAddressFifthLineText != value))
+				{
+					this.OnPostalAddressFifthLineTextChanging(value);
+					this.SendPropertyChanging();
+					this._PostalAddressFifthLineText = value;
+					this.SendPropertyChanged("PostalAddressFifthLineText");
+					this.OnPostalAddressFifthLineTextChanged();
 				}
 			}
 		}
