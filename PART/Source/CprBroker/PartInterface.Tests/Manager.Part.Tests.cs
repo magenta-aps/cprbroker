@@ -49,6 +49,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using NUnit.Framework;
+using CprBroker.Utilities;
 using CprBroker.Engine;
 using CprBroker.Engine.Part;
 using CprBroker.Schemas;
