@@ -9,14 +9,14 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Providers.CprServices
 {
-    public partial class CprServicesDataProvider : IPartSearchListDataProvider, IExternalDataProvider, IPerCallDataProvider, IPartReadDataProvider
+    public partial class CprServicesDataProvider : IPartSearchListDataProvider, IExternalDataProvider, IPerCallDataProvider
     {
         public CprServicesDataProvider()
         {
             this.ConfigurationProperties = new Dictionary<string, string>();
         }
 
-        public string[] OperationKeys
+        public virtual string[] OperationKeys
         {
             get
             {
@@ -131,48 +131,5 @@ namespace CprBroker.Providers.CprServices
             return null;
         }
 
-        public RegistreringType1 Read(Schemas.PersonIdentifier uuid, LaesInputType input, Func<string, Guid> cpr2uuidFunc, out Schemas.QualityLevel? ql)
-        {
-            var addressMethod = new SearchMethod(Properties.Resources.ADRESSE3);
-            var addressRequest = new SearchRequest(uuid.CprNumber);
-            var addressCall = new SearchMethodCall(addressMethod, addressRequest);
-
-            var xml = addressCall.ToRequestXml(Properties.Resources.SearchTemplate);
-
-            var xmlOut = "";
-            string token = this.SignonAndGetToken();
-
-            // Get address
-            var kvit = Send(addressCall.Name, xml, ref token, out xmlOut);
-            ql = Schemas.QualityLevel.Cpr;
-            if (kvit.OK)
-            {
-                var addressPerson = addressCall.ParseResponse(xmlOut, false).First();
-                if (string.IsNullOrEmpty(addressPerson.PNR))
-                    addressPerson.PNR = uuid.CprNumber;
-
-                var cache = new UuidCache();
-                cache.FillCache(new string[] { addressPerson.PNR });
-                var ret = addressPerson.ToRegistreringType1(cache.GetUuid);
-
-                // Now get the name
-                var nameMethod = new SearchMethod(Properties.Resources.NAVNE3);
-                var nameRequest = new SearchRequest(uuid.CprNumber);
-                var nameCall = new SearchMethodCall(nameMethod, nameRequest);
-                var nameXml = nameCall.ToRequestXml(Properties.Resources.SearchTemplate);
-
-                kvit = Send(nameCall.Name, nameXml, ref token, out xmlOut);
-                if (kvit.OK)
-                {
-                    var namePersons = nameCall.ParseResponse(xmlOut, false);
-                    namePersons[0].PNR = uuid.CprNumber;
-                    var nameRet = namePersons[0].ToRegistreringType1(cache.GetUuid);
-                    ret.AttributListe.Egenskab[0].NavnStruktur = nameRet.AttributListe.Egenskab[0].NavnStruktur;
-                    return ret;
-                }
-
-            }
-            return null;
-        }
     }
 }

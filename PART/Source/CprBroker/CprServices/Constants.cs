@@ -13,6 +13,11 @@ namespace CprBroker.Providers.CprServices
             public const string NVNSOG2 = "NVNSOG2";
             public const string newpass = "newpass";
             public const string signon = "signon";
+
+            public static class Unfinished
+            {
+                public const string ADRESSE3 = "ADRESSE3";
+            }
         }
 
         public static class ConfigKeys
