@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Fragment Id="MergeOldVersionProductCodesFragment">
+        <Property Id="Dummy_MergeOldVersionProductCodesRefProp" Value="-"/>
+
+        <CustomAction Id="MergeOldVersionProductCodes" Property="OLDER_VERSION_DETECTED" Value="[OLDER_VERSION_DETECTED];[OLDER_VERSION_DETECTED_2_2_2]"/>
+
+        <InstallUISequence>
+            <Custom Action="MergeOldVersionProductCodes" After="AppSearch">1</Custom>
+        </InstallUISequence>
+        <InstallExecuteSequence>
+            <Custom Action="MergeOldVersionProductCodes" After="AppSearch">1</Custom>
+        </InstallExecuteSequence>
+
+        <UI>
+            <ProgressText Action="MergeOldVersionProductCodes">Merging old version product codes</ProgressText>
+        </UI>
+
+    </Fragment>
+</Wix>
