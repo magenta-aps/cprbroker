@@ -21,4 +21,5 @@ BEGIN
 
     RETURN RTRIM(SUBSTRING (@s, @i+1, @l - @i))
 END
+
 GO
