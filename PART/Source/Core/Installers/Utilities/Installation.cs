@@ -206,13 +206,12 @@ namespace CprBroker.Installers
 
         public static void ResetDataProviderSectionDefinitions(string configFilePath)
         {
-            var doc = new XmlDocument();
-            doc.Load(configFilePath);
-            var groupPath = "//" + Utilities.Constants.DataProvidersSectionGroupName;
+            var groupPath = "//sectionGroup[@name='" + Utilities.Constants.DataProvidersSectionGroupName + "']";
 
-            var groupNode = GetConfigNode(groupPath, ref configFilePath);
-            groupNode.RemoveAll();
-            doc.Save(configFilePath);
+            var groupNode = GetConfigNode(groupPath, ref configFilePath) as XmlElement;
+            while (groupNode.FirstChild != null)
+                groupNode.RemoveChild(groupNode.FirstChild);
+            groupNode.OwnerDocument.Save(configFilePath);
 
             AddConfigSectionDefinition(configFilePath, Utilities.Constants.DataProvidersSectionGroupName, DataProviderKeysSection.SectionName, typeof(DataProviderKeysSection));
             AddConfigSectionDefinition(configFilePath, Utilities.Constants.DataProvidersSectionGroupName, DataProvidersConfigurationSection.SectionName, typeof(DataProvidersConfigurationSection));
@@ -220,11 +219,11 @@ namespace CprBroker.Installers
 
         public static void AddConfigSectionDefinition(string configFilePath, string groupName, string sectionName, Type sectionType)
         {
-            var groupPath = "//" + groupName;
+            var groupPath = "//sectionGroup[@name='" + Utilities.Constants.DataProvidersSectionGroupName + "']";
 
             var attributes = new Dictionary<string, string>();
             attributes["name"] = sectionName;
-            attributes["type"] = sectionType.FullName;
+            attributes["type"] = sectionType.AssemblyQualifiedName;
 
             AddSectionNode("section", attributes, configFilePath, groupPath);
         }

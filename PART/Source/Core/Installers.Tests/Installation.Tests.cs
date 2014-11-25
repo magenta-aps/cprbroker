@@ -139,5 +139,17 @@ namespace CprBroker.Tests.Installers
             }
         }
 
+        [TestFixture]
+        public class ResetDataProviderSectionDefinitions
+        {
+            [Test]
+            public void ResetDataProviderSectionDefinitions_OK()
+            {
+                var path = Guid.NewGuid().ToString().Replace("-", "")+ ".config";
+                File.WriteAllText(path, Properties.Resources.WebConfig);
+                Installation.ResetDataProviderSectionDefinitions(path);
+            }
+        }
+
     }
 }
