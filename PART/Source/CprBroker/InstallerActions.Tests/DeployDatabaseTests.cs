@@ -66,22 +66,21 @@ namespace InstallerActions.Tests
             createDatabaseObjectsSql["CPR"] =
                 CprBrokerWixInstallers.Properties.ResourcesExtensions.AllCprBrokerDatabaseObjectsSql;
 
-            
+
             // Prepare lookups
             var lookupDataArray = new Dictionary<string, KeyValuePair<string, string>[]>();
 
-            lookupDataArray["CPR"] =CprBrokerWixInstallers.Properties.ResourcesExtensions.Lookups;
-            
+            lookupDataArray["CPR"] = CprBrokerWixInstallers.Properties.ResourcesExtensions.Lookups;
+
             // Custom methods
             var customMethods = new Dictionary<string, Action<SqlConnection>>();
-            System.Diagnostics.Debugger.Launch();
             customMethods["CPR"] =
                 conn => CprBroker.Providers.CPRDirect.Authority.ImportText(CprBrokerWixInstallers.Properties.Resources.Authority_4357, conn);
 
             var setupInfo = new CprBroker.Installers.DatabaseSetupInfo()
             {
-                AdminAuthenticationInfo = new DatabaseSetupInfo.AuthenticationInfo(){ IntegratedSecurity=true},
-                ApplicationAuthenticationInfo = new DatabaseSetupInfo.AuthenticationInfo(){ IntegratedSecurity=true},
+                AdminAuthenticationInfo = new DatabaseSetupInfo.AuthenticationInfo() { IntegratedSecurity = true },
+                ApplicationAuthenticationInfo = new DatabaseSetupInfo.AuthenticationInfo() { IntegratedSecurity = true },
                 ServerName = "SqlServer",
                 DatabaseName = "CprBroker" + new Random().Next()
             };
@@ -89,7 +88,7 @@ namespace InstallerActions.Tests
             var infoDic = new Dictionary<string, DatabaseSetupInfo>();
             infoDic["CPR"] = setupInfo;
             System.Diagnostics.Debugger.Launch();
-            DatabaseCustomAction.DeployDatabase(new string[]{"CPR"},infoDic , createDatabaseObjectsSql, lookupDataArray, customMethods);
+            DatabaseCustomAction.DeployDatabase(new string[] { "CPR" }, infoDic, createDatabaseObjectsSql, lookupDataArray, customMethods);
         }
     }
 }
