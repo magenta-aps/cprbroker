@@ -379,6 +379,10 @@ namespace CprBrokerWixInstallers
         {
             try
             {
+                // Reset types in config filr
+                ResetDataProviderSectionDefinitions(session);
+
+                // Now prepare and install the website
                 var allOptions = new Dictionary<string, WebInstallationOptions>();
 
                 Dictionary<string, string> connectionStrings = new Dictionary<string, string>();
