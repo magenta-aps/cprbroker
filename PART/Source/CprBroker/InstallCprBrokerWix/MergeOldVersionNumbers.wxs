@@ -3,13 +3,13 @@
     <Fragment Id="MergeOldVersionProductCodesFragment">
         <Property Id="Dummy_MergeOldVersionProductCodesRefProp" Value="-"/>
 
-        <CustomAction Id="MergeOldVersionProductCodes" Property="OLDER_VERSION_DETECTED" Value="[OLDER_VERSION_DETECTED];[OLDER_VERSION_DETECTED_2_2_2]"/>
+        <CustomAction Id="MergeOldVersionProductCodes" Property="OLDER_VERSION_DETECTED" Value="[OLDER_VERSION_DETECTED_2_2_2]"/>        
 
         <InstallUISequence>
-            <Custom Action="MergeOldVersionProductCodes" After="AppSearch">1</Custom>
+            <Custom Action="MergeOldVersionProductCodes" After="AppSearch">OLDER_VERSION_DETECTED_2_2_2</Custom>
         </InstallUISequence>
         <InstallExecuteSequence>
-            <Custom Action="MergeOldVersionProductCodes" After="AppSearch">1</Custom>
+            <Custom Action="MergeOldVersionProductCodes" After="AppSearch">OLDER_VERSION_DETECTED_2_2_2</Custom>
         </InstallExecuteSequence>
 
         <UI>
