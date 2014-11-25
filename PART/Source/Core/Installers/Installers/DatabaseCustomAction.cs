@@ -179,25 +179,29 @@ namespace CprBroker.Installers
 
         public static ActionResult DeployDatabase(Session session, Dictionary<string, string> createDatabaseObjectsSql, Dictionary<string, KeyValuePair<string, string>[]> lookupDataArray, Dictionary<string, Action<SqlConnection>> customMethods = null)
         {
+            var featureNames = DatabaseSetupInfo.GetDatabaseFeatureNames(session);
+            var databaseSetupInformation = featureNames.ToDictionary(fn => fn, featureName => DatabaseSetupInfo.CreateFromFeature(session, featureName));
+            return DeployDatabase(featureNames, databaseSetupInformation, createDatabaseObjectsSql, lookupDataArray, customMethods);
+        }
+
+        public static ActionResult DeployDatabase(string[] featureNames, Dictionary<string, DatabaseSetupInfo> databaseSetupInformation, Dictionary<string, string> createDatabaseObjectsSql, Dictionary<string, KeyValuePair<string, string>[]> lookupDataArray, Dictionary<string, Action<SqlConnection>> customMethods = null)
+        {
             customMethods = customMethods != null ? customMethods : new Dictionary<string, Action<SqlConnection>>();
 
-            RunDatabaseAction(
-                session,
-                (featureName) =>
+            foreach (var featureName in featureNames)
+            {
+                DatabaseSetupInfo databaseSetupInfo = databaseSetupInformation[featureName];//DatabaseSetupInfo.CreateFromFeature(session, featureName);
+                if (CreateDatabase(databaseSetupInfo, createDatabaseObjectsSql[featureName]))
                 {
-                    DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.CreateFromFeature(session, featureName);
-                    if (CreateDatabase(databaseSetupInfo, createDatabaseObjectsSql[featureName]))
+                    ExecuteDDL(createDatabaseObjectsSql[featureName], databaseSetupInfo);
+                    InsertLookups(lookupDataArray[featureName], databaseSetupInfo);
+                    if (customMethods.ContainsKey(featureName))
                     {
-                        ExecuteDDL(createDatabaseObjectsSql[featureName], databaseSetupInfo);
-                        InsertLookups(lookupDataArray[featureName], databaseSetupInfo);
-                        if (customMethods.ContainsKey(featureName))
-                        {
-                            RunCustomMethod(customMethods[featureName], databaseSetupInfo);
-                        }
+                        RunCustomMethod(customMethods[featureName], databaseSetupInfo);
                     }
-                    CreateDatabaseUser(databaseSetupInfo, null);
                 }
-            );
+                CreateDatabaseUser(databaseSetupInfo, null);
+            }
             return ActionResult.Success;
         }
 
