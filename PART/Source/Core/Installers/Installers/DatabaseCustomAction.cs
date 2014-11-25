@@ -186,7 +186,7 @@ namespace CprBroker.Installers
                 (featureName) =>
                 {
                     DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.CreateFromFeature(session, featureName);
-                    if (CreateDatabase(databaseSetupInfo, createDatabaseObjectsSql[featureName], lookupDataArray[featureName]))
+                    if (CreateDatabase(databaseSetupInfo, createDatabaseObjectsSql[featureName]))
                     {
                         ExecuteDDL(createDatabaseObjectsSql[featureName], databaseSetupInfo);
                         InsertLookups(lookupDataArray[featureName], databaseSetupInfo);

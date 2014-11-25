@@ -59,7 +59,7 @@ namespace CprBroker.Installers
     public static partial class DatabaseCustomAction
     {
 
-        private static bool CreateDatabase(DatabaseSetupInfo setupInfo, string createDatabaseObjectsSql, KeyValuePair<string, string>[] lookupDataArray)
+        private static bool CreateDatabase(DatabaseSetupInfo setupInfo, string createDatabaseObjectsSql)
         {
             if (!setupInfo.DatabaseExists())
             {
