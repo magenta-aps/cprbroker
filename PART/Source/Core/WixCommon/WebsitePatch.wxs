@@ -7,7 +7,7 @@
     <CustomAction Id="PatchWebsite" BinaryKey="InstallersDll" DllEntry="PatchWebsite" Execute="deferred" Impersonate="yes" Return="check" HideTarget="yes"/>
 
     <InstallExecuteSequence>
-      <Custom Action="PatchWebsite" After="RollbackWebsite">PATCH OR OLDER_VERSION_DETECTED</Custom>
+      <Custom Action="PatchWebsite" After="RollbackWebsite">NOT REMOVE AND (PATCH OR OLDER_VERSION_DETECTED)</Custom>
     </InstallExecuteSequence>
 
     <UI>
