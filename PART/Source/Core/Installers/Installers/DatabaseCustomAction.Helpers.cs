@@ -208,6 +208,7 @@ namespace CprBroker.Installers
         public static void InsertLookups(KeyValuePair<string, string>[] lookupDataArray, DatabaseSetupInfo databaseSetupInfo)
         {
             string adminConnectionWithDB = databaseSetupInfo.CreateConnectionString(true, true);
+            InsertLookups(lookupDataArray, adminConnectionWithDB);
         }
  
         public static void InsertLookups(KeyValuePair<string, string>[] lookupDataArray, string adminConnectionWithDB)
