@@ -50,6 +50,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CprServices", "CprServices\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CprServices.Tests", "CprServices.Tests\CprServices.Tests.csproj", "{E77D5B58-56A9-4A19-B25F-AE160547E364}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InstallerActions.Tests", "InstallerActions.Tests\InstallerActions.Tests.csproj", "{25EEFC62-8AD8-490D-840D-31AD03094C29}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|.NET = Debug|.NET
@@ -400,6 +402,22 @@ Global
 		{E77D5B58-56A9-4A19-B25F-AE160547E364}.Release|Mono.ActiveCfg = Release|Any CPU
 		{E77D5B58-56A9-4A19-B25F-AE160547E364}.Release|Win32.ActiveCfg = Release|Any CPU
 		{E77D5B58-56A9-4A19-B25F-AE160547E364}.Release|x86.ActiveCfg = Release|Any CPU
+		{25EEFC62-8AD8-490D-840D-31AD03094C29}.Debug|.NET.ActiveCfg = Debug|Any CPU
+		{25EEFC62-8AD8-490D-840D-31AD03094C29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{25EEFC62-8AD8-490D-840D-31AD03094C29}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{25EEFC62-8AD8-490D-840D-31AD03094C29}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{25EEFC62-8AD8-490D-840D-31AD03094C29}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{25EEFC62-8AD8-490D-840D-31AD03094C29}.Debug|Mono.ActiveCfg = Debug|Any CPU
+		{25EEFC62-8AD8-490D-840D-31AD03094C29}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{25EEFC62-8AD8-490D-840D-31AD03094C29}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{25EEFC62-8AD8-490D-840D-31AD03094C29}.Release|.NET.ActiveCfg = Release|Any CPU
+		{25EEFC62-8AD8-490D-840D-31AD03094C29}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{25EEFC62-8AD8-490D-840D-31AD03094C29}.Release|Any CPU.Build.0 = Release|Any CPU
+		{25EEFC62-8AD8-490D-840D-31AD03094C29}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{25EEFC62-8AD8-490D-840D-31AD03094C29}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{25EEFC62-8AD8-490D-840D-31AD03094C29}.Release|Mono.ActiveCfg = Release|Any CPU
+		{25EEFC62-8AD8-490D-840D-31AD03094C29}.Release|Win32.ActiveCfg = Release|Any CPU
+		{25EEFC62-8AD8-490D-840D-31AD03094C29}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
