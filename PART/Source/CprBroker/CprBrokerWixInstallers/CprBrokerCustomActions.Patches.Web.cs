@@ -138,16 +138,28 @@ namespace CprBrokerWixInstallers
 
         private static void PatchWebsite_2_2_3(Session session)
         {
-            var types = new Type[]
-            {
-                typeof(CprBroker.Providers.CprServices.CprServicesDataProvider)
-            };
-            var webInstallationInfo = WebInstallationInfo.CreateFromFeature(session, "CPR");
-            var configFilePath = webInstallationInfo.GetWebConfigFilePath(EventBrokerCustomActions.PathConstants.CprBrokerWebsiteDirectoryRelativePath);
+            ResetDataProviderSectionDefinitions(session);
 
+            var cprWebInstallationInfo = WebInstallationInfo.CreateFromFeature(session, "CPR");
+            var cprConfigFilePath = cprWebInstallationInfo.GetWebConfigFilePath(EventBrokerCustomActions.PathConstants.CprBrokerWebsiteDirectoryRelativePath);
 
             // Add new node(s) for data providers
-            CprBroker.Installers.Installation.AddKnownDataProviderTypes(types, configFilePath);
+            var types = new Type[]
+            {
+                typeof(CprBroker.Providers.CprServices.CprServicesDataProvider),
+            };
+            CprBroker.Installers.Installation.AddKnownDataProviderTypes(types, cprConfigFilePath);
+        }
+
+        public static void ResetDataProviderSectionDefinitions(Session session)
+        {
+            var webInstallationInfo = WebInstallationInfo.CreateFromFeature(session, "CPR");
+            var eventWebInstallationInfo = WebInstallationInfo.CreateFromFeature(session, "EVENT");
+
+            // Ensure correct namespaces for config sections
+            CprBroker.Installers.Installation.ResetDataProviderSectionDefinitions(webInstallationInfo.GetWebConfigFilePath(EventBrokerCustomActions.PathConstants.CprBrokerWebsiteDirectoryRelativePath));
+            CprBroker.Installers.Installation.ResetDataProviderSectionDefinitions(eventWebInstallationInfo.GetWebConfigFilePath(EventBrokerCustomActions.PathConstants.EventBrokerWebsiteDirectoryRelativePath));
+            CprBroker.Installers.Installation.ResetDataProviderSectionDefinitions(EventBrokerCustomActions.GetServiceExeConfigFullFileName(session));
         }
 
     }

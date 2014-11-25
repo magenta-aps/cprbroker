@@ -236,7 +236,7 @@ namespace CprBroker.Installers
                 {
                     var dic = new Dictionary<string, string>();
                     dic["type"] = string.Format("{0}, {1}", type.FullName, type.Assembly.GetName().Name);
-                    CprBroker.Installers.Installation.AddSectionNode("add", dic, String.Format("add[contains(@type,'{0}')]", type.Name), configFilePath, "dataProviders/knownTypes");
+                    CprBroker.Installers.Installation.AddSectionNode("add", dic, String.Format("add[contains(@type,'{0}')]", type.Name), configFilePath, "//dataProviders/knownTypes");
                 }
             );
         }

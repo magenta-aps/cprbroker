@@ -269,10 +269,13 @@ namespace CprBrokerWixInstallers
                     },
                     new DatabasePatchInfo(){ 
                         Version = new Version(2,2,3),
-                        SqlScript = Properties.Resources.PatchDatabase_2_2_3 
-                            + Properties.Resources.PersonSearchCache 
-                            + Properties.Resources.TrimAddressString
-                            + Properties.Resources.InitializePersonSearchCache,
+                        SqlScript = string.Join(
+                            Environment.NewLine, 
+                            new string[]{
+                                Properties.Resources.PatchDatabase_2_2_3,
+                                Properties.Resources.PersonSearchCache,
+                                Properties.Resources.TrimAddressString,
+                                Properties.Resources.InitializePersonSearchCache}),
                         PatchAction = null
                     },
                 };
