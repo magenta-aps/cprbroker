@@ -230,6 +230,7 @@ namespace CprBrokerWixInstallers
         {
             try
             {
+                var lineSep = Environment.NewLine + "GO" + Environment.NewLine;
                 var patchInfos = new Dictionary<string, DatabasePatchInfo[]>();
                 patchInfos["CPR"] = new DatabasePatchInfo[]{
                     new DatabasePatchInfo(){ 
@@ -270,7 +271,7 @@ namespace CprBrokerWixInstallers
                     new DatabasePatchInfo(){ 
                         Version = new Version(2,2,3),
                         SqlScript = string.Join(
-                            Environment.NewLine, 
+                            lineSep, 
                             new string[]{
                                 Properties.Resources.PatchDatabase_2_2_3,
                                 Properties.Resources.PersonSearchCache,
@@ -284,6 +285,15 @@ namespace CprBrokerWixInstallers
                     new DatabasePatchInfo(){
                         Version = new Version(2,2),
                         SqlScript = CprBroker.Installers.EventBrokerInstallers.Properties.Resources.PatchDatabase_2_2,
+                        PatchAction = null
+                    },
+                    new DatabasePatchInfo(){
+                        Version = new Version(2,2,3),
+                        SqlScript = string.Join(
+                            lineSep,
+                            new string[]{
+                                CprBroker.Installers.EventBrokerInstallers.Properties.Resources.PatchDatabase_2_2_3 ,
+                                CprBroker.Installers.EventBrokerInstallers.Properties.ResourcesExtensions.AllEventBrokerStoredProceduresSql}),
                         PatchAction = null
                     }
                 };
