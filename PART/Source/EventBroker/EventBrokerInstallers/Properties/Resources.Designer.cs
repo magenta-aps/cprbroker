@@ -297,6 +297,22 @@ namespace CprBroker.Installers.EventBrokerInstallers.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 
+        ///-----------------------------------------------------------------------------------------------
+        ///-------------------   Add identity column DataChangeEvent.ReceivedOrder   ---------------------
+        ///-----------------------------------------------------------------------------------------------
+        ///
+        ///-- Create temp table if not already there
+        ///IF NOT EXISTS (SELECT * FROM sys.tables where name=&apos;DataChangeEvent_TMP&apos;)
+        ///	CREATE TABLE DataChangeEvent_TMP (DataChangeEventId uniqueidentifier, PersonUuid uniqueidentifier, [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string PatchDatabase_2_2_3 {
+            get {
+                return ResourceManager.GetString("PatchDatabase_2_2_3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to /****** Object:  Table [dbo].[PersonBirthdate] ******/
         ///IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N&apos;[dbo].[PersonBirthdate]&apos;) AND type in (N&apos;U&apos;))
         ///DROP TABLE [dbo].[PersonBirthdate]

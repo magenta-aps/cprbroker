@@ -46,6 +46,24 @@ namespace CprBroker.Installers.EventBrokerInstallers.Properties
             }
         }
 
+        public static string AllEventBrokerStoredProceduresSql
+        {
+            get
+            {
+                var arr = new string[] { 
+                    // SP's and functions
+                    Resources.EnqueueBirthdateEventNotifications,
+                    Resources.EnqueueDataChangeEventNotifications,
+                    Resources.IsBirthdateEvent,
+                    Resources.UpdatePersonLists
+                };
+
+                return string.Join(
+                    Environment.NewLine + "GO" + Environment.NewLine,
+                    arr);
+            }
+        }
+
         public static KeyValuePair<string, string>[] Lookups
         {
             get
