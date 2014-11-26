@@ -10,7 +10,7 @@ namespace CprBroker.Tests.Engine.Stubs
     {
         public GuidDataProvider()
         {
-            //System.Diagnostics.Debugger.Launch();
+
         }
 
         public Guid AAAA(Guid guid)

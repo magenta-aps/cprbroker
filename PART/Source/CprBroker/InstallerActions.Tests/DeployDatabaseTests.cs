@@ -87,7 +87,6 @@ namespace InstallerActions.Tests
 
             var infoDic = new Dictionary<string, DatabaseSetupInfo>();
             infoDic["CPR"] = setupInfo;
-            System.Diagnostics.Debugger.Launch();
             DatabaseCustomAction.DeployDatabase(new string[] { "CPR" }, infoDic, createDatabaseObjectsSql, lookupDataArray, customMethods);
         }
     }
