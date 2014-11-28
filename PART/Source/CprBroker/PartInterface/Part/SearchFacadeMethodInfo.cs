@@ -119,17 +119,20 @@ namespace CprBroker.Engine.Part
 
             // Not implemented criteria
             #region Not implemented root objects
-            if (Input.SoegObjekt.SoegRegistrering.AktoerRef != null)
+            if (Input.SoegObjekt.SoegRegistrering != null)
             {
-                return StandardReturType.NotImplemented("SoegRegistrering.AktoerRef");
-            }
-            if (Input.SoegObjekt.SoegRegistrering.CommentText != null)
-            {
-                return StandardReturType.NotImplemented("SoegRegistrering.CommentText");
-            }
-            if (Input.SoegObjekt.SoegRegistrering.Tidspunkt != null)
-            {
-                return StandardReturType.NotImplemented("SoegRegistrering.Tidspunkt");
+                if (Input.SoegObjekt.SoegRegistrering.AktoerRef != null)
+                {
+                    return StandardReturType.NotImplemented("SoegRegistrering.AktoerRef");
+                }
+                if (Input.SoegObjekt.SoegRegistrering.CommentText != null)
+                {
+                    return StandardReturType.NotImplemented("SoegRegistrering.CommentText");
+                }
+                if (Input.SoegObjekt.SoegRegistrering.Tidspunkt != null)
+                {
+                    return StandardReturType.NotImplemented("SoegRegistrering.Tidspunkt");
+                }
             }
 
             if (Input.SoegObjekt.SoegRelationListe != null)
