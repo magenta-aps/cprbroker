@@ -61,7 +61,7 @@ BEGIN
         @PersonGivenName VARCHAR(MAX), @PersonMiddleName VARCHAR(MAX), @PersonSurnameName VARCHAR(MAX), 
         @PersonGenderCode VARCHAR(MAX), @Birthdate Datetime, @FoedestedNavn VARCHAR(MAX), @FoedselsregistreringMyndighedNavn VARCHAR(MAX)
 
-    IF LEN (CAST (@EgenskabNode AS VARCHAR(MAX))) > 0
+    IF LEN (CAST (@EgenskabNode AS NVARCHAR(MAX))) > 0
     BEGIN	
         DECLARE @EgenskabTable TABLE (X XML);
         INSERT INTO @EgenskabTable SELECT @EgenskabNode;
@@ -84,6 +84,7 @@ BEGIN
             @PersonGenderCode                   = X.value('(/ns0:Egenskab/ns5:PersonGenderCode)[last()]'                                           , 'varchar(max)'),
             @Birthdate                          = X.value('(/ns0:Egenskab/ns6:BirthDate)[last()]'                                                  , 'datetime'),
             @FoedestedNavn                      = X.value('(/ns0:Egenskab/ns0:FoedestedNavn)[last()]'                                              , 'varchar(max)'),
+            -- TODO: This field is not used !!
             @FoedselsregistreringMyndighedNavn  = X.value('(/ns0:Egenskab/ns0:FoedselsregistreringMyndighedNavn)[last()]'                          , 'varchar(max)')
         FROM 
             @EgenskabTable
@@ -125,7 +126,7 @@ BEGIN
         @PostalAddressFirstLineText VARCHAR(MAX), @PostalAddressSecondLineText VARCHAR(MAX), @PostalAddressThirdLineText VARCHAR(MAX), 
         @PostalAddressFourthLineText VARCHAR(MAX), @PostalAddressFifthLineText VARCHAR(MAX)
     
-    IF LEN (CAST (@RegisterOplysningNode AS VARCHAR(MAX))) > 0
+    IF LEN (CAST (@RegisterOplysningNode AS NVARCHAR(MAX))) > 0
     BEGIN	
         DECLARE @RegisterOplysningTable TABLE (X XML);
         INSERT INTO @RegisterOplysningTable SELECT @RegisterOplysningNode;
@@ -159,7 +160,7 @@ BEGIN
         WITH XMLNAMESPACES ('urn:oio:sagdok:person:1.0.0' as ns0)
         INSERT INTO @DanskAdresseTable SELECT X.query('/ns0:RegisterOplysning/ns0:CprBorger/ns0:FolkeregisterAdresse/ns0:DanskAdresse') FROM @RegisterOplysningTable;
         
-        IF (SELECT LEN(CAST(X AS VARCHAR(MAX))) FROM @DanskAdresseTable) > 0
+        IF (SELECT LEN(CAST(X AS NVARCHAR(MAX))) FROM @DanskAdresseTable) > 0
         BEGIN
             WITH XMLNAMESPACES (
                 'urn:oio:sagdok:person:1.0.0' as ns0,
@@ -216,7 +217,7 @@ BEGIN
             INSERT INTO @GroenlandskAdresseTable SELECT X.query('/ns0:RegisterOplysning/ns0:CprBorger/ns0:FolkeregisterAdresse/ns0:GroenlandAdresse') FROM @RegisterOplysningTable;
         END
 
-        IF (SELECT LEN(CAST(X AS VARCHAR(MAX))) FROM @GroenlandskAdresseTable) > 0
+        IF (SELECT LEN(CAST(X AS NVARCHAR(MAX))) FROM @GroenlandskAdresseTable) > 0
         BEGIN
             WITH XMLNAMESPACES (
                 'urn:oio:sagdok:person:1.0.0' as ns0,
@@ -258,7 +259,7 @@ BEGIN
         WITH XMLNAMESPACES ('urn:oio:sagdok:person:1.0.0' as ns0)
         INSERT INTO @VerdenAdresseTable SELECT X.query('/ns0:RegisterOplysning/ns0:CprBorger/ns0:FolkeregisterAdresse/ns0:VerdenAdresse') FROM @RegisterOplysningTable;
 
-        IF (SELECT LEN(CAST(X AS VARCHAR(MAX))) FROM @VerdenAdresseTable) > 0
+        IF (SELECT LEN(CAST(X AS NVARCHAR(MAX))) FROM @VerdenAdresseTable) > 0
         BEGIN
             WITH XMLNAMESPACES (
                 'urn:oio:sagdok:person:1.0.0' as ns0,
