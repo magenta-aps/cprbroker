@@ -58,7 +58,7 @@ namespace CprBroker.Providers.CprServices
             var cookieHeader = headers["Set-Cookie"];
             if (cookieHeader != null)
             {
-                var pat = @"\AToken=(?<token>[^;]+);";
+                var pat = @"[,;]?Token=(?<token>[^;]+);";
                 var m = Regex.Match(cookieHeader, pat);
                 if (m.Success)
                     token = m.Groups["token"].Value;

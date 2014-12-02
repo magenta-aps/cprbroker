@@ -47,6 +47,7 @@ using System.Linq;
 using System.Text;
 using CprBroker.PartInterface;
 using CprBroker.Engine;
+using CprBroker.Engine.Local;
 using CprBroker.Engine.Part;
 using CprBroker.Schemas.Part;
 
@@ -153,6 +154,8 @@ namespace CprBroker.Providers.CprServices
                     }
                     else
                     {
+                        string callInput = string.Join(",", call.InputFields.Select(kvp => string.Format("{0}={1}", kvp.Key, kvp.Value)).ToArray());
+                        Admin.LogFormattedError("GCTP <{0}> Failed with <{1}><{2}>. Input <{3}>", call.Name, kvit.ReturnCode, kvit.ReturnText, callInput);
                         searchOk = false;
                     }
                 }
@@ -170,6 +173,11 @@ namespace CprBroker.Providers.CprServices
                 {
                     // TODO: What to do if search fails??
                 }
+            }
+            else
+            {
+                string searchFields = string.Join(",", request.CriteriaFields.Select(kvp => string.Format("{0}={1}", kvp.Key, kvp.Value)).ToArray());
+                Admin.LogFormattedError("Insufficient GCTP search criteria <{0}>", searchFields);
             }
             return null;
         }

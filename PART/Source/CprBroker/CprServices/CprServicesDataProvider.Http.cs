@@ -50,6 +50,7 @@ using System.IO;
 using System.Xml;
 using CprBroker.Schemas.Part;
 using CprBroker.Engine;
+using CprBroker.Engine.Local;
 
 namespace CprBroker.Providers.CprServices
 {
@@ -128,7 +129,11 @@ namespace CprBroker.Providers.CprServices
             {
                 return token;
             }
-            return null;
+            else
+            {
+                Admin.LogFormattedError("Signon failed: <{0}><{1}>", kvit.ReturnCode, kvit.ReturnText);
+                return null;
+            }
         }
 
         public Kvit ChangePassword(string newPassword)
