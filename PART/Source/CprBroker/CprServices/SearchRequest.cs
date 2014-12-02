@@ -151,7 +151,7 @@ namespace CprBroker.Providers.CprServices
                                         //dansk.AddressComplete.AddressPostal.CountryIdentificationCode
                                         //dansk.AddressComplete.AddressPostal.DistrictName
                                         //dansk.AddressComplete.AddressPostal.DistrictSubdivisionIdentifier
-                                        AddCriteriaField("ETAG", dansk.AddressComplete.AddressPostal.FloorIdentifier);
+                                        AddCriteriaField("ETAG", dansk.AddressComplete.AddressPostal.FloorIdentifier, (s) => s.PadLeft(2, '0'));
                                         //dansk.AddressComplete.AddressPostal.MailDeliverySublocationIdentifier
                                         AddCriteriaField("POST", dansk.AddressComplete.AddressPostal.PostCodeIdentifier);
                                         //dansk.AddressComplete.AddressPostal.PostOfficeBoxIdentifier
@@ -182,7 +182,7 @@ namespace CprBroker.Providers.CprServices
                                     //groen.AddressCompleteGreenland.CountryIdentificationCode
                                     //groen.AddressCompleteGreenland.DistrictName
                                     //groen.AddressCompleteGreenland.DistrictSubdivisionIdentifier
-                                    AddCriteriaField("ETAG", groen.AddressCompleteGreenland.FloorIdentifier);
+                                    AddCriteriaField("ETAG", groen.AddressCompleteGreenland.FloorIdentifier, (s) => s.PadLeft(2, '0'));
                                     AddCriteriaField("BNR", groen.AddressCompleteGreenland.GreenlandBuildingIdentifier);
                                     //groen.AddressCompleteGreenland.MailDeliverySublocationIdentifier
                                     AddCriteriaField("KOMK", groen.AddressCompleteGreenland.MunicipalityCode);
@@ -229,8 +229,17 @@ namespace CprBroker.Providers.CprServices
 
         public void AddCriteriaField(string name, string value)
         {
+            AddCriteriaField(name, value, null);
+        }
+
+        public void AddCriteriaField(string name, string value, Func<string, string> formatter)
+        {
             if (!string.IsNullOrEmpty(value))
+            {
+                if (formatter != null)
+                    value = formatter(value);
                 CriteriaFields.Add(new KeyValuePair<string, string>(name, value));
+            }
         }
 
         public List<KeyValuePair<string, string>> CriteriaFields = new List<KeyValuePair<string, string>>();
