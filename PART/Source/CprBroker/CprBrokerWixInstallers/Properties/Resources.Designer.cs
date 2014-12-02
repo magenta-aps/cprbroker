@@ -118,23 +118,18 @@ namespace CprBrokerWixInstallers.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N&apos;[dbo].[Extract]&apos;) AND type in (N&apos;U&apos;))
-        ///    DROP TABLE [dbo].[Extract]
-        ///GO
-        ///
-        ///SET ANSI_NULLS ON
-        ///GO
-        ///SET QUOTED_IDENTIFIER ON
-        ///GO
-        ///
-        ///CREATE TABLE [dbo].[Extract](
-        ///	[ExtractId] [uniqueidentifier] NOT NULL 
-        ///        CONSTRAINT [DF_Extract_ExtractId] DEFAULT NEWID(),
-        ///	[Filename] [nvarchar](max) NOT NULL,
-        ///	[ExtractDate] [datetime] NOT NULL,
-        ///	[ImportDate] [datetime] NOT NULL,
-        ///	[StartRecord] [nvarchar](max) NOT NULL,
-        ///	[EndRecord] [nvarchar](m [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N&apos;[dbo].[Extract]&apos;) AND type in (N&apos;U&apos;))
+        ///BEGIN
+        ///    CREATE TABLE [dbo].[Extract](
+        ///	    [ExtractId] [uniqueidentifier] NOT NULL 
+        ///            CONSTRAINT [DF_Extract_ExtractId] DEFAULT NEWID(),
+        ///	    [Filename] [nvarchar](max) NOT NULL,
+        ///	    [ExtractDate] [datetime] NOT NULL,
+        ///	    [ImportDate] [datetime] NOT NULL,
+        ///	    [StartRecord] [nvarchar](max) NOT NULL,
+        ///	    [EndRecord] [nvarchar](max) NOT NULL,
+        ///	    [Ready] [bit] NOT NULL 
+        ///      [rest of string was truncated]&quot;;.
         /// </summary>
         public static string Extract {
             get {
@@ -353,9 +348,12 @@ namespace CprBrokerWixInstallers.Properties {
         /// <summary>
         ///   Looks up a localized string similar to -- If the new columns are not there, drop the cache table
         ///IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(&apos;PersonSearchCache&apos;) AND name = &apos;MunicipalityCode&apos; )
+        ///BEGIN
         ///    -- Only if the table exists
         ///    IF EXISTS (SELECT * FROM sys.tables WHERE name = &apos;PersonSearchCache&apos;)
         ///        DROP TABLE PersonSearchCache
+        ///END
+        ///
         ///GO.
         /// </summary>
         public static string PatchDatabase_2_2_3 {
@@ -411,18 +409,16 @@ namespace CprBrokerWixInstallers.Properties {
         ///   Looks up a localized string similar to -- ========================================================
         ///-- Table  : PersonSearchCache
         ///-- ========================================================
-        ///IF EXISTS (SELECT * FROM sys.tables WHERE Name = &apos;PersonSearchCache&apos;)
-        ///    DROP TABLE PersonSearchCache
-        ///GO
-        ///
-        ///CREATE TABLE [dbo].[PersonSearchCache](
-        ///	-- Root fields
-        ///    [PersonRegistrationId] [uniqueidentifier] NULL,
-        ///	[UUID] [uniqueidentifier] NOT NULL,		
-        ///    LivscyklusKode VARCHAR(MAX),
+        ///IF NOT EXISTS (SELECT * FROM sys.tables WHERE Name = &apos;PersonSearchCache&apos;)
+        ///BEGIN
+        ///    CREATE TABLE [dbo].[PersonSearchCache](
+        ///	    -- Root fields
+        ///        [PersonRegistrationId] [uniqueidentifier] NULL,
+        ///	    [UUID] [uniqueidentifier] NOT NULL,		
+        ///        LivscyklusKode VARCHAR(MAX),
         ///            
-        ///    -- Egenskab fields
-        ///    AddressingName VARCHA [rest of string was truncated]&quot;;.
+        ///        -- Egenskab fields
+        ///        AddressingName VARCHAR [rest of string was truncated]&quot;;.
         /// </summary>
         public static string PersonSearchCache {
             get {
