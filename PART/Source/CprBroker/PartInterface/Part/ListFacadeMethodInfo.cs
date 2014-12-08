@@ -119,6 +119,12 @@ namespace CprBroker.Engine.Part
             foreach (var laesResultat in ret)
             {
                 CityNameMapping.ApplyIfNeeded(laesResultat);
+
+                if (laesResultat.Item is RegistreringType1)
+                {
+                    (laesResultat.Item as RegistreringType1).OrderByStartDate(
+                        !CprBroker.Config.Properties.Settings.Default.CprDirectReturnsNewestFirst);
+                }
             }
             return ret;
         }
