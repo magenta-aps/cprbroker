@@ -162,7 +162,8 @@ namespace CprBroker.Providers.CPRDirect
                     new DataProviderConfigPropertyInfo(){ Name=Constants.PropertyNames.HasFtpSource, Type= DataProviderConfigPropertyInfoTypes.Boolean, Required=true, Confidential=false},
                     new DataProviderConfigPropertyInfo(){ Name=Constants.PropertyNames.FtpAddress, Type= DataProviderConfigPropertyInfoTypes.String, Required=false, Confidential=false},                    
                     new DataProviderConfigPropertyInfo(){ Name=Constants.PropertyNames.FtpUser, Type= DataProviderConfigPropertyInfoTypes.String, Required=false, Confidential=false},
-                    new DataProviderConfigPropertyInfo(){ Name=Constants.PropertyNames.FtpPassword, Type= DataProviderConfigPropertyInfoTypes.String, Required=false, Confidential=true}
+                    new DataProviderConfigPropertyInfo(){ Name=Constants.PropertyNames.FtpPassword, Type= DataProviderConfigPropertyInfoTypes.String, Required=false, Confidential=true},
+                    new DataProviderConfigPropertyInfo(){ Name=Constants.PropertyNames.FtpRegexFilter, Type= DataProviderConfigPropertyInfoTypes.String, Required=false, Confidential=false}
                 };
             }
         }
@@ -205,6 +206,11 @@ namespace CprBroker.Providers.CPRDirect
             set { ConfigurationProperties[Constants.PropertyNames.FtpPassword] = value.ToString(); }
         }
 
+        public string FtpRegexFilter
+        {
+            get { return ConfigurationProperties[Constants.PropertyNames.FtpRegexFilter]; }
+            set { ConfigurationProperties[Constants.PropertyNames.FtpRegexFilter] = value.ToString(); }
+        }
 
         public string FtpOutPath
         {

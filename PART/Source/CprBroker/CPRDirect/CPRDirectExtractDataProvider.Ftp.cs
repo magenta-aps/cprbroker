@@ -55,6 +55,7 @@ using CprBroker.Utilities;
 using CprBroker.Engine.Local;
 using System.IO;
 using System.Net;
+using System.Text.RegularExpressions;
 
 namespace CprBroker.Providers.CPRDirect
 {
@@ -96,11 +97,6 @@ namespace CprBroker.Providers.CPRDirect
 
         public string[] ListFtpContents()
         {
-            return ListFtpContents("");
-        }
-
-        public string[] ListFtpContents(string mask)
-        {
             var req = CreateFtpConnection(this.FtpOutPath);
             req.Method = WebRequestMethods.Ftp.ListDirectory;
 
@@ -110,6 +106,11 @@ namespace CprBroker.Providers.CPRDirect
                 {
                     string txt = rd.ReadToEnd();
                     var lines = txt.Split(Environment.NewLine.ToArray(), StringSplitOptions.RemoveEmptyEntries);
+                    if (!string.IsNullOrEmpty(FtpRegexFilter))
+                    {
+                        lines = lines.Where(l => Regex.IsMatch(l, FtpRegexFilter))
+                            .ToArray();
+                    }
                     return lines;
                 }
             }
