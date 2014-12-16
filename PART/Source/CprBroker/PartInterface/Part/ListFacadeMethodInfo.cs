@@ -123,7 +123,7 @@ namespace CprBroker.Engine.Part
                 if (laesResultat.Item is RegistreringType1)
                 {
                     (laesResultat.Item as RegistreringType1).OrderByStartDate(
-                        !CprBroker.Config.Properties.Settings.Default.CprDirectReturnsNewestFirst);
+                        !CprBroker.Config.ConfigManager.Current.Settings.CprDirectReturnsNewestFirst);
                 }
             }
             return ret;
