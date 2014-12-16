@@ -30,10 +30,6 @@
         {
             this.ActionTimer = new System.Timers.Timer();
             ((System.ComponentModel.ISupportInitialize)(this.ActionTimer)).BeginInit();
-            // 
-            // ActionTimer
-            // 
-            this.ActionTimer.Enabled = true;
             ((System.ComponentModel.ISupportInitialize)(this.ActionTimer)).EndInit();
 
         }
