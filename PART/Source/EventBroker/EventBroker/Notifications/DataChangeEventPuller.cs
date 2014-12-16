@@ -65,39 +65,45 @@ namespace CprBroker.EventBroker.Notifications
         protected override void PerformTimerAction()
         {
             var batchSize = CprBroker.Config.ConfigManager.Current.Settings.DataChangeDequeueBatchSize;
+            Admin.LogFormattedSuccess("Pulling data changes from CprBroker to event broker, batch size <{0}>", batchSize);
 
-            Admin.LogFormattedSuccess("DataChangeEventEnqueuer.PushNotifications() started, batch size <{0}>", batchSize);
-            EventBroker.EventsService.DataChangeEventInfo[] changedPeople;
-
+            CprBroker.Data.Events.DataChangeEvent[] sourceEvents;
             do
             {
-                var resp = EventsService.DequeueDataChangeEvents(batchSize);
-                changedPeople = resp.Item;
-                if (changedPeople == null)
-                    changedPeople = new EventBroker.EventsService.DataChangeEventInfo[0];
-
-                using (var dataContext = new Data.EventBrokerDataContext())
+                using (var sourceDataContext = new CprBroker.Data.Events.DataChangeEventDataContext())
                 {
-                    var dbObjects = Array.ConvertAll<EventsService.DataChangeEventInfo, Data.DataChangeEvent>(
-                        changedPeople,
-                        p => new Data.DataChangeEvent()
-                        {
-                            DataChangeEventId = p.EventId,
-                            DueDate = p.ReceivedDate,
-                            PersonUuid = p.PersonUuid,
-                            PersonRegistrationId = p.PersonRegistrationId,
-                            ReceivedDate = DateTime.Now,
-                            //ReceivedOrder = (Identity column)
-                        }
-                    );
+                    sourceEvents = sourceDataContext.DataChangeEvents
+                        .OrderBy(ev => ev.ReceivedDate)
+                        .Take(batchSize)
+                        .ToArray();
 
-                    dataContext.DataChangeEvents.InsertAllOnSubmit(dbObjects);
-                    dataContext.SubmitChanges();
+                    var targetEvents = Array.ConvertAll<CprBroker.Data.Events.DataChangeEvent, Data.DataChangeEvent>(
+                        sourceEvents,
+                        ev => new Data.DataChangeEvent()
+                        {
+                            DataChangeEventId = ev.DataChangeEventId,
+                            PersonUuid = ev.PersonUuid,
+                            PersonRegistrationId = ev.PersonRegistrationId,
+                            DueDate = ev.ReceivedDate,
+                            ReceivedDate = DateTime.Now
+                        }
+                     );
+
+                    // Insert into event broker database
+                    using (var dataContext = new Data.EventBrokerDataContext())
+                    {
+                        dataContext.DataChangeEvents.InsertAllOnSubmit(targetEvents);
+                        dataContext.SubmitChanges();
+                    }
+
+                    // Delete from source
+                    sourceDataContext.DataChangeEvents.DeleteAllOnSubmit(sourceEvents);
+                    sourceDataContext.SubmitChanges();
                 }
             }
             // Stop if received less changes than requested 
             // == Continue as long as you get the same number of changes as requested
-            while (changedPeople.Length == batchSize);
+            while (sourceEvents.Length == batchSize);
         }
     }
 }
