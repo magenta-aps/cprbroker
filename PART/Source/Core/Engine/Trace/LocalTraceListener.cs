@@ -92,8 +92,9 @@ namespace CprBroker.Engine.Trace
 
                     dbLogEntry.DataObjectType = Strings.ObjectToString(logEntry.ExtendedProperties[Constants.Logging.DataObjectType]);
                     dbLogEntry.DataObjectXml = Strings.ObjectToString(logEntry.ExtendedProperties[Constants.Logging.DataObjectXml]);
-                    dbLogEntry.LogDate = logEntry.TimeStamp;
                     
+                    // Convert to local time because the default constructor for LogEntry() uses UTC time
+                    dbLogEntry.LogDate = logEntry.TimeStamp.ToLocalTime();
 
                     context.LogEntries.InsertOnSubmit(dbLogEntry);
                     context.SubmitChanges();
