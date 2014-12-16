@@ -157,8 +157,6 @@ namespace CprBroker.Engine.Local
             //ent.Priority = ;
             //ent.Title = ;
 
-            // TODO: Extended properties cause a problem
-
             Dictionary<string, object> extendedProperties = ent.ExtendedProperties as Dictionary<string, object>;
             extendedProperties[Constants.Logging.ApplicationId] = BrokerContext.Current.ApplicationId;
             extendedProperties[Constants.Logging.ApplicationName] = BrokerContext.Current.ApplicationName;
