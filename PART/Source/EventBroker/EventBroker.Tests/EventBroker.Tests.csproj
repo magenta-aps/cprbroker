@@ -99,6 +99,7 @@
   <ItemGroup>
     <Compile Include="DataFlowTest.cs" />
     <Compile Include="EnqueueDataChangeEventNotifications.Tests.cs" />
+    <Compile Include="EventNotificationTests.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueueExecutionManagerTests.cs" />
