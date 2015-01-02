@@ -78,27 +78,31 @@ namespace CprBroker.EventBroker.Notifications
         {
             return TimeSpan.FromMilliseconds(ConfigManager.Current.Settings.EventBrokerPollIntervalMilliseconds);
         }
-        
+
         protected override void PerformTimerAction()
         {
             using (var dataContext = new Data.EventBrokerDataContext())
             {
+                // Read config values
                 int batchSize = ConfigManager.Current.Settings.EventBrokerNotificationBatchSize;
+                var retryWaitPeriod = TimeSpan.FromMinutes(ConfigManager.Current.Settings.EventBrokerNotificationRetryIntervalMinutes);
+                var maxAttempts = ConfigManager.Current.Settings.EventBrokerNotificationMaxRetry;
+
                 Data.EventNotification[] dueNotifications = new CprBroker.EventBroker.Data.EventNotification[0];
                 do
                 {
-                    dueNotifications =
-                        (
-                            from eventNotification in dataContext.EventNotifications
-                            where eventNotification.Succeeded == null
-                            orderby eventNotification.CreatedDate
-                            select eventNotification
-                        ).Take(batchSize).ToArray();
-
+                    var retryBeforeDate = DateTime.Now - retryWaitPeriod;
+                    dueNotifications = Data.EventNotification.GetNext(dataContext.EventNotifications, retryBeforeDate, maxAttempts, batchSize);
 
                     foreach (var eventNotification in dueNotifications)
                     {
                         eventNotification.NotificationDate = DateTime.Now;
+
+                        if (eventNotification.AttemptCount == null)
+                            eventNotification.AttemptCount = 1;
+                        else
+                            eventNotification.AttemptCount++;
+
                         try
                         {
                             Channel channel = Channel.Create(eventNotification.Subscription.Channels.Single());

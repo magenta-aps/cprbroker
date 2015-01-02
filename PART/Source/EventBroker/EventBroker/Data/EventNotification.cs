@@ -114,5 +114,21 @@ namespace CprBroker.EventBroker.Data
             };
             return ret;
         }
+
+        public static EventNotification[] GetNext(IQueryable<EventNotification> eventNotifications, DateTime retryBeforeDate, int maxAttempts, int batchSize)
+        {
+            return (
+                    from eventNotification in eventNotifications
+                    where
+                        eventNotification.Succeeded == null
+                    || (
+                        eventNotification.Succeeded.Value == false
+                        && eventNotification.NotificationDate < retryBeforeDate
+                        && (eventNotification.AttemptCount == null || eventNotification.AttemptCount < maxAttempts)
+                        )
+                    orderby eventNotification.CreatedDate
+                    select eventNotification
+                ).Take(batchSize).ToArray();
+        }
     }
 }
