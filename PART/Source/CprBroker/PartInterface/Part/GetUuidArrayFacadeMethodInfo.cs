@@ -97,13 +97,10 @@ namespace CprBroker.Engine.Part
 
         public override string[] Aggregate(object[] results)
         {
-            // TODO: Is this method used?
             return (this.SubMethodInfos[0] as GetUuidArraySubMethodInfo)
                 .States.Select(s => s.Output).ToArray();
         }
-
     }
-
 
     public class GetUuidArraySubMethodInfo : BatchSubMethodInfo<IPartPersonMappingDataProvider, string, string>
     {
