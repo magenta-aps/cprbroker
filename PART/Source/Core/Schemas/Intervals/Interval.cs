@@ -74,7 +74,7 @@ namespace CprBroker.Schemas.Part
             }
         }
 
-        // TODO: Remove this method if only used in tests
+        // Not used, but kept for tests to avoid creating an extra base class for stubs
         public static Interval[] CreateFromData(params ITimedType[] dataObjects)
         {
             return CreateFromData<Interval>(dataObjects.AsQueryable());
