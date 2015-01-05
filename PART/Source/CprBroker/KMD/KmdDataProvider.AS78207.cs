@@ -720,8 +720,6 @@ namespace CprBroker.Providers.KMD
                 };
             }
 
-
-
             public DateTime? GetRegistrationDate()
             {
                 return Utilities.GetMaxDate(
