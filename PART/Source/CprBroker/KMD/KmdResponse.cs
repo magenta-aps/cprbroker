@@ -73,7 +73,7 @@ namespace CprBroker.Providers.KMD
                 RelationListe = ToRelationListeType(detailsResponse, cpr2uuidFunc),
 
                 AktoerRef = Constants.Actor,
-                CommentText = Constants.CommentText,
+                CommentText = "",
                 LivscyklusKode = LivscyklusKodeType.Rettet,
                 Tidspunkt = TidspunktType.Create(detailsResponse.GetRegistrationDate()),
                 Virkning = null,
