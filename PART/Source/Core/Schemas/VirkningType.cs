@@ -139,6 +139,40 @@ namespace CprBroker.Schemas.Part
                 && v2.FraTidspunkt.ToDateTime().Value < v1.TilTidspunkt.ToDateTime().Value;
         }
 
+        public static bool DateRangeIncludes(DateTime? startDate, DateTime? endDate, DateTime effectDate, bool nullStartDateOK)
+        {
+            if (startDate.HasValue && endDate.HasValue && startDate.Value > endDate.Value)
+            {
+                throw new ArgumentException(string.Format("startDate <{0}> must me less than or equal o endDate <{1}>", startDate, endDate));
+            }
+            bool startDateRange = nullStartDateOK ?
+                !startDate.HasValue || startDate.Value <= effectDate
+                : startDate.HasValue && startDate.Value <= effectDate;
+            if (startDateRange)
+            {
+                return !endDate.HasValue || endDate.Value >= effectDate;
+            }
+            return false;
+        }
+
+        public static bool DateRangeIncludes(DateTime? startDate, DateTime? endDate, DateTime? effectDate)
+        {
+            if (startDate.HasValue && endDate.HasValue && startDate.Value > endDate.Value)
+            {
+                throw new ArgumentException(string.Format("startDate <{0}> must me less than or equal o endDate <{1}>", startDate, endDate));
+            }
+            if (!effectDate.HasValue)
+            {
+                return true;
+            }
+            else
+            {
+                var startDateRange = !startDate.HasValue || startDate.Value <= effectDate.Value;
+                var endDateRange = !endDate.HasValue || endDate.Value >= effectDate.Value;
+                return startDateRange && endDateRange;
+            }
+        }
+
         public static DateTime ToStartDateTimeOrMinValue(DateTime? startTS)
         {
             if (startTS.HasValue)

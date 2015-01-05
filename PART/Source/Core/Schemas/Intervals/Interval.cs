@@ -154,7 +154,7 @@ namespace CprBroker.Schemas.Part
                 {
                     var missingTagObject = dataObjects.Where(
                         o => o.Tag == missingTag
-                            && Utilities.Dates.DateRangeIncludes(o.ToStartTS(), o.ToEndTS(), currentInterval.StartTS)
+                            && VirkningType.DateRangeIncludes(o.ToStartTS(), o.ToEndTS(), currentInterval.StartTS)
                             ).FirstOrDefault();
                     if (missingTagObject != null)
                         currentInterval.Data.Add(missingTagObject);

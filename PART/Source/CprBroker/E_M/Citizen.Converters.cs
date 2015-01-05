@@ -95,7 +95,7 @@ namespace CprBroker.Providers.E_M
 
         public virtual bool ToDirectoryProtectionIndicator(DateTime effectDate)
         {
-            return Utilities.Dates.DateRangeIncludes(this.ToDirectoryProtectionStartDate(), this.ToDirectoryProtectionEndDate(), effectDate, false);
+            return VirkningType.DateRangeIncludes(this.ToDirectoryProtectionStartDate(), this.ToDirectoryProtectionEndDate(), effectDate, false);
         }
 
         public DateTime? ToAddressProtectionStartDate()
@@ -110,7 +110,7 @@ namespace CprBroker.Providers.E_M
 
         public virtual bool ToAddressProtectionIndicator(DateTime effectDate)
         {
-            return Utilities.Dates.DateRangeIncludes(this.ToAddressProtectionStartDate(), this.ToAddressProtectionEndDate(), effectDate, false);
+            return VirkningType.DateRangeIncludes(this.ToAddressProtectionStartDate(), this.ToAddressProtectionEndDate(), effectDate, false);
         }
 
         public virtual bool ToCivilRegistrationValidityStatusIndicator()
