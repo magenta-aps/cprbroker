@@ -17,7 +17,6 @@ namespace CprBroker.Schemas.Part
                     CommentText = null,
                     CprNumber = null,
                     ReferenceID = UnikIdType.Create(targetUuid),
-                    // TODO: Fill virkning object from parameters
                     Virkning = VirkningType.Create(fromDate, toDate)
                 };
             }
@@ -37,7 +36,6 @@ namespace CprBroker.Schemas.Part
                     CommentText = null,
                     CprNumber = cprNumber,
                     ReferenceID = null,
-                    // TODO: Fill virkning object from parameters
                     Virkning = VirkningType.Create(fromDate, toDate)
                 };
             }
