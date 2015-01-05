@@ -183,7 +183,7 @@ namespace CprBroker.Providers.DPR
 
                 AktoerRef = Constants.Actor,
                 // CommentText not supported
-                CommentText = null,
+                CommentText = "",
                 LivscyklusKode = LivscyklusKodeType.Rettet,
                 Tidspunkt = TidspunktType.Create(this.RegistrationDate),
                 Virkning = null
