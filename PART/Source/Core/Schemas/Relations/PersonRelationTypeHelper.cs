@@ -13,7 +13,7 @@ namespace CprBroker.Schemas.Part
             {
                 return new TRelation()
                 {
-                    //TODO: Add comment text
+                    //CommentText not supported
                     CommentText = null,
                     CprNumber = null,
                     ReferenceID = UnikIdType.Create(targetUuid),
@@ -33,7 +33,7 @@ namespace CprBroker.Schemas.Part
             {
                 return new TRelation()
                 {
-                    //TODO: Add comment text
+                    //CommentText not supported
                     CommentText = null,
                     CprNumber = cprNumber,
                     ReferenceID = null,
