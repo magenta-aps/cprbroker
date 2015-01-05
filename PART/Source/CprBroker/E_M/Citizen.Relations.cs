@@ -165,7 +165,7 @@ namespace CprBroker.Providers.E_M
                 {
                     if (cpr2uuidFunc != null)
                     {
-                        return PersonRelationType.CreateList(cpr2uuidFunc(Converters.ToCprNumber(this.FatherPNR)));
+                        return PersonRelationType.CreateList(cpr2uuidFunc(Converters.ToCprNumber(this.FatherPNR)), null, null);
                     }
                     else
                     {
@@ -188,7 +188,7 @@ namespace CprBroker.Providers.E_M
                 {
                     if (cpr2uuidFunc != null)
                     {
-                        return PersonRelationType.CreateList(cpr2uuidFunc(Converters.ToCprNumber(this.MotherPNR)));
+                        return PersonRelationType.CreateList(cpr2uuidFunc(Converters.ToCprNumber(this.MotherPNR)), null, null);
                     }
                     else
                     {
