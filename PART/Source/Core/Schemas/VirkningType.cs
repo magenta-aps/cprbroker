@@ -88,20 +88,19 @@ namespace CprBroker.Schemas.Part
             {
                 throw new ArgumentNullException("partialEffects");
             }
-            // TODO: What is the default value for DateTime? in case input array is empty?
+
             var fromDate =
                 partialEffects
                 .Where(pe => pe.FraTidspunkt.ToDateTime().HasValue)
                 .Select(pe => pe.FraTidspunkt.ToDateTime())
-                .OrderBy(d => d.Value)
-                .FirstOrDefault();
+                .Min();
 
             var to =
                 partialEffects
                 .Where(pe => pe.TilTidspunkt.ToDateTime().HasValue)
                 .Select(pe => pe.TilTidspunkt.ToDateTime())
-                .OrderByDescending(d => d.Value)
-                .FirstOrDefault();
+                .Max();
+
             return VirkningType.Create(fromDate, to);
         }
 
