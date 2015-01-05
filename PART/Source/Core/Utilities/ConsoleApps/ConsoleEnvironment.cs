@@ -274,13 +274,14 @@ namespace CprBroker.Utilities.ConsoleApps
             Log(string.Format(text, args));
         }
 
-        public void Log(string text)        {
+        public void Log(string text)
+        {
             if (!string.IsNullOrEmpty(text))
             {
                 lock (this)
                 {
-                    Console.WriteLine(text, args);
-                    logFileWriter.WriteLine(text, args);
+                    Console.WriteLine(text);
+                    logFileWriter.WriteLine(text);
                 }
             }
         }
