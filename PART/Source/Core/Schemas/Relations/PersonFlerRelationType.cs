@@ -66,15 +66,5 @@ namespace CprBroker.Schemas.Part
         {
             return PersonRelationTypeHelper.Create<PersonFlerRelationType>(cprNumber, fromDate, toDate);
         }
-
-        public static PersonFlerRelationType[] CreateList(params Guid[] targetUuids)
-        {
-            return PersonRelationTypeHelper.CreateList<PersonFlerRelationType>(targetUuids);
-        }
-
-        public static PersonFlerRelationType[] CreateList(params string[] cprNumbers)
-        {
-            return PersonRelationTypeHelper.CreateList<PersonFlerRelationType>(cprNumbers);
-        }
     }
 }
