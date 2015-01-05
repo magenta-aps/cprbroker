@@ -58,6 +58,20 @@ namespace BatchClient
     {
         public static void Main(params string[] args)
         {
+            CprBroker.Engine.BrokerContext.Initialize(args[0], "");
+            var prov = new CprBroker.Providers.CPRDirect.CPRDirectExtractDataProvider()
+            {
+                ConfigurationProperties = new Dictionary<string, string>(),
+                FtpAddress = args[1],
+                FtpUser = args[2],
+                FtpPassword = args[3],
+                FtpRegexFilter = args[4],
+            };
+            var files = prov.ListFtpContents();
+
+            foreach (var file in files)
+                Console.WriteLine(file);
+            return;
             ConsoleEnvironment env = ConsoleEnvironment.Create(args);
             env.Run();
         }
