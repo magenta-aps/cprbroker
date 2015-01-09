@@ -99,6 +99,8 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Queues\DprUpdateQueue.cs" />
+    <Compile Include="Queues\DprUpdateQueueItem.cs" />
     <Compile Include="Utilities.cs" />
   </ItemGroup>
   <ItemGroup>

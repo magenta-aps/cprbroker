@@ -97,14 +97,14 @@ namespace CprBroker.Providers.DPR
 
         #endregion
 
-        protected string Address
+        public string Address
         {
             get
             {
                 return ConfigurationProperties["Address"];
             }
         }
-        protected int Port
+        public int Port
         {
             get
             {
@@ -112,7 +112,7 @@ namespace CprBroker.Providers.DPR
             }
         }
 
-        protected string ConnectionString
+        public string ConnectionString
         {
             get
             {
@@ -133,6 +133,10 @@ namespace CprBroker.Providers.DPR
             get
             {
                 return Convert.ToBoolean(ConfigurationProperties["Disable Diversion"]);
+            }
+            set
+            {
+                ConfigurationProperties["Disable Diversion"] = Convert.ToString(value);
             }
         }
 
