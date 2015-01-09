@@ -56,6 +56,7 @@ using CprBroker.Schemas.Part;
 using NUnit.Framework;
 using System.Xml;
 using CprBroker.Engine;
+using CprBroker.PartInterface;
 
 namespace BatchClient
 {
@@ -104,7 +105,7 @@ namespace BatchClient
                         var ret = dataContext.PersonMappings.Where(pm => pm.CprNumber == relPnr).Select(pm => pm.UUID).FirstOrDefault();
                         if (ret.Equals(Guid.Empty))
                         {
-                            var res = PartManager.GetUuid("", AppToken.ToString(), relPnr);
+                            var res = new PartManager().GetUuid("", AppToken.ToString(), relPnr);
                             ret = new Guid(res.UUID);
                         }
                         return ret;
@@ -140,7 +141,7 @@ namespace BatchClient
             var oioReg = PersonRegistration.ToXmlType(dbReg);
 
             oioReg.AttributListe.Egenskab[0].FoedestedNavn = null;
-            contentsXml = Strings.SerializeObject(oioReg);
+            contentsXml = CprBroker.Utilities.Strings.SerializeObject(oioReg);
 
             System.Xml.XmlDocument doc = new System.Xml.XmlDocument();
             doc.LoadXml(contentsXml);
@@ -155,8 +156,8 @@ namespace BatchClient
 
             contentsXml = doc.ChildNodes[1].OuterXml;
             // Repeat serialization to avoid empty text
-            oioReg = Strings.Deserialize<RegistreringType1>(contentsXml);
-            contentsXml = Strings.SerializeObject(oioReg);
+            oioReg = CprBroker.Utilities.Strings.Deserialize<RegistreringType1>(contentsXml);
+            contentsXml = CprBroker.Utilities.Strings.SerializeObject(oioReg);
 
             sourceXml = dbReg.SourceObjects.ToString();
         }
