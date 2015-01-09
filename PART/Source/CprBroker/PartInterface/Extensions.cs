@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+// TODO: Change namespace to CprBroker.PartInterface
 namespace CprBroker.Utilities
 {
     public static class Extensions
