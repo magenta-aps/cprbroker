@@ -72,7 +72,7 @@ namespace CprBroker.Providers.DPR.Queues
                 foreach (var dbProv in provDataContext.DataProviders)
                 {
                     var prov = factory.CreateDataProvider(dbProv) as DprDatabaseDataProvider;
-                    if (prov != null)
+                    if (prov != null && prov.AutoUpdate)
                     {
                         try
                         {

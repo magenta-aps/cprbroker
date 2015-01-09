@@ -78,7 +78,8 @@ namespace CprBroker.Providers.DPR
                         new DataProviderConfigPropertyInfo(){Type = DataProviderConfigPropertyInfoTypes.Boolean, Name="Disable Diversion", Required=false,Confidential=false},
                         new DataProviderConfigPropertyInfo(){Type = DataProviderConfigPropertyInfoTypes.String, Name="Address", Required=false, Confidential=false},
                         new DataProviderConfigPropertyInfo(){Type = DataProviderConfigPropertyInfoTypes.Integer, Name="Port", Required=false, Confidential=false},
-                        new DataProviderConfigPropertyInfo(){Type = DataProviderConfigPropertyInfoTypes.Integer, Name="TCP Read Timeout (ms)" , Required=true, Confidential=false}                    
+                        new DataProviderConfigPropertyInfo(){Type = DataProviderConfigPropertyInfoTypes.Integer, Name="TCP Read Timeout (ms)" , Required=true, Confidential=false},
+                        new DataProviderConfigPropertyInfo(){Type = DataProviderConfigPropertyInfoTypes.Integer, Name="Auto Update" , Required=true, Confidential=false}
                     })
                     .ToArray();
             }
@@ -137,6 +138,18 @@ namespace CprBroker.Providers.DPR
             set
             {
                 ConfigurationProperties["Disable Diversion"] = Convert.ToString(value);
+            }
+        }
+
+        public bool AutoUpdate
+        {
+            get
+            {
+                return this.GetBoolean("Auto Update");
+            }
+            set
+            {
+                ConfigurationProperties["Auto Update"] = Convert.ToString(value);
             }
         }
 
