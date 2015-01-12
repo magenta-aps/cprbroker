@@ -66,7 +66,12 @@ namespace CprBroker.Providers.DPR
 
         #region IExternalDataProvider Members
 
-        public Dictionary<string, string> ConfigurationProperties { get; set; }
+        private Dictionary<string, string> _ConfigurationProperties = new Dictionary<string, string>();
+        public Dictionary<string, string> ConfigurationProperties
+        {
+            get { return _ConfigurationProperties; }
+            set { _ConfigurationProperties = value; }
+        }
 
         public DataProviderConfigPropertyInfo[] ConfigurationKeys
         {
@@ -102,14 +107,14 @@ namespace CprBroker.Providers.DPR
         {
             get
             {
-                return ConfigurationProperties["Address"];
+                return this.GetString("Address");
             }
         }
         public int Port
         {
             get
             {
-                return int.Parse(ConfigurationProperties["Port"]);
+                return this.GetInteger("Port");
             }
         }
 
@@ -125,7 +130,7 @@ namespace CprBroker.Providers.DPR
         {
             get
             {
-                return Convert.ToInt32(ConfigurationProperties["TCP Read Timeout (ms)"]);
+                return this.GetInteger("TCP Read Timeout (ms)");
             }
         }
 
@@ -133,7 +138,7 @@ namespace CprBroker.Providers.DPR
         {
             get
             {
-                return Convert.ToBoolean(ConfigurationProperties["Disable Diversion"]);
+                return this.GetBoolean("Disable Diversion");
             }
             set
             {
