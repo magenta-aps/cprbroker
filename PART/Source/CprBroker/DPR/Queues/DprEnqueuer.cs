@@ -60,13 +60,45 @@ namespace CprBroker.Providers.DPR.Queues
             return TimeSpan.FromMinutes(1);
         }
 
-        public static int BatchSize = 1000;
-        public static TimeSpan Delay = TimeSpan.FromMinutes(1);
+        private int _BatchSize = 1000;
+        public int BatchSize
+        {
+            get { return _BatchSize; }
+            set { _BatchSize = value; }
+        }
+
+        private TimeSpan _Delay = TimeSpan.FromMinutes(1);
+        public TimeSpan Delay
+        {
+            get { return _Delay; }
+            set { _Delay = value; }
+        }
+
+        public virtual DprUpdateQueue GetDprUpdateQueue()
+        {
+            return CprBroker.Engine.Queues.Queue.GetQueues<DprUpdateQueue>().Single();
+        }
+
+        public void CopyChanges(DprDatabaseDataProvider prov, Guid dataProviderId, DprUpdateQueue updateQueue)
+        {
+            Admin.LogFormattedSuccess("Pulling changes from {0}", prov.ToString());
+            var objects = prov.GetChanges(BatchSize, this.Delay).ToArray();
+
+            while (objects.Length > 0)
+            {
+                Admin.LogFormattedSuccess("Found {0} changes at {1}", objects.Length, prov.ToString());
+                var queueItems = objects.Select(o => new DprUpdateQueueItem() { Pnr = o.PNR, DataProviderId = dataProviderId }).ToArray();
+                updateQueue.Enqueue(queueItems);
+                prov.DeleteChanges(objects);
+
+                objects = prov.GetChanges(BatchSize, this.Delay).ToArray();
+            }
+        }
 
         protected override void PerformTimerAction()
         {
             var factory = new DataProviderFactory();
-            var updateQueue = CprBroker.Engine.Queues.Queue.GetQueues<DprUpdateQueue>().Single();
+            var updateQueue = GetDprUpdateQueue();
             using (var provDataContext = new DataProvidersDataContext())
             {
                 foreach (var dbProv in provDataContext.DataProviders)
@@ -76,31 +108,7 @@ namespace CprBroker.Providers.DPR.Queues
                     {
                         try
                         {
-                            var connectionBuilder = new SqlConnectionStringBuilder(prov.ConnectionString);
-                            Admin.LogFormattedSuccess("Pulling changes from {0}\\{1}", connectionBuilder.DataSource, connectionBuilder.InitialCatalog);
-
-                            using (var dataContext = new UpdatesDataContext(connectionBuilder.ConnectionString))
-                            {
-                                var timeThreshold = DateTime.Now - Delay;
-                                Func<T_DPRUpdateStaging[]> getter = () => dataContext.T_DPRUpdateStagings
-                                    .Where(o => o.CreateTS < timeThreshold)
-                                    .OrderBy(o => o.CreateTS)
-                                    .Take(BatchSize)
-                                    .ToArray();
-
-                                var objects = getter();
-
-                                while (objects.Length > 0)
-                                {
-                                    Admin.LogFormattedSuccess("Found {0} changes at {0}\\{1}", objects.Length, connectionBuilder.DataSource, connectionBuilder.InitialCatalog);
-                                    var queueItems = objects.Select(o => new DprUpdateQueueItem() { Pnr = o.PNR, DataProviderId = dbProv.DataProviderId }).ToArray();
-                                    updateQueue.Enqueue(queueItems);
-                                    dataContext.T_DPRUpdateStagings.DeleteAllOnSubmit(objects);
-                                    dataContext.SubmitChanges();
-
-                                    objects = getter();
-                                }
-                            }
+                            CopyChanges(prov, dbProv.DataProviderId, updateQueue);
                         }
                         catch (Exception ex)
                         {
@@ -110,5 +118,7 @@ namespace CprBroker.Providers.DPR.Queues
                 }
             }
         }
+
+
     }
 }

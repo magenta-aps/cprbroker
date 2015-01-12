@@ -77,6 +77,12 @@ namespace CprBroker.Engine
 
     }
 
+    public interface IChangePuller<T>
+    {
+        IEnumerable<T> GetChanges(int batchSize, TimeSpan delay);
+        void DeleteChanges(IEnumerable<T> changes);
+    }
+
     /// <summary>
     /// A data provider that supports update detection
     /// </summary>

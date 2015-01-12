@@ -61,7 +61,7 @@ namespace CprBroker.Providers.DPR
     /// <summary>
     /// Implements the Read operation of Part standard
     /// </summary>
-    public partial class DprDatabaseDataProvider : ClientDataProvider, IPutSubscriptionDataProvider, IPartReadDataProvider
+    public partial class DprDatabaseDataProvider : ClientDataProvider, IPutSubscriptionDataProvider, IPartReadDataProvider, IChangePuller<Queues.T_DPRUpdateStaging>
     {
 
         public RegistreringType1 Read(PersonIdentifier uuid, LaesInputType input, Func<string, Guid> cpr2uuidFunc, out QualityLevel? ql)
@@ -124,5 +124,48 @@ namespace CprBroker.Providers.DPR
                 return false;
             }
         }
+
+        public virtual IEnumerable<Queues.T_DPRUpdateStaging> GetChanges(int batchSize, TimeSpan delay)
+        {
+            var timeThreshold = DateTime.Now - delay;
+            using (var dataContext = new Queues.UpdatesDataContext(this.ConnectionString))
+            {
+                return dataContext.T_DPRUpdateStagings
+                    .Where(o => o.CreateTS < timeThreshold)
+                    .OrderBy(o => o.CreateTS)
+                    .Take(batchSize)
+                    .ToArray();
+            }
+        }
+
+        public void DeleteChanges(IEnumerable<Queues.T_DPRUpdateStaging> changes)
+        {
+            using (var dataContext = new Queues.UpdatesDataContext(this.ConnectionString))
+            {
+                var ids = changes.Select(c => c.Id).ToArray();
+                dataContext.T_DPRUpdateStagings.DeleteAllOnSubmit(
+                    dataContext.T_DPRUpdateStagings.Where(c => ids.Contains(c.Id))
+                );
+                dataContext.SubmitChanges();
+            }
+        }
+
+        public override string ToString()
+        {
+            var b = new System.Data.SqlClient.SqlConnectionStringBuilder(this.ConnectionString);
+            var ret = string.Format(@"{0} at {1}\{2}",
+                GetType().Name,
+                b.DataSource,
+                b.InitialCatalog);
+
+            if (!this.DisableDiversion)
+            {
+                ret += string.Format(@", {0}:{1}",
+                    this.Address,
+                    this.Port);
+            }
+            return ret;
+        }
+
     }
 }
