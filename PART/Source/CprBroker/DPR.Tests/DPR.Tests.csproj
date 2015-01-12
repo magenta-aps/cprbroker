@@ -87,6 +87,7 @@
     <Compile Include="CivilStatus.ToToPersonRelationTypeArray.Tests.cs" />
     <Compile Include="DepartureTests.cs" />
     <Compile Include="DprDatabaseDataProviderTests.cs" />
+    <Compile Include="DprEnqueuerTests.cs" />
     <Compile Include="PersonInfoTests.cs" />
     <Compile Include="PersonName.Tests.cs" />
     <Compile Include="PersonTotal.ToPersonInfo.Address.Tests.cs" />

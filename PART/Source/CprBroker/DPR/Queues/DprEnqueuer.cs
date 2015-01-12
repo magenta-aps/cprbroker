@@ -79,7 +79,7 @@ namespace CprBroker.Providers.DPR.Queues
             return CprBroker.Engine.Queues.Queue.GetQueues<DprUpdateQueue>().Single();
         }
 
-        public void CopyChanges(DprDatabaseDataProvider prov, Guid dataProviderId, DprUpdateQueue updateQueue)
+        public void CopyChanges(DprDatabaseDataProvider prov, Guid dataProviderId, Engine.Queues.Queue<DprUpdateQueueItem> updateQueue)
         {
             Admin.LogFormattedSuccess("Pulling changes from {0}", prov.ToString());
             var objects = prov.GetChanges(BatchSize, this.Delay).ToArray();
@@ -87,7 +87,10 @@ namespace CprBroker.Providers.DPR.Queues
             while (objects.Length > 0)
             {
                 Admin.LogFormattedSuccess("Found {0} changes at {1}", objects.Length, prov.ToString());
-                var queueItems = objects.Select(o => new DprUpdateQueueItem() { Pnr = o.PNR, DataProviderId = dataProviderId }).ToArray();
+                var queueItems = objects
+                    .Select(o => o.PNR)
+                    .Distinct()
+                    .Select(o => new DprUpdateQueueItem() { Pnr = o, DataProviderId = dataProviderId }).ToArray();
                 updateQueue.Enqueue(queueItems);
                 prov.DeleteChanges(objects);
 

@@ -139,12 +139,26 @@ namespace CprBroker.Tests.DPR
                 using (var dataContext = new Providers.DPR.Queues.UpdatesDataContext(prov.ConnectionString))
                 {
                     dataContext.T_DPRUpdateStagings.InsertOnSubmit(new Providers.DPR.Queues.T_DPRUpdateStaging() { CreateTS = DateTime.Now.AddDays(-1), DPRTable = "" });
-                    dataContext.T_DPRUpdateStagings.InsertOnSubmit(new Providers.DPR.Queues.T_DPRUpdateStaging() { CreateTS = DateTime.Now.AddDays(-1), DPRTable = "" });
+                    dataContext.T_DPRUpdateStagings.InsertOnSubmit(new Providers.DPR.Queues.T_DPRUpdateStaging() { CreateTS = DateTime.Now.AddDays(-2), DPRTable = "" });
                     dataContext.T_DPRUpdateStagings.InsertOnSubmit(new Providers.DPR.Queues.T_DPRUpdateStaging() { CreateTS = DateTime.Now.AddDays(0), DPRTable = "" });
                     dataContext.SubmitChanges();
                 }
                 var changes = prov.GetChanges(1, TimeSpan.FromMinutes(0)).ToArray();
                 Assert.AreEqual(1, changes.Length);
+            }
+
+            [Test]
+            public void GetChanges_TwoSameDate_OneRequested_Two()
+            {
+                var prov = new DprDatabaseDataProvider() { ConnectionString = Databases[0].ConnectionString };
+                using (var dataContext = new Providers.DPR.Queues.UpdatesDataContext(prov.ConnectionString))
+                {
+                    dataContext.T_DPRUpdateStagings.InsertOnSubmit(new Providers.DPR.Queues.T_DPRUpdateStaging() { CreateTS = DateTime.Now.AddDays(-1), DPRTable = "" });
+                    dataContext.T_DPRUpdateStagings.InsertOnSubmit(new Providers.DPR.Queues.T_DPRUpdateStaging() { CreateTS = DateTime.Now.AddDays(-1).AddMilliseconds(50), DPRTable = "" });
+                    dataContext.SubmitChanges();
+                }
+                var changes = prov.GetChanges(1, TimeSpan.FromMinutes(0)).ToArray();
+                Assert.AreEqual(2, changes.Length);
             }
         }
 

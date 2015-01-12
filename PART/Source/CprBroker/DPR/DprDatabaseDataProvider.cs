@@ -130,11 +130,20 @@ namespace CprBroker.Providers.DPR
             var timeThreshold = DateTime.Now - delay;
             using (var dataContext = new Queues.UpdatesDataContext(this.ConnectionString))
             {
-                return dataContext.T_DPRUpdateStagings
+                var ret = dataContext.T_DPRUpdateStagings
                     .Where(o => o.CreateTS < timeThreshold)
                     .OrderBy(o => o.CreateTS)
                     .Take(batchSize)
-                    .ToArray();
+                    .ToList();
+
+                if (ret.Count > 0)// Use the set with ties, aka: the set of updates for the same people that are within the same time range (+ 1 second)
+                {
+                    var pnrs = ret.Select(o => o.PNR).Distinct().ToArray();
+                    var maxTS = ret.Max(o => o.CreateTS).AddSeconds(1);// one second delay allowance
+                    var pnrTies = dataContext.T_DPRUpdateStagings.Where(o => pnrs.Contains(o.PNR) && o.CreateTS < maxTS).ToList();
+                    ret = pnrTies;
+                }
+                return ret;
             }
         }
 

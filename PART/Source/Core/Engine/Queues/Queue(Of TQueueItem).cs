@@ -18,7 +18,7 @@ namespace CprBroker.Engine.Queues
             this.Impl = DbQueue.GetById(queueId);
         }
 
-        public TQueueItem[] GetNext(int maxCount)
+        public virtual TQueueItem[] GetNext(int maxCount)
         {
             return Impl.GetNext(maxCount)
                 .Select(
@@ -31,12 +31,12 @@ namespace CprBroker.Engine.Queues
                 .ToArray();
         }
 
-        public void Remove(TQueueItem[] items)
+        public virtual void Remove(TQueueItem[] items)
         {
             Impl.Remove(items.Select(i => i.Impl).ToArray());
         }
 
-        public void MarkFailure(TQueueItem[] items)
+        public virtual void MarkFailure(TQueueItem[] items)
         {
             Impl.MarkFailure(items.Select(i => i.Impl).ToArray());
         }
@@ -46,7 +46,7 @@ namespace CprBroker.Engine.Queues
             Enqueue(new TQueueItem[] { item }, semaphore);
         }
 
-        public void Enqueue(TQueueItem[] items, Semaphore semaphore = null)
+        public virtual void Enqueue(TQueueItem[] items, Semaphore semaphore = null)
         {
             var itemKeys = items.Select(it => it.SerializeToKey()).ToArray();
             Impl.Enqueue(
