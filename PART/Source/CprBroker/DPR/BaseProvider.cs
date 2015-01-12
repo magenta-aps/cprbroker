@@ -94,7 +94,6 @@ namespace CprBroker.Providers.DPR
         {
             get
             {
-                // TODO: rename the operation key to something like "Diversion". "Cost" is a bit ambigious.
                 return new string[] {
                     Constants.DiversionOperationName
                 };
@@ -105,57 +104,38 @@ namespace CprBroker.Providers.DPR
 
         public string Address
         {
-            get
-            {
-                return this.GetString("Address");
-            }
+            get { return this.GetString("Address"); }
+            set { this.ConfigurationProperties["Address"] = value; }
         }
+
         public int Port
         {
-            get
-            {
-                return this.GetInteger("Port");
-            }
+            get { return this.GetInteger("Port"); }
+            set { this.ConfigurationProperties["Port"] = Convert.ToString(value); }
         }
 
         public string ConnectionString
         {
-            get
-            {
-                return DataProviderConfigPropertyInfo.Templates.GetConnectionString(this.ConfigurationProperties);
-            }
+            get { return DataProviderConfigPropertyInfo.Templates.GetConnectionString(this.ConfigurationProperties); }
+            set { DataProviderConfigPropertyInfo.Templates.SetConnectionString(value, this.ConfigurationProperties); }
         }
 
         public int TcpReadTimeout
         {
-            get
-            {
-                return this.GetInteger("TCP Read Timeout (ms)");
-            }
+            get { return this.GetInteger("TCP Read Timeout (ms)"); }
+            set { this.ConfigurationProperties["TCP Read Timeout (ms)"] = Convert.ToString(value); }
         }
 
         public bool DisableDiversion
         {
-            get
-            {
-                return this.GetBoolean("Disable Diversion");
-            }
-            set
-            {
-                ConfigurationProperties["Disable Diversion"] = Convert.ToString(value);
-            }
+            get { return this.GetBoolean("Disable Diversion"); }
+            set { ConfigurationProperties["Disable Diversion"] = Convert.ToString(value); }
         }
 
         public bool AutoUpdate
         {
-            get
-            {
-                return this.GetBoolean("Auto Update");
-            }
-            set
-            {
-                ConfigurationProperties["Auto Update"] = Convert.ToString(value);
-            }
+            get { return this.GetBoolean("Auto Update"); }
+            set { ConfigurationProperties["Auto Update"] = Convert.ToString(value); }
         }
 
         #region IDataProvider Members
