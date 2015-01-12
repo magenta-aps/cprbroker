@@ -118,7 +118,5 @@ namespace CprBroker.Providers.DPR.Queues
                 }
             }
         }
-
-
     }
 }
