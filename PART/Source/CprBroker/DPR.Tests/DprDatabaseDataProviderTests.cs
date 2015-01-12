@@ -46,6 +46,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using NUnit.Framework;
+using System.Data.SqlClient;
 
 using CprBroker.Providers.DPR;
 
@@ -64,7 +65,30 @@ namespace CprBroker.Tests.DPR
                 Assert.IsNotEmpty(ret);
             }
 
-            
+            [Test]
+            public void ToString_New_HasDbLocation()
+            {
+                var prov = new DprDatabaseDataProvider() { ConnectionString = "data source=DS; database=DB" };
+                var ret = prov.ToString();
+                Assert.GreaterOrEqual(ret.IndexOf(@"DS\DB"), 0);
+            }
+
+            [Test]
+            public void ToString_NoDiversion_NoAddressPort()
+            {
+                var prov = new DprDatabaseDataProvider() { ConnectionString = "data source=DS; database=DB", Address = "adr", Port = 123, DisableDiversion = true };
+                var ret = prov.ToString();
+                Assert.AreEqual(-1, ret.IndexOf(@"adr"));
+                Assert.AreEqual(-1, ret.IndexOf(@"123"));
+            }
+
+            [Test]
+            public void ToString_HasDiversion_NoAddressPort()
+            {
+                var prov = new DprDatabaseDataProvider() { ConnectionString = "data source=DS; database=DB", Address = "adr", Port = 123, DisableDiversion = false };
+                var ret = prov.ToString(); 
+                Assert.GreaterOrEqual(ret.IndexOf(@"adr:123"), 0);
+            }
         }
 
         [TestFixture]
