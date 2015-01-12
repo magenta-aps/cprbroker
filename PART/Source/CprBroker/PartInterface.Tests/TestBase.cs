@@ -53,7 +53,7 @@ namespace CprBroker.Tests.PartInterface
             ConfigManager.Current.Commit();
         }
 
-        public void InitLogging()
+        public virtual void InitLogging()
         {
             var log = ConfigManager.Current.LoggingSettings;
 
@@ -104,7 +104,8 @@ namespace CprBroker.Tests.PartInterface
                 string kill =
                     string.Format("declare @kill varchar(8000) = ''; select @kill=@kill+'kill '+convert(varchar(5),spid)+';'    from master..sysprocesses where dbid=db_id('{0}');exec (@kill); ", db.DbName)
                     + "\r\nGO\r\n"
-                    + "DROP DATABASE " + db.DbName + "";
+                    + "IF EXISTS (SELECT name FROM sys.databases WHERE name = '" + db.DbName + "')"
+                    + "    DROP DATABASE " + db.DbName + "";
                 CprBroker.Installers.DatabaseCustomAction.ExecuteDDL(kill, db.MasterConnectionString);
             }
         }

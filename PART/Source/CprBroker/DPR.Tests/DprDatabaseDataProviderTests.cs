@@ -49,6 +49,7 @@ using NUnit.Framework;
 using System.Data.SqlClient;
 
 using CprBroker.Providers.DPR;
+using CprBroker.Providers.DPR.Queues;
 
 namespace CprBroker.Tests.DPR
 {
@@ -86,17 +87,112 @@ namespace CprBroker.Tests.DPR
             public void ToString_HasDiversion_NoAddressPort()
             {
                 var prov = new DprDatabaseDataProvider() { ConnectionString = "data source=DS; database=DB", Address = "adr", Port = 123, DisableDiversion = false };
-                var ret = prov.ToString(); 
+                var ret = prov.ToString();
                 Assert.GreaterOrEqual(ret.IndexOf(@"adr:123"), 0);
             }
         }
 
-        [TestFixture]
-        public class GetChanges
-        { }
+        public abstract class ChangesTest : PartInterface.TestBase
+        {
+            public override void InitLogging()
+            {
+                // Do nothing
+            }
+
+            public override void CreateDatabases()
+            {
+                Databases.Add(CreateDatabase("dprdpr_", Providers.DPR.Properties.Resources.CreateTrackingTables, new KeyValuePair<string, string>[] { }));
+            }
+        }
 
         [TestFixture]
-        public class DeleteChanges
-        { }
+        public class GetChanges : ChangesTest
+        {
+            [Test]
+            public void GetChanges_None_Zero()
+            {
+                var prov = new DprDatabaseDataProvider() { ConnectionString = Databases[0].ConnectionString };
+                var changes = prov.GetChanges(100, new TimeSpan());
+                Assert.IsEmpty(changes);
+            }
+
+            [Test]
+            public void GetChanges_ThreeWOneTooNew_Two()
+            {
+                var prov = new DprDatabaseDataProvider() { ConnectionString = Databases[0].ConnectionString };
+                using (var dataContext = new Providers.DPR.Queues.UpdatesDataContext(prov.ConnectionString))
+                {
+                    dataContext.T_DPRUpdateStagings.InsertOnSubmit(new Providers.DPR.Queues.T_DPRUpdateStaging() { CreateTS = DateTime.Now.AddDays(-1), DPRTable = "" });
+                    dataContext.T_DPRUpdateStagings.InsertOnSubmit(new Providers.DPR.Queues.T_DPRUpdateStaging() { CreateTS = DateTime.Now.AddDays(-1), DPRTable = "" });
+                    dataContext.T_DPRUpdateStagings.InsertOnSubmit(new Providers.DPR.Queues.T_DPRUpdateStaging() { CreateTS = DateTime.Now.AddDays(0), DPRTable = "" });
+                    dataContext.SubmitChanges();
+                }
+                var changes = prov.GetChanges(100, TimeSpan.FromMinutes(1)).ToArray();
+
+                Assert.AreEqual(2, changes.Length);
+            }
+
+            [Test]
+            public void GetChanges_ThreeWOneRequested_One()
+            {
+                var prov = new DprDatabaseDataProvider() { ConnectionString = Databases[0].ConnectionString };
+                using (var dataContext = new Providers.DPR.Queues.UpdatesDataContext(prov.ConnectionString))
+                {
+                    dataContext.T_DPRUpdateStagings.InsertOnSubmit(new Providers.DPR.Queues.T_DPRUpdateStaging() { CreateTS = DateTime.Now.AddDays(-1), DPRTable = "" });
+                    dataContext.T_DPRUpdateStagings.InsertOnSubmit(new Providers.DPR.Queues.T_DPRUpdateStaging() { CreateTS = DateTime.Now.AddDays(-1), DPRTable = "" });
+                    dataContext.T_DPRUpdateStagings.InsertOnSubmit(new Providers.DPR.Queues.T_DPRUpdateStaging() { CreateTS = DateTime.Now.AddDays(0), DPRTable = "" });
+                    dataContext.SubmitChanges();
+                }
+                var changes = prov.GetChanges(1, TimeSpan.FromMinutes(0)).ToArray();
+                Assert.AreEqual(1, changes.Length);
+            }
+        }
+
+        [TestFixture]
+        public class DeleteChanges : ChangesTest
+        {
+            [Test]
+            public void DeleteChanges_None_OK()
+            {
+                var prov = new DprDatabaseDataProvider() { ConnectionString = Databases[0].ConnectionString };
+                var changes = new T_DPRUpdateStaging[0];
+                prov.DeleteChanges(changes);
+            }
+
+            [Test]
+            public void DeleteChanges_All_NoneLeft()
+            {
+                var prov = new DprDatabaseDataProvider() { ConnectionString = Databases[0].ConnectionString };
+                using (var dataContext = new Providers.DPR.Queues.UpdatesDataContext(prov.ConnectionString))
+                {
+                    dataContext.T_DPRUpdateStagings.InsertOnSubmit(new Providers.DPR.Queues.T_DPRUpdateStaging() { CreateTS = DateTime.Now.AddDays(-1), DPRTable = "" });
+                    dataContext.T_DPRUpdateStagings.InsertOnSubmit(new Providers.DPR.Queues.T_DPRUpdateStaging() { CreateTS = DateTime.Now.AddDays(-1), DPRTable = "" });
+                    dataContext.T_DPRUpdateStagings.InsertOnSubmit(new Providers.DPR.Queues.T_DPRUpdateStaging() { CreateTS = DateTime.Now.AddDays(0), DPRTable = "" });
+                    dataContext.SubmitChanges();
+                }
+                var changes = prov.GetChanges(100, TimeSpan.FromMinutes(0)).ToArray();
+                prov.DeleteChanges(changes);
+
+                var newChanges = prov.GetChanges(100, new TimeSpan());
+                Assert.IsEmpty(newChanges);
+            }
+
+            [Test]
+            public void DeleteChanges_OneOfTwo_OneLeft()
+            {
+                var prov = new DprDatabaseDataProvider() { ConnectionString = Databases[0].ConnectionString };
+                using (var dataContext = new Providers.DPR.Queues.UpdatesDataContext(prov.ConnectionString))
+                {
+                    dataContext.T_DPRUpdateStagings.InsertOnSubmit(new Providers.DPR.Queues.T_DPRUpdateStaging() { CreateTS = DateTime.Now.AddDays(-1), DPRTable = "" });
+                    dataContext.T_DPRUpdateStagings.InsertOnSubmit(new Providers.DPR.Queues.T_DPRUpdateStaging() { CreateTS = DateTime.Now.AddDays(0), DPRTable = "" });
+                    dataContext.SubmitChanges();
+                }
+                var changes = prov.GetChanges(1, TimeSpan.FromMinutes(0)).ToArray();
+                prov.DeleteChanges(changes);
+
+                var newChanges = prov.GetChanges(100, new TimeSpan());
+                Assert.AreEqual(1, newChanges.Count());
+            }
+        }
     }
 }
