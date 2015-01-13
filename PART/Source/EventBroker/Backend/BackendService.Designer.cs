@@ -39,6 +39,7 @@
             this.DataChangeEventPuller = new CprBroker.EventBroker.Notifications.DataChangeEventPuller();
             this.QueueExecutionManager = new CprBroker.Engine.Tasks.QueueExecutionManager();
             this.DprDiversionManager = new CprBroker.DBR.DprDiversionManager();
+            this.DprEnqueuer = new CprBroker.Providers.DPR.Queues.DprEnqueuer();
             // 
             // BackendService
             // 
@@ -58,5 +59,6 @@
         private Notifications.DataChangeEventPuller DataChangeEventPuller;
         private CprBroker.Engine.Tasks.QueueExecutionManager QueueExecutionManager;
         private CprBroker.DBR.DprDiversionManager DprDiversionManager;
+        private CprBroker.Providers.DPR.Queues.DprEnqueuer DprEnqueuer;
     }
 }
