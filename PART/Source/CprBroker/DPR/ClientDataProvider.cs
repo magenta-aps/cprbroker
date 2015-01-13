@@ -158,7 +158,18 @@ namespace CprBroker.Providers.DPR
                     {
                         using (var updateDataContext = new Queues.UpdatesDataContext(conn))
                         {
+                            // Select event - staging table existence
                             var u = updateDataContext.T_DPRUpdateStagings.FirstOrDefault();
+
+                            // Insert event
+                            var u2 = new Queues.T_DPRUpdateStaging() { CreateTS = DateTime.Now, PNR = 0, DPRTable = "DTTOTAL" };
+                            updateDataContext.T_DPRUpdateStagings.InsertOnSubmit(u2);
+                            updateDataContext.SubmitChanges();
+
+                            // Delete event
+                            var u3 = updateDataContext.T_DPRUpdateStagings.Where(o => o.PNR == 0).ToArray();
+                            updateDataContext.T_DPRUpdateStagings.DeleteAllOnSubmit(u3);
+                            updateDataContext.SubmitChanges();
                         }
                     }
                     return true;

@@ -84,7 +84,7 @@ namespace CprBroker.Providers.DPR
                         new DataProviderConfigPropertyInfo(){Type = DataProviderConfigPropertyInfoTypes.String, Name="Address", Required=false, Confidential=false},
                         new DataProviderConfigPropertyInfo(){Type = DataProviderConfigPropertyInfoTypes.Integer, Name="Port", Required=false, Confidential=false},
                         new DataProviderConfigPropertyInfo(){Type = DataProviderConfigPropertyInfoTypes.Integer, Name="TCP Read Timeout (ms)" , Required=true, Confidential=false},
-                        new DataProviderConfigPropertyInfo(){Type = DataProviderConfigPropertyInfoTypes.Integer, Name="Auto Update" , Required=true, Confidential=false}
+                        new DataProviderConfigPropertyInfo(){Type = DataProviderConfigPropertyInfoTypes.Boolean, Name="Auto Update" , Required=true, Confidential=false}
                     })
                     .ToArray();
             }
