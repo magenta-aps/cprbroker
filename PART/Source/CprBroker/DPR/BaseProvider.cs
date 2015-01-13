@@ -142,8 +142,8 @@ namespace CprBroker.Providers.DPR
         {
             try
             {
-                CprBroker.Installers.DatabaseCustomAction.ExecuteDDL(Properties.Resources.CreateTrackingTables, this.ConnectionString);
-                CprBroker.Installers.DatabaseCustomAction.ExecuteDDL(Properties.Resources.CreateTrackingTriggers, this.ConnectionString);
+                CprBroker.Installers.DatabaseCustomAction.ExecuteDDL(Properties.Resources.CreateTrackingTables, this.ConnectionString, false);
+                CprBroker.Installers.DatabaseCustomAction.ExecuteDDL(Properties.Resources.CreateTrackingTriggers, this.ConnectionString, false);
                 return true;
             }
             catch (Exception ex)
