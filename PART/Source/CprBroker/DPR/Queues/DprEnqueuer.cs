@@ -60,19 +60,22 @@ namespace CprBroker.Providers.DPR.Queues
             return TimeSpan.FromMinutes(1);
         }
 
-        private int _BatchSize = 1000;
+        [System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
         public int BatchSize
         {
             get { return _BatchSize; }
             set { _BatchSize = value; }
         }
+        private int _BatchSize = 1000;
 
-        private TimeSpan _Delay = TimeSpan.FromMinutes(1);
+        [System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
         public TimeSpan Delay
         {
             get { return _Delay; }
             set { _Delay = value; }
         }
+        private TimeSpan _Delay = TimeSpan.FromMinutes(1);
+
 
         public virtual DprUpdateQueue GetDprUpdateQueue()
         {
