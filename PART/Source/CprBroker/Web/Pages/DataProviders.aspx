@@ -67,6 +67,12 @@
                         CommandName="Ping">Ping</asp:LinkButton>
                 </ItemTemplate>
             </asp:TemplateField>
+            <asp:TemplateField ShowHeader="False" ControlStyle-CssClass="CommandButton" HeaderText="Auto Update">
+                <ItemTemplate>
+                    <asp:LinkButton ID="LinkButton3" runat="server" CommandArgument='<%# Eval("DataProviderId") %>' Visible='<%# (bool) typeof(IAutoUpdateDataProvider).IsAssignableFrom(Type.GetType(Eval("TypeName").ToString())) %>'
+                        CommandName="AutoUpdate">Init</asp:LinkButton>
+                </ItemTemplate>
+            </asp:TemplateField>
             <asp:CommandField ShowDeleteButton="True" ControlStyle-CssClass="CommandButton" />
             <asp:TemplateField ControlStyle-CssClass="UpDownButton">
                 <ItemTemplate>

@@ -138,6 +138,22 @@ namespace CprBroker.Providers.DPR
             set { ConfigurationProperties["Auto Update"] = Convert.ToString(value); }
         }
 
+        public bool InitAutoUpdate()
+        {
+            try
+            {
+                CprBroker.Installers.DatabaseCustomAction.ExecuteDDL(Properties.Resources.CreateTrackingTables, this.ConnectionString);
+                CprBroker.Installers.DatabaseCustomAction.ExecuteDDL(Properties.Resources.CreateTrackingTriggers, this.ConnectionString);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                CprBroker.Engine.Local.Admin.LogException(ex);
+                return false;
+            }
+        }
+
+
         #region IDataProvider Members
 
         public virtual bool IsAlive()

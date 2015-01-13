@@ -77,6 +77,12 @@ namespace CprBroker.Engine
 
     }
 
+    public interface IAutoUpdateDataProvider
+    {
+        bool AutoUpdate { get; }
+        bool InitAutoUpdate();
+    }
+
     public interface IChangePuller<T>
     {
         IEnumerable<T> GetChanges(int batchSize, TimeSpan delay);

@@ -4,24 +4,14 @@
 /*==============================================================*/
 
 
-if exists (select 1
-            from  sysobjects
-           where  id = object_id('T_DPRUpdateStaging')
-            and   type = 'U')
-   drop table T_DPRUpdateStaging
-go
-
-if exists (select 1
-            from  sysobjects
-           where  id = object_id('T_DPRUpdateStaging_DPRTable')
-            and   type = 'U')
-   drop table T_DPRUpdateStaging_DPRTable
-go
-
 /*==============================================================*/
 /* Table: T_DPRUpdateStaging                                    */
 /*==============================================================*/
-create table T_DPRUpdateStaging (
+if not exists (select 1
+            from  sysobjects
+           where  id = object_id('T_DPRUpdateStaging')
+            and   type = 'U')
+  create table T_DPRUpdateStaging (
    Id                   int                  identity,
    PNR                  decimal(11)          not null,
    DPRTable             varchar(120)         not null,
@@ -33,13 +23,17 @@ go
 /*==============================================================*/
 /* Table: T_DPRUpdateStaging_DPRTable                           */
 /*==============================================================*/
-create table T_DPRUpdateStaging_DPRTable (
+
+if not exists (select 1
+            from  sysobjects
+           where  id = object_id('T_DPRUpdateStaging_DPRTable')
+            and   type = 'U')
+BEGIN
+  create table T_DPRUpdateStaging_DPRTable (
    Id                   int                  identity,
    DPRTable             varchar(120)         not null,
    constraint PK_T_DPRUpdateStaging_DPRTable primary key (Id)
-)
-go
-
+);
 INSERT INTO T_DPRUpdateStaging_DPRTable (DPRTable) VALUES ('DTBESKYT')
 INSERT INTO T_DPRUpdateStaging_DPRTable (DPRTable) VALUES ('DTBOERN')
 INSERT INTO T_DPRUpdateStaging_DPRTable (DPRTable) VALUES ('DTCIV')
@@ -53,4 +47,7 @@ INSERT INTO T_DPRUpdateStaging_DPRTable (DPRTable) VALUES ('DTSTAT')
 INSERT INTO T_DPRUpdateStaging_DPRTable (DPRTable) VALUES ('DTTOTAL')
 INSERT INTO T_DPRUpdateStaging_DPRTable (DPRTable) VALUES ('DTUDRIND')
 
-GO
+END
+
+go
+

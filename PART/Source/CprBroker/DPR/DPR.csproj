@@ -43,6 +43,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Core\Output\CprBroker.Engine.dll</HintPath>
     </Reference>
+    <Reference Include="CprBroker.Installers">
+      <HintPath>..\..\Core\Output\CprBroker.Installers.dll</HintPath>
+    </Reference>
     <Reference Include="CprBroker.Schemas, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Core\Output\CprBroker.Schemas.dll</HintPath>
@@ -162,6 +165,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\CreateTrackingTables.sql" />
+    <Content Include="Resources\CreateTrackingTriggers.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Queues\UpdatesDataContext.dbml.layout">

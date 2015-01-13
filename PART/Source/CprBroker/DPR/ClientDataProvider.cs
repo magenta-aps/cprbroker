@@ -142,20 +142,32 @@ namespace CprBroker.Providers.DPR
 
         public bool IsDatabaseAlive()
         {
-            System.Data.SqlClient.SqlConnection conn = new System.Data.SqlClient.SqlConnection();
-            try
+            using (var conn = new System.Data.SqlClient.SqlConnection())
             {
-                conn.ConnectionString = this.ConnectionString;
-                conn.Open();
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-            finally
-            {
-                conn.Close();
+                try
+                {
+                    conn.ConnectionString = this.ConnectionString;
+                    conn.Open();
+
+                    using (var dprDataContext = new DPRDataContext(conn))
+                    {
+                        var p = dprDataContext.PersonTotals.FirstOrDefault();
+                    }
+
+                    if (this.AutoUpdate)
+                    {
+                        using (var updateDataContext = new Queues.UpdatesDataContext(conn))
+                        {
+                            var u = updateDataContext.T_DPRUpdateStagings.FirstOrDefault();
+                        }
+                    }
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    Engine.Local.Admin.LogException(ex);
+                    return false;
+                }
             }
         }
 
