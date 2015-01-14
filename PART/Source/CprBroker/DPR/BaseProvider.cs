@@ -138,12 +138,26 @@ namespace CprBroker.Providers.DPR
             set { ConfigurationProperties["Auto Update"] = Convert.ToString(value); }
         }
 
+        public string AutoUpdateHint
+        {
+            get
+            {
+                var ret = new List<string>();
+                ret.Add(Properties.Resources.CreateTrackingTables);
+                ret.Add(Properties.Resources.CreateTrackingTriggers);
+
+                var builder = new System.Data.SqlClient.SqlConnectionStringBuilder(this.ConnectionString);
+                ret.Add(Properties.Resources.InitTrackingPermissions.Replace("<userId>", builder.UserID));
+
+                return string.Join("\r\nGO\r\n", ret.ToArray());
+            }
+        }
+
         public bool InitAutoUpdate()
         {
             try
             {
-                CprBroker.Installers.DatabaseCustomAction.ExecuteDDL(Properties.Resources.CreateTrackingTables, this.ConnectionString, false);
-                CprBroker.Installers.DatabaseCustomAction.ExecuteDDL(Properties.Resources.CreateTrackingTriggers, this.ConnectionString, false);
+                CprBroker.Installers.DatabaseCustomAction.ExecuteDDL(AutoUpdateHint, this.ConnectionString, false);
                 return true;
             }
             catch (Exception ex)

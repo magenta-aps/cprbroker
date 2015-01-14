@@ -98,5 +98,19 @@ namespace CprBroker.Providers.DPR.Properties {
                 return ResourceManager.GetString("CreateTrackingTriggers", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GRANT DELETE ON [T_DPRUpdateStaging] TO [&lt;userId&gt;]
+        ///GO
+        ///
+        ///GRANT INSERT ON [T_DPRUpdateStaging] TO [&lt;userId&gt;]
+        ///GO
+        ///.
+        /// </summary>
+        public static string InitTrackingPermissions {
+            get {
+                return ResourceManager.GetString("InitTrackingPermissions", resourceCulture);
+            }
+        }
     }
 }

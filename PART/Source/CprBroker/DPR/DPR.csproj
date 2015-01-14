@@ -166,6 +166,7 @@
   <ItemGroup>
     <Content Include="Resources\CreateTrackingTables.sql" />
     <Content Include="Resources\CreateTrackingTriggers.sql" />
+    <Content Include="Resources\InitTrackingPermissions.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Queues\UpdatesDataContext.dbml.layout">
