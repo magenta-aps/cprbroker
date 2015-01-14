@@ -13,6 +13,15 @@ namespace CprBroker.Web.Pages.Controls {
     public partial class MessageDisplayer {
         
         /// <summary>
+        /// close1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlButton close1;
+        
+        /// <summary>
         /// divMessages control.
         /// </summary>
         /// <remarks>

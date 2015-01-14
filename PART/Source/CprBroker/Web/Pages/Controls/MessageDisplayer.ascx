@@ -15,8 +15,10 @@
 
 <!-- Begin Messages -->
 <div id="dialog-box" style="display: none;">
+
     <div class="dialog-box-inner">
-        <div runat="server" enableviewstate="false" id="divMessages"></div>
+        <button runat="server" id="close1" onclick="openDialog('dialog-box')" class="close">Close</button>
+        <div class="dialog-box-inner2" runat="server" enableviewstate="false" id="divMessages"></div>
         <button onclick="openDialog('dialog-box')" class="close">Close</button>
     </div>
 </div>

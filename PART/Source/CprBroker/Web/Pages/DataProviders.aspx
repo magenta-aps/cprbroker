@@ -70,7 +70,7 @@
             <asp:TemplateField ShowHeader="False" ControlStyle-CssClass="CommandButton" HeaderText="Auto Update">
                 <ItemTemplate>
                     <asp:LinkButton ID="LinkButton3" runat="server" CommandArgument='<%# Eval("DataProviderId") %>' Visible='<%# (bool) typeof(IAutoUpdateDataProvider).IsAssignableFrom(Type.GetType(Eval("TypeName").ToString())) %>'
-                        CommandName="AutoUpdateHint">Show hint</asp:LinkButton>
+                        CommandName="AutoUpdateHint" CausesValidation="false">Show hint</asp:LinkButton>
                 </ItemTemplate>
             </asp:TemplateField>
             <asp:CommandField ShowDeleteButton="True" ControlStyle-CssClass="CommandButton" />
