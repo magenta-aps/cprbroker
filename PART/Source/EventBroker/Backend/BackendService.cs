@@ -69,23 +69,17 @@ namespace CprBroker.EventBroker.Backend
             InitializeComponent();
         }
 
+        PeriodicTaskExecuter[] _InstalledTaskExecuters;
         PeriodicTaskExecuter[] InstalledTaskExecuters
         {
             get
             {
-                var explicitQueues = new PeriodicTaskExecuter[]{
-                    this.BirthdateEventEnqueuer,
-                    this.DataChangeEventPuller,
-                    this.CriteriaSubscriptionPersonPopulator,
-                    this.DataChangeEventEnqueuer,
-                    this.NotificationSender,
-                    this.CprDirectDownloader,
-                    this.CprDirectExtractor,
-                    this.BudgetChecker,
-                    this.QueueExecutionManager,
-                    this.DprDiversionManager
-                };
-                return explicitQueues.ToArray();
+                if (_InstalledTaskExecuters == null)
+                {
+                    var factory = new TaskFactory();
+                    _InstalledTaskExecuters = factory.LoadTasks();
+                }
+                return _InstalledTaskExecuters.ToArray();
             }
         }
 

@@ -53,15 +53,15 @@ namespace CprBroker.Utilities.Config
     {
         public const string SectionName = "tasks";
 
-        [ConfigurationProperty(SectionName, IsDefaultCollection = true)]
-        [ConfigurationCollection(typeof(TypeCollection),
+        [ConfigurationProperty("autoLoaded", IsDefaultCollection = false)]
+        [ConfigurationCollection(typeof(TaskElementCollection),
             AddItemName = "add",
             ClearItemsName = "clear",
             RemoveItemName = "remove")]
         public TaskElementCollection KnownTypes
         {
-            get { return (TaskElementCollection)this["tasks"]; }
-            set { this["tasks"] = value; }
+            get { return (TaskElementCollection)this["autoLoaded"]; }
+            set { this["autoLoaded"] = value; }
         }
 
         public class TaskElementCollection : ConfigurationElementCollection

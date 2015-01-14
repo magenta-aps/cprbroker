@@ -13,6 +13,7 @@ namespace CprBroker.Tests.Utilities
         [Test]
         public void Load_AddAndSave_OK()
         {
+            System.Diagnostics.Debugger.Launch();
             var config = System.Configuration.ConfigurationManager.OpenExeConfiguration(System.Configuration.ConfigurationUserLevel.None);
             var section = new TasksConfigurationSection();
             if (config.Sections[TasksConfigurationSection.SectionName] != null)
@@ -20,7 +21,7 @@ namespace CprBroker.Tests.Utilities
 
             section.KnownTypes.Add(new TasksConfigurationSection.TaskElement() { BatchSize = 100, Type = typeof(string), RunEvery = TimeSpan.FromMinutes(2) });
             section.KnownTypes.Add(new TasksConfigurationSection.TaskElement() { Type = typeof(object) });
-            config.Sections.Add("tasks", section);
+            config.Sections.Add(TasksConfigurationSection.SectionName, section);
             config.Save();
         }
 
