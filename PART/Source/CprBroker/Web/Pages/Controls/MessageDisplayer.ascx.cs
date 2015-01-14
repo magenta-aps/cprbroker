@@ -21,7 +21,8 @@ namespace CprBroker.Web.Pages.Controls
             // Render script elements
             this.divMessages.InnerHtml = string
                 .Join("<br><br>", this.AlertMessages.ToArray())
-                .Replace("\r\n","<br>");
+                .Replace("\r\n","<br>")
+                .Replace(" ","&nbsp;");
             if (AlertMessages.Count > 0)
             {
                 string val = "<script language=\"javascript\">"
