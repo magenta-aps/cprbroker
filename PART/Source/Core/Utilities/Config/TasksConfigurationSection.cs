@@ -113,7 +113,12 @@ namespace CprBroker.Utilities.Config
             [ConfigurationProperty("runEvery", IsRequired = false)]
             public TimeSpan RunEvery
             {
-                get { return Properties.Contains("runEvery") ? (TimeSpan)this["runEvery"] : TimeSpan.FromMinutes(1); }
+                get
+                {
+                    return !this["runEvery"].Equals(default(TimeSpan)) ?
+                        (TimeSpan)this["runEvery"]
+                        : TimeSpan.FromMinutes(1);
+                }
                 set { this["runEvery"] = value; }
             }
 

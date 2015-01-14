@@ -18,11 +18,26 @@ namespace CprBroker.Tests.Utilities
             if (config.Sections[TasksConfigurationSection.SectionName] != null)
                 config.Sections.Remove(TasksConfigurationSection.SectionName);
 
-            section.KnownTypes.Add(
-                new TasksConfigurationSection.TaskElement() { BatchSize = 100, Type = typeof(string), RunEvery = TimeSpan.FromMinutes(2) }
-            );
+            section.KnownTypes.Add(new TasksConfigurationSection.TaskElement() { BatchSize = 100, Type = typeof(string), RunEvery = TimeSpan.FromMinutes(2) });
+            section.KnownTypes.Add(new TasksConfigurationSection.TaskElement() { Type = typeof(object) });
             config.Sections.Add("tasks", section);
             config.Save();
+        }
+
+        [Test]
+        public void New_NoBatchSize_100()
+        {
+            var last = new TasksConfigurationSection.TaskElement();
+            var b = last.BatchSize;
+            Assert.AreEqual(100, b);
+        }
+
+        [Test]
+        public void New_NoInterval_OneMinute()
+        {
+            var last = new TasksConfigurationSection.TaskElement();
+            var b = last.RunEvery;
+            Assert.AreEqual(TimeSpan.FromMinutes(1), b);
         }
     }
 }
