@@ -19,6 +19,10 @@
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <UseIISExpress>false</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -106,6 +110,7 @@
     <Content Include="Pages\Controls\ConfigPropertyEditor.ascx" />
     <Content Include="Pages\Controls\ConfigPropertyGridEditor.ascx" />
     <Content Include="Pages\Controls\ConfigPropertyViewer.ascx" />
+    <Content Include="Pages\Controls\MessageDisplayer.ascx" />
     <Content Include="Pages\Controls\Pager.ascx" />
     <Content Include="Pages\Controls\PeriodSelector.ascx" />
     <Content Include="Pages\Budget.aspx" />
@@ -137,6 +142,13 @@
     </Compile>
     <Compile Include="Pages\Controls\ConfigPropertyViewer.ascx.designer.cs">
       <DependentUpon>ConfigPropertyViewer.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Controls\MessageDisplayer.ascx.cs">
+      <DependentUpon>MessageDisplayer.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Controls\MessageDisplayer.ascx.designer.cs">
+      <DependentUpon>MessageDisplayer.ascx</DependentUpon>
     </Compile>
     <Compile Include="Pages\Controls\Pager.ascx.cs">
       <DependentUpon>Pager.ascx</DependentUpon>

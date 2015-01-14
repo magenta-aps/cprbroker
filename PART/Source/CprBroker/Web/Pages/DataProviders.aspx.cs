@@ -205,7 +205,7 @@ namespace CprBroker.Web.Pages
                     }
                 }
             }
-            if (e.CommandName == "AutoUpdate")
+            if (e.CommandName == "AutoUpdateHint")
             {
                 using (var dataContext = new DataProvidersDataContext())
                 {
@@ -213,14 +213,7 @@ namespace CprBroker.Web.Pages
                     DataProvider dbProv = dataContext.DataProviders.Where(p => p.DataProviderId == id).OrderBy(dp => dp.Ordinal).SingleOrDefault();
                     var prov = new DataProviderFactory().CreateDataProvider(dbProv) as IAutoUpdateDataProvider;
 
-                    if (prov.InitAutoUpdate())
-                    {
-                        Master.AlertMessages.Add("Initialization succeeded");
-                    }
-                    else
-                    {
-                        Master.AlertMessages.Add("Initialization failed");
-                    }
+                    Master.AlertMessages.Add(prov.AutoUpdateHint);
                 }
             }
             else if (e.CommandName == "Enable")
