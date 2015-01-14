@@ -120,6 +120,25 @@ namespace CprBroker.Utilities.Config
             }
         }
 
+        private TasksConfigurationSection _TasksSection;
+        public TasksConfigurationSection TasksSection
+        {
+            get
+            {
+                if (_TasksSection == null)
+                {
+                    _TasksSection = CurrentConfiguration.Sections[TasksConfigurationSection.SectionName] as TasksConfigurationSection;
+                    if (_TasksSection == null)
+                    {
+                        _TasksSection = new TasksConfigurationSection();
+                        _DataProvidersConfigurationSectionGroup.Sections.Add(DataProvidersConfigurationSection.SectionName, _TasksSection);
+                        _CurrentConfiguration.Save();
+                    }
+                }
+                return _TasksSection;
+            }
+        }
+
         public LoggingSettings LoggingSettings
         {
             get 
