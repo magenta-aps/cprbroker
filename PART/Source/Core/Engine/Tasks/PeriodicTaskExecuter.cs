@@ -67,6 +67,14 @@ namespace CprBroker.Engine.Tasks
             get { return false; }
         }
 
+        public int BatchSize { get; set; }
+
+        public TimeSpan TimerInterval
+        {
+            get { return TimeSpan.FromMilliseconds(ActionTimer.Interval); }
+            set { ActionTimer.Interval = value.TotalMilliseconds; }
+        }
+
         public PeriodicTaskExecuter()
         {
             InitializeComponent();
