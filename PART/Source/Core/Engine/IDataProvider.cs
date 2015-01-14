@@ -80,6 +80,7 @@ namespace CprBroker.Engine
     public interface IAutoUpdateDataProvider
     {
         bool AutoUpdate { get; }
+        bool IsReady { get; }
         string AutoUpdateHint { get; }
         bool InitAutoUpdate();
     }

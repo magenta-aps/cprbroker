@@ -315,6 +315,15 @@ namespace CprBroker.Web.Pages
             return assebblyQualifiedName;
         }
 
+        protected string GetIsReady(object dbProv)
+        {
+            var f = new DataProviderFactory();
+            var prov = f.CreateDataProvider(dbProv as DataProvider) as IAutoUpdateDataProvider;
+            if (prov != null)
+                return prov.IsReady ? "Yes" : "No";
+            return "(N/A)";
+        }
+
         protected DataProvider[] LoadDataProviders(DataProvidersDataContext dataContext)
         {
             return dataContext.DataProviders.Where(dp => dp.IsExternal == true).OrderBy(dp => dp.Ordinal).ToArray()
