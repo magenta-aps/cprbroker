@@ -13,15 +13,13 @@
     };
 </script>
 
-<!-- Begin Messages -->
 <div id="dialog-box" style="display: none;">
 
     <div class="dialog-box-inner">
         <button runat="server" id="close1" onclick="openDialog('dialog-box')" class="close">Close</button>
-        <textarea class="dialog-box-inner2" runat="server" enableviewstate="false" id="divMessages"></textarea>
-        
-        <button id="close2" onclick="openDialog('dialog-box')" class="close">Close</button>
+        <textarea class="dialog-box-inner2" runat="server" enableviewstate="false" id="divMessages" readonly="readonly"></textarea>
+
+        <button id="close2" onclick="openDialog('dialog-box')" class="close" runat="server">Close</button>
     </div>
 
 </div>
-<!-- End Messages -->
