@@ -15,9 +15,7 @@ namespace CprBroker.EventBroker.Notifications
     {
         protected override void PerformTimerAction()
         {
-            int batchSize = ConfigManager.Current.Settings.SubscriptionCriteriaMatchingBatchSize;
-
-            Admin.LogFormattedSuccess("DataChangeEventEnqueuer.UpdateSubscriptionCriteriaLists() started, batch size <{0}>", batchSize);
+            Admin.LogFormattedSuccess("DataChangeEventEnqueuer.UpdateSubscriptionCriteriaLists() started, batch size <{0}>", this.BatchSize);
 
             using (var eventDataContext = new Data.EventBrokerDataContext())
             {
@@ -27,7 +25,7 @@ namespace CprBroker.EventBroker.Notifications
                 {
                     while (sub.LastCheckedUUID.HasValue)
                     {
-                        var added = sub.AddMatchingSubscriptionPersons(eventDataContext, batchSize);
+                        var added = sub.AddMatchingSubscriptionPersons(eventDataContext, this.BatchSize);
                         eventDataContext.SubmitChanges();
                         Admin.LogFormattedSuccess("Added <{0}> persons to subscription <{1}>, next start UUID <{2}>", added, sub.SubscriptionId, sub.LastCheckedUUID);
                     }

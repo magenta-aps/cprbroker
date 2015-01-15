@@ -72,15 +72,6 @@ namespace CprBroker.Config.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("10")]
-        public int EventBrokerNotificationBatchSize {
-            get {
-                return ((int)(this["EventBrokerNotificationBatchSize"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
         [global::System.Configuration.DefaultSettingValueAttribute("http://CprBroker/Services/Events.asmx")]
         public string EventsServiceUrl {
@@ -95,24 +86,6 @@ namespace CprBroker.Config.Properties {
         public bool ReturnCityNameInDistrictName {
             get {
                 return ((bool)(this["ReturnCityNameInDistrictName"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("100")]
-        public int DataChangeDequeueBatchSize {
-            get {
-                return ((int)(this["DataChangeDequeueBatchSize"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("200")]
-        public int SubscriptionCriteriaMatchingBatchSize {
-            get {
-                return ((int)(this["SubscriptionCriteriaMatchingBatchSize"]));
             }
         }
         

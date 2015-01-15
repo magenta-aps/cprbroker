@@ -59,14 +59,12 @@ namespace CprBroker.EventBroker.Notifications
     {
         protected override void PerformTimerAction()
         {
-            var batchSize = CprBroker.Utilities.Config.ConfigManager.Current.Settings.DataChangeDequeueBatchSize;
-
-            Admin.LogFormattedSuccess("DataChangeEventEnqueuer.PushNotifications() started, batch size <{0}>", batchSize);
+            Admin.LogFormattedSuccess("DataChangeEventEnqueuer.PushNotifications() started, batch size <{0}>", this.BatchSize);
             EventBroker.EventsService.DataChangeEventInfo[] changedPeople;
 
             do
             {
-                var resp = EventsService.DequeueDataChangeEvents(batchSize);
+                var resp = EventsService.DequeueDataChangeEvents(this.BatchSize);
                 changedPeople = resp.Item;
                 if (changedPeople == null)
                     changedPeople = new EventBroker.EventsService.DataChangeEventInfo[0];
@@ -92,7 +90,7 @@ namespace CprBroker.EventBroker.Notifications
             }
             // Stop if received less changes than requested 
             // == Continue as long as you get the same number of changes as requested
-            while (changedPeople.Length == batchSize);
+            while (changedPeople.Length == this.BatchSize);
         }
     }
 }

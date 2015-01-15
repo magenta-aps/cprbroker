@@ -26,20 +26,11 @@
 &lt;/SerializableConnectionString&gt;</DesignTimeValue>
       <Value Profile="(Default)">Data Source=SQLServer;Initial Catalog=PartEventBroker;User ID=cpr;Password=cpr</Value>
     </Setting>
-    <Setting Name="EventBrokerNotificationBatchSize" Type="System.Int32" Scope="Application">
-      <Value Profile="(Default)">10</Value>
-    </Setting>
     <Setting Name="EventsServiceUrl" Type="(Web Service URL)" Scope="Application">
       <Value Profile="(Default)">http://CprBroker/Services/Events.asmx</Value>
     </Setting>
     <Setting Name="ReturnCityNameInDistrictName" Type="System.Boolean" Scope="Application">
       <Value Profile="(Default)">False</Value>
-    </Setting>
-    <Setting Name="DataChangeDequeueBatchSize" Type="System.Int32" Scope="Application">
-      <Value Profile="(Default)">100</Value>
-    </Setting>
-    <Setting Name="SubscriptionCriteriaMatchingBatchSize" Type="System.Int32" Scope="Application">
-      <Value Profile="(Default)">200</Value>
     </Setting>
     <Setting Name="CprDirectExtractImportBatchSize" Type="System.Int32" Scope="Application">
       <Value Profile="(Default)">1000</Value>

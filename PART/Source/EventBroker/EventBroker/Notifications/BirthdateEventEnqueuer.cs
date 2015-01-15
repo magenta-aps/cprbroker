@@ -58,8 +58,6 @@ namespace CprBroker.EventBroker.Notifications
     /// </summary>
     public partial class BirthdateEventEnqueuer : CprBrokerEventEnqueuer
     {
-        public int BatchSize = 1000;
-
         public BirthdateEventEnqueuer()
             : base()
         {

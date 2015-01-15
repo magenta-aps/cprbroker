@@ -79,7 +79,6 @@ namespace CprBroker.EventBroker.Notifications
             using (var dataContext = new Data.EventBrokerDataContext())
             {
                 // Read config values
-                int batchSize = ConfigManager.Current.Settings.EventBrokerNotificationBatchSize;
                 var retryWaitPeriod = TimeSpan.FromMinutes(ConfigManager.Current.Settings.EventBrokerNotificationRetryIntervalMinutes);
                 var maxAttempts = ConfigManager.Current.Settings.EventBrokerNotificationMaxRetry;
 
@@ -87,7 +86,7 @@ namespace CprBroker.EventBroker.Notifications
                 do
                 {
                     var retryBeforeDate = DateTime.Now - retryWaitPeriod;
-                    dueNotifications = Data.EventNotification.GetNext(dataContext.EventNotifications, retryBeforeDate, maxAttempts, batchSize);
+                    dueNotifications = Data.EventNotification.GetNext(dataContext.EventNotifications, retryBeforeDate, maxAttempts, this.BatchSize);
 
                     foreach (var eventNotification in dueNotifications)
                     {
@@ -114,7 +113,7 @@ namespace CprBroker.EventBroker.Notifications
                     }
                     dataContext.SubmitChanges();
 
-                } while (dueNotifications.Length == batchSize);
+                } while (dueNotifications.Length == this.BatchSize);
             }
         }
     }
