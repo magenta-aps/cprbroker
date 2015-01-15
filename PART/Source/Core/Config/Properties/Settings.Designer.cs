@@ -44,24 +44,6 @@ namespace CprBroker.Config.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1000")]
-        public int DataContextDeadLockWaitMilliseconds {
-            get {
-                return ((int)(this["DataContextDeadLockWaitMilliseconds"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("600000")]
-        public int DataProviderRefreshPeriodMilliseconds {
-            get {
-                return ((int)(this["DataProviderRefreshPeriodMilliseconds"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
         [global::System.Configuration.DefaultSettingValueAttribute("Data Source=SQLServer;Initial Catalog=PartEventBroker;User ID=cpr;Password=cpr")]
         public string EventBrokerConnectionString {
@@ -91,28 +73,10 @@ namespace CprBroker.Config.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1000")]
-        public int CprDirectExtractImportBatchSize {
-            get {
-                return ((int)(this["CprDirectExtractImportBatchSize"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool CprDirectReturnsNewestFirst {
             get {
                 return ((bool)(this["CprDirectReturnsNewestFirst"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("60")]
-        public int CprDirectExtractIntervalSeconds {
-            get {
-                return ((int)(this["CprDirectExtractIntervalSeconds"]));
             }
         }
         

@@ -286,7 +286,7 @@ namespace CprBroker.Providers.CPRDirect
             }
         }
 
-        public static void ExtractLocalFiles(CPRDirectExtractDataProvider prov)
+        public static void ExtractLocalFiles(CPRDirectExtractDataProvider prov, int batchSize)
         {
             var files = Directory.GetFiles(prov.ExtractsFolder);
             Admin.LogFormattedSuccess("Found <{0}> files", files.Length);
@@ -296,7 +296,7 @@ namespace CprBroker.Providers.CPRDirect
                 try
                 {
                     Admin.LogFormattedSuccess("Reading file <{0}> ", file);
-                    ExtractManager.ImportFileInSteps(file, CprBroker.Utilities.Config.ConfigManager.Current.Settings.CprDirectExtractImportBatchSize);
+                    ExtractManager.ImportFileInSteps(file, batchSize);
                     Admin.LogFormattedSuccess("Importing file <{0}> succeeded", file);
 
                     MoveToProcessed(prov.ExtractsFolder, file);
