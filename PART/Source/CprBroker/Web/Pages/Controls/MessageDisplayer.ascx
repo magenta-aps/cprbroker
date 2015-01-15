@@ -18,8 +18,10 @@
 
     <div class="dialog-box-inner">
         <button runat="server" id="close1" onclick="openDialog('dialog-box')" class="close">Close</button>
-        <div class="dialog-box-inner2" runat="server" enableviewstate="false" id="divMessages"></div>
-        <button onclick="openDialog('dialog-box')" class="close">Close</button>
+        <textarea class="dialog-box-inner2" runat="server" enableviewstate="false" id="divMessages"></textarea>
+        
+        <button id="close2" onclick="openDialog('dialog-box')" class="close">Close</button>
     </div>
+
 </div>
 <!-- End Messages -->

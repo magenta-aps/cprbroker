@@ -229,26 +229,29 @@ table {
 }
 
 .dialog-box-inner {
-    left: 20%;
-    width: 60%;
-    height: 70%;
+    left: 50%;
+    top: 20%;
+    width: 30em;
+    height: auto;
     z-index: 1001;
-    margin: 10em auto;
-    /*padding: 2em 2em 1em;*/
-    background-color: gray;
+    margin: 0 0 0 -15em;
+    padding: 0 1em;
+    background-color: #ddd;
+    position: absolute;
+    text-align: center;
 }
 
 .dialog-box-inner2 {
-    width: auto;
-    height: auto;
-    max-height: 94%;
+    width: 90%;
+    height: 30em;
     background: white;
     text-align: left;
     overflow: auto;
+    padding: 1em;
+    display: block;
+    margin: 0 auto;
 }
 
 #dialog-box .close {
-    margin-top: 0.0em;
-    text-align:right;
-    
+    margin: 1em;
 }
