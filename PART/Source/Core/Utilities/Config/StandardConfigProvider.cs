@@ -141,9 +141,9 @@ namespace CprBroker.Utilities.Config
 
         public LoggingSettings LoggingSettings
         {
-            get 
+            get
             {
-                var ret= CurrentConfiguration.GetSection("loggingConfiguration") as LoggingSettings;
+                var ret = CurrentConfiguration.GetSection("loggingConfiguration") as LoggingSettings;
                 if (ret == null)
                 {
                     ret = new LoggingSettings();

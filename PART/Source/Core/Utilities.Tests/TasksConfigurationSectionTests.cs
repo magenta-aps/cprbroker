@@ -13,12 +13,11 @@ namespace CprBroker.Tests.Utilities
         [Test]
         public void Load_AddAndSave_OK()
         {
-            System.Diagnostics.Debugger.Launch();
             var config = System.Configuration.ConfigurationManager.OpenExeConfiguration(System.Configuration.ConfigurationUserLevel.None);
-            var section = new TasksConfigurationSection();
             if (config.Sections[TasksConfigurationSection.SectionName] != null)
                 config.Sections.Remove(TasksConfigurationSection.SectionName);
 
+            var section = new TasksConfigurationSection();
             section.KnownTypes.Add(new TasksConfigurationSection.TaskElement() { BatchSize = 100, Type = typeof(string), RunEvery = TimeSpan.FromMinutes(2) });
             section.KnownTypes.Add(new TasksConfigurationSection.TaskElement() { Type = typeof(object) });
             config.Sections.Add(TasksConfigurationSection.SectionName, section);
