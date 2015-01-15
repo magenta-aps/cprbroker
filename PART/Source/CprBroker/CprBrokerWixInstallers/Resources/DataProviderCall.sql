@@ -6,7 +6,7 @@ BEGIN
             CONSTRAINT [PK_DataProviderCall] PRIMARY KEY NONCLUSTERED ([DataProviderCallId] ASC),
 	    [ActivityId] [uniqueidentifier] NOT NULL,
 	    [CallTime] [datetime] NOT NULL
-            CONSTRAINT [DF_DataProviderCall_CallTime]  DEFAULT (getdate()) FOR [CallTime],
+            CONSTRAINT [DF_DataProviderCall_CallTime]  DEFAULT (getdate()),
 	    [DataProviderType] [varchar](250) NOT NULL,
 	    [Cost] [decimal](18, 4) NOT NULL,
 	    [Operation] [varchar](250) NOT NULL,
