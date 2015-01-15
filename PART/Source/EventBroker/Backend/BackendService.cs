@@ -69,29 +69,36 @@ namespace CprBroker.EventBroker.Backend
             InitializeComponent();
         }
 
-        PeriodicTaskExecuter[] _InstalledTaskExecuters;
-        PeriodicTaskExecuter[] InstalledTaskExecuters
+        public TaskFactory TaskFactory = new TaskFactory();
+
+        PeriodicTaskExecuter[] _TaskExecuters;
+        public virtual PeriodicTaskExecuter[] TaskExecuters
         {
             get
             {
-                if (_InstalledTaskExecuters == null)
+                if (_TaskExecuters == null)
                 {
-                    var factory = new TaskFactory();
-                    _InstalledTaskExecuters = factory.LoadTasks();
+                    _TaskExecuters = this.TaskFactory.LoadTasks()
+                        .Where(t => t != null)
+                        .ToArray();
+
+                    foreach (var t in _TaskExecuters)
+                        components.Add(t);
                 }
-                return _InstalledTaskExecuters.ToArray();
+
+                return _TaskExecuters.ToArray();
             }
         }
 
-        public void StartQueues()
+        public void StartTasks()
         {
-            foreach (var queue in this.InstalledTaskExecuters)
+            foreach (var queue in this.TaskExecuters)
                 queue.Start();
         }
 
-        public void StopQueues()
+        public void StopTasks()
         {
-            foreach (var queue in this.InstalledTaskExecuters)
+            foreach (var queue in this.TaskExecuters)
                 queue.Stop();
         }
 
@@ -99,23 +106,23 @@ namespace CprBroker.EventBroker.Backend
         {
             BrokerContext.Initialize(Constants.EventBrokerApplicationToken.ToString(), Constants.UserToken);
             CprBroker.Engine.Local.Admin.LogSuccess(TextMessages.BackendServiceStarting);
-            StartQueues();
+            StartTasks();
             CprBroker.Engine.Local.Admin.LogSuccess(TextMessages.BackendServiceStarted);
         }
 
         protected override void OnStop()
         {
-            StopQueues();
+            StopTasks();
         }
 
         protected override void OnContinue()
         {
-            StartQueues();
+            StartTasks();
         }
 
         protected override void OnPause()
         {
-            StopQueues();
+            StopTasks();
         }
 
     }
