@@ -45,35 +45,35 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
 using NUnit.Framework;
-using CprBroker.Engine.Tasks;
 using CprBroker.Utilities;
-using CprBroker.Utilities.Config;
 
-namespace CprBroker.Tests.Engine
+namespace CprBroker.Tests.Utilities
 {
-    namespace TaskFactoryTests
+    namespace ReflectionTests
     {
         [TestFixture]
-        public class CreateTask
+        public class IdentifyableName
         {
             [Test]
-            public void CreateTask_InvalidType_Null()
+            public void IdentifyableName_String_Correct()
             {
-                var f = new TaskFactory();
-                var elm = new TasksConfigurationSection.TaskElement() { TypeName = "123" };
-                var task = f.CreateTask<PeriodicTaskExecuter>(elm);
-                Assert.Null(task);
+                var t = typeof(string);
+                var ret = t.IdentifyableName();
+                Assert.AreEqual("System.String, mscorlib", ret);
+            }
+
+            class ObjectStub : Object
+            {
+                public string SSS;
             }
 
             [Test]
-            public void CreateTask_GoodType_NotNull()
+            public void IdentifyableName_Type_Regeneratable([Values(typeof(object), typeof(ObjectStub))]Type t)
             {
-                var f = new TaskFactory();
-                var elm = new TasksConfigurationSection.TaskElement() { TypeName = typeof(PeriodicTaskExecuter).IdentifyableName() };
-                var task = f.CreateTask<PeriodicTaskExecuter>(elm);
-                Assert.NotNull(task);
+                var ret = t.IdentifyableName();
+                var o = Reflection.CreateInstance(ret);
+                Assert.NotNull(o);
             }
         }
     }
