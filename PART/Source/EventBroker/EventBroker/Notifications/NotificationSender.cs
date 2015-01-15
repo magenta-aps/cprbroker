@@ -74,11 +74,6 @@ namespace CprBroker.EventBroker.Notifications
             InitializeComponent();
         }
 
-        protected override TimeSpan CalculateActionTimerInterval(TimeSpan currentInterval)
-        {
-            return TimeSpan.FromMilliseconds(ConfigManager.Current.Settings.EventBrokerPollIntervalMilliseconds);
-        }
-
         protected override void PerformTimerAction()
         {
             using (var dataContext = new Data.EventBrokerDataContext())

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CprBroker.Engine.Tasks
 {
-    public class TaskExecutionManager<T, TComparer> : PeriodicTaskExecuter
+    public abstract class TaskExecutionManager<T, TComparer> : PeriodicTaskExecuter
         where TComparer : IEqualityComparer<T>, new()
     {
         protected List<T> CurrentTasks = new List<T>();
@@ -13,11 +13,6 @@ namespace CprBroker.Engine.Tasks
         public T[] GetCurrentTaskExecuters()
         {
             return CurrentTasks.ToArray();
-        }
-
-        protected override TimeSpan CalculateActionTimerInterval(TimeSpan currentInterval)
-        {
-            return TimeSpan.FromSeconds(60);
         }
 
         protected override void PerformTimerAction()

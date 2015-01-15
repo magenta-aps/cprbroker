@@ -74,11 +74,6 @@ namespace CprBroker.EventBroker.Notifications
             container.Add(this);
         }
 
-        protected override TimeSpan CalculateActionTimerInterval(TimeSpan currentInterval)
-        {
-            return TimeSpan.FromMinutes(1);
-        }
-
         protected override void PerformTimerAction()
         {
             var batchSize = ConfigManager.Current.Settings.DataChangeDequeueBatchSize;

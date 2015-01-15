@@ -55,11 +55,6 @@ namespace CprBroker.EventBroker.Notifications
     [Obsolete]
     public class CPRDirectExtractor : CPRDirectIOExecuter
     {
-        protected override TimeSpan CalculateActionTimerInterval(TimeSpan currentInterval)
-        {
-            return TimeSpan.FromSeconds(Utilities.Config.ConfigManager.Current.Settings.CprDirectExtractIntervalSeconds);
-        }
-
         protected override void ExecuteCPRDirectTask(CPRDirectExtractDataProvider prov)
         {
             ExtractManager.ExtractLocalFiles(prov);

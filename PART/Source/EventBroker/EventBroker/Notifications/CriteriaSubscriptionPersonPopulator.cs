@@ -13,11 +13,6 @@ namespace CprBroker.EventBroker.Notifications
     /// </summary>
     public class CriteriaSubscriptionPersonPopulator : PeriodicTaskExecuter
     {
-        protected override TimeSpan CalculateActionTimerInterval(TimeSpan currentInterval)
-        {
-            return TimeSpan.FromMinutes(1);
-        }
-
         protected override void PerformTimerAction()
         {
             int batchSize = ConfigManager.Current.Settings.SubscriptionCriteriaMatchingBatchSize;

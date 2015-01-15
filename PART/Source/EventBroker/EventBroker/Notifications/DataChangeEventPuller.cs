@@ -57,11 +57,6 @@ namespace CprBroker.EventBroker.Notifications
     /// </summary>
     public class DataChangeEventPuller : CprBrokerEventEnqueuer
     {
-        protected override TimeSpan CalculateActionTimerInterval(TimeSpan currentInterval)
-        {
-            return TimeSpan.FromMinutes(1);
-        }
-
         protected override void PerformTimerAction()
         {
             var batchSize = CprBroker.Utilities.Config.ConfigManager.Current.Settings.DataChangeDequeueBatchSize;
