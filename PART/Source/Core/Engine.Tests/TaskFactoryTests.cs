@@ -45,30 +45,35 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+
+using NUnit.Framework;
+using CprBroker.Engine.Tasks;
 using CprBroker.Utilities.Config;
 
-namespace CprBroker.Engine.Tasks
+namespace CprBroker.Tests.Engine
 {
-    public class TaskFactory
+    namespace TaskFactoryTests
     {
-        public PeriodicTaskExecuter CreateTask<T>(TasksConfigurationSection.TaskElement element) where T : PeriodicTaskExecuter
+        [TestFixture]
+        public class CreateTask
         {
-            var task = Utilities.Reflection.CreateInstance<T>(element.Type);
-            if (task != null)
+            [Test]
+            public void CreateTask_InvalidType_Null()
             {
-                task.TimerInterval = element.RunEvery;
-                task.BatchSize = element.BatchSize;
+                var f = new TaskFactory();
+                var elm = new TasksConfigurationSection.TaskElement() { TypeName = "123" };
+                var task = f.CreateTask<PeriodicTaskExecuter>(elm);
+                Assert.Null(task);
             }
-            return task;
-        }
 
-        public PeriodicTaskExecuter[] LoadTasks()
-        {
-            var section = CprBroker.Utilities.Config.ConfigManager.Current.TasksSection;
-            return section.KnownTypes
-                .OfType<TasksConfigurationSection.TaskElement>()
-                .Select(e => CreateTask<PeriodicTaskExecuter>(e))
-                .ToArray();
+            [Test]
+            public void CreateTask_GoodType_NotNull()
+            {
+                var f = new TaskFactory();
+                var elm = new TasksConfigurationSection.TaskElement() { TypeName = typeof(PeriodicTaskExecuter).AssemblyQualifiedName };
+                var task = f.CreateTask<PeriodicTaskExecuter>(elm);
+                Assert.NotNull(task);
+            }
         }
     }
 }
