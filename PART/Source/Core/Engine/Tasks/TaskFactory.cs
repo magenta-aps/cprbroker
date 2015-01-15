@@ -62,11 +62,17 @@ namespace CprBroker.Engine.Tasks
             return task;
         }
 
-        public PeriodicTaskExecuter[] LoadTasks()
+        public virtual TasksConfigurationSection.TaskElement[] LoadTaskConfigElements()
         {
             var section = CprBroker.Utilities.Config.ConfigManager.Current.TasksSection;
             return section.KnownTypes
                 .OfType<TasksConfigurationSection.TaskElement>()
+                .ToArray();
+        }
+
+        public PeriodicTaskExecuter[] LoadTasks()
+        {
+            return LoadTaskConfigElements()
                 .Select(e => CreateTask<PeriodicTaskExecuter>(e))
                 .ToArray();
         }
