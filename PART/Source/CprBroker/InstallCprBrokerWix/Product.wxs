@@ -18,7 +18,7 @@
 
         <FeatureRef Id="CprBrokerFeature"/>
 
-        <Upgrade Id="FF0F6556-3323-43A8-9AB3-E567BEF13F6A">
+        <Upgrade Id="1F0F6556-3323-43A8-9AB3-E567BEF13F6A">
             <!--Detect old version -->
             <UpgradeVersion Maximum="2.2.3.0" IncludeMaximum="no" Property="OLDER_VERSION_DETECTED" OnlyDetect="yes" MigrateFeatures="yes" />
 
