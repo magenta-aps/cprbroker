@@ -55,6 +55,8 @@ using CprBroker.Installers;
 using CprBroker.Engine;
 using CprBroker.EventBroker.Data;
 using CprBroker.EventBroker.Backend;
+using CprBroker.Utilities.Config;
+using System.Configuration;
 
 namespace CprBroker.Installers.EventBrokerInstallers
 {
@@ -248,6 +250,28 @@ namespace CprBroker.Installers.EventBrokerInstallers
 
                 InstallService(GetServiceExeFullFileName(session), GetServiceExeFrameworkVersion());
             }
+        }
+
+        public static ActionResult InitTasksConfiguration(Session session)
+        {
+            // Create temp config file
+            string sourceFileName = GetServiceExeConfigFullFileName(session) + ".template";
+            File.WriteAllText(sourceFileName, Properties.Resources.Backend_App_Config);
+            var sourceConfig = ConfigurationManager.OpenExeConfiguration(sourceFileName);
+            var sourceSection = sourceConfig.Sections[TasksConfigurationSection.SectionName] as TasksConfigurationSection;
+
+            // Load service file
+            var targetConfig = ConfigurationManager.OpenExeConfiguration(GetServiceExeConfigFullFileName(session));
+            var targetSection = targetConfig.GetSection(TasksConfigurationSection.SectionName) as TasksConfigurationSection;
+            if (targetSection == null)
+            {
+                targetSection = new TasksConfigurationSection();
+                targetConfig.Sections.Add(TasksConfigurationSection.SectionName, targetSection);
+            }
+            targetSection.KnownTypes.ImportDiffFrom(sourceSection);
+            targetConfig.Save();
+
+            return ActionResult.Success;
         }
     }
 }

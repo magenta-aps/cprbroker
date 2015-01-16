@@ -74,7 +74,10 @@ namespace CprBroker.Utilities.Config
             protected override object GetElementKey(ConfigurationElement element)
             {
                 var elm = element as TaskElement;
-                return elm.Type;
+                if (elm.Type != null)
+                    return elm.Type.IdentifyableName();
+                else
+                    return elm.TypeName;
             }
 
             public void Add(TaskElement element)
@@ -86,6 +89,30 @@ namespace CprBroker.Utilities.Config
             {
                 BaseRemove(key);
             }
+
+            public void ImportDiffFrom(TasksConfigurationSection newSection)
+            {
+                TaskElement[] newElements = new TaskElement[newSection.KnownTypes.Count];
+                newSection.KnownTypes.CopyTo(newElements, 0);
+
+                TaskElement[] myElements = new TaskElement[this.Count];
+                this.CopyTo(myElements, 0);
+
+                foreach (var newElement in newElements)
+                {
+                    if (newElement.Type != null)
+                    {
+                        var existingElement = myElements.Where(me =>
+                            object.Equals(GetElementKey(newElement), GetElementKey(me))
+                            ).FirstOrDefault();
+                        if (existingElement == null)
+                        {
+                            this.Add(newElement);
+                        }
+                    }
+                }
+            }
+
         }
 
         public class TaskElement : ConfigurationElement

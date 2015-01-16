@@ -39,5 +39,35 @@ namespace CprBroker.Tests.Utilities
             var b = last.RunEvery;
             Assert.AreEqual(TimeSpan.FromMinutes(1), b);
         }
+
+        [Test]
+        public void ImportDiffFrom_MixedNewAndExisting_NewAdded()
+        {
+            var existing = new TasksConfigurationSection();
+            existing.KnownTypes.Add(new TasksConfigurationSection.TaskElement() { Type = typeof(string) });
+
+            var newSection = new TasksConfigurationSection();
+            newSection.KnownTypes.Add(new TasksConfigurationSection.TaskElement() { Type = typeof(string) });
+            newSection.KnownTypes.Add(new TasksConfigurationSection.TaskElement() { Type = typeof(object) });
+
+            Assert.AreEqual(1, existing.KnownTypes.Count);
+            existing.KnownTypes.ImportDiffFrom(newSection);
+            Assert.AreEqual(2, existing.KnownTypes.Count);
+        }
+
+        [Test]
+        public void ImportDiffFrom_FakeExistinggOneNew_NewAdded()
+        {
+            var existing = new TasksConfigurationSection();
+            existing.KnownTypes.Add(new TasksConfigurationSection.TaskElement() { TypeName = "Fake type" });
+
+            var newSection = new TasksConfigurationSection();
+            newSection.KnownTypes.Add(new TasksConfigurationSection.TaskElement() { Type = typeof(string) });
+            newSection.KnownTypes.Add(new TasksConfigurationSection.TaskElement() { Type = typeof(object) });
+
+            Assert.AreEqual(1, existing.KnownTypes.Count);
+            existing.KnownTypes.ImportDiffFrom(newSection);
+            Assert.AreEqual(3, existing.KnownTypes.Count);
+        }
     }
 }
