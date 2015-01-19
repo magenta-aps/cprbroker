@@ -365,7 +365,8 @@ namespace CprBrokerWixInstallers
                     "RollbackBackendService",
                     "UnInstallBackendService",
                     "SetCprBrokerUrl",
-                    "CloneDataProviderSectionsToBackendService"
+                    "CloneDataProviderSectionsToBackendService",
+                    "InitTasksConfiguration"
                 };
                 return WebsiteCustomAction.AfterInstallInitialize_WEB(session, extraCustomActionNames);
             }
