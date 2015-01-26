@@ -59,6 +59,7 @@ namespace CprBroker.Providers.CPRDirect
     public partial class CPRDirectClientDataProvider : IPartReadDataProvider, IPutSubscriptionDataProvider, IExternalDataProvider, IPerCallDataProvider, ICprDirectPersonDataProvider
     {
         #region IPartReadDataProvider members
+        
         public RegistreringType1 Read(CprBroker.Schemas.PersonIdentifier uuid, LaesInputType input, Func<string, Guid> cpr2uuidFunc, out QualityLevel? ql)
         {
             ql = QualityLevel.Cpr;
@@ -73,7 +74,7 @@ namespace CprBroker.Providers.CPRDirect
             else
             {
                 return null;
-            }            
+            }
         }
 
         public bool PutSubscription(PersonIdentifier personIdentifier)
