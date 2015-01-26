@@ -74,3 +74,79 @@ PART/Source/GK.WebServices/Personmaster/PersonmasterServiceLibrary/DocAndDeploy/
 **/*.wixmsp
 **/TestResult.xml
 **/Thumbs.db
+obj
+bin
+debug
+Output
+_UpgradeReport_Files
+
+*.suo
+*.csproj.user
+*.wixproj.user
+*.dbproj.user
+*.wixmsp
+*.wixobj
+*.wixpdb
+*.pdb
+
+UpgradeLog.XML
+
+/PART/Source/Other
+Deliveries
+/PART/Doc/Data Providers/CPR Direct/TEST_klient_source_og_setup
+/PART/Open Source
+/PART/K3b dataprojekt
+/PART/Test Source
+bin
+PART/Source/Tests/Backup
+PART/Source/Updates/DPRUpdateWinTest
+PART/Source/GK.WebServices/Personmaster/PersonmasterServiceLibrary/DocAndDeploy
+PART/Source/InstalledEnvironments
+PART/Source/SQL/Other
+PART/Source/SQL/XPath
+PART/Source/Demo/Backup
+PART/Source/CprBroker/CPRDirect.Tests/Resources/Test/Processed
+PART/Source/Updates/DPRUpdatesNotificationService/DocAndDeploy
+PART/Doc/LTK/Presentation 20130415
+PART/Source/Batch UUID assignment
+PART/Source/CprBroker/Web/aspnet_client
+**/Output/
+**/bin/
+**/obj/
+**/debug/
+**/aspnet_client/
+**/_UpgradeReport_Files/
+
+PART/K3b dataprojekt/
+PART/Test Source/
+PART/Source/Other/
+PART/Source/Old Projects/
+PART/Deliveries/
+PART/Doc/Data Providers/CPR Direct/TEST_klient_source_og_setup/
+PART/Open Source/
+PART/Source/Batch UUID assignment/
+PART/Source/Business logic toolkit for .NET/
+PART/Source/Core/Budget/
+PART/Source/CprBroker/CPRDirect.Tests/Resources/Test/
+PART/Source/CprBroker/DataRefresher/
+PART/Source/Demo/Backup/
+PART/Source/Tests/Backup/
+PART/Source/InstalledEnvironments/
+PART/Source/Updates/DPRUpdateWinTest/
+PART/Source/Updates/DPRUpdatesNotificationService/DocAndDeploy/
+PART/Source/SQL/XPath/
+PART/Source/GK.WebServices/Personmaster/PersonmasterServiceLibrary/webcfg/
+PART/Source/GK.WebServices/Personmaster/PersonmasterServiceLibrary/DocAndDeploy/
+
+**/*.suo
+**/*.user
+**/*.userprefs
+**/UpgradeLog.XML
+**/UpgradeLog2.XML
+**/*.VisualState.xml
+**/*.wixobj
+**/*.wixpdb
+**/*.wixmst
+**/*.wixmsp
+**/TestResult.xml
+**/Thumbs.db
