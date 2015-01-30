@@ -90,7 +90,9 @@ namespace CprBroker.Providers.Local.Search
                             pred = pred.And(prop);
                         }
                     }
-
+                }
+                if (searchCriteria.SoegAttributListe.SoegRegisterOplysning != null)
+                {
                     foreach (var prop in searchCriteria.SoegAttributListe.SoegRegisterOplysning)
                     {
                         // TODO: What about other Item values?
@@ -121,7 +123,7 @@ namespace CprBroker.Providers.Local.Search
 
             if (prop.NavnStruktur != null)
             {
-                pred = pred.And(prop);
+                pred = pred.And(prop.NavnStruktur);
             }
             if (prop.PersonGenderCodeSpecified)
             {
@@ -420,9 +422,9 @@ namespace CprBroker.Providers.Local.Search
         public static Expression<Func<PersonSearchCache, bool>> And(this Expression<Func<PersonSearchCache, bool>> pred, VerdenAdresseType verdenAdresse)
         {
             pred = pred.And(p => p.AddressType == 'V');
-            
+
             var foreignAddress = verdenAdresse.ForeignAddressStructure;
-            if(foreignAddress!=null)
+            if (foreignAddress != null)
             {
                 if (foreignAddress.CountryIdentificationCode != null)
                 {
