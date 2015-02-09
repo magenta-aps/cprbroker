@@ -220,6 +220,10 @@
       <Project>{47B58366-342A-4699-9CF5-E13FB8F8B413}</Project>
       <Name>KMD</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Local.Search\Local.Search.csproj">
+      <Project>{700c3c48-4833-4136-b6b4-6b6d8890aa13}</Project>
+      <Name>Local.Search</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Local\Local.csproj">
       <Project>{74212D20-BB98-401F-A5F7-03669B2CD07A}</Project>
       <Name>Local</Name>
