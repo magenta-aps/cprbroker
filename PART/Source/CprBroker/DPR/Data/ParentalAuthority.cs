@@ -12,7 +12,7 @@ namespace CprBroker.Providers.DPR
         public PersonRelationType ToRelationType(PersonTotal personTotal, Relation[] relations, Func<decimal, Guid> cpr2uuidConverter)
         {
             string pnr = null;
-            var relation = relations.Where(r => r.PNR == this.PNR && r.RelationType == this.RelationType).SingleOrDefault();
+            var relation = relations.Where(r => r.PNR == this.ChildPNR && r.RelationType == this.RelationType).SingleOrDefault();
             switch ((int)this.RelationType)
             {
                 case 3:

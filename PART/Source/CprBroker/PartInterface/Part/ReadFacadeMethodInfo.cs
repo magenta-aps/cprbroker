@@ -107,7 +107,7 @@ namespace CprBroker.Engine.Part
             if (laesResultat.Item is RegistreringType1)
             {
                 (laesResultat.Item as RegistreringType1).OrderByStartDate(
-                    !CprBroker.Config.ConfigManager.Current.Settings.CprDirectReturnsNewestFirst);
+                    !CprBroker.Utilities.Config.ConfigManager.Current.Settings.CprDirectReturnsNewestFirst);
             }
             QualityLevel = (SubMethodInfos[0] as ReadSubMethodInfo).QualityLevel;
             return laesResultat;

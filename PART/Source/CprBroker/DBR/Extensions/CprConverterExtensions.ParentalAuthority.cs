@@ -60,12 +60,12 @@ namespace CprBroker.DBR.Extensions
             p.ChildPNR = decimal.Parse(auth.PNR);
             p.RelationType = auth.RelationshipType;
             p.CprUpdateDate = CprBroker.Utilities.Dates.DateToDecimal(auth.Registration.RegistrationDate, 12);
-            p.ParentalAuthorityCode = 0; //TODO: Can be fetched in CPR Services, mynkod_start
+            p.CustodyStartAuthorityCode = 0; //TODO: Can be fetched in CPR Services, mynkod_start
 
             if (auth.CustodyStartDate.HasValue)
                 p.StartDate = auth.CustodyStartDate.Value;
 
-            p.StartDateUncertainty = auth.CustodyStartDateUncertainty;
+            p.StartDateMarker = auth.CustodyStartDateUncertainty;
 
             if (auth.CustodyEndDate.HasValue)
                 p.EndDate = auth.CustodyEndDate.Value;

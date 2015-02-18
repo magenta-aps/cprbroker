@@ -109,7 +109,7 @@ namespace CprBroker.Web.Services
         public SoegListOutputType SearchList(SoegInputType1 searchCriteria)
         {
             var sourceUsageOrder = SourceUsageOrderHeader.GetLocalDataProviderUsageOption(this.sourceUsageOrderHeader);
-            return PartManager.SearchList(applicationHeader.UserToken, applicationHeader.ApplicationToken, searchCriteria, sourceUsageOrder);
+            return new PartManager().SearchList(applicationHeader.UserToken, applicationHeader.ApplicationToken, searchCriteria, sourceUsageOrder);
         }
 
         [SoapHeader(ApplicationHeaderName)]

@@ -140,21 +140,6 @@ namespace CprBrokerWixInstallers
             CprBroker.Installers.Installation.AddKnownDataProviderTypes(types, configFilePath);
         }
 
-        private static void PatchWebsite_2_2_3(Session session)
-        {
-            ResetDataProviderSectionDefinitions(session);
-
-            var cprWebInstallationInfo = WebInstallationInfo.CreateFromFeature(session, "CPR");
-            var cprConfigFilePath = cprWebInstallationInfo.GetWebConfigFilePath(EventBrokerCustomActions.PathConstants.CprBrokerWebsiteDirectoryRelativePath);
-
-            // Add new node(s) for data providers
-            var types = new Type[]
-            {
-                typeof(CprBroker.Providers.CprServices.CprServicesDataProvider),
-            };
-            CprBroker.Installers.Installation.AddKnownDataProviderTypes(types, cprConfigFilePath);
-        }
-
         public static void ResetDataProviderSectionDefinitions(Session session)
         {
             var webInstallationInfo = WebInstallationInfo.CreateFromFeature(session, "CPR");
@@ -168,7 +153,18 @@ namespace CprBrokerWixInstallers
 
         private static void PatchWebsite_2_2_3(Session session)
         {
-            var webInstallationInfo = WebInstallationInfo.CreateFromFeature(session, "CPR");
+            ResetDataProviderSectionDefinitions(session);
+
+            var cprWebInstallationInfo = WebInstallationInfo.CreateFromFeature(session, "CPR");
+            var cprConfigFilePath = cprWebInstallationInfo.GetWebConfigFilePath(EventBrokerCustomActions.PathConstants.CprBrokerWebsiteDirectoryRelativePath);
+
+            // Add new node(s) for data providers
+            var types = new Type[]
+            {
+                typeof(CprBroker.Providers.CprServices.CprServicesDataProvider),
+            };
+            CprBroker.Installers.Installation.AddKnownDataProviderTypes(types, cprConfigFilePath);
+
             var configFilePaths = new string[]
             {
                 WebInstallationInfo.CreateFromFeature(session, "CPR").GetWebConfigFilePath(EventBrokerCustomActions.PathConstants.CprBrokerWebsiteDirectoryRelativePath),
