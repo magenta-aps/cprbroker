@@ -76,6 +76,7 @@ namespace CprBroker.Tests.Engine
 
             public void Run_ManyConnections_OK(int count)
             {
+                BrokerContext.Initialize(CprBroker.Utilities.Constants.BaseApplicationToken.ToString(), "");
                 using (var server = new TcpServerStub() { Port = NewPort() })
                 {
                     server.Start();
@@ -121,12 +122,14 @@ namespace CprBroker.Tests.Engine
                 Run_ManyConnections_OK(count);
             }
 
+            [Ignore]
             [Test]
             public void Run_ManyConnections_P4_OK([Range(1000, 9000, 1000)] int count)
             {
                 Run_ManyConnections_OK(count);
             }
 
+            [Ignore]
             [Test]
             public void Run_ManyConnections_P5_OK([Range(10000, 90000, 10000)] int count)
             {

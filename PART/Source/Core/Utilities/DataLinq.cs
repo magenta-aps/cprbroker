@@ -79,7 +79,7 @@ namespace CprBroker.Utilities
                 tableAttribute = tempTableType.GetCustomAttributes(attrType, true).FirstOrDefault() as TableAttribute;
                 tempTableType = tempTableType.BaseType;
             }
-            while (tableAttribute == null && tempTableType.BaseType != null);
+            while (tableAttribute == null && tempTableType != null && tempTableType.BaseType != null);
 
             if (tableAttribute == null)
             {

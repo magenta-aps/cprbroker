@@ -52,7 +52,7 @@ namespace CprBroker.Engine
             {
                 lock (_Sessions)
                 {
-                    if (_Sessions.Count == 0)
+                    if (_Sessions.Count == 0 && _serverSocket != null)
                     {
                         _serverSocket.Close();
                         break;
