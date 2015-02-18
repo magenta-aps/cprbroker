@@ -86,6 +86,8 @@
     <Compile Include="CivilStatus.ToPersonRelationType.Tests.cs" />
     <Compile Include="CivilStatus.ToToPersonRelationTypeArray.Tests.cs" />
     <Compile Include="DepartureTests.cs" />
+    <Compile Include="DprDatabaseDataProviderTests.cs" />
+    <Compile Include="DprEnqueuerTests.cs" />
     <Compile Include="PersonInfoTests.cs" />
     <Compile Include="PersonName.Tests.cs" />
     <Compile Include="PersonTotal.ToPersonInfo.Address.Tests.cs" />
@@ -108,6 +110,10 @@
     <ProjectReference Include="..\DPR\DPR.csproj">
       <Project>{F98E5179-88E3-404E-83BE-54F0A3E7DBC0}</Project>
       <Name>DPR</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PartInterface.Tests\PartInterface.Tests.csproj">
+      <Project>{06ccc703-83f2-44b9-b67a-f7f3a0071e2d}</Project>
+      <Name>PartInterface.Tests</Name>
     </ProjectReference>
     <ProjectReference Include="..\PartInterface\PartInterface.csproj">
       <Project>{DA42D8BB-24D3-4416-A0BD-B98857F249AD}</Project>

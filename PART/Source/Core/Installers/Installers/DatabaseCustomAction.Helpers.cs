@@ -85,7 +85,7 @@ namespace CprBroker.Installers
             ExecuteDDL(createDatabaseObjectsSql, adminConnectionStringWithDb);
         }
 
-        public static void ExecuteDDL(string createDatabaseObjectsSql, string adminConnectionStringWithDb)
+        public static void ExecuteDDL(string createDatabaseObjectsSql, string adminConnectionStringWithDb, bool showMessages = true)
         {
             using (SqlConnection adminConnectionWDb = new SqlConnection(adminConnectionStringWithDb))
             {
@@ -108,8 +108,11 @@ namespace CprBroker.Installers
                                 }
                                 catch
                                 {
-                                    // TODO: Include parent window ID here
-                                    MessageBox.Show(sqlBatch);
+                                    if (showMessages)
+                                    {
+                                        // TODO: Include parent window ID here
+                                        MessageBox.Show(sqlBatch);
+                                    }
                                     throw;
                                 }
                             }

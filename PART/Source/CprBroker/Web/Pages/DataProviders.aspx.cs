@@ -205,6 +205,17 @@ namespace CprBroker.Web.Pages
                     }
                 }
             }
+            if (e.CommandName == "AutoUpdateHint")
+            {
+                using (var dataContext = new DataProvidersDataContext())
+                {
+                    var id = new Guid(e.CommandArgument.ToString());
+                    DataProvider dbProv = dataContext.DataProviders.Where(p => p.DataProviderId == id).OrderBy(dp => dp.Ordinal).SingleOrDefault();
+                    var prov = new DataProviderFactory().CreateDataProvider(dbProv) as IAutoUpdateDataProvider;
+
+                    Master.AlertMessages.Add(prov.AutoUpdateHint);
+                }
+            }
             else if (e.CommandName == "Enable")
             {
                 using (var dataContext = new DataProvidersDataContext())
@@ -304,9 +315,20 @@ namespace CprBroker.Web.Pages
             return assebblyQualifiedName;
         }
 
+        protected string GetIsReady(object dbProv)
+        {
+            var f = new DataProviderFactory();
+            var prov = f.CreateDataProvider(dbProv as DataProvider) as IAutoUpdateDataProvider;
+            if (prov != null)
+                return prov.IsReady ? "Yes" : "No";
+            return "(N/A)";
+        }
+
         protected DataProvider[] LoadDataProviders(DataProvidersDataContext dataContext)
         {
-            return dataContext.DataProviders.Where(dp => dp.IsExternal == true).OrderBy(dp => dp.Ordinal).ToArray();
+            return dataContext.DataProviders.Where(dp => dp.IsExternal == true).OrderBy(dp => dp.Ordinal).ToArray()
+                .Where(o => Type.GetType(o.TypeName) != null)
+                .ToArray();
         }
 
         #endregion

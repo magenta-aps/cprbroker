@@ -47,9 +47,19 @@ namespace CprBroker.Engine
                 return converter(val);
         }
 
-        public static bool GetBoolean(Dictionary<string, string> configuration, string key)
+        public static bool GetBoolean(Dictionary<string, string> configuration, string key, bool defaultValue = false)
         {
-            return GetValue<bool>(configuration, key, false, (s) => Boolean.Parse(s));
+            return DataProviderConfigProperty.GetValue<bool>(configuration, key, defaultValue, (s) => Boolean.Parse(s));
+        }
+
+        public static int GetInteger(Dictionary<string, string> configuration, string key, int defaultValue = 0)
+        {
+            return DataProviderConfigProperty.GetValue<int>(configuration, key, defaultValue, (s) => int.Parse(s));
+        }
+
+        public static string GetString(Dictionary<string, string> configuration, string key, string defaultValue = null)
+        {
+            return DataProviderConfigProperty.GetValue<string>(configuration, key, defaultValue, (s) => s);
         }
 
         public static class Templates
@@ -58,7 +68,7 @@ namespace CprBroker.Engine
             {
                 get
                 {
-                    return new DataProviderConfigPropertyInfo[] {                     
+                    return new DataProviderConfigPropertyInfo[] {
                         new DataProviderConfigPropertyInfo(){Name="Data Source", Required=true, Confidential=false},
                         new DataProviderConfigPropertyInfo(){Name="Initial Catalog", Required=false, Confidential=false},
                         new DataProviderConfigPropertyInfo(){Name="User ID", Required=false, Confidential=false},
@@ -71,12 +81,12 @@ namespace CprBroker.Engine
 
             public static string GetConnectionString(Dictionary<string, string> configurationProperties)
             {
-                string other = string.Format("{0}", configurationProperties["Other Connection String"]);
-                string dataSource = string.Format("{0}", configurationProperties["Data Source"]);
-                string initialCatalog = string.Format("{0}", configurationProperties["Initial Catalog"]);
-                string userId = string.Format("{0}", configurationProperties["User ID"]);
-                string password = string.Format("{0}", configurationProperties["Password"]);
-                string integratedSecurity = string.Format("{0}", configurationProperties["Integrated Security"]);
+                string other = string.Format("{0}", GetString(configurationProperties, "Other Connection String"));
+                string dataSource = string.Format("{0}", GetString(configurationProperties,"Data Source"));
+                string initialCatalog = string.Format("{0}", GetString(configurationProperties,"Initial Catalog"));
+                string userId = string.Format("{0}", GetString(configurationProperties,"User ID"));
+                string password = string.Format("{0}", GetString(configurationProperties,"Password"));
+                string integratedSecurity = string.Format("{0}", GetString(configurationProperties,"Integrated Security"));
 
                 System.Data.SqlClient.SqlConnectionStringBuilder connectionBuilder = new System.Data.SqlClient.SqlConnectionStringBuilder(other);
                 if (!string.IsNullOrEmpty(dataSource))

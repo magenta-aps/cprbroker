@@ -115,6 +115,17 @@ namespace CprBroker.Engine
 
         #region Loaders
 
+        public TInterface GetDataProvider<TInterface>(Guid dataProviderId) where TInterface : class, IExternalDataProvider
+        {
+            using (var dataContext = new DataProvidersDataContext())
+            {
+                var dbProv = dataContext.DataProviders.Where(p => p.DataProviderId == dataProviderId).SingleOrDefault();
+                if (dbProv != null)
+                    return CreateDataProvider(dbProv) as TInterface;
+            }
+            return null;
+        }
+
         public IEnumerable<Type> GetAvailableDataProviderTypes(bool isExternal)
         {
             return GetAvailableDataProviderTypes(null, isExternal);

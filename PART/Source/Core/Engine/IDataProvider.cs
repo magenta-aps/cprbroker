@@ -77,6 +77,20 @@ namespace CprBroker.Engine
 
     }
 
+    public interface IAutoUpdateDataProvider
+    {
+        bool AutoUpdate { get; }
+        bool IsReady { get; }
+        string AutoUpdateHint { get; }
+        bool InitAutoUpdate();
+    }
+
+    public interface IChangePuller<T>
+    {
+        IEnumerable<T> GetChanges(int batchSize, TimeSpan delay);
+        void DeleteChanges(IEnumerable<T> changes);
+    }
+
     /// <summary>
     /// A data provider that supports update detection
     /// </summary>

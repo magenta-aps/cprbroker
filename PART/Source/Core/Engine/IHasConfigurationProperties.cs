@@ -63,5 +63,20 @@ namespace CprBroker.Engine
                     })
                     .ToArray();
         }
+
+        public static bool GetBoolean(this IHasConfigurationProperties prov, string key, bool defaultValue = false)
+        {
+            return DataProviderConfigProperty.GetBoolean(prov.ConfigurationProperties, key, defaultValue);
+        }
+
+        public static int GetInteger(this IHasConfigurationProperties prov, string key, int defaultValue = 0)
+        {
+            return DataProviderConfigProperty.GetInteger(prov.ConfigurationProperties, key, defaultValue);
+        }
+
+        public static string GetString(this IHasConfigurationProperties prov, string key, string defaultValue = null)
+        {
+            return DataProviderConfigProperty.GetString(prov.ConfigurationProperties, key, defaultValue);
+        }
     }
 }

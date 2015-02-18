@@ -66,7 +66,12 @@ namespace CprBroker.Providers.DPR
 
         #region IExternalDataProvider Members
 
-        public Dictionary<string, string> ConfigurationProperties { get; set; }
+        private Dictionary<string, string> _ConfigurationProperties = new Dictionary<string, string>();
+        public Dictionary<string, string> ConfigurationProperties
+        {
+            get { return _ConfigurationProperties; }
+            set { _ConfigurationProperties = value; }
+        }
 
         public DataProviderConfigPropertyInfo[] ConfigurationKeys
         {
@@ -78,7 +83,8 @@ namespace CprBroker.Providers.DPR
                         new DataProviderConfigPropertyInfo(){Type = DataProviderConfigPropertyInfoTypes.Boolean, Name="Disable Diversion", Required=false,Confidential=false},
                         new DataProviderConfigPropertyInfo(){Type = DataProviderConfigPropertyInfoTypes.String, Name="Address", Required=false, Confidential=false},
                         new DataProviderConfigPropertyInfo(){Type = DataProviderConfigPropertyInfoTypes.Integer, Name="Port", Required=false, Confidential=false},
-                        new DataProviderConfigPropertyInfo(){Type = DataProviderConfigPropertyInfoTypes.Integer, Name="TCP Read Timeout (ms)" , Required=true, Confidential=false}                    
+                        new DataProviderConfigPropertyInfo(){Type = DataProviderConfigPropertyInfoTypes.Integer, Name="TCP Read Timeout (ms)" , Required=true, Confidential=false},
+                        new DataProviderConfigPropertyInfo(){Type = DataProviderConfigPropertyInfoTypes.Boolean, Name="Auto Update" , Required=true, Confidential=false}
                     })
                     .ToArray();
             }
@@ -88,7 +94,6 @@ namespace CprBroker.Providers.DPR
         {
             get
             {
-                // TODO: rename the operation key to something like "Diversion". "Cost" is a bit ambigious.
                 return new string[] {
                     Constants.DiversionOperationName
                 };
@@ -97,44 +102,71 @@ namespace CprBroker.Providers.DPR
 
         #endregion
 
-        protected string Address
+        public string Address
         {
-            get
-            {
-                return ConfigurationProperties["Address"];
-            }
-        }
-        protected int Port
-        {
-            get
-            {
-                return int.Parse(ConfigurationProperties["Port"]);
-            }
+            get { return this.GetString("Address"); }
+            set { this.ConfigurationProperties["Address"] = value; }
         }
 
-        protected string ConnectionString
+        public int Port
         {
-            get
-            {
-                return DataProviderConfigPropertyInfo.Templates.GetConnectionString(this.ConfigurationProperties);
-            }
+            get { return this.GetInteger("Port"); }
+            set { this.ConfigurationProperties["Port"] = Convert.ToString(value); }
+        }
+
+        public string ConnectionString
+        {
+            get { return DataProviderConfigPropertyInfo.Templates.GetConnectionString(this.ConfigurationProperties); }
+            set { DataProviderConfigPropertyInfo.Templates.SetConnectionString(value, this.ConfigurationProperties); }
         }
 
         public int TcpReadTimeout
         {
-            get
-            {
-                return Convert.ToInt32(ConfigurationProperties["TCP Read Timeout (ms)"]);
-            }
+            get { return this.GetInteger("TCP Read Timeout (ms)"); }
+            set { this.ConfigurationProperties["TCP Read Timeout (ms)"] = Convert.ToString(value); }
         }
 
         public bool DisableDiversion
         {
+            get { return this.GetBoolean("Disable Diversion"); }
+            set { ConfigurationProperties["Disable Diversion"] = Convert.ToString(value); }
+        }
+
+        public bool AutoUpdate
+        {
+            get { return this.GetBoolean("Auto Update"); }
+            set { ConfigurationProperties["Auto Update"] = Convert.ToString(value); }
+        }
+
+        public string AutoUpdateHint
+        {
             get
             {
-                return Convert.ToBoolean(ConfigurationProperties["Disable Diversion"]);
+                var ret = new List<string>();
+                ret.Add(Properties.Resources.CreateTrackingTables);
+                ret.Add(Properties.Resources.CreateTrackingTriggers);
+
+                var builder = new System.Data.SqlClient.SqlConnectionStringBuilder(this.ConnectionString);
+                ret.Add(Properties.Resources.InitTrackingPermissions.Replace("<userId>", builder.UserID));
+
+                return string.Join("\r\nGO\r\n", ret.ToArray());
             }
         }
+
+        public bool InitAutoUpdate()
+        {
+            try
+            {
+                CprBroker.Installers.DatabaseCustomAction.ExecuteDDL(AutoUpdateHint, this.ConnectionString, false);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                CprBroker.Engine.Local.Admin.LogException(ex);
+                return false;
+            }
+        }
+
 
         #region IDataProvider Members
 

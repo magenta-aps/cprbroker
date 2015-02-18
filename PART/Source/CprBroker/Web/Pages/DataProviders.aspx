@@ -11,8 +11,7 @@
 <%@ Import Namespace="CprBroker.Data.DataProviders" %>
 <%@ Import Namespace="CprBroker.Engine" %>
 <asp:Content ID="Content1" runat="server" ContentPlaceHolderID="Contents">
-    <h3>
-        Data provider types</h3>
+    <h3>Data provider types</h3>
     Possible types of data providers
     <asp:GridView ID="dataProviderTypesGridView" runat="server" AutoGenerateColumns="False"
         DataKeyNames="AssemblyQualifiedName" OnDataBinding="dataProviderTypesGridView_DataBinding">
@@ -21,8 +20,7 @@
             <asp:BoundField DataField="AssemblyQualifiedName" HeaderText="Assembly qualified name" />
         </Columns>
     </asp:GridView>
-    <h3>
-        Data providers</h3>
+    <h3>Data providers</h3>
     Available data providers. They will be used in the order listed here.
     <asp:GridView ID="dataProvidersGridView" runat="server" AutoGenerateColumns="False"
         DataKeyNames="DataProviderId" EmptyDataText="(None)" OnRowCommand="dataProvidersGridView_RowCommand"
@@ -51,8 +49,7 @@
                             <td>
                                 <%#(bool)Eval("IsEnabled")?"Yes":"No" %>
                             </td>
-                            <td>
-                            </td>
+                            <td></td>
                             <td>
                                 <asp:LinkButton ID="LinkButton1" runat="server" CommandName="Enable" CommandArgument='<%#Eval("DataProviderId") %>'
                                     Text='<%#(bool)Eval("IsEnabled")?"(Disable)" : "(Enable)" %>' CssClass="CommandButton" />
@@ -65,6 +62,18 @@
                 <ItemTemplate>
                     <asp:LinkButton ID="LinkButton2" runat="server" CommandArgument='<%# Eval("DataProviderId") %>'
                         CommandName="Ping">Ping</asp:LinkButton>
+                </ItemTemplate>
+            </asp:TemplateField>
+            <asp:TemplateField ShowHeader="False" ControlStyle-CssClass="CommandButton" HeaderText="Auto Update ready">
+                <ItemTemplate>
+                    <table style="text-align:center; width:100%">
+                        <tr>
+                            <td><%# GetIsReady(Container.DataItem) %></td>
+                            <td>
+                                <asp:LinkButton ID="LinkButton3" runat="server" CommandArgument='<%# Eval("DataProviderId") %>' Visible='<%# (bool) typeof(IAutoUpdateDataProvider).IsAssignableFrom(Type.GetType(Eval("TypeName").ToString())) %>'
+                                    CommandName="AutoUpdateHint" CausesValidation="false">(Script)</asp:LinkButton></td>
+                        </tr>
+                    </table>
                 </ItemTemplate>
             </asp:TemplateField>
             <asp:CommandField ShowDeleteButton="True" ControlStyle-CssClass="CommandButton" />
@@ -86,8 +95,7 @@
             </asp:TemplateField>
         </Columns>
     </asp:GridView>
-    <h3>
-        New data provider</h3>
+    <h3>New data provider</h3>
     Type:
     <asp:DropDownList ID="newDataProviderDropDownList" runat="server" AutoPostBack="True"
         DataTextField="FullName" DataValueField="AssemblyQualifiedName" OnSelectedIndexChanged="newDataProviderDropDownList_SelectedIndexChanged"
