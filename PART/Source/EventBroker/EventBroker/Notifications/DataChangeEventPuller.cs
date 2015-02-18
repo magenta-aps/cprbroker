@@ -59,8 +59,7 @@ namespace CprBroker.EventBroker.Notifications
     {
         protected override void PerformTimerAction()
         {
-            var batchSize = CprBroker.Config.ConfigManager.Current.Settings.DataChangeDequeueBatchSize;
-            Admin.LogFormattedSuccess("Pulling data changes from CprBroker to event broker, batch size <{0}>", batchSize);
+            Admin.LogFormattedSuccess("Pulling data changes from CprBroker to event broker, batch size <{0}>", this.BatchSize);
 
             CprBroker.Data.Events.DataChangeEvent[] sourceEvents;
             do
@@ -69,7 +68,7 @@ namespace CprBroker.EventBroker.Notifications
                 {
                     sourceEvents = sourceDataContext.DataChangeEvents
                         .OrderBy(ev => ev.ReceivedDate)
-                        .Take(batchSize)
+                        .Take(this.BatchSize)
                         .ToArray();
 
                     var targetEvents = Array.ConvertAll<CprBroker.Data.Events.DataChangeEvent, Data.DataChangeEvent>(
@@ -98,7 +97,7 @@ namespace CprBroker.EventBroker.Notifications
             }
             // Stop if received less changes than requested 
             // == Continue as long as you get the same number of changes as requested
-            while (changedPeople.Length == this.BatchSize);
+            while (sourceEvents.Length == this.BatchSize);
         }
     }
 }
