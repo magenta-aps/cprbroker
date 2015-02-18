@@ -96,16 +96,19 @@ namespace CprBroker.Providers.DPR.Queues
             {
                 foreach (var dbProv in provDataContext.DataProviders)
                 {
-                    var prov = factory.CreateDataProvider(dbProv) as DprDatabaseDataProvider;
-                    if (prov != null && prov.AutoUpdate)
+                    if (dbProv.IsEnabled)
                     {
-                        try
+                        var prov = factory.CreateDataProvider(dbProv) as DprDatabaseDataProvider;
+                        if (prov != null && prov.AutoUpdate)
                         {
-                            CopyChanges(prov, dbProv.DataProviderId, updateQueue);
-                        }
-                        catch (Exception ex)
-                        {
-                            Admin.LogException(ex);
+                            try
+                            {
+                                CopyChanges(prov, dbProv.DataProviderId, updateQueue);
+                            }
+                            catch (Exception ex)
+                            {
+                                Admin.LogException(ex);
+                            }
                         }
                     }
                 }
