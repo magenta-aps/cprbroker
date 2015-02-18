@@ -182,7 +182,8 @@ namespace CprBroker.Providers.DPR
                 RelationListe = ToRelationListeType(cpr2uuidConverter, dataContext),
 
                 AktoerRef = Constants.Actor,
-                CommentText = Constants.CommentText,
+                // CommentText not supported
+                CommentText = "",
                 LivscyklusKode = LivscyklusKodeType.Rettet,
                 Tidspunkt = TidspunktType.Create(this.RegistrationDate),
                 Virkning = null

@@ -672,13 +672,7 @@ namespace CprBroker.Providers.KMD
             {
                 var ret = new RegisterOplysningType()
                 {
-                    Item = null,
-                    Virkning = VirkningType.Create(null, null)
-                };
-                // TODO: Always return CprBorgerType !!!!
-                if (string.Equals(NationalityCode, Constants.DanishNationalityCode))
-                {
-                    ret.Item = new CprBorgerType()
+                    Item = new CprBorgerType()
                     {
                         PersonCivilRegistrationIdentifier = PNR,
                         PersonNationalityCode = Schemas.Part.CountryIdentificationCodeType.Create(CprBroker.Schemas.Part._CountryIdentificationSchemeType.imk, NationalityCode),
@@ -698,35 +692,11 @@ namespace CprBroker.Providers.KMD
 
                         // TODO: Check if this is correct
                         TelefonNummerBeskyttelseIndikator = Protection.Equals(Constants.AddressProtection),
-                    };
-                    ret.Virkning.FraTidspunkt = TidspunktType.Create(Utilities.GetMaxDate(AddressDate, RelocationDate, ImmigrationDate));
-                }
-                else if (!string.IsNullOrEmpty(NationalityCode))
-                {
-                    // TODO: Validate all data in this structure
-                    ret.Item = new UdenlandskBorgerType()
-                    {
-                        // Birth country.Not in KMD
-                        FoedselslandKode = null,
-                        // TODO: What is that?
-                        PersonIdentifikator = "",
-                        // Languages. Not implemented here
-                        SprogKode = new CprBroker.Schemas.Part.CountryIdentificationCodeType[0],
-                        // Citizenships
-                        PersonNationalityCode = new CprBroker.Schemas.Part.CountryIdentificationCodeType[] { CprBroker.Schemas.Part.CountryIdentificationCodeType.Create(CprBroker.Schemas.Part._CountryIdentificationSchemeType.imk, NationalityCode) },
-                        PersonCivilRegistrationReplacementIdentifier = PNR,
-                    };
-                    ret.Virkning.FraTidspunkt = TidspunktType.Create(Utilities.GetMaxDate(ImmigrationDate, AbroadDate));
-                }
-                else
-                {
-                    // TODO: Validate all data in this structure
-                    ret.Item = new UkendtBorgerType()
-                    {
-                        PersonCivilRegistrationReplacementIdentifier = PNR,
-                    };
-                    ret.Virkning.FraTidspunkt = TidspunktType.Create(Utilities.GetMaxDate(AbroadDate, AddressDate, DisempowermentDate, ImmigrationDate, PaternityDate, RelocationDate, StatusDate));
-                }
+                    },
+                    Virkning = VirkningType.Create(null, null)
+                };
+
+                ret.Virkning.FraTidspunkt = TidspunktType.Create(Utilities.GetMaxDate(AddressDate, RelocationDate, ImmigrationDate));
                 return ret;
             }
 
@@ -749,8 +719,6 @@ namespace CprBroker.Providers.KMD
                     LokalUdvidelse = null
                 };
             }
-
-
 
             public DateTime? GetRegistrationDate()
             {

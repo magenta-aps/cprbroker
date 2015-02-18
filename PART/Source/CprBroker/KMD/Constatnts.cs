@@ -67,9 +67,6 @@ namespace CprBroker.Providers.KMD
 
         public const string DanishNationalityCode = "5100";
 
-        //TODO: Add comment text
-        public const string CommentText = "";
-
         public const string AddressProtection = "B";
         public const string ResearchProtection = "L";
     }

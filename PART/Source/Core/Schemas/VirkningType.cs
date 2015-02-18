@@ -73,9 +73,9 @@ namespace CprBroker.Schemas.Part
             }
             return new VirkningType()
             {
-                //TODO: Fill actor
+                // Actor not supported
                 AktoerRef = null,
-                //TODO: Fill comment text
+                // CommentText not supported
                 CommentText = null,
                 FraTidspunkt = TidspunktType.Create(fromDate),
                 TilTidspunkt = TidspunktType.Create(toDate)
@@ -88,20 +88,19 @@ namespace CprBroker.Schemas.Part
             {
                 throw new ArgumentNullException("partialEffects");
             }
-            // TODO: What is the default value for DateTime? in case input array is empty?
+
             var fromDate =
                 partialEffects
                 .Where(pe => pe.FraTidspunkt.ToDateTime().HasValue)
                 .Select(pe => pe.FraTidspunkt.ToDateTime())
-                .OrderBy(d => d.Value)
-                .FirstOrDefault();
+                .Min();
 
             var to =
                 partialEffects
                 .Where(pe => pe.TilTidspunkt.ToDateTime().HasValue)
                 .Select(pe => pe.TilTidspunkt.ToDateTime())
-                .OrderByDescending(d => d.Value)
-                .FirstOrDefault();
+                .Max();
+
             return VirkningType.Create(fromDate, to);
         }
 
@@ -137,6 +136,40 @@ namespace CprBroker.Schemas.Part
             }
             return v1.FraTidspunkt.ToDateTime().Value < v2.TilTidspunkt.ToDateTime().Value
                 && v2.FraTidspunkt.ToDateTime().Value < v1.TilTidspunkt.ToDateTime().Value;
+        }
+
+        public static bool DateRangeIncludes(DateTime? startDate, DateTime? endDate, DateTime effectDate, bool nullStartDateOK)
+        {
+            if (startDate.HasValue && endDate.HasValue && startDate.Value > endDate.Value)
+            {
+                throw new ArgumentException(string.Format("startDate <{0}> must me less than or equal o endDate <{1}>", startDate, endDate));
+            }
+            bool startDateRange = nullStartDateOK ?
+                !startDate.HasValue || startDate.Value <= effectDate
+                : startDate.HasValue && startDate.Value <= effectDate;
+            if (startDateRange)
+            {
+                return !endDate.HasValue || endDate.Value >= effectDate;
+            }
+            return false;
+        }
+
+        public static bool DateRangeIncludes(DateTime? startDate, DateTime? endDate, DateTime? effectDate)
+        {
+            if (startDate.HasValue && endDate.HasValue && startDate.Value > endDate.Value)
+            {
+                throw new ArgumentException(string.Format("startDate <{0}> must me less than or equal o endDate <{1}>", startDate, endDate));
+            }
+            if (!effectDate.HasValue)
+            {
+                return true;
+            }
+            else
+            {
+                var startDateRange = !startDate.HasValue || startDate.Value <= effectDate.Value;
+                var endDateRange = !endDate.HasValue || endDate.Value >= effectDate.Value;
+                return startDateRange && endDateRange;
+            }
         }
 
         public static DateTime ToStartDateTimeOrMinValue(DateTime? startTS)

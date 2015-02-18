@@ -83,16 +83,6 @@ namespace CprBroker.Schemas.Part
             };
         }
 
-        public static PersonRelationType[] CreateList(params Guid[] targetUuids)
-        {
-            return PersonRelationTypeHelper.CreateList<PersonRelationType>(targetUuids);
-        }
-
-        public static PersonRelationType[] CreateList(params string[] cprNumbers)
-        {
-            return PersonRelationTypeHelper.CreateList<PersonRelationType>(cprNumbers);
-        }
-
         public bool Overwrites(PersonRelationType olderRelation)
         {
             return DateTime.Equals(this.Virkning.FraTidspunkt.ToDateTime(), olderRelation.Virkning.FraTidspunkt.ToDateTime())

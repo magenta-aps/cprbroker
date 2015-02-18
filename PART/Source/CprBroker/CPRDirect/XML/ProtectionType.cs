@@ -75,7 +75,7 @@ namespace CprBroker.Providers.CPRDirect
             effectDate = effectDate.Date;
             return
                 categories.Contains(this.ProtectionCategoryCode)
-                && Utilities.Dates.DateRangeIncludes(this.ToStartTS(), this.ToEndTS(), effectDate, true);
+                && VirkningType.DateRangeIncludes(this.ToStartTS(), this.ToEndTS(), effectDate, true);
         }
 
         public VirkningType ToVirkningType()

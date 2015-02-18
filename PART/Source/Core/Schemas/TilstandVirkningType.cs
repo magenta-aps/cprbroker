@@ -57,9 +57,9 @@ namespace CprBroker.Schemas.Part
         {
             return new TilstandVirkningType()
             {
-                //TODO: Fill actor
+                //Actor not supported
                 AktoerRef = null,
-                //TODO: Fill comment text
+                //CommentText not supported
                 CommentText = null,
                 FraTidspunkt = TidspunktType.Create(fromDate)
             };

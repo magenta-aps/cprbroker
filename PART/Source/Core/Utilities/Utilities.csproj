@@ -84,7 +84,6 @@
     <Compile Include="ConsoleApps\ConsoleEnvironment.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="DataLinq.cs" />
-    <Compile Include="Dates.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="LookupMap.cs" />
     <Compile Include="Misc.cs" />

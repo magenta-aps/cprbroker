@@ -88,25 +88,21 @@ namespace CprBroker.Engine.Local
         /// <param name="ex"></param>
         public static void LogException(Exception ex)
         {
-            // TODO: Use BrokerContex.WebMethodMessageName
             AddNewLog(TraceEventType.Error, ex.Source, ex.ToString(), null, null);
         }
 
         public static void LogCriticalException(Exception ex)
         {
-            // TODO: Use BrokerContex.WebMethodMessageName
             AddNewLog(TraceEventType.Critical, ex.Source, ex.ToString(), null, null);
         }
 
         public static void LogException(Exception ex, string moreText)
         {
-            // TODO: Use BrokerContex.WebMethodMessageName
             AddNewLog(TraceEventType.Error, ex.Source, string.Format("{0}{1}{2}", moreText, Environment.NewLine, ex.ToString()), null, null);
         }
 
         public static void LogException(Exception ex, Exception[] moreExceptions)
         {
-            // TODO: Use BrokerContex.WebMethodMessageName
             string[] msgs = Array.ConvertAll<Exception, string>(moreExceptions, e => e.ToString());
             AddNewLog(TraceEventType.Error, ex.Source, string.Format("{0}{1}{2}", ex.ToString(), Environment.NewLine, string.Join(Environment.NewLine, msgs)), null, null);
         }
@@ -144,6 +140,10 @@ namespace CprBroker.Engine.Local
         /// <param name="xml"></param>
         public static void AddNewLog(TraceEventType logType, string methodName, string text, string objectType, string xml)
         {
+            // Fill default values
+            if (string.IsNullOrEmpty(methodName))
+                methodName = BrokerContext.Current.WebMethodMessageName;
+
             Microsoft.Practices.EnterpriseLibrary.Logging.LogEntry ent = new Microsoft.Practices.EnterpriseLibrary.Logging.LogEntry();
             ent.ActivityId = BrokerContext.Current.ActivityId;
             ent.Categories.Add(Constants.Logging.Category);

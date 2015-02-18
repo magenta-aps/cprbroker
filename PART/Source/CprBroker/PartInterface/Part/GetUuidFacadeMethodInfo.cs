@@ -54,7 +54,6 @@ using CprBroker.Utilities;
 
 namespace CprBroker.Engine.Part
 {
-    // TODO: Rename Ger to Get !!
     /// <summary>
     /// Facade method for GetUuid
     /// </summary>    

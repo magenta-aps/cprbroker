@@ -70,9 +70,6 @@ namespace CprBroker.Providers.DPR
         public const string StatelessKmdCode = "5103";
         public const string DenmarkKmdCode = "5100";
 
-        //TODO: Add comment text
-        public const string CommentText = "";
-
         public const string DiversionOperationName = "Diversion";
 
     }

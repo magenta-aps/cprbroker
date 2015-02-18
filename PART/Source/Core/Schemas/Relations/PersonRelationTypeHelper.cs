@@ -13,11 +13,10 @@ namespace CprBroker.Schemas.Part
             {
                 return new TRelation()
                 {
-                    //TODO: Add comment text
+                    //CommentText not supported
                     CommentText = null,
                     CprNumber = null,
                     ReferenceID = UnikIdType.Create(targetUuid),
-                    // TODO: Fill virkning object from parameters
                     Virkning = VirkningType.Create(fromDate, toDate)
                 };
             }
@@ -33,11 +32,10 @@ namespace CprBroker.Schemas.Part
             {
                 return new TRelation()
                 {
-                    //TODO: Add comment text
+                    //CommentText not supported
                     CommentText = null,
                     CprNumber = cprNumber,
                     ReferenceID = null,
-                    // TODO: Fill virkning object from parameters
                     Virkning = VirkningType.Create(fromDate, toDate)
                 };
             }
@@ -45,25 +43,6 @@ namespace CprBroker.Schemas.Part
             {
                 throw new ArgumentNullException("cprNumber");
             }
-        }
-
-        //TODO: add parameters for from and to dates
-        public static TRelation[] CreateList<TRelation>(params Guid[] targetUuids) where TRelation : IPersonRelationType, new()
-        {
-            return Array.ConvertAll<Guid, TRelation>
-            (
-                targetUuids,
-                (uuid) => Create<TRelation>(uuid, null, null)
-            );
-        }
-
-        public static TRelation[] CreateList<TRelation>(params string[] cprNumbers) where TRelation : IPersonRelationType, new()
-        {
-            return Array.ConvertAll<string, TRelation>
-            (
-                cprNumbers,
-                (cprNumber) => Create<TRelation>(cprNumber, null, null)
-            );
         }
     }
 }

@@ -97,6 +97,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataChangeEventPullerTests.cs" />
     <Compile Include="DataFlowTest.cs" />
     <Compile Include="EnqueueDataChangeEventNotifications.Tests.cs" />
     <Compile Include="Program.cs" />

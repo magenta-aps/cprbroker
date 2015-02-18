@@ -123,7 +123,6 @@ namespace CprBroker.Data.Part
                         SuiteIdentifier = oio.AddressComplete.AddressPostal.SuiteIdentifier,
                         Address = new Address()
                         {
-                            //TODO: Fill
                             IsUnknown = false,
                             Note = null,
                         }

@@ -9,7 +9,7 @@ namespace CprBroker.EventBroker.Tests
     {
         static void Main(string[] args)
         {
-            
+
         }
     }
 }

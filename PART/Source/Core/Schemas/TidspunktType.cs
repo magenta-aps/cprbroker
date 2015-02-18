@@ -57,14 +57,13 @@ namespace CprBroker.Schemas.Part
         {
             var ret = new TidspunktType();
 
-            //TODO : Xml element called either Tidsstempel:datetime or GraenseIndikator:bool
             if (value.HasValue)
             {
                 ret.Item = value.Value;
             }
             else
             {
-                //TODO: is the value of true relevant here? cou
+                // True is irrelevant here
                 ret.Item = false;
             }
             return ret;

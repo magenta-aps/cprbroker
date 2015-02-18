@@ -115,7 +115,6 @@
       <DependentUpon>DropDatabaseForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Utilities\DatabaseSetupInfo.Exchange.cs" />
-    <Compile Include="Utilities\Impersonation.cs" />
     <Compile Include="UI\LoginInfo.cs">
       <SubType>UserControl</SubType>
     </Compile>
