@@ -35,9 +35,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CprBroker.Data, Version=2.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Core\Output\CprBroker.Data.dll</HintPath>
+    </Reference>
     <Reference Include="CprBroker.Engine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Core\Output\CprBroker.Engine.dll</HintPath>
+    </Reference>
+    <Reference Include="CprBroker.Installers">
+      <HintPath>..\..\Core\Output\CprBroker.Installers.dll</HintPath>
     </Reference>
     <Reference Include="CprBroker.Schemas, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -72,10 +79,19 @@
     <Compile Include="Data\Departure.cs" />
     <Compile Include="Data\Relation.cs" />
     <Compile Include="Data\ParentalAuthority.cs" />
+    <Compile Include="Data\DPRDataContext.cs" />
+    <Compile Include="Data\LookupDataContext.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LookupDataContext.dbml</DependentUpon>
+    </Compile>
     <Compile Include="Data\PersonTotal.NotImplemented.cs" />
     <Compile Include="Data\Nationality.cs" />
     <Compile Include="Data\PersonTotal.Converters.cs" />
     <Compile Include="Data\PersonAddress.cs" />
+    <Compile Include="Data\PersonTotal7.cs" />
+    <Compile Include="Data\PostDistrict.cs" />
+    <Compile Include="Data\Street.cs" />
     <Compile Include="PersonInfo.cs" />
     <Compile Include="Data\Child.cs" />
     <Compile Include="Data\DPR.designer.cs">
@@ -87,10 +103,25 @@
     <Compile Include="DprDatabaseDataProvider.cs" />
     <Compile Include="PersonName.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Queues\DprEnqueuer.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Queues\DprUpdateQueue.cs" />
+    <Compile Include="Queues\DprUpdateQueueItem.cs" />
+    <Compile Include="Queues\UpdatesDataContext.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UpdatesDataContext.dbml</DependentUpon>
     </Compile>
     <Compile Include="Utilities.cs" />
   </ItemGroup>
@@ -100,10 +131,20 @@
       <LastGenOutput>DPR.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </None>
+    <None Include="Queues\UpdatesDataContext.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>UpdatesDataContext.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="Data\DPR.dbml.layout">
       <DependentUpon>DPR.dbml</DependentUpon>
+    </None>
+    <None Include="Data\LookupDataContext.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>LookupDataContext.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -115,6 +156,30 @@
       <Project>{DA42D8BB-24D3-4416-A0BD-B98857F249AD}</Project>
       <Name>PartInterface</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Data\LookupDataContext.dbml.layout">
+      <DependentUpon>LookupDataContext.dbml</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\CreateTrackingTables.sql" />
+    <Content Include="Resources\CreateTrackingTriggers.sql" />
+    <Content Include="Resources\InitTrackingPermissions.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Queues\UpdatesDataContext.dbml.layout">
+      <DependentUpon>UpdatesDataContext.dbml</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

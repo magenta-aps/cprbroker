@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Comment CommentText="Batch client">
+    <Position X="0.5" Y="0.554" Height="0.75" Width="1.7" />
+  </Comment>
+  <Class Name="BatchClient.RegenerateKMD">
+    <Position X="8.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="BatchClient.RegenerateCprDirect">
+    <Position X="8.25" Y="8.25" Width="2" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="BatchClient.RegenerateContents">
+    <Position X="5" Y="6" Width="1.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="BatchClient.CleanInvalidPNRs">
+    <Position X="1.5" Y="14.75" Width="1.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="BatchClient.PopulateSearchCache">
+    <Position X="7.75" Y="3" Width="2" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="BatchClient.LoadDummyData">
+    <Position X="9.25" Y="11.75" Width="1.75" />
+    <InheritanceLine Type="BatchClient.PartClient" FixedFromPoint="true">
+      <Path>
+        <Point X="6.25" Y="10.938" />
+        <Point X="8.875" Y="10.938" />
+        <Point X="8.875" Y="12.559" />
+        <Point X="9.25" Y="12.559" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier />
+  </Class>
+  <Class Name="BatchClient.RefreshData">
+    <Position X="6.75" Y="11.75" Width="1.75" />
+    <InheritanceLine Type="BatchClient.PartClient" FixedFromPoint="true">
+      <Path>
+        <Point X="6.25" Y="10.938" />
+        <Point X="7.625" Y="10.938" />
+        <Point X="7.625" Y="11.75" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier />
+  </Class>
+  <Class Name="BatchClient.SortContentsByDate">
+    <Position X="4" Y="14.75" Width="1.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="BatchClient.UpdateGeoLocationInformation">
+    <Position X="6.5" Y="14.75" Width="2.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="BatchClient.UpdatePostCodeInformation">
+    <Position X="4.75" Y="3.75" Width="2.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="CprBroker.Utilities.ConsoleApps.ConsoleEnvironment">
+    <Position X="1" Y="3" Width="2" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="BatchClient.PartClient">
+    <Position X="4.75" Y="10.25" Width="1.5" />
+    <InheritanceLine Type="CprBroker.Utilities.ConsoleApps.ConsoleEnvironment" FixedToPoint="true">
+      <Path>
+        <Point X="2" Y="9.622" />
+        <Point X="2" Y="10.75" />
+        <Point X="4.75" Y="10.75" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

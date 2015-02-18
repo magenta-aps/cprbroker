@@ -56,20 +56,11 @@ namespace CprBroker.Providers.CPRDirect
     {
         public static string DecimalToString(decimal value)
         {
-            return value.ToString("G");
+            return CprBroker.Utilities.Strings.DecimalToString(value);
         }
         public static string DecimalToString(decimal value, int length)
         {
-            int myLength = length;
-            if (value < 0)
-                myLength--;
-
-            var ret = value.ToString(new string('0', myLength));
-            if (ret.Length > length)
-            {
-                throw new ArgumentOutOfRangeException("value", string.Format("Value <{0}> cannot be fit in <{1}> characters", value, length));
-            }
-            return ret;
+            return CprBroker.Utilities.Strings.DecimalToString(value, length);
         }
 
         public static DateTime? ToDateTime(DateTime? value, char uncertainty)

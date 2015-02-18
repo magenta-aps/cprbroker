@@ -76,7 +76,7 @@ namespace CprBroker.Web.Pages
 
         protected void providerListView_DataBinding(object sender, EventArgs e)
         {
-            var s = DataProviderManager.GetAvailableDataProviderTypes(typeof(IPerCallDataProvider), true).Select(t => t.Name).ToArray();
+            var s = new DataProviderFactory().GetAvailableDataProviderTypes(typeof(IPerCallDataProvider), true).Select(t => t.Name).ToArray();
             providerListView.DataSource = s;
         }
 

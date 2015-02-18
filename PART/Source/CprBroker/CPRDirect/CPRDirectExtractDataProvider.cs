@@ -59,7 +59,7 @@ using CprBroker.Engine.Part;
 
 namespace CprBroker.Providers.CPRDirect
 {
-    public partial class CPRDirectExtractDataProvider : IPartReadDataProvider, IExternalDataProvider, IPartPeriodDataProvider
+    public partial class CPRDirectExtractDataProvider : IPartReadDataProvider, IExternalDataProvider, IPartPeriodDataProvider, ICprDirectPersonDataProvider
     {
         #region IPartReadDataProvider members
         public RegistreringType1 Read(CprBroker.Schemas.PersonIdentifier uuid, LaesInputType input, Func<string, Guid> cpr2uuidFunc, out QualityLevel? ql)
@@ -67,7 +67,7 @@ namespace CprBroker.Providers.CPRDirect
             ql = QualityLevel.Cpr;
             IndividualResponseType response = null;
 
-            response = ExtractManager.GetPerson(uuid.CprNumber);
+            response = GetPerson(uuid.CprNumber);
 
             if (response != null)
             {
@@ -159,6 +159,7 @@ namespace CprBroker.Providers.CPRDirect
             {
                 return new DataProviderConfigPropertyInfo[] { 
                     new DataProviderConfigPropertyInfo(){ Name=Constants.PropertyNames.ExtractsFolder, Type= DataProviderConfigPropertyInfoTypes.String, Required=true, Confidential=false},
+                    new DataProviderConfigPropertyInfo(){ Name=Constants.PropertyNames.MultiLine, Type= DataProviderConfigPropertyInfoTypes.Boolean, Required=true, Confidential=false},
                     new DataProviderConfigPropertyInfo(){ Name=Constants.PropertyNames.HasFtpSource, Type= DataProviderConfigPropertyInfoTypes.Boolean, Required=true, Confidential=false},
                     new DataProviderConfigPropertyInfo(){ Name=Constants.PropertyNames.FtpAddress, Type= DataProviderConfigPropertyInfoTypes.String, Required=false, Confidential=false},                    
                     new DataProviderConfigPropertyInfo(){ Name=Constants.PropertyNames.FtpUser, Type= DataProviderConfigPropertyInfoTypes.String, Required=false, Confidential=false},
@@ -211,6 +212,17 @@ namespace CprBroker.Providers.CPRDirect
             get { return ConfigurationProperties[Constants.PropertyNames.FtpRegexFilter]; }
             set { ConfigurationProperties[Constants.PropertyNames.FtpRegexFilter] = value.ToString(); }
         }
+        public bool MultiLine
+        {
+            get
+            {
+                if (!ConfigurationProperties.ContainsKey(Constants.PropertyNames.MultiLine))
+                    return false;
+                else
+                    return Convert.ToBoolean(ConfigurationProperties[Constants.PropertyNames.MultiLine]);
+            }
+            set { ConfigurationProperties[Constants.PropertyNames.MultiLine] = value.ToString(); }
+        }
 
         public string FtpOutPath
         {
@@ -219,5 +231,12 @@ namespace CprBroker.Providers.CPRDirect
         #endregion
 
 
+        #region ICprDirectPersonDataProvider members
+
+        public IndividualResponseType GetPerson(string cprNumber)
+        {
+            return ExtractManager.GetPerson(cprNumber);
+        }
+        #endregion
     }
 }

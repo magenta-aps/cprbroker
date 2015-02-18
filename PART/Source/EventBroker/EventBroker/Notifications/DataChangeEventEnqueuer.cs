@@ -53,6 +53,8 @@ using System.Text;
 using CprBroker.Utilities;
 using CprBroker.Schemas.Part;
 using CprBroker.Engine.Local;
+using CprBroker.Engine.Tasks;
+using CprBroker.Utilities.Config;
 
 namespace CprBroker.EventBroker.Notifications
 {
@@ -72,15 +74,8 @@ namespace CprBroker.EventBroker.Notifications
             container.Add(this);
         }
 
-        protected override TimeSpan CalculateActionTimerInterval(TimeSpan currentInterval)
-        {
-            return TimeSpan.FromMinutes(1);
-        }
-
         protected override void PerformTimerAction()
         {
-            var batchSize = CprBroker.Config.ConfigManager.Current.Settings.DataChangeDequeueBatchSize;
-
             using (var dataContext = new Data.EventBrokerDataContext())
             {
                 // Pulls the next n data changes from the database
@@ -88,7 +83,7 @@ namespace CprBroker.EventBroker.Notifications
                     dataContext.DataChangeEvents
                     .OrderBy(dce => dce.ReceivedOrder)
                     .ThenBy(dce => dce.ReceivedDate)
-                    .Take(batchSize)
+                    .Take(this.BatchSize)
                     .ToArray();
 
                 // Used to detect whether all subscriptions are ready. i.e. all criteria subscriptions have completed the initial population

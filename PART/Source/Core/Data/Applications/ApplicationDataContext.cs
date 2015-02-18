@@ -52,7 +52,7 @@ namespace CprBroker.Data.Applications
     partial class ApplicationDataContext
     {
         public ApplicationDataContext()
-            : this(Config.ConfigManager.Current.Settings.CprBrokerConnectionString)
+            : this(Utilities.Config.ConfigManager.Current.Settings.CprBrokerConnectionString)
         { }
 
     }

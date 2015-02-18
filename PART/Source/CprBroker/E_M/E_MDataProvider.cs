@@ -121,14 +121,7 @@ namespace CprBroker.Providers.E_M
         {
             get
             {
-                return new DataProviderConfigPropertyInfo[] {                     
-                    new DataProviderConfigPropertyInfo(){Name="Data Source", Required=true, Confidential=false},
-                    new DataProviderConfigPropertyInfo(){Name="Initial Catalog", Required=false, Confidential=false},
-                    new DataProviderConfigPropertyInfo(){Name="User ID", Required=false, Confidential=false},
-                    new DataProviderConfigPropertyInfo(){Name="Password", Required=false, Confidential=true},
-                    new DataProviderConfigPropertyInfo(){Name="Integrated Security", Required=false, Confidential=false},
-                    new DataProviderConfigPropertyInfo(){Name="Other Connection String", Required=false, Confidential=false},
-                };
+                return DataProviderConfigPropertyInfo.Templates.ConnectionStringKeys;
             }
         }
 

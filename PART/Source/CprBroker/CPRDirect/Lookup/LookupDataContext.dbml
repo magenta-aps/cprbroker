@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Database Name="PART" EntityNamespace="CprBroker.Providers.CPRDirect" ContextNamespace="CprBroker.Providers.CPRDirect" Class="LookupDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="DPR" EntityNamespace="CprBroker.Providers.CPRDirect" ContextNamespace="CprBroker.Providers.CPRDirect" Class="LookupDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
   <Table Name="dbo.Authority" Member="Authorities">
     <Type Name="Authority">
       <Column Name="AuthorityCode" Type="System.String" DbType="VarChar(4) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />

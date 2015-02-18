@@ -55,6 +55,7 @@ using System.Text;
 using CprBroker.Engine;
 using CprBroker.Utilities;
 using CprBroker.EventBroker.Notifications;
+using CprBroker.Engine.Tasks;
 
 namespace CprBroker.EventBroker.Backend
 {
@@ -66,37 +67,38 @@ namespace CprBroker.EventBroker.Backend
         public BackendService()
         {
             InitializeComponent();
-            foreach (var queue in this.InstalledQueues)
-                queue.EventLog = this.EventLog;
         }
 
-        PeriodicTaskExecuter[] InstalledQueues
+        public TaskFactory TaskFactory = new TaskFactory();
+
+        PeriodicTaskExecuter[] _TaskExecuters;
+        public virtual PeriodicTaskExecuter[] TaskExecuters
         {
             get
             {
-                return new PeriodicTaskExecuter[]{
-                    this.BirthdateEventEnqueuer,
-                    this.DataChangeEventPuller,
-                    this.CriteriaSubscriptionPersonPopulator,
-                    this.DataChangeEventEnqueuer,
-                    this.NotificationSender,
-                    this.CprDirectDownloader,
-                    this.CprDirectExtractor,
-                    this.CprDirectPersonConverter,
-                    this.BudgetChecker
-                };
+                if (_TaskExecuters == null)
+                {
+                    _TaskExecuters = this.TaskFactory.LoadTasks()
+                        .Where(t => t != null)
+                        .ToArray();
+
+                    foreach (var t in _TaskExecuters)
+                        components.Add(t);
+                }
+
+                return _TaskExecuters.ToArray();
             }
         }
 
-        public void StartQueues()
+        public void StartTasks()
         {
-            foreach (var queue in this.InstalledQueues)
+            foreach (var queue in this.TaskExecuters)
                 queue.Start();
         }
 
-        public void StopQueues()
+        public void StopTasks()
         {
-            foreach (var queue in this.InstalledQueues)
+            foreach (var queue in this.TaskExecuters)
                 queue.Stop();
         }
 
@@ -104,26 +106,24 @@ namespace CprBroker.EventBroker.Backend
         {
             BrokerContext.Initialize(Constants.EventBrokerApplicationToken.ToString(), Constants.UserToken);
             CprBroker.Engine.Local.Admin.LogSuccess(TextMessages.BackendServiceStarting);
-            StartQueues();
+            StartTasks();
             CprBroker.Engine.Local.Admin.LogSuccess(TextMessages.BackendServiceStarted);
         }
 
         protected override void OnStop()
         {
-            StopQueues();
+            StopTasks();
         }
 
         protected override void OnContinue()
         {
-            StartQueues();
+            StartTasks();
         }
 
         protected override void OnPause()
         {
-            StopQueues();
+            StopTasks();
         }
-
-
 
     }
 }

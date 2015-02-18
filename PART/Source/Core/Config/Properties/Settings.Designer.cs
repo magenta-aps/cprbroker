@@ -12,7 +12,7 @@ namespace CprBroker.Config.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "10.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "12.0.0.0")]
     public sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -44,47 +44,11 @@ namespace CprBroker.Config.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1000")]
-        public int DataContextDeadLockWaitMilliseconds {
-            get {
-                return ((int)(this["DataContextDeadLockWaitMilliseconds"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("600000")]
-        public int DataProviderRefreshPeriodMilliseconds {
-            get {
-                return ((int)(this["DataProviderRefreshPeriodMilliseconds"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
         [global::System.Configuration.DefaultSettingValueAttribute("Data Source=SQLServer;Initial Catalog=PartEventBroker;User ID=cpr;Password=cpr")]
         public string EventBrokerConnectionString {
             get {
                 return ((string)(this["EventBrokerConnectionString"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("10")]
-        public int EventBrokerNotificationBatchSize {
-            get {
-                return ((int)(this["EventBrokerNotificationBatchSize"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("60000")]
-        public int EventBrokerPollIntervalMilliseconds {
-            get {
-                return ((int)(this["EventBrokerPollIntervalMilliseconds"]));
             }
         }
         
@@ -109,73 +73,10 @@ namespace CprBroker.Config.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("500")]
-        public int DataChangeDequeueBatchSize {
-            get {
-                return ((int)(this["DataChangeDequeueBatchSize"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("200")]
-        public int SubscriptionCriteriaMatchingBatchSize {
-            get {
-                return ((int)(this["SubscriptionCriteriaMatchingBatchSize"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1000")]
-        public int CprDirectExtractImportBatchSize {
-            get {
-                return ((int)(this["CprDirectExtractImportBatchSize"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool CprDirectReturnsNewestFirst {
             get {
                 return ((bool)(this["CprDirectReturnsNewestFirst"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("60")]
-        public int CprDirectExtractIntervalSeconds {
-            get {
-                return ((int)(this["CprDirectExtractIntervalSeconds"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("60")]
-        public int CprDirectDownloadIntervalMinutes {
-            get {
-                return ((int)(this["CprDirectDownloadIntervalMinutes"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("100")]
-        public int CprDirectPersonConverterBatchSize {
-            get {
-                return ((int)(this["CprDirectPersonConverterBatchSize"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("80")]
-        public int CprDirectPersonConverterIntervalSeconds {
-            get {
-                return ((int)(this["CprDirectPersonConverterIntervalSeconds"]));
             }
         }
         
@@ -190,10 +91,19 @@ namespace CprBroker.Config.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("3600000")]
-        public int BudgetCheckIntervalMilliseconds {
+        [global::System.Configuration.DefaultSettingValueAttribute("30")]
+        public int EventBrokerNotificationRetryIntervalMinutes {
             get {
-                return ((int)(this["BudgetCheckIntervalMilliseconds"]));
+                return ((int)(this["EventBrokerNotificationRetryIntervalMinutes"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("100")]
+        public int EventBrokerNotificationMaxRetry {
+            get {
+                return ((int)(this["EventBrokerNotificationMaxRetry"]));
             }
         }
     }

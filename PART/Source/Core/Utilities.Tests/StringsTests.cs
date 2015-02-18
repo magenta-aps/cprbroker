@@ -48,54 +48,61 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using CprBroker.Utilities;
-using NUnit.Framework;
 
-namespace CprBroker.Tests.Utilities
+namespace CprBroker.Utilities
 {
-    class StringsTests
+    // TODO: Move this into Schemas\VirkningType
+    public static class Dates
     {
-        [TestFixture]
-        public class IsValidHostName
+        public static bool DateRangeIncludes(DateTime? startDate, DateTime? endDate, DateTime effectDate, bool nullStartDateOK)
         {
-            string[] ValidHostNames = new string[] { "hotmail.com", "personMaster", "1PersonMaster", "999pms.dk", "m.a.a", "code-valley", "c.m-ee.12kl", "ddd234", "kkk---ppp", "88-22", "f.92.15xyz", "12.code.abc" };
-            string[] InvalidHostNames = new string[] { "", "-ddd", "def-", "22", "77.76", "klm.", "..", "....." };
-
-            [Test]
-            [TestCaseSource("ValidHostNames")]
-            public void IsValidHostName_OK_ReturnsTrue(string hostName)
+            if (startDate.HasValue && endDate.HasValue && startDate.Value > endDate.Value)
             {
-                var result = CprBroker.Utilities.Strings.IsValidHostName(hostName);
-                Assert.True(result);
+                throw new ArgumentException(string.Format("startDate <{0}> must me less than or equal o endDate <{1}>", startDate, endDate));
             }
-
-            [Test]
-            [TestCaseSource("InvalidHostNames")]
-            public void IsValidHostName_Invalid_ReturnsFalse(string hostName)
+            bool startDateRange = nullStartDateOK ?
+                !startDate.HasValue || startDate.Value <= effectDate
+                : startDate.HasValue && startDate.Value <= effectDate;
+            if (startDateRange)
             {
-                var result = CprBroker.Utilities.Strings.IsValidHostName(hostName);
-                Assert.False(result);
+                return !endDate.HasValue || endDate.Value >= effectDate;
             }
+            return false;
         }
 
-        [TestFixture]
-        public class EnsureStartString
+        public static bool DateRangeIncludes(DateTime? startDate, DateTime? endDate, DateTime? effectDate)
         {
-            [Test]
-            [ExpectedException]
-            public void EnsureStartString_NullStart_Exception()
+            if (startDate.HasValue && endDate.HasValue && startDate.Value > endDate.Value)
             {
-                var ss = "ssss";
-                CprBroker.Utilities.Strings.EnsureStartString(ss, null, true);
+                throw new ArgumentException(string.Format("startDate <{0}> must me less than or equal o endDate <{1}>", startDate, endDate));
             }
-
-            [Test]
-            [ExpectedException]
-            public void EnsureStartString_Null_Exception()
+            if (!effectDate.HasValue)
             {
-                var ss = "ssss";
-                CprBroker.Utilities.Strings.EnsureStartString(null, ss, true);
+                return true;
             }
+            else
+            {
+                var startDateRange = !startDate.HasValue || startDate.Value <= effectDate.Value;
+                var endDateRange = !endDate.HasValue || endDate.Value >= effectDate.Value;
+                return startDateRange && endDateRange;
+            }
+        }
+        public static Decimal DateToDecimal(DateTime date, int length)
+        {
+            String decimalValue = "";
+            decimalValue += date.Year.ToString("0000");
+            decimalValue += date.Month.ToString("00");
+            decimalValue += date.Day.ToString("00");
+            if (length > 8)
+            {
+                decimalValue += date.Hour.ToString("00");
+                decimalValue += date.Minute.ToString("00");
+            }
+            if (length > 12)
+            {
+                decimalValue += date.Second.ToString("00");
+            }
+            return Decimal.Parse(decimalValue);
         }
     }
 }

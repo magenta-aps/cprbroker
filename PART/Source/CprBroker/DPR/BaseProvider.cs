@@ -66,26 +66,27 @@ namespace CprBroker.Providers.DPR
 
         #region IExternalDataProvider Members
 
-        public Dictionary<string, string> ConfigurationProperties { get; set; }
+        private Dictionary<string, string> _ConfigurationProperties = new Dictionary<string, string>();
+        public Dictionary<string, string> ConfigurationProperties
+        {
+            get { return _ConfigurationProperties; }
+            set { _ConfigurationProperties = value; }
+        }
 
         public DataProviderConfigPropertyInfo[] ConfigurationKeys
         {
             get
             {
-                return new DataProviderConfigPropertyInfo[] { 
-                    new DataProviderConfigPropertyInfo(){Type = DataProviderConfigPropertyInfoTypes.String, Name="Data Source", Required=true, Confidential=false},
-                    new DataProviderConfigPropertyInfo(){Type = DataProviderConfigPropertyInfoTypes.String, Name="Initial Catalog", Required=false, Confidential=false},
-                    new DataProviderConfigPropertyInfo(){Type = DataProviderConfigPropertyInfoTypes.String, Name="User ID", Required=false, Confidential=false},
-                    new DataProviderConfigPropertyInfo(){Type = DataProviderConfigPropertyInfoTypes.String, Name="Password", Required=false, Confidential=true},
-                    new DataProviderConfigPropertyInfo(){Type = DataProviderConfigPropertyInfoTypes.String, Name="Integrated Security", Required=false, Confidential=false},
-                    new DataProviderConfigPropertyInfo(){Type = DataProviderConfigPropertyInfoTypes.String, Name="Other Connection String", Required=false, Confidential=false},
-                    
-                    new DataProviderConfigPropertyInfo(){Type = DataProviderConfigPropertyInfoTypes.Boolean, Name="Disable Diversion", Required=false,Confidential=false},
-                    new DataProviderConfigPropertyInfo(){Type = DataProviderConfigPropertyInfoTypes.String, Name="Address", Required=false, Confidential=false},
-                    new DataProviderConfigPropertyInfo(){Type = DataProviderConfigPropertyInfoTypes.Integer, Name="Port", Required=false, Confidential=false},                    
-                    new DataProviderConfigPropertyInfo(){Type = DataProviderConfigPropertyInfoTypes.Integer, Name="TCP Read Timeout (ms)" , Required=true, Confidential=false},
-                    
-                };
+                return
+                    DataProviderConfigPropertyInfo.Templates.ConnectionStringKeys
+                    .Union(new DataProviderConfigPropertyInfo[] { 
+                        new DataProviderConfigPropertyInfo(){Type = DataProviderConfigPropertyInfoTypes.Boolean, Name="Disable Diversion", Required=false,Confidential=false},
+                        new DataProviderConfigPropertyInfo(){Type = DataProviderConfigPropertyInfoTypes.String, Name="Address", Required=false, Confidential=false},
+                        new DataProviderConfigPropertyInfo(){Type = DataProviderConfigPropertyInfoTypes.Integer, Name="Port", Required=false, Confidential=false},
+                        new DataProviderConfigPropertyInfo(){Type = DataProviderConfigPropertyInfoTypes.Integer, Name="TCP Read Timeout (ms)" , Required=true, Confidential=false},
+                        new DataProviderConfigPropertyInfo(){Type = DataProviderConfigPropertyInfoTypes.Boolean, Name="Auto Update" , Required=true, Confidential=false}
+                    })
+                    .ToArray();
             }
         }
 
@@ -93,7 +94,6 @@ namespace CprBroker.Providers.DPR
         {
             get
             {
-                // TODO: rename the operation key to something like "Diversion". "Cost" is a bit ambigious.
                 return new string[] {
                     Constants.DiversionOperationName
                 };
@@ -102,73 +102,71 @@ namespace CprBroker.Providers.DPR
 
         #endregion
 
-        protected string Address
+        public string Address
         {
-            get
-            {
-                return ConfigurationProperties["Address"];
-            }
-        }
-        protected int Port
-        {
-            get
-            {
-                return int.Parse(ConfigurationProperties["Port"]);
-            }
+            get { return this.GetString("Address"); }
+            set { this.ConfigurationProperties["Address"] = value; }
         }
 
-        protected string ConnectionString
+        public int Port
         {
-            get
-            {
-                string other = string.Format("{0}", ConfigurationProperties["Other Connection String"]);
-                string dataSource = string.Format("{0}", ConfigurationProperties["Data Source"]);
-                string initialCatalog = string.Format("{0}", ConfigurationProperties["Initial Catalog"]);
-                string userId = string.Format("{0}", ConfigurationProperties["User ID"]);
-                string password = string.Format("{0}", ConfigurationProperties["Password"]);
-                string integratedSecurity = string.Format("{0}", ConfigurationProperties["Integrated Security"]);
+            get { return this.GetInteger("Port"); }
+            set { this.ConfigurationProperties["Port"] = Convert.ToString(value); }
+        }
 
-                System.Data.SqlClient.SqlConnectionStringBuilder connectionBuilder = new System.Data.SqlClient.SqlConnectionStringBuilder(other);
-                if (!string.IsNullOrEmpty(dataSource))
-                {
-                    connectionBuilder.DataSource = dataSource;
-                }
-                if (!string.IsNullOrEmpty(initialCatalog))
-                {
-                    connectionBuilder.InitialCatalog = initialCatalog;
-                }
-                if (!string.IsNullOrEmpty(userId))
-                {
-                    connectionBuilder.UserID = userId;
-                }
-                if (!string.IsNullOrEmpty(password))
-                {
-                    connectionBuilder.Password = password;
-                }
-                if (!string.IsNullOrEmpty(integratedSecurity))
-                {
-                    connectionBuilder.IntegratedSecurity = integratedSecurity.ToUpper() == "SSPI" || bool.Parse(integratedSecurity);
-                }
-
-                return connectionBuilder.ToString();
-            }
+        public string ConnectionString
+        {
+            get { return DataProviderConfigPropertyInfo.Templates.GetConnectionString(this.ConfigurationProperties); }
+            set { DataProviderConfigPropertyInfo.Templates.SetConnectionString(value, this.ConfigurationProperties); }
         }
 
         public int TcpReadTimeout
         {
-            get
-            {
-                return Convert.ToInt32(ConfigurationProperties["TCP Read Timeout (ms)"]);
-            }
+            get { return this.GetInteger("TCP Read Timeout (ms)"); }
+            set { this.ConfigurationProperties["TCP Read Timeout (ms)"] = Convert.ToString(value); }
         }
 
         public bool DisableDiversion
         {
+            get { return this.GetBoolean("Disable Diversion"); }
+            set { ConfigurationProperties["Disable Diversion"] = Convert.ToString(value); }
+        }
+
+        public bool AutoUpdate
+        {
+            get { return this.GetBoolean("Auto Update"); }
+            set { ConfigurationProperties["Auto Update"] = Convert.ToString(value); }
+        }
+
+        public string AutoUpdateHint
+        {
             get
             {
-                return Convert.ToBoolean(ConfigurationProperties["Disable Diversion"]);
+                var ret = new List<string>();
+                ret.Add(Properties.Resources.CreateTrackingTables);
+                ret.Add(Properties.Resources.CreateTrackingTriggers);
+
+                var builder = new System.Data.SqlClient.SqlConnectionStringBuilder(this.ConnectionString);
+                ret.Add(Properties.Resources.InitTrackingPermissions.Replace("<userId>", builder.UserID));
+
+                return string.Join("\r\nGO\r\n", ret.ToArray());
             }
         }
+
+        public bool InitAutoUpdate()
+        {
+            try
+            {
+                CprBroker.Installers.DatabaseCustomAction.ExecuteDDL(AutoUpdateHint, this.ConnectionString, false);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                CprBroker.Engine.Local.Admin.LogException(ex);
+                return false;
+            }
+        }
+
 
         #region IDataProvider Members
 
@@ -221,7 +219,7 @@ namespace CprBroker.Providers.DPR
                 {
                     using (TcpClient client = new TcpClient(Address, Port))
                     {
-                        Byte[] data = System.Text.Encoding.UTF7.GetBytes(message);
+                        Byte[] data = Constants.DiversionEncoding.GetBytes(message);
 
                         using (NetworkStream stream = client.GetStream())
                         {
@@ -230,7 +228,7 @@ namespace CprBroker.Providers.DPR
                             data = new Byte[3500];
                             bytes = stream.Read(data, 0, data.Length);
                         }
-                        response = System.Text.Encoding.UTF7.GetString(data, 0, bytes);
+                        response = Constants.DiversionEncoding.GetString(data, 0, bytes);
                     }
 
                     string errorCode = response.Substring(2, 2);

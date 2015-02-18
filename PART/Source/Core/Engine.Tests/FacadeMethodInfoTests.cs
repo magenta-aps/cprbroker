@@ -8,6 +8,7 @@ using CprBroker.Utilities;
 using CprBroker.Data.DataProviders;
 using CprBroker.Tests.Engine.Stubs;
 using System.Diagnostics;
+using CprBroker.Utilities.Config;
 
 namespace CprBroker.Tests.Engine
 {
@@ -38,7 +39,7 @@ namespace CprBroker.Tests.Engine
             }
 
 
-            DataProvidersConfigurationSection section = CprBroker.Config.ConfigManager.Current.DataProvidersSection;
+            DataProvidersConfigurationSection section = ConfigManager.Current.DataProvidersSection;
 
 
             bool missingDataProvidersExist;

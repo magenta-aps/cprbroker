@@ -58,6 +58,7 @@ using System.Security.AccessControl;
 using System.Diagnostics;
 using System.ServiceProcess;
 using CprBroker.Utilities;
+using CprBroker.Utilities.Config;
 
 namespace CprBroker.Installers
 {

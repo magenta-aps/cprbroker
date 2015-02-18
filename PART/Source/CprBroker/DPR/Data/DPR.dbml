@@ -9,13 +9,13 @@
       <Column Name="FORNMRK" Member="FirstNameMarker" Storage="_FORNMRK" Type="System.Char" DbType="VarChar(1)" CanBeNull="true" />
       <Column Name="EFTNMRK" Member="SurnameMarker" Storage="_EFTNMRK" Type="System.Char" DbType="VarChar(1)" CanBeNull="true" />
       <Column Name="NVHAENST" Member="NameStartDate" Storage="_NVHAENST" Type="System.Decimal" DbType="Decimal(13,0)" IsPrimaryKey="true" CanBeNull="true" />
-      <Column Name="NVHAENSL" Member="NameTerminationDate" Storage="_NVHAENSL" Type="System.Decimal" DbType="Decimal(13,0)" CanBeNull="true" />
+      <Column Name="NVHAENSL" Member="NameTerminationDate" Storage="_NVHAENSL" Type="System.Decimal" DbType="Decimal(13,0)" IsPrimaryKey="true" CanBeNull="true" />
       <Column Name="ANHAENST" Member="AddressingNameDate" Storage="_ANHAENST" Type="System.Decimal" DbType="Decimal(13,0)" CanBeNull="true" />
       <Column Name="ANNKOR" Member="CorrectionMarker" Storage="_ANNKOR" Type="System.Char" DbType="VarChar(1)" IsPrimaryKey="true" CanBeNull="true" />
       <Column Name="INDRAP" Member="AddressingNameReportingMarker" Storage="_INDRAP" Type="System.String" DbType="VarChar(3)" CanBeNull="true" />
       <Column Name="MYTAJDTO" Member="AuthorityTextUpdateDate" Storage="_MYTAJDTO" Type="System.Decimal" DbType="Decimal(13,0)" CanBeNull="true" />
       <Column Name="SNHAENST" Member="SearchNameDate" Storage="_SNHAENST" Type="System.Decimal" DbType="Decimal(13,0)" CanBeNull="true" />
-      <Column Name="FORNVN" Member="FirstName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="FORNVN" Member="FirstName" Type="System.String" DbType="VarChar(50)" IsPrimaryKey="true" CanBeNull="true" />
       <Column Name="EFTERNVN" Member="LastName" Type="System.String" DbType="VarChar(40)" CanBeNull="true" />
       <Column Name="ADRNVN" Member="AddressingName" Type="System.String" DbType="VarChar(34)" CanBeNull="true" />
       <Column Name="SOEGNVN" Member="SearchName" Storage="_SOEGNVN" Type="System.String" DbType="VarChar(34)" CanBeNull="true" />
@@ -39,7 +39,7 @@
       <Column Name="FOEDDTO" Member="DateOfBirth" Type="System.Decimal" DbType="Decimal(9,0) NOT NULL" CanBeNull="false" />
       <Column Name="KOEN" Member="Sex" Type="System.Char" DbType="VarChar(1)" CanBeNull="true" />
       <Column Name="KOMKOD" Member="MunicipalityCode" Storage="_KOMKOD" Type="System.Decimal" DbType="Decimal(5,0) NOT NULL" CanBeNull="false" />
-      <Column Name="AKTKONVN" Member="MunicipalityName" Storage="_AKTKONVN" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="AKTKONVN" Member="CurrentMunicipalityName" Storage="_AKTKONVN" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
       <Column Name="VEJKOD" Member="StreetCode" Storage="_VEJKOD" Type="System.Decimal" DbType="Decimal(5,0) NOT NULL" CanBeNull="false" />
       <Column Name="HUSNR" Member="HouseNumber" Storage="_HUSNR" Type="System.String" DbType="VarChar(4)" CanBeNull="true" />
       <Column Name="ETAGE" Member="Floor" Storage="_ETAGE" Type="System.String" DbType="VarChar(2)" CanBeNull="true" />
@@ -53,7 +53,7 @@
       <Column Name="FRAFKDTO" Member="MunicipalityLeavingDate" Storage="_FRAFKDTO" Type="System.Decimal" DbType="Decimal(13,0)" CanBeNull="true" />
       <Column Name="FKIRK" Member="ChristianMark" Storage="_FKIRK" Type="System.Char" DbType="VarChar(1)" CanBeNull="true" />
       <Column Name="FREGSTED" Member="BirthPlaceOfRegistration" Storage="_FREGSTED" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
-      <Column Name="PMHAENST" Member="PersonalSelectionDate" Storage="_PMHAENST" Type="System.Decimal" DbType="Decimal(13,0)" CanBeNull="true" />
+      <Column Name="PMHAENST" Member="PnrMarkingDate" Storage="_PMHAENST" Type="System.Decimal" DbType="Decimal(13,0)" CanBeNull="true" />
       <Column Name="MOR" Member="MotherPersonalOrBirthDate" Storage="_MOR" Type="System.String" DbType="VarChar(11)" CanBeNull="true" />
       <Column Name="MORMRK" Member="MotherMarker" Storage="_MORMRK" Type="System.Char" DbType="VarChar(1)" CanBeNull="true" />
       <Column Name="FAR" Member="FatherPersonalOrBirthdate" Storage="_FAR" Type="System.String" DbType="VarChar(11)" CanBeNull="true" />
@@ -80,7 +80,7 @@
       <Column Name="STILLING" Member="Occupation" Storage="_STILLING" Type="System.String" DbType="VarChar(34)" CanBeNull="true" />
       <Column Name="CONVN" Member="CareOfName" Storage="_CONVN" Type="System.String" DbType="VarChar(34)" CanBeNull="true" />
       <Column Name="BYNVN" Member="CityName" Storage="_BYNVN" Type="System.String" DbType="VarChar(34)" CanBeNull="true" />
-      <Column Name="STBORGER" Member="Nationality" Storage="_STBORGER" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="STBORGER" Member="NationalityRight" Storage="_STBORGER" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
       <Column Name="TIDLADR" Member="PreviousAddress" Storage="_TIDLADR" Type="System.String" DbType="VarChar(65)" CanBeNull="true" />
       <Column Name="TIDLKNVN" Member="PreviousMunicipalityName" Storage="_TIDLKNVN" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
       <Column Name="FORNVN" Member="SearchName" Storage="_FORNVN" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
@@ -108,7 +108,7 @@
       <Column Name="AJFDTO" Member="UpdateDateOfCpr" Storage="_AJFDTO" Type="System.Decimal" DbType="Decimal(13,0) NOT NULL" CanBeNull="false" />
       <Column Name="CIVST" Member="MaritalStatus" Storage="_CIVST" Type="System.Char" DbType="VarChar(1)" CanBeNull="true" />
       <Column Name="MYNKOD" Member="MaritalStatusAuthorityCode" Storage="_MYNKOD" Type="System.Decimal" DbType="Decimal(5,0)" CanBeNull="true" />
-      <Column Name="AEGTEPNR" Member="SpousePNR" Storage="_AEGTEPNR" Type="System.Decimal" DbType="Decimal(11,0)" CanBeNull="true" />
+      <Column Name="AEGTEPNR" Member="SpousePNR" Storage="_AEGTEPNR" Type="System.Decimal" DbType="Decimal(11,0)" IsPrimaryKey="true" CanBeNull="true" />
       <Column Name="AEFODDTO" Member="SpouseBirthdate" Storage="_AEFODDTO" Type="System.Decimal" DbType="Decimal(9,0)" CanBeNull="true" />
       <Column Name="AEGTEDOK" Member="SpouseDocumentation" Storage="_AEGTEDOK" Type="System.String" DbType="VarChar(3)" CanBeNull="true" />
       <Column Name="HAENST" Member="MaritalStatusDate" Storage="_HAENST" Type="System.Decimal" DbType="Decimal(13,0)" IsPrimaryKey="true" CanBeNull="true" />
@@ -126,7 +126,7 @@
       <Column Name="PNR" Type="System.Decimal" DbType="Decimal(11,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="AJFDTO" Member="CprUpdateDate" Type="System.Decimal" DbType="Decimal(13,0) NOT NULL" CanBeNull="false" />
       <Column Name="KOMKOD" Member="MunicipalityCode" Type="System.Decimal" DbType="Decimal(5,0) NOT NULL" CanBeNull="false" />
-      <Column Name="VEJKOD" Member="StreetCode" Type="System.Decimal" DbType="Decimal(5,0) NOT NULL" CanBeNull="false" />
+      <Column Name="VEJKOD" Member="StreetCode" Type="System.Decimal" DbType="Decimal(5,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="HUSNR" Member="HouseNumber" Type="System.String" DbType="VarChar(4)" CanBeNull="true" />
       <Column Name="ETAGE" Member="Floor" Type="System.String" DbType="VarChar(2)" CanBeNull="true" />
       <Column Name="SIDEDOER" Member="DoorNumber" Type="System.String" DbType="VarChar(4)" CanBeNull="true" />
@@ -219,29 +219,131 @@
       <Association Name="PersonTotal_ContactAddress" Member="PersonTotal" ThisKey="PNR" OtherKey="PNR" Type="PersonTotal" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.DTRELPNR_PNR" Member="Relations">
-    <Type Name="Relation">
-      <Column Name="PNR" Storage="_ChildPNR" Type="System.Decimal" DbType="Decimal(11,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="RELPNR" Member="RelationPNR" Storage="_ParentPNR" Type="System.Decimal" DbType="Decimal(11,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="RELTYP" Member="RelationType" Type="System.Decimal" DbType="Decimal(4,0) NOT NULL" CanBeNull="false" />
-      <Column Name="AJFDTO" Member="CprUpdateDate" Type="System.Decimal" DbType="Decimal(13,0) NOT NULL" CanBeNull="false" />
-      <Column Name="STARTDATE" Member="StartDate" Type="System.DateTime" DbType="SmallDateTime NOT NULL" CanBeNull="false" />
-      <Column Name="SLETDATE" Member="EndDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
-      <Column Name="MYNKOD" Member="AuthorityCode" Type="System.Decimal" DbType="Decimal(5,0) NOT NULL" CanBeNull="false" />
-      <Association Name="PersonTotal_Relation" Member="PersonTotal" ThisKey="PNR" OtherKey="PNR" Type="PersonTotal" IsForeignKey="true" />
-      <Association Name="PersonTotal_Relation2" Member="PersonTotal2" ThisKey="RelationPNR" OtherKey="PNR" Type="PersonTotal" IsForeignKey="true" />
+  <Table Name="dbo.DTBESKYT" Member="Protections">
+    <Type Name="Protection">
+      <Column Name="PNR" Type="System.Decimal" DbType="Decimal(11,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="BESKYT_TYP" Member="ProtectionType" Type="System.Decimal" DbType="Decimal(4,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="AJFDTO" Member="CprUpdateDate" Type="System.Decimal" DbType="Decimal(13,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="STARTDATE" Member="StartDate" Type="System.DateTime" DbType="SmallDateTime NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="SLETDATE" Member="EndDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="INDRAP" Member="ReportingMarker" Type="System.String" DbType="VarChar(3)" CanBeNull="true" />
     </Type>
   </Table>
   <Table Name="dbo.DTFORALDREMYND" Member="ParentalAuthorities">
     <Type Name="ParentalAuthority">
-      <Column Name="PNR" Type="System.Decimal" DbType="Decimal(11,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="PNR" Member="ChildPNR" Type="System.Decimal" DbType="Decimal(11,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="RELTYP" Member="RelationType" Type="System.Decimal" DbType="Decimal(4,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="AJFDTO" Member="CprUpdateDate" Type="System.Decimal" DbType="Decimal(13,0) NOT NULL" CanBeNull="false" />
-      <Column Name="START_MYNKOD" Member="CustodyStartAuthorityCode" Type="System.Decimal" DbType="Decimal(5,0) NOT NULL" CanBeNull="false" />
-      <Column Name="STARTDATE" Member="StartDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Column Name="STARTDATE_UMRK" Member="StartDateMarker" Type="System.Char" DbType="Char(1)" CanBeNull="true" />
+      <Column Name="AJFDTO" Member="CprUpdateDate" Type="System.Decimal" DbType="Decimal(13,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="START_MYNKOD" Member="ParentalAuthorityCode" Type="System.Decimal" DbType="Decimal(5,0) NOT NULL" CanBeNull="false" />
+      <Column Name="STARTDATE" Member="StartDate" Type="System.DateTime" DbType="DateTime NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="STARTDATE_UMRK" Member="StartDateUncertainty" Type="System.Char" DbType="Char(1)" CanBeNull="true" />
       <Column Name="SLETDATE" Member="EndDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Association Name="PersonTotal_ParentalAuthority" Member="PersonTotal" ThisKey="PNR" OtherKey="PNR" Type="PersonTotal" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DTFORSV" Member="Disappearances">
+    <Type Name="Disappearance">
+      <Column Name="PNR" Type="System.Decimal" DbType="Decimal(11,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="AJFDTO" Member="CprUpdateDate" Type="System.Decimal" DbType="Decimal(13,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="FORSVDTO" Member="DisappearanceDate" Type="System.Decimal" DbType="Decimal(13,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="GENFDTO" Member="RetrievalDate" Type="System.Decimal" DbType="Decimal(13,0)" CanBeNull="true" />
+      <Column Name="ANNKOR" Member="CorrectionMarker" Type="System.String" DbType="VarChar(1)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DTNOTAT" Member="Notes">
+    <Type Name="Note">
+      <Column Name="PNR" Type="System.Decimal" DbType="Decimal(11,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="AJFDTO" Member="CprUpdateDate" Type="System.Decimal" DbType="Decimal(13,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="HAENST" Member="NationalRegisterMemoDate" Type="System.Decimal" DbType="Decimal(13,0) NOT NULL" CanBeNull="false" />
+      <Column Name="SLETDTO" Member="DeletionDate" Type="System.Decimal" DbType="Decimal(13,0)" CanBeNull="true" />
+      <Column Name="NOTATNR" Member="NoteNumber" Type="System.Decimal" DbType="Decimal(3,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="NOTATLI" Member="NationalRegisterNoteLine" Type="System.String" DbType="VarChar(40)" CanBeNull="true" />
+      <Column Name="KOMKOD" Member="MunicipalityCode" Type="System.Decimal" DbType="Decimal(5,0) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DTHAEN" Member="Events">
+    <Type Name="Event">
+      <Column Name="PNR" Type="System.Decimal" DbType="Decimal(11,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="TSU" Member="CprUpdateDate" Type="System.Decimal" DbType="Decimal(13,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="HAEND" Member="Event_" Type="System.String" DbType="VarChar(3)" IsPrimaryKey="true" CanBeNull="true" />
+      <Column Name="AFLMRK" Type="System.String" DbType="VarChar(2)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DTPERS" Member="Persons">
+    <Type Name="Person">
+      <Column Name="PNR" Type="System.Decimal" DbType="Decimal(11,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="PERAJDTO" Member="CprUpdateDate" Type="System.Decimal" DbType="Decimal(13,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="FOEDDTO" Member="Birthdate" Type="System.Decimal" DbType="Decimal(9,0) NOT NULL" CanBeNull="false" />
+      <Column Name="KOEN" Member="Gender" Type="System.String" DbType="VarChar(1)" CanBeNull="true" />
+      <Column Name="FODMYKOD" Member="BirthRegistrationAuthorityCode" Type="System.Decimal" DbType="Decimal(5,0) NOT NULL" CanBeNull="false" />
+      <Column Name="FMHAENST" Member="BirthRegistrationDate" Type="System.Decimal" DbType="Decimal(13,0) NOT NULL" CanBeNull="false" />
+      <Column Name="FMAJFDTO" Member="BirthRegistrationPlaceUpdateDate" Type="System.Decimal" DbType="Decimal(13,0) NOT NULL" CanBeNull="false" />
+      <Column Name="FKIRK" Member="ChristianMark" Type="System.String" DbType="VarChar(1)" CanBeNull="true" />
+      <Column Name="FKAJFDTO" Member="ChurchRelationUpdateDate" Type="System.Decimal" DbType="Decimal(13,0) NOT NULL" CanBeNull="false" />
+      <Column Name="FKMYNKOD" Member="ChurchAuthorityCode" Type="System.Decimal" DbType="Decimal(5,0) NOT NULL" CanBeNull="false" />
+      <Column Name="FKHAENST" Member="ChurchDate" Type="System.Decimal" DbType="Decimal(13,0) NOT NULL" CanBeNull="false" />
+      <Column Name="UMYMYKOD" Member="UnderGuardianshipAuthprityCode" Type="System.Decimal" DbType="Decimal(5,0)" CanBeNull="true" />
+      <Column Name="UMAJFDTO" Member="GuardianshipUpdateDate" Type="System.Decimal" DbType="Decimal(13,0)" CanBeNull="true" />
+      <Column Name="UMHAENST" Member="UnderGuardianshipDate" Type="System.Decimal" DbType="Decimal(13,0)" CanBeNull="true" />
+      <Column Name="PMHAENST" Member="PnrMarkingDate" Type="System.Decimal" DbType="Decimal(13,0)" CanBeNull="true" />
+      <Column Name="PNHAENST" Member="PnrDate" Type="System.Decimal" DbType="Decimal(13,0) NOT NULL" CanBeNull="false" />
+      <Column Name="PGAJFDTO" Member="CurrentPnrUpdateDate" Type="System.Decimal" DbType="Decimal(13,0)" CanBeNull="true" />
+      <Column Name="PNRGAELD" Member="CurrentPnr" Type="System.Decimal" DbType="Decimal(11,0)" CanBeNull="true" />
+      <Column Name="PNHAENSL" Member="PnrDeletionDate" Type="System.Decimal" DbType="Decimal(13,0)" CanBeNull="true" />
+      <Column Name="STILDTO" Member="JobDate" Storage="_LocationDate" Type="System.Decimal" DbType="Decimal(13,0)" CanBeNull="true" />
+      <Column Name="FTAJFDTO" Member="BirthplaceTextUpdateDate" Type="System.Decimal" DbType="Decimal(13,0)" CanBeNull="true" />
+      <Column Name="KUNDENR" Member="CustomerNumber" Type="System.Decimal" DbType="Decimal(5,0)" CanBeNull="true" />
+      <Column Name="MFAJFDTO" Member="KinshipUpdateDate" Type="System.Decimal" DbType="Decimal(13,0) NOT NULL" CanBeNull="false" />
+      <Column Name="PNRMOR" Member="MotherPnr" Type="System.Decimal" DbType="Decimal(11,0) NOT NULL" CanBeNull="false" />
+      <Column Name="MORFDTO" Member="MotherBirthdate" Type="System.Decimal" DbType="Decimal(9,0)" CanBeNull="true" />
+      <Column Name="MORDOK" Member="MotherDocumentation" Type="System.String" DbType="VarChar(3)" CanBeNull="true" />
+      <Column Name="PNRFAR" Member="FatherPnr" Type="System.Decimal" DbType="Decimal(11,0) NOT NULL" CanBeNull="false" />
+      <Column Name="FARFDTO" Member="FatherBirthdate" Type="System.Decimal" DbType="Decimal(9,0)" CanBeNull="true" />
+      <Column Name="FARDOK" Member="FatherDocumentation" Type="System.String" DbType="VarChar(3)" CanBeNull="true" />
+      <Column Name="FSHAENST" Member="PaternityDate" Type="System.Decimal" DbType="Decimal(13,0)" CanBeNull="true" />
+      <Column Name="FSMYNKOD" Member="PaternityAuthorityCode" Type="System.Decimal" DbType="Decimal(5,0)" CanBeNull="true" />
+      <Column Name="MORNVN" Member="MotherName" Type="System.String" DbType="VarChar(34)" CanBeNull="true" />
+      <Column Name="FARNVN" Member="FatherName" Type="System.String" DbType="VarChar(34)" CanBeNull="true" />
+      <Column Name="FMTXT" Member="BirthplaceText" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="STILLING" Member="Job" Type="System.String" DbType="VarChar(34)" CanBeNull="true" />
+      <Column Name="UMYNSLETDATE" Member="UnderGuardianshipDeleteDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="UMYNRELTYP" Member="UnderGuardianshipRelationType" Type="System.Decimal" DbType="Decimal(4,0)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DTKOMFOR" Member="MunicipalConditions">
+    <Type Name="MunicipalCondition">
+      <Column Name="PNR" Type="System.Decimal" DbType="Decimal(11,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="AJFDTO" Member="CprUpdateDate" Type="System.Decimal" DbType="Decimal(13,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="KOMFTYP" Member="ConditionType" Type="System.Decimal" DbType="Decimal(1,0) NOT NULL" CanBeNull="false" />
+      <Column Name="KOMFKOD" Member="ConditionMarker" Type="System.String" DbType="VarChar(5)" CanBeNull="true" />
+      <Column Name="HAENST" Member="ConditionDate" Type="System.Decimal" DbType="Decimal(13,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="BEMAERK" Member="ConditionComments" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DTRELPNR_PNR" Member="GuardianAndParentalAuthorityRelations">
+    <Type Name="GuardianAndParentalAuthorityRelation">
+      <Column Name="PNR" Type="System.Decimal" DbType="Decimal(11,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="RELPNR" Member="RelationPnr" Type="System.Decimal" DbType="Decimal(11,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="RELTYP" Member="RelationType" Type="System.Decimal" DbType="Decimal(4,0) NOT NULL" CanBeNull="false" />
+      <Column Name="AJFDTO" Member="CprUpdateDate" Type="System.Decimal" DbType="Decimal(13,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="STARTDATE" Member="StartDate" Type="System.DateTime" DbType="SmallDateTime NOT NULL" CanBeNull="false" />
+      <Column Name="SLETDATE" Member="EndDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="MYNKOD" Member="AuthorityCode" Type="System.Decimal" DbType="Decimal(5,0) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DTRELPNR_TXT" Member="GuardianAddresses">
+    <Type Name="GuardianAddress">
+      <Column Name="PNR" Type="System.Decimal" DbType="Decimal(11,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="RELADRSAT" Member="Address" Type="System.String" DbType="VarChar(34)" CanBeNull="true" />
+      <Column Name="RELTYP" Member="RelationType" Type="System.Decimal" DbType="Decimal(4,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="AJFDTO" Member="CprUpdateDate" Type="System.Decimal" DbType="Decimal(13,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="RELTXT1" Member="AddressLine1" Type="System.String" DbType="VarChar(34)" CanBeNull="true" />
+      <Column Name="RELTXT2" Member="AddressLine2" Type="System.String" DbType="VarChar(34)" CanBeNull="true" />
+      <Column Name="RELTXT3" Member="AddressLine3" Type="System.String" DbType="VarChar(34)" CanBeNull="true" />
+      <Column Name="RELTXT4" Member="AddressLine4" Type="System.String" DbType="VarChar(34)" CanBeNull="true" />
+      <Column Name="RELTXT5" Member="AddressLine5" Type="System.String" DbType="VarChar(34)" CanBeNull="true" />
+      <Column Name="STARTDATE" Member="StartDate" Type="System.DateTime" DbType="SmallDateTime NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="SLETDATE" Member="EndDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="MYNKOD" Member="AuthorityCode" Type="System.Decimal" DbType="Decimal(5,0) NOT NULL" CanBeNull="false" />
     </Type>
   </Table>
 </Database>

@@ -51,6 +51,8 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Timers;
+using CprBroker.Engine.Tasks;
+using CprBroker.Utilities.Config;
 
 namespace CprBroker.EventBroker.Notifications
 {
@@ -72,31 +74,29 @@ namespace CprBroker.EventBroker.Notifications
             InitializeComponent();
         }
 
-        protected override TimeSpan CalculateActionTimerInterval(TimeSpan currentInterval)
-        {
-            return TimeSpan.FromMilliseconds(CprBroker.Config.ConfigManager.Current.Settings.EventBrokerPollIntervalMilliseconds);
-        }
-        
         protected override void PerformTimerAction()
         {
             using (var dataContext = new Data.EventBrokerDataContext())
             {
-                int batchSize = CprBroker.Config.ConfigManager.Current.Settings.EventBrokerNotificationBatchSize;
+                // Read config values
+                var retryWaitPeriod = TimeSpan.FromMinutes(ConfigManager.Current.Settings.EventBrokerNotificationRetryIntervalMinutes);
+                var maxAttempts = ConfigManager.Current.Settings.EventBrokerNotificationMaxRetry;
+
                 Data.EventNotification[] dueNotifications = new CprBroker.EventBroker.Data.EventNotification[0];
                 do
                 {
-                    dueNotifications =
-                        (
-                            from eventNotification in dataContext.EventNotifications
-                            where eventNotification.Succeeded == null
-                            orderby eventNotification.CreatedDate
-                            select eventNotification
-                        ).Take(batchSize).ToArray();
-
+                    var retryBeforeDate = DateTime.Now - retryWaitPeriod;
+                    dueNotifications = Data.EventNotification.GetNext(dataContext.EventNotifications, retryBeforeDate, maxAttempts, this.BatchSize);
 
                     foreach (var eventNotification in dueNotifications)
                     {
                         eventNotification.NotificationDate = DateTime.Now;
+
+                        if (eventNotification.AttemptCount == null)
+                            eventNotification.AttemptCount = 1;
+                        else
+                            eventNotification.AttemptCount++;
+
                         try
                         {
                             Channel channel = Channel.Create(eventNotification.Subscription.Channels.Single());
@@ -113,7 +113,7 @@ namespace CprBroker.EventBroker.Notifications
                     }
                     dataContext.SubmitChanges();
 
-                } while (dueNotifications.Length == batchSize);
+                } while (dueNotifications.Length == this.BatchSize);
             }
         }
     }

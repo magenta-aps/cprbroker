@@ -85,7 +85,7 @@ namespace CprBroker.Installers
             ExecuteDDL(createDatabaseObjectsSql, adminConnectionStringWithDb);
         }
 
-        public static void ExecuteDDL(string createDatabaseObjectsSql, string adminConnectionStringWithDb)
+        public static void ExecuteDDL(string createDatabaseObjectsSql, string adminConnectionStringWithDb, bool showMessages = true)
         {
             using (SqlConnection adminConnectionWDb = new SqlConnection(adminConnectionStringWithDb))
             {
@@ -108,8 +108,11 @@ namespace CprBroker.Installers
                                 }
                                 catch
                                 {
-                                    // TODO: Include parent window ID here
-                                    MessageBox.Show(sqlBatch);
+                                    if (showMessages)
+                                    {
+                                        // TODO: Include parent window ID here
+                                        MessageBox.Show(sqlBatch);
+                                    }
                                     throw;
                                 }
                             }
@@ -181,7 +184,7 @@ namespace CprBroker.Installers
                         {
                             if (neededTables == null || neededTables.Length == 0)
                             {
-                                if (!databaseSetupInfo.IsDatabaseRoleMember("db_owner", userName, adminConnectionWithDb))
+                                if (!Utilities.Sql.IsDatabaseRoleMember("db_owner", userName, adminConnectionWithDb))
                                 {
                                     permissionsCommand.CommandText = "sp_addrolemember";
                                     permissionsCommand.CommandType = System.Data.CommandType.StoredProcedure;
@@ -210,7 +213,7 @@ namespace CprBroker.Installers
             string adminConnectionWithDB = databaseSetupInfo.CreateConnectionString(true, true);
             InsertLookups(lookupDataArray, adminConnectionWithDB);
         }
- 
+
         public static void InsertLookups(KeyValuePair<string, string>[] lookupDataArray, string adminConnectionWithDB)
         {
             foreach (var lookupData in lookupDataArray)
@@ -221,6 +224,12 @@ namespace CprBroker.Installers
                     InsertLookup(lookupData.Key, lookupData.Value, conn);
                 }
             }
+        }
+
+        public static void InsertLookup<T>(string csv, SqlConnection conn)
+        {
+            var tableName = Utilities.DataLinq.GetTableName<T>();
+            InsertLookup(tableName, csv, conn);
         }
 
         public static void InsertLookup(string tableName, string csv, SqlConnection conn)
@@ -342,7 +351,7 @@ namespace CprBroker.Installers
                                 using (var adminConnectionWithDB = new SqlConnection(setupInfo.CreateConnectionString(true, true)))
                                 {
                                     adminConnectionWithDB.Open();
-                                    if (!setupInfo.IsDatabaseRoleMember("db_owner", setupInfo.ApplicationAuthenticationInfo.UserName, adminConnectionWithDB))
+                                    if (!Utilities.Sql.IsDatabaseRoleMember("db_owner", setupInfo.ApplicationAuthenticationInfo.UserName, adminConnectionWithDB))
                                     {
                                         using (var dropUserCommand = new SqlCommand(string.Format("DROP USER [{0}]", setupInfo.ApplicationAuthenticationInfo.UserName), adminConnectionWithDB))
                                         {

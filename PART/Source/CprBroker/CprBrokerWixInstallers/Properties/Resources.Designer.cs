@@ -84,32 +84,54 @@ namespace CprBrokerWixInstallers.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N&apos;[dbo].[BudgetInterval]&apos;) AND type in (N&apos;U&apos;))
+        ///BEGIN
+        ///    CREATE TABLE [dbo].[BudgetInterval](
+        ///	    [IntervalMilliseconds] [bigint] NOT NULL
+        ///            CONSTRAINT [PK_BudgetInterval] PRIMARY KEY CLUSTERED ([IntervalMilliseconds] ASC),
+        ///	    [Name] [varchar](50) NOT NULL,
+        ///	    [CallThreshold] [int] NULL,
+        ///	    [CostThreshold] [decimal](18, 4) NULL,
+        ///	    [LastChecked] [datetime] NULL
+        ///    ) ON [PRIMARY]
+        ///END
+        ///
+        ///GO
+        ///.
+        /// </summary>
+        public static string BudgetInterval {
+            get {
+                return ResourceManager.GetString("BudgetInterval", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to IntervalMilliseconds;Name;CallThreshold;CostThreshold;LastChecked
         ///3600000;Hour;;;
         ///86400000;Day;;;
         ///604800000;Week;;;
         ///2592000000;Month;;;.
         /// </summary>
-        public static string BudgetEntry {
+        public static string BudgetInterval_Csv {
             get {
-                return ResourceManager.GetString("BudgetEntry", resourceCulture);
+                return ResourceManager.GetString("BudgetInterval_Csv", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to /****** Object:  Table [dbo].[DataProviderCall]    Script Date: 11/21/2013 10:16:51 ******/
+        ///   Looks up a localized string similar to /****** Object:  Table [dbo].[DataChangeEvent]    Script Date: 11/21/2013 10:16:51 ******/
         ///SET ANSI_NULLS ON
         ///GO
         ///SET QUOTED_IDENTIFIER ON
         ///GO
-        ///IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N&apos;[dbo].[DataProviderCall]&apos;) AND type in (N&apos;U&apos;))
+        ///IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N&apos;[dbo].[DataChangeEvent]&apos;) AND type in (N&apos;U&apos;))
         ///BEGIN
-        ///CREATE TABLE [dbo].[DataProviderCall](
-        ///	[DataProviderCallId] [uniqueidentifier] NOT NULL,
-        ///	[ActivityId] [uniqueidentifier] NOT NULL,
-        ///	[CallTime] [datetime] NOT NULL,
-        ///	[DataProviderType] [varchar](250) NOT NULL,
-        ///	[Cost] [decimal](18, 4) [rest of string was truncated]&quot;;.
+        ///CREATE TABLE [dbo].[DataChangeEvent](
+        ///	[DataChangeEventId] [uniqueidentifier] NOT NULL,
+        ///	[PersonUuid] [uniqueidentifier] NOT NULL,
+        ///	[PersonRegistrationId] [uniqueidentifier] NOT NULL,
+        ///	[ReceivedDate] [datetime] NOT NULL,
+        /// CONSTRAINT [PK_ [rest of string was truncated]&quot;;.
         /// </summary>
         public static string CreatePartDatabaseObjects {
             get {
@@ -118,18 +140,56 @@ namespace CprBrokerWixInstallers.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N&apos;[dbo].[DataProvider]&apos;) AND type in (N&apos;U&apos;))
+        ///BEGIN
+        ///    CREATE TABLE [dbo].[DataProvider](
+        ///	    [DataProviderId] [uniqueidentifier] NOT NULL
+        ///            CONSTRAINT [PK_DataProvider] PRIMARY KEY CLUSTERED ([DataProviderId] ASC),
+        ///	    [TypeName] [varchar](250) NOT NULL,
+        ///	    [Ordinal] [int] NOT NULL,
+        ///	    [Data] [image] NULL,
+        ///	    [IsExternal] [bit] NOT NULL,
+        ///	    [IsEnabled] [bit] NOT NULL
+        ///    ) ON [PRIMARY] 
+        ///END
+        ///GO
+        ///.
+        /// </summary>
+        public static string DataProvider {
+            get {
+                return ResourceManager.GetString("DataProvider", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N&apos;[dbo].[DataProviderCall]&apos;) AND type in (N&apos;U&apos;))
+        ///BEGIN
+        ///    CREATE TABLE [dbo].[DataProviderCall](
+        ///	    [DataProviderCallId] [uniqueidentifier] NOT NULL
+        ///            CONSTRAINT [DF_DataProviderCall_DataProviderCallId]  DEFAULT (newid())
+        ///            CONSTRAINT [PK_DataProviderCall] PRIMARY KEY NONCLUSTERED ([DataProviderCallId] ASC),
+        ///	    [ActivityId] [uniqueidentifier] NOT NULL,
+        ///	    [CallTime] [datetime] NOT NULL
+        ///            CONSTRA [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string DataProviderCall {
+            get {
+                return ResourceManager.GetString("DataProviderCall", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N&apos;[dbo].[Extract]&apos;) AND type in (N&apos;U&apos;))
         ///BEGIN
         ///    CREATE TABLE [dbo].[Extract](
         ///	    [ExtractId] [uniqueidentifier] NOT NULL 
+        ///            CONSTRAINT [PK_Extract] PRIMARY KEY CLUSTERED (	[ExtractId] ASC)
         ///            CONSTRAINT [DF_Extract_ExtractId] DEFAULT NEWID(),
         ///	    [Filename] [nvarchar](max) NOT NULL,
         ///	    [ExtractDate] [datetime] NOT NULL,
         ///	    [ImportDate] [datetime] NOT NULL,
         ///	    [StartRecord] [nvarchar](max) NOT NULL,
-        ///	    [EndRecord] [nvarchar](max) NOT NULL,
-        ///	    [Ready] [bit] NOT NULL 
-        ///      [rest of string was truncated]&quot;;.
+        ///	 [rest of string was truncated]&quot;;.
         /// </summary>
         public static string Extract {
             get {
@@ -354,7 +414,14 @@ namespace CprBrokerWixInstallers.Properties {
         ///        DROP TABLE PersonSearchCache
         ///END
         ///
-        ///GO.
+        ///GO
+        ///
+        ////*
+        ///   ==============================
+        ///   ====      Semaphores      ====
+        ///   ==============================
+        /// */
+        ///IF NOT EXISTS (SELECT * FROM sys.objects WHERE obj [rest of string was truncated]&quot;;.
         /// </summary>
         public static string PatchDatabase_2_2_3 {
             get {
@@ -423,6 +490,73 @@ namespace CprBrokerWixInstallers.Properties {
         public static string PersonSearchCache {
             get {
                 return ResourceManager.GetString("PersonSearchCache", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N&apos;[dbo].[Queue]&apos;) AND type in (N&apos;U&apos;))
+        ///BEGIN
+        ///    CREATE TABLE [dbo].[Queue](
+        ///	    [QueueId] [uniqueidentifier] NOT NULL
+        ///            CONSTRAINT [PK_Queue] PRIMARY KEY CLUSTERED ([QueueId] ASC)
+        ///            CONSTRAINT [DF_Queue_QueueId] DEFAULT NEWID(),
+        ///	    [TypeId] [int] NULL,
+        ///	    [TypeName] [varchar](250) NOT NULL,
+        ///	    [BatchSize] [int] NOT NULL,
+        ///	    [MaxRetry] [int] NOT NULL,
+        ///	    [EncryptedData] [varbinary](max) NULL
+        ///    ) O [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string Queue {
+            get {
+                return ResourceManager.GetString("Queue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TypeId;TypeName;BatchSize;MaxRetry
+        ///100;CprBroker.Providers.CPRDirect.ExtractStagingQueue, CprBroker.Providers.CPRDirect;1000;100
+        ///101;CprBroker.Providers.CPRDirect.PartConversionQueue, CprBroker.Providers.CPRDirect;100;100
+        ///200;CprBroker.Providers.CPRDirect.DbrBaseQueue, CprBroker.Providers.CPRDirect;100;100
+        ///300;CprBroker.Providers.DPR.Queues.DprUpdateQueue, CprBroker.Providers.DPR;100;100
+        ///.
+        /// </summary>
+        public static string Queue_Csv {
+            get {
+                return ResourceManager.GetString("Queue_Csv", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N&apos;[dbo].[QueueItem]&apos;) AND type in (N&apos;U&apos;))
+        ///BEGIN
+        ///    CREATE TABLE [dbo].[QueueItem](
+        ///	    [QueueItemId]   int IDENTITY(1,1)   NOT NULL CONSTRAINT [PK_QueueItem]              PRIMARY KEY CLUSTERED ([QueueItemId] ASC),
+        ///	    [QueueId]       uniqueidentifier    NOT NULL CONSTRAINT [FK_QueueItem_Queue]        FOREIGN KEY ([QueueId]) REFERENCES [dbo].[Queue] ([QueueId]) ON UPDATE CASCADE ON DELETE CASCADE,
+        ///	    [ItemKey]       varchar(50)    [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string QueueItem {
+            get {
+                return ResourceManager.GetString("QueueItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N&apos;[dbo].[Semaphore]&apos;) AND type in (N&apos;U&apos;))
+        ///BEGIN    
+        ///    CREATE TABLE [dbo].[Semaphore](
+        ///	    [SemaphoreId] [uniqueidentifier] NOT NULL 
+        ///            CONSTRAINT [PK_Semaphore] PRIMARY KEY CLUSTERED ([SemaphoreId] ASC)
+        ///            CONSTRAINT [DF_Semaphore_SemaphoreId]  DEFAULT (newid()),
+        ///	    [CreatedDate] [datetime] NOT NULL,
+        ///	    [SignaledDate] [datetime] NULL,
+        ///    ) ON [PRIMARY]
+        ///END
+        ///GO.
+        /// </summary>
+        public static string Semaphore {
+            get {
+                return ResourceManager.GetString("Semaphore", resourceCulture);
             }
         }
         

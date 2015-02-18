@@ -1,0 +1,251 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Layer xmlns="http://itst.dk/CPRDirect">
+
+  <Object name="GeoStartRecord" danishName="P05780-000" length="17" description="Start record">
+    <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
+    <Attribute name="TaskNumber" danishName="OPGAVENR" format="Numeric" length="6" position="4" />
+    <Attribute name="ProductionDate" danishName="PRODDTO" format="Numeric" length="8" position="10" description="Production date yyyyMMdd" dateFormat="yyyyMMdd"/>
+  </Object>
+
+  <Object name="Street" danishName="P05780-001" length="111" description="Street names, from file https://cpr.dk/media/152096/vejregister_hele_landet_pr_140401.zip">
+    <Attribute name="MunicipalityCode" danishName="KOMKOD" format="Numeric" length="4" position="4" description="The municipality code"/>
+    <Attribute name="StreetCode" danishName="VEJKOD" format="Numeric" length="4" position="8" description="The street code"/>
+    <Attribute name="StreetAddressingName" danishName="VEJADRNVN" format="Alpha" length="20" position="52" description="The addressing street name"/>
+    <!--
+    LEFT OUT FIELDS:
+    RECORDTYPE, TIMESTAMP, TILKOMKOD, TILVEJKOD, FRAKOMKOD, FRAVEJKOD, HAENSTART
+    -->
+  </Object>
+
+  <Object name="Residence" danishName="P05780-002" length="92" description="Residence details">
+    <Attribute name="MunicipalityCode" danishName="KOMKOD" format="Numeric" length="4" position="4" description="The municipality code"/>
+    <!--
+    Empty placeholder
+    -->
+  </Object>
+
+  <Object name="City" danishName="P05780-003" length="66" description="City names, from file https://cpr.dk/media/152096/vejregister_hele_landet_pr_140401.zip">
+    <Attribute name="MunicipalityCode" danishName="KOMKOD" format="Numeric" length="4" position="4" description="The municipality code"/>
+    <Attribute name="StreetCode" danishName="VEJKOD" format="Numeric" length="4" position="8" description="The street code"/>
+    <Attribute name="HouseNumberFrom" danishName="HUSNRFRA" format="Alpha" length="4" position="12" description="House number from"/>
+    <Attribute name="HouseNumberTo" danishName="HUSNRTIL" format="Alpha" length="4" position="16" description="House number to"/>
+    <Attribute name="EvenOrOdd" danishName="LIGEULIGE" format="Alpha" length="1" position="20" description="Even or odd house number"/>
+    <Attribute name="Timestamp" danishName="TIMESTAMP" format="Numeric" length="12" position="21" description="Date of report"/>
+    <Attribute name="CityName" danishName="BYNVN" format="Alpha" length="34" position="33" description="City name"/>
+    <!--
+    LEFT OUT FIELDS:
+    RECORDTYPE
+    -->
+  </Object>
+
+  <Object name="PostDistrict" danishName="P05780-004" length="56" description="Post district texts, from file https://cpr.dk/media/152096/vejregister_hele_landet_pr_140401.zip">
+    <Attribute name="MunicipalityCode" danishName="KOMKOD" format="Numeric" length="4" position="4" description="The municipality code"/>
+    <Attribute name="StreetCode" danishName="VEJKOD" format="Numeric" length="4" position="8" description="The street code"/>
+    <Attribute name="HouseNumberFrom" danishName="HUSNRFRA" format="Alpha" length="4" position="12" description="House number from"/>
+    <Attribute name="HouseNumberTo" danishName="HUSNRTIL" format="Alpha" length="4" position="16" description="House number to"/>
+    <Attribute name="EvenOrOdd" danishName="LIGEULIGE" format="Alpha" length="1" position="20" description="Even or odd house number"/>
+    <Attribute name="Timestamp" danishName="TIMESTAMP" format="Numeric" length="12" position="21" description="Date of report"/>
+    <Attribute name="PostNumber" danishName="POSTNR" format="Numeric" length="4" position="33" description="Post number"/>
+    <Attribute name="PostDistrictText" danishName="POSTDISTTXT" format="Alpha" length="20" position="37" description="Post District text"/>
+    <!--
+    LEFT OUT FIELDS:
+    RECORDTYPE
+    -->
+  </Object>
+
+  <Object name="Note" danishName="P05780-005" length="77" description="Note details">
+    <Attribute name="MunicipalityCode" danishName="KOMKOD" format="Numeric" length="4" position="4" description="The municipality code"/>
+    <!--
+    Empty placeholder
+    -->
+  </Object>
+
+  <Object name="AreaRestorationDistrict" danishName="P05780-006" length="68" description="Area restoration information, from file https://cpr.dk/media/152096/vejregister_hele_landet_pr_140401.zip">
+    <Attribute name="MunicipalityCode" danishName="KOMKOD" format="Numeric" length="4" position="4" description="The municipality code"/>
+    <Attribute name="StreetCode" danishName="VEJKOD" format="Numeric" length="4" position="8" description="The street code"/>
+    <Attribute name="HouseNumberFrom" danishName="HUSNRFRA" format="Alpha" length="4" position="12" description="House number from"/>
+    <Attribute name="HouseNumberTo" danishName="HUSNRTIL" format="Alpha" length="4" position="16" description="House number to"/>
+    <Attribute name="EvenOrOdd" danishName="LIGEULIGE" format="Alpha" length="1" position="20" description="Even or Odd house number"/>
+    <Attribute name="Timestamp" danishName="TIMESTAMP" format="Numeric" length="12" position="21" description="Date of report"/>
+    <Attribute name="AreaRestorationCode" danishName="BYFORNYKOD" format="Alpha" length="6" position="33" description="Area restoration code"/>
+    <Attribute name="DistrictText" danishName="DISTTXT" format="Alpha" length="30" position="39" description="District text"/>
+    <!--
+    LEFT OUT FIELDS:
+    RECORDTYPE
+    -->
+  </Object>
+
+  <Object name="DiverseDistrict" danishName="P05780-007" length="68" description="Diverse district info, from file https://cpr.dk/media/152096/vejregister_hele_landet_pr_140401.zip">
+    <Attribute name="MunicipalityCode" danishName="KOMKOD" format="Numeric" length="4" position="4" description="The municipality code"/>
+    <Attribute name="StreetCode" danishName="VEJKOD" format="Numeric" length="4" position="8" description="The street code"/>
+    <Attribute name="HouseNumberFrom" danishName="HUSNRFRA" format="Alpha" length="4" position="12" description="House number from"/>
+    <Attribute name="HouseNumberTo" danishName="HUSNRTIL" format="Alpha" length="4" position="16" description="House number to"/>
+    <Attribute name="EvenOrOdd" danishName="LIGEULIGE" format="Alpha" length="1" position="20" description="Even or Odd house number"/>
+    <Attribute name="Timestamp" danishName="TIMESTAMP" format="Numeric" length="12" position="21" description="Date of report"/>
+    <Attribute name="DistrictType" danishName="DISTTYP" format="Numeric" length="2" position="33" description="District type"/>
+    <Attribute name="DivDistrictCode" danishName="DIVDISTKOD" format="Alpha" length="4" position="35" description="Diverse district code"/>
+    <Attribute name="DistrictText" danishName="DISTTXT" format="Alpha" length="30" position="39" description="District text"/>
+    <!--
+    LEFT OUT FIELDS:
+    RECORDTYPE
+    -->
+  </Object>
+
+  <Object name="EvacuationDistrict" danishName="P05780-008" length="63" description="Evacuation districts, from file https://cpr.dk/media/152096/vejregister_hele_landet_pr_140401.zip">
+    <Attribute name="MunicipalityCode" danishName="KOMKOD" format="Numeric" length="4" position="4" description="The municipality code"/>
+    <Attribute name="StreetCode" danishName="VEJKOD" format="Numeric" length="4" position="8" description="The street code"/>
+    <Attribute name="HouseNumberFrom" danishName="HUSNRFRA" format="Alpha" length="4" position="12" description="House number from"/>
+    <Attribute name="HouseNumberTo" danishName="HUSNRTIL" format="Alpha" length="4" position="16" description="House number to"/>
+    <Attribute name="EvenOrOdd" danishName="LIGEULIGE" format="Alpha" length="1" position="20" description="Even or Odd house number"/>
+    <Attribute name="Timestamp" danishName="TIMESTAMP" format="Numeric" length="12" position="21" description="Date of report"/>
+    <Attribute name="EvacuationCode" danishName="EVAKUERKOD" format="Numeric" length="1" position="33" description="Evacuation code"/>
+    <Attribute name="DistrictText" danishName="DISTTXT" format="Alpha" length="30" position="34" description="District text"/>
+    <!--
+    LEFT OUT FIELDS:
+    RECORDTYPE
+    -->
+  </Object>
+
+  <Object name="ChurchDistrict" danishName="P05780-009" length="64" description="Church districts, from file https://cpr.dk/media/152096/vejregister_hele_landet_pr_140401.zip">
+    <Attribute name="MunicipalityCode" danishName="KOMKOD" format="Numeric" length="4" position="4" description="The municipality code"/>
+    <Attribute name="StreetCode" danishName="VEJKOD" format="Numeric" length="4" position="8" description="The street code"/>
+    <Attribute name="HouseNumberFrom" danishName="HUSNRFRA" format="Alpha" length="4" position="12" description="House number from"/>
+    <Attribute name="HouseNumberTo" danishName="HUSNRTIL" format="Alpha" length="4" position="16" description="House number to"/>
+    <Attribute name="EvenOrOdd" danishName="LIGEULIGE" format="Alpha" length="1" position="20" description="Even or Odd house number"/>
+    <Attribute name="Timestamp" danishName="TIMESTAMP" format="Numeric" length="12" position="21" description="Date of report"/>
+    <Attribute name="ChurchDistrictCode" danishName="KIRKEKOD" format="Numeric" length="2" position="33" description="Church district code"/>
+    <Attribute name="DistrictText" danishName="DISTTXT" format="Alpha" length="30" position="35" description="District text"/>
+    <!--
+    LEFT OUT FIELDS:
+    RECORDTYPE
+    -->
+  </Object>
+
+  <Object name="SchoolDistrict" danishName="P05780-010" length="64" description="School districts, from file https://cpr.dk/media/152096/vejregister_hele_landet_pr_140401.zip">
+    <Attribute name="MunicipalityCode" danishName="KOMKOD" format="Numeric" length="4" position="4" description="The municipality code"/>
+    <Attribute name="StreetCode" danishName="VEJKOD" format="Numeric" length="4" position="8" description="The street code"/>
+    <Attribute name="HouseNumberFrom" danishName="HUSNRFRA" format="Alpha" length="4" position="12" description="House number from"/>
+    <Attribute name="HouseNumberTo" danishName="HUSNRTIL" format="Alpha" length="4" position="16" description="House number to"/>
+    <Attribute name="EvenOrOdd" danishName="LIGEULIGE" format="Alpha" length="1" position="20" description="Even or Odd house number"/>
+    <Attribute name="Timestamp" danishName="TIMESTAMP" format="Numeric" length="12" position="21" description="Date of report"/>
+    <Attribute name="SchoolCode" danishName="SKOLEKOD" format="Numeric" length="2" position="33" description="School code"/>
+    <Attribute name="DistrictText" danishName="DISTTXT" format="Alpha" length="30" position="35" description="District text"/>
+    <!--
+    LEFT OUT FIELDS:
+    RECORDTYPE
+    -->
+  </Object>
+
+  <Object name="PopulationDistrict" danishName="P05780-011" length="66" description="Population districts, from file https://cpr.dk/media/152096/vejregister_hele_landet_pr_140401.zip">
+    <Attribute name="MunicipalityCode" danishName="KOMKOD" format="Numeric" length="4" position="4" description="The municipality code"/>
+    <Attribute name="StreetCode" danishName="VEJKOD" format="Numeric" length="4" position="8" description="The street code"/>
+    <Attribute name="HouseNumberFrom" danishName="HUSNRFRA" format="Alpha" length="4" position="12" description="House number from"/>
+    <Attribute name="HouseNumberTo" danishName="HUSNRTIL" format="Alpha" length="4" position="16" description="House number to"/>
+    <Attribute name="EvenOrOdd" danishName="LIGEULIGE" format="Alpha" length="1" position="20" description="Even or Odd house number"/>
+    <Attribute name="Timestamp" danishName="TIMESTAMP" format="Numeric" length="12" position="21" description="Date of report"/>
+    <Attribute name="PopulationDistrictCode" danishName="BEFOLKKOD" format="Alpha" length="4" position="33" description="Population district code"/>
+    <Attribute name="DistrictText" danishName="DISTTXT" format="Alpha" length="30" position="37" description="District text"/>
+    <!--
+    LEFT OUT FIELDS:
+    RECORDTYPE
+    -->
+  </Object>
+
+  <Object name="SocialDistrict" danishName="P05780-012" length="64" description="Social districts, from file https://cpr.dk/media/152096/vejregister_hele_landet_pr_140401.zip">
+    <Attribute name="MunicipalityCode" danishName="KOMKOD" format="Numeric" length="4" position="4" description="The municipality code"/>
+    <Attribute name="StreetCode" danishName="VEJKOD" format="Numeric" length="4" position="8" description="The street code"/>
+    <Attribute name="HouseNumberFrom" danishName="HUSNRFRA" format="Alpha" length="4" position="12" description="House number from"/>
+    <Attribute name="HouseNumberTo" danishName="HUSNRTIL" format="Alpha" length="4" position="16" description="House number to"/>
+    <Attribute name="EvenOrOdd" danishName="LIGEULIGE" format="Alpha" length="1" position="20" description="Even or Odd house number"/>
+    <Attribute name="Timestamp" danishName="TIMESTAMP" format="Numeric" length="12" position="21" description="Date of report"/>
+    <Attribute name="SocialCode" danishName="SOCIALKOD" format="Numeric" length="2" position="33" description="Social code"/>
+    <Attribute name="DistrictText" danishName="DISTTXT" format="Alpha" length="30" position="35" description="District text"/>
+    <!--
+    LEFT OUT FIELDS:
+    RECORDTYPE
+    -->
+  </Object>
+
+  <Object name="ChurchAdministrationDistrict" danishName="P05780-013" length="56" description="Church administration districts, from file https://cpr.dk/media/152096/vejregister_hele_landet_pr_140401.zip">
+    <Attribute name="MunicipalityCode" danishName="KOMKOD" format="Numeric" length="4" position="4" description="The municipality code"/>
+    <Attribute name="StreetCode" danishName="VEJKOD" format="Numeric" length="4" position="8" description="The street code"/>
+    <Attribute name="HouseNumberFrom" danishName="HUSNRFRA" format="Alpha" length="4" position="12" description="House number from"/>
+    <Attribute name="HouseNumberTo" danishName="HUSNRTIL" format="Alpha" length="4" position="16" description="House number to"/>
+    <Attribute name="EvenOrOdd" danishName="LIGEULIGE" format="Alpha" length="1" position="20" description="Even or Odd house number"/>
+    <Attribute name="Timestamp" danishName="TIMESTAMP" format="Numeric" length="12" position="21" description="Date of report"/>
+    <Attribute name="AuthorityAndChurchCode" danishName="MYNKOD-CTSOGNEDIST" format="Numeric" length="4" position="33" description="Authority and church code"/>
+    <Attribute name="AuthorityName" danishName="MYNNVN" format="Alpha" length="20" position="37" description="Authority name"/>
+    <!--
+    LEFT OUT FIELDS:
+    RECORDTYPE
+    -->
+  </Object>
+
+  <Object name="ElectionDistrict" danishName="P05780-014" length="64" description="Election districts, from file https://cpr.dk/media/152096/vejregister_hele_landet_pr_140401.zip">
+    <Attribute name="MunicipalityCode" danishName="KOMKOD" format="Numeric" length="4" position="4" description="The municipality code"/>
+    <Attribute name="StreetCode" danishName="VEJKOD" format="Numeric" length="4" position="8" description="The street code"/>
+    <Attribute name="HouseNumberFrom" danishName="HUSNRFRA" format="Alpha" length="4" position="12" description="House number from"/>
+    <Attribute name="HouseNumberTo" danishName="HUSNRTIL" format="Alpha" length="4" position="16" description="House number to"/>
+    <Attribute name="EvenOrOdd" danishName="LIGEULIGE" format="Alpha" length="1" position="20" description="Even or Odd house number"/>
+    <Attribute name="Timestamp" danishName="TIMESTAMP" format="Numeric" length="12" position="21" description="Date of report"/>
+    <Attribute name="ElectionCode" danishName="VALGKOD" format="Numeric" length="2" position="33" description="Election code"/>
+    <Attribute name="DistrictText" danishName="DISTTXT" format="Alpha" length="30" position="35" description="District text"/>
+    <!--
+    LEFT OUT FIELDS:
+    RECORDTYPE
+    -->
+  </Object>
+
+  <Object name="HeatingDistrict" danishName="P05780-015" length="66" description="Heating districts, from file https://cpr.dk/media/152096/vejregister_hele_landet_pr_140401.zip">
+    <Attribute name="MunicipalityCode" danishName="KOMKOD" format="Numeric" length="4" position="4" description="The municipality code"/>
+    <Attribute name="StreetCode" danishName="VEJKOD" format="Numeric" length="4" position="8" description="The street code"/>
+    <Attribute name="HouseNumberFrom" danishName="HUSNRFRA" format="Alpha" length="4" position="12" description="House number from"/>
+    <Attribute name="HouseNumberTo" danishName="HUSNRTIL" format="Alpha" length="4" position="16" description="House number to"/>
+    <Attribute name="EvenOrOdd" danishName="LIGEULIGE" format="Alpha" length="1" position="20" description="Even or Odd house number"/>
+    <Attribute name="Timestamp" danishName="TIMESTAMP" format="Numeric" length="12" position="21" description="Date of report"/>
+    <Attribute name="HeatingDistrictCode" danishName="VARMEKOD" format="Numeric" length="2" position="33" description="Heating district code"/>
+    <Attribute name="DistrictText" danishName="DISTTXT" format="Alpha" length="30" position="35" description="District text"/>
+    <!--
+    LEFT OUT FIELDS:
+    RECORDTYPE
+    -->
+  </Object>
+
+  <!--
+  This one seems unused
+  <Object name="Council" danishName="P02680-001" length="420" description="Council information, from file https://cpr.dk/media/152126/a370716.txt">
+    <Attribute name="MunicipalityCode" danishName="KOMKOD" format="Numeric" length="4" position="4" description="The municipality code"/>
+    <Attribute name="AuthorityCode" danishName="MYNTYP" format="Numeric" length="2" position="8" description="The street code"/>
+    <Attribute name="AuthorityGroup" danishName="MYNGRP" format="Numeric" length="1" position="10" description="House number from"/>
+    <Attribute name="HouseNumberTo" danishName="MYNNVN" format="Alpha" length="20" position="55" description="House number to"/>
+    LEFT OUT FIELDS:
+    RECORDTYPE, TIMESTAMP, MYNTLF, HAENSTART, HAENSLUT-CTMYN, MYNADRSAT, ADR1, ADR2, ADR3, ADR4, TELEFAXNR, MYNNVN_XL, E_MAIL, LAND_KOD_ALFA2, LAND_KOD_ALFA3, LAND_KOD_NUM3
+  </Object>
+  -->
+
+  <Object name="GeoEndRecord" danishName="P05780-000" length="11" description="Start record">
+    <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
+    <Attribute name="Counter" danishName="TAELLER" format="Alpha" length="8" position="4" description="Counter"/>
+  </Object>
+
+  <Object name="PostStartRecord" danishName="P11980-000" length="17" description="Start record">
+    <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
+    <Attribute name="TaskNumber" danishName="OPGAVENR" format="Numeric" length="6" position="4" />
+    <Attribute name="ProductionDate" danishName="PRODDTO" format="Numeric" length="8" position="10" description="Production date yyyyMMdd" dateFormat="yyyyMMdd"/>
+  </Object>
+
+  <Object name="PostNumber" danishName="P11980-001" length="84" description="Council information, from file https://cpr.dk/media/152114/a370712.txt">
+    <Attribute name="PostCode" danishName="POSTNR" format="Numeric" length="4" position="61" description="The post code"/>
+    <Attribute name="PostText" danishName="POSTDISTTXT" format="Alpha" length="20" position="65" description="The post text"/>
+    <!--
+    LEFT OUT FIELDS:
+    RECORDTYPE, KOMKOD, VEJKOD, MYNNVN, VEJADRNVN, HUSNRFRA, HUSNRTIL, LIGEULIGE
+    -->
+  </Object>
+
+  <Object name="PostEndRecord" danishName="P11980-000" length="11" description="Start record">
+    <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
+    <Attribute name="Counter" danishName="TAELLER" format="Alpha" length="8" position="4" description="Counter"/>
+  </Object>
+
+</Layer>

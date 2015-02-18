@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="part" Class="QueueDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Table Name="dbo.QueueItem" Member="QueueItems">
+    <Type Name="DbQueueItem">
+      <Column Name="QueueItemId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="QueueId" Type="System.Guid" DbType="uniqueidentifier NOT NULL" CanBeNull="false" />
+      <Column Name="ItemKey" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedTS" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="AttemptCount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SemaphoreId" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Association Name="DbQueue_DbQueueItem" Member="Queue" ThisKey="QueueId" OtherKey="QueueId" Type="DbQueue" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Semaphore_DbQueueItem" Member="Semaphore" Storage="_Semaphore" ThisKey="SemaphoreId" OtherKey="SemaphoreId" Type="DbSemaphore" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Queue" Member="Queues">
+    <Type Name="DbQueue">
+      <Column Name="QueueId" Type="System.Guid" DbType="uniqueidentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="TypeId" Type="System.Int32" DbType="INT" CanBeNull="true" />
+      <Column Name="TypeName" Type="System.String" DbType="VarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="BatchSize" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="MaxRetry" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="EncryptedData" Storage="_image" Type="System.Data.Linq.Binary" DbType="varbinary(MAX)" CanBeNull="true" />
+      <Association Name="DbQueue_DbQueueItem" Member="QueueItems" ThisKey="QueueId" OtherKey="QueueId" Type="DbQueueItem" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Semaphore" Member="Semaphores">
+    <Type Name="DbSemaphore">
+      <Column Name="SemaphoreId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="CreatedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="SignaledDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="Semaphore_DbQueueItem" Member="DbQueueItems" ThisKey="SemaphoreId" OtherKey="SemaphoreId" Type="DbQueueItem" />
+    </Type>
+  </Table>
+</Database>

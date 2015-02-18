@@ -51,16 +51,12 @@ using System.Text;
 
 using CprBroker.Engine;
 using CprBroker.Engine.Budget;
+using CprBroker.Engine.Tasks;
 
 namespace CprBroker.EventBroker.Notifications
 {
     public class BudgetChecker:PeriodicTaskExecuter
     {
-        protected override TimeSpan CalculateActionTimerInterval(TimeSpan currentInterval)
-        {
-            return TimeSpan.FromMilliseconds(CprBroker.Config.ConfigManager.Current.Settings.BudgetCheckIntervalMilliseconds);
-        }
-
         protected override void PerformTimerAction()
         {
             BudgetController.CheckAllIntervals();

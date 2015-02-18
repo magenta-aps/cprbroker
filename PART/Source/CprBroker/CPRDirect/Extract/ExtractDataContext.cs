@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using CprBroker.Utilities.Config;
 
 namespace CprBroker.Providers.CPRDirect
 {
     partial class ExtractDataContext
     {
         public ExtractDataContext()
-            : this(CprBroker.Config.ConfigManager.Current.Settings.CprBrokerConnectionString)
+            : this(ConfigManager.Current.Settings.CprBrokerConnectionString)
         { }
     }
 }

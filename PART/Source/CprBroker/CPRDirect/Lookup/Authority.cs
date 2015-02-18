@@ -51,6 +51,7 @@ using System.Text;
 using System.IO;
 using System.Data.SqlClient;
 using CprBroker.Utilities;
+using CprBroker.Utilities.Config;
 
 namespace CprBroker.Providers.CPRDirect
 {
@@ -62,7 +63,7 @@ namespace CprBroker.Providers.CPRDirect
 
         public static void ImportText(string text)
         {
-            using (var conn = new SqlConnection(CprBroker.Config.ConfigManager.Current.Settings.CprBrokerConnectionString))
+            using (var conn = new SqlConnection(ConfigManager.Current.Settings.CprBrokerConnectionString))
             {
                 conn.Open();
                 ImportText(text, conn);
@@ -84,7 +85,15 @@ namespace CprBroker.Providers.CPRDirect
             }
         }
 
-        private static Dictionary<string, string> _AuthorityMap;
+        class AuthorityShortInfo
+        {
+            public string Code;
+            public string AuthorityName;
+            public string FullName;
+            public string Address;
+        }
+
+        private static Dictionary<string, AuthorityShortInfo> _AuthorityMap;
 
         static void FillAuthorityMap()
         {
@@ -102,7 +111,14 @@ namespace CprBroker.Providers.CPRDirect
                             {
                                 _AuthorityMap = dataContext
                                     .Authorities
-                                    .ToDictionary(au => au.AuthorityCode, au => au.FullName);
+                                    .ToDictionary(
+                                        au => au.AuthorityCode, au => new AuthorityShortInfo()
+                                        {
+                                            FullName = au.FullName,
+                                            AuthorityName = au.AuthorityName,
+                                            Code = au.AuthorityCode,
+                                            Address = au.Address
+                                        });
                             }
                         }
                     }
@@ -118,12 +134,83 @@ namespace CprBroker.Providers.CPRDirect
             }
         }
 
-        public static string GetNameByCode(string code)
+        private static Dictionary<string, string> _CountryCodeToAuthorityMap;
+
+        static void FillCountryCodeToAuthorityMap()
+        {
+            try
+            {
+                Constants.AuthorityLock.EnterUpgradeableReadLock();
+                if (_CountryCodeToAuthorityMap == null)
+                {
+                    try
+                    {
+                        Constants.AuthorityLock.EnterWriteLock();
+                        if (_CountryCodeToAuthorityMap == null)
+                        {
+                            using (var dataContext = new LookupDataContext())
+                            {
+                                _CountryCodeToAuthorityMap = dataContext
+                                    .Authorities
+                                    .ToDictionary(au => au._Alpha3CountryCode, au => au.FullName);
+                            }
+                        }
+                    }
+                    finally
+                    {
+                        Constants.AuthorityLock.ExitWriteLock();
+                    }
+                }
+            }
+            finally
+            {
+                Constants.AuthorityLock.ExitUpgradeableReadLock();
+            }
+        }
+
+        static string NormalizeAuthorityCode(string code)
+        {
+            while (code.Length < 4)
+            {
+                code = "0" + code;
+            }
+            return code;
+        }
+
+        private static string GetFieldByCode(string code, Func<AuthorityShortInfo, string> func)
         {
             FillAuthorityMap();
+            code = NormalizeAuthorityCode(code);
             if (!string.IsNullOrEmpty(code) && _AuthorityMap.ContainsKey(code))
             {
-                return _AuthorityMap[code];
+                return func(_AuthorityMap[code]);
+            }
+            else
+            {
+                return null;
+            }
+        }
+        public static string GetFullNameByCode(string code)
+        {
+            return GetFieldByCode(code, a => a.FullName);
+        }
+
+        public static string GetAuthorityNameByCode(string code)
+        {
+            return GetFieldByCode(code, a => a.AuthorityName);
+        }
+
+        public static string GetAuthorityAddressByCode(string code)
+        {
+            return GetFieldByCode(code, a => a.Address);
+        }
+
+        public static string GetNameByCountryCode(string code)
+        {
+            FillCountryCodeToAuthorityMap();
+            if (!string.IsNullOrEmpty(code) && _CountryCodeToAuthorityMap.ContainsKey(code))
+            {
+                return _CountryCodeToAuthorityMap[code];
             }
             else
             {

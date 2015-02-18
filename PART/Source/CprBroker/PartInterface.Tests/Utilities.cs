@@ -23,9 +23,6 @@
  *
  * Contributor(s):
  * Beemen Beshara
- * Niels Elgaard Larsen
- * Leif Lodahl
- * Steen Deth
  *
  * The code is currently governed by IT- og Telestyrelsen / Danish National
  * IT and Telecom Agency
@@ -48,6 +45,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Configuration;
 using CprBroker.Schemas.Part;
 
 namespace CprBroker.Tests.PartInterface
@@ -80,10 +78,10 @@ namespace CprBroker.Tests.PartInterface
             return ret;
         }
 
-		public static RegistreringType1 CreateFakePerson()
-		{
-			return CreateFakePerson (false);
-		}
+        public static RegistreringType1 CreateFakePerson()
+        {
+            return CreateFakePerson(false);
+        }
 
         public static RegistreringType1 CreateFakePerson(bool addSourceObject)
         {
@@ -142,7 +140,61 @@ namespace CprBroker.Tests.PartInterface
             {
                 return CprBroker.Utilities.Constants.BaseApplicationToken.ToString();
             }
-        }       
+        }
 
+
+        private static bool _UpdateConnectionString = false;
+
+        public static void UpdateConnectionString(string brokerConnectionString)
+        {
+            if (_UpdateConnectionString)
+                return;
+
+            Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            ConnectionStringsSection section = config.GetSection("connectionStrings") as ConnectionStringsSection;
+            Console.WriteLine("Setting connection string to : {0}", brokerConnectionString);
+            if (section == null)
+            {
+                section = new ConnectionStringsSection();
+                config.Sections.Add("connectionStrings", section);
+                config.Save();
+            }
+            var connStr = section.ConnectionStrings["CprBroker.Config.Properties.Settings.CprBrokerConnectionString"];
+            if (connStr == null)
+            {
+                connStr = new ConnectionStringSettings("CprBroker.Config.Properties.Settings.CprBrokerConnectionString", brokerConnectionString);
+                section.ConnectionStrings.Add(connStr);
+            }
+            else
+            {
+                connStr.ConnectionString = brokerConnectionString;
+            }
+            config.Save();
+            Console.WriteLine("Setting connection saved");
+
+            _UpdateConnectionString = true;
+        }
+
+        private static bool? _IsConsole = null;
+        public static bool IsConsole
+        {
+            get
+            {
+                if (!_IsConsole.HasValue)
+                {
+                    _IsConsole = false;
+                    try
+                    {
+                        var d = Console.WindowHeight;
+                        _IsConsole = true;
+                    }
+                    catch
+                    {
+
+                    }
+                }
+                return _IsConsole.Value;
+            }
+        }
     }
 }

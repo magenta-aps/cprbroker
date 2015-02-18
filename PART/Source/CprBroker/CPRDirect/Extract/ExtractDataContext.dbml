@@ -9,6 +9,7 @@
       <Column Name="EndRecord" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
       <Column Name="Ready" Type="System.Boolean" DbType="BIT" CanBeNull="false" />
       <Column Name="ProcessedLines" Type="System.Int64" DbType="BIGINT NULL" CanBeNull="true" />
+      <Column Name="SemaphoreId" Type="System.Guid" DbType="UNIQUEIDENTIFIER NULL" CanBeNull="true" />
       <Association Name="Extract_ExtractItem" Member="ExtractItems" ThisKey="ExtractId" OtherKey="ExtractId" Type="ExtractItem" />
       <Association Name="Extract_ExtractPersonStaging" Member="ExtractPersonStagings" ThisKey="ExtractId" OtherKey="ExtractId" Type="ExtractPersonStaging" />
       <Association Name="Extract_ExtractError" Member="ExtractErrors" ThisKey="ExtractId" OtherKey="ExtractId" Type="ExtractError" />

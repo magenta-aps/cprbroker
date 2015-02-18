@@ -49,6 +49,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using CprBroker.Schemas.Part;
+using CprBroker.Schemas.Wrappers;
+using CprBroker.Utilities.Config;
 
 namespace CprBroker.Providers.CPRDirect
 {
@@ -91,7 +93,7 @@ namespace CprBroker.Providers.CPRDirect
                 Virkning = null,
             };
             ret.CalculateVirkning();
-            if (Config.ConfigManager.Current.Settings.CprDirectReturnsNewestFirst)
+            if (ConfigManager.Current.Settings.CprDirectReturnsNewestFirst)
             {
                 ret.OrderByStartDate(false);
             }

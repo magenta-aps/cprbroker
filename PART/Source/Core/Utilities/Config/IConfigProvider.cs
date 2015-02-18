@@ -2,15 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using CprBroker.Utilities;
 
-namespace CprBroker.Config
+namespace CprBroker.Utilities.Config
 {
     public interface IConfigProvider
     {
-        Properties.Settings Settings { get; }
+        CprBroker.Config.Properties.Settings Settings { get; }
         System.Security.Cryptography.RijndaelManaged EncryptionAlgorithm { get; }
         DataProvidersConfigurationSection DataProvidersSection { get; }
+        TasksConfigurationSection TasksSection { get; }
+        Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.LoggingSettings LoggingSettings { get; }
         void Commit();
     }
 }

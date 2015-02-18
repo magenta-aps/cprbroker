@@ -51,9 +51,9 @@ using System.Text;
 using System.Configuration;
 using System.Web;
 
-namespace CprBroker.Utilities
+namespace CprBroker.Utilities.Config
 {
-    public static class Config
+    public static class ConfigUtils
     {
         public static Configuration GetConfigFile()
         {

@@ -60,19 +60,6 @@ namespace CprBroker.Providers.DPR
     /// </summary>
     public abstract class ClientDataProvider : BaseProvider
     {
-        public enum InquiryType
-        {
-            DataNotUpdatedAutomatically = 0,
-            DataUpdatedAutomaticallyFromCpr = 1,
-            DeleteAutomaticDataUpdateFromCpr = 3
-        }
-
-        public enum DetailType
-        {
-            MasterData = 0, // Only to client
-            ExtendedData = 1 // Put to DPR database
-        }
-
         static ClientDataProvider()
         {
             ErrorCodes["01"] = "PNR unknown in CPR";
@@ -153,28 +140,66 @@ namespace CprBroker.Providers.DPR
             }
         }
 
+        public bool IsReady
+        {
+            get
+            {
+                try
+                {
+                    using (var updateDataContext = new Queues.UpdatesDataContext(this.ConnectionString))
+                    {
+                        // Select event - staging table existence
+                        var u = updateDataContext.T_DPRUpdateStagings.FirstOrDefault();
+
+                        // Insert event
+                        var u2 = new Queues.T_DPRUpdateStaging() { CreateTS = DateTime.Now, PNR = 0, DPRTable = "DTTOTAL" };
+                        updateDataContext.T_DPRUpdateStagings.InsertOnSubmit(u2);
+                        updateDataContext.SubmitChanges();
+
+                        // Delete event
+                        var u3 = updateDataContext.T_DPRUpdateStagings.Where(o => o.PNR == 0).ToArray();
+                        updateDataContext.T_DPRUpdateStagings.DeleteAllOnSubmit(u3);
+                        updateDataContext.SubmitChanges();
+
+                        return true;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    CprBroker.Engine.Local.Admin.LogException(ex);
+                    return false;
+                }
+            }
+        }
+
         public bool IsDatabaseAlive()
         {
-            System.Data.SqlClient.SqlConnection conn = new System.Data.SqlClient.SqlConnection();
-            try
+            using (var conn = new System.Data.SqlClient.SqlConnection())
             {
-                conn.ConnectionString = this.ConnectionString;
-                conn.Open();
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-            finally
-            {
-                conn.Close();
+                try
+                {
+                    conn.ConnectionString = this.ConnectionString;
+                    conn.Open();
+                    using (var dprDataContext = new DPRDataContext(conn))
+                    {
+                        var p = dprDataContext.PersonTotals.FirstOrDefault();
+                    }
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    Engine.Local.Admin.LogException(ex);
+                    return false;
+                }
             }
         }
 
         public override bool IsAlive()
         {
-            return IsDiversionAlive() && IsDatabaseAlive();
+            var ret = IsDiversionAlive() && IsDatabaseAlive();
+            if (AutoUpdate)
+                ret &= IsReady;
+            return ret;
         }
 
         public string CreateMessage(InquiryType inquiryType, DetailType detailType, string cprNumber)

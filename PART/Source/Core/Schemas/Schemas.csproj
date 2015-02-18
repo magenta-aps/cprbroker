@@ -693,6 +693,7 @@
     <Compile Include="Util\Converters.cs" />
     <Compile Include="Util\Enums.cs" />
     <Compile Include="VirkningType.cs" />
+    <Compile Include="Wrappers\Wrapper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Diagrams\Addresses.cd" />
@@ -1261,11 +1262,15 @@
       <LastGenOutput>XKOM_EmailAddressIdentifier.designer.cs</LastGenOutput>
     </None>
     <None Include="OIOXSD\XSD.xsd" />
+    <None Include="Wrappers\DefinitionSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="GenerateCode.xslt" />
     <Content Include="OIOXSD\XSD.txt" />
     <Content Include="Part\Events\Readme.txt" />
+    <Content Include="Wrappers\ClassTransform.xslt" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Utilities\Utilities.csproj">

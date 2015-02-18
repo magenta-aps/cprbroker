@@ -54,48 +54,57 @@ using CprBroker.Engine;
 using CprBroker.Engine.Local;
 using CprBroker.Engine.Part;
 using CprBroker.Data.DataProviders;
+using System.Transactions;
+using CprBroker.Engine.Queues;
+using CprBroker.Utilities.Config;
 
 namespace CprBroker.Providers.CPRDirect
 {
     public static class ExtractManager
     {
-        public static void ImportFile(string path)
-        {
-            var text = File.ReadAllText(path, Constants.ExtractEncoding);
-            ImportText(text, path);
-        }
-
         public static void ImportText(string text)
         {
             ImportText(text, "");
         }
 
+        public static TransactionScope CreateTransactionScope()
+        {
+            return new System.Transactions.TransactionScope(
+                System.Transactions.TransactionScopeOption.Required,
+                new System.Transactions.TransactionOptions()
+                {
+                    IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted,
+                    Timeout = System.Transactions.TransactionManager.MaximumTimeout
+                });
+        }
+
         public static void ImportText(string text, string sourceFileName)
         {
-            var parseResult = new ExtractParseResult(text, Constants.DataObjectMap);
+            var parseResult = new ExtractParseSession(text, Constants.DataObjectMap);
             var extract = parseResult.ToExtract(sourceFileName);
             var extractItems = parseResult.ToExtractItems(extract.ExtractId, Constants.DataObjectMap, Constants.RelationshipMap, Constants.MultiRelationshipMap);
-            var extractStaging = parseResult.ToExtractPersonStagings(extract.ExtractId);
+            var queueItems = parseResult.ToQueueItems(extract.ExtractId);
             var extractErrors = parseResult.ToExtractErrors(extract.ExtractId);
 
-            using (var conn = new SqlConnection(CprBroker.Config.ConfigManager.Current.Settings.CprBrokerConnectionString))
+            using (var conn = new SqlConnection(ConfigManager.Current.Settings.CprBrokerConnectionString))
             {
                 conn.Open();
-
-                using (var trans = conn.BeginTransaction(System.Data.IsolationLevel.ReadUncommitted))
+                using (var transactionScope = CreateTransactionScope())
                 {
-                    conn.BulkInsertAll<Extract>(new Extract[] { extract }, trans);
-                    conn.BulkInsertAll<ExtractItem>(extractItems, trans);
-                    conn.BulkInsertAll<ExtractPersonStaging>(extractStaging, trans);
-                    conn.BulkInsertAll<ExtractError>(extractErrors, trans);
-                    trans.Commit();
-                }
+                    conn.BulkInsertAll<Extract>(new Extract[] { extract });
+                    conn.BulkInsertAll<ExtractItem>(extractItems);
+                    conn.BulkInsertAll<ExtractError>(extractErrors);
 
-                using (var dataContext = new ExtractDataContext())
-                {
-                    extract = dataContext.Extracts.Where(ex => ex.ExtractId == extract.ExtractId).First();
-                    extract.Ready = true;
-                    dataContext.SubmitChanges();
+                    var stagingQueue = CprBroker.Engine.Queues.Queue.GetQueues<ExtractStagingQueue>(ExtractStagingQueue.QueueId).First();
+                    stagingQueue.Enqueue(queueItems);
+
+                    using (var dataContext = new ExtractDataContext())
+                    {
+                        extract = dataContext.Extracts.Where(ex => ex.ExtractId == extract.ExtractId).First();
+                        extract.Ready = true;
+                        dataContext.SubmitChanges();
+                    }
+                    transactionScope.Complete();
                 }
             }
         }
@@ -116,91 +125,129 @@ namespace CprBroker.Providers.CPRDirect
 
         public static void ImportFileInSteps(Stream dataStream, string path, int batchSize, Encoding encoding)
         {
-            var allPnrs = new List<string>();
+            var typeMap = Constants.DataObjectMap;
             using (var file = new StreamReader(dataStream, encoding))
             {
-                var extractResult = new ExtractParseResult();
+                // Init extract and skip already read lines
+                ExtractParseSession extractSession = new ExtractParseSession();
+                var extractId = InitExtract(path, extractSession);
+                SkipLines(file, extractId, extractSession, typeMap, batchSize);
 
-                long totalReadLinesCount = 0;
-                using (var conn = new SqlConnection(CprBroker.Config.ConfigManager.Current.Settings.CprBrokerConnectionString))
+                while (!file.EndOfStream)
                 {
-                    conn.Open();
-                    using (var dataContext = new ExtractDataContext(conn))
+                    extractSession.MarkNewBatch();
+                    ImportOneBatch(file, extractId, extractSession, typeMap, batchSize);
+                }
+            }
+        }
+
+        private static void ImportOneBatch(StreamReader file, Guid extractId, ExtractParseSession extractSession, Dictionary<string, Type> typeMap, int batchSize)
+        {
+            // Start reading the file
+            var wrappers = CompositeWrapper.Parse(file, typeMap, batchSize);
+            extractSession.AddLines(wrappers);
+
+            // Database access
+            using (var conn = new SqlConnection(ConfigManager.Current.Settings.CprBrokerConnectionString))
+            {
+                conn.Open();
+                using (var dataContext = new ExtractDataContext(conn))
+                {
+                    var extract = dataContext.Extracts.Single(e => e.ExtractId == extractId);
+                    var semaphore = Semaphore.GetById(extract.SemaphoreId.Value);
+
+                    // Init transaction block
+                    using (var transactionScope = CreateTransactionScope())
                     {
-                        // Find existing extract or create a new one
-                        var extract = dataContext.Extracts.Where(e => e.Filename == path && e.ProcessedLines != null && !e.Ready).OrderByDescending(e => e.ImportDate).FirstOrDefault();
-                        if (extract == null)
+                        // Set start record
+                        if (string.IsNullOrEmpty(extract.StartRecord) && extractSession.StartWrapper != null)
                         {
-                            extract = extractResult.ToExtract(path, false, 0);
-                            Admin.LogFormattedSuccess("Creating new extract <{0}>", extract.ExtractId);
-                            dataContext.Extracts.InsertOnSubmit(extract);
-                            dataContext.SubmitChanges();
-                        }
-                        else
-                        {
-                            Admin.LogFormattedSuccess("Incomplete extract found <{0}>, resuming", extract.ExtractId);
+                            extract.StartRecord = extractSession.StartWrapper.Contents;
+                            extract.ExtractDate = extractSession.StartWrapper.ProductionDate.Value;
                         }
 
-                        // Start reading the file
-                        while (!file.EndOfStream)
+                        // Extract items and errors
+                        conn.BulkInsertAll<ExtractItem>(extractSession.ToExtractItems(extract.ExtractId, Constants.DataObjectMap, Constants.RelationshipMap, Constants.MultiRelationshipMap));
+                        conn.BulkInsertAll<ExtractError>(extractSession.ToExtractErrors(extract.ExtractId));
+
+                        // Staging queue
+                        var stagingQueue = Queue.GetQueues<ExtractStagingQueue>().First();
+                        stagingQueue.Enqueue(extractSession.ToQueueItems(extract.ExtractId), semaphore);
+
+                        // Update counts and commit
+                        extract.ProcessedLines += wrappers.Count;
+
+                        // End record and mark as ready, and signal the semaphore
+                        if (extractSession.EndLine != null)
                         {
-                            var wrappers = CompositeWrapper.Parse(file, Constants.DataObjectMap, batchSize);
-                            var batchReadLinesCount = wrappers.Count;
-                            totalReadLinesCount += batchReadLinesCount;
-
-                            Admin.LogFormattedSuccess("Batch read, records found <{0}>, total so far <{1}>", batchReadLinesCount, totalReadLinesCount);
-
-                            using (var trans = conn.BeginTransaction(System.Data.IsolationLevel.ReadUncommitted))
-                            {
-                                dataContext.Transaction = trans;
-                                extractResult.ClearArrays();
-                                var uninsertedLinesCount = totalReadLinesCount - extract.ProcessedLines.Value;
-
-                                if (uninsertedLinesCount > 0)
-                                {
-                                    var linesToSkip = wrappers.Count - (int)uninsertedLinesCount;
-                                    if (linesToSkip > 0)
-                                    {
-                                        Admin.LogFormattedSuccess("Unaligned batch sizes, skipping <{0}> lines", linesToSkip);
-                                        wrappers = wrappers.Skip(linesToSkip).ToList();
-                                    }
-
-                                    extractResult.AddLines(wrappers);
-
-                                    // Set start record
-                                    if (string.IsNullOrEmpty(extract.StartRecord) && extractResult.StartWrapper != null)
-                                    {
-                                        extract.StartRecord = extractResult.StartWrapper.Contents;
-                                        extract.ExtractDate = extractResult.StartWrapper.ProductionDate.Value;
-                                    }
-
-                                    // Child records
-                                    conn.BulkInsertAll<ExtractItem>(extractResult.ToExtractItems(extract.ExtractId, Constants.DataObjectMap, Constants.RelationshipMap, Constants.MultiRelationshipMap), trans);
-                                    conn.BulkInsertAll<ExtractError>(extractResult.ToExtractErrors(extract.ExtractId), trans);
-                                    // TODO: (Extract) In case some records have been skipped in a previous import attempt, make sure that allPnrs contains their PNR's
-                                    conn.BulkInsertAll<ExtractPersonStaging>(extractResult.ToExtractPersonStagings(extract.ExtractId, allPnrs), trans);
-
-                                    // Update counts
-                                    extract.ProcessedLines = totalReadLinesCount;
-
-                                    // End record and mark as ready
-                                    if (extractResult.EndLine != null)
-                                    {
-                                        extract.EndRecord = extractResult.EndLine.Contents;
-                                        extract.Ready = true;
-                                        Admin.LogFormattedSuccess("End record added");
-                                    }
-                                    dataContext.SubmitChanges();
-                                    Admin.LogFormattedSuccess("Batch committed");
-                                }
-                                else
-                                {
-                                    Admin.LogFormattedSuccess("Batch already inserted, skipping");
-                                }
-                                trans.Commit();
-                            }
+                            extract.EndRecord = extractSession.EndLine.Contents;
+                            extract.Ready = true;
+                            semaphore.Signal();
                         }
+
+                        // Commit
+                        dataContext.SubmitChanges();
+                        transactionScope.Complete();
                     }
+                    Admin.LogFormattedSuccess("Batch committed, <{0}> lines, <{1}> total so far", wrappers.Count, extract.ProcessedLines.Value);
+                }
+            }
+        }
+
+        private static Guid InitExtract(string path, ExtractParseSession extractSession)
+        {
+            Semaphore semaphore;
+            Extract extract;
+            using (var dataContext = new ExtractDataContext(CprBroker.Utilities.Config.ConfigManager.Current.Settings.CprBrokerConnectionString))
+            {
+                // Find existing extract or create a new one
+                extract = dataContext.Extracts.Where(e => e.Filename == path && e.ProcessedLines != null && !e.Ready).OrderByDescending(e => e.ImportDate).FirstOrDefault();
+
+                if (extract == null)
+                {
+                    semaphore = Semaphore.Create();
+                    extract = extractSession.ToExtract(path, false, 0, semaphore);
+                    Admin.LogFormattedSuccess("Creating new extract <{0}>", extract.ExtractId);
+                    dataContext.Extracts.InsertOnSubmit(extract);
+                    dataContext.SubmitChanges();
+                }
+                else
+                {
+                    if (extract.SemaphoreId.HasValue)
+                    {
+                        semaphore = Semaphore.GetById(extract.SemaphoreId.Value);
+                    }
+                    else
+                    {
+                        // Transitional logic for the rare case of an extract that has started before introduction of semaphores
+                        semaphore = Semaphore.Create();
+                        extract.SemaphoreId = semaphore.Impl.SemaphoreId;
+                        dataContext.SubmitChanges();
+                    }
+                    Admin.LogFormattedSuccess("Incomplete extract found <{0}>, resuming", extract.ExtractId);
+                }
+                return extract.ExtractId;
+            }
+        }
+
+        private static void SkipLines(TextReader file, Guid extractId, ExtractParseSession extractSession, Dictionary<string, Type> typeMap, int batchSize)
+        {
+            using (var dataContext = new ExtractDataContext(CprBroker.Utilities.Config.ConfigManager.Current.Settings.CprBrokerConnectionString))
+            {
+                var extract = dataContext.Extracts.Single(ex => ex.ExtractId == extractId);
+                if (extract.ProcessedLines.HasValue)
+                {
+                    while (extractSession.TotalReadLines < extract.ProcessedLines.Value)
+                    {
+                        long linesToRead = Math.Min(batchSize, extract.ProcessedLines.Value - extractSession.TotalReadLines);
+                        Admin.LogFormattedSuccess("Skipping extract lines: <{0}>", linesToRead);
+
+                        // Read and consume the lines
+                        extractSession.MarkNewBatch();
+                        var wrappers = CompositeWrapper.Parse(file, typeMap, linesToRead);
+                        extractSession.AddLines(wrappers);
+                    }
+                    Admin.LogFormattedSuccess("Skipped extract lines; total = <{0}>", extractSession.TotalReadLines);
                 }
             }
         }
@@ -212,8 +259,6 @@ namespace CprBroker.Providers.CPRDirect
                 return Extract.GetPersonFromLatestExtract(pnr, dataContext.ExtractItems, Constants.DataObjectMap);
             }
         }
-
-
 
         public static void DownloadFtpFiles(CPRDirectExtractDataProvider prov)
         {
@@ -241,7 +286,7 @@ namespace CprBroker.Providers.CPRDirect
             }
         }
 
-        public static void ExtractLocalFiles(CPRDirectExtractDataProvider prov)
+        public static void ExtractLocalFiles(CPRDirectExtractDataProvider prov, int batchSize)
         {
             var files = Directory.GetFiles(prov.ExtractsFolder);
             Admin.LogFormattedSuccess("Found <{0}> files", files.Length);
@@ -251,7 +296,7 @@ namespace CprBroker.Providers.CPRDirect
                 try
                 {
                     Admin.LogFormattedSuccess("Reading file <{0}> ", file);
-                    ExtractManager.ImportFileInSteps(file, CprBroker.Config.ConfigManager.Current.Settings.CprDirectExtractImportBatchSize);
+                    ExtractManager.ImportFileInSteps(file, batchSize);
                     Admin.LogFormattedSuccess("Importing file <{0}> succeeded", file);
 
                     MoveToProcessed(prov.ExtractsFolder, file);
@@ -321,19 +366,19 @@ namespace CprBroker.Providers.CPRDirect
                         personIndex++;
                         try
                         {
-                            Admin.LogFormattedSuccess("ExtractManager.ConvertPersons() - processing PNR <{0}>, person <{1}> of <{2}>", person.ExtractPersonStaging.PNR, personIndex, persons.Length);
-                            var uuid = cache.GetUuid(person.ExtractPersonStaging.PNR);
-                            var response = Extract.ToIndividualResponseType(person.ExtractPersonStaging.Extract, person.ExtractItems.AsQueryable(), Constants.DataObjectMap);
+                            Admin.LogFormattedSuccess("ExtractManager.ConvertPersons() - processing PNR <{0}>, person <{1}> of <{2}>", person.PNR, personIndex, persons.Length);
+                            var uuid = cache.GetUuid(person.PNR);
+                            var response = Extract.ToIndividualResponseType(person.Extract, person.ExtractItems.AsQueryable(), Constants.DataObjectMap);
                             var oioPerson = response.ToRegistreringType1(cache.GetUuid);
-                            var personIdentifier = new Schemas.PersonIdentifier() { CprNumber = person.ExtractPersonStaging.PNR, UUID = uuid };
+                            var personIdentifier = new Schemas.PersonIdentifier() { CprNumber = person.PNR, UUID = uuid };
                             UpdateDatabase.UpdatePersonRegistration(personIdentifier, oioPerson);
 
-                            succeeded.Add(person.ExtractPersonStaging.ExtractPersonStagingId);
-                            Admin.LogFormattedSuccess("ExtractManager.ConvertPersons() - finished PNR <{0}>, person <{1}> of <{2}>", person.ExtractPersonStaging.PNR, personIndex, persons.Length);
+                            succeeded.Add(person.ExtractPersonStagingId);
+                            Admin.LogFormattedSuccess("ExtractManager.ConvertPersons() - finished PNR <{0}>, person <{1}> of <{2}>", person.PNR, personIndex, persons.Length);
                         }
                         catch (Exception ex)
                         {
-                            failed.Add(person.ExtractPersonStaging.ExtractPersonStagingId);
+                            failed.Add(person.ExtractPersonStagingId);
                             Admin.LogException(ex);
                         }
                     }

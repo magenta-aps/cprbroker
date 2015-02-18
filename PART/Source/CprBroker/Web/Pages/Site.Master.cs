@@ -76,26 +76,12 @@ namespace CprBroker.Web.Pages
         }
 
         void Page_Error(object sender, EventArgs e)
-        {            
+        {
             Exception ex = Server.GetLastError();
             AppendError(ex.Message);
             Response.Write(ex.Message);
             CprBroker.Engine.Local.Admin.LogException(ex);
             Server.ClearError();
-        }
-
-        protected void Page_PreRender(object sender, EventArgs e)
-        {
-            // Render script elements
-            string val = "<script language=\"javascript\">";
-            val += string.Join("",
-                (
-                    from text in AlertMessages
-                    select "alert('" + text.Replace("'", "''") + "');"
-                ).ToArray()
-                );
-            val += "</script>";
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "alerts", val);
         }
 
         public void AppendError(string text)
@@ -111,6 +97,9 @@ namespace CprBroker.Web.Pages
             }
         }
 
-        public readonly List<string> AlertMessages = new List<string>();
+        public List<string> AlertMessages
+        {
+            get { return this.msg1.AlertMessages; }
+        }
     }
 }

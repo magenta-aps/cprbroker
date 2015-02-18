@@ -9,6 +9,7 @@ using CprBroker.Data.DataProviders;
 using CprBroker.Schemas;
 using CprBroker.Schemas.Part;
 using System.Diagnostics;
+using CprBroker.Utilities.Config;
 
 namespace CprBroker.Engine
 {
@@ -48,10 +49,11 @@ namespace CprBroker.Engine
 
         public IEnumerable<TInterface> CreateDataProviders(SourceUsageOrder sourceUsageOrder)
         {
-            DataProvidersConfigurationSection section = CprBroker.Config.ConfigManager.Current.DataProvidersSection;
-            DataProvider[] dbProviders = DataProviderManager.ReadDatabaseDataProviders();
+            DataProvidersConfigurationSection section = ConfigManager.Current.DataProvidersSection;
+            var providerFactory = new DataProviderFactory();
+            DataProvider[] dbProviders = providerFactory.ReadDatabaseDataProviders();
 
-            var dataProviders = DataProviderManager.GetDataProviderList(section, dbProviders, typeof(TInterface), sourceUsageOrder)
+            var dataProviders = providerFactory.GetDataProviderList(section, dbProviders, typeof(TInterface), sourceUsageOrder)
                 .Select(p => p as TInterface);
             return dataProviders;
         }
@@ -160,7 +162,7 @@ namespace CprBroker.Engine
                     }
                 })).ToArray();
 
-                ThreadRunner.RunThreads(threadStarts, TimeSpan.FromMilliseconds(Config.ConfigManager.Current.Settings.DataProviderMillisecondsTimeout));
+                ThreadRunner.RunThreads(threadStarts, TimeSpan.FromMilliseconds(ConfigManager.Current.Settings.DataProviderMillisecondsTimeout));
             }
             elementsToUpdate = elementsToUpdateList.ToArray();
         }

@@ -52,6 +52,7 @@ using System.Threading;
 using CprBroker.Schemas;
 using CprBroker.Utilities;
 using CprBroker.Data.DataProviders;
+using CprBroker.Utilities.Config;
 
 namespace CprBroker.Engine
 {
@@ -88,7 +89,7 @@ namespace CprBroker.Engine
 
         public override IEnumerable<IDataProvider> GetDataProviderList(DataProvidersConfigurationSection section, DataProvider[] dbProviders)
         {
-            return DataProviderManager.GetDataProviderList(section, dbProviders, this.InterfaceType, this.LocalDataProviderOption);
+            return new DataProviderFactory().GetDataProviderList(section, dbProviders, this.InterfaceType, this.LocalDataProviderOption);
         }
 
         public override sealed object Invoke(IDataProvider prov)

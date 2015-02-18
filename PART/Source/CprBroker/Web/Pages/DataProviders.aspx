@@ -4,9 +4,14 @@
 
 <%@ MasterType VirtualPath="~/Pages/Site.Master" %>
 <%@ Register Assembly="CprBroker.Web" Namespace="CprBroker.Web.Controls" TagPrefix="cc1" %>
+<%@ Register Src="~/Pages/Controls/ConfigPropertyViewer.ascx" TagPrefix="uc1" TagName="ConfigPropertyViewer" %>
+<%@ Register Src="~/Pages/Controls/ConfigPropertyEditor.ascx" TagPrefix="uc1" TagName="ConfigPropertyEditor" %>
+<%@ Register Src="~/Pages/Controls/ConfigPropertyGridEditor.ascx" TagPrefix="uc1"
+    TagName="ConfigPropertyGridEditor" %>
+<%@ Import Namespace="CprBroker.Data.DataProviders" %>
+<%@ Import Namespace="CprBroker.Engine" %>
 <asp:Content ID="Content1" runat="server" ContentPlaceHolderID="Contents">
-    <h3>
-        Data provider types</h3>
+    <h3>Data provider types</h3>
     Possible types of data providers
     <asp:GridView ID="dataProviderTypesGridView" runat="server" AutoGenerateColumns="False"
         DataKeyNames="AssemblyQualifiedName" OnDataBinding="dataProviderTypesGridView_DataBinding">
@@ -15,8 +20,7 @@
             <asp:BoundField DataField="AssemblyQualifiedName" HeaderText="Assembly qualified name" />
         </Columns>
     </asp:GridView>
-    <h3>
-        Data providers</h3>
+    <h3>Data providers</h3>
     Available data providers. They will be used in the order listed here.
     <asp:GridView ID="dataProvidersGridView" runat="server" AutoGenerateColumns="False"
         DataKeyNames="DataProviderId" EmptyDataText="(None)" OnRowCommand="dataProvidersGridView_RowCommand"
@@ -31,25 +35,10 @@
             </asp:TemplateField>
             <asp:TemplateField HeaderText="Details">
                 <ItemTemplate>
-                    <asp:Repeater ID="DataList1" runat="server" DataSource='<%# GetAttributes(Container.DataItem) %>'>
-                        <ItemTemplate>
-                            <b>
-                                <%# Eval("Name")%>:</b>
-                            <%# (bool)Eval("Confidential")?"********": Eval("Value")%>
-                        </ItemTemplate>
-                        <SeparatorTemplate>
-                            &nbsp;</SeparatorTemplate>
-                    </asp:Repeater>
+                    <uc1:ConfigPropertyViewer runat="server" DataSource='<%# new DataProviderFactory().CreateDataProvider(Container.DataItem as DataProvider).ToDisplayableProperties() %>' />
                 </ItemTemplate>
                 <EditItemTemplate>
-                    <asp:DataList ID="EditDataList" runat="server" DataSource='<%# GetAttributes(Container.DataItem) %>' RepeatColumns="3"
-                        DataKeyField="Name" RepeatDirection="Horizontal">
-                        <ItemTemplate>
-                            <b>
-                                <%# Eval("Name")%>:</b>
-                            <cc1:SmartTextBox ID="SmartTextBox" runat="server" Type='<%# Eval("Type") %>' Text='<%# Bind("Value") %>' Required='<%# Bind("Required") %>' Confidential='<%# Bind("Confidential") %>' />
-                        </ItemTemplate>
-                    </asp:DataList>
+                    <uc1:ConfigPropertyEditor ID="configEditor" runat="server" DataSource='<%# new DataProviderFactory().CreateDataProvider(Container.DataItem as DataProvider).ToDisplayableProperties() %>' />
                 </EditItemTemplate>
             </asp:TemplateField>
             <asp:CommandField ShowEditButton="True" ControlStyle-CssClass="CommandButton" />
@@ -60,8 +49,7 @@
                             <td>
                                 <%#(bool)Eval("IsEnabled")?"Yes":"No" %>
                             </td>
-                            <td>
-                            </td>
+                            <td></td>
                             <td>
                                 <asp:LinkButton ID="LinkButton1" runat="server" CommandName="Enable" CommandArgument='<%#Eval("DataProviderId") %>'
                                     Text='<%#(bool)Eval("IsEnabled")?"(Disable)" : "(Enable)" %>' CssClass="CommandButton" />
@@ -69,16 +57,24 @@
                         </tr>
                     </table>
                 </ItemTemplate>
-                <EditItemTemplate>
-                </EditItemTemplate>
             </asp:TemplateField>
             <asp:TemplateField ShowHeader="False" ControlStyle-CssClass="CommandButton">
                 <ItemTemplate>
                     <asp:LinkButton ID="LinkButton2" runat="server" CommandArgument='<%# Eval("DataProviderId") %>'
                         CommandName="Ping">Ping</asp:LinkButton>
                 </ItemTemplate>
-                <EditItemTemplate>
-                </EditItemTemplate>
+            </asp:TemplateField>
+            <asp:TemplateField ShowHeader="False" ControlStyle-CssClass="CommandButton" HeaderText="Auto Update ready">
+                <ItemTemplate>
+                    <table style="text-align:center; width:100%">
+                        <tr>
+                            <td><%# GetIsReady(Container.DataItem) %></td>
+                            <td>
+                                <asp:LinkButton ID="LinkButton3" runat="server" CommandArgument='<%# Eval("DataProviderId") %>' Visible='<%# (bool) typeof(IAutoUpdateDataProvider).IsAssignableFrom(Type.GetType(Eval("TypeName").ToString())) %>'
+                                    CommandName="AutoUpdateHint" CausesValidation="false">(Script)</asp:LinkButton></td>
+                        </tr>
+                    </table>
+                </ItemTemplate>
             </asp:TemplateField>
             <asp:CommandField ShowDeleteButton="True" ControlStyle-CssClass="CommandButton" />
             <asp:TemplateField ControlStyle-CssClass="UpDownButton">
@@ -99,32 +95,12 @@
             </asp:TemplateField>
         </Columns>
     </asp:GridView>
-    <h3>
-        New data provider</h3>
+    <h3>New data provider</h3>
     Type:
     <asp:DropDownList ID="newDataProviderDropDownList" runat="server" AutoPostBack="True"
         DataTextField="FullName" DataValueField="AssemblyQualifiedName" OnSelectedIndexChanged="newDataProviderDropDownList_SelectedIndexChanged"
         OnDataBinding="newDataProviderDropDownList_DataBinding">
     </asp:DropDownList>
-    <asp:GridView runat="server" ID="newDataProviderGridView" AutoGenerateColumns="false"
-        DataKeyNames="Name" ShowFooter="true" OnRowCommand="newDataProviderGridView_RowCommand"
-        OnDataBinding="newDataProviderGridView_DataBinding">
-        <Columns>
-            <asp:TemplateField>
-                <ItemTemplate>
-                    <%# Eval("Name") %>:
-                </ItemTemplate>
-                <FooterTemplate>
-                    <asp:Button ID="InsertButton" runat="server" CommandName="Insert" Text="Insert" CssClass="CommandButton"
-                        ValidationGroup="Add"></asp:Button>
-                </FooterTemplate>
-            </asp:TemplateField>
-            <asp:TemplateField>
-                <ItemTemplate>
-                    <cc1:SmartTextBox ID="SmartTextBox" runat="server" Type='<%# Eval("Type") %>' Required='<%# Eval("Required") %>'
-                        Confidential='<%# Eval("Confidential") %>' ValidationGroup="Add"  />
-                </ItemTemplate>
-            </asp:TemplateField>
-        </Columns>
-    </asp:GridView>
+    <uc1:ConfigPropertyGridEditor runat="server" ID="newDataProvider" OnDataBinding="newDataProvider_DataBinding"
+        OnInsertCommand="newDataProvider_InsertCommand" />
 </asp:Content>

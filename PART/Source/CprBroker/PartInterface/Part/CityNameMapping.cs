@@ -50,6 +50,7 @@ using System.Linq;
 using System.Text;
 using CprBroker.Config;
 using CprBroker.Schemas.Part;
+using CprBroker.Utilities.Config;
 
 namespace CprBroker.Engine.Part
 {
@@ -57,7 +58,7 @@ namespace CprBroker.Engine.Part
     {
         public static void ApplyIfNeeded(LaesResultatType result)
         {
-            if (Config.ConfigManager.Current.Settings.ReturnCityNameInDistrictName)
+            if (ConfigManager.Current.Settings.ReturnCityNameInDistrictName)
             {
                 if (result != null)
                 {

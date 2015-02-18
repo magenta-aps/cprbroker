@@ -50,10 +50,11 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using CprBroker.Schemas.Part;
+using CprBroker.Schemas.Wrappers;
 
 namespace CprBroker.Providers.CPRDirect
 {
-    public abstract class CompositeWrapper : Wrapper
+    public abstract class CompositeWrapper : CprDirectWrapper
     {
         public CompositeWrapper()
         { }
@@ -84,7 +85,7 @@ namespace CprBroker.Providers.CPRDirect
             return Parse(rd, typeMap, int.MaxValue);
         }
 
-        public static List<Wrapper> Parse(TextReader rd, Dictionary<string, Type> typeMap, int maxCount)
+        public static List<Wrapper> Parse(TextReader rd, Dictionary<string, Type> typeMap, long maxCount)
         {
             var ret = new List<Wrapper>();
 
@@ -180,7 +181,7 @@ namespace CprBroker.Providers.CPRDirect
             var properties = myType.GetProperties();
             foreach (System.Reflection.PropertyInfo property in properties)
             {
-                if (typeof(System.Collections.IList).IsAssignableFrom(property.PropertyType) && property.PropertyType.IsGenericType && property.PropertyType.GetGenericTypeDefinition() == typeof(List<>))
+                if (property.PropertyType.IsGenericType && typeof(System.Collections.IList).IsAssignableFrom(property.PropertyType) && property.PropertyType.GetGenericTypeDefinition() == typeof(List<>))
                 {
                     var args = property.PropertyType.GetGenericArguments();
                     if (args.Length == 1)

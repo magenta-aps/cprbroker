@@ -73,8 +73,18 @@
       </Component>
       <Component Id="CMP_EVENT_bin_CprBroker.Providers.PersonMaster.dll" Directory="EVENT_bin">
         <File Id="FILE_EVENT_bin_CprBroker.Providers.PersonMaster.dll" Source="$(var.SitePath)bin\CprBroker.Providers.PersonMaster.dll" KeyPath="yes">
-          <CopyFile Id="FILE_EVENT_bin_BackendCprBroker.Providers.PersonMaster.dll" DestinationDirectory="EVENT_Backend"/>
+          <CopyFile Id="FILE_EVENT_bin_Backend_CprBroker.Providers.PersonMaster.dll" DestinationDirectory="EVENT_Backend"/>
         </File>
+      </Component>
+      <Component Id="CMP_EVENT_bin_CprBroker.Providers.DPR.dll" Directory="EVENT_bin">
+          <File Id="FILE_EVENT_bin_CprBroker.Providers.DPR.dll" Source="$(var.SitePath)bin\CprBroker.Providers.DPR.dll" KeyPath="yes">
+              <CopyFile Id="FILE_EVENT_bin_Backend_CprBroker.Providers.DPR.dll" DestinationDirectory="EVENT_Backend"/>
+          </File>
+      </Component>
+      <Component Id="CMP_EVENT_bin_CprBroker.Dbr.dll" Directory="EVENT_bin">
+          <File Id="FILE_EVENT_bin_CprBroker.Dbr.dll" Source="$(var.SitePath)bin\CprBroker.Dbr.dll" KeyPath="yes">
+              <CopyFile Id="FILE_EVENT_bin_Backend_CprBroker.Dbr.dll" DestinationDirectory="EVENT_Backend"/>
+          </File>
       </Component>
 
       <Component Id="CMP_EVENT_bin_FtpLib.dll" Directory="EVENT_bin" Guid="16720E88-28C3-4131-85AE-C97E6C0A5C55">

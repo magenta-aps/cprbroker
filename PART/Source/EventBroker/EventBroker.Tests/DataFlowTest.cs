@@ -23,7 +23,7 @@ namespace CprBroker.EventBroker.Tests
                 dataContext.SubmitChanges();
             }
             var backEnd = new BackendService();
-            backEnd.StartQueues();
+            backEnd.StartTasks();
 
             Thread.Sleep(1000);
             using (var dataContext = new EventBrokerDataContext(EventDatabase.ConnectionString))

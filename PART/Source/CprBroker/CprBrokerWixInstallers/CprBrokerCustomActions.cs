@@ -57,6 +57,7 @@ using CprBroker.Engine;
 using CprBroker.EventBroker.Data;
 using CprBroker.Installers.EventBrokerInstallers;
 using System.Data.SqlClient;
+using CprBroker.Utilities.Config;
 
 namespace CprBrokerWixInstallers
 {
@@ -266,7 +267,16 @@ namespace CprBrokerWixInstallers
                     new DatabasePatchInfo(){ 
                         Version = new Version(2,2,2),
                         SqlScript = Properties.Resources.PatchDatabase_2_2_2,
-                        PatchAction = conn=> DatabaseCustomAction.InsertLookup(typeof(CprBroker.Data.DataProviders.BudgetInterval).Name, Properties.Resources.BudgetEntry, conn) 
+                        PatchAction = conn=> DatabaseCustomAction.InsertLookup<CprBroker.Data.DataProviders.BudgetInterval>(Properties.Resources.BudgetInterval_Csv, conn) 
+                    },
+                    new DatabasePatchInfo(){ 
+                        Version = new Version(2,2,3),
+                        SqlScript = Properties.Resources.PatchDatabase_2_2_3,
+                        PatchAction = conn=> 
+                            {
+                                DatabaseCustomAction.InsertLookup<CprBroker.Data.Queues.DbQueue>(Properties.Resources.Queue_Csv, conn);
+                                CprBroker.Providers.CPRDirect.Authority.ImportText(Properties.Resources.Authority_4357, conn);
+                            }
                     },
                     new DatabasePatchInfo(){ 
                         Version = new Version(2,2,3),
@@ -376,7 +386,8 @@ namespace CprBrokerWixInstallers
                     "RollbackBackendService",
                     "UnInstallBackendService",
                     "SetCprBrokerUrl",
-                    "CloneDataProviderSectionsToBackendService"
+                    "CloneDataProviderSectionsToBackendService",
+                    "InitTasksConfiguration"
                 };
                 return WebsiteCustomAction.AfterInstallInitialize_WEB(session, extraCustomActionNames);
             }

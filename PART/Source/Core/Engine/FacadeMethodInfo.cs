@@ -51,6 +51,7 @@ using System.Text;
 using CprBroker.Utilities;
 using CprBroker.Schemas.Part;
 using CprBroker.Data.DataProviders;
+using CprBroker.Utilities.Config;
 
 namespace CprBroker.Engine
 {
@@ -89,8 +90,8 @@ namespace CprBroker.Engine
 
         public virtual SubMethodRunState[] CreateSubMethodRunStates(out bool missingDataProvidersExist)
         {
-            DataProvidersConfigurationSection section = Config.ConfigManager.Current.DataProvidersSection;
-            DataProvider[] dbProviders = DataProviderManager.ReadDatabaseDataProviders();
+            DataProvidersConfigurationSection section = ConfigManager.Current.DataProvidersSection;
+            DataProvider[] dbProviders = new DataProviderFactory().ReadDatabaseDataProviders();
 
             var subMethodRunStates = this.SubMethodInfos
                 .Select(mi => new SubMethodRunState()

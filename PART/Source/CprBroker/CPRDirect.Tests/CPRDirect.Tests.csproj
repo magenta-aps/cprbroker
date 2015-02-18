@@ -68,6 +68,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ExtractManager.Tests.cs" />
     <Compile Include="HistoryContinuity\Address.cs" />
     <Compile Include="Helpers.cs" />
     <Compile Include="HistoryContinuity\Base.cs" />
@@ -165,6 +166,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\4357.txt" />
+    <None Include="Resources\U12170-P opgavenr 110901 ADRNVN FE_FixedLength" />
     <None Include="App.config" />
     <None Include="Resources\U12170-P opgavenr 110901 ADRNVN FE" />
   </ItemGroup>

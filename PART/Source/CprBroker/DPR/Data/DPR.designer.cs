@@ -57,12 +57,33 @@ namespace CprBroker.Providers.DPR
     partial void InsertContactAddress(ContactAddress instance);
     partial void UpdateContactAddress(ContactAddress instance);
     partial void DeleteContactAddress(ContactAddress instance);
-    partial void InsertRelation(Relation instance);
-    partial void UpdateRelation(Relation instance);
-    partial void DeleteRelation(Relation instance);
+    partial void InsertProtection(Protection instance);
+    partial void UpdateProtection(Protection instance);
+    partial void DeleteProtection(Protection instance);
     partial void InsertParentalAuthority(ParentalAuthority instance);
     partial void UpdateParentalAuthority(ParentalAuthority instance);
     partial void DeleteParentalAuthority(ParentalAuthority instance);
+    partial void InsertDisappearance(Disappearance instance);
+    partial void UpdateDisappearance(Disappearance instance);
+    partial void DeleteDisappearance(Disappearance instance);
+    partial void InsertNote(Note instance);
+    partial void UpdateNote(Note instance);
+    partial void DeleteNote(Note instance);
+    partial void InsertEvent(Event instance);
+    partial void UpdateEvent(Event instance);
+    partial void DeleteEvent(Event instance);
+    partial void InsertPerson(Person instance);
+    partial void UpdatePerson(Person instance);
+    partial void DeletePerson(Person instance);
+    partial void InsertMunicipalCondition(MunicipalCondition instance);
+    partial void UpdateMunicipalCondition(MunicipalCondition instance);
+    partial void DeleteMunicipalCondition(MunicipalCondition instance);
+    partial void InsertGuardianAndParentalAuthorityRelation(GuardianAndParentalAuthorityRelation instance);
+    partial void UpdateGuardianAndParentalAuthorityRelation(GuardianAndParentalAuthorityRelation instance);
+    partial void DeleteGuardianAndParentalAuthorityRelation(GuardianAndParentalAuthorityRelation instance);
+    partial void InsertGuardianAddress(GuardianAddress instance);
+    partial void UpdateGuardianAddress(GuardianAddress instance);
+    partial void DeleteGuardianAddress(GuardianAddress instance);
     #endregion
 		
 		public DPRDataContext(string connection) : 
@@ -161,11 +182,11 @@ namespace CprBroker.Providers.DPR
 			}
 		}
 		
-		public System.Data.Linq.Table<Relation> Relations
+		public System.Data.Linq.Table<Protection> Protections
 		{
 			get
 			{
-				return this.GetTable<Relation>();
+				return this.GetTable<Protection>();
 			}
 		}
 		
@@ -174,6 +195,62 @@ namespace CprBroker.Providers.DPR
 			get
 			{
 				return this.GetTable<ParentalAuthority>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Disappearance> Disappearances
+		{
+			get
+			{
+				return this.GetTable<Disappearance>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Note> Notes
+		{
+			get
+			{
+				return this.GetTable<Note>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Event> Events
+		{
+			get
+			{
+				return this.GetTable<Event>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Person> Persons
+		{
+			get
+			{
+				return this.GetTable<Person>();
+			}
+		}
+		
+		public System.Data.Linq.Table<MunicipalCondition> MunicipalConditions
+		{
+			get
+			{
+				return this.GetTable<MunicipalCondition>();
+			}
+		}
+		
+		public System.Data.Linq.Table<GuardianAndParentalAuthorityRelation> GuardianAndParentalAuthorityRelations
+		{
+			get
+			{
+				return this.GetTable<GuardianAndParentalAuthorityRelation>();
+			}
+		}
+		
+		public System.Data.Linq.Table<GuardianAddress> GuardianAddresses
+		{
+			get
+			{
+				return this.GetTable<GuardianAddress>();
 			}
 		}
 	}
@@ -438,7 +515,7 @@ namespace CprBroker.Providers.DPR
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="NVHAENSL", Storage="_NVHAENSL", DbType="Decimal(13,0)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="NVHAENSL", Storage="_NVHAENSL", DbType="Decimal(13,0)", IsPrimaryKey=true)]
 		public System.Nullable<decimal> NameTerminationDate
 		{
 			get
@@ -558,7 +635,7 @@ namespace CprBroker.Providers.DPR
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="FORNVN", Storage="_FirstName", DbType="VarChar(50)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="FORNVN", Storage="_FirstName", DbType="VarChar(50)", IsPrimaryKey=true)]
 		public string FirstName
 		{
 			get
@@ -994,12 +1071,6 @@ namespace CprBroker.Providers.DPR
 		
 		private EntityRef<ContactAddress> _ContactAddress;
 		
-		private EntitySet<Relation> _ParentalAuthorityHolders_Relations;
-		
-		private EntitySet<Relation> _ChildrenInCustody_Relations;
-		
-		private EntitySet<ParentalAuthority> _ParentalAuthorities;
-		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -1016,8 +1087,8 @@ namespace CprBroker.Providers.DPR
     partial void OnSexChanged();
     partial void OnMunicipalityCodeChanging(decimal value);
     partial void OnMunicipalityCodeChanged();
-    partial void OnMunicipalityNameChanging(string value);
-    partial void OnMunicipalityNameChanged();
+    partial void OnCurrentMunicipalityNameChanging(string value);
+    partial void OnCurrentMunicipalityNameChanged();
     partial void OnStreetCodeChanging(decimal value);
     partial void OnStreetCodeChanged();
     partial void OnHouseNumberChanging(string value);
@@ -1044,8 +1115,8 @@ namespace CprBroker.Providers.DPR
     partial void OnChristianMarkChanged();
     partial void OnBirthPlaceOfRegistrationChanging(string value);
     partial void OnBirthPlaceOfRegistrationChanged();
-    partial void OnPersonalSelectionDateChanging(System.Nullable<decimal> value);
-    partial void OnPersonalSelectionDateChanged();
+    partial void OnPnrMarkingDateChanging(System.Nullable<decimal> value);
+    partial void OnPnrMarkingDateChanged();
     partial void OnMotherPersonalOrBirthDateChanging(string value);
     partial void OnMotherPersonalOrBirthDateChanged();
     partial void OnMotherMarkerChanging(System.Nullable<char> value);
@@ -1098,8 +1169,8 @@ namespace CprBroker.Providers.DPR
     partial void OnCareOfNameChanged();
     partial void OnCityNameChanging(string value);
     partial void OnCityNameChanged();
-    partial void OnNationalityChanging(string value);
-    partial void OnNationalityChanged();
+    partial void OnNationalityRightChanging(string value);
+    partial void OnNationalityRightChanged();
     partial void OnPreviousAddressChanging(string value);
     partial void OnPreviousAddressChanged();
     partial void OnPreviousMunicipalityNameChanging(string value);
@@ -1128,9 +1199,6 @@ namespace CprBroker.Providers.DPR
 			this._Separations = new EntitySet<Separation>(new Action<Separation>(this.attach_Separations), new Action<Separation>(this.detach_Separations));
 			this._Departures = new EntitySet<Departure>(new Action<Departure>(this.attach_Departures), new Action<Departure>(this.detach_Departures));
 			this._ContactAddress = default(EntityRef<ContactAddress>);
-			this._ParentalAuthorityHolders_Relations = new EntitySet<Relation>(new Action<Relation>(this.attach_ParentalAuthorityHolders_Relations), new Action<Relation>(this.detach_ParentalAuthorityHolders_Relations));
-			this._ChildrenInCustody_Relations = new EntitySet<Relation>(new Action<Relation>(this.attach_ChildrenInCustody_Relations), new Action<Relation>(this.detach_ChildrenInCustody_Relations));
-			this._ParentalAuthorities = new EntitySet<ParentalAuthority>(new Action<ParentalAuthority>(this.attach_ParentalAuthorities), new Action<ParentalAuthority>(this.detach_ParentalAuthorities));
 			OnCreated();
 		}
 		
@@ -1255,7 +1323,7 @@ namespace CprBroker.Providers.DPR
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="AKTKONVN", Storage="_AKTKONVN", DbType="VarChar(20)")]
-		public string MunicipalityName
+		public string CurrentMunicipalityName
 		{
 			get
 			{
@@ -1265,11 +1333,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._AKTKONVN != value))
 				{
-					this.OnMunicipalityNameChanging(value);
+					this.OnCurrentMunicipalityNameChanging(value);
 					this.SendPropertyChanging();
 					this._AKTKONVN = value;
-					this.SendPropertyChanged("MunicipalityName");
-					this.OnMunicipalityNameChanged();
+					this.SendPropertyChanged("CurrentMunicipalityName");
+					this.OnCurrentMunicipalityNameChanged();
 				}
 			}
 		}
@@ -1535,7 +1603,7 @@ namespace CprBroker.Providers.DPR
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="PMHAENST", Storage="_PMHAENST", DbType="Decimal(13,0)")]
-		public System.Nullable<decimal> PersonalSelectionDate
+		public System.Nullable<decimal> PnrMarkingDate
 		{
 			get
 			{
@@ -1545,11 +1613,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._PMHAENST != value))
 				{
-					this.OnPersonalSelectionDateChanging(value);
+					this.OnPnrMarkingDateChanging(value);
 					this.SendPropertyChanging();
 					this._PMHAENST = value;
-					this.SendPropertyChanged("PersonalSelectionDate");
-					this.OnPersonalSelectionDateChanged();
+					this.SendPropertyChanged("PnrMarkingDate");
+					this.OnPnrMarkingDateChanged();
 				}
 			}
 		}
@@ -2075,7 +2143,7 @@ namespace CprBroker.Providers.DPR
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="STBORGER", Storage="_STBORGER", DbType="VarChar(20)")]
-		public string Nationality
+		public string NationalityRight
 		{
 			get
 			{
@@ -2085,11 +2153,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._STBORGER != value))
 				{
-					this.OnNationalityChanging(value);
+					this.OnNationalityRightChanging(value);
 					this.SendPropertyChanging();
 					this._STBORGER = value;
-					this.SendPropertyChanged("Nationality");
-					this.OnNationalityChanged();
+					this.SendPropertyChanged("NationalityRight");
+					this.OnNationalityRightChanged();
 				}
 			}
 		}
@@ -2374,45 +2442,6 @@ namespace CprBroker.Providers.DPR
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PersonTotal_Relation", Storage="_ParentalAuthorityHolders_Relations", ThisKey="PNR", OtherKey="PNR")]
-		public EntitySet<Relation> ParentalAuthorityHolders_Relations
-		{
-			get
-			{
-				return this._ParentalAuthorityHolders_Relations;
-			}
-			set
-			{
-				this._ParentalAuthorityHolders_Relations.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PersonTotal_Relation1", Storage="_ChildrenInCustody_Relations", ThisKey="PNR", OtherKey="RelationPNR")]
-		public EntitySet<Relation> ChildrenInCustody_Relations
-		{
-			get
-			{
-				return this._ChildrenInCustody_Relations;
-			}
-			set
-			{
-				this._ChildrenInCustody_Relations.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PersonTotal_ParentalAuthority", Storage="_ParentalAuthorities", ThisKey="PNR", OtherKey="PNR")]
-		public EntitySet<ParentalAuthority> ParentalAuthorities
-		{
-			get
-			{
-				return this._ParentalAuthorities;
-			}
-			set
-			{
-				this._ParentalAuthorities.Assign(value);
-			}
-		}
-		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -2512,42 +2541,6 @@ namespace CprBroker.Providers.DPR
 		}
 		
 		private void detach_Departures(Departure entity)
-		{
-			this.SendPropertyChanging();
-			entity.PersonTotal = null;
-		}
-		
-		private void attach_ParentalAuthorityHolders_Relations(Relation entity)
-		{
-			this.SendPropertyChanging();
-			entity.PersonTotal = this;
-		}
-		
-		private void detach_ParentalAuthorityHolders_Relations(Relation entity)
-		{
-			this.SendPropertyChanging();
-			entity.PersonTotal = null;
-		}
-		
-		private void attach_ChildrenInCustody_Relations(Relation entity)
-		{
-			this.SendPropertyChanging();
-			entity.PersonTotal2 = this;
-		}
-		
-		private void detach_ChildrenInCustody_Relations(Relation entity)
-		{
-			this.SendPropertyChanging();
-			entity.PersonTotal2 = null;
-		}
-		
-		private void attach_ParentalAuthorities(ParentalAuthority entity)
-		{
-			this.SendPropertyChanging();
-			entity.PersonTotal = this;
-		}
-		
-		private void detach_ParentalAuthorities(ParentalAuthority entity)
 		{
 			this.SendPropertyChanging();
 			entity.PersonTotal = null;
@@ -2714,7 +2707,7 @@ namespace CprBroker.Providers.DPR
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="AEGTEPNR", Storage="_AEGTEPNR", DbType="Decimal(11,0)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="AEGTEPNR", Storage="_AEGTEPNR", DbType="Decimal(11,0)", IsPrimaryKey=true)]
 		public System.Nullable<decimal> SpousePNR
 		{
 			get
@@ -3181,7 +3174,7 @@ namespace CprBroker.Providers.DPR
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="VEJKOD", Storage="_StreetCode", DbType="Decimal(5,0) NOT NULL")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="VEJKOD", Storage="_StreetCode", DbType="Decimal(5,0) NOT NULL", IsPrimaryKey=true)]
 		public decimal StreetCode
 		{
 			get
@@ -5116,15 +5109,2009 @@ namespace CprBroker.Providers.DPR
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DTRELPNR_PNR")]
-	public partial class Relation : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DTBESKYT")]
+	public partial class Protection : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private decimal _PNR;
+		
+		private decimal _ProtectionType;
+		
+		private decimal _CprUpdateDate;
+		
+		private System.DateTime _StartDate;
+		
+		private System.Nullable<System.DateTime> _EndDate;
+		
+		private string _ReportingMarker;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnPNRChanging(decimal value);
+    partial void OnPNRChanged();
+    partial void OnProtectionTypeChanging(decimal value);
+    partial void OnProtectionTypeChanged();
+    partial void OnCprUpdateDateChanging(decimal value);
+    partial void OnCprUpdateDateChanged();
+    partial void OnStartDateChanging(System.DateTime value);
+    partial void OnStartDateChanged();
+    partial void OnEndDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnEndDateChanged();
+    partial void OnReportingMarkerChanging(string value);
+    partial void OnReportingMarkerChanged();
+    #endregion
+		
+		public Protection()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PNR", DbType="Decimal(11,0) NOT NULL", IsPrimaryKey=true)]
+		public decimal PNR
+		{
+			get
+			{
+				return this._PNR;
+			}
+			set
+			{
+				if ((this._PNR != value))
+				{
+					this.OnPNRChanging(value);
+					this.SendPropertyChanging();
+					this._PNR = value;
+					this.SendPropertyChanged("PNR");
+					this.OnPNRChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="BESKYT_TYP", Storage="_ProtectionType", DbType="Decimal(4,0) NOT NULL", IsPrimaryKey=true)]
+		public decimal ProtectionType
+		{
+			get
+			{
+				return this._ProtectionType;
+			}
+			set
+			{
+				if ((this._ProtectionType != value))
+				{
+					this.OnProtectionTypeChanging(value);
+					this.SendPropertyChanging();
+					this._ProtectionType = value;
+					this.SendPropertyChanged("ProtectionType");
+					this.OnProtectionTypeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="AJFDTO", Storage="_CprUpdateDate", DbType="Decimal(13,0) NOT NULL", IsPrimaryKey=true)]
+		public decimal CprUpdateDate
+		{
+			get
+			{
+				return this._CprUpdateDate;
+			}
+			set
+			{
+				if ((this._CprUpdateDate != value))
+				{
+					this.OnCprUpdateDateChanging(value);
+					this.SendPropertyChanging();
+					this._CprUpdateDate = value;
+					this.SendPropertyChanged("CprUpdateDate");
+					this.OnCprUpdateDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="STARTDATE", Storage="_StartDate", DbType="SmallDateTime NOT NULL", IsPrimaryKey=true)]
+		public System.DateTime StartDate
+		{
+			get
+			{
+				return this._StartDate;
+			}
+			set
+			{
+				if ((this._StartDate != value))
+				{
+					this.OnStartDateChanging(value);
+					this.SendPropertyChanging();
+					this._StartDate = value;
+					this.SendPropertyChanged("StartDate");
+					this.OnStartDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="SLETDATE", Storage="_EndDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> EndDate
+		{
+			get
+			{
+				return this._EndDate;
+			}
+			set
+			{
+				if ((this._EndDate != value))
+				{
+					this.OnEndDateChanging(value);
+					this.SendPropertyChanging();
+					this._EndDate = value;
+					this.SendPropertyChanged("EndDate");
+					this.OnEndDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="INDRAP", Storage="_ReportingMarker", DbType="VarChar(3)")]
+		public string ReportingMarker
+		{
+			get
+			{
+				return this._ReportingMarker;
+			}
+			set
+			{
+				if ((this._ReportingMarker != value))
+				{
+					this.OnReportingMarkerChanging(value);
+					this.SendPropertyChanging();
+					this._ReportingMarker = value;
+					this.SendPropertyChanged("ReportingMarker");
+					this.OnReportingMarkerChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DTFORALDREMYND")]
+	public partial class ParentalAuthority : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private decimal _ChildPNR;
 		
-		private decimal _ParentPNR;
+		private decimal _RelationType;
+		
+		private decimal _CprUpdateDate;
+		
+		private decimal _ParentalAuthorityCode;
+		
+		private System.DateTime _StartDate;
+		
+		private System.Nullable<char> _StartDateUncertainty;
+		
+		private System.Nullable<System.DateTime> _EndDate;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnChildPNRChanging(decimal value);
+    partial void OnChildPNRChanged();
+    partial void OnRelationTypeChanging(decimal value);
+    partial void OnRelationTypeChanged();
+    partial void OnCprUpdateDateChanging(decimal value);
+    partial void OnCprUpdateDateChanged();
+    partial void OnParentalAuthorityCodeChanging(decimal value);
+    partial void OnParentalAuthorityCodeChanged();
+    partial void OnStartDateChanging(System.DateTime value);
+    partial void OnStartDateChanged();
+    partial void OnStartDateUncertaintyChanging(System.Nullable<char> value);
+    partial void OnStartDateUncertaintyChanged();
+    partial void OnEndDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnEndDateChanged();
+    #endregion
+		
+		public ParentalAuthority()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="PNR", Storage="_ChildPNR", DbType="Decimal(11,0) NOT NULL", IsPrimaryKey=true)]
+		public decimal ChildPNR
+		{
+			get
+			{
+				return this._ChildPNR;
+			}
+			set
+			{
+				if ((this._ChildPNR != value))
+				{
+					this.OnChildPNRChanging(value);
+					this.SendPropertyChanging();
+					this._ChildPNR = value;
+					this.SendPropertyChanged("ChildPNR");
+					this.OnChildPNRChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="RELTYP", Storage="_RelationType", DbType="Decimal(4,0) NOT NULL", IsPrimaryKey=true)]
+		public decimal RelationType
+		{
+			get
+			{
+				return this._RelationType;
+			}
+			set
+			{
+				if ((this._RelationType != value))
+				{
+					this.OnRelationTypeChanging(value);
+					this.SendPropertyChanging();
+					this._RelationType = value;
+					this.SendPropertyChanged("RelationType");
+					this.OnRelationTypeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="AJFDTO", Storage="_CprUpdateDate", DbType="Decimal(13,0) NOT NULL", IsPrimaryKey=true)]
+		public decimal CprUpdateDate
+		{
+			get
+			{
+				return this._CprUpdateDate;
+			}
+			set
+			{
+				if ((this._CprUpdateDate != value))
+				{
+					this.OnCprUpdateDateChanging(value);
+					this.SendPropertyChanging();
+					this._CprUpdateDate = value;
+					this.SendPropertyChanged("CprUpdateDate");
+					this.OnCprUpdateDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="START_MYNKOD", Storage="_ParentalAuthorityCode", DbType="Decimal(5,0) NOT NULL")]
+		public decimal ParentalAuthorityCode
+		{
+			get
+			{
+				return this._ParentalAuthorityCode;
+			}
+			set
+			{
+				if ((this._ParentalAuthorityCode != value))
+				{
+					this.OnParentalAuthorityCodeChanging(value);
+					this.SendPropertyChanging();
+					this._ParentalAuthorityCode = value;
+					this.SendPropertyChanged("ParentalAuthorityCode");
+					this.OnParentalAuthorityCodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="STARTDATE", Storage="_StartDate", DbType="DateTime NOT NULL", IsPrimaryKey=true)]
+		public System.DateTime StartDate
+		{
+			get
+			{
+				return this._StartDate;
+			}
+			set
+			{
+				if ((this._StartDate != value))
+				{
+					this.OnStartDateChanging(value);
+					this.SendPropertyChanging();
+					this._StartDate = value;
+					this.SendPropertyChanged("StartDate");
+					this.OnStartDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="STARTDATE_UMRK", Storage="_StartDateUncertainty", DbType="Char(1)")]
+		public System.Nullable<char> StartDateUncertainty
+		{
+			get
+			{
+				return this._StartDateUncertainty;
+			}
+			set
+			{
+				if ((this._StartDateUncertainty != value))
+				{
+					this.OnStartDateUncertaintyChanging(value);
+					this.SendPropertyChanging();
+					this._StartDateUncertainty = value;
+					this.SendPropertyChanged("StartDateUncertainty");
+					this.OnStartDateUncertaintyChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="SLETDATE", Storage="_EndDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> EndDate
+		{
+			get
+			{
+				return this._EndDate;
+			}
+			set
+			{
+				if ((this._EndDate != value))
+				{
+					this.OnEndDateChanging(value);
+					this.SendPropertyChanging();
+					this._EndDate = value;
+					this.SendPropertyChanged("EndDate");
+					this.OnEndDateChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DTFORSV")]
+	public partial class Disappearance : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private decimal _PNR;
+		
+		private decimal _CprUpdateDate;
+		
+		private decimal _DisappearanceDate;
+		
+		private System.Nullable<decimal> _RetrievalDate;
+		
+		private string _CorrectionMarker;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnPNRChanging(decimal value);
+    partial void OnPNRChanged();
+    partial void OnCprUpdateDateChanging(decimal value);
+    partial void OnCprUpdateDateChanged();
+    partial void OnDisappearanceDateChanging(decimal value);
+    partial void OnDisappearanceDateChanged();
+    partial void OnRetrievalDateChanging(System.Nullable<decimal> value);
+    partial void OnRetrievalDateChanged();
+    partial void OnCorrectionMarkerChanging(string value);
+    partial void OnCorrectionMarkerChanged();
+    #endregion
+		
+		public Disappearance()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PNR", DbType="Decimal(11,0) NOT NULL", IsPrimaryKey=true)]
+		public decimal PNR
+		{
+			get
+			{
+				return this._PNR;
+			}
+			set
+			{
+				if ((this._PNR != value))
+				{
+					this.OnPNRChanging(value);
+					this.SendPropertyChanging();
+					this._PNR = value;
+					this.SendPropertyChanged("PNR");
+					this.OnPNRChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="AJFDTO", Storage="_CprUpdateDate", DbType="Decimal(13,0) NOT NULL", IsPrimaryKey=true)]
+		public decimal CprUpdateDate
+		{
+			get
+			{
+				return this._CprUpdateDate;
+			}
+			set
+			{
+				if ((this._CprUpdateDate != value))
+				{
+					this.OnCprUpdateDateChanging(value);
+					this.SendPropertyChanging();
+					this._CprUpdateDate = value;
+					this.SendPropertyChanged("CprUpdateDate");
+					this.OnCprUpdateDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="FORSVDTO", Storage="_DisappearanceDate", DbType="Decimal(13,0) NOT NULL", IsPrimaryKey=true)]
+		public decimal DisappearanceDate
+		{
+			get
+			{
+				return this._DisappearanceDate;
+			}
+			set
+			{
+				if ((this._DisappearanceDate != value))
+				{
+					this.OnDisappearanceDateChanging(value);
+					this.SendPropertyChanging();
+					this._DisappearanceDate = value;
+					this.SendPropertyChanged("DisappearanceDate");
+					this.OnDisappearanceDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="GENFDTO", Storage="_RetrievalDate", DbType="Decimal(13,0)")]
+		public System.Nullable<decimal> RetrievalDate
+		{
+			get
+			{
+				return this._RetrievalDate;
+			}
+			set
+			{
+				if ((this._RetrievalDate != value))
+				{
+					this.OnRetrievalDateChanging(value);
+					this.SendPropertyChanging();
+					this._RetrievalDate = value;
+					this.SendPropertyChanged("RetrievalDate");
+					this.OnRetrievalDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="ANNKOR", Storage="_CorrectionMarker", DbType="VarChar(1)")]
+		public string CorrectionMarker
+		{
+			get
+			{
+				return this._CorrectionMarker;
+			}
+			set
+			{
+				if ((this._CorrectionMarker != value))
+				{
+					this.OnCorrectionMarkerChanging(value);
+					this.SendPropertyChanging();
+					this._CorrectionMarker = value;
+					this.SendPropertyChanged("CorrectionMarker");
+					this.OnCorrectionMarkerChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DTNOTAT")]
+	public partial class Note : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private decimal _PNR;
+		
+		private decimal _CprUpdateDate;
+		
+		private decimal _NationalRegisterMemoDate;
+		
+		private System.Nullable<decimal> _DeletionDate;
+		
+		private decimal _NoteNumber;
+		
+		private string _NationalRegisterNoteLine;
+		
+		private decimal _MunicipalityCode;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnPNRChanging(decimal value);
+    partial void OnPNRChanged();
+    partial void OnCprUpdateDateChanging(decimal value);
+    partial void OnCprUpdateDateChanged();
+    partial void OnNationalRegisterMemoDateChanging(decimal value);
+    partial void OnNationalRegisterMemoDateChanged();
+    partial void OnDeletionDateChanging(System.Nullable<decimal> value);
+    partial void OnDeletionDateChanged();
+    partial void OnNoteNumberChanging(decimal value);
+    partial void OnNoteNumberChanged();
+    partial void OnNationalRegisterNoteLineChanging(string value);
+    partial void OnNationalRegisterNoteLineChanged();
+    partial void OnMunicipalityCodeChanging(decimal value);
+    partial void OnMunicipalityCodeChanged();
+    #endregion
+		
+		public Note()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PNR", DbType="Decimal(11,0) NOT NULL", IsPrimaryKey=true)]
+		public decimal PNR
+		{
+			get
+			{
+				return this._PNR;
+			}
+			set
+			{
+				if ((this._PNR != value))
+				{
+					this.OnPNRChanging(value);
+					this.SendPropertyChanging();
+					this._PNR = value;
+					this.SendPropertyChanged("PNR");
+					this.OnPNRChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="AJFDTO", Storage="_CprUpdateDate", DbType="Decimal(13,0) NOT NULL", IsPrimaryKey=true)]
+		public decimal CprUpdateDate
+		{
+			get
+			{
+				return this._CprUpdateDate;
+			}
+			set
+			{
+				if ((this._CprUpdateDate != value))
+				{
+					this.OnCprUpdateDateChanging(value);
+					this.SendPropertyChanging();
+					this._CprUpdateDate = value;
+					this.SendPropertyChanged("CprUpdateDate");
+					this.OnCprUpdateDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="HAENST", Storage="_NationalRegisterMemoDate", DbType="Decimal(13,0) NOT NULL")]
+		public decimal NationalRegisterMemoDate
+		{
+			get
+			{
+				return this._NationalRegisterMemoDate;
+			}
+			set
+			{
+				if ((this._NationalRegisterMemoDate != value))
+				{
+					this.OnNationalRegisterMemoDateChanging(value);
+					this.SendPropertyChanging();
+					this._NationalRegisterMemoDate = value;
+					this.SendPropertyChanged("NationalRegisterMemoDate");
+					this.OnNationalRegisterMemoDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="SLETDTO", Storage="_DeletionDate", DbType="Decimal(13,0)")]
+		public System.Nullable<decimal> DeletionDate
+		{
+			get
+			{
+				return this._DeletionDate;
+			}
+			set
+			{
+				if ((this._DeletionDate != value))
+				{
+					this.OnDeletionDateChanging(value);
+					this.SendPropertyChanging();
+					this._DeletionDate = value;
+					this.SendPropertyChanged("DeletionDate");
+					this.OnDeletionDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="NOTATNR", Storage="_NoteNumber", DbType="Decimal(3,0) NOT NULL", IsPrimaryKey=true)]
+		public decimal NoteNumber
+		{
+			get
+			{
+				return this._NoteNumber;
+			}
+			set
+			{
+				if ((this._NoteNumber != value))
+				{
+					this.OnNoteNumberChanging(value);
+					this.SendPropertyChanging();
+					this._NoteNumber = value;
+					this.SendPropertyChanged("NoteNumber");
+					this.OnNoteNumberChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="NOTATLI", Storage="_NationalRegisterNoteLine", DbType="VarChar(40)")]
+		public string NationalRegisterNoteLine
+		{
+			get
+			{
+				return this._NationalRegisterNoteLine;
+			}
+			set
+			{
+				if ((this._NationalRegisterNoteLine != value))
+				{
+					this.OnNationalRegisterNoteLineChanging(value);
+					this.SendPropertyChanging();
+					this._NationalRegisterNoteLine = value;
+					this.SendPropertyChanged("NationalRegisterNoteLine");
+					this.OnNationalRegisterNoteLineChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="KOMKOD", Storage="_MunicipalityCode", DbType="Decimal(5,0) NOT NULL")]
+		public decimal MunicipalityCode
+		{
+			get
+			{
+				return this._MunicipalityCode;
+			}
+			set
+			{
+				if ((this._MunicipalityCode != value))
+				{
+					this.OnMunicipalityCodeChanging(value);
+					this.SendPropertyChanging();
+					this._MunicipalityCode = value;
+					this.SendPropertyChanged("MunicipalityCode");
+					this.OnMunicipalityCodeChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DTHAEN")]
+	public partial class Event : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private decimal _PNR;
+		
+		private decimal _CprUpdateDate;
+		
+		private string _Event_;
+		
+		private string _AFLMRK;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnPNRChanging(decimal value);
+    partial void OnPNRChanged();
+    partial void OnCprUpdateDateChanging(decimal value);
+    partial void OnCprUpdateDateChanged();
+    partial void OnEvent_Changing(string value);
+    partial void OnEvent_Changed();
+    partial void OnAFLMRKChanging(string value);
+    partial void OnAFLMRKChanged();
+    #endregion
+		
+		public Event()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PNR", DbType="Decimal(11,0) NOT NULL", IsPrimaryKey=true)]
+		public decimal PNR
+		{
+			get
+			{
+				return this._PNR;
+			}
+			set
+			{
+				if ((this._PNR != value))
+				{
+					this.OnPNRChanging(value);
+					this.SendPropertyChanging();
+					this._PNR = value;
+					this.SendPropertyChanged("PNR");
+					this.OnPNRChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="TSU", Storage="_CprUpdateDate", DbType="Decimal(13,0) NOT NULL", IsPrimaryKey=true)]
+		public decimal CprUpdateDate
+		{
+			get
+			{
+				return this._CprUpdateDate;
+			}
+			set
+			{
+				if ((this._CprUpdateDate != value))
+				{
+					this.OnCprUpdateDateChanging(value);
+					this.SendPropertyChanging();
+					this._CprUpdateDate = value;
+					this.SendPropertyChanged("CprUpdateDate");
+					this.OnCprUpdateDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="HAEND", Storage="_Event_", DbType="VarChar(3)", IsPrimaryKey=true)]
+		public string Event_
+		{
+			get
+			{
+				return this._Event_;
+			}
+			set
+			{
+				if ((this._Event_ != value))
+				{
+					this.OnEvent_Changing(value);
+					this.SendPropertyChanging();
+					this._Event_ = value;
+					this.SendPropertyChanged("Event_");
+					this.OnEvent_Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AFLMRK", DbType="VarChar(2)")]
+		public string AFLMRK
+		{
+			get
+			{
+				return this._AFLMRK;
+			}
+			set
+			{
+				if ((this._AFLMRK != value))
+				{
+					this.OnAFLMRKChanging(value);
+					this.SendPropertyChanging();
+					this._AFLMRK = value;
+					this.SendPropertyChanged("AFLMRK");
+					this.OnAFLMRKChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DTPERS")]
+	public partial class Person : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private decimal _PNR;
+		
+		private decimal _CprUpdateDate;
+		
+		private decimal _Birthdate;
+		
+		private string _Gender;
+		
+		private decimal _BirthRegistrationAuthorityCode;
+		
+		private decimal _BirthRegistrationDate;
+		
+		private decimal _BirthRegistrationPlaceUpdateDate;
+		
+		private string _ChristianMark;
+		
+		private decimal _ChurchRelationUpdateDate;
+		
+		private decimal _ChurchAuthorityCode;
+		
+		private decimal _ChurchDate;
+		
+		private System.Nullable<decimal> _UnderGuardianshipAuthprityCode;
+		
+		private System.Nullable<decimal> _GuardianshipUpdateDate;
+		
+		private System.Nullable<decimal> _UnderGuardianshipDate;
+		
+		private System.Nullable<decimal> _PnrMarkingDate;
+		
+		private decimal _PnrDate;
+		
+		private System.Nullable<decimal> _CurrentPnrUpdateDate;
+		
+		private System.Nullable<decimal> _CurrentPnr;
+		
+		private System.Nullable<decimal> _PnrDeletionDate;
+		
+		private System.Nullable<decimal> _LocationDate;
+		
+		private System.Nullable<decimal> _BirthplaceTextUpdateDate;
+		
+		private System.Nullable<decimal> _CustomerNumber;
+		
+		private decimal _KinshipUpdateDate;
+		
+		private decimal _MotherPnr;
+		
+		private System.Nullable<decimal> _MotherBirthdate;
+		
+		private string _MotherDocumentation;
+		
+		private decimal _FatherPnr;
+		
+		private System.Nullable<decimal> _FatherBirthdate;
+		
+		private string _FatherDocumentation;
+		
+		private System.Nullable<decimal> _PaternityDate;
+		
+		private System.Nullable<decimal> _PaternityAuthorityCode;
+		
+		private string _MotherName;
+		
+		private string _FatherName;
+		
+		private string _BirthplaceText;
+		
+		private string _Job;
+		
+		private System.Nullable<System.DateTime> _UnderGuardianshipDeleteDate;
+		
+		private System.Nullable<decimal> _UnderGuardianshipRelationType;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnPNRChanging(decimal value);
+    partial void OnPNRChanged();
+    partial void OnCprUpdateDateChanging(decimal value);
+    partial void OnCprUpdateDateChanged();
+    partial void OnBirthdateChanging(decimal value);
+    partial void OnBirthdateChanged();
+    partial void OnGenderChanging(string value);
+    partial void OnGenderChanged();
+    partial void OnBirthRegistrationAuthorityCodeChanging(decimal value);
+    partial void OnBirthRegistrationAuthorityCodeChanged();
+    partial void OnBirthRegistrationDateChanging(decimal value);
+    partial void OnBirthRegistrationDateChanged();
+    partial void OnBirthRegistrationPlaceUpdateDateChanging(decimal value);
+    partial void OnBirthRegistrationPlaceUpdateDateChanged();
+    partial void OnChristianMarkChanging(string value);
+    partial void OnChristianMarkChanged();
+    partial void OnChurchRelationUpdateDateChanging(decimal value);
+    partial void OnChurchRelationUpdateDateChanged();
+    partial void OnChurchAuthorityCodeChanging(decimal value);
+    partial void OnChurchAuthorityCodeChanged();
+    partial void OnChurchDateChanging(decimal value);
+    partial void OnChurchDateChanged();
+    partial void OnUnderGuardianshipAuthprityCodeChanging(System.Nullable<decimal> value);
+    partial void OnUnderGuardianshipAuthprityCodeChanged();
+    partial void OnGuardianshipUpdateDateChanging(System.Nullable<decimal> value);
+    partial void OnGuardianshipUpdateDateChanged();
+    partial void OnUnderGuardianshipDateChanging(System.Nullable<decimal> value);
+    partial void OnUnderGuardianshipDateChanged();
+    partial void OnPnrMarkingDateChanging(System.Nullable<decimal> value);
+    partial void OnPnrMarkingDateChanged();
+    partial void OnPnrDateChanging(decimal value);
+    partial void OnPnrDateChanged();
+    partial void OnCurrentPnrUpdateDateChanging(System.Nullable<decimal> value);
+    partial void OnCurrentPnrUpdateDateChanged();
+    partial void OnCurrentPnrChanging(System.Nullable<decimal> value);
+    partial void OnCurrentPnrChanged();
+    partial void OnPnrDeletionDateChanging(System.Nullable<decimal> value);
+    partial void OnPnrDeletionDateChanged();
+    partial void OnJobDateChanging(System.Nullable<decimal> value);
+    partial void OnJobDateChanged();
+    partial void OnBirthplaceTextUpdateDateChanging(System.Nullable<decimal> value);
+    partial void OnBirthplaceTextUpdateDateChanged();
+    partial void OnCustomerNumberChanging(System.Nullable<decimal> value);
+    partial void OnCustomerNumberChanged();
+    partial void OnKinshipUpdateDateChanging(decimal value);
+    partial void OnKinshipUpdateDateChanged();
+    partial void OnMotherPnrChanging(decimal value);
+    partial void OnMotherPnrChanged();
+    partial void OnMotherBirthdateChanging(System.Nullable<decimal> value);
+    partial void OnMotherBirthdateChanged();
+    partial void OnMotherDocumentationChanging(string value);
+    partial void OnMotherDocumentationChanged();
+    partial void OnFatherPnrChanging(decimal value);
+    partial void OnFatherPnrChanged();
+    partial void OnFatherBirthdateChanging(System.Nullable<decimal> value);
+    partial void OnFatherBirthdateChanged();
+    partial void OnFatherDocumentationChanging(string value);
+    partial void OnFatherDocumentationChanged();
+    partial void OnPaternityDateChanging(System.Nullable<decimal> value);
+    partial void OnPaternityDateChanged();
+    partial void OnPaternityAuthorityCodeChanging(System.Nullable<decimal> value);
+    partial void OnPaternityAuthorityCodeChanged();
+    partial void OnMotherNameChanging(string value);
+    partial void OnMotherNameChanged();
+    partial void OnFatherNameChanging(string value);
+    partial void OnFatherNameChanged();
+    partial void OnBirthplaceTextChanging(string value);
+    partial void OnBirthplaceTextChanged();
+    partial void OnJobChanging(string value);
+    partial void OnJobChanged();
+    partial void OnUnderGuardianshipDeleteDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnUnderGuardianshipDeleteDateChanged();
+    partial void OnUnderGuardianshipRelationTypeChanging(System.Nullable<decimal> value);
+    partial void OnUnderGuardianshipRelationTypeChanged();
+    #endregion
+		
+		public Person()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PNR", DbType="Decimal(11,0) NOT NULL", IsPrimaryKey=true)]
+		public decimal PNR
+		{
+			get
+			{
+				return this._PNR;
+			}
+			set
+			{
+				if ((this._PNR != value))
+				{
+					this.OnPNRChanging(value);
+					this.SendPropertyChanging();
+					this._PNR = value;
+					this.SendPropertyChanged("PNR");
+					this.OnPNRChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="PERAJDTO", Storage="_CprUpdateDate", DbType="Decimal(13,0) NOT NULL", IsPrimaryKey=true)]
+		public decimal CprUpdateDate
+		{
+			get
+			{
+				return this._CprUpdateDate;
+			}
+			set
+			{
+				if ((this._CprUpdateDate != value))
+				{
+					this.OnCprUpdateDateChanging(value);
+					this.SendPropertyChanging();
+					this._CprUpdateDate = value;
+					this.SendPropertyChanged("CprUpdateDate");
+					this.OnCprUpdateDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="FOEDDTO", Storage="_Birthdate", DbType="Decimal(9,0) NOT NULL")]
+		public decimal Birthdate
+		{
+			get
+			{
+				return this._Birthdate;
+			}
+			set
+			{
+				if ((this._Birthdate != value))
+				{
+					this.OnBirthdateChanging(value);
+					this.SendPropertyChanging();
+					this._Birthdate = value;
+					this.SendPropertyChanged("Birthdate");
+					this.OnBirthdateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="KOEN", Storage="_Gender", DbType="VarChar(1)")]
+		public string Gender
+		{
+			get
+			{
+				return this._Gender;
+			}
+			set
+			{
+				if ((this._Gender != value))
+				{
+					this.OnGenderChanging(value);
+					this.SendPropertyChanging();
+					this._Gender = value;
+					this.SendPropertyChanged("Gender");
+					this.OnGenderChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="FODMYKOD", Storage="_BirthRegistrationAuthorityCode", DbType="Decimal(5,0) NOT NULL")]
+		public decimal BirthRegistrationAuthorityCode
+		{
+			get
+			{
+				return this._BirthRegistrationAuthorityCode;
+			}
+			set
+			{
+				if ((this._BirthRegistrationAuthorityCode != value))
+				{
+					this.OnBirthRegistrationAuthorityCodeChanging(value);
+					this.SendPropertyChanging();
+					this._BirthRegistrationAuthorityCode = value;
+					this.SendPropertyChanged("BirthRegistrationAuthorityCode");
+					this.OnBirthRegistrationAuthorityCodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="FMHAENST", Storage="_BirthRegistrationDate", DbType="Decimal(13,0) NOT NULL")]
+		public decimal BirthRegistrationDate
+		{
+			get
+			{
+				return this._BirthRegistrationDate;
+			}
+			set
+			{
+				if ((this._BirthRegistrationDate != value))
+				{
+					this.OnBirthRegistrationDateChanging(value);
+					this.SendPropertyChanging();
+					this._BirthRegistrationDate = value;
+					this.SendPropertyChanged("BirthRegistrationDate");
+					this.OnBirthRegistrationDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="FMAJFDTO", Storage="_BirthRegistrationPlaceUpdateDate", DbType="Decimal(13,0) NOT NULL")]
+		public decimal BirthRegistrationPlaceUpdateDate
+		{
+			get
+			{
+				return this._BirthRegistrationPlaceUpdateDate;
+			}
+			set
+			{
+				if ((this._BirthRegistrationPlaceUpdateDate != value))
+				{
+					this.OnBirthRegistrationPlaceUpdateDateChanging(value);
+					this.SendPropertyChanging();
+					this._BirthRegistrationPlaceUpdateDate = value;
+					this.SendPropertyChanged("BirthRegistrationPlaceUpdateDate");
+					this.OnBirthRegistrationPlaceUpdateDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="FKIRK", Storage="_ChristianMark", DbType="VarChar(1)")]
+		public string ChristianMark
+		{
+			get
+			{
+				return this._ChristianMark;
+			}
+			set
+			{
+				if ((this._ChristianMark != value))
+				{
+					this.OnChristianMarkChanging(value);
+					this.SendPropertyChanging();
+					this._ChristianMark = value;
+					this.SendPropertyChanged("ChristianMark");
+					this.OnChristianMarkChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="FKAJFDTO", Storage="_ChurchRelationUpdateDate", DbType="Decimal(13,0) NOT NULL")]
+		public decimal ChurchRelationUpdateDate
+		{
+			get
+			{
+				return this._ChurchRelationUpdateDate;
+			}
+			set
+			{
+				if ((this._ChurchRelationUpdateDate != value))
+				{
+					this.OnChurchRelationUpdateDateChanging(value);
+					this.SendPropertyChanging();
+					this._ChurchRelationUpdateDate = value;
+					this.SendPropertyChanged("ChurchRelationUpdateDate");
+					this.OnChurchRelationUpdateDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="FKMYNKOD", Storage="_ChurchAuthorityCode", DbType="Decimal(5,0) NOT NULL")]
+		public decimal ChurchAuthorityCode
+		{
+			get
+			{
+				return this._ChurchAuthorityCode;
+			}
+			set
+			{
+				if ((this._ChurchAuthorityCode != value))
+				{
+					this.OnChurchAuthorityCodeChanging(value);
+					this.SendPropertyChanging();
+					this._ChurchAuthorityCode = value;
+					this.SendPropertyChanged("ChurchAuthorityCode");
+					this.OnChurchAuthorityCodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="FKHAENST", Storage="_ChurchDate", DbType="Decimal(13,0) NOT NULL")]
+		public decimal ChurchDate
+		{
+			get
+			{
+				return this._ChurchDate;
+			}
+			set
+			{
+				if ((this._ChurchDate != value))
+				{
+					this.OnChurchDateChanging(value);
+					this.SendPropertyChanging();
+					this._ChurchDate = value;
+					this.SendPropertyChanged("ChurchDate");
+					this.OnChurchDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="UMYMYKOD", Storage="_UnderGuardianshipAuthprityCode", DbType="Decimal(5,0)")]
+		public System.Nullable<decimal> UnderGuardianshipAuthprityCode
+		{
+			get
+			{
+				return this._UnderGuardianshipAuthprityCode;
+			}
+			set
+			{
+				if ((this._UnderGuardianshipAuthprityCode != value))
+				{
+					this.OnUnderGuardianshipAuthprityCodeChanging(value);
+					this.SendPropertyChanging();
+					this._UnderGuardianshipAuthprityCode = value;
+					this.SendPropertyChanged("UnderGuardianshipAuthprityCode");
+					this.OnUnderGuardianshipAuthprityCodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="UMAJFDTO", Storage="_GuardianshipUpdateDate", DbType="Decimal(13,0)")]
+		public System.Nullable<decimal> GuardianshipUpdateDate
+		{
+			get
+			{
+				return this._GuardianshipUpdateDate;
+			}
+			set
+			{
+				if ((this._GuardianshipUpdateDate != value))
+				{
+					this.OnGuardianshipUpdateDateChanging(value);
+					this.SendPropertyChanging();
+					this._GuardianshipUpdateDate = value;
+					this.SendPropertyChanged("GuardianshipUpdateDate");
+					this.OnGuardianshipUpdateDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="UMHAENST", Storage="_UnderGuardianshipDate", DbType="Decimal(13,0)")]
+		public System.Nullable<decimal> UnderGuardianshipDate
+		{
+			get
+			{
+				return this._UnderGuardianshipDate;
+			}
+			set
+			{
+				if ((this._UnderGuardianshipDate != value))
+				{
+					this.OnUnderGuardianshipDateChanging(value);
+					this.SendPropertyChanging();
+					this._UnderGuardianshipDate = value;
+					this.SendPropertyChanged("UnderGuardianshipDate");
+					this.OnUnderGuardianshipDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="PMHAENST", Storage="_PnrMarkingDate", DbType="Decimal(13,0)")]
+		public System.Nullable<decimal> PnrMarkingDate
+		{
+			get
+			{
+				return this._PnrMarkingDate;
+			}
+			set
+			{
+				if ((this._PnrMarkingDate != value))
+				{
+					this.OnPnrMarkingDateChanging(value);
+					this.SendPropertyChanging();
+					this._PnrMarkingDate = value;
+					this.SendPropertyChanged("PnrMarkingDate");
+					this.OnPnrMarkingDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="PNHAENST", Storage="_PnrDate", DbType="Decimal(13,0) NOT NULL")]
+		public decimal PnrDate
+		{
+			get
+			{
+				return this._PnrDate;
+			}
+			set
+			{
+				if ((this._PnrDate != value))
+				{
+					this.OnPnrDateChanging(value);
+					this.SendPropertyChanging();
+					this._PnrDate = value;
+					this.SendPropertyChanged("PnrDate");
+					this.OnPnrDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="PGAJFDTO", Storage="_CurrentPnrUpdateDate", DbType="Decimal(13,0)")]
+		public System.Nullable<decimal> CurrentPnrUpdateDate
+		{
+			get
+			{
+				return this._CurrentPnrUpdateDate;
+			}
+			set
+			{
+				if ((this._CurrentPnrUpdateDate != value))
+				{
+					this.OnCurrentPnrUpdateDateChanging(value);
+					this.SendPropertyChanging();
+					this._CurrentPnrUpdateDate = value;
+					this.SendPropertyChanged("CurrentPnrUpdateDate");
+					this.OnCurrentPnrUpdateDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="PNRGAELD", Storage="_CurrentPnr", DbType="Decimal(11,0)")]
+		public System.Nullable<decimal> CurrentPnr
+		{
+			get
+			{
+				return this._CurrentPnr;
+			}
+			set
+			{
+				if ((this._CurrentPnr != value))
+				{
+					this.OnCurrentPnrChanging(value);
+					this.SendPropertyChanging();
+					this._CurrentPnr = value;
+					this.SendPropertyChanged("CurrentPnr");
+					this.OnCurrentPnrChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="PNHAENSL", Storage="_PnrDeletionDate", DbType="Decimal(13,0)")]
+		public System.Nullable<decimal> PnrDeletionDate
+		{
+			get
+			{
+				return this._PnrDeletionDate;
+			}
+			set
+			{
+				if ((this._PnrDeletionDate != value))
+				{
+					this.OnPnrDeletionDateChanging(value);
+					this.SendPropertyChanging();
+					this._PnrDeletionDate = value;
+					this.SendPropertyChanged("PnrDeletionDate");
+					this.OnPnrDeletionDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="STILDTO", Storage="_LocationDate", DbType="Decimal(13,0)")]
+		public System.Nullable<decimal> JobDate
+		{
+			get
+			{
+				return this._LocationDate;
+			}
+			set
+			{
+				if ((this._LocationDate != value))
+				{
+					this.OnJobDateChanging(value);
+					this.SendPropertyChanging();
+					this._LocationDate = value;
+					this.SendPropertyChanged("JobDate");
+					this.OnJobDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="FTAJFDTO", Storage="_BirthplaceTextUpdateDate", DbType="Decimal(13,0)")]
+		public System.Nullable<decimal> BirthplaceTextUpdateDate
+		{
+			get
+			{
+				return this._BirthplaceTextUpdateDate;
+			}
+			set
+			{
+				if ((this._BirthplaceTextUpdateDate != value))
+				{
+					this.OnBirthplaceTextUpdateDateChanging(value);
+					this.SendPropertyChanging();
+					this._BirthplaceTextUpdateDate = value;
+					this.SendPropertyChanged("BirthplaceTextUpdateDate");
+					this.OnBirthplaceTextUpdateDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="KUNDENR", Storage="_CustomerNumber", DbType="Decimal(5,0)")]
+		public System.Nullable<decimal> CustomerNumber
+		{
+			get
+			{
+				return this._CustomerNumber;
+			}
+			set
+			{
+				if ((this._CustomerNumber != value))
+				{
+					this.OnCustomerNumberChanging(value);
+					this.SendPropertyChanging();
+					this._CustomerNumber = value;
+					this.SendPropertyChanged("CustomerNumber");
+					this.OnCustomerNumberChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="MFAJFDTO", Storage="_KinshipUpdateDate", DbType="Decimal(13,0) NOT NULL")]
+		public decimal KinshipUpdateDate
+		{
+			get
+			{
+				return this._KinshipUpdateDate;
+			}
+			set
+			{
+				if ((this._KinshipUpdateDate != value))
+				{
+					this.OnKinshipUpdateDateChanging(value);
+					this.SendPropertyChanging();
+					this._KinshipUpdateDate = value;
+					this.SendPropertyChanged("KinshipUpdateDate");
+					this.OnKinshipUpdateDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="PNRMOR", Storage="_MotherPnr", DbType="Decimal(11,0) NOT NULL")]
+		public decimal MotherPnr
+		{
+			get
+			{
+				return this._MotherPnr;
+			}
+			set
+			{
+				if ((this._MotherPnr != value))
+				{
+					this.OnMotherPnrChanging(value);
+					this.SendPropertyChanging();
+					this._MotherPnr = value;
+					this.SendPropertyChanged("MotherPnr");
+					this.OnMotherPnrChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="MORFDTO", Storage="_MotherBirthdate", DbType="Decimal(9,0)")]
+		public System.Nullable<decimal> MotherBirthdate
+		{
+			get
+			{
+				return this._MotherBirthdate;
+			}
+			set
+			{
+				if ((this._MotherBirthdate != value))
+				{
+					this.OnMotherBirthdateChanging(value);
+					this.SendPropertyChanging();
+					this._MotherBirthdate = value;
+					this.SendPropertyChanged("MotherBirthdate");
+					this.OnMotherBirthdateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="MORDOK", Storage="_MotherDocumentation", DbType="VarChar(3)")]
+		public string MotherDocumentation
+		{
+			get
+			{
+				return this._MotherDocumentation;
+			}
+			set
+			{
+				if ((this._MotherDocumentation != value))
+				{
+					this.OnMotherDocumentationChanging(value);
+					this.SendPropertyChanging();
+					this._MotherDocumentation = value;
+					this.SendPropertyChanged("MotherDocumentation");
+					this.OnMotherDocumentationChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="PNRFAR", Storage="_FatherPnr", DbType="Decimal(11,0) NOT NULL")]
+		public decimal FatherPnr
+		{
+			get
+			{
+				return this._FatherPnr;
+			}
+			set
+			{
+				if ((this._FatherPnr != value))
+				{
+					this.OnFatherPnrChanging(value);
+					this.SendPropertyChanging();
+					this._FatherPnr = value;
+					this.SendPropertyChanged("FatherPnr");
+					this.OnFatherPnrChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="FARFDTO", Storage="_FatherBirthdate", DbType="Decimal(9,0)")]
+		public System.Nullable<decimal> FatherBirthdate
+		{
+			get
+			{
+				return this._FatherBirthdate;
+			}
+			set
+			{
+				if ((this._FatherBirthdate != value))
+				{
+					this.OnFatherBirthdateChanging(value);
+					this.SendPropertyChanging();
+					this._FatherBirthdate = value;
+					this.SendPropertyChanged("FatherBirthdate");
+					this.OnFatherBirthdateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="FARDOK", Storage="_FatherDocumentation", DbType="VarChar(3)")]
+		public string FatherDocumentation
+		{
+			get
+			{
+				return this._FatherDocumentation;
+			}
+			set
+			{
+				if ((this._FatherDocumentation != value))
+				{
+					this.OnFatherDocumentationChanging(value);
+					this.SendPropertyChanging();
+					this._FatherDocumentation = value;
+					this.SendPropertyChanged("FatherDocumentation");
+					this.OnFatherDocumentationChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="FSHAENST", Storage="_PaternityDate", DbType="Decimal(13,0)")]
+		public System.Nullable<decimal> PaternityDate
+		{
+			get
+			{
+				return this._PaternityDate;
+			}
+			set
+			{
+				if ((this._PaternityDate != value))
+				{
+					this.OnPaternityDateChanging(value);
+					this.SendPropertyChanging();
+					this._PaternityDate = value;
+					this.SendPropertyChanged("PaternityDate");
+					this.OnPaternityDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="FSMYNKOD", Storage="_PaternityAuthorityCode", DbType="Decimal(5,0)")]
+		public System.Nullable<decimal> PaternityAuthorityCode
+		{
+			get
+			{
+				return this._PaternityAuthorityCode;
+			}
+			set
+			{
+				if ((this._PaternityAuthorityCode != value))
+				{
+					this.OnPaternityAuthorityCodeChanging(value);
+					this.SendPropertyChanging();
+					this._PaternityAuthorityCode = value;
+					this.SendPropertyChanged("PaternityAuthorityCode");
+					this.OnPaternityAuthorityCodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="MORNVN", Storage="_MotherName", DbType="VarChar(34)")]
+		public string MotherName
+		{
+			get
+			{
+				return this._MotherName;
+			}
+			set
+			{
+				if ((this._MotherName != value))
+				{
+					this.OnMotherNameChanging(value);
+					this.SendPropertyChanging();
+					this._MotherName = value;
+					this.SendPropertyChanged("MotherName");
+					this.OnMotherNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="FARNVN", Storage="_FatherName", DbType="VarChar(34)")]
+		public string FatherName
+		{
+			get
+			{
+				return this._FatherName;
+			}
+			set
+			{
+				if ((this._FatherName != value))
+				{
+					this.OnFatherNameChanging(value);
+					this.SendPropertyChanging();
+					this._FatherName = value;
+					this.SendPropertyChanged("FatherName");
+					this.OnFatherNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="FMTXT", Storage="_BirthplaceText", DbType="VarChar(20)")]
+		public string BirthplaceText
+		{
+			get
+			{
+				return this._BirthplaceText;
+			}
+			set
+			{
+				if ((this._BirthplaceText != value))
+				{
+					this.OnBirthplaceTextChanging(value);
+					this.SendPropertyChanging();
+					this._BirthplaceText = value;
+					this.SendPropertyChanged("BirthplaceText");
+					this.OnBirthplaceTextChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="STILLING", Storage="_Job", DbType="VarChar(34)")]
+		public string Job
+		{
+			get
+			{
+				return this._Job;
+			}
+			set
+			{
+				if ((this._Job != value))
+				{
+					this.OnJobChanging(value);
+					this.SendPropertyChanging();
+					this._Job = value;
+					this.SendPropertyChanged("Job");
+					this.OnJobChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="UMYNSLETDATE", Storage="_UnderGuardianshipDeleteDate", DbType="SmallDateTime")]
+		public System.Nullable<System.DateTime> UnderGuardianshipDeleteDate
+		{
+			get
+			{
+				return this._UnderGuardianshipDeleteDate;
+			}
+			set
+			{
+				if ((this._UnderGuardianshipDeleteDate != value))
+				{
+					this.OnUnderGuardianshipDeleteDateChanging(value);
+					this.SendPropertyChanging();
+					this._UnderGuardianshipDeleteDate = value;
+					this.SendPropertyChanged("UnderGuardianshipDeleteDate");
+					this.OnUnderGuardianshipDeleteDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="UMYNRELTYP", Storage="_UnderGuardianshipRelationType", DbType="Decimal(4,0)")]
+		public System.Nullable<decimal> UnderGuardianshipRelationType
+		{
+			get
+			{
+				return this._UnderGuardianshipRelationType;
+			}
+			set
+			{
+				if ((this._UnderGuardianshipRelationType != value))
+				{
+					this.OnUnderGuardianshipRelationTypeChanging(value);
+					this.SendPropertyChanging();
+					this._UnderGuardianshipRelationType = value;
+					this.SendPropertyChanged("UnderGuardianshipRelationType");
+					this.OnUnderGuardianshipRelationTypeChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DTKOMFOR")]
+	public partial class MunicipalCondition : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private decimal _PNR;
+		
+		private decimal _CprUpdateDate;
+		
+		private decimal _ConditionType;
+		
+		private string _ConditionMarker;
+		
+		private decimal _ConditionDate;
+		
+		private string _ConditionComments;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnPNRChanging(decimal value);
+    partial void OnPNRChanged();
+    partial void OnCprUpdateDateChanging(decimal value);
+    partial void OnCprUpdateDateChanged();
+    partial void OnConditionTypeChanging(decimal value);
+    partial void OnConditionTypeChanged();
+    partial void OnConditionMarkerChanging(string value);
+    partial void OnConditionMarkerChanged();
+    partial void OnConditionDateChanging(decimal value);
+    partial void OnConditionDateChanged();
+    partial void OnConditionCommentsChanging(string value);
+    partial void OnConditionCommentsChanged();
+    #endregion
+		
+		public MunicipalCondition()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PNR", DbType="Decimal(11,0) NOT NULL", IsPrimaryKey=true)]
+		public decimal PNR
+		{
+			get
+			{
+				return this._PNR;
+			}
+			set
+			{
+				if ((this._PNR != value))
+				{
+					this.OnPNRChanging(value);
+					this.SendPropertyChanging();
+					this._PNR = value;
+					this.SendPropertyChanged("PNR");
+					this.OnPNRChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="AJFDTO", Storage="_CprUpdateDate", DbType="Decimal(13,0) NOT NULL", IsPrimaryKey=true)]
+		public decimal CprUpdateDate
+		{
+			get
+			{
+				return this._CprUpdateDate;
+			}
+			set
+			{
+				if ((this._CprUpdateDate != value))
+				{
+					this.OnCprUpdateDateChanging(value);
+					this.SendPropertyChanging();
+					this._CprUpdateDate = value;
+					this.SendPropertyChanged("CprUpdateDate");
+					this.OnCprUpdateDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="KOMFTYP", Storage="_ConditionType", DbType="Decimal(1,0) NOT NULL")]
+		public decimal ConditionType
+		{
+			get
+			{
+				return this._ConditionType;
+			}
+			set
+			{
+				if ((this._ConditionType != value))
+				{
+					this.OnConditionTypeChanging(value);
+					this.SendPropertyChanging();
+					this._ConditionType = value;
+					this.SendPropertyChanged("ConditionType");
+					this.OnConditionTypeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="KOMFKOD", Storage="_ConditionMarker", DbType="VarChar(5)")]
+		public string ConditionMarker
+		{
+			get
+			{
+				return this._ConditionMarker;
+			}
+			set
+			{
+				if ((this._ConditionMarker != value))
+				{
+					this.OnConditionMarkerChanging(value);
+					this.SendPropertyChanging();
+					this._ConditionMarker = value;
+					this.SendPropertyChanged("ConditionMarker");
+					this.OnConditionMarkerChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="HAENST", Storage="_ConditionDate", DbType="Decimal(13,0) NOT NULL", IsPrimaryKey=true)]
+		public decimal ConditionDate
+		{
+			get
+			{
+				return this._ConditionDate;
+			}
+			set
+			{
+				if ((this._ConditionDate != value))
+				{
+					this.OnConditionDateChanging(value);
+					this.SendPropertyChanging();
+					this._ConditionDate = value;
+					this.SendPropertyChanged("ConditionDate");
+					this.OnConditionDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="BEMAERK", Storage="_ConditionComments", DbType="VarChar(30)")]
+		public string ConditionComments
+		{
+			get
+			{
+				return this._ConditionComments;
+			}
+			set
+			{
+				if ((this._ConditionComments != value))
+				{
+					this.OnConditionCommentsChanging(value);
+					this.SendPropertyChanging();
+					this._ConditionComments = value;
+					this.SendPropertyChanged("ConditionComments");
+					this.OnConditionCommentsChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DTRELPNR_PNR")]
+	public partial class GuardianAndParentalAuthorityRelation : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private decimal _PNR;
+		
+		private decimal _RelationPnr;
 		
 		private decimal _RelationType;
 		
@@ -5136,18 +7123,14 @@ namespace CprBroker.Providers.DPR
 		
 		private decimal _AuthorityCode;
 		
-		private EntityRef<PersonTotal> _PersonTotal;
-		
-		private EntityRef<PersonTotal> _PersonTotal2;
-		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
     partial void OnPNRChanging(decimal value);
     partial void OnPNRChanged();
-    partial void OnRelationPNRChanging(decimal value);
-    partial void OnRelationPNRChanged();
+    partial void OnRelationPnrChanging(decimal value);
+    partial void OnRelationPnrChanged();
     partial void OnRelationTypeChanging(decimal value);
     partial void OnRelationTypeChanged();
     partial void OnCprUpdateDateChanging(decimal value);
@@ -5160,53 +7143,47 @@ namespace CprBroker.Providers.DPR
     partial void OnAuthorityCodeChanged();
     #endregion
 		
-		public Relation()
+		public GuardianAndParentalAuthorityRelation()
 		{
-			this._PersonTotal = default(EntityRef<PersonTotal>);
-			this._PersonTotal2 = default(EntityRef<PersonTotal>);
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ChildPNR", DbType="Decimal(11,0) NOT NULL", IsPrimaryKey=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PNR", DbType="Decimal(11,0) NOT NULL", IsPrimaryKey=true)]
 		public decimal PNR
 		{
 			get
 			{
-				return this._ChildPNR;
+				return this._PNR;
 			}
 			set
 			{
-				if ((this._ChildPNR != value))
+				if ((this._PNR != value))
 				{
-					if (this._PersonTotal.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
 					this.OnPNRChanging(value);
 					this.SendPropertyChanging();
-					this._ChildPNR = value;
+					this._PNR = value;
 					this.SendPropertyChanged("PNR");
 					this.OnPNRChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="RELPNR", Storage="_ParentPNR", DbType="Decimal(11,0) NOT NULL", IsPrimaryKey=true)]
-		public decimal RelationPNR
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="RELPNR", Storage="_RelationPnr", DbType="Decimal(11,0) NOT NULL", IsPrimaryKey=true)]
+		public decimal RelationPnr
 		{
 			get
 			{
-				return this._ParentPNR;
+				return this._RelationPnr;
 			}
 			set
 			{
-				if ((this._ParentPNR != value))
+				if ((this._RelationPnr != value))
 				{
-					this.OnRelationPNRChanging(value);
+					this.OnRelationPnrChanging(value);
 					this.SendPropertyChanging();
-					this._ParentPNR = value;
-					this.SendPropertyChanged("RelationPNR");
-					this.OnRelationPNRChanged();
+					this._RelationPnr = value;
+					this.SendPropertyChanged("RelationPnr");
+					this.OnRelationPnrChanged();
 				}
 			}
 		}
@@ -5231,7 +7208,7 @@ namespace CprBroker.Providers.DPR
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="AJFDTO", Storage="_CprUpdateDate", DbType="Decimal(13,0) NOT NULL")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="AJFDTO", Storage="_CprUpdateDate", DbType="Decimal(13,0) NOT NULL", IsPrimaryKey=true)]
 		public decimal CprUpdateDate
 		{
 			get
@@ -5311,74 +7288,6 @@ namespace CprBroker.Providers.DPR
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PersonTotal_Relation", Storage="_PersonTotal", ThisKey="PNR", OtherKey="PNR", IsForeignKey=true)]
-		public PersonTotal PersonTotal
-		{
-			get
-			{
-				return this._PersonTotal.Entity;
-			}
-			set
-			{
-				PersonTotal previousValue = this._PersonTotal.Entity;
-				if (((previousValue != value) 
-							|| (this._PersonTotal.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._PersonTotal.Entity = null;
-						previousValue.ParentalAuthorityHolders_Relations.Remove(this);
-					}
-					this._PersonTotal.Entity = value;
-					if ((value != null))
-					{
-						value.ParentalAuthorityHolders_Relations.Add(this);
-						this._ChildPNR = value.PNR;
-					}
-					else
-					{
-						this._ChildPNR = default(decimal);
-					}
-					this.SendPropertyChanged("PersonTotal");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PersonTotal_Relation1", Storage="_PersonTotal2", ThisKey="RelationPNR", OtherKey="PNR", IsForeignKey=true)]
-		public PersonTotal PersonTotal2
-		{
-			get
-			{
-				return this._PersonTotal2.Entity;
-			}
-			set
-			{
-				PersonTotal previousValue = this._PersonTotal2.Entity;
-				if (((previousValue != value) 
-							|| (this._PersonTotal2.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._PersonTotal2.Entity = null;
-						previousValue.ChildrenInCustody_Relations.Remove(this);
-					}
-					this._PersonTotal2.Entity = value;
-					if ((value != null))
-					{
-						value.ChildrenInCustody_Relations.Add(this);
-						this._ParentPNR = value.PNR;
-					}
-					else
-					{
-						this._ParentPNR = default(decimal);
-					}
-					this.SendPropertyChanged("PersonTotal2");
-				}
-			}
-		}
-		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -5400,27 +7309,35 @@ namespace CprBroker.Providers.DPR
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DTFORALDREMYND")]
-	public partial class ParentalAuthority : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DTRELPNR_TXT")]
+	public partial class GuardianAddress : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private decimal _PNR;
 		
+		private string _Address;
+		
 		private decimal _RelationType;
 		
 		private decimal _CprUpdateDate;
 		
-		private decimal _CustodyStartAuthorityCode;
+		private string _AddressLine1;
+		
+		private string _AddressLine2;
+		
+		private string _AddressLine3;
+		
+		private string _AddressLine4;
+		
+		private string _AddressLine5;
 		
 		private System.DateTime _StartDate;
 		
-		private System.Nullable<char> _StartDateMarker;
-		
 		private System.Nullable<System.DateTime> _EndDate;
 		
-		private EntityRef<PersonTotal> _PersonTotal;
+		private decimal _AuthorityCode;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -5428,23 +7345,32 @@ namespace CprBroker.Providers.DPR
     partial void OnCreated();
     partial void OnPNRChanging(decimal value);
     partial void OnPNRChanged();
+    partial void OnAddressChanging(string value);
+    partial void OnAddressChanged();
     partial void OnRelationTypeChanging(decimal value);
     partial void OnRelationTypeChanged();
     partial void OnCprUpdateDateChanging(decimal value);
     partial void OnCprUpdateDateChanged();
-    partial void OnCustodyStartAuthorityCodeChanging(decimal value);
-    partial void OnCustodyStartAuthorityCodeChanged();
+    partial void OnAddressLine1Changing(string value);
+    partial void OnAddressLine1Changed();
+    partial void OnAddressLine2Changing(string value);
+    partial void OnAddressLine2Changed();
+    partial void OnAddressLine3Changing(string value);
+    partial void OnAddressLine3Changed();
+    partial void OnAddressLine4Changing(string value);
+    partial void OnAddressLine4Changed();
+    partial void OnAddressLine5Changing(string value);
+    partial void OnAddressLine5Changed();
     partial void OnStartDateChanging(System.DateTime value);
     partial void OnStartDateChanged();
-    partial void OnStartDateMarkerChanging(System.Nullable<char> value);
-    partial void OnStartDateMarkerChanged();
     partial void OnEndDateChanging(System.Nullable<System.DateTime> value);
     partial void OnEndDateChanged();
+    partial void OnAuthorityCodeChanging(decimal value);
+    partial void OnAuthorityCodeChanged();
     #endregion
 		
-		public ParentalAuthority()
+		public GuardianAddress()
 		{
-			this._PersonTotal = default(EntityRef<PersonTotal>);
 			OnCreated();
 		}
 		
@@ -5459,15 +7385,31 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._PNR != value))
 				{
-					if (this._PersonTotal.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
 					this.OnPNRChanging(value);
 					this.SendPropertyChanging();
 					this._PNR = value;
 					this.SendPropertyChanged("PNR");
 					this.OnPNRChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="RELADRSAT", Storage="_Address", DbType="VarChar(34)")]
+		public string Address
+		{
+			get
+			{
+				return this._Address;
+			}
+			set
+			{
+				if ((this._Address != value))
+				{
+					this.OnAddressChanging(value);
+					this.SendPropertyChanging();
+					this._Address = value;
+					this.SendPropertyChanged("Address");
+					this.OnAddressChanged();
 				}
 			}
 		}
@@ -5492,7 +7434,7 @@ namespace CprBroker.Providers.DPR
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="AJFDTO", Storage="_CprUpdateDate", DbType="Decimal(13,0) NOT NULL")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="AJFDTO", Storage="_CprUpdateDate", DbType="Decimal(13,0) NOT NULL", IsPrimaryKey=true)]
 		public decimal CprUpdateDate
 		{
 			get
@@ -5512,27 +7454,107 @@ namespace CprBroker.Providers.DPR
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="START_MYNKOD", Storage="_CustodyStartAuthorityCode", DbType="Decimal(5,0) NOT NULL")]
-		public decimal CustodyStartAuthorityCode
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="RELTXT1", Storage="_AddressLine1", DbType="VarChar(34)")]
+		public string AddressLine1
 		{
 			get
 			{
-				return this._CustodyStartAuthorityCode;
+				return this._AddressLine1;
 			}
 			set
 			{
-				if ((this._CustodyStartAuthorityCode != value))
+				if ((this._AddressLine1 != value))
 				{
-					this.OnCustodyStartAuthorityCodeChanging(value);
+					this.OnAddressLine1Changing(value);
 					this.SendPropertyChanging();
-					this._CustodyStartAuthorityCode = value;
-					this.SendPropertyChanged("CustodyStartAuthorityCode");
-					this.OnCustodyStartAuthorityCodeChanged();
+					this._AddressLine1 = value;
+					this.SendPropertyChanged("AddressLine1");
+					this.OnAddressLine1Changed();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="STARTDATE", Storage="_StartDate", DbType="DateTime NOT NULL")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="RELTXT2", Storage="_AddressLine2", DbType="VarChar(34)")]
+		public string AddressLine2
+		{
+			get
+			{
+				return this._AddressLine2;
+			}
+			set
+			{
+				if ((this._AddressLine2 != value))
+				{
+					this.OnAddressLine2Changing(value);
+					this.SendPropertyChanging();
+					this._AddressLine2 = value;
+					this.SendPropertyChanged("AddressLine2");
+					this.OnAddressLine2Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="RELTXT3", Storage="_AddressLine3", DbType="VarChar(34)")]
+		public string AddressLine3
+		{
+			get
+			{
+				return this._AddressLine3;
+			}
+			set
+			{
+				if ((this._AddressLine3 != value))
+				{
+					this.OnAddressLine3Changing(value);
+					this.SendPropertyChanging();
+					this._AddressLine3 = value;
+					this.SendPropertyChanged("AddressLine3");
+					this.OnAddressLine3Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="RELTXT4", Storage="_AddressLine4", DbType="VarChar(34)")]
+		public string AddressLine4
+		{
+			get
+			{
+				return this._AddressLine4;
+			}
+			set
+			{
+				if ((this._AddressLine4 != value))
+				{
+					this.OnAddressLine4Changing(value);
+					this.SendPropertyChanging();
+					this._AddressLine4 = value;
+					this.SendPropertyChanged("AddressLine4");
+					this.OnAddressLine4Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="RELTXT5", Storage="_AddressLine5", DbType="VarChar(34)")]
+		public string AddressLine5
+		{
+			get
+			{
+				return this._AddressLine5;
+			}
+			set
+			{
+				if ((this._AddressLine5 != value))
+				{
+					this.OnAddressLine5Changing(value);
+					this.SendPropertyChanging();
+					this._AddressLine5 = value;
+					this.SendPropertyChanged("AddressLine5");
+					this.OnAddressLine5Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="STARTDATE", Storage="_StartDate", DbType="SmallDateTime NOT NULL", IsPrimaryKey=true)]
 		public System.DateTime StartDate
 		{
 			get
@@ -5552,27 +7574,7 @@ namespace CprBroker.Providers.DPR
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="STARTDATE_UMRK", Storage="_StartDateMarker", DbType="Char(1)")]
-		public System.Nullable<char> StartDateMarker
-		{
-			get
-			{
-				return this._StartDateMarker;
-			}
-			set
-			{
-				if ((this._StartDateMarker != value))
-				{
-					this.OnStartDateMarkerChanging(value);
-					this.SendPropertyChanging();
-					this._StartDateMarker = value;
-					this.SendPropertyChanged("StartDateMarker");
-					this.OnStartDateMarkerChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="SLETDATE", Storage="_EndDate", DbType="DateTime")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="SLETDATE", Storage="_EndDate", DbType="SmallDateTime")]
 		public System.Nullable<System.DateTime> EndDate
 		{
 			get
@@ -5592,36 +7594,22 @@ namespace CprBroker.Providers.DPR
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PersonTotal_ParentalAuthority", Storage="_PersonTotal", ThisKey="PNR", OtherKey="PNR", IsForeignKey=true)]
-		public PersonTotal PersonTotal
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="MYNKOD", Storage="_AuthorityCode", DbType="Decimal(5,0) NOT NULL")]
+		public decimal AuthorityCode
 		{
 			get
 			{
-				return this._PersonTotal.Entity;
+				return this._AuthorityCode;
 			}
 			set
 			{
-				PersonTotal previousValue = this._PersonTotal.Entity;
-				if (((previousValue != value) 
-							|| (this._PersonTotal.HasLoadedOrAssignedValue == false)))
+				if ((this._AuthorityCode != value))
 				{
+					this.OnAuthorityCodeChanging(value);
 					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._PersonTotal.Entity = null;
-						previousValue.ParentalAuthorities.Remove(this);
-					}
-					this._PersonTotal.Entity = value;
-					if ((value != null))
-					{
-						value.ParentalAuthorities.Add(this);
-						this._PNR = value.PNR;
-					}
-					else
-					{
-						this._PNR = default(decimal);
-					}
-					this.SendPropertyChanged("PersonTotal");
+					this._AuthorityCode = value;
+					this.SendPropertyChanged("AuthorityCode");
+					this.OnAuthorityCodeChanged();
 				}
 			}
 		}

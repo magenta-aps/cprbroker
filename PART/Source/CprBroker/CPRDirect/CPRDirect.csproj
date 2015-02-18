@@ -52,18 +52,30 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ICprDirectPersonDataProvider.cs" />
+    <Compile Include="Lookup\LookupDataContext.cs">
+      <DependentUpon>LookupDataContext.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="Queues\ExtractQueueItem.cs" />
+    <Compile Include="Queues\DbrBaseQueue.cs" />
     <Compile Include="Extract\ExtractPersonStaging.cs" />
     <Compile Include="Extract\ExtrcatConversion.cs" />
     <Compile Include="Extract\PersonConversion.cs" />
+    <Compile Include="Queues\PartConversionQueue.cs" />
+    <Compile Include="Queues\ExtractStagingQueue.cs" />
     <Compile Include="Interfaces\IParentalAuthority.cs" />
     <Compile Include="Interfaces\IProtection.cs" />
     <Compile Include="Interfaces\IRelationship.cs" />
+    <Compile Include="Lookup\GeoInformation.designer.cs">
+      <DependentUpon>GeoInformation.xml</DependentUpon>
+    </Compile>
     <Compile Include="Wrappers\CompositeWrapper.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Converters.cs" />
@@ -83,19 +95,17 @@
       <DependentUpon>ExtractDataContext.dbml</DependentUpon>
     </Compile>
     <Compile Include="Extract\ExtractManager.cs" />
-    <Compile Include="Extract\ExtractParseResult.cs" />
+    <Compile Include="Extract\ExtractParseSession.cs" />
     <Compile Include="Lookup\Authority.designer.cs">
       <DependentUpon>Authority.xml</DependentUpon>
     </Compile>
     <Compile Include="Lookup\AuthorityType.cs" />
-    <Compile Include="Lookup\LookupDataContext.cs">
-      <DependentUpon>LookupDataContext.dbml</DependentUpon>
-    </Compile>
     <Compile Include="Lookup\LookupDataContext.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>LookupDataContext.dbml</DependentUpon>
     </Compile>
+    <Compile Include="Wrappers\CprDirectWrapper.cs" />
     <Compile Include="Wrappers\PersonRecordWrapper.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -148,7 +158,6 @@
     <Compile Include="XML\IndividualResponse.NotImplemented.cs" />
     <Compile Include="XML\IndividualRequest.cs" />
     <Compile Include="MinMaxOccurs.cs" />
-    <Compile Include="Wrappers\Wrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="XML\Definitions.cs">
       <DependentUpon>Definitions.xml</DependentUpon>
@@ -164,10 +173,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Lookup\Authority.xml" />
+    <Content Include="Lookup\GeoInformation.xml" />
     <Content Include="XML\CodeGeneration.txt" />
     <Content Include="XML\Definitions.sql" />
     <Content Include="XML\ViewTransform.xslt" />
-    <Content Include="XML\DefinitionSchema.xsd" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Extract\ExtractDataContext.dbml">
@@ -187,7 +196,6 @@
     <None Include="XML\Definitions.xml">
       <SubType>Designer</SubType>
     </None>
-    <Content Include="XML\ClassTransform.xslt" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
@@ -208,12 +216,13 @@
       <Name>PartInterface</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>"$(ProjectDir)..\..\Dll\msxsl.exe" "$(ProjectDir)XML\Definitions.xml" "$(ProjectDir)XML\ClassTransform.xslt" -o "$(ProjectDir)XML\Definitions.cs"
-"$(ProjectDir)..\..\Dll\msxsl.exe" "$(ProjectDir)XML\Definitions.xml" "$(ProjectDir)XML\ViewTransform.xslt" -o "$(ProjectDir)XML\Definitions.sql"
-"$(ProjectDir)..\..\Dll\msxsl.exe" "$(ProjectDir)Lookup\Authority.xml" "$(ProjectDir)XML\ClassTransform.xslt" -o "$(ProjectDir)Lookup\Authority.designer.cs"
-</PreBuildEvent>
+    <PreBuildEvent>"$(ProjectDir)..\..\Dll\msxsl.exe" "$(ProjectDir)XML\Definitions.xml" "$(SolutionDir)..\Core\Schemas\Wrappers\ClassTransform.xslt" -o "$(ProjectDir)XML\Definitions.cs" namespace="$(TargetName)"
+"$(ProjectDir)..\..\Dll\msxsl.exe" "$(ProjectDir)XML\Definitions.xml" "$(ProjectDir)XML\ViewTransform.xslt" -o "$(ProjectDir)XML\Definitions.sql" 
+"$(ProjectDir)..\..\Dll\msxsl.exe" "$(ProjectDir)Lookup\Authority.xml" "$(SolutionDir)..\Core\Schemas\Wrappers\ClassTransform.xslt" -o "$(ProjectDir)Lookup\Authority.designer.cs" namespace="$(TargetName)"
+"$(ProjectDir)..\..\Dll\msxsl.exe" "$(ProjectDir)Lookup\GeoInformation.xml" "$(SolutionDir)..\Core\Schemas\Wrappers\ClassTransform.xslt" -o "$(ProjectDir)Lookup\GeoInformation.designer.cs" namespace="$(TargetName)"</PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PostBuildEvent>copy $(TargetFileName) ..\..\..\Output\ /y</PostBuildEvent>

@@ -51,6 +51,8 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using CprBroker.Utilities;
+using CprBroker.Engine.Tasks;
+using CprBroker.Utilities.Config;
 
 namespace CprBroker.EventBroker.Notifications
 {
@@ -89,7 +91,7 @@ namespace CprBroker.EventBroker.Notifications
             };
 
             EventsService.ApplicationHeaderValue = ApplicationHeader;
-            EventsService.Url = Config.ConfigManager.Current.Settings.EventsServiceUrl;
+            EventsService.Url = ConfigManager.Current.Settings.EventsServiceUrl;
             EventsService.Credentials = System.Net.CredentialCache.DefaultCredentials;
         }
 

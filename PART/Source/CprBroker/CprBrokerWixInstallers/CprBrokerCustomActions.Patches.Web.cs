@@ -50,9 +50,13 @@ using System.Linq;
 using System.Text;
 using Microsoft.Deployment.WindowsInstaller;
 using CprBroker.Utilities;
+using CprBroker.Data;
 using CprBroker.Data.DataProviders;
 using CprBroker.Installers;
 using CprBroker.Installers.EventBrokerInstallers;
+using CprBroker.Utilities.Config;
+using System.Xml;
+using System.Xml.XPath;
 
 namespace CprBrokerWixInstallers
 {
@@ -99,12 +103,12 @@ namespace CprBrokerWixInstallers
 
                     foreach (var prov in providers)
                     {
-                        var adr = prov["Address"];
+                        var adr = prov.Get("Address");
                         if (!string.IsNullOrEmpty(adr))
                         {
                             if (!adr.EndsWith("/PersonMasterService12", StringComparison.InvariantCultureIgnoreCase))
                             {
-                                prov["Address"] += "/PersonMasterService12";
+                                prov.Set("Address", prov.Get("Address") + "/PersonMasterService12");
                             }
                         }
                     }
@@ -162,5 +166,26 @@ namespace CprBrokerWixInstallers
             CprBroker.Installers.Installation.ResetDataProviderSectionDefinitions(EventBrokerCustomActions.GetServiceExeConfigFullFileName(session));
         }
 
+        private static void PatchWebsite_2_2_3(Session session)
+        {
+            var webInstallationInfo = WebInstallationInfo.CreateFromFeature(session, "CPR");
+            var configFilePaths = new string[]
+            {
+                WebInstallationInfo.CreateFromFeature(session, "CPR").GetWebConfigFilePath(EventBrokerCustomActions.PathConstants.CprBrokerWebsiteDirectoryRelativePath),
+                WebInstallationInfo.CreateFromFeature(session, "EVENT").GetWebConfigFilePath(EventBrokerCustomActions.PathConstants.CprBrokerWebsiteDirectoryRelativePath),
+                EventBrokerCustomActions.GetServiceExeConfigFullFileName(session)
+            };
+
+            foreach (var configFilePath in configFilePaths)
+            {
+                var doc = new XmlDocument();
+                doc.Load(configFilePath);
+                var dataProviderKeysNode = doc.SelectSingleNode("//section[@name='dataProviderKeys']");
+                var dataProvidersNode = doc.SelectSingleNode("//section[@name='dataProviders']");
+                dataProviderKeysNode.Attributes["type"].Value = typeof(DataProviderKeysSection).AssemblyQualifiedName;
+                dataProvidersNode.Attributes["type"].Value = typeof(DataProvidersConfigurationSection).AssemblyQualifiedName;
+                doc.Save(configFilePath);
+            }
+        }
     }
 }

@@ -61,7 +61,7 @@ namespace CprBroker.Providers.DPR
     /// <summary>
     /// Implements the Read operation of Part standard
     /// </summary>
-    public partial class DprDatabaseDataProvider : ClientDataProvider, IPutSubscriptionDataProvider, IPartReadDataProvider
+    public partial class DprDatabaseDataProvider : ClientDataProvider, IPutSubscriptionDataProvider, IPartReadDataProvider, IChangePuller<Queues.T_DPRUpdateStaging>, IAutoUpdateDataProvider
     {
 
         public RegistreringType1 Read(PersonIdentifier uuid, LaesInputType input, Func<string, Guid> cpr2uuidFunc, out QualityLevel? ql)
@@ -124,5 +124,57 @@ namespace CprBroker.Providers.DPR
                 return false;
             }
         }
+
+        public virtual IEnumerable<Queues.T_DPRUpdateStaging> GetChanges(int batchSize, TimeSpan delay)
+        {
+            var timeThreshold = DateTime.Now - delay;
+            using (var dataContext = new Queues.UpdatesDataContext(this.ConnectionString))
+            {
+                var ret = dataContext.T_DPRUpdateStagings
+                    .Where(o => o.CreateTS < timeThreshold)
+                    .OrderBy(o => o.CreateTS)
+                    .Take(batchSize)
+                    .ToList();
+
+                if (ret.Count > 0)// Use the set with ties, aka: the set of updates for the same people that are within the same time range (+ 1 second)
+                {
+                    var pnrs = ret.Select(o => o.PNR).Distinct().ToArray();
+                    var maxTS = ret.Max(o => o.CreateTS).AddSeconds(1);// one second delay allowance
+                    var pnrTies = dataContext.T_DPRUpdateStagings.Where(o => pnrs.Contains(o.PNR) && o.CreateTS < maxTS).ToList();
+                    ret = pnrTies;
+                }
+                return ret;
+            }
+        }
+
+        public void DeleteChanges(IEnumerable<Queues.T_DPRUpdateStaging> changes)
+        {
+            using (var dataContext = new Queues.UpdatesDataContext(this.ConnectionString))
+            {
+                var ids = changes.Select(c => c.Id).ToArray();
+                dataContext.T_DPRUpdateStagings.DeleteAllOnSubmit(
+                    dataContext.T_DPRUpdateStagings.Where(c => ids.Contains(c.Id))
+                );
+                dataContext.SubmitChanges();
+            }
+        }
+
+        public override string ToString()
+        {
+            var b = new System.Data.SqlClient.SqlConnectionStringBuilder(this.ConnectionString);
+            var ret = string.Format(@"{0} at {1}\{2}",
+                GetType().Name,
+                b.DataSource,
+                b.InitialCatalog);
+
+            if (!this.DisableDiversion)
+            {
+                ret += string.Format(@", {0}:{1}",
+                    this.Address,
+                    this.Port);
+            }
+            return ret;
+        }
+
     }
 }

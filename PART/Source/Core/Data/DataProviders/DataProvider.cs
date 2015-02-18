@@ -50,94 +50,31 @@ using System.Linq;
 using System.Text;
 using CprBroker.Schemas;
 using CprBroker.Utilities;
-using System.Security.Cryptography;
 
 namespace CprBroker.Data.DataProviders
 {
     /// <summary>
     /// Represents the DataProvider table
     /// </summary>
-    public partial class DataProvider
+    public partial class DataProvider : IHasEncryptedAttributes
     {
-        public static RijndaelManaged EncryptionAlgorithm;
-
-        public readonly List<AttributeType> Properties = new List<AttributeType>();
+        public static System.Security.Cryptography.RijndaelManaged EncryptionAlgorithm { get; set; }
+        // TODO: Do not rely on this static method for the encryption algorithm
+        System.Security.Cryptography.RijndaelManaged IHasEncryptedAttributes.EncryptionAlgorithm
+        {
+            get { return DataProvider.EncryptionAlgorithm; }
+            set { DataProvider.EncryptionAlgorithm = value; }
+        }
+        public List<AttributeType> Attributes { get; set; }
+        System.Data.Linq.Binary IHasEncryptedAttributes.EncryptedData
+        {
+            get { return this.Data; }
+            set { this.Data = value; }
+        }
 
         partial void OnLoaded()
         {
-            if (Data != null)
-            {
-                AttributeType[] attributes;
-                if (EncryptionAlgorithm == null)
-                {
-                    attributes = Encryption.DecryptObject<AttributeType[]>(Data.ToArray());
-                }
-                else
-                {
-                    attributes = Encryption.DecryptObject<AttributeType[]>(Data.ToArray(), EncryptionAlgorithm);
-                }
-                Properties.AddRange(attributes);
-            }
-        }
-
-        private AttributeType GetDataProviderProperty(string key)
-        {
-            return (from p in this.Properties where p.Name == key select p).FirstOrDefault();
-        }
-
-        public AttributeType[] GetProperties()
-        {
-            return Properties.Select(p => new AttributeType() { Name = p.Name, Value = p.Value }).ToArray();
-        }
-
-        public string this[string key]
-        {
-            get
-            {
-                var prop = GetDataProviderProperty(key);
-                if (prop != null)
-                {
-                    return prop.Value;
-                }
-                else
-                {
-                    return null;
-                }
-            }
-            set
-            {
-                var prop = GetDataProviderProperty(key);
-                if (prop != null)
-                {
-                    prop.Value = value;
-                }
-                else
-                {
-                    this.Properties.Add(new AttributeType()
-                        {
-                            Name = key,
-                            Value = value,
-                        });
-                }
-                if (EncryptionAlgorithm == null)
-                {
-                    Data = Encryption.EncryptObject(Properties.ToArray());
-                }
-                else
-                {
-                    Data = Encryption.EncryptObject(Properties.ToArray(), EncryptionAlgorithm);
-                }
-            }
-        }
-
-        public Dictionary<string, string> ToPropertiesDictionary(string[] keys)
-        {
-            Dictionary<string, string> ret = new Dictionary<string, string>();
-            foreach (var k in keys)
-            {
-                ret[k] = this[k];
-            }
-            return ret;
+            this.PreLoadAttributes();
         }
 
         public DataProviderType ToXmlType()
@@ -146,7 +83,7 @@ namespace CprBroker.Data.DataProviders
             {
                 TypeName = TypeName,
                 Enabled = IsEnabled,
-                Attributes = GetProperties()
+                Attributes = this.GetAttributes()
             };
         }
 
@@ -166,9 +103,30 @@ namespace CprBroker.Data.DataProviders
             {
                 var propName = keysInOrder[iProp];
                 var oioProp = oio.Attributes.FirstOrDefault(p => p.Name == propName);
-                dbProv[propName] = oioProp.Value;
+                dbProv.Set(propName, oioProp.Value);
             }
             return dbProv;
+        }
+    }
+
+    public class DataProviderDatabaseReader : IEnumerable<DataProvider>
+    {
+
+        IEnumerator<DataProvider> IEnumerable<DataProvider>.GetEnumerator()
+        {
+            using (var dataContext = new CprBroker.Data.DataProviders.DataProvidersDataContext())
+            {
+                var dbProviders = (from prov in dataContext.DataProviders
+                                   where prov.IsEnabled == true
+                                   orderby prov.Ordinal
+                                   select prov).ToArray();
+                return dbProviders.AsEnumerable().GetEnumerator();
+            }
+        }
+
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+        {
+            return (this as IEnumerable<DataProvider>).GetEnumerator();
         }
     }
 }

@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Comment CommentText="Data providers">
+    <Position X="0.5" Y="0.5" Height="0.75" Width="1.7" />
+  </Comment>
+  <Class Name="CprBroker.Engine.DataProviderConfigPropertyInfo">
+    <Position X="11.25" Y="1.5" Width="2.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="CprBroker.Engine.DataProviderConfigPropertyInfo.Templates">
+        <TypeIdentifier />
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier />
+  </Class>
+  <Interface Name="CprBroker.Engine.IDataProvider">
+    <Position X="3.75" Y="1" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="CprBroker.Engine.IExternalDataProvider">
+    <Position X="7.5" Y="3.75" Width="1.75" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="CprBroker.Engine.IHasConfigurationProperties">
+    <Position X="6.75" Y="1" Width="2.25" />
+    <TypeIdentifier />
+    <ShowAsAssociation>
+      <Property Name="ConfigurationKeys" />
+    </ShowAsAssociation>
+  </Interface>
+  <Interface Name="CprBroker.Engine.IPartReadDataProvider">
+    <Position X="4.75" Y="3.75" Width="2" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="CprBroker.Engine.IPartSearchDataProvider">
+    <Position X="4.75" Y="5.5" Width="2" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="CprBroker.Engine.IPutSubscriptionDataProvider">
+    <Position X="4.5" Y="7.25" Width="2.25" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="CprBroker.EventBroker.Subscriptions.ISubscriptionDataProvider">
+    <Position X="0.5" Y="5.5" Width="2" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="CprBroker.Engine.IApplicationManager">
+    <Position X="0.5" Y="3.25" Width="2" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="CprBroker.Engine.IPartPeriodDataProvider">
+    <Position X="4.5" Y="9" Width="2" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="CprBroker.Engine.IPartPersonMappingDataProvider">
+    <Position X="4.5" Y="10.75" Width="2.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

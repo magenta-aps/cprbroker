@@ -76,28 +76,30 @@ namespace CprBroker.Engine.Trace
             Microsoft.Practices.EnterpriseLibrary.Logging.LogEntry logEntry = data as Microsoft.Practices.EnterpriseLibrary.Logging.LogEntry;
             if (logEntry != null)
             {
-                using (ApplicationDataContext context = new ApplicationDataContext())
+                using (var tracsactionScope = new System.Transactions.TransactionScope(System.Transactions.TransactionScopeOption.Suppress))
                 {
-                    Data.Applications.LogEntry dbLogEntry = new Data.Applications.LogEntry();
+                    using (ApplicationDataContext context = new ApplicationDataContext())
+                    {
+                        Data.Applications.LogEntry dbLogEntry = new Data.Applications.LogEntry();
 
-                    dbLogEntry.LogEntryId = Guid.NewGuid();
-                    dbLogEntry.LogTypeId = (int)logEntry.Severity;
-                    dbLogEntry.ApplicationId = BrokerContext.Current.ApplicationId;
-                    dbLogEntry.UserToken = BrokerContext.Current.UserToken;
-                    dbLogEntry.UserId = BrokerContext.Current.UserName;
-                    dbLogEntry.ActivityID = BrokerContext.Current.ActivityId;
+                        dbLogEntry.LogEntryId = Guid.NewGuid();
+                        dbLogEntry.LogTypeId = (int)logEntry.Severity;
+                        dbLogEntry.ApplicationId = BrokerContext.Current.ApplicationId;
+                        dbLogEntry.UserToken = BrokerContext.Current.UserToken;
+                        dbLogEntry.UserId = BrokerContext.Current.UserName;
+                        dbLogEntry.ActivityID = BrokerContext.Current.ActivityId;
 
-                    dbLogEntry.MethodName = Strings.ObjectToString(logEntry.ExtendedProperties[Constants.Logging.MethodName]);
-                    dbLogEntry.Text = logEntry.Message;
+                        dbLogEntry.MethodName = Strings.ObjectToString(logEntry.ExtendedProperties[Constants.Logging.MethodName]);
+                        dbLogEntry.Text = logEntry.Message;
 
-                    dbLogEntry.DataObjectType = Strings.ObjectToString(logEntry.ExtendedProperties[Constants.Logging.DataObjectType]);
-                    dbLogEntry.DataObjectXml = Strings.ObjectToString(logEntry.ExtendedProperties[Constants.Logging.DataObjectXml]);
-                    
-                    // Convert to local time because the default constructor for LogEntry() uses UTC time
-                    dbLogEntry.LogDate = logEntry.TimeStamp.ToLocalTime();
+                        dbLogEntry.DataObjectType = Strings.ObjectToString(logEntry.ExtendedProperties[Constants.Logging.DataObjectType]);
+                        dbLogEntry.DataObjectXml = Strings.ObjectToString(logEntry.ExtendedProperties[Constants.Logging.DataObjectXml]);
+                        dbLogEntry.LogDate = logEntry.TimeStamp;
 
-                    context.LogEntries.InsertOnSubmit(dbLogEntry);
-                    context.SubmitChanges();
+
+                        context.LogEntries.InsertOnSubmit(dbLogEntry);
+                        context.SubmitChanges();
+                    }
                 }
             }
         }

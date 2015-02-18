@@ -57,20 +57,15 @@ namespace CprBroker.Engine
     /// <summary>
     /// Contains methods for getting event information
     /// </summary>
-    public class EventsManager
+    public class EventsManager:RequestProcessor
     {
-        public static BasicOutputType<TItem> GetMethodOutput<TItem>(GenericFacadeMethodInfo<TItem> facade)
-        {
-            return CprBroker.Engine.Manager.GetMethodOutput<TItem>(facade);
-        }
-
-        public static BasicOutputType<DataChangeEventInfo[]> DequeueDataChangeEvents(string userToken, string appToken, int maxCount)
+        public BasicOutputType<DataChangeEventInfo[]> DequeueDataChangeEvents(string userToken, string appToken, int maxCount)
         {
             var methodInfo = new CprBroker.Engine.Events.DequeueDataChangeEventsFacadeMethod(maxCount, appToken, userToken);
             return GetMethodOutput<DataChangeEventInfo[]>(methodInfo);
         }
 
-        public static BasicOutputType<PersonBirthdate[]> GetPersonBirthdates(string userToken, string appToken, Guid? personUuidToStartAfter, int maxCount)
+        public BasicOutputType<PersonBirthdate[]> GetPersonBirthdates(string userToken, string appToken, Guid? personUuidToStartAfter, int maxCount)
         {
             var methodInfo = new CprBroker.Engine.Events.GetPersonBirthdatesFacadeMethodInfo(personUuidToStartAfter, maxCount, appToken, userToken);
             return GetMethodOutput<PersonBirthdate[]>(methodInfo);

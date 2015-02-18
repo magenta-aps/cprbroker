@@ -57,11 +57,6 @@ namespace CprBroker.EventBroker.Notifications
     /// </summary>
     public class DataChangeEventPuller : CprBrokerEventEnqueuer
     {
-        protected override TimeSpan CalculateActionTimerInterval(TimeSpan currentInterval)
-        {
-            return TimeSpan.FromMinutes(1);
-        }
-
         protected override void PerformTimerAction()
         {
             var batchSize = CprBroker.Config.ConfigManager.Current.Settings.DataChangeDequeueBatchSize;
@@ -103,7 +98,7 @@ namespace CprBroker.EventBroker.Notifications
             }
             // Stop if received less changes than requested 
             // == Continue as long as you get the same number of changes as requested
-            while (sourceEvents.Length == batchSize);
+            while (changedPeople.Length == this.BatchSize);
         }
     }
 }

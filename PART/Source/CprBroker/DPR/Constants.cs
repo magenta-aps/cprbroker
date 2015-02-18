@@ -71,6 +71,27 @@ namespace CprBroker.Providers.DPR
         public const string DenmarkKmdCode = "5100";
 
         public const string DiversionOperationName = "Diversion";
+        public static readonly Encoding DiversionEncoding = Encoding.UTF7;
 
+        
+    }
+
+    public enum InquiryType
+    {
+        DataNotUpdatedAutomatically = 0,
+        DataUpdatedAutomaticallyFromCpr = 1,
+        DeleteAutomaticDataUpdateFromCpr = 3
+    }
+
+    public enum DetailType
+    {
+        MasterData = 0, // Only to client
+        ExtendedData = 1 // Put to DPR database
+    }
+
+    public class EvenOdd
+    {
+        public const char Even = 'L';
+        public const char Odd = 'U';
     }
 }

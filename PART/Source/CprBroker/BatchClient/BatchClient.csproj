@@ -101,6 +101,7 @@
     <Compile Include="CallSearch.cs" />
     <Compile Include="CleanInvalidPNRs.cs" />
     <Compile Include="CompareDatabasePerformance.cs" />
+    <Compile Include="CompareDbr.cs" />
     <Compile Include="CompareExpressionToSimplified.cs" />
     <Compile Include="ConvertCprDirectToFiles.cs" />
     <Compile Include="GenerateCprDirectFromExtracts.cs" />
@@ -133,7 +134,10 @@
     <Compile Include="SortContentsByDate.cs" />
     <Compile Include="SplitLogFile.cs" />
     <Compile Include="SyncDPR.cs" />
+    <Compile Include="TestDBR.cs" />
     <Compile Include="TestDPRConversion.cs" />
+    <Compile Include="UpdateGeoLocationInformation.cs" />
+    <Compile Include="UpdatePostCodeInformation.cs" />
     <Compile Include="Utilities.cs" />
     <Compile Include="ValidateCprNumbers.cs" />
     <Compile Include="Web References\Part\Reference.cs">
@@ -212,6 +216,14 @@
       <Project>{F9D6A4EA-9DB1-4BA7-A5BE-0C183FBABBF8}</Project>
       <Name>CprServices</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DBR.Tests\DBR.Tests.csproj">
+      <Project>{FF2FFCD5-6091-4B10-8FD9-C737BD45C86B}</Project>
+      <Name>DBR.Tests</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DBR\DBR.csproj">
+      <Project>{f6e48545-473f-4133-90f7-b93a4612f50f}</Project>
+      <Name>DBR</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DPR\DPR.csproj">
       <Project>{F98E5179-88E3-404E-83BE-54F0A3E7DBC0}</Project>
       <Name>DPR</Name>
@@ -227,6 +239,10 @@
     <ProjectReference Include="..\Local\Local.csproj">
       <Project>{74212D20-BB98-401F-A5F7-03669B2CD07A}</Project>
       <Name>Local</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PartInterface.Tests\PartInterface.Tests.csproj">
+      <Project>{06CCC703-83F2-44B9-B67A-F7F3A0071E2D}</Project>
+      <Name>PartInterface.Tests</Name>
     </ProjectReference>
     <ProjectReference Include="..\PartInterface\PartInterface.csproj">
       <Project>{DA42D8BB-24D3-4416-A0BD-B98857F249AD}</Project>

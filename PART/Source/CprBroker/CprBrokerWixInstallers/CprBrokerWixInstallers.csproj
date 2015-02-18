@@ -112,18 +112,22 @@
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Application.csv" />
-    <None Include="Resources\BudgetEntry.csv" />
+    <None Include="Resources\BudgetInterval.csv" />
     <None Include="Resources\CreatePartDatabaseObjects.sql" />
     <None Include="Resources\LifecycleStatus.csv" />
     <None Include="Resources\LogType.csv" />
+    <None Include="Resources\Queue.csv" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\BudgetInterval.sql" />
+    <Content Include="Resources\DataProvider.sql" />
+    <Content Include="Resources\DataProviderCall.sql" />
     <Content Include="Resources\Extract.sql" />
     <Content Include="Resources\InitializePersonSearchCache.sql" />
     <Content Include="Resources\PatchDatabase_2_2_2.sql" />
@@ -131,8 +135,12 @@
     <Content Include="Resources\PersonRegistration.sql" />
     <Content Include="Resources\PersonRegistration_PopulateSearchCache.sql" />
     <Content Include="Resources\PersonSearchCache.sql" />
+    <None Include="Resources\PatchDatabase_2_2_3.sql" />
+    <Content Include="Resources\Queue.sql" />
+    <Content Include="Resources\QueueItem.sql" />
     <Content Include="Resources\Script generation.txt" />
     <Content Include="Resources\TrimAddressString.sql" />
+    <Content Include="Resources\Semaphore.sql" />
     <None Include="Resources\CreatePartDatabaseObjects.ChildObjects.sql" />
     <Content Include="Resources\PatchDatabase_1_3_2.sql" />
     <Content Include="Resources\PatchDatabase_1_4.sql" />

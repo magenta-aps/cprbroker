@@ -1,4 +1,47 @@
-﻿using System;
+﻿/* ***** BEGIN LICENSE BLOCK *****
+ * Version: MPL 1.1/GPL 2.0/LGPL 2.1
+ *
+ * The contents of this file are subject to the Mozilla Public License
+ * Version 1.1 (the "License"); you may not use this file except in
+ * compliance with the License. You may obtain a copy of the License at
+ * http://www.mozilla.org/MPL/
+ *
+ * Software distributed under the License is distributed on an "AS IS"basis,
+ * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+ * for the specific language governing rights and limitations under the
+ * License.
+ *
+ * The CPR Broker concept was initally developed by
+ * Gentofte Kommune / Municipality of Gentofte, Denmark.
+ * Contributor(s):
+ * Steen Deth
+ *
+ *
+ * The Initial Code for CPR Broker and related components is made in
+ * cooperation between Magenta, Gentofte Kommune and IT- og Telestyrelsen /
+ * Danish National IT and Telecom Agency
+ *
+ * Contributor(s):
+ * Beemen Beshara
+ *
+ * The code is currently governed by IT- og Telestyrelsen / Danish National
+ * IT and Telecom Agency
+ *
+ * Alternatively, the contents of this file may be used under the terms of
+ * either the GNU General Public License Version 2 or later (the "GPL"), or
+ * the GNU Lesser General Public License Version 2.1 or later (the "LGPL"),
+ * in which case the provisions of the GPL or the LGPL are applicable instead
+ * of those above. If you wish to allow use of your version of this file only
+ * under the terms of either the GPL or the LGPL, and not to allow others to
+ * use your version of this file under the terms of the MPL, indicate your
+ * decision by deleting the provisions above and replace them with the notice
+ * and other provisions required by the GPL or the LGPL. If you do not delete
+ * the provisions above, a recipient may use your version of this file under
+ * the terms of any one of the MPL, the GPL or the LGPL.
+ *
+ * ***** END LICENSE BLOCK ***** */
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +51,10 @@ using System.Data.Linq;
 using CprBroker.EventBroker.Data;
 using CprBroker.Schemas.Part;
 using CprBroker.Data.Part;
+using Microsoft.Practices.EnterpriseLibrary.Logging;
+using Microsoft.Practices.EnterpriseLibrary.Logging.Configuration;
+using CprBroker.Utilities.Config;
+using System.Configuration;
 
 namespace CprBroker.Tests.PartInterface
 {
@@ -27,7 +74,13 @@ namespace CprBroker.Tests.PartInterface
         public DatabaseInfo EventDatabase;
 
         [TestFixtureSetUp]
-        public void CreateDatabases()
+        public void SetupTestFixture()
+        {
+            CreateDatabases();
+            InitLogging();
+        }
+
+        public virtual void CreateDatabases()
         {
             CprDatabase = CreateDatabase("CprBrrokerTest_",
                 CprBrokerWixInstallers.Properties.ResourcesExtensions.AllCprBrokerDatabaseObjectsSql,
@@ -38,9 +91,30 @@ namespace CprBroker.Tests.PartInterface
                 CprBroker.Installers.EventBrokerInstallers.Properties.ResourcesExtensions.AllEventBrokerDatabaseObjectsSql,
                 CprBroker.Installers.EventBrokerInstallers.Properties.ResourcesExtensions.Lookups);
 
-            CprBroker.Config.ConfigManager.Current.Settings["CprBrokerConnectionString"] = CprDatabase.ConnectionString;
-            CprBroker.Config.ConfigManager.Current.Settings["EventBrokerConnectionString"] = EventDatabase.ConnectionString;
-            CprBroker.Config.ConfigManager.Current.Commit();
+            ConfigManager.Current.Settings["CprBrokerConnectionString"] = CprDatabase.ConnectionString;
+            ConfigManager.Current.Settings["EventBrokerConnectionString"] = EventDatabase.ConnectionString;
+            ConfigManager.Current.Commit();
+        }
+
+        public virtual void InitLogging()
+        {
+            var log = ConfigManager.Current.LoggingSettings;
+
+            log.TraceListeners.Clear();
+            log.TraceListeners.Add(new TraceListenerData()
+            {
+                Name = "CprDatabase",
+                ListenerDataType = typeof(CustomTraceListenerData),
+                Type = typeof(CprBroker.Engine.Trace.LocalTraceListener)
+            });
+
+            log.SpecialTraceSources.AllEventsTraceSource.TraceListeners.Clear();
+            log.SpecialTraceSources.AllEventsTraceSource.TraceListeners.Add(new TraceListenerReferenceData()
+            {
+                Name = "CprDatabase"
+            });
+
+            ConfigManager.Current.Commit();
         }
 
         public DatabaseInfo CreateDatabase(string prefix, string ddl, KeyValuePair<string, string>[] lookups)
@@ -73,7 +147,8 @@ namespace CprBroker.Tests.PartInterface
                 string kill =
                     string.Format("declare @kill varchar(8000) = ''; select @kill=@kill+'kill '+convert(varchar(5),spid)+';'    from master..sysprocesses where dbid=db_id('{0}');exec (@kill); ", db.DbName)
                     + "\r\nGO\r\n"
-                    + "DROP DATABASE " + db.DbName + "";
+                    + "IF EXISTS (SELECT name FROM sys.databases WHERE name = '" + db.DbName + "')"
+                    + "    DROP DATABASE " + db.DbName + "";
                 CprBroker.Installers.DatabaseCustomAction.ExecuteDDL(kill, db.MasterConnectionString);
             }
         }

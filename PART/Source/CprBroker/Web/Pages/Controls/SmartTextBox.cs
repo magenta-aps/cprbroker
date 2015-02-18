@@ -343,9 +343,15 @@ namespace CprBroker.Web.Controls
 
         public override void ExtractValuesFromCell(System.Collections.Specialized.IOrderedDictionary dictionary, DataControlFieldCell cell, DataControlRowState rowState, bool includeReadOnly)
         {
-            var txt = cell.Controls[0] as SmartTextBox;
-            dictionary[DataField] = txt.Value;
-
+            if (cell.Controls.Count > 0)
+            {
+                var txt = cell.Controls[0] as SmartTextBox;
+                dictionary[DataField] = txt.Value;
+            }
+            else
+            {
+                dictionary[DataField] = cell.Text;
+            }
         }
 
 

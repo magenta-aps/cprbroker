@@ -54,7 +54,7 @@ using System.Web;
 using System.Xml;
 using System.IO;
 
-namespace CprBroker.Utilities
+namespace CprBroker.Utilities.Config
 {
     public class DataProviderKeysSection : ConfigurationSection
     {

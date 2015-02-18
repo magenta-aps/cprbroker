@@ -83,7 +83,7 @@ namespace BatchClient
                 var pers = dataContext.Persons.Where(p => p.UUID == dbReg.UUID).FirstOrDefault();
                 if (pers == null)
                 {
-                    dataContext.Persons.InsertOnSubmit(new Person()
+                    dataContext.Persons.InsertOnSubmit(new CprBroker.Data.Part.Person()
                         {
                             UUID = dbReg.UUID,
                             UserInterfaceKeyText = cprNumberOrUuid,

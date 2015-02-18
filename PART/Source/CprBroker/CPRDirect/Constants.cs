@@ -130,6 +130,30 @@ namespace CprBroker.Providers.CPRDirect
 
             _DataObjectMap_P02680 = new Dictionary<string, Type>();
             _DataObjectMap_P02680["001"] = typeof(AuthorityType);
+
+            _DataObjectMap_P05780 = new Dictionary<string, Type>();
+            _DataObjectMap_P05780["000"] = typeof(GeoStartRecordType);
+            _DataObjectMap_P05780["001"] = typeof(StreetType);
+            _DataObjectMap_P05780["002"] = typeof(ResidenceType);
+            _DataObjectMap_P05780["003"] = typeof(CityType);
+            _DataObjectMap_P05780["004"] = typeof(PostDistrictType);
+            _DataObjectMap_P05780["005"] = typeof(NoteType);
+            _DataObjectMap_P05780["006"] = typeof(AreaRestorationDistrictType);
+            _DataObjectMap_P05780["007"] = typeof(DiverseDistrictType);
+            _DataObjectMap_P05780["008"] = typeof(EvacuationDistrictType);
+            _DataObjectMap_P05780["009"] = typeof(ChurchDistrictType);
+            _DataObjectMap_P05780["010"] = typeof(SchoolDistrictType);
+            _DataObjectMap_P05780["011"] = typeof(PopulationDistrictType);
+            _DataObjectMap_P05780["012"] = typeof(SocialDistrictType);
+            _DataObjectMap_P05780["013"] = typeof(ChurchAdministrationDistrictType);
+            _DataObjectMap_P05780["014"] = typeof(ElectionDistrictType);
+            _DataObjectMap_P05780["015"] = typeof(HeatingDistrictType);
+            _DataObjectMap_P05780["999"] = typeof(GeoEndRecordType);
+
+            _DataObjectMap_P11980 = new Dictionary<string, Type>();
+            _DataObjectMap_P11980["000"] = typeof(PostStartRecordType);
+            _DataObjectMap_P11980["001"] = typeof(PostNumberType);
+            _DataObjectMap_P11980["999"] = typeof(PostEndRecordType);
         }
 
         private static Dictionary<string, Type> _DataObjectMap;
@@ -144,6 +168,17 @@ namespace CprBroker.Providers.CPRDirect
             get { return _DataObjectMap_P02680.ToDictionary(kvp => kvp.Key, kvp => kvp.Value); }
         }
 
+        private static Dictionary<string, Type> _DataObjectMap_P05780;
+        public static Dictionary<string, Type> DataObjectMap_P05780
+        {
+            get { return _DataObjectMap_P05780.ToDictionary(kvp => kvp.Key, kvp => kvp.Value); }
+        }
+
+        private static Dictionary<string, Type> _DataObjectMap_P11980;
+        public static Dictionary<string, Type> DataObjectMap_P11980
+        {
+            get { return _DataObjectMap_P11980.ToDictionary(kvp => kvp.Key, kvp => kvp.Value); }
+        }
 
         private static Dictionary<string, bool> _RelationshipMap;
         public static Dictionary<string, bool> RelationshipMap
@@ -201,6 +236,7 @@ namespace CprBroker.Providers.CPRDirect
             public static readonly string Port = "Port";
             public static readonly string PutSubscription = "Put subscription";
             public static readonly string ExtractsFolder = "Extracts folder";
+            public static readonly string MultiLine = "Multi line";
             public static readonly string HasFtpSource = "Has FTP Source";
             public static readonly string FtpAddress = "FTP Address";
             public static readonly string FtpUser = "FTP User";

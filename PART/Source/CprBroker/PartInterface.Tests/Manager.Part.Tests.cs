@@ -23,9 +23,6 @@
  *
  * Contributor(s):
  * Beemen Beshara
- * Niels Elgaard Larsen
- * Leif Lodahl
- * Steen Deth
  *
  * The code is currently governed by IT- og Telestyrelsen / Danish National
  * IT and Telecom Agency
@@ -52,9 +49,11 @@ using NUnit.Framework;
 using CprBroker.Utilities;
 using CprBroker.Engine;
 using CprBroker.Engine.Part;
+using CprBroker.PartInterface;
 using CprBroker.Schemas;
 using CprBroker.Schemas.Part;
 using CprBroker.Data.DataProviders;
+using CprBroker.Utilities.Config;
 
 namespace CprBroker.Tests.PartInterface
 {
@@ -168,13 +167,13 @@ namespace CprBroker.Tests.PartInterface
 
         ListOutputType1 GetListMethodOutput(string[] uuids)
         {
-            return Manager.GetMethodOutput<ListOutputType1, LaesResultatType[]>(
+            return new RequestProcessor().GetMethodOutput<ListOutputType1, LaesResultatType[]>(
                     new ListFacadeMethodInfoStub(uuids));
         }
 
         LaesOutputType GetReadMethodOutput(string uuid)
         {
-            return Manager.GetMethodOutput<LaesOutputType, LaesResultatType>(
+            return new RequestProcessor().GetMethodOutput<LaesOutputType, LaesResultatType>(
                     new ReadFacadeMethodInfoStub(uuid));
         }
 
@@ -194,7 +193,7 @@ namespace CprBroker.Tests.PartInterface
         public void List_InvalidAppToken_ReturnsBadRequest()
         {
             CprBroker.Schemas.QualityLevel? ql;
-            var ret = PartManager.List("jkhfkjahkfj", "ahsdfkhkajh", new ListInputType(), SourceUsageOrder.LocalThenExternal, out ql);
+            var ret = new PartManager().List("jkhfkjahkfj", "ahsdfkhkajh", new ListInputType(), SourceUsageOrder.LocalThenExternal, out ql);
             Assert.AreEqual("400", ret.StandardRetur.StatusKode);
         }
 
@@ -203,7 +202,7 @@ namespace CprBroker.Tests.PartInterface
         public void List_InvalidAppToken_StatusTextContainsToken()
         {
             CprBroker.Schemas.QualityLevel? ql;
-            var ret = PartManager.List("jkhfkjahkfj", "ahsdfkhkajh", new ListInputType(), SourceUsageOrder.LocalThenExternal, out ql);
+            var ret = new PartManager().List("jkhfkjahkfj", "ahsdfkhkajh", new ListInputType(), SourceUsageOrder.LocalThenExternal, out ql);
             StringAssert.Contains("token", ret.StandardRetur.FejlbeskedTekst);
         }
 

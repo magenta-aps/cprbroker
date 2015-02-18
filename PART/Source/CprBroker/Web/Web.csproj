@@ -15,9 +15,6 @@
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
-    <OldToolsVersion>4.0</OldToolsVersion>
-    <UpgradeBackupLocation>
-    </UpgradeBackupLocation>
     <UseIISExpress>false</UseIISExpress>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -103,13 +100,49 @@
     <Reference Include="System.Web.Mobile" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Pages\Controls\ConfigPropertyEditor.ascx" />
+    <Content Include="Pages\Controls\ConfigPropertyGridEditor.ascx" />
+    <Content Include="Pages\Controls\ConfigPropertyViewer.ascx" />
+    <Content Include="Pages\Controls\MessageDisplayer.ascx" />
     <Content Include="Pages\Controls\Pager.ascx" />
     <Content Include="Pages\Controls\PeriodSelector.ascx" />
     <Content Include="Pages\Budget.aspx" />
+    <Content Include="Pages\Dbr.aspx" />
     <Content Include="Pages\ExternalCalls.aspx" />
-    <Content Include="web.config" />
+    <Content Include="web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Pages\Controls\ConfigPropertyEditor.ascx.cs">
+      <DependentUpon>ConfigPropertyEditor.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Controls\ConfigPropertyEditor.ascx.designer.cs">
+      <DependentUpon>ConfigPropertyEditor.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Controls\ConfigPropertyField.cs" />
+    <Compile Include="Pages\Controls\ConfigPropertyGridEditor.ascx.cs">
+      <DependentUpon>ConfigPropertyGridEditor.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Controls\ConfigPropertyGridEditor.ascx.designer.cs">
+      <DependentUpon>ConfigPropertyGridEditor.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Controls\ConfigPropertyViewer.ascx.cs">
+      <DependentUpon>ConfigPropertyViewer.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Controls\ConfigPropertyViewer.ascx.designer.cs">
+      <DependentUpon>ConfigPropertyViewer.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Controls\MessageDisplayer.ascx.cs">
+      <DependentUpon>MessageDisplayer.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Controls\MessageDisplayer.ascx.designer.cs">
+      <DependentUpon>MessageDisplayer.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Controls\Pager.ascx.cs">
       <DependentUpon>Pager.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -157,6 +190,13 @@
     <Compile Include="Pages\DataProviders.aspx.designer.cs">
       <DependentUpon>DataProviders.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Dbr.aspx.cs">
+      <DependentUpon>Dbr.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Dbr.aspx.designer.cs">
+      <DependentUpon>Dbr.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -171,6 +211,7 @@
     <Compile Include="Pages\ExternalCalls.aspx.designer.cs">
       <DependentUpon>ExternalCalls.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Controls\IControlWithDataSource.cs" />
     <Compile Include="Pages\LogEntries.aspx.cs">
       <DependentUpon>LogEntries.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -224,6 +265,10 @@
     <Content Include="Pages\Site.Master" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DBR\DBR.csproj">
+      <Project>{F6E48545-473F-4133-90F7-B93A4612F50F}</Project>
+      <Name>DBR</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CPRDirect\CPRDirect.csproj">
       <Project>{EDDB494D-782D-4D45-8599-633057B9B203}</Project>
       <Name>CPRDirect</Name>

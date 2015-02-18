@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Comment CommentText="Base wrappers">
+    <Position X="0.5" Y="0.5" Height="0.75" Width="1.7" />
+  </Comment>
+  <Class Name="CprBroker.Schemas.Wrappers.Wrapper">
+    <Position X="0.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="CprBroker.Providers.CPRDirect.CompositeWrapper">
+    <Position X="2.5" Y="6.25" Width="2.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="CprBroker.Providers.CPRDirect.LineWrapper">
+    <Position X="6.25" Y="6.5" Width="2" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="CprBroker.Providers.CPRDirect.CprDirectWrapper">
+    <Position X="3.75" Y="2.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="CprBroker.Providers.CPRDirect.PersonRecordWrapper">
+    <Position X="6" Y="4.75" Width="2.75" />
+    <TypeIdentifier />
+    <ShowAsAssociation>
+      <Property Name="Registration" />
+    </ShowAsAssociation>
+  </Class>
+  <Interface Name="CprBroker.Schemas.Part.IRegistrationInfo" Collapsed="true">
+    <Position X="7" Y="2.25" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

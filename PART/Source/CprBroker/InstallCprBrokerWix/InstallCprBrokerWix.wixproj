@@ -112,7 +112,8 @@
     <PreBuildEvent />
   </PropertyGroup>
   <PropertyGroup>
-    <PostBuildEvent>setupbld.exe -msu "$(TargetDir)en-US\$(TargetFileName)" -setup "$(ProjectDir)..\..\Core\Output\Setup.exe" -out "$(TargetDir)en-US\$(TargetName).exe"</PostBuildEvent>
+    <PostBuildEvent>copy "!(TargetPath)" "$(SolutionDir)Output\" /y
+REM setupbld.exe -msu "$(TargetDir)en-US\$(TargetFileName)" -setup "$(ProjectDir)..\..\Core\Output\Setup.exe" -out "$(TargetDir)en-US\$(TargetName).exe"</PostBuildEvent>
   </PropertyGroup>
   <!--
 	To modify your build process, add your task inside one of the targets below and uncomment it.

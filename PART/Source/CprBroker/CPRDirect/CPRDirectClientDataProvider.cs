@@ -56,18 +56,16 @@ using CprBroker.Utilities;
 
 namespace CprBroker.Providers.CPRDirect
 {
-    public partial class CPRDirectClientDataProvider : IPartReadDataProvider, IPutSubscriptionDataProvider, IExternalDataProvider, IPerCallDataProvider
+    public partial class CPRDirectClientDataProvider : IPartReadDataProvider, IPutSubscriptionDataProvider, IExternalDataProvider, IPerCallDataProvider, ICprDirectPersonDataProvider
     {
         #region IPartReadDataProvider members
+        
         public RegistreringType1 Read(CprBroker.Schemas.PersonIdentifier uuid, LaesInputType input, Func<string, Guid> cpr2uuidFunc, out QualityLevel? ql)
         {
             ql = QualityLevel.Cpr;
-
-            if (IPartPerCallDataProviderHelper.CanCallOnline(uuid.CprNumber))
+            var response = GetPerson(uuid.CprNumber);
+            if (response != null)
             {
-                IndividualRequestType request = new IndividualRequestType(true, DataType.DefinedByTask, decimal.Parse(uuid.CprNumber));
-                IndividualResponseType response = this.GetResponse(request);
-
                 UuidCache cache = new UuidCache();
                 cache.FillCache(response.RelatedPnrs);
 
@@ -164,6 +162,22 @@ namespace CprBroker.Providers.CPRDirect
 
         #endregion
 
+        #region ICprDirectPersonDataProvider members
 
+        public IndividualResponseType GetPerson(string cprNumber)
+        {
+            if (IPartPerCallDataProviderHelper.CanCallOnline(cprNumber))
+            {
+                IndividualRequestType request = new IndividualRequestType(true, DataType.DefinedByTask, decimal.Parse(cprNumber));
+                IndividualResponseType response = this.GetResponse(request);
+
+                return response;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        #endregion
     }
 }
