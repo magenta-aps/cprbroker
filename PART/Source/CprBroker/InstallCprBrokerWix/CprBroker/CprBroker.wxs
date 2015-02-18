@@ -19,7 +19,4 @@
             <ComponentRef Id="CMP_MsiZap"/>
         </Feature>
     </Fragment>
-    </Feature>
-	</Fragment>
-
 </Wix>

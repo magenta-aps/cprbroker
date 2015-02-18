@@ -105,7 +105,7 @@ namespace BatchClient
                         var ret = dataContext.PersonMappings.Where(pm => pm.CprNumber == relPnr).Select(pm => pm.UUID).FirstOrDefault();
                         if (ret.Equals(Guid.Empty))
                         {
-                            var res = new CprBroker.PartInterface.PartManager().GetUuid("", AppToken.ToString(), relPnr);
+                            var res = new CprBroker.PartInterface.PartManager().GetUuid("", this.ApplicationToken, relPnr);
                             ret = new Guid(res.UUID);
                         }
                         return ret;

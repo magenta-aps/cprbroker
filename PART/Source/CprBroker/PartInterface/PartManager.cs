@@ -90,6 +90,13 @@ namespace CprBroker.PartInterface
             return ret;
         }
 
+        public SoegListOutputType SearchList(string userToken, string appToken, SoegInputType1 searchCriteria, SourceUsageOrder sourceUsageOrder)
+        {
+            SearchListFacadeMethodInfo facadeMethod = new SearchListFacadeMethodInfo(searchCriteria, sourceUsageOrder, appToken, userToken);
+            var ret = GetMethodOutput<SoegListOutputType, LaesResultatType[]>(facadeMethod);
+            return ret;
+        }
+
         public GetUuidOutputType GetUuid(string userToken, string appToken, string cprNumber)
         {
             var facadeMethod = new GetUuidFacadeMethodInfo(cprNumber, appToken, userToken);
