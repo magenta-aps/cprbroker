@@ -23,9 +23,6 @@
  *
  * Contributor(s):
  * Beemen Beshara
- * Niels Elgaard Larsen
- * Leif Lodahl
- * Steen Deth
  *
  * The code is currently governed by IT- og Telestyrelsen / Danish National
  * IT and Telecom Agency
@@ -48,49 +45,36 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using CprBroker.Engine.Local;
+using NUnit.Framework;
+using CprBroker.Utilities;
 
-namespace CprBroker.EventBroker.Notifications
+namespace CprBroker.Tests.Utilities
 {
-    /// <summary>
-    /// Copies data changes from CPR broker into Event broker
-    /// </summary>
-    public class DataChangeEventPuller : CprBrokerEventEnqueuer
+    namespace ReflectionTests
     {
-        protected override void PerformTimerAction()
+        [TestFixture]
+        public class IdentifyableName
         {
-            Admin.LogFormattedSuccess("DataChangeEventEnqueuer.PushNotifications() started, batch size <{0}>", this.BatchSize);
-            EventBroker.EventsService.DataChangeEventInfo[] changedPeople;
-
-            do
+            [Test]
+            public void IdentifyableName_String_Correct()
             {
-                var resp = EventsService.DequeueDataChangeEvents(this.BatchSize);
-                changedPeople = resp.Item;
-                if (changedPeople == null)
-                    changedPeople = new EventBroker.EventsService.DataChangeEventInfo[0];
-
-                using (var dataContext = new Data.EventBrokerDataContext())
-                {
-                    var dbObjects = Array.ConvertAll<EventsService.DataChangeEventInfo, Data.DataChangeEvent>(
-                        changedPeople,
-                        p => new Data.DataChangeEvent()
-                        {
-                            DataChangeEventId = p.EventId,
-                            DueDate = p.ReceivedDate,
-                            PersonUuid = p.PersonUuid,
-                            PersonRegistrationId = p.PersonRegistrationId,
-                            ReceivedDate = DateTime.Now,
-                            //ReceivedOrder = (Identity column)
-                        }
-                    );
-
-                    dataContext.DataChangeEvents.InsertAllOnSubmit(dbObjects);
-                    dataContext.SubmitChanges();
-                }
+                var t = typeof(string);
+                var ret = t.IdentifyableName();
+                Assert.AreEqual("System.String, mscorlib", ret);
             }
-            // Stop if received less changes than requested 
-            // == Continue as long as you get the same number of changes as requested
-            while (changedPeople.Length == this.BatchSize);
+
+            class ObjectStub : Object
+            {
+                public string SSS;
+            }
+
+            [Test]
+            public void IdentifyableName_Type_Regeneratable([Values(typeof(object), typeof(ObjectStub))]Type t)
+            {
+                var ret = t.IdentifyableName();
+                var o = Reflection.CreateInstance(ret);
+                Assert.NotNull(o);
+            }
         }
     }
 }

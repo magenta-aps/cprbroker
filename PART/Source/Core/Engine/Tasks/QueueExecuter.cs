@@ -15,11 +15,8 @@ namespace CprBroker.Engine.Tasks
         public QueueExecuter(Queue queue)
         {
             this.Queue = queue;
-        }
-
-        protected override TimeSpan CalculateActionTimerInterval(TimeSpan currentInterval)
-        {
-            return TimeSpan.FromSeconds(10);
+            // TODO: Read this from some config
+            this.TimerInterval = TimeSpan.FromSeconds(10);
         }
 
         protected override void PerformTimerAction()

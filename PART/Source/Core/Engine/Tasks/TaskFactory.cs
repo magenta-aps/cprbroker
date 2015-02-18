@@ -23,9 +23,6 @@
  *
  * Contributor(s):
  * Beemen Beshara
- * Niels Elgaard Larsen
- * Leif Lodahl
- * Steen Deth
  *
  * The code is currently governed by IT- og Telestyrelsen / Danish National
  * IT and Telecom Agency
@@ -48,49 +45,36 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using CprBroker.Engine.Local;
+using CprBroker.Utilities.Config;
 
-namespace CprBroker.EventBroker.Notifications
+namespace CprBroker.Engine.Tasks
 {
-    /// <summary>
-    /// Copies data changes from CPR broker into Event broker
-    /// </summary>
-    public class DataChangeEventPuller : CprBrokerEventEnqueuer
+    public class TaskFactory
     {
-        protected override void PerformTimerAction()
+        public PeriodicTaskExecuter CreateTask<T>(TasksConfigurationSection.TaskElement element) where T : PeriodicTaskExecuter
         {
-            Admin.LogFormattedSuccess("DataChangeEventEnqueuer.PushNotifications() started, batch size <{0}>", this.BatchSize);
-            EventBroker.EventsService.DataChangeEventInfo[] changedPeople;
-
-            do
+            var task = Utilities.Reflection.CreateInstance<T>(element.Type);
+            if (task != null)
             {
-                var resp = EventsService.DequeueDataChangeEvents(this.BatchSize);
-                changedPeople = resp.Item;
-                if (changedPeople == null)
-                    changedPeople = new EventBroker.EventsService.DataChangeEventInfo[0];
-
-                using (var dataContext = new Data.EventBrokerDataContext())
-                {
-                    var dbObjects = Array.ConvertAll<EventsService.DataChangeEventInfo, Data.DataChangeEvent>(
-                        changedPeople,
-                        p => new Data.DataChangeEvent()
-                        {
-                            DataChangeEventId = p.EventId,
-                            DueDate = p.ReceivedDate,
-                            PersonUuid = p.PersonUuid,
-                            PersonRegistrationId = p.PersonRegistrationId,
-                            ReceivedDate = DateTime.Now,
-                            //ReceivedOrder = (Identity column)
-                        }
-                    );
-
-                    dataContext.DataChangeEvents.InsertAllOnSubmit(dbObjects);
-                    dataContext.SubmitChanges();
-                }
+                task.TimerInterval = element.RunEvery;
+                task.BatchSize = element.BatchSize;
             }
-            // Stop if received less changes than requested 
-            // == Continue as long as you get the same number of changes as requested
-            while (changedPeople.Length == this.BatchSize);
+            return task;
+        }
+
+        public virtual TasksConfigurationSection.TaskElement[] LoadTaskConfigElements()
+        {
+            var section = CprBroker.Utilities.Config.ConfigManager.Current.TasksSection;
+            return section.KnownTypes
+                .OfType<TasksConfigurationSection.TaskElement>()
+                .ToArray();
+        }
+
+        public PeriodicTaskExecuter[] LoadTasks()
+        {
+            return LoadTaskConfigElements()
+                .Select(e => CreateTask<PeriodicTaskExecuter>(e))
+                .ToArray();
         }
     }
 }

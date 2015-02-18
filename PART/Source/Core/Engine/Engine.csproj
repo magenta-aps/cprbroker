@@ -129,6 +129,7 @@
     <Compile Include="Tasks\TaskExecutionManager.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Tasks\TaskFactory.cs" />
     <Compile Include="TcpServer.cs" />
     <Compile Include="ThreadRunner.cs" />
     <Compile Include="AdminManager.cs" />

@@ -61,6 +61,22 @@ namespace CprBroker.Installers.EventBrokerInstallers.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+        ///&lt;configuration&gt;
+        ///
+        ///    &lt;configSections&gt;
+        ///        &lt;sectionGroup name=&quot;applicationSettings&quot; type=&quot;System.Configuration.ApplicationSettingsGroup, System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089&quot; &gt;
+        ///            &lt;section name=&quot;CprBroker.Config.Properties.Settings&quot; type=&quot;System.Configuration.ClientSettingsSection, System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089&quot; requirePermission=&quot;false&quot; /&gt;
+        ///        &lt;/sectionGroup&gt;
+        ///       [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string Backend_App_Config {
+            get {
+                return ResourceManager.GetString("Backend_App_Config", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N&apos;[dbo].[BirthdateEventNotification]&apos;) AND type in (N&apos;U&apos;))
         ///DROP TABLE [dbo].[BirthdateEventNotification]
         ///GO

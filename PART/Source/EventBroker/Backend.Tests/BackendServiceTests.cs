@@ -23,9 +23,6 @@
  *
  * Contributor(s):
  * Beemen Beshara
- * Niels Elgaard Larsen
- * Leif Lodahl
- * Steen Deth
  *
  * The code is currently governed by IT- og Telestyrelsen / Danish National
  * IT and Telecom Agency
@@ -48,49 +45,58 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using CprBroker.Engine.Local;
+using NUnit.Framework;
+using CprBroker.EventBroker;
+using CprBroker.EventBroker.Notifications;
+using CprBroker.EventBroker.Backend;
+using CprBroker.Utilities.Config;
+using CprBroker.Engine.Tasks;
+using CprBroker.Engine.Queues;
+using CprBroker.DBR;
 
-namespace CprBroker.EventBroker.Notifications
+namespace CprBroker.Tests.EventBroker.Backend
 {
-    /// <summary>
-    /// Copies data changes from CPR broker into Event broker
-    /// </summary>
-    public class DataChangeEventPuller : CprBrokerEventEnqueuer
+    [TestFixture]
+    public class BackendServiceTests : PartInterface.TestBase
     {
-        protected override void PerformTimerAction()
+        class TaskFactoryStub : TaskFactory
         {
-            Admin.LogFormattedSuccess("DataChangeEventEnqueuer.PushNotifications() started, batch size <{0}>", this.BatchSize);
-            EventBroker.EventsService.DataChangeEventInfo[] changedPeople;
-
-            do
+            public override TasksConfigurationSection.TaskElement[] LoadTaskConfigElements()
             {
-                var resp = EventsService.DequeueDataChangeEvents(this.BatchSize);
-                changedPeople = resp.Item;
-                if (changedPeople == null)
-                    changedPeople = new EventBroker.EventsService.DataChangeEventInfo[0];
-
-                using (var dataContext = new Data.EventBrokerDataContext())
-                {
-                    var dbObjects = Array.ConvertAll<EventsService.DataChangeEventInfo, Data.DataChangeEvent>(
-                        changedPeople,
-                        p => new Data.DataChangeEvent()
-                        {
-                            DataChangeEventId = p.EventId,
-                            DueDate = p.ReceivedDate,
-                            PersonUuid = p.PersonUuid,
-                            PersonRegistrationId = p.PersonRegistrationId,
-                            ReceivedDate = DateTime.Now,
-                            //ReceivedOrder = (Identity column)
-                        }
-                    );
-
-                    dataContext.DataChangeEvents.InsertAllOnSubmit(dbObjects);
-                    dataContext.SubmitChanges();
-                }
+                var types = new Type[] { 
+                    typeof(BirthdateEventEnqueuer),
+                    typeof(DataChangeEventPuller),
+                    typeof(CriteriaSubscriptionPersonPopulator),
+                    typeof(DataChangeEventEnqueuer),
+                    typeof(NotificationSender),
+                    typeof(CPRDirectDownloader),
+                    typeof(CPRDirectExtractor),
+                    typeof(BudgetChecker),
+                    typeof(QueueExecutionManager),
+                    typeof(DprDiversionManager)
+                };
+                return types
+                    .Select(t => new TasksConfigurationSection.TaskElement() { Type = t })
+                    .ToArray();
             }
-            // Stop if received less changes than requested 
-            // == Continue as long as you get the same number of changes as requested
-            while (changedPeople.Length == this.BatchSize);
+        }
+
+        [Test]
+        public void Create_XTimes_NoBlocking([Values(1, 10, 100, 1000)]int count)
+        {
+            var services = new List<BackendService>();
+            for (int i = 0; i < count; i++)
+            {
+                var service = new BackendService() { TaskFactory = new TaskFactoryStub() };
+                service.StartTasks();
+                services.Add(service);
+            }
+            System.Threading.Thread.Sleep(10);
+            foreach (var service in services)
+            {
+                service.StopTasks();
+                service.Dispose();
+            }
         }
     }
 }

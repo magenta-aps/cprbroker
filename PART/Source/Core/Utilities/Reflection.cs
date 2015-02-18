@@ -74,9 +74,17 @@ namespace CprBroker.Utilities
             return null;
         }
 
+        public static object CreateInstance(string typeName)
+        {
+            Type t = Type.GetType(typeName);
+            return CreateInstance(t);
+        }
+
         public static object CreateInstance(Type type)
         {
-            return type.InvokeMember(null, System.Reflection.BindingFlags.CreateInstance | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance, null, null, null);
+            if (type != null)
+                return type.InvokeMember(null, System.Reflection.BindingFlags.CreateInstance | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance, null, null, null);
+            return null;
         }
 
         public static object ChangeNamespace(Type targetType, object sourceObject)
@@ -142,5 +150,14 @@ namespace CprBroker.Utilities
             }
             return path;
         }
+
+        public static string IdentifyableName(this Type type)
+        {
+            return string.Format("{0}, {1}",
+                type.FullName,
+                new AssemblyName(type.Assembly.FullName).Name);
+        }
     }
+
+
 }

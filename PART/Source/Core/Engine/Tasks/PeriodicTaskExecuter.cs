@@ -23,9 +23,6 @@
  *
  * Contributor(s):
  * Beemen Beshara
- * Niels Elgaard Larsen
- * Leif Lodahl
- * Steen Deth
  *
  * The code is currently governed by IT- og Telestyrelsen / Danish National
  * IT and Telecom Agency
@@ -67,6 +64,14 @@ namespace CprBroker.Engine.Tasks
             get { return false; }
         }
 
+        public int BatchSize { get; set; }
+
+        public TimeSpan TimerInterval
+        {
+            get { return TimeSpan.FromMilliseconds(ActionTimer.Interval); }
+            set { ActionTimer.Interval = value.TotalMilliseconds; }
+        }
+
         public PeriodicTaskExecuter()
         {
             InitializeComponent();
@@ -103,7 +108,6 @@ namespace CprBroker.Engine.Tasks
         public void Start()
         {
             OnBeforeStart();
-            SetActionTimerInterval();
             ActionTimer.Start();
         }
 
@@ -117,11 +121,6 @@ namespace CprBroker.Engine.Tasks
             OnAfterStop();
         }
 
-        void SetActionTimerInterval()
-        {
-            ActionTimer.Interval = this.CalculateActionTimerInterval(TimeSpan.FromMilliseconds(ActionTimer.Interval)).TotalMilliseconds;
-        }
-
         void ActionTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
             if (SyncObject.WaitOne(1))
@@ -131,7 +130,6 @@ namespace CprBroker.Engine.Tasks
                     BrokerContext.Initialize(Constants.EventBrokerApplicationToken.ToString(), Constants.UserToken);
                     if (LogTimerEvents)
                         CprBroker.Engine.Local.Admin.LogSuccess(string.Format("{0} : {1}", TextMessages.TimerEventStarted, this.GetType()));
-                    SetActionTimerInterval();
 
                     try
                     {
@@ -150,11 +148,6 @@ namespace CprBroker.Engine.Tasks
                     SyncObject.Set();
                 }
             }
-        }
-
-        protected virtual TimeSpan CalculateActionTimerInterval(TimeSpan currentInterval)
-        {
-            return currentInterval;
         }
 
         protected virtual void PerformTimerAction()

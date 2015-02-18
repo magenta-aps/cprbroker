@@ -50,16 +50,6 @@ namespace CprBroker.Tests.DBR
         {
             public class DprDiversionManagerStub : DprDiversionManager
             {
-                protected override TimeSpan CalculateActionTimerInterval(TimeSpan currentInterval)
-                {
-                    var ms = TimeSpan.FromMilliseconds(1);
-
-                    if (currentInterval == ms)
-                        return TimeSpan.FromSeconds(60);
-                    else
-                        return ms;
-                }
-
                 public bool PerformTimerAction_Called = false;
                 protected override void PerformTimerAction()
                 {

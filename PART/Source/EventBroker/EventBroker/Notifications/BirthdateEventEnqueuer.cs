@@ -58,8 +58,6 @@ namespace CprBroker.EventBroker.Notifications
     /// </summary>
     public partial class BirthdateEventEnqueuer : CprBrokerEventEnqueuer
     {
-        public int BatchSize = 1000;
-
         public BirthdateEventEnqueuer()
             : base()
         {
@@ -71,18 +69,6 @@ namespace CprBroker.EventBroker.Notifications
         {
             container.Add(this);
             InitializeComponent();
-        }
-
-        protected override TimeSpan CalculateActionTimerInterval(TimeSpan currentInterval)
-        {
-            DateTime endToday = DateTime.Today.AddDays(1);
-
-            // Take care of the case if service is started at the very end of a day
-            TimeSpan interval = endToday - DateTime.Now;
-            if (interval < TimeSpan.FromMinutes(1))
-                interval = TimeSpan.FromMinutes(1);
-
-            return interval;
         }
 
         protected override void PerformTimerAction()
