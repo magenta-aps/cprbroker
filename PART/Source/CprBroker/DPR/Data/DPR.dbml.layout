@@ -110,21 +110,21 @@
         <elementListCompartment Id="f23b0540-7270-4ef5-b45e-34d16878f3d1" absoluteBounds="9.14, 16.085, 1.9700000000000002, 2.5570068359375" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(7.5 : 4.15625); (6.25 : 4.15625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(7.5 : 4.15625); (6.25 : 4.15625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/DPRDataContext/PersonTotal/PersonTotal_PersonName" />
       <nodes>
         <classShapeMoniker Id="e41857ad-de04-40ac-b603-8b733e41b7d7" />
         <classShapeMoniker Id="ad4c5d61-dbfb-400a-b829-0da01f27860b" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(7.5 : 0.96875); (6.39583333333333 : 0.968749999999999 : JumpStart); (6.22916666666667 : 0.96875 : JumpEnd); (4.625 : 0.96875)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(7.5 : 0.96875); (6.39583333333333 : 0.968749999999999 : JumpStart); (6.22916666666667 : 0.96875 : JumpEnd); (4.625 : 0.96875)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/DPRDataContext/PersonTotal/PersonTotal_Child" />
       <nodes>
         <classShapeMoniker Id="e41857ad-de04-40ac-b603-8b733e41b7d7" />
         <classShapeMoniker Id="66e6d696-3081-45e3-8a0c-503ca6c44dad" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(8.5 : 0.625); (8.5 : 0.5625); (6.3125 : 0.5625); (6.3125 : 2.0625); (2.84375 : 2.0625); (2.84375 : 4.25080485026042); (2.75 : 4.25080485026042)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(8.5 : 0.625); (8.5 : 0.5625); (6.3125 : 0.5625); (6.3125 : 2.0625); (2.84375 : 2.0625); (2.84375 : 4.25080485026042); (2.75 : 4.25080485026042)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/DPRDataContext/PersonTotal/PersonTotal_CivilStatus" />
       <nodes>
         <classShapeMoniker Id="e41857ad-de04-40ac-b603-8b733e41b7d7" />
@@ -138,7 +138,7 @@
         <classShapeMoniker Id="417a32f9-d71c-4d19-b114-a7677b90d466" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(7.5 : 7.23159912109375); (6.375 : 7.23159912109375)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(7.5 : 7.23159912109375); (6.375 : 7.23159912109375)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/DPRDataContext/PersonTotal/PersonTotal_Nationality" />
       <nodes>
         <classShapeMoniker Id="e41857ad-de04-40ac-b603-8b733e41b7d7" />
@@ -172,21 +172,21 @@
         <elementListCompartment Id="133c0645-f445-40a6-bb68-a649cef102c8" absoluteBounds="0.515, 0.96, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(7.5 : 9.55370198567708); (0.59375 : 9.55370198567708); (0.59375 : 2.65549967447917)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(7.5 : 9.55370198567708); (0.59375 : 9.55370198567708); (0.59375 : 2.65549967447917)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/DPRDataContext/PersonTotal/PersonTotal_Relation" />
       <nodes>
         <classShapeMoniker Id="e41857ad-de04-40ac-b603-8b733e41b7d7" />
         <classShapeMoniker Id="506637ad-9e0d-4289-8885-b213d6e2ee48" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(7.5 : 9.39305047851563); (0.6250025 : 9.39305047851563); (0.6250025 : 2.65549967447917)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(7.5 : 9.39305047851563); (0.6250025 : 9.39305047851563); (0.6250025 : 2.65549967447917)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/DPRDataContext/PersonTotal/PersonTotal_Relation1" />
       <nodes>
         <classShapeMoniker Id="e41857ad-de04-40ac-b603-8b733e41b7d7" />
         <classShapeMoniker Id="506637ad-9e0d-4289-8885-b213d6e2ee48" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(8.5 : 12.2032698567708); (8.5 : 12.875); (11.375 : 12.875); (11.375 : 16.7027498372396); (11.75 : 16.7027498372396)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(8.5 : 12.2032698567708); (8.5 : 12.875); (11.375 : 12.875); (11.375 : 16.7027498372396); (11.75 : 16.7027498372396)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/DPRDataContext/PersonTotal/PersonTotal_ParentalAuthority" />
       <nodes>
         <classShapeMoniker Id="e41857ad-de04-40ac-b603-8b733e41b7d7" />

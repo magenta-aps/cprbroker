@@ -97,9 +97,9 @@
       <Association Name="PersonTotal_Separation" Member="Separations" ThisKey="PNR" OtherKey="PNR" Type="Separation" />
       <Association Name="PersonTotal_Departure" Member="Departures" ThisKey="PNR" OtherKey="PNR" Type="Departure" />
       <Association Name="PersonTotal_ContactAddress" Member="ContactAddress" ThisKey="PNR" OtherKey="PNR" Type="ContactAddress" Cardinality="One" />
+      <Association Name="PersonTotal_ParentalAuthority" Member="ParentalAuthorities" ThisKey="PNR" OtherKey="ChildPNR" Type="ParentalAuthority" />
       <Association Name="PersonTotal_Relation" Member="ParentalAuthorityHolders_Relations" ThisKey="PNR" OtherKey="PNR" Type="Relation" />
       <Association Name="PersonTotal_Relation1" Member="ChildrenInCustody_Relations" ThisKey="PNR" OtherKey="RelationPNR" Type="Relation" />
-      <Association Name="PersonTotal_ParentalAuthority" Member="ParentalAuthorities" ThisKey="PNR" OtherKey="ChildPNR" Type="ParentalAuthority" />
     </Type>
   </Table>
   <Table Name="dbo.DTCIV" Member="CivilStatus">
@@ -231,7 +231,7 @@
   </Table>
   <Table Name="dbo.DTFORALDREMYND" Member="ParentalAuthorities">
     <Type Name="ParentalAuthority">
-      <Column Name="ChildPNR" Type="System.Decimal" DbType="Decimal(11,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="PNR" Member="ChildPNR" Storage="_ChidPNR" Type="System.Decimal" DbType="Decimal(11,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="RELTYP" Member="RelationType" Type="System.Decimal" DbType="Decimal(4,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="AJFDTO" Member="CprUpdateDate" Type="System.Decimal" DbType="Decimal(13,0) NOT NULL" CanBeNull="false" />
       <Column Name="START_MYNKOD" Member="CustodyStartAuthorityCode" Type="System.Decimal" DbType="Decimal(5,0) NOT NULL" CanBeNull="false" />
