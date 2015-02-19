@@ -170,9 +170,9 @@ namespace CprBroker.Providers.CPRDirect
 
         static string NormalizeAuthorityCode(string code)
         {
-            while (code.Length < 4)
+            if (code != null)
             {
-                code = "0" + code;
+                code = code.PadLeft(4, '0');
             }
             return code;
         }
