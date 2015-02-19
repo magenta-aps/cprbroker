@@ -19,6 +19,7 @@ CREATE TABLE [dbo].[EventNotification](
 	[NotificationDate] [datetime] NULL,
 	[Succeeded] [bit] NULL,
 	[IsLastNotification] [bit] NULL,
+	[AttemptCount] [int] NULL,
     CONSTRAINT [PK_EventNotification] PRIMARY KEY CLUSTERED ([EventNotificationId] ASC),
     CONSTRAINT [FK_EventNotification_Subscription] FOREIGN KEY([SubscriptionId]) REFERENCES [dbo].[Subscription] ([SubscriptionId]) ON UPDATE CASCADE ON DELETE CASCADE
 )

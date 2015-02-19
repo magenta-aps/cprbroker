@@ -59,6 +59,14 @@ UPDATE Subscription SET Ready = 1 WHERE Ready IS NULL AND LastCheckedUUID IS NUL
 GO
 
 -----------------------------------------------------------------------------------------------
+------------------------------   New column EventNotification.AttemptCount  -------------------------------
+-----------------------------------------------------------------------------------------------
+
+IF NOT EXISTS (SELECT * FROM sys.columns WHERE name = 'AttemptCount' AND object_id = OBJECT_ID('EventNotification'))
+	ALTER TABLE EventNotification ADD AttemptCount INT NOT NULL DEFAULT 0
+GO
+
+-----------------------------------------------------------------------------------------------
 --------------------   Drop default for  BirthdateSubscription.SubscriptionId -----------------
 -----------------------------------------------------------------------------------------------
 
