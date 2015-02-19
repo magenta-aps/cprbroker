@@ -102,8 +102,8 @@ namespace CprBroker.Tests.DPR
             [Test]
             public void CopyChanges_Two_Two()
             {
-                CprBroker.Engine.BrokerContext.Initialize(CprBroker.Utilities.Constants.BaseApplicationToken.ToString(), ""); 
-                var source = new DprEnqueuer();
+                CprBroker.Engine.BrokerContext.Initialize(CprBroker.Utilities.Constants.BaseApplicationToken.ToString(), "");
+                var source = new DprEnqueuer() { BatchSize = 1000 };
                 var prov = new DprDatabaseDataProvider() { ConnectionString = Databases.Last().ConnectionString };
                 using (var dataContext = new Providers.DPR.Queues.UpdatesDataContext(prov.ConnectionString))
                 {
