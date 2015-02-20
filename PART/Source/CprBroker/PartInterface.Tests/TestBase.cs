@@ -100,19 +100,46 @@ namespace CprBroker.Tests.PartInterface
         {
             var log = ConfigManager.Current.LoggingSettings;
 
-            log.TraceListeners.Clear();
-            log.TraceListeners.Add(new TraceListenerData()
-            {
-                Name = "CprDatabase",
-                ListenerDataType = typeof(CustomTraceListenerData),
-                Type = typeof(CprBroker.Engine.Trace.LocalTraceListener)
-            });
-
             log.SpecialTraceSources.AllEventsTraceSource.TraceListeners.Clear();
             log.SpecialTraceSources.AllEventsTraceSource.TraceListeners.Add(new TraceListenerReferenceData()
             {
                 Name = "CprDatabase"
             });
+            
+            log.SpecialTraceSources.ErrorsTraceSource.TraceListeners.Clear();
+            log.SpecialTraceSources.ErrorsTraceSource.TraceListeners.Add(new TraceListenerReferenceData()
+            {
+                Name = "FlatFile"
+            }); 
+            
+            log.TraceListeners.Clear();
+            log.TraceListeners.Add(new CustomTraceListenerData()
+            {
+                Name = "CprDatabase",                
+                Type = typeof(CprBroker.Engine.Trace.LocalTraceListener),
+                ListenerDataType = typeof(CustomTraceListenerData),
+            });
+
+            
+            log.TraceListeners.Add(new FlatFileTraceListenerData()
+            {
+                Name = "FlatFile",
+                Type = typeof(CprBroker.Engine.Trace.LocalTraceListener),
+                ListenerDataType = typeof(FlatFileTraceListenerData),
+                Formatter = "Text Formatter",
+                FileName = "C:\\CPR Broker.log",
+                Header = "___________________________________________"
+            });
+
+
+            log.Formatters.Clear();
+            log.Formatters.Add(new TextFormatterData() 
+            {
+                Name= "Text Formatter",
+                Type=typeof(Microsoft.Practices.EnterpriseLibrary.Logging.Formatters.TextFormatter),
+                Template = "Timestamp: {timestamp}&#xD;&#xA;Message: {message}&#xD;&#xA;Category: {category}&#xD;&#xA;Priority: {priority}&#xD;&#xA;EventId: {eventid}&#xD;&#xA;Severity: {severity}&#xD;&#xA;Title:{title}&#xD;&#xA;Machine: {machine}&#xD;&#xA;Application Domain: {appDomain}&#xD;&#xA;Process Id: {processId}&#xD;&#xA;Process Name: {processName}&#xD;&#xA;Win32 Thread Id: {win32ThreadId}&#xD;&#xA;Thread Name: {threadName}&#xD;&#xA;Extended Properties: {dictionary({key} - {value}&#xD;&#xA;)}"
+            });
+            
 
             ConfigManager.Current.Commit();
         }

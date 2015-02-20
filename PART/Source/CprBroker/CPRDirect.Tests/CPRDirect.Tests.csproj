@@ -162,9 +162,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="loggingConfiguration.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Resources\4357.txt" />
     <None Include="Resources\U12170-P opgavenr 110901 ADRNVN FE_FixedLength" />
     <None Include="App.config" />
