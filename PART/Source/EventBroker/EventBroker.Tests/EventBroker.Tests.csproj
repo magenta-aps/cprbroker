@@ -109,9 +109,6 @@
     <Compile Include="Utils.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Backend\Backend.csproj">
       <Project>{AA6A8258-ED37-44F4-A8F4-5253D1A2B1E0}</Project>
       <Name>Backend</Name>
