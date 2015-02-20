@@ -131,7 +131,7 @@ namespace CprBroker.Utilities.Config
                     if (_TasksSection == null)
                     {
                         _TasksSection = new TasksConfigurationSection();
-                        _DataProvidersConfigurationSectionGroup.Sections.Add(DataProvidersConfigurationSection.SectionName, _TasksSection);
+                        _CurrentConfiguration.Sections.Add(TasksConfigurationSection.SectionName, _TasksSection);
                         _CurrentConfiguration.Save();
                     }
                 }
