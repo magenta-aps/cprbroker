@@ -13,8 +13,14 @@ namespace CprBroker.EventBroker.Tests
     [TestFixture]
     public class DataFlowTest : TestBase
     {
+        [TestFixtureSetUp]
+        public void InitBackendTasks()
+        {
+            base.InitBackendTasks(TimeSpan.FromMilliseconds(100));
+        }
+
         [Test]
-        public void DataChange_SubForAll_Enqueued()
+        public void DataChange_SubscriptionForAll_Sent()
         {
             using (var dataContext = new EventBrokerDataContext(EventDatabase.ConnectionString))
             {
@@ -22,10 +28,13 @@ namespace CprBroker.EventBroker.Tests
                 var change = AddChanges(dataContext, 1);
                 dataContext.SubmitChanges();
             }
-            var backEnd = new BackendService();
-            backEnd.StartTasks();
+            using (var backEnd = new BackendService())
+            {
+                backEnd.StartTasks();
 
-            Thread.Sleep(1000);
+                Thread.Sleep(2000);                
+            }
+
             using (var dataContext = new EventBrokerDataContext(EventDatabase.ConnectionString))
             {
                 var notif = dataContext.EventNotifications.SingleOrDefault();
