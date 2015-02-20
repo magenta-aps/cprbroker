@@ -80,6 +80,11 @@ namespace CprBroker.Utilities.Config
                     return elm.TypeName;
             }
 
+            public void Clear()
+            {
+                BaseClear();
+            }
+
             public void Add(TaskElement element)
             {
                 BaseAdd(element);

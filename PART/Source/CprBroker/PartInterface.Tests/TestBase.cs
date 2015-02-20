@@ -105,22 +105,22 @@ namespace CprBroker.Tests.PartInterface
             {
                 Name = "CprDatabase"
             });
-            
+
             log.SpecialTraceSources.ErrorsTraceSource.TraceListeners.Clear();
             log.SpecialTraceSources.ErrorsTraceSource.TraceListeners.Add(new TraceListenerReferenceData()
             {
                 Name = "FlatFile"
-            }); 
-            
+            });
+
             log.TraceListeners.Clear();
             log.TraceListeners.Add(new CustomTraceListenerData()
             {
-                Name = "CprDatabase",                
+                Name = "CprDatabase",
                 Type = typeof(CprBroker.Engine.Trace.LocalTraceListener),
                 ListenerDataType = typeof(CustomTraceListenerData),
             });
 
-            
+
             log.TraceListeners.Add(new FlatFileTraceListenerData()
             {
                 Name = "FlatFile",
@@ -133,13 +133,42 @@ namespace CprBroker.Tests.PartInterface
 
 
             log.Formatters.Clear();
-            log.Formatters.Add(new TextFormatterData() 
+            log.Formatters.Add(new TextFormatterData()
             {
-                Name= "Text Formatter",
-                Type=typeof(Microsoft.Practices.EnterpriseLibrary.Logging.Formatters.TextFormatter),
+                Name = "Text Formatter",
+                Type = typeof(Microsoft.Practices.EnterpriseLibrary.Logging.Formatters.TextFormatter),
                 Template = "Timestamp: {timestamp}&#xD;&#xA;Message: {message}&#xD;&#xA;Category: {category}&#xD;&#xA;Priority: {priority}&#xD;&#xA;EventId: {eventid}&#xD;&#xA;Severity: {severity}&#xD;&#xA;Title:{title}&#xD;&#xA;Machine: {machine}&#xD;&#xA;Application Domain: {appDomain}&#xD;&#xA;Process Id: {processId}&#xD;&#xA;Process Name: {processName}&#xD;&#xA;Win32 Thread Id: {win32ThreadId}&#xD;&#xA;Thread Name: {threadName}&#xD;&#xA;Extended Properties: {dictionary({key} - {value}&#xD;&#xA;)}"
             });
-            
+
+
+            ConfigManager.Current.Commit();
+        }
+
+        public virtual void InitBackendTasks(TimeSpan? forceRunEvery = null)
+        {
+            var section = ConfigManager.Current.TasksSection;
+            section.KnownTypes.Clear();
+
+            section.KnownTypes.Add(new TasksConfigurationSection.TaskElement() { Type = typeof(CprBroker.EventBroker.Notifications.BirthdateEventEnqueuer), RunEvery = TimeSpan.FromDays(1), BatchSize = 1000 });
+            section.KnownTypes.Add(new TasksConfigurationSection.TaskElement() { Type = typeof(CprBroker.EventBroker.Notifications.DataChangeEventPuller), BatchSize = 100 });
+            section.KnownTypes.Add(new TasksConfigurationSection.TaskElement() { Type = typeof(CprBroker.EventBroker.Notifications.CriteriaSubscriptionPersonPopulator), BatchSize = 200 });
+            section.KnownTypes.Add(new TasksConfigurationSection.TaskElement() { Type = typeof(CprBroker.EventBroker.Notifications.DataChangeEventEnqueuer), BatchSize = 100 });
+
+            section.KnownTypes.Add(new TasksConfigurationSection.TaskElement() { Type = typeof(CprBroker.EventBroker.Notifications.NotificationSender), BatchSize = 10 });
+            section.KnownTypes.Add(new TasksConfigurationSection.TaskElement() { Type = typeof(CprBroker.EventBroker.Notifications.CPRDirectDownloader), RunEvery = TimeSpan.FromHours(1) });
+            section.KnownTypes.Add(new TasksConfigurationSection.TaskElement() { Type = typeof(CprBroker.EventBroker.Notifications.CPRDirectExtractor), BatchSize = 10000 });
+            section.KnownTypes.Add(new TasksConfigurationSection.TaskElement() { Type = typeof(CprBroker.EventBroker.Notifications.BudgetChecker), RunEvery = TimeSpan.FromHours(1) });
+            section.KnownTypes.Add(new TasksConfigurationSection.TaskElement() { Type = typeof(CprBroker.Engine.Tasks.QueueExecutionManager) });
+            section.KnownTypes.Add(new TasksConfigurationSection.TaskElement() { Type = typeof(CprBroker.DBR.DprDiversionManager) });
+            section.KnownTypes.Add(new TasksConfigurationSection.TaskElement() { Type = typeof(CprBroker.Providers.DPR.Queues.DprEnqueuer), RunEvery = TimeSpan.FromSeconds(30) });
+
+            if (forceRunEvery.HasValue)
+            {
+                foreach (TasksConfigurationSection.TaskElement taskElement in section.KnownTypes)
+                {
+                    taskElement.RunEvery = forceRunEvery.Value;
+                }
+            }
 
             ConfigManager.Current.Commit();
         }

@@ -104,6 +104,14 @@
       <Project>{EBE4DA5E-1E87-4071-B8A3-EC6096B35B31}</Project>
       <Name>CprBrokerWixInstallers</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DBR\DBR.csproj">
+      <Project>{f6e48545-473f-4133-90f7-b93a4612f50f}</Project>
+      <Name>DBR</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DPR\DPR.csproj">
+      <Project>{f98e5179-88e3-404e-83be-54f0a3e7dbc0}</Project>
+      <Name>DPR</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PartInterface\PartInterface.csproj">
       <Project>{DA42D8BB-24D3-4416-A0BD-B98857F249AD}</Project>
       <Name>PartInterface</Name>
