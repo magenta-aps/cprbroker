@@ -125,7 +125,7 @@ namespace CprBroker.Tests.PartInterface
         }
 
         [TestFixture]
-        public class InsertPerson
+        public class InsertPerson : TestBase
         {
             [Test]
             public void InsertPerson_New_CorrectOutput()
@@ -146,13 +146,49 @@ namespace CprBroker.Tests.PartInterface
         }
 
         [TestFixture]
-        public class MergePersonRegistration
+        public class MergePersonRegistration : TestBase
         {
+            void AddPersons(int count)
+            {
+                using (var dataContext = new PartDataContext())
+                {
+                    var arOio = UnikIdType.Create(Guid.NewGuid());
+                    var ar = ActorRef.FromXmlType(arOio);
+                    dataContext.ActorRefs.InsertOnSubmit(ar);
+                    dataContext.SubmitChanges();
+
+                    for (int i = 0; i < count; i++)
+                    {
+                        var p = new Person() { UserInterfaceKeyText = Utilities.RandomCprNumber(), UUID = Guid.NewGuid() };
+                        dataContext.Persons.InsertOnSubmit(p);
+
+                        
+
+                        var pr = new PersonRegistration()
+                        {
+                            PersonRegistrationId = Guid.NewGuid(),
+                            BrokerUpdateDate = DateTime.Now,
+                            RegistrationDate = DateTime.Now,
+                            LifecycleStatusId = 1,
+                            ActorRef = ar,
+                        };
+                        pr.SetContents(new RegistreringType1() 
+                        { 
+                            Tidspunkt = new TidspunktType() { Item = DateTime.Now },
+                            AktoerRef = arOio,
+                        });
+                        p.PersonRegistrations.Add(pr);
+                        dataContext.PersonRegistrations.InsertOnSubmit(pr);
+                    }
+                    dataContext.SubmitChanges();
+                }
+            }
             Guid? personRegistrationId;
             [Test]
             public void MergePersonRegistration_FromExisting_False(
                 [Random(0, 99, 10)] int index)
             {
+                AddPersons(110);
                 using (var dataContext = new PartDataContext())
                 {
                     var dbPerson = dataContext.PersonRegistrations.Where(pr => pr.Person != null).Skip(index).First();
