@@ -97,7 +97,7 @@ namespace CprBroker.EventBroker.Notifications
             }
             // Stop if received less changes than requested 
             // == Continue as long as you get the same number of changes as requested
-            while (sourceEvents.Length == this.BatchSize);
+            while (this.BatchSize > 0 && sourceEvents.Length == this.BatchSize);
         }
     }
 }

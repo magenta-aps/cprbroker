@@ -58,6 +58,10 @@ namespace CprBroker.Tests.EventBroker
 
             public class DataChangeEventPullerStub : DataChangeEventPuller
             {
+                public DataChangeEventPullerStub()
+                {
+                    BatchSize = 1000;
+                }
                 public void PerformTimeAction_Public()
                 {
                     base.PerformTimerAction();
