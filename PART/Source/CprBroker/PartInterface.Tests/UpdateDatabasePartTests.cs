@@ -57,7 +57,7 @@ namespace CprBroker.Tests.PartInterface
     namespace UpdateDatabase.Part.Tests
     {
         [TestFixture]
-        public class EnsurePersonExists
+        public class EnsurePersonExists : TestBase
         {
             [Test]
             public void EnsurePersonExists_New_Saved()
@@ -84,13 +84,27 @@ namespace CprBroker.Tests.PartInterface
                     Assert.NotNull(person);
                     Assert.AreEqual(pnr, person.UserInterfaceKeyText);
                 }
+            }
 
+            void AddTestPerson(int count)
+            {
+                using (var dataContext = new PartDataContext())
+                {
+                    for (int i = 0; i < count; i++)
+                    {
+                        var dataPerson = new Person() { UUID = Guid.NewGuid(), UserInterfaceKeyText = Utilities.RandomCprNumber() };
+                        dataContext.Persons.InsertOnSubmit(dataPerson);
+                    }
+                    dataContext.SubmitChanges();
+                }
             }
 
             [Test]
             public void EnsurePersonExists_Existing_Saved(
                 [Random(0, 99, 10)] int index)
             {
+                AddTestPerson(110);
+
                 using (var dataContext = new PartDataContext())
                 {
                     var dbPerson = dataContext.Persons.Skip(index).First();
