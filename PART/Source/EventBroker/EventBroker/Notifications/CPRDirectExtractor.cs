@@ -52,7 +52,6 @@ using CprBroker.Providers.CPRDirect;
 
 namespace CprBroker.EventBroker.Notifications
 {
-    [Obsolete]
     public class CPRDirectExtractor : CPRDirectIOExecuter
     {
         protected override void ExecuteCPRDirectTask(CPRDirectExtractDataProvider prov)
