@@ -156,6 +156,7 @@ namespace CprBroker.Installers
             {
                 // Exception is not important because we run this step in case the key container does not exist
             }
+            // TODO: Limit to only administrators ans the users that run the website (app pool, backend service user, etc)
             string[] users = new string[]
             {                
                 "AUTHENTICATED USERS"
