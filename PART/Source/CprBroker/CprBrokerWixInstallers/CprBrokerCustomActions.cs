@@ -425,8 +425,16 @@ namespace CprBrokerWixInstallers
                         ConfigSectionGroupName = Constants.DataProvidersSectionGroupName,
                         ConfigSectionEncryptionOptions = new ConfigSectionEncryptionOptions[]
                         {
-                            new ConfigSectionEncryptionOptions(){ SectionName = DataProviderKeysSection.SectionName, SectionType=typeof(DataProviderKeysSection), CustomMethod = config=>DataProviderKeysSection.RegisterInConfig(config)},
-                            new ConfigSectionEncryptionOptions(){ SectionName = DataProvidersConfigurationSection.SectionName, SectionType=typeof(DataProvidersConfigurationSection),CustomMethod =null}
+                            new ConfigSectionEncryptionOptions(){ 
+                                SectionName = DataProviderKeysSection.SectionName, 
+                                SectionType=typeof(DataProviderKeysSection), 
+                                CustomMethod = config=>DataProviderKeysSection.RegisterNewKeys(config)
+                            },
+                            new ConfigSectionEncryptionOptions(){ 
+                                SectionName = DataProvidersConfigurationSection.SectionName, 
+                                SectionType=typeof(DataProvidersConfigurationSection),
+                                CustomMethod =null
+                            }
                         }
                     }
                 }
@@ -447,8 +455,17 @@ namespace CprBrokerWixInstallers
                         ConfigSectionGroupName = Constants.DataProvidersSectionGroupName,
                         ConfigSectionEncryptionOptions = new ConfigSectionEncryptionOptions[]
                         {
-                            new ConfigSectionEncryptionOptions(){ SectionName = DataProviderKeysSection.SectionName, SectionType=typeof(DataProviderKeysSection), CustomMethod = config=>DataProviderKeysSection.RegisterInConfig(config)},
-                            new ConfigSectionEncryptionOptions(){ SectionName = DataProvidersConfigurationSection.SectionName, SectionType=typeof(DataProvidersConfigurationSection),CustomMethod =null}
+                            new ConfigSectionEncryptionOptions(){ 
+                                SectionName = DataProviderKeysSection.SectionName, 
+                                SectionType=typeof(DataProviderKeysSection), 
+                                // DO NOT create new encryption keys here
+                                //CustomMethod = config=>DataProviderKeysSection.RegisterNewKeys(config)
+                            },
+                            new ConfigSectionEncryptionOptions(){ 
+                                SectionName = DataProvidersConfigurationSection.SectionName, 
+                                SectionType=typeof(DataProvidersConfigurationSection),
+                                CustomMethod =null
+                            }
                         }
                     }
                 }

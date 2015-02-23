@@ -159,28 +159,30 @@ namespace CprBroker.Utilities.Config
             return rm;
         }
 
-        public static void RegisterInConfig(Configuration configFile)
+        public static void RegisterNewKeys(Configuration configFile)
         {
-            RijndaelManaged rm = new RijndaelManaged();
-            rm.GenerateKey();
-            rm.GenerateIV();
-
             ConfigurationSectionGroup group = configFile.SectionGroups[Constants.DataProvidersSectionGroupName];
             if (group == null)
             {
                 group = new ConfigurationSectionGroup();
                 configFile.SectionGroups.Add(Constants.DataProvidersSectionGroupName, group);
             }
+            System.Diagnostics.Debugger.Launch();
+            var section = group.Sections[SectionName] as DataProviderKeysSection;
+            if (section == null)
+            {
+                section = new DataProviderKeysSection();
+                group.Sections.Add(SectionName, section);
+            }
 
-            try { group.Sections.Remove(SectionName); }
-            catch { }
-
-            DataProviderKeysSection section = new DataProviderKeysSection();
+            RijndaelManaged rm = new RijndaelManaged();
+            rm.GenerateKey();
+            rm.GenerateIV();
 
             section.IVString = Strings.SerializeObject(rm.IV);
             section.KeyString = Strings.SerializeObject(rm.Key);
 
-            group.Sections.Add(SectionName, section);
+
 
             configFile.Save();
         }
