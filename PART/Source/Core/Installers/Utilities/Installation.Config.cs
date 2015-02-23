@@ -68,34 +68,13 @@ namespace CprBroker.Installers
     public static partial class Installation
     {
         #region Generic
-        
+
         public static Configuration OpenConfigFile(string configFilePath)
         {
             var map = new ExeConfigurationFileMap();
             map.ExeConfigFilename = configFilePath;
             Configuration configuration = ConfigurationManager.OpenMappedExeConfiguration(map, ConfigurationUserLevel.None);
             return configuration;
-        }
-
-        /// <summary>
-        /// Sets the connection string value in the given config file
-        /// </summary>
-        /// <param name="installer"></param>
-        /// <param name="configFilePath"></param>
-        /// <param name="connectionString"></param>
-        public static void SetConnectionStringInConfigFile(string configFilePath, string name, string connectionString)
-        {
-            var configuration = OpenConfigFile(configFilePath);
-            System.Configuration.ConnectionStringsSection sec = configuration.GetSection("connectionStrings") as ConnectionStringsSection;
-            if (sec.ConnectionStrings[name] == null)
-            {
-                sec.ConnectionStrings.Add(new ConnectionStringSettings(name, connectionString));
-            }
-            else
-            {
-                sec.ConnectionStrings[name].ConnectionString = connectionString;
-            }
-            configuration.Save();
         }
 
         public static XmlNode RemoveSectionNode(string configFileName, string nodeName)
@@ -112,32 +91,26 @@ namespace CprBroker.Installers
             return node;
         }
 
-        private static XmlNode AppendChildNodeIfNotExists(string nodeName, string existingXPath, XmlNode parentNode)
-        {
-            XmlNode newNode = null;
-
-            // Search for existing node
-            if (!string.IsNullOrEmpty(existingXPath))
-                newNode = parentNode.SelectSingleNode(existingXPath);
-
-            // If not found, create a new one
-            if (newNode == null)
-            {
-                newNode = parentNode.OwnerDocument.CreateElement(nodeName);
-                parentNode.AppendChild(newNode);
-            }
-            return newNode;
-        }
-
         public static void AddConfigSectionDefinition(string configFilePath, string groupName, string sectionName, Type sectionType)
         {
-            var groupPath = "//sectionGroup[@name='" + groupName + "']";
+            var groupDefPath = "//sectionGroup[@name='" + groupName + "']";
+
+            var doc = new XmlDocument();
+            doc.Load(configFilePath);
+            var groupDefNode = doc.SelectSingleNode(groupDefPath);
+
+            if (groupDefNode == null)
+            {
+                var groupDefAttr = new Dictionary<string, string>();
+                groupDefAttr["name"] = groupName;
+                AddSectionNode("sectionGroup", groupDefAttr, configFilePath, "//configSections");
+            }
 
             var attributes = new Dictionary<string, string>();
             attributes["name"] = sectionName;
             attributes["type"] = sectionType.AssemblyQualifiedName;
 
-            AddSectionNode("section", attributes, configFilePath, groupPath);
+            AddSectionNode("section", attributes, configFilePath, groupDefPath);
         }
 
         public static bool AddSectionNode(string nodeName, Dictionary<string, string> attributes, string configFileName, string parentNodeXPath)
@@ -169,35 +142,21 @@ namespace CprBroker.Installers
             return false;
         }
 
-        public static void SetApplicationSettingInConfigFile(string configFileName, Type settingsType, string settingName, string value)
+        private static XmlNode AppendChildNodeIfNotExists(string nodeName, string existingXPath, XmlNode parentNode)
         {
-            SetApplicationSettingInConfigFile(configFileName, settingsType.FullName, settingName, value);
-        }
+            XmlNode newNode = null;
 
-        public static void SetApplicationSettingInConfigFile(string configFileName, string settingsTypeName, string settingName, string value)
-        {
-            var conf = OpenConfigFile(configFileName);
-            var applicationSettings = conf.SectionGroups["applicationSettings"] as ApplicationSettingsGroup;
-            if (applicationSettings == null)
+            // Search for existing node
+            if (!string.IsNullOrEmpty(existingXPath))
+                newNode = parentNode.SelectSingleNode(existingXPath);
+
+            // If not found, create a new one
+            if (newNode == null)
             {
-                applicationSettings = new ApplicationSettingsGroup();
-                conf.SectionGroups.Add("applicationSettings", applicationSettings);
+                newNode = parentNode.OwnerDocument.CreateElement(nodeName);
+                parentNode.AppendChild(newNode);
             }
-            var configSettings = applicationSettings.Sections[settingsTypeName] as ClientSettingsSection;
-            if (configSettings == null)
-            {
-                configSettings = new ClientSettingsSection();
-                applicationSettings.Sections.Add(settingsTypeName, configSettings);
-            }
-            var settingElement = configSettings.Settings.Get(settingName);
-            if (settingElement == null)
-            {
-                settingElement = new SettingElement(settingName, SettingsSerializeAs.String);
-            }
-            settingElement.Value.ValueXml = new XmlDocument().CreateNode(XmlNodeType.Element, "value", "");
-            settingElement.Value.ValueXml.InnerText = value;
-            configSettings.Settings.Add(settingElement);
-            conf.Save(ConfigurationSaveMode.Full);
+            return newNode;
         }
 
         private static XmlNode GetConfigNode(string nodePath, ref string configFilePath)
@@ -278,22 +237,82 @@ namespace CprBroker.Installers
 
         #endregion
 
+        #region Standard sections
+
+        /// <summary>
+        /// Sets the connection string value in the given config file
+        /// </summary>
+        /// <param name="installer"></param>
+        /// <param name="configFilePath"></param>
+        /// <param name="connectionString"></param>
+        public static void SetConnectionStringInConfigFile(string configFilePath, string name, string connectionString)
+        {
+            var configuration = OpenConfigFile(configFilePath);
+            System.Configuration.ConnectionStringsSection sec = configuration.GetSection("connectionStrings") as ConnectionStringsSection;
+            if (sec.ConnectionStrings[name] == null)
+            {
+                sec.ConnectionStrings.Add(new ConnectionStringSettings(name, connectionString));
+            }
+            else
+            {
+                sec.ConnectionStrings[name].ConnectionString = connectionString;
+            }
+            configuration.Save();
+        }
+
+        public static void SetApplicationSettingInConfigFile(string configFileName, Type settingsType, string settingName, string value)
+        {
+            SetApplicationSettingInConfigFile(configFileName, settingsType.FullName, settingName, value);
+        }
+
+        public static void SetApplicationSettingInConfigFile(string configFileName, string settingsTypeName, string settingName, string value)
+        {
+            var conf = OpenConfigFile(configFileName);
+            var applicationSettings = conf.SectionGroups["applicationSettings"] as ApplicationSettingsGroup;
+            if (applicationSettings == null)
+            {
+                applicationSettings = new ApplicationSettingsGroup();
+                conf.SectionGroups.Add("applicationSettings", applicationSettings);
+            }
+            var configSettings = applicationSettings.Sections[settingsTypeName] as ClientSettingsSection;
+            if (configSettings == null)
+            {
+                configSettings = new ClientSettingsSection();
+                applicationSettings.Sections.Add(settingsTypeName, configSettings);
+            }
+            var settingElement = configSettings.Settings.Get(settingName);
+            if (settingElement == null)
+            {
+                settingElement = new SettingElement(settingName, SettingsSerializeAs.String);
+            }
+            settingElement.Value.ValueXml = new XmlDocument().CreateNode(XmlNodeType.Element, "value", "");
+            settingElement.Value.ValueXml.InnerText = value;
+            configSettings.Settings.Add(settingElement);
+            conf.Save(ConfigurationSaveMode.Full);
+        }
+
+        #endregion
+
         #region CPR broker related
 
         public static void ResetDataProviderSectionDefinitions(string configFilePath)
         {
             var doc = new XmlDocument();
             doc.Load(configFilePath);
-            var groupPath = "//" + Utilities.Constants.DataProvidersSectionGroupName;
-
-            var groupNode = GetConfigNode(groupPath, ref configFilePath);
-            groupNode.RemoveAll();
-            doc.Save(configFilePath);
+            var groupDefPath = "//sectionGroup[@name='" + Utilities.Constants.DataProvidersSectionGroupName + "']";
+            var groupDefNode = doc.SelectSingleNode(groupDefPath);
+            if (groupDefNode != null)
+            {
+                var children = groupDefNode.ChildNodes.OfType<XmlNode>().ToArray();
+                foreach (var ch in children)
+                    groupDefNode.RemoveChild(ch);
+                doc.Save(configFilePath);
+            }
 
             AddConfigSectionDefinition(configFilePath, Utilities.Constants.DataProvidersSectionGroupName, DataProviderKeysSection.SectionName, typeof(DataProviderKeysSection));
             AddConfigSectionDefinition(configFilePath, Utilities.Constants.DataProvidersSectionGroupName, DataProvidersConfigurationSection.SectionName, typeof(DataProvidersConfigurationSection));
         }
-        
+
         public static void AddKnownDataProviderTypes(Type[] types, string configFilePath)
         {
             Array.ForEach<Type>(
