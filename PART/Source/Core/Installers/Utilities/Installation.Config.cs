@@ -67,6 +67,8 @@ namespace CprBroker.Installers
     /// </summary>
     public static partial class Installation
     {
+        #region Generic
+        
         public static Configuration OpenConfigFile(string configFilePath)
         {
             var map = new ExeConfigurationFileMap();
@@ -127,6 +129,17 @@ namespace CprBroker.Installers
             return newNode;
         }
 
+        public static void AddConfigSectionDefinition(string configFilePath, string groupName, string sectionName, Type sectionType)
+        {
+            var groupPath = "//sectionGroup[@name='" + groupName + "']";
+
+            var attributes = new Dictionary<string, string>();
+            attributes["name"] = sectionName;
+            attributes["type"] = sectionType.AssemblyQualifiedName;
+
+            AddSectionNode("section", attributes, configFilePath, groupPath);
+        }
+
         public static bool AddSectionNode(string nodeName, Dictionary<string, string> attributes, string configFileName, string parentNodeXPath)
         {
             return AddSectionNode(nodeName, attributes, null, configFileName, parentNodeXPath);
@@ -155,45 +168,6 @@ namespace CprBroker.Installers
             }
             return false;
         }
-
-        public static void ResetDataProviderSectionDefinitions(string configFilePath)
-        {
-            var doc = new XmlDocument();
-            doc.Load(configFilePath);
-            var groupPath = "//" + Utilities.Constants.DataProvidersSectionGroupName;
-
-            var groupNode = GetConfigNode(groupPath, ref configFilePath);
-            groupNode.RemoveAll();
-            doc.Save(configFilePath);
-
-            AddConfigSectionDefinition(configFilePath, Utilities.Constants.DataProvidersSectionGroupName, DataProviderKeysSection.SectionName, typeof(DataProviderKeysSection));
-            AddConfigSectionDefinition(configFilePath, Utilities.Constants.DataProvidersSectionGroupName, DataProvidersConfigurationSection.SectionName, typeof(DataProvidersConfigurationSection));
-        }
-
-        public static void AddConfigSectionDefinition(string configFilePath, string groupName, string sectionName, Type sectionType)
-        {
-            var groupPath = "//sectionGroup[@name='" + Utilities.Constants.DataProvidersSectionGroupName + "']";
-
-            var attributes = new Dictionary<string, string>();
-            attributes["name"] = sectionName;
-            attributes["type"] = sectionType.AssemblyQualifiedName;
-
-            AddSectionNode("section", attributes, configFilePath, groupPath);
-        }
-
-        public static void AddKnownDataProviderTypes(Type[] types, string configFilePath)
-        {
-            Array.ForEach<Type>(
-                types,
-                type =>
-                {
-                    var dic = new Dictionary<string, string>();
-                    dic["type"] = string.Format("{0}, {1}", type.FullName, type.Assembly.GetName().Name);
-                    CprBroker.Installers.Installation.AddSectionNode("add", dic, String.Format("add[contains(@type,'{0}')]", type.Name), configFilePath, "//dataProviders/knownTypes");
-                }
-            );
-        }
-
 
         public static void SetApplicationSettingInConfigFile(string configFileName, Type settingsType, string settingName, string value)
         {
@@ -301,6 +275,39 @@ namespace CprBroker.Installers
             targetNode.OwnerDocument.Save(toConfigFile);
             return true;
         }
+
+        #endregion
+
+        #region CPR broker related
+
+        public static void ResetDataProviderSectionDefinitions(string configFilePath)
+        {
+            var doc = new XmlDocument();
+            doc.Load(configFilePath);
+            var groupPath = "//" + Utilities.Constants.DataProvidersSectionGroupName;
+
+            var groupNode = GetConfigNode(groupPath, ref configFilePath);
+            groupNode.RemoveAll();
+            doc.Save(configFilePath);
+
+            AddConfigSectionDefinition(configFilePath, Utilities.Constants.DataProvidersSectionGroupName, DataProviderKeysSection.SectionName, typeof(DataProviderKeysSection));
+            AddConfigSectionDefinition(configFilePath, Utilities.Constants.DataProvidersSectionGroupName, DataProvidersConfigurationSection.SectionName, typeof(DataProvidersConfigurationSection));
+        }
+        
+        public static void AddKnownDataProviderTypes(Type[] types, string configFilePath)
+        {
+            Array.ForEach<Type>(
+                types,
+                type =>
+                {
+                    var dic = new Dictionary<string, string>();
+                    dic["type"] = string.Format("{0}, {1}", type.FullName, type.Assembly.GetName().Name);
+                    CprBroker.Installers.Installation.AddSectionNode("add", dic, String.Format("add[contains(@type,'{0}')]", type.Name), configFilePath, "//dataProviders/knownTypes");
+                }
+            );
+        }
+
+        #endregion
     }
 
 
