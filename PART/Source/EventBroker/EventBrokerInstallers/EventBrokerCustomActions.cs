@@ -263,14 +263,13 @@ namespace CprBroker.Installers.EventBrokerInstallers
                 ConfigurationUserLevel.None);
             var sourceSection = sourceConfig.Sections[TasksConfigurationSection.SectionName] as TasksConfigurationSection;
 
-            // Load service file
+            // Add section definition
+            Installation.AddConfigSectionDefinition(GetServiceExeConfigFullFileName(session), null, TasksConfigurationSection.SectionName, typeof(TasksConfigurationSection));
+
+            // Load service file            
             var targetConfig = ConfigurationManager.OpenExeConfiguration(GetServiceExeFullFileName(session));
             var targetSection = targetConfig.GetSection(TasksConfigurationSection.SectionName) as TasksConfigurationSection;
-            if (targetSection == null)
-            {
-                targetSection = new TasksConfigurationSection();
-                targetConfig.Sections.Add(TasksConfigurationSection.SectionName, targetSection);
-            }
+
             targetSection.KnownTypes.ImportDiffFrom(sourceSection);
             targetConfig.Save();
 
@@ -280,7 +279,6 @@ namespace CprBroker.Installers.EventBrokerInstallers
 
             return ActionResult.Success;
         }
-
 
     }
 }

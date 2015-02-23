@@ -93,24 +93,28 @@ namespace CprBroker.Installers
 
         public static void AddConfigSectionDefinition(string configFilePath, string groupName, string sectionName, Type sectionType)
         {
-            var groupDefPath = "//sectionGroup[@name='" + groupName + "']";
-
-            var doc = new XmlDocument();
-            doc.Load(configFilePath);
-            var groupDefNode = doc.SelectSingleNode(groupDefPath);
-
-            if (groupDefNode == null)
+            string parentNodeXPath = "//configSections";
+            if (!string.IsNullOrEmpty(groupName))
             {
-                var groupDefAttr = new Dictionary<string, string>();
-                groupDefAttr["name"] = groupName;
-                AddSectionNode("sectionGroup", groupDefAttr, configFilePath, "//configSections");
-            }
+                var groupDefPath = "//sectionGroup[@name='" + groupName + "']";
+                parentNodeXPath = groupDefPath;
 
+                var doc = new XmlDocument();
+                doc.Load(configFilePath);
+                var groupDefNode = doc.SelectSingleNode(groupDefPath);
+
+                if (groupDefNode == null)
+                {
+                    var groupDefAttr = new Dictionary<string, string>();
+                    groupDefAttr["name"] = groupName;
+                    AddSectionNode("sectionGroup", groupDefAttr, configFilePath, "//configSections");
+                }
+            }
             var attributes = new Dictionary<string, string>();
             attributes["name"] = sectionName;
             attributes["type"] = sectionType.AssemblyQualifiedName;
 
-            AddSectionNode("section", attributes, configFilePath, groupDefPath);
+            AddSectionNode("section", attributes, configFilePath, parentNodeXPath);
         }
 
         public static bool AddSectionNode(string nodeName, Dictionary<string, string> attributes, string configFileName, string parentNodeXPath)
