@@ -88,6 +88,7 @@
     <Compile Include="Utilities\Constants.cs" />
     <Compile Include="Utilities\DatabasePatchInfo.cs" />
     <Compile Include="Utilities\DatabaseSetupInfo.Constants.cs" />
+    <Compile Include="Utilities\Installation.Config.cs" />
     <Compile Include="Utilities\Installation.cs" />
     <Compile Include="Installers\ConnectionStringsInstaller.cs">
       <SubType>Component</SubType>
