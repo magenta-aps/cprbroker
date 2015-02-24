@@ -149,24 +149,24 @@ namespace CprBroker.Tests.PartInterface
             var section = ConfigManager.Current.TasksSection;
             section.AutoLoaded.Clear();
 
-            section.AutoLoaded.Add(new TasksConfigurationSection.TaskElement() { Type = typeof(CprBroker.EventBroker.Notifications.BirthdateEventEnqueuer), RunEvery = TimeSpan.FromDays(1), BatchSize = 1000 });
-            section.AutoLoaded.Add(new TasksConfigurationSection.TaskElement() { Type = typeof(CprBroker.EventBroker.Notifications.DataChangeEventPuller), BatchSize = 100 });
-            section.AutoLoaded.Add(new TasksConfigurationSection.TaskElement() { Type = typeof(CprBroker.EventBroker.Notifications.CriteriaSubscriptionPersonPopulator), BatchSize = 200 });
-            section.AutoLoaded.Add(new TasksConfigurationSection.TaskElement() { Type = typeof(CprBroker.EventBroker.Notifications.DataChangeEventEnqueuer), BatchSize = 100 });
+            section.AutoLoaded.Add(new TasksConfigurationSection.TaskElement() { Type = typeof(CprBroker.EventBroker.Notifications.BirthdateEventEnqueuer), RunEvery = TimeSpan.FromDays(1).ToString(), BatchSize = "1000" });
+            section.AutoLoaded.Add(new TasksConfigurationSection.TaskElement() { Type = typeof(CprBroker.EventBroker.Notifications.DataChangeEventPuller), BatchSize = "100" });
+            section.AutoLoaded.Add(new TasksConfigurationSection.TaskElement() { Type = typeof(CprBroker.EventBroker.Notifications.CriteriaSubscriptionPersonPopulator), BatchSize = "200" });
+            section.AutoLoaded.Add(new TasksConfigurationSection.TaskElement() { Type = typeof(CprBroker.EventBroker.Notifications.DataChangeEventEnqueuer), BatchSize = "100" });
 
-            section.AutoLoaded.Add(new TasksConfigurationSection.TaskElement() { Type = typeof(CprBroker.EventBroker.Notifications.NotificationSender), BatchSize = 10 });
-            section.AutoLoaded.Add(new TasksConfigurationSection.TaskElement() { Type = typeof(CprBroker.EventBroker.Notifications.CPRDirectDownloader), RunEvery = TimeSpan.FromHours(1) });
-            section.AutoLoaded.Add(new TasksConfigurationSection.TaskElement() { Type = typeof(CprBroker.EventBroker.Notifications.CPRDirectExtractor), BatchSize = 10000 });
-            section.AutoLoaded.Add(new TasksConfigurationSection.TaskElement() { Type = typeof(CprBroker.EventBroker.Notifications.BudgetChecker), RunEvery = TimeSpan.FromHours(1) });
+            section.AutoLoaded.Add(new TasksConfigurationSection.TaskElement() { Type = typeof(CprBroker.EventBroker.Notifications.NotificationSender), BatchSize = "10" });
+            section.AutoLoaded.Add(new TasksConfigurationSection.TaskElement() { Type = typeof(CprBroker.EventBroker.Notifications.CPRDirectDownloader), RunEvery = TimeSpan.FromHours(1).ToString() });
+            section.AutoLoaded.Add(new TasksConfigurationSection.TaskElement() { Type = typeof(CprBroker.EventBroker.Notifications.CPRDirectExtractor), BatchSize = "10000" });
+            section.AutoLoaded.Add(new TasksConfigurationSection.TaskElement() { Type = typeof(CprBroker.EventBroker.Notifications.BudgetChecker), RunEvery = TimeSpan.FromHours(1).ToString() });
             section.AutoLoaded.Add(new TasksConfigurationSection.TaskElement() { Type = typeof(CprBroker.Engine.Tasks.QueueExecutionManager) });
             section.AutoLoaded.Add(new TasksConfigurationSection.TaskElement() { Type = typeof(CprBroker.DBR.DprDiversionManager) });
-            section.AutoLoaded.Add(new TasksConfigurationSection.TaskElement() { Type = typeof(CprBroker.Providers.DPR.Queues.DprEnqueuer), RunEvery = TimeSpan.FromSeconds(30) });
+            section.AutoLoaded.Add(new TasksConfigurationSection.TaskElement() { Type = typeof(CprBroker.Providers.DPR.Queues.DprEnqueuer), RunEvery = TimeSpan.FromSeconds(30).ToString() });
 
             if (forceRunEvery.HasValue)
             {
                 foreach (TasksConfigurationSection.TaskElement taskElement in section.AutoLoaded)
                 {
-                    taskElement.RunEvery = forceRunEvery.Value;
+                    taskElement.RunEvery = forceRunEvery.Value.ToString();
                 }
             }
 
