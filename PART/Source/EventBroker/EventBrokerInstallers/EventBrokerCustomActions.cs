@@ -270,7 +270,7 @@ namespace CprBroker.Installers.EventBrokerInstallers
             var targetConfig = ConfigurationManager.OpenExeConfiguration(GetServiceExeFullFileName(session));
             var targetSection = targetConfig.GetSection(TasksConfigurationSection.SectionName) as TasksConfigurationSection;
 
-            targetSection.KnownTypes.ImportDiffFrom(sourceSection);
+            targetSection.AutoLoaded.ImportDiffFrom(sourceSection);
             targetConfig.Save();
 
             // Cleanup

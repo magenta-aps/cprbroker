@@ -147,24 +147,24 @@ namespace CprBroker.Tests.PartInterface
         public virtual void InitBackendTasks(TimeSpan? forceRunEvery = null)
         {
             var section = ConfigManager.Current.TasksSection;
-            section.KnownTypes.Clear();
+            section.AutoLoaded.Clear();
 
-            section.KnownTypes.Add(new TasksConfigurationSection.TaskElement() { Type = typeof(CprBroker.EventBroker.Notifications.BirthdateEventEnqueuer), RunEvery = TimeSpan.FromDays(1), BatchSize = 1000 });
-            section.KnownTypes.Add(new TasksConfigurationSection.TaskElement() { Type = typeof(CprBroker.EventBroker.Notifications.DataChangeEventPuller), BatchSize = 100 });
-            section.KnownTypes.Add(new TasksConfigurationSection.TaskElement() { Type = typeof(CprBroker.EventBroker.Notifications.CriteriaSubscriptionPersonPopulator), BatchSize = 200 });
-            section.KnownTypes.Add(new TasksConfigurationSection.TaskElement() { Type = typeof(CprBroker.EventBroker.Notifications.DataChangeEventEnqueuer), BatchSize = 100 });
+            section.AutoLoaded.Add(new TasksConfigurationSection.TaskElement() { Type = typeof(CprBroker.EventBroker.Notifications.BirthdateEventEnqueuer), RunEvery = TimeSpan.FromDays(1), BatchSize = 1000 });
+            section.AutoLoaded.Add(new TasksConfigurationSection.TaskElement() { Type = typeof(CprBroker.EventBroker.Notifications.DataChangeEventPuller), BatchSize = 100 });
+            section.AutoLoaded.Add(new TasksConfigurationSection.TaskElement() { Type = typeof(CprBroker.EventBroker.Notifications.CriteriaSubscriptionPersonPopulator), BatchSize = 200 });
+            section.AutoLoaded.Add(new TasksConfigurationSection.TaskElement() { Type = typeof(CprBroker.EventBroker.Notifications.DataChangeEventEnqueuer), BatchSize = 100 });
 
-            section.KnownTypes.Add(new TasksConfigurationSection.TaskElement() { Type = typeof(CprBroker.EventBroker.Notifications.NotificationSender), BatchSize = 10 });
-            section.KnownTypes.Add(new TasksConfigurationSection.TaskElement() { Type = typeof(CprBroker.EventBroker.Notifications.CPRDirectDownloader), RunEvery = TimeSpan.FromHours(1) });
-            section.KnownTypes.Add(new TasksConfigurationSection.TaskElement() { Type = typeof(CprBroker.EventBroker.Notifications.CPRDirectExtractor), BatchSize = 10000 });
-            section.KnownTypes.Add(new TasksConfigurationSection.TaskElement() { Type = typeof(CprBroker.EventBroker.Notifications.BudgetChecker), RunEvery = TimeSpan.FromHours(1) });
-            section.KnownTypes.Add(new TasksConfigurationSection.TaskElement() { Type = typeof(CprBroker.Engine.Tasks.QueueExecutionManager) });
-            section.KnownTypes.Add(new TasksConfigurationSection.TaskElement() { Type = typeof(CprBroker.DBR.DprDiversionManager) });
-            section.KnownTypes.Add(new TasksConfigurationSection.TaskElement() { Type = typeof(CprBroker.Providers.DPR.Queues.DprEnqueuer), RunEvery = TimeSpan.FromSeconds(30) });
+            section.AutoLoaded.Add(new TasksConfigurationSection.TaskElement() { Type = typeof(CprBroker.EventBroker.Notifications.NotificationSender), BatchSize = 10 });
+            section.AutoLoaded.Add(new TasksConfigurationSection.TaskElement() { Type = typeof(CprBroker.EventBroker.Notifications.CPRDirectDownloader), RunEvery = TimeSpan.FromHours(1) });
+            section.AutoLoaded.Add(new TasksConfigurationSection.TaskElement() { Type = typeof(CprBroker.EventBroker.Notifications.CPRDirectExtractor), BatchSize = 10000 });
+            section.AutoLoaded.Add(new TasksConfigurationSection.TaskElement() { Type = typeof(CprBroker.EventBroker.Notifications.BudgetChecker), RunEvery = TimeSpan.FromHours(1) });
+            section.AutoLoaded.Add(new TasksConfigurationSection.TaskElement() { Type = typeof(CprBroker.Engine.Tasks.QueueExecutionManager) });
+            section.AutoLoaded.Add(new TasksConfigurationSection.TaskElement() { Type = typeof(CprBroker.DBR.DprDiversionManager) });
+            section.AutoLoaded.Add(new TasksConfigurationSection.TaskElement() { Type = typeof(CprBroker.Providers.DPR.Queues.DprEnqueuer), RunEvery = TimeSpan.FromSeconds(30) });
 
             if (forceRunEvery.HasValue)
             {
-                foreach (TasksConfigurationSection.TaskElement taskElement in section.KnownTypes)
+                foreach (TasksConfigurationSection.TaskElement taskElement in section.AutoLoaded)
                 {
                     taskElement.RunEvery = forceRunEvery.Value;
                 }
