@@ -59,11 +59,8 @@ namespace CprBroker.Engine.Tasks
     {
         // TODO: Shall SyncObject be defined per each task class?
         private System.Threading.AutoResetEvent SyncObject = new System.Threading.AutoResetEvent(true);
-        public virtual bool LogTimerEvents
-        {
-            get { return false; }
-        }
 
+        public bool LogTimerEvents { get; set; }
         public int BatchSize { get; set; }
 
         public TimeSpan TimerInterval

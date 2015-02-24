@@ -150,6 +150,13 @@ namespace CprBroker.Utilities.Config
                 set { this["runEvery"] = value; }
             }
 
+            [ConfigurationProperty("logTimerEvents", IsRequired = false, DefaultValue = "false")]
+            public string LogTimerEvents
+            {
+                get { return string.Format("{0}", this["logTimerEvents"]); }
+                set { this["logTimerEvents"] = value; }
+            }
+
         }
     }
 }

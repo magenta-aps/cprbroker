@@ -108,6 +108,17 @@ namespace CprBroker.Engine.Tasks
                     OnTaskElementConfigError(element, string.Format("Invalid task batchSize <{0}>", element.BatchSize));
                     return null;
                 }
+
+                bool logTimerEvents = false;
+                if (bool.TryParse(element.LogTimerEvents, out logTimerEvents))
+                {
+                    task.LogTimerEvents = logTimerEvents;
+                }
+                else
+                {
+                    OnTaskElementConfigError(element, string.Format("Invalid task logTimerEvents <{0}>", element.BatchSize));
+                    return null;
+                }
                 return task;
             }
             else
