@@ -67,38 +67,54 @@ namespace CprBroker.EventBroker.Backend
         public BackendService()
         {
             InitializeComponent();
+            TaskFactory.ConfigSectionError += TaskFactory_ConfigSectionError;
+            TaskFactory.TaskElementConfigError += TaskFactory_TaskElementConfigError;
         }
 
         public TaskFactory TaskFactory = new TaskFactory();
-
-        PeriodicTaskExecuter[] _TaskExecuters;
-        public virtual PeriodicTaskExecuter[] TaskExecuters
+        
+        void TaskFactory_TaskElementConfigError(object sender, TaskFactory.ErrorEventArgs<Utilities.Config.TasksConfigurationSection.TaskElement> e)
         {
-            get
+            CprBroker.Engine.Local.Admin.LogFormattedError(
+                "Task loading error: <{0}> from <{1}>",
+                e.Message,
+                e.Object == null ? "" : e.Object.TypeName);
+        }
+
+        void TaskFactory_ConfigSectionError(object sender, TaskFactory.ErrorEventArgs<Utilities.Config.TasksConfigurationSection> e)
+        {
+            CprBroker.Engine.Local.Admin.LogFormattedError(
+                "Task config loading error: <{0}> from <{1}>",
+                e.Message,
+                e.Object);
+        }
+
+        
+        public void PopulateTaskExecuters()
+        {
+            if (_TaskExecuters == null)
             {
-                if (_TaskExecuters == null)
-                {
-                    _TaskExecuters = this.TaskFactory.LoadTasks()
-                        .Where(t => t != null)
-                        .ToArray();
+                _TaskExecuters = this.TaskFactory.LoadTasks()
+                            .Where(t => t != null)
+                            .ToArray();
 
-                    foreach (var t in _TaskExecuters)
-                        components.Add(t);
-                }
-
-                return _TaskExecuters.ToArray();
+                foreach (var t in _TaskExecuters)
+                    components.Add(t);
             }
         }
 
+        PeriodicTaskExecuter[] _TaskExecuters;
+
         public void StartTasks()
         {
-            foreach (var queue in this.TaskExecuters)
+            PopulateTaskExecuters();
+            foreach (var queue in this._TaskExecuters)
                 queue.Start();
         }
 
         public void StopTasks()
         {
-            foreach (var queue in this.TaskExecuters)
+            foreach (var queue in this._TaskExecuters)
                 queue.Stop();
         }
 

@@ -136,22 +136,17 @@ namespace CprBroker.Utilities.Config
                 set { TypeName = value.IdentifyableName(); }
             }
 
-            [ConfigurationProperty("batchSize", IsRequired = false, DefaultValue = 100)]
-            public int BatchSize
+            [ConfigurationProperty("batchSize", IsRequired = false, DefaultValue = "100")]
+            public string BatchSize
             {
-                get { return (int)this["batchSize"]; }
+                get { return string.Format("{0}", this["batchSize"]); }
                 set { this["batchSize"] = value; }
             }
 
-            [ConfigurationProperty("runEvery", IsRequired = false)]
-            public TimeSpan RunEvery
+            [ConfigurationProperty("runEvery", IsRequired = false, DefaultValue = "00:01:00")]
+            public string RunEvery
             {
-                get
-                {
-                    return !this["runEvery"].Equals(default(TimeSpan)) ?
-                        (TimeSpan)this["runEvery"]
-                        : TimeSpan.FromMinutes(1);
-                }
+                get { return string.Format("{0}", this["runEvery"]); }
                 set { this["runEvery"] = value; }
             }
 

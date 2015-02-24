@@ -18,7 +18,7 @@ namespace CprBroker.Tests.Utilities
                 config.Sections.Remove(TasksConfigurationSection.SectionName);
 
             var section = new TasksConfigurationSection();
-            section.AutoLoaded.Add(new TasksConfigurationSection.TaskElement() { BatchSize = 100, Type = typeof(string), RunEvery = TimeSpan.FromMinutes(2) });
+            section.AutoLoaded.Add(new TasksConfigurationSection.TaskElement() { BatchSize = "100", Type = typeof(string), RunEvery = TimeSpan.FromMinutes(2).ToString() });
             section.AutoLoaded.Add(new TasksConfigurationSection.TaskElement() { Type = typeof(object) });
             config.Sections.Add(TasksConfigurationSection.SectionName, section);
             config.Save();
@@ -69,5 +69,6 @@ namespace CprBroker.Tests.Utilities
             existing.AutoLoaded.ImportDiffFrom(newSection);
             Assert.AreEqual(3, existing.AutoLoaded.Count);
         }
+
     }
 }

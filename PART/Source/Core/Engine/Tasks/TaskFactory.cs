@@ -85,18 +85,36 @@ namespace CprBroker.Engine.Tasks
 
         public PeriodicTaskExecuter CreateTask<T>(TasksConfigurationSection.TaskElement element) where T : PeriodicTaskExecuter
         {
-            var task = Utilities.Reflection.CreateInstance<T>(element.Type);
+            var task = Utilities.Reflection.CreateInstance<T>(element.TypeName);
             if (task != null)
             {
                 // TODO: handle incorrect config here
-                task.TimerInterval = element.RunEvery;
-                task.BatchSize = element.BatchSize;
+                TimeSpan runEvery;
+                TimeSpan.TryParse(element.RunEvery, out runEvery);
+                if (runEvery >= TimeSpan.FromSeconds(1))
+                    task.TimerInterval = runEvery;
+                else
+                {
+                    OnTaskElementConfigError(element, string.Format("Invalid task interval <{0}>", element.RunEvery));
+                    return null;
+                }
+
+                int batchStize;
+                int.TryParse(element.BatchSize, out batchStize);
+                if (batchStize > 0)
+                    task.BatchSize = batchStize;
+                else
+                {
+                    OnTaskElementConfigError(element, string.Format("Invalid task batchSize <{0}>", element.BatchSize));
+                    return null;
+                }
+                return task;
             }
             else
             {
-                OnTaskElementConfigError(element, string.Format("Invalid task type <{0}>", element.TypeName));
+                OnTaskElementConfigError(element, string.Format("Invalid task type", element.TypeName));
+                return null;
             }
-            return task;
         }
 
         public virtual TasksConfigurationSection.TaskElement[] LoadTaskConfigElements()
