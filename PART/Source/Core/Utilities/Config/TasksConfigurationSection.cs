@@ -46,6 +46,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Configuration;
+using CprBroker.Utilities;
 
 namespace CprBroker.Utilities.Config
 {
@@ -58,7 +59,7 @@ namespace CprBroker.Utilities.Config
             AddItemName = "add",
             ClearItemsName = "clear",
             RemoveItemName = "remove")]
-        public TaskElementCollection KnownTypes
+        public TaskElementCollection AutoLoaded
         {
             get { return (TaskElementCollection)this["autoLoaded"]; }
             set { this["autoLoaded"] = value; }
@@ -97,8 +98,8 @@ namespace CprBroker.Utilities.Config
 
             public void ImportDiffFrom(TasksConfigurationSection newSection)
             {
-                TaskElement[] newElements = new TaskElement[newSection.KnownTypes.Count];
-                newSection.KnownTypes.CopyTo(newElements, 0);
+                TaskElement[] newElements = new TaskElement[newSection.AutoLoaded.Count];
+                newSection.AutoLoaded.CopyTo(newElements, 0);
 
                 TaskElement[] myElements = new TaskElement[this.Count];
                 this.CopyTo(myElements, 0);
@@ -132,7 +133,7 @@ namespace CprBroker.Utilities.Config
             public Type Type
             {
                 get { return Type.GetType(TypeName); }
-                set { TypeName = value.AssemblyQualifiedName; }
+                set { TypeName = value.IdentifyableName(); }
             }
 
             [ConfigurationProperty("batchSize", IsRequired = false, DefaultValue = 100)]

@@ -18,8 +18,8 @@ namespace CprBroker.Tests.Utilities
                 config.Sections.Remove(TasksConfigurationSection.SectionName);
 
             var section = new TasksConfigurationSection();
-            section.KnownTypes.Add(new TasksConfigurationSection.TaskElement() { BatchSize = 100, Type = typeof(string), RunEvery = TimeSpan.FromMinutes(2) });
-            section.KnownTypes.Add(new TasksConfigurationSection.TaskElement() { Type = typeof(object) });
+            section.AutoLoaded.Add(new TasksConfigurationSection.TaskElement() { BatchSize = 100, Type = typeof(string), RunEvery = TimeSpan.FromMinutes(2) });
+            section.AutoLoaded.Add(new TasksConfigurationSection.TaskElement() { Type = typeof(object) });
             config.Sections.Add(TasksConfigurationSection.SectionName, section);
             config.Save();
         }
@@ -44,30 +44,30 @@ namespace CprBroker.Tests.Utilities
         public void ImportDiffFrom_MixedNewAndExisting_NewAdded()
         {
             var existing = new TasksConfigurationSection();
-            existing.KnownTypes.Add(new TasksConfigurationSection.TaskElement() { Type = typeof(string) });
+            existing.AutoLoaded.Add(new TasksConfigurationSection.TaskElement() { Type = typeof(string) });
 
             var newSection = new TasksConfigurationSection();
-            newSection.KnownTypes.Add(new TasksConfigurationSection.TaskElement() { Type = typeof(string) });
-            newSection.KnownTypes.Add(new TasksConfigurationSection.TaskElement() { Type = typeof(object) });
+            newSection.AutoLoaded.Add(new TasksConfigurationSection.TaskElement() { Type = typeof(string) });
+            newSection.AutoLoaded.Add(new TasksConfigurationSection.TaskElement() { Type = typeof(object) });
 
-            Assert.AreEqual(1, existing.KnownTypes.Count);
-            existing.KnownTypes.ImportDiffFrom(newSection);
-            Assert.AreEqual(2, existing.KnownTypes.Count);
+            Assert.AreEqual(1, existing.AutoLoaded.Count);
+            existing.AutoLoaded.ImportDiffFrom(newSection);
+            Assert.AreEqual(2, existing.AutoLoaded.Count);
         }
 
         [Test]
         public void ImportDiffFrom_FakeExistinggOneNew_NewAdded()
         {
             var existing = new TasksConfigurationSection();
-            existing.KnownTypes.Add(new TasksConfigurationSection.TaskElement() { TypeName = "Fake type" });
+            existing.AutoLoaded.Add(new TasksConfigurationSection.TaskElement() { TypeName = "Fake type" });
 
             var newSection = new TasksConfigurationSection();
-            newSection.KnownTypes.Add(new TasksConfigurationSection.TaskElement() { Type = typeof(string) });
-            newSection.KnownTypes.Add(new TasksConfigurationSection.TaskElement() { Type = typeof(object) });
+            newSection.AutoLoaded.Add(new TasksConfigurationSection.TaskElement() { Type = typeof(string) });
+            newSection.AutoLoaded.Add(new TasksConfigurationSection.TaskElement() { Type = typeof(object) });
 
-            Assert.AreEqual(1, existing.KnownTypes.Count);
-            existing.KnownTypes.ImportDiffFrom(newSection);
-            Assert.AreEqual(3, existing.KnownTypes.Count);
+            Assert.AreEqual(1, existing.AutoLoaded.Count);
+            existing.AutoLoaded.ImportDiffFrom(newSection);
+            Assert.AreEqual(3, existing.AutoLoaded.Count);
         }
     }
 }
