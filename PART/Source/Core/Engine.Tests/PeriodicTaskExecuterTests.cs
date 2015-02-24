@@ -5,7 +5,7 @@ using System.Text;
 using NUnit.Framework;
 using CprBroker.Engine.Tasks;
 
-namespace CprBroker.Engine.Tests
+namespace CprBroker.Tests.Engine
 {
     namespace PeriodicTaskExecuterTests
     {

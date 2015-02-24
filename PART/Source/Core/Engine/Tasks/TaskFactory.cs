@@ -49,39 +49,99 @@ using CprBroker.Utilities.Config;
 
 namespace CprBroker.Engine.Tasks
 {
+    /// <summary>
+    /// Creates the tasks from configuration file
+    /// It is highly recommended to handle the error events raised by this class
+    /// </summary>
     public class TaskFactory
     {
+        #region Error events
+        public class ErrorEventArgs<T> : EventArgs
+        {
+            public T Object;
+            public string Message;
+        }
+
+        public event EventHandler<ErrorEventArgs<TasksConfigurationSection>> ConfigSectionError;
+        protected void OnConfigSectionError(TasksConfigurationSection section, string message)
+        {
+            if (this.ConfigSectionError != null)
+            {
+                var args = new ErrorEventArgs<TasksConfigurationSection>() { Object = section, Message = message };
+                ConfigSectionError(this, args);
+            }
+        }
+
+        public event EventHandler<ErrorEventArgs<TasksConfigurationSection.TaskElement>> TaskElementConfigError;
+        protected void OnTaskElementConfigError(TasksConfigurationSection.TaskElement element, string message)
+        {
+            if (this.TaskElementConfigError != null)
+            {
+                var args = new ErrorEventArgs<TasksConfigurationSection.TaskElement>() { Object = element, Message = message };
+                TaskElementConfigError(this, args);
+            }
+        }
+        #endregion
+
         public PeriodicTaskExecuter CreateTask<T>(TasksConfigurationSection.TaskElement element) where T : PeriodicTaskExecuter
         {
             var task = Utilities.Reflection.CreateInstance<T>(element.Type);
             if (task != null)
             {
+                // TODO: handle incorrect config here
                 task.TimerInterval = element.RunEvery;
                 task.BatchSize = element.BatchSize;
+            }
+            else
+            {
+                OnTaskElementConfigError(element, string.Format("Invalid task type <{0}>", element.TypeName));
             }
             return task;
         }
 
         public virtual TasksConfigurationSection.TaskElement[] LoadTaskConfigElements()
         {
-            var section = CprBroker.Utilities.Config.ConfigManager.Current.TasksSection;
+            var section = LoadTasksSection();
             if (section != null)
             {
-                return section.KnownTypes
-                    .OfType<TasksConfigurationSection.TaskElement>()
-                    .ToArray();
+                var autoLoaded = section.AutoLoaded;
+                if (autoLoaded != null)
+                {
+                    return autoLoaded
+                        .OfType<TasksConfigurationSection.TaskElement>()
+                        .Where(elm => elm != null)
+                        .ToArray();
+                }
+                else
+                {
+                    OnConfigSectionError(section, "Tasks configuration section is missing autoLoaded section");
+                }
             }
             else
             {
-                return new TasksConfigurationSection.TaskElement[0];
+                OnConfigSectionError(section, "Tasks configuration section not found!!");
             }
+            return new TasksConfigurationSection.TaskElement[0];
+        }
+
+        public virtual TasksConfigurationSection LoadTasksSection()
+        {
+            var section = CprBroker.Utilities.Config.ConfigManager.Current.TasksSection;
+            return section;
         }
 
         public PeriodicTaskExecuter[] LoadTasks()
         {
-            return LoadTaskConfigElements()
-                .Select(e => CreateTask<PeriodicTaskExecuter>(e))
-                .ToArray();
+            var ret = new List<PeriodicTaskExecuter>();
+            foreach (var element in LoadTaskConfigElements())
+            {
+                var task = CreateTask<PeriodicTaskExecuter>(element);
+                if (task != null)
+                    ret.Add(task);
+                else
+                    this.OnTaskElementConfigError(element, string.Format("Task creation failed from typeName <{0}>", element.TypeName));
+            }
+            return ret.ToArray();
         }
     }
 }

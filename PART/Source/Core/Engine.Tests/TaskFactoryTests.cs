@@ -76,5 +76,52 @@ namespace CprBroker.Tests.Engine
                 Assert.NotNull(task);
             }
         }
+
+        [TestFixture]
+        public class LoadTasks
+        {
+            public class TaskFactoryStub : TaskFactory
+            {
+                public TasksConfigurationSection.TaskElement[] Elements;
+                public override TasksConfigurationSection LoadTasksSection()
+                {
+                    var section = new TasksConfigurationSection() { };
+                    foreach (var elm in this.Elements)
+                        section.AutoLoaded.Add(elm);
+                    return section;
+                }
+            }
+
+            public string[] InvalidTypeNames
+            {
+                get
+                {
+                    return new string[] { 
+                        "asfka;slkd",
+                        typeof(object).IdentifyableName()
+                    };
+                }
+            }
+            [Test]
+            public void LoadTasks_InvalidType_ZeroTasks([ValueSource("InvalidTypeNames")]string typeName)
+            {
+                var factory = new TaskFactoryStub() { Elements = new TasksConfigurationSection.TaskElement[] { new TasksConfigurationSection.TaskElement() { TypeName = typeName } } };
+                var tasks = factory.LoadTasks();
+                Assert.AreEqual(0, tasks.Length);
+            }
+
+            [Test]
+            public void LoadTasks_InvalidType_ErrorRaised([ValueSource("InvalidTypeNames")]string typeName)
+            {
+                var factory = new TaskFactoryStub() { Elements = new TasksConfigurationSection.TaskElement[] { new TasksConfigurationSection.TaskElement() { TypeName = typeName } } };
+                bool errorRaised = false;
+                factory.TaskElementConfigError += (object sender, TaskFactory.ErrorEventArgs<TasksConfigurationSection.TaskElement> e) => errorRaised = true;
+
+                var tasks = factory.LoadTasks();
+                Assert.True(errorRaised);
+            }
+
+        }
+
     }
 }
