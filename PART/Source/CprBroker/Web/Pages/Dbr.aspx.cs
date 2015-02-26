@@ -45,7 +45,7 @@ namespace CprBroker.Web.Pages
             if (e.CommandName == "Ping")
             {
                 var dbr = Queue.GetById<DbrQueue>(new Guid(e.CommandArgument.ToString()));
-                if (dbr.IsAlive())
+                if (dbr != null && dbr.IsAlive())
                 {
                     Master.AlertMessages.Add("Ping succeeded");
                 }
