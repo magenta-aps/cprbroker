@@ -71,7 +71,9 @@ namespace CprBroker.Providers.DPR.Queues
 
         public void CopyChanges(DprDatabaseDataProvider prov, Guid dataProviderId, Engine.Queues.Queue<DprUpdateQueueItem> updateQueue)
         {
-            Admin.LogFormattedSuccess("Pulling changes from {0}", prov.ToString());
+            if (this.LogTimerEvents)
+                Admin.LogFormattedSuccess("Pulling changes from {0}", prov.ToString());
+
             var objects = prov.GetChanges(BatchSize, this.Delay).ToArray();
 
             while (objects.Length > 0)
