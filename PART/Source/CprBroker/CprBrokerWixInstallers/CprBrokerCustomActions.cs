@@ -449,26 +449,26 @@ namespace CprBrokerWixInstallers
                     InitializeFlatFileLogging = true,
                     WebsiteDirectoryRelativePath = EventBrokerCustomActions.PathConstants.EventBrokerWebsiteDirectoryRelativePath,
                     ConfigSectionGroupEncryptionOptions = new ConfigSectionGroupEncryptionOptions[]
-                {
-                    new ConfigSectionGroupEncryptionOptions()
                     {
-                        ConfigSectionGroupName = Constants.DataProvidersSectionGroupName,
-                        ConfigSectionEncryptionOptions = new ConfigSectionEncryptionOptions[]
+                        new ConfigSectionGroupEncryptionOptions()
                         {
-                            new ConfigSectionEncryptionOptions(){ 
-                                SectionName = DataProviderKeysSection.SectionName, 
-                                SectionType=typeof(DataProviderKeysSection), 
-                                // DO NOT create new encryption keys here
-                                //CustomMethod = config=>DataProviderKeysSection.RegisterNewKeys(config)
-                            },
-                            new ConfigSectionEncryptionOptions(){ 
-                                SectionName = DataProvidersConfigurationSection.SectionName, 
-                                SectionType=typeof(DataProvidersConfigurationSection),
-                                CustomMethod =null
+                            ConfigSectionGroupName = Constants.DataProvidersSectionGroupName,
+                            ConfigSectionEncryptionOptions = new ConfigSectionEncryptionOptions[]
+                            {
+                                new ConfigSectionEncryptionOptions(){ 
+                                    SectionName = DataProviderKeysSection.SectionName, 
+                                    SectionType=typeof(DataProviderKeysSection), 
+                                    // DO NOT create new encryption keys here
+                                    //CustomMethod = config=>DataProviderKeysSection.RegisterNewKeys(config)
+                                },
+                                new ConfigSectionEncryptionOptions(){ 
+                                    SectionName = DataProvidersConfigurationSection.SectionName, 
+                                    SectionType=typeof(DataProvidersConfigurationSection),
+                                    CustomMethod =null
+                                }
                             }
                         }
                     }
-                }
                 };
                 allOptions["EVENT"] = eventOptions;
 
