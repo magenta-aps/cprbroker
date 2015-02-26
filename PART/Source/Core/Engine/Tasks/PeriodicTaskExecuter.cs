@@ -104,6 +104,12 @@ namespace CprBroker.Engine.Tasks
 
         public void Start()
         {
+            CprBroker.Engine.Local.Admin.LogSuccess(string.Format("{0} : <{1}>, running every <{2}>, batch size <{3}>",
+                TextMessages.TaskStaring,
+                this.GetType(),
+                this.TimerInterval,
+                this.BatchSize
+                ));
             OnBeforeStart();
             ActionTimer.Start();
         }

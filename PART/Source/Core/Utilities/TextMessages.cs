@@ -70,6 +70,7 @@ namespace CprBroker.Utilities
 
         public static readonly string BackendServiceStarting = "CPR Broker backend service is starting";
         public static readonly string BackendServiceStarted = "CPR Broker backend service has been started";
+        public static readonly string TaskStaring = "Task starting";
         public static readonly string TimerEventStarted = "Timer event started";
         public static readonly string TimerEventFinished = "Timer event finished";
 
