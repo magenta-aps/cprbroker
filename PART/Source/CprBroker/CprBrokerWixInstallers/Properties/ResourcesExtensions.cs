@@ -69,6 +69,7 @@ namespace CprBrokerWixInstallers.Properties
                     Resources.DataProvider,
                     Resources.DataProviderCall,
                     Resources.BudgetInterval,
+                    Resources.DataChangeEvent,
                     Resources.CreatePartDatabaseObjects,
                     Resources.PersonSearchCache,
                     Resources.TrimAddressString,
