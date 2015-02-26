@@ -286,10 +286,12 @@ namespace CprBroker.Providers.CPRDirect
             }
         }
 
-        public static void ExtractLocalFiles(CPRDirectExtractDataProvider prov, int batchSize)
+        public static void ExtractLocalFiles(CPRDirectExtractDataProvider prov, int batchSize, bool logChecks = false)
         {
             var files = Directory.GetFiles(prov.ExtractsFolder);
-            Admin.LogFormattedSuccess("Found <{0}> files", files.Length);
+
+            if (logChecks || files.Length > 0)
+                Admin.LogFormattedSuccess("Found <{0}> files at <{1}>", files.Length, prov.ExtractsFolder);
 
             foreach (var file in files)
             {

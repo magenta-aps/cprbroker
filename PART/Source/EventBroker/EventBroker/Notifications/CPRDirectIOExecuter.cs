@@ -57,9 +57,15 @@ namespace CprBroker.EventBroker.Notifications
 {
     public class CPRDirectIOExecuter : PeriodicTaskExecuter
     {
+        public bool LogChecks
+        {
+            get { return LogTimerEvents; }
+        }
+
         protected override sealed void PerformTimerAction()
         {
-            Admin.LogSuccess("Loading CPR Direct data providers");
+            if (LogChecks)
+                Admin.LogSuccess("Loading CPR Direct data providers");
 
             try
             {
@@ -67,13 +73,16 @@ namespace CprBroker.EventBroker.Notifications
                 var dbProv = providerFactory.ReadDatabaseDataProviders();
                 var result = providerFactory.LoadExternalDataProviders(dbProv, typeof(CPRDirectExtractDataProvider)).Select(p => p as CPRDirectExtractDataProvider).ToArray();
 
-                Admin.LogFormattedSuccess("Found {0} CPR Direct providers", result.Length);
+                if (LogChecks)
+                    Admin.LogFormattedSuccess("Found {0} CPR Direct providers", result.Length);
 
                 foreach (var prov in result)
                 {
                     try
                     {
-                        Admin.LogFormattedSuccess("Checking folder {0}", prov.ExtractsFolder);
+                        if (LogChecks)
+                            Admin.LogFormattedSuccess("Checking folder {0}", prov.ExtractsFolder);
+
                         if (Directory.Exists(prov.ExtractsFolder))
                         {
                             ExecuteCPRDirectTask(prov);

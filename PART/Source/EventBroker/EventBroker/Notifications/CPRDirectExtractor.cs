@@ -56,7 +56,7 @@ namespace CprBroker.EventBroker.Notifications
     {
         protected override void ExecuteCPRDirectTask(CPRDirectExtractDataProvider prov)
         {
-            ExtractManager.ExtractLocalFiles(prov, this.BatchSize);
+            ExtractManager.ExtractLocalFiles(prov, this.BatchSize, this.LogChecks);
         }
 
     }
