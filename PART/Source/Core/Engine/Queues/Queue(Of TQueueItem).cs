@@ -67,6 +67,7 @@ namespace CprBroker.Engine.Queues
             var items = GetNext(Impl.BatchSize);
             while (items.FirstOrDefault() != null)
             {
+                CprBroker.Engine.Local.Admin.LogFormattedSuccess("Queue <{0}><{1}>, Processing <{2}> items", GetType().Name, Impl.QueueId, items.Length);
                 RunItems(items);
                 items = GetNext(Impl.BatchSize);
             }
