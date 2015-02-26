@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using CprBroker.Data;
 using CprBroker.Data.Queues;
+using CprBroker.Utilities;
 
 namespace CprBroker.Engine.Queues
 {
@@ -86,7 +87,7 @@ namespace CprBroker.Engine.Queues
                 BatchSize = batchSize,
                 MaxRetry = maxRetry,
                 TypeId = queueTypeId,
-                TypeName = typeof(TQueue).AssemblyQualifiedName,
+                TypeName = typeof(TQueue).IdentifyableName(),
 
                 Attributes = new List<Schemas.AttributeType>()
             };
