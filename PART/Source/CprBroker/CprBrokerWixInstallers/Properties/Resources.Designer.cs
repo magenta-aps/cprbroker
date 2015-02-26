@@ -128,12 +128,35 @@ namespace CprBrokerWixInstallers.Properties {
         ///IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N&apos;[dbo].[Country]&apos;) AND type in (N&apos;U&apos;))
         ///BEGIN
         ///CREATE TABLE [dbo].[Country](
-        ///	[Alpha2Code] [varchar](2) NOT NULL,
+        ///	[Alpha2Code] [varchar](2) NOT NULL
+        ///		CONSTRAINT [PK_Country] PRIMARY KEY CLUSTERED (	[Alpha2Code] ASC),
         ///	[Alpha3Code] [varchar](3) NOT NULL,
         ///	[NumericCode] [int] NOT NULL,
         ///	[CountryName] [nvarchar](60) NOT NULL,
-        ///	[Description] [nvarchar](50) NULL,
-        ///	[DanishCountryName] [nvarchar](60) NOT [rest of string was truncated]&quot;;.
+        ///	[Descr [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string Country {
+            get {
+                return ResourceManager.GetString("Country", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 
+        ////****** Object:  Table [dbo].[Authority]    Script Date: 11/21/2013 10:16:51 ******/
+        ///SET ANSI_NULLS ON
+        ///GO
+        ///SET QUOTED_IDENTIFIER ON
+        ///GO
+        ///IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N&apos;[dbo].[Authority]&apos;) AND type in (N&apos;U&apos;))
+        ///BEGIN
+        ///CREATE TABLE [dbo].[Authority](
+        ///	[AuthorityCode] [varchar](4) NOT NULL,
+        ///	[AuthorityType] [varchar](2) NOT NULL,
+        ///	[AuthorityGroup] [char](10) NOT NULL,
+        ///	[UpdateTime] [datetime] NOT NULL,
+        ///	[AuthorityPhone] [varchar](8) NOT NULL,
+        ///	[StartDate] [datet [rest of string was truncated]&quot;;.
         /// </summary>
         public static string CreatePartDatabaseObjects {
             get {

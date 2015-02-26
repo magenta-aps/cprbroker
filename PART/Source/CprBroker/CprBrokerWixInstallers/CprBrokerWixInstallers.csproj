@@ -126,6 +126,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\BudgetInterval.sql" />
+    <Content Include="Resources\Country.sql" />
     <Content Include="Resources\DataChangeEvent.sql" />
     <Content Include="Resources\DataProvider.sql" />
     <Content Include="Resources\DataProviderCall.sql" />
