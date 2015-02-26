@@ -125,6 +125,7 @@
     <None Include="Resources\Queue.csv" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\Authority.sql" />
     <Content Include="Resources\BudgetInterval.sql" />
     <Content Include="Resources\Country.sql" />
     <Content Include="Resources\DataChangeEvent.sql" />

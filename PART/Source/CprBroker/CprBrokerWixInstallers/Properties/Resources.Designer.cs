@@ -73,6 +73,29 @@ namespace CprBrokerWixInstallers.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 
+        ////****** Object:  Table [dbo].[Authority]    Script Date: 11/21/2013 10:16:51 ******/
+        ///SET ANSI_NULLS ON
+        ///GO
+        ///SET QUOTED_IDENTIFIER ON
+        ///GO
+        ///IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N&apos;[dbo].[Authority]&apos;) AND type in (N&apos;U&apos;))
+        ///BEGIN
+        ///CREATE TABLE [dbo].[Authority](
+        ///	[AuthorityCode] [varchar](4) NOT NULL,
+        ///	[AuthorityType] [varchar](2) NOT NULL,
+        ///	[AuthorityGroup] [char](10) NOT NULL,
+        ///	[UpdateTime] [datetime] NOT NULL,
+        ///	[AuthorityPhone] [varchar](8) NOT NULL,
+        ///	[StartDate] [datet [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string Authority {
+            get {
+                return ResourceManager.GetString("Authority", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 00037071620120702
         ///001000000019910923120000000000199109231200000000000000Ukendt Myndighed                                                                                                                                                                                      Ukendt Myndighed                                                                                                                                                     000
         ///001000139020110819105772269735201107010000000000000000Cpr-Kontoret      [rest of string was truncated]&quot;;.
@@ -143,20 +166,20 @@ namespace CprBrokerWixInstallers.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to 
-        ////****** Object:  Table [dbo].[Authority]    Script Date: 11/21/2013 10:16:51 ******/
+        ////****** Object:  Table [dbo].[Application]    Script Date: 11/21/2013 10:16:51 ******/
         ///SET ANSI_NULLS ON
         ///GO
         ///SET QUOTED_IDENTIFIER ON
         ///GO
-        ///IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N&apos;[dbo].[Authority]&apos;) AND type in (N&apos;U&apos;))
+        ///IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N&apos;[dbo].[Application]&apos;) AND type in (N&apos;U&apos;))
         ///BEGIN
-        ///CREATE TABLE [dbo].[Authority](
-        ///	[AuthorityCode] [varchar](4) NOT NULL,
-        ///	[AuthorityType] [varchar](2) NOT NULL,
-        ///	[AuthorityGroup] [char](10) NOT NULL,
-        ///	[UpdateTime] [datetime] NOT NULL,
-        ///	[AuthorityPhone] [varchar](8) NOT NULL,
-        ///	[StartDate] [datet [rest of string was truncated]&quot;;.
+        ///CREATE TABLE [dbo].[Application](
+        ///	[ApplicationId] [uniqueidentifier] NOT NULL,
+        ///	[Name] [nvarchar](100) NOT NULL,
+        ///	[Token] [varchar](50) NOT NULL,
+        ///	[RegistrationDate] [datetime] NOT NULL,
+        ///	[IsApproved] [bit] NOT NULL,
+        ///	[ApprovedDate] [datetim [rest of string was truncated]&quot;;.
         /// </summary>
         public static string CreatePartDatabaseObjects {
             get {

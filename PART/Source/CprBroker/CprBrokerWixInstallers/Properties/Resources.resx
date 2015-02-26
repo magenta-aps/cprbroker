@@ -202,6 +202,9 @@
   <data name="DataChangeEvent" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\DataChangeEvent.sql;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
+  <data name="Authority" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Authority.sql;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
   <data name="Country" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Country.sql;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
