@@ -4,6 +4,7 @@
         <Property Id="Dummy_EventBrokerSpecificRefProp" Value="-"/>
 
         <CustomAction Id="SetCprBrokerUrl"  BinaryKey="EventBrokerInstallersDll" DllEntry="SetCprBrokerUrl" Execute="deferred"/>
+        <CustomAction Id="CloneCprBrokerConfigToEventBroker" BinaryKey="EventBrokerInstallersDll" DllEntry="CloneCprBrokerConfigToEventBroker" Execute="deferred" Return="check"/>
         <CustomAction Id="InstallBackendService" BinaryKey="EventBrokerInstallersDll" DllEntry="InstallBackendService" Execute="deferred"/>
         <CustomAction Id="UnInstallBackendService" BinaryKey="EventBrokerInstallersDll" DllEntry="UnInstallBackendService" Execute="deferred" Return="ignore"/>
         <CustomAction Id="RollbackBackendService" BinaryKey="EventBrokerInstallersDll" DllEntry="RollbackBackendService" Execute="rollback" Return="ignore"/>
@@ -12,6 +13,7 @@
 
         <InstallExecuteSequence>
             <Custom Action="SetCprBrokerUrl" After="CreateWebsite">NOT REMOVE AND NOT PATCH AND NOT OLDER_VERSION_DETECTED</Custom>
+            <Custom Action="CloneCprBrokerConfigToEventBroker" After="SetCprBrokerUrl">NOT REMOVE</Custom>
             <Custom Action="RollbackBackendService" After="RollbackWebsite">NOT REMOVE AND NOT PATCH AND NOT OLDER_VERSION_DETECTED</Custom>
             <Custom Action="InstallBackendService" After="RollbackBackendService">NOT REMOVE AND NOT PATCH AND NOT OLDER_VERSION_DETECTED</Custom>
             <Custom Action="UnInstallBackendService" Before="RemoveFiles"><![CDATA[REMOVE = "ALL" AND NOT PATCH AND NOT OLDER_VERSION_DETECTED]]></Custom>
@@ -21,6 +23,7 @@
 
         <UI>
             <ProgressText Action="SetCprBrokerUrl">Setting CPR Broker service url</ProgressText>
+            <ProgressText Action="CloneCprBrokerConfigToEventBroker">Cloning configuration to event broker</ProgressText>
             <ProgressText Action="RollbackBackendService">Rolling back backend service</ProgressText>
             <ProgressText Action="InstallBackendService">Installing backend service</ProgressText>
             <ProgressText Action="UnInstallBackendService">Removing backend service</ProgressText>

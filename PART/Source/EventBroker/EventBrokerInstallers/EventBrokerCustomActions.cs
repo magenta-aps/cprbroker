@@ -218,6 +218,30 @@ namespace CprBroker.Installers.EventBrokerInstallers
             }
         }
 
+        [CustomAction]
+        public static ActionResult CloneCprBrokerConfigToEventBroker(Session session)
+        {
+            try
+            {
+                WebInstallationInfo cprBrokerWebInstallationInfo = WebInstallationInfo.CreateFromFeature(session, "CPR");
+                var sourcePath = cprBrokerWebInstallationInfo.GetWebConfigFilePath(PathConstants.CprBrokerWebsiteDirectoryRelativePath);
+
+                WebInstallationInfo eventBrokerWebInstallationInfo = WebInstallationInfo.CreateFromFeature(session, "EVENT");
+                var targetPath = eventBrokerWebInstallationInfo.GetWebConfigFilePath(PathConstants.EventBrokerWebsiteDirectoryRelativePath);
+
+                // TODO: Shall we also clone connection strings?
+                Installation.CopyConfigNode("//configuration", "configSections", sourcePath, targetPath, Installation.MergeOption.Overwrite);
+                Installation.CopyConfigNode("//dataProvidersGroup", "dataProviderKeys", sourcePath, targetPath, Installation.MergeOption.Overwrite);
+
+                return ActionResult.Success;
+            }
+            catch (Exception ex)
+            {
+                session.ShowErrorMessage(ex);
+                throw ex;
+            }
+        }
+
         public static void MoveBackendServiceToNewLocation(Session session)
         {
             var currentExePath = GetExistingServiceExePath();
