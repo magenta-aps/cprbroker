@@ -59,8 +59,6 @@ namespace CprBroker.EventBroker.Notifications
     {
         protected override void PerformTimerAction()
         {
-            Admin.LogFormattedSuccess("Pulling data changes from CprBroker to event broker, batch size <{0}>", this.BatchSize);
-
             CprBroker.Data.Events.DataChangeEvent[] sourceEvents;
             do
             {
@@ -93,6 +91,10 @@ namespace CprBroker.EventBroker.Notifications
                     // Delete from source
                     sourceDataContext.DataChangeEvents.DeleteAllOnSubmit(sourceEvents);
                     sourceDataContext.SubmitChanges();
+
+                    if (sourceEvents.Length > 0)
+                        Admin.LogFormattedSuccess("Copied data changes from CprBroker to event broker, batch size <{0}>, copied <{1}>", this.BatchSize, sourceEvents.Length);
+
                 }
             }
             // Stop if received less changes than requested 
