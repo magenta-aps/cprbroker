@@ -86,7 +86,7 @@ namespace CprBroker.Engine.Local
                 // Load possible equal registrations
                 bool dataChanged;
                 personRegistrationId = null;
-                var existingInDb = MatchPersonRegistration(personIdentifier, oioRegistration, dataContext, out dataChanged);
+                var existingInDb = MatchPersonRegistration(personIdentifier, oioRegistration, dataContext.PersonRegistrations, out dataChanged);
                 Func<PersonRegistration[], Guid?> latestRegistrationFunc = (dbRegs) =>
                     {
                         if (dbRegs.Count() > 0)
@@ -168,14 +168,14 @@ namespace CprBroker.Engine.Local
             }
         }
 
-        private static PersonRegistration[] MatchPersonRegistration(PersonIdentifier personIdentifier, RegistreringType1 oioRegistration, PartDataContext dataContext, out bool dataChanged)
+        private static PersonRegistration[] MatchPersonRegistration(PersonIdentifier personIdentifier, RegistreringType1 oioRegistration, IQueryable<PersonRegistration> allInDatabase, out bool dataChanged)
         {
             //TODO: Modify this method to allow searching for registrations that have a fake date of Today, these should be matched by content rather than registration date
 
             dataChanged = false;
             // Match db registrations by UUID, ActorId and registration date
             var existingInDb = (
-                from dbReg in dataContext.PersonRegistrations
+                from dbReg in allInDatabase
                 where dbReg.UUID == personIdentifier.UUID
                 && dbReg.RegistrationDate == TidspunktType.ToDateTime(oioRegistration.Tidspunkt)
                 &&
