@@ -90,6 +90,8 @@ namespace CprBroker.Engine.Tasks
             {
                 (SyncObject as IDisposable).Dispose();
             }
+            if (ActionTimer != null)
+                ActionTimer.Elapsed -= new System.Timers.ElapsedEventHandler(ActionTimer_Elapsed);
         }
 
         private void InitializeTimer()
