@@ -15,12 +15,13 @@ namespace CprBroker.EventBroker.Notifications
     {
         protected override void PerformTimerAction()
         {
-            Admin.LogFormattedSuccess("DataChangeEventEnqueuer.UpdateSubscriptionCriteriaLists() started, batch size <{0}>", this.BatchSize);
-
             using (var eventDataContext = new Data.EventBrokerDataContext())
             {
                 var subscriptions = Data.Subscription.GetNonReadySubscriptions(eventDataContext);
-                Admin.LogFormattedSuccess("Found <{0}> pending criteria subscriptions", subscriptions.Length);
+
+                if (this.LogTimerEvents)
+                    Admin.LogFormattedSuccess("Found <{0}> pending criteria subscriptions", subscriptions.Length);
+
                 foreach (var sub in subscriptions)
                 {
                     while (sub.LastCheckedUUID.HasValue)
@@ -31,8 +32,6 @@ namespace CprBroker.EventBroker.Notifications
                     }
                 }
             }
-            Admin.LogFormattedSuccess("DataChangeEventEnqueuer.UpdateSubscriptionCriteriaLists() finished");
-
         }
 
     }
