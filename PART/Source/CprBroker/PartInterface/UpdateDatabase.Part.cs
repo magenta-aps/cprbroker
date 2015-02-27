@@ -79,22 +79,6 @@ namespace CprBroker.Engine.Local
             }
         }
 
-        private static void NotifyPersonRegistrationUpdate(Guid personUuid, Guid personRegistrationId)
-        {
-            using (var dataContext = new DataChangeEventDataContext())
-            {
-                var pp = new DataChangeEvent()
-                {
-                    DataChangeEventId = Guid.NewGuid(),
-                    PersonUuid = personUuid,
-                    PersonRegistrationId = personRegistrationId,
-                    ReceivedDate = DateTime.Now
-                };
-                dataContext.DataChangeEvents.InsertOnSubmit(pp);
-                dataContext.SubmitChanges();
-            }
-        }
-
         public static bool MergePersonRegistration(PersonIdentifier personIdentifier, Schemas.Part.RegistreringType1 oioRegistration, out Guid? personRegistrationId)
         {
             using (var dataContext = new PartDataContext())
@@ -271,6 +255,22 @@ namespace CprBroker.Engine.Local
                     UUID = uuid
                 };
                 dataContext.PersonMappings.InsertOnSubmit(map);
+                dataContext.SubmitChanges();
+            }
+        }
+
+        private static void NotifyPersonRegistrationUpdate(Guid personUuid, Guid personRegistrationId)
+        {
+            using (var dataContext = new DataChangeEventDataContext())
+            {
+                var pp = new DataChangeEvent()
+                {
+                    DataChangeEventId = Guid.NewGuid(),
+                    PersonUuid = personUuid,
+                    PersonRegistrationId = personRegistrationId,
+                    ReceivedDate = DateTime.Now
+                };
+                dataContext.DataChangeEvents.InsertOnSubmit(pp);
                 dataContext.SubmitChanges();
             }
         }
