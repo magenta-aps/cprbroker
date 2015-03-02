@@ -56,5 +56,17 @@ namespace CprBroker.Providers.CPRDirect
     public abstract class PersonRecordWrapper : CprDirectWrapper
     {
         public IRegistrationInfo Registration { get; set; }
+
+        public override string ToErrorIdentifierString()
+        {
+            var len = Constants.DataObjectCodeLength + 10;
+            if (this.Contents != null && this.Contents.Length >= len)
+                return string.Format("{0}{1}",
+                    this.GetType().Name,
+                    this.Contents.Substring(0, len)
+                    );
+            else
+                return base.ToErrorIdentifierString();
+        }
     }
 }

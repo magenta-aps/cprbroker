@@ -217,5 +217,11 @@ namespace CprBroker.Schemas.Wrappers
             }
             return null;
         }
+
+        public virtual string ToErrorIdentifierString()
+        {
+            return this.GetType().Name;
+        }
+
     }
 }

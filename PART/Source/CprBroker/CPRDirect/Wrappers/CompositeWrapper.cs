@@ -147,16 +147,18 @@ namespace CprBroker.Providers.CPRDirect
                                     fieldValue,
                                     new object[] { singleVal });
                             }
-                            minMaxAttr.ValidateList(arrayVal);
+                            minMaxAttr.ValidateList(arrayVal, innerType.Name);
                         }
 
                     }
                 }
                 else if (typeof(Wrapper).IsAssignableFrom(property.PropertyType))
                 {
-                    var val = wrappers.Where(obj => obj.GetType() == property.PropertyType).SingleOrDefault();
+                    var typeMatches = wrappers.Where(obj => obj.GetType() == property.PropertyType);
+                    var val = typeMatches.FirstOrDefault();
+
+                    minMaxAttr.ValidateList(typeMatches.ToList(), val == null ? property.PropertyType.Name : val.ToErrorIdentifierString());
                     property.SetValue(this, val, null);
-                    minMaxAttr.ValidateSingleObject(val);
                 }
             }
         }

@@ -71,30 +71,24 @@ namespace CprBroker.Providers.CPRDirect
         public int MinOccurs { get; set; }
         public int MaxOccurs { get; set; }
 
-        public void ValidateSingleObject(Wrapper w)
-        {
-            var actualOccurs = (w == null) ? 0 : 1;
-            ValidateCount(actualOccurs);
-        }
-
-        public void ValidateList(IList<Wrapper> w)
+        public void ValidateList(IList<Wrapper> w, string identifierString = null)
         {
             if (w.Where(a => a == null).Count() > 0)
             {
                 throw new ArgumentNullException();
             }
             var actualOccurs = w.Count;
-            ValidateCount(actualOccurs);
+            ValidateCount(actualOccurs, identifierString);
         }
 
-        public void ValidateCount(int actualCount)
+        public void ValidateCount(int actualCount, string identifierString = null)
         {
             if (actualCount < MinOccurs || actualCount > MaxOccurs)
             {
                 throw new ArgumentOutOfRangeException(
                     "Occurences",
                     actualCount,
-                    string.Format("Should be between <{0}> and <{1}>", MinOccurs, MaxOccurs)
+                    string.Format("<{0}> should be between <{1}> and <{2}>", identifierString, MinOccurs, MaxOccurs)
                     );
             }
         }
