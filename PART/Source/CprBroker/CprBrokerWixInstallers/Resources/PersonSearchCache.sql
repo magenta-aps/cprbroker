@@ -7,44 +7,44 @@ BEGIN
 	    -- Root fields
         [PersonRegistrationId] [uniqueidentifier] NULL,
 	    [UUID] [uniqueidentifier] NOT NULL,		
-        LivscyklusKode VARCHAR(MAX),
+        LivscyklusKode NVARCHAR(MAX),
             
         -- Egenskab fields
-        AddressingName VARCHAR(MAX), NickName VARCHAR(MAX), Note VARCHAR(MAX), 
-        PersonGivenName VARCHAR(MAX), PersonMiddleName VARCHAR(MAX), PersonSurnameName VARCHAR(MAX), 
-        PersonGenderCode VARCHAR(MAX), Birthdate DATETIME, FoedestedNavn VARCHAR(MAX), FoedselsregistreringMyndighedNavn VARCHAR(MAX),
+        AddressingName NVARCHAR(MAX), NickName NVARCHAR(MAX), Note NVARCHAR(MAX), 
+        PersonGivenName NVARCHAR(MAX), PersonMiddleName NVARCHAR(MAX), PersonSurnameName NVARCHAR(MAX), 
+        PersonGenderCode NVARCHAR(MAX), Birthdate DATETIME, FoedestedNavn NVARCHAR(MAX), FoedselsregistreringMyndighedNavn NVARCHAR(MAX),
 
         -- CprBorger
-        UserInterfaceKeyText VARCHAR(MAX), PersonCivilRegistrationIdentifier VARCHAR(MAX),
-        PersonNummerGyldighedStatusIndikator bit, PersonNationalityCode VARCHAR(MAX),
+        UserInterfaceKeyText NVARCHAR(MAX), PersonCivilRegistrationIdentifier NVARCHAR(MAX),
+        PersonNummerGyldighedStatusIndikator bit, PersonNationalityCode NVARCHAR(MAX),
         NavneAdresseBeskyttelseIndikator bit, TelefonNummerBeskyttelseIndikator bit, ForskerBeskyttelseIndikator bit,
             
         -- CprBorger - after address
-        AdresseNoteTekst VARCHAR(MAX), FolkekirkeMedlemIndikator bit,
+        AdresseNoteTekst NVARCHAR(MAX), FolkekirkeMedlemIndikator bit,
 
         -- FolkeregisterAdresse
         AddressType char, 
-        NoteTekst_DanskAdresse VARCHAR(MAX), UkendtAdresseIndikator bit,
-        SpecielVejkodeIndikator bit, PostDistriktTekst VARCHAR(MAX),
+        NoteTekst_DanskAdresse NVARCHAR(MAX), UkendtAdresseIndikator bit,
+        SpecielVejkodeIndikator bit, PostDistriktTekst NVARCHAR(MAX),
 
         -- AddressAccess
         -- TODO Municilaiy , StreetCode as int??
-        MunicipalityCode VARCHAR(MAX), StreetCode VARCHAR(MAX), StreetBuildingIdentifier VARCHAR(MAX),
+        MunicipalityCode NVARCHAR(MAX), StreetCode NVARCHAR(MAX), StreetBuildingIdentifier NVARCHAR(MAX),
 
         -- AddressPostal
-        MailDeliverySublocationIdentifier VARCHAR(MAX), StreetName VARCHAR(MAX), StreetNameForAddressingName VARCHAR(MAX),
-        StreetBuildingIdentifier_Postal VARCHAR(MAX), FloorIdentifier VARCHAR(MAX), SuiteIdentifier VARCHAR(MAX),
-        DistrictSubdivisionIdentifier VARCHAR(MAX), PostOfficeBoxIdentifier VARCHAR(MAX),
-        PostCodeIdentifier VARCHAR(MAX), DistrictName VARCHAR(MAX),
-        CountryIdentificationCode VARCHAR(MAX),
+        MailDeliverySublocationIdentifier NVARCHAR(MAX), StreetName NVARCHAR(MAX), StreetNameForAddressingName NVARCHAR(MAX),
+        StreetBuildingIdentifier_Postal NVARCHAR(MAX), FloorIdentifier NVARCHAR(MAX), SuiteIdentifier NVARCHAR(MAX),
+        DistrictSubdivisionIdentifier NVARCHAR(MAX), PostOfficeBoxIdentifier NVARCHAR(MAX),
+        PostCodeIdentifier NVARCHAR(MAX), DistrictName NVARCHAR(MAX),
+        CountryIdentificationCode NVARCHAR(MAX),
 
         -- Greenlandic address
-        GreenlandBuildingIdentifier VARCHAR(MAX),
+        GreenlandBuildingIdentifier NVARCHAR(MAX),
 
         -- World address
-        LocationDescriptionText VARCHAR(MAX),
-        PostalAddressFirstLineText VARCHAR(MAX), PostalAddressSecondLineText VARCHAR(MAX), PostalAddressThirdLineText VARCHAR(MAX), 
-        PostalAddressFourthLineText VARCHAR(MAX), PostalAddressFifthLineText VARCHAR(MAX)
+        LocationDescriptionText NVARCHAR(MAX),
+        PostalAddressFirstLineText NVARCHAR(MAX), PostalAddressSecondLineText NVARCHAR(MAX), PostalAddressThirdLineText NVARCHAR(MAX), 
+        PostalAddressFourthLineText NVARCHAR(MAX), PostalAddressFifthLineText NVARCHAR(MAX)
 
 	    CONSTRAINT [PK_PersonSearchCache] PRIMARY KEY CLUSTERED (	[UUID] ASC)
         WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]

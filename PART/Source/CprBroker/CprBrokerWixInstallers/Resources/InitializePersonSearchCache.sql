@@ -38,7 +38,7 @@ BEGIN
     -- Root variables
     -------------------
     DECLARE @ContentsTable Table (X XML)
-    DECLARE @LivscyklusKode VARCHAR(MAX);
+    DECLARE @LivscyklusKode NVARCHAR(MAX);
     DECLARE @EgenskabNode XML, @RegisterOplysningNode XML;
     
     INSERT INTO @ContentsTable SELECT @Contents;
@@ -50,16 +50,16 @@ BEGIN
     SELECT 
         @EgenskabNode           = X.query('(/ns0:Registrering/ns0:AttributListe/ns0:Egenskab[ns1:Virkning/ns1:TilTidspunkt/ns1:GraenseIndikator])'),
         @RegisterOplysningNode  = X.query('(/ns0:Registrering/ns0:AttributListe/ns0:RegisterOplysning[ns1:Virkning/ns1:TilTidspunkt/ns1:GraenseIndikator])'),
-        @LivscyklusKode         = X.value('(/ns0:Registrering/ns1:LivscyklusKode)[last()]','varchar(max)')
+        @LivscyklusKode         = X.value('(/ns0:Registrering/ns1:LivscyklusKode)[last()]','NVARCHAR(max)')
     FROM 
         @ContentsTable
 
     --------------
     -- Egenskab --
     --------------
-    DECLARE @AddressingName VARCHAR(MAX), @NickName VARCHAR(MAX), @Note VARCHAR(MAX), 
-        @PersonGivenName VARCHAR(MAX), @PersonMiddleName VARCHAR(MAX), @PersonSurnameName VARCHAR(MAX), 
-        @PersonGenderCode VARCHAR(MAX), @Birthdate Datetime, @FoedestedNavn VARCHAR(MAX), @FoedselsregistreringMyndighedNavn VARCHAR(MAX)
+    DECLARE @AddressingName NVARCHAR(MAX), @NickName NVARCHAR(MAX), @Note NVARCHAR(MAX), 
+        @PersonGivenName NVARCHAR(MAX), @PersonMiddleName NVARCHAR(MAX), @PersonSurnameName NVARCHAR(MAX), 
+        @PersonGenderCode NVARCHAR(MAX), @Birthdate Datetime, @FoedestedNavn NVARCHAR(MAX), @FoedselsregistreringMyndighedNavn NVARCHAR(MAX)
 
     IF LEN (CAST (@EgenskabNode AS NVARCHAR(MAX))) > 0
     BEGIN	
@@ -75,17 +75,17 @@ BEGIN
             'http://rep.oio.dk/ebxml/xml/schemas/dkcc/2006/01/23/' as ns5,
             'http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/03/15/' as ns6) 
         SELECT 
-            @AddressingName                     = X.value('(/ns0:Egenskab/ns0:NavnStruktur/ns1:PersonNameForAddressingName)[last()]'               , 'varchar(max)'),
-            @NickName                           = X.value('(/ns0:Egenskab/ns0:NavnStruktur/ns2:KaldenavnTekst)[last()]'                            , 'varchar(max)'),
-            @Note                               = X.value('(/ns0:Egenskab/ns0:NavnStruktur/ns2:NoteTekst)[last()]'                                 , 'varchar(max)'),		
-            @PersonGivenName                    = X.value('(/ns0:Egenskab/ns0:NavnStruktur/ns3:PersonNameStructure/ns4:PersonGivenName)[last()]'   , 'varchar(max)'),
-            @PersonMiddleName                   = X.value('(/ns0:Egenskab/ns0:NavnStruktur/ns3:PersonNameStructure/ns4:PersonMiddleName)[last()]'  , 'varchar(max)'),
-            @PersonSurnameName                  = X.value('(/ns0:Egenskab/ns0:NavnStruktur/ns3:PersonNameStructure/ns4:PersonSurnameName)[last()]' , 'varchar(max)'),
-            @PersonGenderCode                   = X.value('(/ns0:Egenskab/ns5:PersonGenderCode)[last()]'                                           , 'varchar(max)'),
+            @AddressingName                     = X.value('(/ns0:Egenskab/ns0:NavnStruktur/ns1:PersonNameForAddressingName)[last()]'               , 'NVARCHAR(max)'),
+            @NickName                           = X.value('(/ns0:Egenskab/ns0:NavnStruktur/ns2:KaldenavnTekst)[last()]'                            , 'NVARCHAR(max)'),
+            @Note                               = X.value('(/ns0:Egenskab/ns0:NavnStruktur/ns2:NoteTekst)[last()]'                                 , 'NVARCHAR(max)'),		
+            @PersonGivenName                    = X.value('(/ns0:Egenskab/ns0:NavnStruktur/ns3:PersonNameStructure/ns4:PersonGivenName)[last()]'   , 'NVARCHAR(max)'),
+            @PersonMiddleName                   = X.value('(/ns0:Egenskab/ns0:NavnStruktur/ns3:PersonNameStructure/ns4:PersonMiddleName)[last()]'  , 'NVARCHAR(max)'),
+            @PersonSurnameName                  = X.value('(/ns0:Egenskab/ns0:NavnStruktur/ns3:PersonNameStructure/ns4:PersonSurnameName)[last()]' , 'NVARCHAR(max)'),
+            @PersonGenderCode                   = X.value('(/ns0:Egenskab/ns5:PersonGenderCode)[last()]'                                           , 'NVARCHAR(max)'),
             @Birthdate                          = X.value('(/ns0:Egenskab/ns6:BirthDate)[last()]'                                                  , 'datetime'),
-            @FoedestedNavn                      = X.value('(/ns0:Egenskab/ns0:FoedestedNavn)[last()]'                                              , 'varchar(max)'),
+            @FoedestedNavn                      = X.value('(/ns0:Egenskab/ns0:FoedestedNavn)[last()]'                                              , 'NVARCHAR(max)'),
             -- TODO: This field is not used !!
-            @FoedselsregistreringMyndighedNavn  = X.value('(/ns0:Egenskab/ns0:FoedselsregistreringMyndighedNavn)[last()]'                          , 'varchar(max)')
+            @FoedselsregistreringMyndighedNavn  = X.value('(/ns0:Egenskab/ns0:FoedselsregistreringMyndighedNavn)[last()]'                          , 'NVARCHAR(max)')
         FROM 
             @EgenskabTable
     END
@@ -95,36 +95,36 @@ BEGIN
     -----------------------
 
     -- CprBorger fields
-    DECLARE @UserInterfaceKeyText VARCHAR(MAX), @PersonCivilRegistrationIdentifier VARCHAR(max),
-        @PersonNummerGyldighedStatusIndikator bit, @PersonNationalityCode VARCHAR(MAX),
+    DECLARE @UserInterfaceKeyText NVARCHAR(MAX), @PersonCivilRegistrationIdentifier NVARCHAR(max),
+        @PersonNummerGyldighedStatusIndikator bit, @PersonNationalityCode NVARCHAR(MAX),
         @NavneAdresseBeskyttelseIndikator bit,@TelefonNummerBeskyttelseIndikator bit, @ForskerBeskyttelseIndikator bit;
 
     -- CprBorger fields - after address
-    DECLARE @AdresseNoteTekst VARCHAR(MAX), @FolkekirkeMedlemIndikator bit;
+    DECLARE @AdresseNoteTekst NVARCHAR(MAX), @FolkekirkeMedlemIndikator bit;
     
     -- FolkeregisterAdresse fields
     DECLARE @AddressType char, 
-        @NoteTekst_DanskAdresse VARCHAR(MAX), @UkendtAdresseIndikator bit, 
-        @SpecielVejkodeIndikator bit, @PostDistriktTekst VARCHAR(MAX);
+        @NoteTekst_DanskAdresse NVARCHAR(MAX), @UkendtAdresseIndikator bit, 
+        @SpecielVejkodeIndikator bit, @PostDistriktTekst NVARCHAR(MAX);
     
     -- AddressAccess fields
-    DECLARE @MunicipalityCode int, @StreetCode int, @StreetBuildingIdentifier VARCHAR(MAX);
+    DECLARE @MunicipalityCode int, @StreetCode int, @StreetBuildingIdentifier NVARCHAR(MAX);
     
     -- AddressPostal fields
-    DECLARE @MailDeliverySublocationIdentifier VARCHAR(MAX),
-        @StreetName VARCHAR(MAX), @StreetNameForAddressingName VARCHAR(MAX), 
-        @StreetBuildingIdentifier_Postal VARCHAR(MAX), @FloorIdentifier VARCHAR(MAX), @SuiteIdentifier VARCHAR(MAX), 
-        @DistrictSubdivisionIdentifier VARCHAR(MAX), @PostOfficeBoxIdentifier VARCHAR(MAX), 
-        @PostCodeIdentifier int, @DistrictName VARCHAR(MAX), 
-        @CountryIdentificationCode VARCHAR(MAX);
+    DECLARE @MailDeliverySublocationIdentifier NVARCHAR(MAX),
+        @StreetName NVARCHAR(MAX), @StreetNameForAddressingName NVARCHAR(MAX), 
+        @StreetBuildingIdentifier_Postal NVARCHAR(MAX), @FloorIdentifier NVARCHAR(MAX), @SuiteIdentifier NVARCHAR(MAX), 
+        @DistrictSubdivisionIdentifier NVARCHAR(MAX), @PostOfficeBoxIdentifier NVARCHAR(MAX), 
+        @PostCodeIdentifier int, @DistrictName NVARCHAR(MAX), 
+        @CountryIdentificationCode NVARCHAR(MAX);
         
     -- Greenlandic address
-    DECLARE @GreenlandBuildingIdentifier VARCHAR(MAX)
+    DECLARE @GreenlandBuildingIdentifier NVARCHAR(MAX)
 
     -- World address
-    DECLARE @LocationDescriptionText VARCHAR(MAX),
-        @PostalAddressFirstLineText VARCHAR(MAX), @PostalAddressSecondLineText VARCHAR(MAX), @PostalAddressThirdLineText VARCHAR(MAX), 
-        @PostalAddressFourthLineText VARCHAR(MAX), @PostalAddressFifthLineText VARCHAR(MAX)
+    DECLARE @LocationDescriptionText NVARCHAR(MAX),
+        @PostalAddressFirstLineText NVARCHAR(MAX), @PostalAddressSecondLineText NVARCHAR(MAX), @PostalAddressThirdLineText NVARCHAR(MAX), 
+        @PostalAddressFourthLineText NVARCHAR(MAX), @PostalAddressFifthLineText NVARCHAR(MAX)
     
     IF LEN (CAST (@RegisterOplysningNode AS NVARCHAR(MAX))) > 0
     BEGIN	
@@ -136,10 +136,10 @@ BEGIN
             'http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/' as ns1,
             'http://rep.oio.dk/ebxml/xml/schemas/dkcc/2006/01/03/' as ns2)
         SELECT
-            @UserInterfaceKeyText                  = X.value('(/ns0:RegisterOplysning/ns0:CprBorger/ns1:PersonCivilRegistrationIdentifier)[last()]'    , 'varchar(max)' ),
-            @PersonCivilRegistrationIdentifier     = X.value('(/ns0:RegisterOplysning/ns0:CprBorger/ns1:PersonCivilRegistrationIdentifier)[last()]'    , 'varchar(max)' ),
+            @UserInterfaceKeyText                  = X.value('(/ns0:RegisterOplysning/ns0:CprBorger/ns1:PersonCivilRegistrationIdentifier)[last()]'    , 'NVARCHAR(max)' ),
+            @PersonCivilRegistrationIdentifier     = X.value('(/ns0:RegisterOplysning/ns0:CprBorger/ns1:PersonCivilRegistrationIdentifier)[last()]'    , 'NVARCHAR(max)' ),
             @PersonNummerGyldighedStatusIndikator  = X.value('(/ns0:RegisterOplysning/ns0:CprBorger/ns0:PersonNummerGyldighedStatusIndikator)[last()]' , 'bit'          ),
-            @PersonNationalityCode                 = X.value('(/ns0:RegisterOplysning/ns0:CprBorger/ns2:PersonNationalityCode)[last()]'                , 'varchar(max)' ),
+            @PersonNationalityCode                 = X.value('(/ns0:RegisterOplysning/ns0:CprBorger/ns2:PersonNationalityCode)[last()]'                , 'NVARCHAR(max)' ),
             @NavneAdresseBeskyttelseIndikator      = X.value('(/ns0:RegisterOplysning/ns0:CprBorger/ns0:NavneAdresseBeskyttelseIndikator)[last()]'     , 'bit'          ),
             @TelefonNummerBeskyttelseIndikator     = X.value('(/ns0:RegisterOplysning/ns0:CprBorger/ns0:TelefonNummerBeskyttelseIndikator)[last()]'    , 'bit'          ),
             @ForskerBeskyttelseIndikator           = X.value('(/ns0:RegisterOplysning/ns0:CprBorger/ns0:ForskerBeskyttelseIndikator)[last()]'          , 'bit'          )
@@ -151,7 +151,7 @@ BEGIN
             'http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/' as ns1,
             'http://rep.oio.dk/ebxml/xml/schemas/dkcc/2006/01/03/' as ns2)
         SELECT
-            @AdresseNoteTekst           = X.value('(/ns0:RegisterOplysning/ns0:CprBorger/ns0:AdresseNoteTekst)[last()]'          , 'varchar(max)'),
+            @AdresseNoteTekst           = X.value('(/ns0:RegisterOplysning/ns0:CprBorger/ns0:AdresseNoteTekst)[last()]'          , 'NVARCHAR(max)'),
             @FolkekirkeMedlemIndikator  = X.value('(/ns0:RegisterOplysning/ns0:CprBorger/ns0:FolkekirkeMedlemIndikator)[last()]' , 'bit')
         FROM @RegisterOplysningTable;
 
@@ -167,10 +167,10 @@ BEGIN
                 'urn:oio:sagdok:2.0.0' AS ns1)
             SELECT 
                 @AddressType             = 'D',
-                @NoteTekst_DanskAdresse  = X.value('(/ns0:DanskAdresse/ns1:NoteTekst)[last()]'               , 'varchar(max)'),
+                @NoteTekst_DanskAdresse  = X.value('(/ns0:DanskAdresse/ns1:NoteTekst)[last()]'               , 'NVARCHAR(max)'),
                 @UkendtAdresseIndikator  = X.value('(/ns0:DanskAdresse/ns0:UkendtAdresseIndikator)[last()]'  , 'bit'),
                 @SpecielVejkodeIndikator = X.value('(/ns0:DanskAdresse/ns0:SpecielVejkodeIndikator)[last()]' , 'bit'),
-                @PostDistriktTekst       = X.value('(/ns0:DanskAdresse/ns0:PostDistriktTekst)[last()]'       , 'varchar(max)')
+                @PostDistriktTekst       = X.value('(/ns0:DanskAdresse/ns0:PostDistriktTekst)[last()]'       , 'NVARCHAR(max)')
             FROM @DanskAdresseTable;
         
             -- AddressAccess
@@ -183,7 +183,7 @@ BEGIN
             SELECT
                 @MunicipalityCode         =                         X.value('(/ns2:AddressAccess/ns3:MunicipalityCode)[last()]'         , 'int'),
                 @StreetCode               =                         X.value('(/ns2:AddressAccess/ns3:StreetCode)[last()]'               , 'int'),
-                @StreetBuildingIdentifier = dbo.TrimAddressString(  X.value('(/ns2:AddressAccess/ns4:StreetBuildingIdentifier)[last()]' , 'varchar(max)'))
+                @StreetBuildingIdentifier = dbo.TrimAddressString(  X.value('(/ns2:AddressAccess/ns4:StreetBuildingIdentifier)[last()]' , 'NVARCHAR(max)'))
             FROM 
                 (SELECT X.query('/ns0:DanskAdresse/ns1:AddressComplete/ns2:AddressAccess') FROM @DanskAdresseTable) AS tmp_AddressPostalTable(X);
 
@@ -197,17 +197,17 @@ BEGIN
                 'http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/13/' as ns5
                 )
             SELECT
-                @MailDeliverySublocationIdentifier  =                       X.value('(/ns1:AddressPostal/ns2:MailDeliverySublocationIdentifier)[last()]'    , 'varchar(max)'),
-                @StreetName                         =                       X.value('(/ns1:AddressPostal/ns3:StreetName)[last()]'                           , 'varchar(max)') ,
-                @StreetNameForAddressingName        =                       X.value('(/ns1:AddressPostal/ns4:StreetNameForAddressingName)[last()]'          , 'varchar(max)'),
-                @StreetBuildingIdentifier_Postal    = dbo.TrimAddressString(X.value('(/ns1:AddressPostal/ns2:StreetBuildingIdentifier)[last()]'             , 'varchar(max)')),
-                @FloorIdentifier                    = dbo.TrimAddressString(X.value('(/ns1:AddressPostal/ns2:FloorIdentifier)[last()]'                      , 'varchar(max)')),
-                @SuiteIdentifier                    = dbo.TrimAddressString(X.value('(/ns1:AddressPostal/ns2:SuiteIdentifier)[last()]'                      , 'varchar(max)')),
-                @DistrictSubdivisionIdentifier      =                       X.value('(/ns1:AddressPostal/ns3:DistrictSubdivisionIdentifier)[last()]'        , 'varchar(max)'),
-                @PostOfficeBoxIdentifier            =                       X.value('(/ns1:AddressPostal/ns5:PostOfficeBoxIdentifier)[last()]'              , 'varchar(max)'),
+                @MailDeliverySublocationIdentifier  =                       X.value('(/ns1:AddressPostal/ns2:MailDeliverySublocationIdentifier)[last()]'    , 'NVARCHAR(max)'),
+                @StreetName                         =                       X.value('(/ns1:AddressPostal/ns3:StreetName)[last()]'                           , 'NVARCHAR(max)') ,
+                @StreetNameForAddressingName        =                       X.value('(/ns1:AddressPostal/ns4:StreetNameForAddressingName)[last()]'          , 'NVARCHAR(max)'),
+                @StreetBuildingIdentifier_Postal    = dbo.TrimAddressString(X.value('(/ns1:AddressPostal/ns2:StreetBuildingIdentifier)[last()]'             , 'NVARCHAR(max)')),
+                @FloorIdentifier                    = dbo.TrimAddressString(X.value('(/ns1:AddressPostal/ns2:FloorIdentifier)[last()]'                      , 'NVARCHAR(max)')),
+                @SuiteIdentifier                    = dbo.TrimAddressString(X.value('(/ns1:AddressPostal/ns2:SuiteIdentifier)[last()]'                      , 'NVARCHAR(max)')),
+                @DistrictSubdivisionIdentifier      =                       X.value('(/ns1:AddressPostal/ns3:DistrictSubdivisionIdentifier)[last()]'        , 'NVARCHAR(max)'),
+                @PostOfficeBoxIdentifier            =                       X.value('(/ns1:AddressPostal/ns5:PostOfficeBoxIdentifier)[last()]'              , 'NVARCHAR(max)'),
                 @PostCodeIdentifier                 =                       X.value('(/ns1:AddressPostal/ns3:PostCodeIdentifier)[last()]'                   , 'int'),
-                @DistrictName                       =                       X.value('(/ns1:AddressPostal/ns3:DistrictName)[last()]'                         , 'varchar(max)'),
-                @CountryIdentificationCode          =                       X.value('(/ns1:AddressPostal/ns2:CountryIdentificationCode)[last()]'            , 'varchar(max)')
+                @DistrictName                       =                       X.value('(/ns1:AddressPostal/ns3:DistrictName)[last()]'                         , 'NVARCHAR(max)'),
+                @CountryIdentificationCode          =                       X.value('(/ns1:AddressPostal/ns2:CountryIdentificationCode)[last()]'            , 'NVARCHAR(max)')
             FROM 
                 (SELECT X.query('/ns0:DanskAdresse/ns1:AddressComplete/ns1:AddressPostal') FROM @DanskAdresseTable) AS tmp_AddressPostalTable(X);
 
@@ -224,7 +224,7 @@ BEGIN
                 'urn:oio:sagdok:2.0.0' AS ns1)
             SELECT 
                 @AddressType             = 'G',
-                @NoteTekst_DanskAdresse  = X.value('(/ns0:GroenlandAdresse/ns1:NoteTekst)[last()]'               , 'varchar(max)'),
+                @NoteTekst_DanskAdresse  = X.value('(/ns0:GroenlandAdresse/ns1:NoteTekst)[last()]'               , 'NVARCHAR(max)'),
                 @UkendtAdresseIndikator  = X.value('(/ns0:GroenlandAdresse/ns0:UkendtAdresseIndikator)[last()]'  , 'bit'),
                 @SpecielVejkodeIndikator = X.value('(/ns0:GroenlandAdresse/ns0:SpecielVejkodeIndikator)[last()]' , 'bit')
             FROM @GroenlandskAdresseTable;
@@ -239,17 +239,17 @@ BEGIN
             SELECT
                 @MunicipalityCode                   =                        X.value('(/ns1:AddressCompleteGreenland/ns2:MunicipalityCode)[last()]'                  , 'int'),
                 @StreetCode                         =                        X.value('(/ns1:AddressCompleteGreenland/ns2:StreetCode)[last()]'                        , 'int'),
-                @MailDeliverySublocationIdentifier  =                        X.value('(/ns1:AddressCompleteGreenland/ns3:MailDeliverySublocationIdentifier)[last()]' , 'varchar(max)'),
-                @StreetName                         =                        X.value('(/ns1:AddressCompleteGreenland/ns4:StreetName)[last()]'                        , 'varchar(max)'),
-                @StreetNameForAddressingName        =                        X.value('(/ns1:AddressCompleteGreenland/ns2:StreetCode)[last()]'                        , 'varchar(max)'),
-                @StreetBuildingIdentifier           = dbo.TrimAddressString( X.value('(/ns1:AddressCompleteGreenland/ns3:StreetBuildingIdentifier)[last()]'          , 'varchar(max)')),
-                @GreenlandBuildingIdentifier        = dbo.TrimAddressString( X.value('(/ns1:AddressCompleteGreenland/ns1:GreenlandBuildingIdentifier)[last()]'       , 'varchar(max)')),
-                @SuiteIdentifier                    = dbo.TrimAddressString( X.value('(/ns1:AddressCompleteGreenland/ns3:SuiteIdentifier)[last()]'                   , 'varchar(max)')),
-                @FloorIdentifier                    = dbo.TrimAddressString( X.value('(/ns1:AddressCompleteGreenland/ns3:FloorIdentifier)[last()]'                   , 'varchar(max)')),
-                @DistrictSubdivisionIdentifier      =                        X.value('(/ns1:AddressCompleteGreenland/ns4:DistrictSubdivisionIdentifier)[last()]'     , 'varchar(max)'),
-                @PostCodeIdentifier                 =                        X.value('(/ns1:AddressCompleteGreenland/ns4:PostCodeIdentifier)[last()]'                , 'varchar(max)'),
-                @DistrictName                       =                        X.value('(/ns1:AddressCompleteGreenland/ns4:DistrictName)[last()]'                      , 'varchar(max)'),
-                @CountryIdentificationCode          =                        X.value('(/ns1:AddressCompleteGreenland/ns3:CountryIdentificationCode)[last()]'         , 'varchar(max)')
+                @MailDeliverySublocationIdentifier  =                        X.value('(/ns1:AddressCompleteGreenland/ns3:MailDeliverySublocationIdentifier)[last()]' , 'NVARCHAR(max)'),
+                @StreetName                         =                        X.value('(/ns1:AddressCompleteGreenland/ns4:StreetName)[last()]'                        , 'NVARCHAR(max)'),
+                @StreetNameForAddressingName        =                        X.value('(/ns1:AddressCompleteGreenland/ns2:StreetCode)[last()]'                        , 'NVARCHAR(max)'),
+                @StreetBuildingIdentifier           = dbo.TrimAddressString( X.value('(/ns1:AddressCompleteGreenland/ns3:StreetBuildingIdentifier)[last()]'          , 'NVARCHAR(max)')),
+                @GreenlandBuildingIdentifier        = dbo.TrimAddressString( X.value('(/ns1:AddressCompleteGreenland/ns1:GreenlandBuildingIdentifier)[last()]'       , 'NVARCHAR(max)')),
+                @SuiteIdentifier                    = dbo.TrimAddressString( X.value('(/ns1:AddressCompleteGreenland/ns3:SuiteIdentifier)[last()]'                   , 'NVARCHAR(max)')),
+                @FloorIdentifier                    = dbo.TrimAddressString( X.value('(/ns1:AddressCompleteGreenland/ns3:FloorIdentifier)[last()]'                   , 'NVARCHAR(max)')),
+                @DistrictSubdivisionIdentifier      =                        X.value('(/ns1:AddressCompleteGreenland/ns4:DistrictSubdivisionIdentifier)[last()]'     , 'NVARCHAR(max)'),
+                @PostCodeIdentifier                 =                        X.value('(/ns1:AddressCompleteGreenland/ns4:PostCodeIdentifier)[last()]'                , 'NVARCHAR(max)'),
+                @DistrictName                       =                        X.value('(/ns1:AddressCompleteGreenland/ns4:DistrictName)[last()]'                      , 'NVARCHAR(max)'),
+                @CountryIdentificationCode          =                        X.value('(/ns1:AddressCompleteGreenland/ns3:CountryIdentificationCode)[last()]'         , 'NVARCHAR(max)')
             FROM 
                 (SELECT X.query('/ns0:GroenlandAdresse/ns1:AddressCompleteGreenland') FROM @GroenlandskAdresseTable) AS tmp_AddressPostalTable(X);
         END
@@ -270,13 +270,13 @@ BEGIN
                 )
             SELECT
                 @AddressType                    = 'V',
-                @LocationDescriptionText        = X.value('(ns1:ForeignAddressStructure/ns3:LocationDescriptionText)[last()]'       , 'varchar(max)'),
-                @PostalAddressFirstLineText     = X.value('(ns1:ForeignAddressStructure/ns2:PostalAddressFirstLineText)[last()]'    , 'varchar(max)'),
-                @PostalAddressSecondLineText    = X.value('(ns1:ForeignAddressStructure/ns2:PostalAddressSecondLineText)[last()]'   , 'varchar(max)'),
-                @PostalAddressThirdLineText     = X.value('(ns1:ForeignAddressStructure/ns2:PostalAddressThirdLineText)[last()]'    , 'varchar(max)'),
-                @PostalAddressFourthLineText    = X.value('(ns1:ForeignAddressStructure/ns2:PostalAddressFourthLineText)[last()]'   , 'varchar(max)'),
-                @PostalAddressFifthLineText     = X.value('(ns1:ForeignAddressStructure/ns2:PostalAddressFifthLineText)[last()]'    , 'varchar(max)'),
-                @CountryIdentificationCode      = X.value('(/ns1:ForeignAddressStructure/ns4:CountryIdentificationCode)[last()]'    , 'varchar(max)')
+                @LocationDescriptionText        = X.value('(ns1:ForeignAddressStructure/ns3:LocationDescriptionText)[last()]'       , 'NVARCHAR(max)'),
+                @PostalAddressFirstLineText     = X.value('(ns1:ForeignAddressStructure/ns2:PostalAddressFirstLineText)[last()]'    , 'NVARCHAR(max)'),
+                @PostalAddressSecondLineText    = X.value('(ns1:ForeignAddressStructure/ns2:PostalAddressSecondLineText)[last()]'   , 'NVARCHAR(max)'),
+                @PostalAddressThirdLineText     = X.value('(ns1:ForeignAddressStructure/ns2:PostalAddressThirdLineText)[last()]'    , 'NVARCHAR(max)'),
+                @PostalAddressFourthLineText    = X.value('(ns1:ForeignAddressStructure/ns2:PostalAddressFourthLineText)[last()]'   , 'NVARCHAR(max)'),
+                @PostalAddressFifthLineText     = X.value('(ns1:ForeignAddressStructure/ns2:PostalAddressFifthLineText)[last()]'    , 'NVARCHAR(max)'),
+                @CountryIdentificationCode      = X.value('(/ns1:ForeignAddressStructure/ns4:CountryIdentificationCode)[last()]'    , 'NVARCHAR(max)')
             FROM
                 (SELECT X.query('/ns0:VerdenAdresse/ns1:ForeignAddressStructure') FROM @VerdenAdresseTable) AS tmp_AddressPostalTable(X);
         END
