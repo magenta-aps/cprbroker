@@ -67,17 +67,6 @@ namespace CprBroker.Providers.CPRDirect
             ImportText(text, "");
         }
 
-        public static TransactionScope CreateTransactionScope()
-        {
-            return new System.Transactions.TransactionScope(
-                System.Transactions.TransactionScopeOption.Required,
-                new System.Transactions.TransactionOptions()
-                {
-                    IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted,
-                    Timeout = System.Transactions.TransactionManager.MaximumTimeout
-                });
-        }
-
         public static void ImportText(string text, string sourceFileName)
         {
             var parseResult = new ExtractParseSession(text, Constants.DataObjectMap);
@@ -89,22 +78,20 @@ namespace CprBroker.Providers.CPRDirect
             using (var conn = new SqlConnection(ConfigManager.Current.Settings.CprBrokerConnectionString))
             {
                 conn.Open();
-                using (var transactionScope = CreateTransactionScope())
+
+                conn.BulkInsertAll<Extract>(new Extract[] { extract });
+                conn.BulkInsertAll<ExtractItem>(extractItems);
+                conn.BulkInsertAll<ExtractError>(extractErrors);
+
+                // This is not used in production - OK to enqueue after inserting. ALso needed because there is no use of semaphores
+                var stagingQueue = CprBroker.Engine.Queues.Queue.GetQueues<ExtractStagingQueue>(ExtractStagingQueue.QueueId).First();
+                stagingQueue.Enqueue(queueItems);
+
+                using (var dataContext = new ExtractDataContext())
                 {
-                    conn.BulkInsertAll<Extract>(new Extract[] { extract });
-                    conn.BulkInsertAll<ExtractItem>(extractItems);
-                    conn.BulkInsertAll<ExtractError>(extractErrors);
-
-                    var stagingQueue = CprBroker.Engine.Queues.Queue.GetQueues<ExtractStagingQueue>(ExtractStagingQueue.QueueId).First();
-                    stagingQueue.Enqueue(queueItems);
-
-                    using (var dataContext = new ExtractDataContext())
-                    {
-                        extract = dataContext.Extracts.Where(ex => ex.ExtractId == extract.ExtractId).First();
-                        extract.Ready = true;
-                        dataContext.SubmitChanges();
-                    }
-                    transactionScope.Complete();
+                    extract = dataContext.Extracts.Where(ex => ex.ExtractId == extract.ExtractId).First();
+                    extract.Ready = true;
+                    dataContext.SubmitChanges();
                 }
             }
         }
@@ -156,39 +143,37 @@ namespace CprBroker.Providers.CPRDirect
                     var extract = dataContext.Extracts.Single(e => e.ExtractId == extractId);
                     var semaphore = Semaphore.GetById(extract.SemaphoreId.Value);
 
-                    // Init transaction block
-                    using (var transactionScope = CreateTransactionScope())
+
+                    // Set start record
+                    if (string.IsNullOrEmpty(extract.StartRecord) && extractSession.StartWrapper != null)
                     {
-                        // Set start record
-                        if (string.IsNullOrEmpty(extract.StartRecord) && extractSession.StartWrapper != null)
-                        {
-                            extract.StartRecord = extractSession.StartWrapper.Contents;
-                            extract.ExtractDate = extractSession.StartWrapper.ProductionDate.Value;
-                        }
-
-                        // Extract items and errors
-                        conn.BulkInsertAll<ExtractItem>(extractSession.ToExtractItems(extract.ExtractId, Constants.DataObjectMap, Constants.RelationshipMap, Constants.MultiRelationshipMap));
-                        conn.BulkInsertAll<ExtractError>(extractSession.ToExtractErrors(extract.ExtractId));
-
-                        // Staging queue
-                        var stagingQueue = Queue.GetQueues<ExtractStagingQueue>().First();
-                        stagingQueue.Enqueue(extractSession.ToQueueItems(extract.ExtractId), semaphore);
-
-                        // Update counts and commit
-                        extract.ProcessedLines += wrappers.Count;
-
-                        // End record and mark as ready, and signal the semaphore
-                        if (extractSession.EndLine != null)
-                        {
-                            extract.EndRecord = extractSession.EndLine.Contents;
-                            extract.Ready = true;
-                            semaphore.Signal();
-                        }
-
-                        // Commit
-                        dataContext.SubmitChanges();
-                        transactionScope.Complete();
+                        extract.StartRecord = extractSession.StartWrapper.Contents;
+                        extract.ExtractDate = extractSession.StartWrapper.ProductionDate.Value;
                     }
+
+                    // Staging queue. enqueue BEFORE inserting the extract records, so that we never miss queue events
+                    var stagingQueue = Queue.GetQueues<ExtractStagingQueue>().First();
+                    stagingQueue.Enqueue(extractSession.ToQueueItems(extract.ExtractId), semaphore);
+
+                    // Extract items and errors
+                    conn.BulkInsertAll<ExtractItem>(extractSession.ToExtractItems(extract.ExtractId, Constants.DataObjectMap, Constants.RelationshipMap, Constants.MultiRelationshipMap));
+                    conn.BulkInsertAll<ExtractError>(extractSession.ToExtractErrors(extract.ExtractId));
+
+
+                    // Update counts and commit
+                    extract.ProcessedLines += wrappers.Count;
+
+                    // End record and mark as ready, and signal the semaphore
+                    if (extractSession.EndLine != null)
+                    {
+                        extract.EndRecord = extractSession.EndLine.Contents;
+                        extract.Ready = true;
+                        semaphore.Signal();
+                    }
+
+                    // Commit
+                    dataContext.SubmitChanges();
+
                     Admin.LogFormattedSuccess("Batch committed, <{0}> lines, <{1}> total so far", wrappers.Count, extract.ProcessedLines.Value);
                 }
             }
