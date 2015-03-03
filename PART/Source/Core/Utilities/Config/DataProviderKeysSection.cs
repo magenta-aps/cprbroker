@@ -167,7 +167,6 @@ namespace CprBroker.Utilities.Config
                 group = new ConfigurationSectionGroup();
                 configFile.SectionGroups.Add(Constants.DataProvidersSectionGroupName, group);
             }
-            System.Diagnostics.Debugger.Launch();
             var section = group.Sections[SectionName] as DataProviderKeysSection;
             if (section == null)
             {
