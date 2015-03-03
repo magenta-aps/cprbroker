@@ -387,7 +387,8 @@ namespace CprBrokerWixInstallers
                     "UnInstallBackendService",
                     "SetCprBrokerUrl",
                     "CloneDataProviderSectionsToBackendService",
-                    "InitTasksConfiguration"
+                    "InitTasksConfiguration",
+                    "CloneCprBrokerConfigToEventBroker"
                 };
                 return WebsiteCustomAction.AfterInstallInitialize_WEB(session, extraCustomActionNames);
             }
@@ -403,7 +404,7 @@ namespace CprBrokerWixInstallers
         {
             try
             {
-                // Reset types in config filr
+                // Reset types in config file
                 ResetDataProviderSectionDefinitions(session);
 
                 // Now prepare and install the website
@@ -419,25 +420,29 @@ namespace CprBrokerWixInstallers
                     InitializeFlatFileLogging = true,
                     WebsiteDirectoryRelativePath = EventBrokerCustomActions.PathConstants.CprBrokerWebsiteDirectoryRelativePath,
                     ConfigSectionGroupEncryptionOptions = new ConfigSectionGroupEncryptionOptions[]
-                {
-                    new ConfigSectionGroupEncryptionOptions()
                     {
-                        ConfigSectionGroupName = Constants.DataProvidersSectionGroupName,
-                        ConfigSectionEncryptionOptions = new ConfigSectionEncryptionOptions[]
+                        new ConfigSectionGroupEncryptionOptions()
                         {
-                            new ConfigSectionEncryptionOptions(){ 
-                                SectionName = DataProviderKeysSection.SectionName, 
-                                SectionType=typeof(DataProviderKeysSection), 
-                                CustomMethod = config=>DataProviderKeysSection.RegisterNewKeys(config)
-                            },
-                            new ConfigSectionEncryptionOptions(){ 
-                                SectionName = DataProvidersConfigurationSection.SectionName, 
-                                SectionType=typeof(DataProvidersConfigurationSection),
-                                CustomMethod =null
+                            ConfigSectionGroupName = Constants.DataProvidersSectionGroupName,
+                            ConfigSectionEncryptionOptions = new ConfigSectionEncryptionOptions[]
+                            {
+                                new ConfigSectionEncryptionOptions(){ 
+                                    SectionName = DataProviderKeysSection.SectionName, 
+                                    SectionType=typeof(DataProviderKeysSection), 
+                                    CustomMethod = config=>{
+                                        CprBroker.Installers.Installation.RemoveSectionNode(config.FilePath, DataProviderKeysSection.SectionName);
+                                        config = CprBroker.Installers.Installation.OpenConfigFile(config.FilePath);
+                                        DataProviderKeysSection.RegisterNewKeys(config);
+                                    }
+                                },
+                                new ConfigSectionEncryptionOptions(){ 
+                                    SectionName = DataProvidersConfigurationSection.SectionName, 
+                                    SectionType=typeof(DataProvidersConfigurationSection),
+                                    CustomMethod =null
+                                }
                             }
                         }
                     }
-                }
                 };
                 allOptions["CPR"] = cprOptions;
 

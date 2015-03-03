@@ -58,6 +58,8 @@ namespace BatchClient
     {
         public static void Main(params string[] args)
         {
+            var config = System.Configuration.ConfigurationManager.OpenExeConfiguration(typeof(Program).Assembly.Location);
+            CprBroker.Utilities.Config.DataProviderKeysSection.RegisterNewKeys(config);
             ConsoleEnvironment env = ConsoleEnvironment.Create(args);
             env.Run();
         }
