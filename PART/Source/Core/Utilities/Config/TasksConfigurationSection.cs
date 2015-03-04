@@ -78,7 +78,7 @@ namespace CprBroker.Utilities.Config
                 if (elm.Type != null)
                     return elm.Type.IdentifyableName();
                 else
-                    return elm.TypeName;
+                    return elm.TypeName.Trim();
             }
 
             public void Clear()
@@ -106,7 +106,7 @@ namespace CprBroker.Utilities.Config
 
                 foreach (var newElement in newElements)
                 {
-                    if (newElement.Type != null)
+                    if (!string.IsNullOrEmpty(newElement.TypeName))
                     {
                         var existingElement = myElements.Where(me =>
                             object.Equals(GetElementKey(newElement), GetElementKey(me))
