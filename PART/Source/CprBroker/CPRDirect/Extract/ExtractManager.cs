@@ -54,7 +54,7 @@ using CprBroker.Engine;
 using CprBroker.Engine.Local;
 using CprBroker.Engine.Part;
 using CprBroker.Data.DataProviders;
-using System.Transactions;
+using System.Data;
 using CprBroker.Engine.Queues;
 using CprBroker.Utilities.Config;
 
@@ -134,12 +134,14 @@ namespace CprBroker.Providers.CPRDirect
             var wrappers = CompositeWrapper.Parse(file, typeMap, batchSize);
             extractSession.AddLines(wrappers);
 
+
             // Database access
-            using (var conn = new SqlConnection(ConfigManager.Current.Settings.CprBrokerConnectionString))
+            using (var dataContext = new ExtractDataContext())
             {
-                conn.Open();
-                using (var dataContext = new ExtractDataContext(conn))
+                dataContext.Connection.Open();
+                using (dataContext.Transaction = dataContext.Connection.BeginTransaction(IsolationLevel.ReadUncommitted))
                 {
+
                     var extract = dataContext.Extracts.Single(e => e.ExtractId == extractId);
                     var semaphore = Semaphore.GetById(extract.SemaphoreId.Value);
 
@@ -156,8 +158,10 @@ namespace CprBroker.Providers.CPRDirect
                     stagingQueue.Enqueue(extractSession.ToQueueItems(extract.ExtractId), semaphore);
 
                     // Extract items and errors
-                    conn.BulkInsertAll<ExtractItem>(extractSession.ToExtractItems(extract.ExtractId, Constants.DataObjectMap, Constants.RelationshipMap, Constants.MultiRelationshipMap));
-                    conn.BulkInsertAll<ExtractError>(extractSession.ToExtractErrors(extract.ExtractId));
+                    var conn = dataContext.Connection as SqlConnection;
+                    var trans = dataContext.Transaction as SqlTransaction;
+                    conn.BulkInsertAll<ExtractItem>(extractSession.ToExtractItems(extract.ExtractId, Constants.DataObjectMap, Constants.RelationshipMap, Constants.MultiRelationshipMap), trans);
+                    conn.BulkInsertAll<ExtractError>(extractSession.ToExtractErrors(extract.ExtractId), trans);
 
 
                     // Update counts and commit
@@ -173,6 +177,7 @@ namespace CprBroker.Providers.CPRDirect
 
                     // Commit
                     dataContext.SubmitChanges();
+                    dataContext.Transaction.Commit();
 
                     Admin.LogFormattedSuccess("Batch committed, <{0}> lines, <{1}> total so far", wrappers.Count, extract.ProcessedLines.Value);
                 }
