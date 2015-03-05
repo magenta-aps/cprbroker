@@ -47,6 +47,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
+using System.Transactions;
 using System.Data.SqlClient;
 using CprBroker.Providers.DPR;
 using CprBroker.Providers.CPRDirect;
@@ -57,6 +58,17 @@ namespace CprBroker.DBR
 {
     public partial class CprConverter
     {
+
+        public static TransactionScope CreateTransactionScope()
+        {
+            return new System.Transactions.TransactionScope(
+                System.Transactions.TransactionScopeOption.Required,
+                new System.Transactions.TransactionOptions()
+                {
+                    IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted,
+                    Timeout = System.Transactions.TransactionManager.MaximumTimeout
+                });
+        }
 
         public static int DeletePersonRecords(string cprNumber, DPRDataContext dataContext)
         {
@@ -189,7 +201,7 @@ namespace CprBroker.DBR
                             var batchReadLinesCount = wrappers.Count;
                             totalReadLinesCount += batchReadLinesCount;
 
-                            using (var transactionScope = ExtractManager.CreateTransactionScope())
+                            using (var transactionScope = CreateTransactionScope())
                             {
                                 foreach (var w in wrappers)
                                 {
@@ -293,7 +305,7 @@ namespace CprBroker.DBR
                             var batchReadLinesCount = wrappers.Count;
                             totalReadLinesCount += batchReadLinesCount;
 
-                            using (var transactionScope = ExtractManager.CreateTransactionScope())
+                            using (var transactionScope = CreateTransactionScope())
                             {
                                 foreach (var w in wrappers)
                                 {
@@ -328,7 +340,7 @@ namespace CprBroker.DBR
                     CprBroker.Providers.CPRDirect.Constants.RelationshipMap,
                     CprBroker.Providers.CPRDirect.Constants.MultiRelationshipMap
                 );
-                using (var transactionScope = ExtractManager.CreateTransactionScope())
+                using (var transactionScope = CreateTransactionScope())
                 {
                     using (var conn = new SqlConnection(connectionString))
                     {
