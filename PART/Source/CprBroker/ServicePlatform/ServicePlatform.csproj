@@ -42,6 +42,8 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
@@ -51,6 +53,11 @@
     <Compile Include="Constants.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServicePlatformDataProvider.cs" />
+    <Compile Include="Web References\CprService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\CprService.wsdl" />
@@ -63,6 +70,20 @@
     <None Include="Resources\InvocationContext_20121009.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Web References\CprService\CprService.wsdl" />
+    <None Include="Web References\CprService\CprServiceMsg.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\CprService\CprServiceTypes.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\CprService\InvocationContext_20121009.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\CprService\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CprServices\CprServices.csproj">
@@ -73,6 +94,25 @@
       <Project>{da42d8bb-24d3-4416-a0bd-b98857f249ad}</Project>
       <Name>PartInterface</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferenceUrl Include="C:\MagentaWorkspace\broker.github\PART\Source\CprBroker\ServicePlatform\Resources\CprService.wsdl">
+      <UrlBehavior>Static</UrlBehavior>
+      <RelPath>Web References\CprService\</RelPath>
+      <UpdateFromURL>C:\MagentaWorkspace\broker.github\PART\Source\CprBroker\ServicePlatform\Resources\CprService.wsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>CprBroker_Providers_ServicePlatform_CprService_CprService</CachedSettingsPropName>
+    </WebReferenceUrl>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

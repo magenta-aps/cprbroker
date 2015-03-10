@@ -35,7 +35,7 @@ namespace CprBroker.Providers.ServicePlatform.CprService {
         
         /// <remarks/>
         public CprService() {
-            this.Url = global::CprBroker.Providers.ServicePlatform.Properties.Settings.Default.CprBroker_Providers_ServicePlatform_CprService_CprService;
+            this.Url = "http://localhost:8080/CPRWebService/CprService";
             if ((this.IsLocalFileSystemWebService(this.Url) == true)) {
                 this.UseDefaultCredentials = true;
                 this.useDefaultCredentialsSetExplicitly = false;

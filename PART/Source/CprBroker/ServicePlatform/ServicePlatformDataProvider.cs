@@ -48,6 +48,9 @@ using System.Text;
 using CprBroker.PartInterface;
 using CprBroker.Schemas.Part;
 using CprBroker.Engine;
+using CprBroker.Engine.Local;
+using CprBroker.Engine.Part;
+using CprBroker.Providers.CprServices;
 
 namespace CprBroker.Providers.ServicePlatform
 {
@@ -55,7 +58,51 @@ namespace CprBroker.Providers.ServicePlatform
     {
         public LaesResultatType[] SearchList(SoegInputType1 searchCriteria)
         {
-            throw new NotImplementedException();
+            var request = new SearchRequest(searchCriteria.SoegObjekt.SoegAttributListe);
+            var searchMethod = new SearchMethod(CprServices.Properties.Resources.ADRSOG1);
+            var plan = new SearchPlan(request, searchMethod);
+
+            List<SearchPerson> ret = null;
+
+            if (plan.IsSatisfactory)
+            {
+                bool searchOk = true;
+                var call = plan.PlannedCalls.First();
+                var xml = call.ToRequestXml(CprServices.Properties.Resources.SearchTemplate);
+                var xmlOut = "";
+
+                var kvit = CallService(Constants.ServiceUuid.ADRSOEG1, xml, out xmlOut);
+                if (kvit.OK)
+                {
+                    ret = call.ParseResponse(xmlOut, true);
+                }
+                else
+                {
+                    searchOk = false;
+                    string callInput = string.Join(",", call.InputFields.Select(kvp => string.Format("{0}={1}", kvp.Key, kvp.Value)).ToArray());
+                    Admin.LogFormattedError("GCTP <{0}> Failed with <{1}><{2}>. Input <{3}>", call.Name, kvit.ReturnCode, kvit.ReturnText, callInput);
+                }
+
+                if (searchOk)
+                {
+                    // TODO: Can this break the result? is UUID assignment necessary?
+                    var cache = new UuidCache();
+                    var pnrs = ret.Select(p => p.PNR).ToArray();
+                    cache.FillCache(pnrs);
+
+                    return ret.Select(p => p.ToLaesResultatType(cache.GetUuid)).ToArray();
+                }
+                else
+                {
+                    // TODO: What to do if search fails??
+                }
+            }
+            else
+            {
+                string searchFields = string.Join(",", request.CriteriaFields.Select(kvp => string.Format("{0}={1}", kvp.Key, kvp.Value)).ToArray());
+                Admin.LogFormattedError("Insufficient GCTP search criteria <{0}>", searchFields);
+            }
+            return null;
         }
 
         #region IPerCallDataProvider members
@@ -83,14 +130,13 @@ namespace CprBroker.Providers.ServicePlatform
         public DataProviderConfigPropertyInfo[] ConfigurationKeys
         {
             // TODO: Create new DataProviderConfigPropertyInfoTypes.UUID with necessary GUI optimizations
-            // TODO: Shall the UUID properties be confidential?
             get
             {
                 return new DataProviderConfigPropertyInfo[]{
                     new DataProviderConfigPropertyInfo(){Name=Constants.ConfigProperties.Url, Type = DataProviderConfigPropertyInfoTypes.String, Confidential = false, Required=true},
-                    new DataProviderConfigPropertyInfo(){Name=Constants.ConfigProperties.ServiceAgreementUuid, Type = DataProviderConfigPropertyInfoTypes.String, Confidential = false, Required=true},
-                    new DataProviderConfigPropertyInfo(){Name=Constants.ConfigProperties.UserSystemUUID, Type = DataProviderConfigPropertyInfoTypes.String, Confidential = false, Required=true},
-                    new DataProviderConfigPropertyInfo(){Name=Constants.ConfigProperties.UserUUID, Type = DataProviderConfigPropertyInfoTypes.String, Confidential = false, Required=true},
+                    new DataProviderConfigPropertyInfo(){Name=Constants.ConfigProperties.ServiceAgreementUuid, Type = DataProviderConfigPropertyInfoTypes.String, Confidential = true, Required=true},
+                    new DataProviderConfigPropertyInfo(){Name=Constants.ConfigProperties.UserSystemUUID, Type = DataProviderConfigPropertyInfoTypes.String, Confidential = true, Required=true},
+                    new DataProviderConfigPropertyInfo(){Name=Constants.ConfigProperties.UserUUID, Type = DataProviderConfigPropertyInfoTypes.String, Confidential = true, Required=true},
                 };
             }
         }
@@ -122,20 +168,33 @@ namespace CprBroker.Providers.ServicePlatform
         #endregion
 
         #region Technical
-        public string CallService(string serviceUuid, string gctpMessage)
+        public Kvit CallService(string serviceUuid, string gctpMessage, out string retXml)
         {
-            var service = new CprService.CprService(){ Url = this.Url};
-            var context = new CprService.InvocationContextType()
+            var service = new CprService.CprService() { Url = this.Url };
+            using (var callContext = this.BeginCall(serviceUuid, serviceUuid))
             {
-                ServiceAgreementUUID = this.ServiceAgreementUuid,
-                ServiceUUID = serviceUuid,
-                UserSystemUUID = this.UserSystemUUID,
-                UserUUID = this.UserUUID,
-                OnBehalfOfUser = null,
-                CallersServiceCallIdentifier = null,
-                AccountingInfo = null
-            };
-            return service.forwardToCPRService(context, gctpMessage);
+                var invocationContext = new CprService.InvocationContextType()
+                {
+                    ServiceAgreementUUID = this.ServiceAgreementUuid,
+                    ServiceUUID = serviceUuid,
+                    UserSystemUUID = this.UserSystemUUID,
+                    UserUUID = this.UserUUID,
+                    OnBehalfOfUser = null,
+                    CallersServiceCallIdentifier = null,
+                    AccountingInfo = null
+                };
+                retXml = service.forwardToCPRService(invocationContext, gctpMessage);
+                var kvit = Kvit.FromResponseXml(retXml);
+                if (kvit.OK)
+                {
+                    callContext.Succeed();
+                }
+                else
+                {
+                    callContext.Fail();
+                }
+                return kvit;
+            }
         }
         #endregion
     }
