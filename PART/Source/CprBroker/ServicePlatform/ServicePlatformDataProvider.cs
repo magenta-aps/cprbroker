@@ -51,6 +51,8 @@ using CprBroker.Engine;
 using CprBroker.Engine.Local;
 using CprBroker.Engine.Part;
 using CprBroker.Providers.CprServices;
+using System.Net;
+using CprBroker.Providers.ServicePlatform.CprService;
 
 namespace CprBroker.Providers.ServicePlatform
 {
@@ -170,19 +172,14 @@ namespace CprBroker.Providers.ServicePlatform
         #region Technical
         public Kvit CallService(string serviceUuid, string gctpMessage, out string retXml)
         {
-            var service = new CprService.CprService() { Url = this.Url };
+            var service = new CprService() { Url = this.Url };
             using (var callContext = this.BeginCall(serviceUuid, serviceUuid))
             {
-                var invocationContext = new CprService.InvocationContextType()
-                {
-                    ServiceAgreementUUID = this.ServiceAgreementUuid,
-                    ServiceUUID = serviceUuid,
-                    UserSystemUUID = this.UserSystemUUID,
-                    UserUUID = this.UserUUID,
-                    OnBehalfOfUser = null,
-                    CallersServiceCallIdentifier = null,
-                    AccountingInfo = null
-                };
+                var invocationContext = GetInvocationContext(serviceUuid);
+
+                ServicePointManager.Expect100Continue = true;
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3;
+
                 retXml = service.forwardToCPRService(invocationContext, gctpMessage);
                 var kvit = Kvit.FromResponseXml(retXml);
                 if (kvit.OK)
@@ -195,6 +192,20 @@ namespace CprBroker.Providers.ServicePlatform
                 }
                 return kvit;
             }
+        }
+
+        public InvocationContextType GetInvocationContext(string serviceUuid)
+        {
+            return new CprService.InvocationContextType()
+            {
+                ServiceAgreementUUID = this.ServiceAgreementUuid,
+                ServiceUUID = serviceUuid,
+                UserSystemUUID = this.UserSystemUUID,
+                UserUUID = this.UserUUID,
+                OnBehalfOfUser = null,
+                CallersServiceCallIdentifier = null,
+                AccountingInfo = null
+            };
         }
         #endregion
     }
