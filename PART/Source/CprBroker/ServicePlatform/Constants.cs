@@ -56,6 +56,7 @@ namespace CprBroker.Providers.ServicePlatform
             public const string ServiceAgreementUuid = "Service agreement UUID";
             public const string UserUUID = "User UUID";
             public const string UserSystemUUID = "User system UUID";
+            public const string CertificateSerialNumber = "Certificate serial number";
         }
 
         public static class OperationKeys
@@ -65,7 +66,8 @@ namespace CprBroker.Providers.ServicePlatform
 
         public class ServiceUuid
         {
-            public const string ADRSOEG1 = "6538f113-b1e6-4b21-8fe1-28b7bf78a1b";
+            public const string ADRSOG1 = "6538f113-b1e6-4b21-8fe1-28b7bf78a1bd";
+            public const string ForwardToCprService = "8ee213c7-25a9-11e2-8770-d4bed98c63db";
         }
     }
 }

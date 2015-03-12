@@ -84,6 +84,7 @@ namespace CprBroker.Providers.ServicePlatform
                     new DataProviderConfigPropertyInfo(){Name=Constants.ConfigProperties.ServiceAgreementUuid, Type = DataProviderConfigPropertyInfoTypes.String, Confidential = true, Required=true},
                     new DataProviderConfigPropertyInfo(){Name=Constants.ConfigProperties.UserSystemUUID, Type = DataProviderConfigPropertyInfoTypes.String, Confidential = true, Required=true},
                     new DataProviderConfigPropertyInfo(){Name=Constants.ConfigProperties.UserUUID, Type = DataProviderConfigPropertyInfoTypes.String, Confidential = true, Required=true},
+                    new DataProviderConfigPropertyInfo(){Name=Constants.ConfigProperties.CertificateSerialNumber, Type = DataProviderConfigPropertyInfoTypes.String, Confidential = true, Required=true},
                 };
             }
         }
@@ -111,6 +112,12 @@ namespace CprBroker.Providers.ServicePlatform
         {
             get { return this.ConfigurationProperties[Constants.ConfigProperties.UserUUID]; }
             set { this.ConfigurationProperties[Constants.ConfigProperties.UserUUID] = value; }
+        }
+
+        public string CertificateSerialNumber 
+        {
+            get { return this.ConfigurationProperties[Constants.ConfigProperties.CertificateSerialNumber]; }
+            set { this.ConfigurationProperties[Constants.ConfigProperties.CertificateSerialNumber] = value; }
         }
         #endregion
     }
