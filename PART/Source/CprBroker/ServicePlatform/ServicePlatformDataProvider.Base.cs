@@ -45,68 +45,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using CprBroker.PartInterface;
-using CprBroker.Schemas.Part;
 using CprBroker.Engine;
 using CprBroker.Engine.Local;
-using CprBroker.Engine.Part;
-using CprBroker.Providers.CprServices;
-using System.Net;
-using CprBroker.Providers.ServicePlatform.CprService;
 
 namespace CprBroker.Providers.ServicePlatform
 {
-    public class ServicePlatformDataProvider : CprBroker.Engine.IPartSearchListDataProvider, IExternalDataProvider, IPerCallDataProvider
+    public partial class ServicePlatformDataProvider : IExternalDataProvider, IPerCallDataProvider
     {
-        public LaesResultatType[] SearchList(SoegInputType1 searchCriteria)
-        {
-            var request = new SearchRequest(searchCriteria.SoegObjekt.SoegAttributListe);
-            var searchMethod = new SearchMethod(CprServices.Properties.Resources.ADRSOG1);
-            var plan = new SearchPlan(request, searchMethod);
-
-            List<SearchPerson> ret = null;
-
-            if (plan.IsSatisfactory)
-            {
-                bool searchOk = true;
-                var call = plan.PlannedCalls.First();
-                var xml = call.ToRequestXml(CprServices.Properties.Resources.SearchTemplate);
-                var xmlOut = "";
-
-                var kvit = CallService(Constants.ServiceUuid.ADRSOEG1, xml, out xmlOut);
-                if (kvit.OK)
-                {
-                    ret = call.ParseResponse(xmlOut, true);
-                }
-                else
-                {
-                    searchOk = false;
-                    string callInput = string.Join(",", call.InputFields.Select(kvp => string.Format("{0}={1}", kvp.Key, kvp.Value)).ToArray());
-                    Admin.LogFormattedError("GCTP <{0}> Failed with <{1}><{2}>. Input <{3}>", call.Name, kvit.ReturnCode, kvit.ReturnText, callInput);
-                }
-
-                if (searchOk)
-                {
-                    // TODO: Can this break the result? is UUID assignment necessary?
-                    var cache = new UuidCache();
-                    var pnrs = ret.Select(p => p.PNR).ToArray();
-                    cache.FillCache(pnrs);
-
-                    return ret.Select(p => p.ToLaesResultatType(cache.GetUuid)).ToArray();
-                }
-                else
-                {
-                    // TODO: What to do if search fails??
-                }
-            }
-            else
-            {
-                string searchFields = string.Join(",", request.CriteriaFields.Select(kvp => string.Format("{0}={1}", kvp.Key, kvp.Value)).ToArray());
-                Admin.LogFormattedError("Insufficient GCTP search criteria <{0}>", searchFields);
-            }
-            return null;
-        }
-
         #region IPerCallDataProvider members
         public string[] OperationKeys
         {
@@ -166,46 +111,6 @@ namespace CprBroker.Providers.ServicePlatform
         {
             get { return this.ConfigurationProperties[Constants.ConfigProperties.UserUUID]; }
             set { this.ConfigurationProperties[Constants.ConfigProperties.UserUUID] = value; }
-        }
-        #endregion
-
-        #region Technical
-        public Kvit CallService(string serviceUuid, string gctpMessage, out string retXml)
-        {
-            var service = new CprService() { Url = this.Url };
-            using (var callContext = this.BeginCall(serviceUuid, serviceUuid))
-            {
-                var invocationContext = GetInvocationContext(serviceUuid);
-
-                ServicePointManager.Expect100Continue = true;
-                ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3;
-
-                retXml = service.forwardToCPRService(invocationContext, gctpMessage);
-                var kvit = Kvit.FromResponseXml(retXml);
-                if (kvit.OK)
-                {
-                    callContext.Succeed();
-                }
-                else
-                {
-                    callContext.Fail();
-                }
-                return kvit;
-            }
-        }
-
-        public InvocationContextType GetInvocationContext(string serviceUuid)
-        {
-            return new CprService.InvocationContextType()
-            {
-                ServiceAgreementUUID = this.ServiceAgreementUuid,
-                ServiceUUID = serviceUuid,
-                UserSystemUUID = this.UserSystemUUID,
-                UserUUID = this.UserUUID,
-                OnBehalfOfUser = null,
-                CallersServiceCallIdentifier = null,
-                AccountingInfo = null
-            };
         }
         #endregion
     }

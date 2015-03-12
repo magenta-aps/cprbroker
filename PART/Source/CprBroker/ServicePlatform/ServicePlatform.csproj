@@ -52,7 +52,9 @@
   <ItemGroup>
     <Compile Include="Constants.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ServicePlatformDataProvider.cs" />
+    <Compile Include="ServicePlatformDataProvider.Base.cs" />
+    <Compile Include="ServicePlatformDataProvider.Connection.cs" />
+    <Compile Include="ServicePlatformDataProvider.Part.cs" />
     <Compile Include="Web References\CprService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
