@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using CprBroker.Providers.ServicePlatform.CprService2;
+using CprBroker.Providers.ServicePlatform.CprService;
 using CprBroker.Providers.CprServices;
 using System.Net;
 using CprBroker.Engine.Part;
@@ -23,7 +23,7 @@ namespace CprBroker.Providers.ServicePlatform
             // End point
             var endPointAddress = new EndpointAddress(this.Url);
 
-            var service = new CprService2.CprServicePortTypeClient(binding, endPointAddress);
+            var service = new CprServicePortTypeClient(binding, endPointAddress);
 
             // Set credentials
             service.ClientCredentials.ClientCertificate.SetCertificate(StoreLocation.LocalMachine, StoreName.My, X509FindType.FindBySerialNumber, this.CertificateSerialNumber);

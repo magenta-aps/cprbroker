@@ -54,7 +54,7 @@
   <ItemGroup>
     <Compile Include="Constants.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Service References\CprService2\Reference.cs">
+    <Compile Include="Service References\CprService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -64,6 +64,7 @@
     <Compile Include="ServicePlatformDataProvider.Part.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="Resources\CprService.wsdl" />
     <None Include="Resources\CprServiceMsg.xsd">
       <SubType>Designer</SubType>
@@ -74,14 +75,14 @@
     <None Include="Resources\InvocationContext_20121009.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\CprService2\CprService.wsdl" />
-    <None Include="Service References\CprService2\CprServiceMsg.xsd">
+    <None Include="Service References\CprService\CprService.wsdl" />
+    <None Include="Service References\CprService\CprServiceMsg.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\CprService2\CprServiceTypes.xsd">
+    <None Include="Service References\CprService\CprServiceTypes.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\CprService2\InvocationContext_20121009.xsd">
+    <None Include="Service References\CprService\InvocationContext_20121009.xsd">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
@@ -99,16 +100,16 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadataStorage Include="Service References\CprService2\" />
+    <WCFMetadataStorage Include="Service References\CprService\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\CprService2\configuration91.svcinfo" />
+    <None Include="Service References\CprService\configuration91.svcinfo" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\CprService2\configuration.svcinfo" />
+    <None Include="Service References\CprService\configuration.svcinfo" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\CprService2\Reference.svcmap">
+    <None Include="Service References\CprService\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>

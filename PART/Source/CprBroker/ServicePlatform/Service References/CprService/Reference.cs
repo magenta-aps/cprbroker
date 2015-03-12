@@ -8,17 +8,17 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CprBroker.Providers.ServicePlatform.CprService2 {
+namespace CprBroker.Providers.ServicePlatform.CprService {
     
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ServiceModel.ServiceContractAttribute(Namespace="http://serviceplatformen.dk/xml/wsdl/soap11/CprService/1/", ConfigurationName="CprService2.CprServicePortType")]
+    [System.ServiceModel.ServiceContractAttribute(Namespace="http://serviceplatformen.dk/xml/wsdl/soap11/CprService/1/", ConfigurationName="CprService.CprServicePortType")]
     public interface CprServicePortType {
         
         // CODEGEN: Generating message contract since the wrapper name (forwardToCPRServiceRequest) of message forwardToCPRServiceRequest does not match the default value (forwardToCPRService)
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        CprBroker.Providers.ServicePlatform.CprService2.forwardToCPRServiceResponse forwardToCPRService(CprBroker.Providers.ServicePlatform.CprService2.forwardToCPRServiceRequest request);
+        CprBroker.Providers.ServicePlatform.CprService.forwardToCPRServiceResponse forwardToCPRService(CprBroker.Providers.ServicePlatform.CprService.forwardToCPRServiceRequest request);
     }
     
     /// <remarks/>
@@ -138,7 +138,7 @@ namespace CprBroker.Providers.ServicePlatform.CprService2 {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://serviceplatformen.dk/xml/schemas/InvocationContext/1/", Order=0)]
         [System.Xml.Serialization.XmlElementAttribute(Namespace="http://serviceplatformen.dk/xml/schemas/InvocationContext/1/")]
-        public CprBroker.Providers.ServicePlatform.CprService2.InvocationContextType InvocationContext;
+        public CprBroker.Providers.ServicePlatform.CprService.InvocationContextType InvocationContext;
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://serviceplatformen.dk/xml/wsdl/soap11/CprService/1/", Order=1)]
         public string gctpMessage;
@@ -146,7 +146,7 @@ namespace CprBroker.Providers.ServicePlatform.CprService2 {
         public forwardToCPRServiceRequest() {
         }
         
-        public forwardToCPRServiceRequest(CprBroker.Providers.ServicePlatform.CprService2.InvocationContextType InvocationContext, string gctpMessage) {
+        public forwardToCPRServiceRequest(CprBroker.Providers.ServicePlatform.CprService.InvocationContextType InvocationContext, string gctpMessage) {
             this.InvocationContext = InvocationContext;
             this.gctpMessage = gctpMessage;
         }
@@ -170,12 +170,12 @@ namespace CprBroker.Providers.ServicePlatform.CprService2 {
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public interface CprServicePortTypeChannel : CprBroker.Providers.ServicePlatform.CprService2.CprServicePortType, System.ServiceModel.IClientChannel {
+    public interface CprServicePortTypeChannel : CprBroker.Providers.ServicePlatform.CprService.CprServicePortType, System.ServiceModel.IClientChannel {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class CprServicePortTypeClient : System.ServiceModel.ClientBase<CprBroker.Providers.ServicePlatform.CprService2.CprServicePortType>, CprBroker.Providers.ServicePlatform.CprService2.CprServicePortType {
+    public partial class CprServicePortTypeClient : System.ServiceModel.ClientBase<CprBroker.Providers.ServicePlatform.CprService.CprServicePortType>, CprBroker.Providers.ServicePlatform.CprService.CprServicePortType {
         
         public CprServicePortTypeClient() {
         }
@@ -197,15 +197,15 @@ namespace CprBroker.Providers.ServicePlatform.CprService2 {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        CprBroker.Providers.ServicePlatform.CprService2.forwardToCPRServiceResponse CprBroker.Providers.ServicePlatform.CprService2.CprServicePortType.forwardToCPRService(CprBroker.Providers.ServicePlatform.CprService2.forwardToCPRServiceRequest request) {
+        CprBroker.Providers.ServicePlatform.CprService.forwardToCPRServiceResponse CprBroker.Providers.ServicePlatform.CprService.CprServicePortType.forwardToCPRService(CprBroker.Providers.ServicePlatform.CprService.forwardToCPRServiceRequest request) {
             return base.Channel.forwardToCPRService(request);
         }
         
-        public string forwardToCPRService(CprBroker.Providers.ServicePlatform.CprService2.InvocationContextType InvocationContext, string gctpMessage) {
-            CprBroker.Providers.ServicePlatform.CprService2.forwardToCPRServiceRequest inValue = new CprBroker.Providers.ServicePlatform.CprService2.forwardToCPRServiceRequest();
+        public string forwardToCPRService(CprBroker.Providers.ServicePlatform.CprService.InvocationContextType InvocationContext, string gctpMessage) {
+            CprBroker.Providers.ServicePlatform.CprService.forwardToCPRServiceRequest inValue = new CprBroker.Providers.ServicePlatform.CprService.forwardToCPRServiceRequest();
             inValue.InvocationContext = InvocationContext;
             inValue.gctpMessage = gctpMessage;
-            CprBroker.Providers.ServicePlatform.CprService2.forwardToCPRServiceResponse retVal = ((CprBroker.Providers.ServicePlatform.CprService2.CprServicePortType)(this)).forwardToCPRService(inValue);
+            CprBroker.Providers.ServicePlatform.CprService.forwardToCPRServiceResponse retVal = ((CprBroker.Providers.ServicePlatform.CprService.CprServicePortType)(this)).forwardToCPRService(inValue);
             return retVal.result;
         }
     }
