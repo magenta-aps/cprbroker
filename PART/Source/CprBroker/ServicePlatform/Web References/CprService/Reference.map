@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<DiscoveryClientResultsFile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <Results>
-    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.ContractReference" url="file:///C:/MagentaWorkspace/broker.github/PART/Source/CprBroker/ServicePlatform/Resources/CprService.wsdl" filename="CprService.wsdl" />
-    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="file:///C:/MagentaWorkspace/broker.github/PART/Source/CprBroker/ServicePlatform/Resources/InvocationContext_20121009.xsd" filename="InvocationContext_20121009.xsd" />
-    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="file:///C:/MagentaWorkspace/broker.github/PART/Source/CprBroker/ServicePlatform/Resources/CprServiceMsg.xsd" filename="CprServiceMsg.xsd" />
-    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="file:///C:/MagentaWorkspace/broker.github/PART/Source/CprBroker/ServicePlatform/Resources/CprServiceTypes.xsd" filename="CprServiceTypes.xsd" />
-  </Results>
-</DiscoveryClientResultsFile>
