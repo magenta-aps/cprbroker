@@ -75,6 +75,9 @@
             <Component Id="CMP_CPR_CprServices_Dll" Directory="CPR_bin">
                 <File Id="FILE_CPR_bin_CprServices_DLL" Source="$(var.SitePath)bin\CprBroker.Providers.CprServices.dll" KeyPath="yes"/>
             </Component>
+            <Component Id="CMP_CPR_ServicePlatform_Dll" Directory="CPR_bin">
+                <File Id="FILE_CPR_bin_ServicePlatform_DLL" Source="$(var.SitePath)bin\CprBroker.Providers.ServicePlatform.dll" KeyPath="yes"/>
+            </Component>
             <Component Id="CMP_CPR_Local_Dll" Directory="CPR_bin">
                 <File Id="FILE_CPR_bin_Local_DLL" Source="$(var.SitePath)bin\CprBroker.Providers.Local.dll" KeyPath="yes"/>
             </Component>

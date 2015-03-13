@@ -183,5 +183,17 @@ namespace CprBrokerWixInstallers
                 doc.Save(configFilePath);
             }
         }
+
+        private static void PatchWebsite_2_2_4(Session session)
+        {
+            var cprWebInstallationInfo = WebInstallationInfo.CreateFromFeature(session, "CPR");
+            var cprConfigFilePath = cprWebInstallationInfo.GetWebConfigFilePath(EventBrokerCustomActions.PathConstants.CprBrokerWebsiteDirectoryRelativePath);
+            // Add new node(s) for data providers
+            var types = new Type[]
+            {
+                typeof(CprBroker.Providers.ServicePlatform.ServicePlatformDataProvider),
+            };
+            CprBroker.Installers.Installation.AddKnownDataProviderTypes(types, cprConfigFilePath);
+        }
     }
 }

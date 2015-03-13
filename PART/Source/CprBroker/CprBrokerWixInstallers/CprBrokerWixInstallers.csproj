@@ -173,6 +173,10 @@
       <Project>{51186183-BEEA-4B6D-8865-B7070EFCA126}</Project>
       <Name>PersonMaster</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ServicePlatform\ServicePlatform.csproj">
+      <Project>{233be1ab-28da-4b2f-8cc0-4bb3d88adc95}</Project>
+      <Name>ServicePlatform</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(WixCATargetsPath)" />
