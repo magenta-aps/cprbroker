@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using CprBroker.Providers.ServicePlatform.CprService;
+using CprBroker.Providers.ServicePlatform.CprReplica;
 using CprBroker.Providers.CprServices;
 using System.Net;
 using CprBroker.Engine.Part;

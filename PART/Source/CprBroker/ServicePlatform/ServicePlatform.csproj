@@ -54,7 +54,7 @@
   <ItemGroup>
     <Compile Include="Constants.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Service References\CprService\Reference.cs">
+    <Compile Include="Service References\CprReplica\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -77,14 +77,14 @@
     <None Include="Resources\Replica\CprServiceTypes.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\CprService\CprService.wsdl" />
-    <None Include="Service References\CprService\CprServiceMsg.xsd">
+    <None Include="Service References\CprReplica\CprService.wsdl" />
+    <None Include="Service References\CprReplica\CprServiceMsg.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\CprService\CprServiceTypes.xsd">
+    <None Include="Service References\CprReplica\CprServiceTypes.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\CprService\InvocationContext_20121009.xsd">
+    <None Include="Service References\CprReplica\InvocationContext_20121009.xsd">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
@@ -102,16 +102,16 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadataStorage Include="Service References\CprService\" />
+    <WCFMetadataStorage Include="Service References\CprReplica\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\CprService\configuration91.svcinfo" />
+    <None Include="Service References\CprReplica\configuration91.svcinfo" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\CprService\configuration.svcinfo" />
+    <None Include="Service References\CprReplica\configuration.svcinfo" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\CprService\Reference.svcmap">
+    <None Include="Service References\CprReplica\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
