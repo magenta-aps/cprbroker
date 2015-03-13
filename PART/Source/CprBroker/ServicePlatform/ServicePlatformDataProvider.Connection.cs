@@ -9,6 +9,7 @@ using CprBroker.Engine.Part;
 using CprBroker.Engine;
 using System.ServiceModel;
 using System.Security.Cryptography.X509Certificates;
+using System.Xml;
 
 namespace CprBroker.Providers.ServicePlatform
 {
@@ -16,6 +17,11 @@ namespace CprBroker.Providers.ServicePlatform
     {
         public Kvit CallService(string serviceUuid, string gctpMessage, out string retXml)
         {
+            // Change message
+            var doc = new XmlDocument();
+            doc.LoadXml(gctpMessage);
+            gctpMessage = doc.DocumentElement.OuterXml + Environment.NewLine;
+
             // Binding
             var binding = new BasicHttpBinding(BasicHttpSecurityMode.Transport);
             binding.Security.Transport.ClientCredentialType = HttpClientCredentialType.Certificate;
@@ -32,7 +38,7 @@ namespace CprBroker.Providers.ServicePlatform
             {
                 var invocationContext = GetInvocationContext(serviceUuid);
 
-                retXml = service.forwardToCPRService(invocationContext, gctpMessage);
+                retXml = service.callGCTPCheckService(invocationContext, gctpMessage);
                 var kvit = Kvit.FromResponseXml(retXml);
                 if (kvit.OK)
                 {
