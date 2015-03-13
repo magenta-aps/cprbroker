@@ -65,14 +65,14 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="Resources\CprService.wsdl" />
-    <None Include="Resources\CprServiceMsg.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Resources\CprServiceTypes.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Resources\InvocationContext_20121009.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Resources\Replica\CprService.wsdl" />
+    <None Include="Resources\Replica\CprServiceMsg.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Resources\Replica\CprServiceTypes.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\CprService\CprService.wsdl" />
