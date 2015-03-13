@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="745e2750-29e7-43a5-aa60-bb6d527048f9" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="C:\MagentaWorkspace\broker.github\PART\Source\CprBroker\ServicePlatform\Resources\Replica\CprService.wsdl" Protocol="file" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="CprServiceMsg.xsd" MetadataType="Schema" ID="802fdd05-2765-4eb1-96e2-549e5b55ec80" SourceId="1" SourceUrl="file:///C:/MagentaWorkspace/broker.github/PART/Source/CprBroker/ServicePlatform/Resources/Replica/CprServiceMsg.xsd" />
+    <MetadataFile FileName="CprService.wsdl" MetadataType="Wsdl" ID="20667f81-6489-4c23-9686-f37054bf3fd8" SourceId="1" SourceUrl="file:///C:/MagentaWorkspace/broker.github/PART/Source/CprBroker/ServicePlatform/Resources/Replica/CprService.wsdl" />
+    <MetadataFile FileName="CprServiceTypes.xsd" MetadataType="Schema" ID="c85cc158-fff7-40c0-9546-691d258f00f5" SourceId="1" SourceUrl="file:///C:/MagentaWorkspace/broker.github/PART/Source/CprBroker/ServicePlatform/Resources/Replica/CprServiceTypes.xsd" />
+    <MetadataFile FileName="InvocationContext_20121009.xsd" MetadataType="Schema" ID="421ef15f-4eef-4a27-902b-95b2a80c09ac" SourceId="1" SourceUrl="file:///C:/MagentaWorkspace/broker.github/PART/Source/CprBroker/ServicePlatform/Resources/InvocationContext_20121009.xsd" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

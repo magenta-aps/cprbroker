@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsd:schema xmlns:tns="http://serviceplatformen.dk/xml/wsdl/soap11/CprService/1/"
+<xsd:schema xmlns:tns="http://serviceplatformen.dk/xml/wsdl/soap11/CprService/2/"
             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
             xmlns:invctx="http://serviceplatformen.dk/xml/schemas/InvocationContext/1/"
             version="1.0"
-            targetNamespace="http://serviceplatformen.dk/xml/wsdl/soap11/CprService/1/"
+            targetNamespace="http://serviceplatformen.dk/xml/wsdl/soap11/CprService/2/"
             elementFormDefault="qualified">
     
-  <xsd:import namespace="http://serviceplatformen.dk/xml/schemas/InvocationContext/1/" schemaLocation="InvocationContext_20121009.xsd"/>
+  <xsd:import namespace="http://serviceplatformen.dk/xml/schemas/InvocationContext/1/" schemaLocation="../InvocationContext_20121009.xsd"/>
   
   <xsd:complexType name="GCTPRequestType">
     <xsd:sequence>    

@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
-    xmlns:tns="http://serviceplatformen.dk/xml/wsdl/soap11/CprService/1/" 
+    xmlns:tns="http://serviceplatformen.dk/xml/wsdl/soap11/CprService/2/" 
     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 	xmlns="http://schemas.xmlsoap.org/wsdl/" 
-	targetNamespace="http://serviceplatformen.dk/xml/wsdl/soap11/CprService/1/" 
+	targetNamespace="http://serviceplatformen.dk/xml/wsdl/soap11/CprService/2/" 
 	name="CprService">
 	<types>
-		<xsd:schema targetNamespace="http://serviceplatformen.dk/xml/wsdl/soap11/CprService/1/">
+		<xsd:schema targetNamespace="http://serviceplatformen.dk/xml/wsdl/soap11/CprService/2/">
 			<xsd:include schemaLocation="CprServiceMsg.xsd" />
 		</xsd:schema>
 	</types>
 
-	<message name="forwardToCPRServiceRequest">
-		<part name="parameters" element="tns:forwardToCPRServiceRequest" />
+	<message name="callGCTPCheckServiceRequest">
+		<part name="parameters" element="tns:callGCTPCheckServiceRequest" />
 	</message>
 	
-	<message name="forwardToCPRServiceResponse">
-		<part name="parameters" element="tns:forwardToCPRServiceResponse" />
+	<message name="callGCTPCheckServiceResponse">
+		<part name="parameters" element="tns:callGCTPCheckServiceResponse" />
 	</message>
 
 	<portType name="CprServicePortType">
 
-    <operation name="forwardToCPRService">
-	  <input message="tns:forwardToCPRServiceRequest" />
-	  <output message="tns:forwardToCPRServiceResponse" />
+    <operation name="callGCTPCheckService">
+	  <input message="tns:callGCTPCheckServiceRequest" />
+	  <output message="tns:callGCTPCheckServiceResponse" />
 	</operation>
 	
 	</portType>
@@ -31,7 +31,7 @@
 	<binding name="CprBinding" type="tns:CprServicePortType">
 		<soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document" />
 
-		<operation name="forwardToCPRService">
+		<operation name="callGCTPCheckService">
 		  	<soap:operation soapAction=""/>
 				<input>
 				<soap:body use="literal" />		 

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsd:schema xmlns:tns="http://serviceplatformen.dk/xml/wsdl/soap11/CprService/1/"
+<xsd:schema xmlns:tns="http://serviceplatformen.dk/xml/wsdl/soap11/CprService/2/"
             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
             elementFormDefault="qualified"
             version="1.0"
-            targetNamespace="http://serviceplatformen.dk/xml/wsdl/soap11/CprService/1/">
+            targetNamespace="http://serviceplatformen.dk/xml/wsdl/soap11/CprService/2/">
   
   <xsd:include schemaLocation="CprServiceTypes.xsd"/>
   
-  <xsd:element name="forwardToCPRServiceRequest"   type="tns:GCTPRequestType" />
-  <xsd:element name="forwardToCPRServiceResponse"  type="tns:GCTPResponseType" />
+  <xsd:element name="callGCTPCheckServiceRequest"   type="tns:GCTPRequestType" />
+  <xsd:element name="callGCTPCheckServiceResponse"  type="tns:GCTPResponseType" />
   
 </xsd:schema>
