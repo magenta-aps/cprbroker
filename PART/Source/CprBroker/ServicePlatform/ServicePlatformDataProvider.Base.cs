@@ -47,6 +47,7 @@ using System.Linq;
 using System.Text;
 using CprBroker.Engine;
 using CprBroker.Engine.Local;
+using CprBroker.Providers.CprServices;
 
 namespace CprBroker.Providers.ServicePlatform
 {
@@ -66,7 +67,27 @@ namespace CprBroker.Providers.ServicePlatform
 
         public bool IsAlive()
         {
-            throw new NotImplementedException();
+            string retXml;
+            var call = new SearchMethodCall() { Name = Constants.OperationKeys.ADRSOG1 };
+            call.InputFields.Add(new KeyValuePair<string, string>("VEJK", "9999"));
+            call.InputFields.Add(new KeyValuePair<string, string>("KOMK", "9999"));
+            var xml = call.ToRequestXml(CprServices.Properties.Resources.SearchTemplate);
+
+            try
+            {
+                var kvit = this.CallService(Constants.ServiceUuid.ADRSOG1, xml, out retXml);
+                if (!kvit.OK)
+                {
+                    string callInput = string.Join(",", call.InputFields.Select(kvp => string.Format("{0}={1}", kvp.Key, kvp.Value)).ToArray());
+                    Admin.LogFormattedError("GCTP <{0}> Failed with <{1}><{2}>. Input <{3}>", call.Name, kvit.ReturnCode, kvit.ReturnText, callInput);
+                }
+                return kvit.OK;
+            }
+            catch (Exception ex)
+            {
+                Admin.LogFormattedError("<{0}>\r\n<{1}>", xml, ex.ToString());
+                return false;
+            }
         }
 
         public Version Version
@@ -114,7 +135,7 @@ namespace CprBroker.Providers.ServicePlatform
             set { this.ConfigurationProperties[Constants.ConfigProperties.UserUUID] = value; }
         }
 
-        public string CertificateSerialNumber 
+        public string CertificateSerialNumber
         {
             get { return this.ConfigurationProperties[Constants.ConfigProperties.CertificateSerialNumber]; }
             set { this.ConfigurationProperties[Constants.ConfigProperties.CertificateSerialNumber] = value; }
