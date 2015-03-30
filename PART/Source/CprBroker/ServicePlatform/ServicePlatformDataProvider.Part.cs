@@ -27,7 +27,7 @@ namespace CprBroker.Providers.ServicePlatform
                 var xml = call.ToRequestXml(CprServices.Properties.Resources.SearchTemplate);
                 var xmlOut = "";
 
-                var kvit = CallService(Constants.ServiceUuid.ADRSOG1, xml, out xmlOut);
+                var kvit = CallGctpService(Constants.ServiceUuid.ADRSOG1, xml, out xmlOut);
                 if (kvit.OK)
                 {
                     ret = call.ParseResponse(xmlOut, true);

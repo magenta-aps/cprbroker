@@ -15,13 +15,10 @@ namespace CprBroker.Providers.ServicePlatform
 {
     public partial class ServicePlatformDataProvider
     {
-        public Kvit CallService(string serviceUuid, string gctpMessage, out string retXml)
+        public TService CreateService<TInterface, TService>(string url)
+            where TService : System.ServiceModel.ClientBase<TInterface>, TInterface, new()
+            where TInterface: class
         {
-            // Change message
-            var doc = new XmlDocument();
-            doc.LoadXml(gctpMessage);
-            gctpMessage = doc.DocumentElement.OuterXml + Environment.NewLine;
-
             // Binding
             var binding = new BasicHttpBinding(BasicHttpSecurityMode.Transport);
             binding.Security.Transport.ClientCredentialType = HttpClientCredentialType.Certificate;
@@ -29,15 +26,36 @@ namespace CprBroker.Providers.ServicePlatform
             // End point
             var endPointAddress = new EndpointAddress(this.Url);
 
-            var service = new CprServicePortTypeClient(binding, endPointAddress);
+            // Create and initialize client
+            var serviceType = typeof(TService);
+            var service = serviceType.InvokeMember(
+                null,
+                System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.CreateInstance | System.Reflection.BindingFlags.Instance,
+                null,
+                null,
+                new object[]{
+                    binding,endPointAddress}
+                ) as TService;
 
             // Set credentials
             service.ClientCredentials.ClientCertificate.SetCertificate(StoreLocation.LocalMachine, StoreName.My, X509FindType.FindBySerialNumber, this.CertificateSerialNumber);
 
+            return service;
+        }
+
+        public Kvit CallGctpService(string serviceUuid, string gctpMessage, out string retXml)
+        {
+            // Change message
+            var doc = new XmlDocument();
+            doc.LoadXml(gctpMessage);
+            gctpMessage = doc.DocumentElement.OuterXml + Environment.NewLine;
+
+            var service = CreateService<CprServicePortType, CprServicePortTypeClient>(this.Url);
+            
             using (var callContext = this.BeginCall(serviceUuid, serviceUuid))
             {
                 var invocationContext = GetInvocationContext(serviceUuid);
-
+                
                 retXml = service.callGCTPCheckService(invocationContext, gctpMessage);
                 var kvit = Kvit.FromResponseXml(retXml);
                 if (kvit.OK)

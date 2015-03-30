@@ -75,7 +75,7 @@ namespace CprBroker.Providers.ServicePlatform
 
             try
             {
-                var kvit = this.CallService(Constants.ServiceUuid.ADRSOG1, xml, out retXml);
+                var kvit = this.CallGctpService(Constants.ServiceUuid.ADRSOG1, xml, out retXml);
                 if (!kvit.OK)
                 {
                     string callInput = string.Join(",", call.InputFields.Select(kvp => string.Format("{0}={1}", kvp.Key, kvp.Value)).ToArray());
