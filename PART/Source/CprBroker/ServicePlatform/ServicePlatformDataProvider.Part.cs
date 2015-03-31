@@ -7,10 +7,11 @@ using CprBroker.Schemas.Part;
 using CprBroker.Providers.CprServices;
 using CprBroker.Engine.Local;
 using CprBroker.Engine.Part;
+using CprBroker.Engine;
 
 namespace CprBroker.Providers.ServicePlatform
 {
-    public partial class ServicePlatformDataProvider : CprBroker.Engine.IPartSearchListDataProvider
+    public partial class ServicePlatformDataProvider : IPartSearchListDataProvider, IPutSubscriptionDataProvider
     {
         public LaesResultatType[] SearchList(SoegInputType1 searchCriteria)
         {
@@ -59,6 +60,23 @@ namespace CprBroker.Providers.ServicePlatform
                 Admin.LogFormattedError("Insufficient GCTP search criteria <{0}>", searchFields);
             }
             return null;
+        }
+
+        public bool PutSubscription(Schemas.PersonIdentifier personIdentifier)
+        {
+            var url = "https://exttest.serviceplatformen.dk/service/CPRSubscription/CPRSubscription/1/";
+            var service = CreateService<CprSubscriptionService.CprSubscriptionWebServicePortType, CprSubscriptionService.CprSubscriptionWebServicePortTypeClient>(url);
+            using (var callContext = this.BeginCall("", ""))
+            {
+                var request = new CprSubscriptionService.AddPNRSubscriptionType()
+                {
+                    InvocationContext = GetInvocationContext<CprSubscriptionService.InvocationContextType>(Constants.ServiceUuid.CPRSubscription),
+                    PNR = personIdentifier.CprNumber
+                };
+                var ret = service.AddPNRSubscription(request);
+                object o = ret;
+                return true;
+            }
         }
     }
 }

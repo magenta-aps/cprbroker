@@ -53,8 +53,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants.cs" />
+    <Compile Include="IInvocationContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service References\CprReplica\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\CprSubscriptionService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -64,8 +70,14 @@
     <Compile Include="ServicePlatformDataProvider.Part.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
+    <None Include="Resources\CprSubscriptionService.wsdl" />
+    <None Include="Resources\CprSubscriptionServiceMsg.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Resources\InvocationContext_20121009.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Resources\PNR_20121119.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Resources\Replica\CprService.wsdl">
@@ -87,6 +99,22 @@
     <None Include="Service References\CprReplica\InvocationContext_20121009.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\CprSubscriptionService\CprBroker.Providers.ServicePlatform.CprSubscriptionService.AddPNRSubscriptionResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\CprSubscriptionService\CprBroker.Providers.ServicePlatform.CprSubscriptionService.RemovePNRSubscriptionResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\CprSubscriptionService\CprSubscriptionService.wsdl" />
+    <None Include="Service References\CprSubscriptionService\CprSubscriptionServiceMsg.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\CprSubscriptionService\InvocationContext_20121009.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\CprSubscriptionService\PNR_20121119.xsd">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CprServices\CprServices.csproj">
@@ -103,6 +131,7 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\CprReplica\" />
+    <WCFMetadataStorage Include="Service References\CprSubscriptionService\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Service References\CprReplica\configuration91.svcinfo" />
@@ -112,6 +141,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Service References\CprReplica\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\CprSubscriptionService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\CprSubscriptionService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\CprSubscriptionService\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>

@@ -24,7 +24,7 @@ namespace CprBroker.Providers.ServicePlatform
             binding.Security.Transport.ClientCredentialType = HttpClientCredentialType.Certificate;
 
             // End point
-            var endPointAddress = new EndpointAddress(this.Url);
+            var endPointAddress = new EndpointAddress(url);
 
             // Create and initialize client
             var serviceType = typeof(TService);
@@ -54,7 +54,7 @@ namespace CprBroker.Providers.ServicePlatform
             
             using (var callContext = this.BeginCall(serviceUuid, serviceUuid))
             {
-                var invocationContext = GetInvocationContext(serviceUuid);
+                var invocationContext = GetInvocationContext<CprReplica.InvocationContextType>(serviceUuid);
                 
                 retXml = service.callGCTPCheckService(invocationContext, gctpMessage);
                 var kvit = Kvit.FromResponseXml(retXml);
@@ -70,9 +70,10 @@ namespace CprBroker.Providers.ServicePlatform
             }
         }
 
-        public InvocationContextType GetInvocationContext(string serviceUuid)
+        public TInvocationContext GetInvocationContext<TInvocationContext>(string serviceUuid)
+            where TInvocationContext: IInvocationContext, new()
         {
-            return new InvocationContextType()
+            return new TInvocationContext()
             {
                 ServiceAgreementUUID = this.ServiceAgreementUuid,
                 ServiceUUID = serviceUuid,

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema xmlns:tns="http://serviceplatformen.dk/xml/wsdl/soap11/CprSubscriptionService/1/" xmlns:cpr="http://serviceplatformen.dk/xml/schemas/cpr/PNR/1/" xmlns:invctx="http://serviceplatformen.dk/xml/schemas/InvocationContext/1/" elementFormDefault="qualified" targetNamespace="http://serviceplatformen.dk/xml/wsdl/soap11/CprSubscriptionService/1/" version="1.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:import schemaLocation="InvocationContext_20121009.xsd" namespace="http://serviceplatformen.dk/xml/schemas/InvocationContext/1/" />
+  <xsd:import schemaLocation="PNR_20121119.xsd" namespace="http://serviceplatformen.dk/xml/schemas/cpr/PNR/1/" />
+  <xsd:element name="AddPNRSubscription" type="tns:AddPNRSubscriptionType" />
+  <xsd:complexType name="AddPNRSubscriptionType">
+    <xsd:sequence>
+      <xsd:element minOccurs="1" maxOccurs="1" ref="invctx:InvocationContext" />
+      <xsd:element minOccurs="1" maxOccurs="1" ref="cpr:PNR" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="AddPNRSubscriptionResponse" type="tns:AddPNRSubscriptionResponseType" />
+  <xsd:complexType name="AddPNRSubscriptionResponseType">
+    <xsd:sequence>
+      <xsd:element name="Result" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="RemovePNRSubscription" type="tns:RemovePNRSubscriptionType" />
+  <xsd:complexType name="RemovePNRSubscriptionType">
+    <xsd:sequence>
+      <xsd:element minOccurs="1" maxOccurs="1" ref="invctx:InvocationContext" />
+      <xsd:element minOccurs="1" maxOccurs="1" ref="cpr:PNR" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="RemovePNRSubscriptionResponse" type="tns:RemovePNRSubscriptionResponseType" />
+  <xsd:complexType name="RemovePNRSubscriptionResponseType">
+    <xsd:sequence>
+      <xsd:element name="Result" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>
