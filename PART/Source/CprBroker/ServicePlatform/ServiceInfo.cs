@@ -14,6 +14,11 @@ namespace CprBroker.Providers.ServicePlatform
         private ServiceInfo()
         { }
 
+        public CprServices.SearchMethod ToSearchMethod()
+        {
+            return new CprServices.SearchMethod(Properties.Resources.PnrLookup) { Name = Name };
+        }
+
         public static readonly ServiceInfo CPRSubscription = new ServiceInfo()
         {
             Name = "CPR Subscription",
@@ -37,21 +42,21 @@ namespace CprBroker.Providers.ServicePlatform
 
         public static readonly ServiceInfo StamPlus_Local = new ServiceInfo()
         {
-            Name = "STAM+ CPR Lookup (local)",
+            Name = "Stam+",
             UUID = "7baec3a5-26a5-4922-80fd-37f3bad3dfcb",
             Path = "/service/CPRLookup/CPRLookup/2"
         };
 
         public static readonly ServiceInfo NAVNE3_Local = new ServiceInfo()
         {
-            Name = "navne3 - CPR Opslag (lokal)",
+            Name = "navne3",
             UUID = "e3f26293-803e-4b8f-8a15-674a4f8abaad",
             Path = "/service/CPRLookup/CPRLookup/2"
         };
 
         public static readonly ServiceInfo FamilyPlus_Local = new ServiceInfo()
         {
-            Name = "Familie+ - CPR Opslag (lokal)",
+            Name = "Familie+",
             UUID = "a34cf599-26e4-4609-bfbd-2490d3d1c3ab",
             Path = "/service/CPRLookup/CPRLookup/2"
         };

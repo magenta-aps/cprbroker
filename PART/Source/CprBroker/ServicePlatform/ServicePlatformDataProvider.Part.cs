@@ -82,15 +82,27 @@ namespace CprBroker.Providers.ServicePlatform
         {
             var request = new SearchRequest(uuid.CprNumber);
 
-            var stamPlusMethod = new SearchMethod(Properties.Resources.PnrLookup){Name= "Stam+"};
-            var navne3Method = new SearchMethod(Properties.Resources.PnrLookup) { Name = "navne3" };
-            var familyPlusMethod = new SearchMethod(Properties.Resources.PnrLookup) { Name = "Familie+" };
-            var plan = new SearchPlan(request, true, stamPlusMethod,navne3Method, familyPlusMethod);
+            var allInfos = new ServiceInfo[] { ServiceInfo.StamPlus_Local, ServiceInfo.NAVNE3_Local, ServiceInfo.FamilyPlus_Local };
 
-            var stamPlusMessage = plan.PlannedCalls.Last().ToRequestXml(CprServices.Properties.Resources.SearchTemplate);
+            foreach (var m in allInfos)
+            {
+                var searchMethod = m.ToSearchMethod();
+                var plan = new SearchPlan(request, true, searchMethod);
+                var gctpMessage = plan.PlannedCalls.First().ToRequestXml(CprServices.Properties.Resources.SearchTemplate);
 
-            string retXml;
-            var kvit = CallGctpService(ServiceInfo.FamilyPlus_Local, stamPlusMessage, out retXml);
+                string retXml;
+                var kvit = CallGctpService(m, gctpMessage, out retXml);
+                if (kvit.OK)
+                {
+                    // OK
+                }
+                else
+                {
+                    object o = "";
+                }
+            }
+
+
 
             ql = Schemas.QualityLevel.DataProvider;
             return null;
