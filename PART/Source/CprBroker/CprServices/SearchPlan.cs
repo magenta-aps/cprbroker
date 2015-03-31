@@ -59,6 +59,10 @@ namespace CprBroker.Providers.CprServices
         public List<SearchMethodCall> PlannedCalls = new List<SearchMethodCall>();
 
         public SearchPlan(SearchRequest request, params SearchMethod[] availableMethods)
+            : this(request, false, availableMethods)
+        { }
+
+        public SearchPlan(SearchRequest request, bool useAllMethods, params SearchMethod[] availableMethods)
         {
             var inputFields = request.CriteriaFields.Where(f => !string.IsNullOrEmpty(f.Value)).ToList();
             var planMethods = new List<SearchMethod>();
@@ -75,7 +79,7 @@ namespace CprBroker.Providers.CprServices
                         select inp.Key;
 
                     usedFieldNames.AddRange(newUsedFieldNames.Except(usedFieldNames));
-                    if (usedFieldNames.Count == inputFields.Count)// No need to use the other search methods
+                    if (!useAllMethods && usedFieldNames.Count == inputFields.Count)// No need to use the other search methods
                         break;
                 }
             }
