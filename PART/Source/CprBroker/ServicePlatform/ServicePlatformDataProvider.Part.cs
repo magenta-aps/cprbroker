@@ -11,7 +11,7 @@ using CprBroker.Engine;
 
 namespace CprBroker.Providers.ServicePlatform
 {
-    public partial class ServicePlatformDataProvider : IPartSearchListDataProvider, IPutSubscriptionDataProvider
+    public partial class ServicePlatformDataProvider : IPartSearchListDataProvider, IPutSubscriptionDataProvider, IPartReadDataProvider
     {
         public LaesResultatType[] SearchList(SoegInputType1 searchCriteria)
         {
@@ -76,6 +76,24 @@ namespace CprBroker.Providers.ServicePlatform
                 object o = ret;
                 return true;
             }
+        }
+
+        public RegistreringType1 Read(Schemas.PersonIdentifier uuid, LaesInputType input, Func<string, Guid> cpr2uuidFunc, out Schemas.QualityLevel? ql)
+        {
+            var request = new SearchRequest(uuid.CprNumber);
+
+            var stamPlusMethod = new SearchMethod(Properties.Resources.PnrLookup){Name= "Stam+"};
+            var navne3Method = new SearchMethod(Properties.Resources.PnrLookup) { Name = "navne3" };
+            var familyPlusMethod = new SearchMethod(Properties.Resources.PnrLookup) { Name = "Familie+" };
+            var plan = new SearchPlan(request, true, stamPlusMethod,navne3Method, familyPlusMethod);
+
+            var stamPlusMessage = plan.PlannedCalls.Last().ToRequestXml(CprServices.Properties.Resources.SearchTemplate);
+
+            string retXml;
+            var kvit = CallGctpService(ServiceInfo.FamilyPlus_Local, stamPlusMessage, out retXml);
+
+            ql = Schemas.QualityLevel.DataProvider;
+            return null;
         }
     }
 }

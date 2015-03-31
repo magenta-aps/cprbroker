@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>
+<Gctp v="1.0" >
+    <System r="CprSoeg">
+        <Service r="Stam+">
+            <CprServiceHeader r="Stam+">
+                <Key>
+                    <Field r="PNR" v=""/>
+                </Key>
+            </CprServiceHeader>
+        </Service>
+    </System>
+</Gctp>

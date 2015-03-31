@@ -35,5 +35,26 @@ namespace CprBroker.Providers.ServicePlatform
             Path = "/service/CPRService/CPRService/1"
         };
 
+        public static readonly ServiceInfo StamPlus_Local = new ServiceInfo()
+        {
+            Name = "STAM+ CPR Lookup (local)",
+            UUID = "7baec3a5-26a5-4922-80fd-37f3bad3dfcb",
+            Path = "/service/CPRLookup/CPRLookup/2"
+        };
+
+        public static readonly ServiceInfo NAVNE3_Local = new ServiceInfo()
+        {
+            Name = "navne3 - CPR Opslag (lokal)",
+            UUID = "e3f26293-803e-4b8f-8a15-674a4f8abaad",
+            Path = "/service/CPRLookup/CPRLookup/2"
+        };
+
+        public static readonly ServiceInfo FamilyPlus_Local = new ServiceInfo()
+        {
+            Name = "Familie+ - CPR Opslag (lokal)",
+            UUID = "a34cf599-26e4-4609-bfbd-2490d3d1c3ab",
+            Path = "/service/CPRLookup/CPRLookup/2"
+        };
+
     }
 }
