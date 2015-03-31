@@ -60,7 +60,8 @@ namespace CprBroker.Providers.ServicePlatform
             {
                 return new string[]
                 {
-                    Constants.OperationKeys.ADRSOG1
+                    ServiceInfo.ADRSOG1.Name,
+                    ServiceInfo.CPRSubscription.Name,
                 };
             }
         }
@@ -68,14 +69,14 @@ namespace CprBroker.Providers.ServicePlatform
         public bool IsAlive()
         {
             string retXml;
-            var call = new SearchMethodCall() { Name = Constants.OperationKeys.ADRSOG1 };
+            var call = new SearchMethodCall() { Name = ServiceInfo.ADRSOG1.Name };
             call.InputFields.Add(new KeyValuePair<string, string>("VEJK", "9999"));
             call.InputFields.Add(new KeyValuePair<string, string>("KOMK", "9999"));
             var xml = call.ToRequestXml(CprServices.Properties.Resources.SearchTemplate);
 
             try
             {
-                var kvit = this.CallGctpService(Constants.ServiceUuid.ADRSOG1, xml, out retXml);
+                var kvit = this.CallGctpService(ServiceInfo.ADRSOG1, xml, out retXml);
                 if (!kvit.OK)
                 {
                     string callInput = string.Join(",", call.InputFields.Select(kvp => string.Format("{0}={1}", kvp.Key, kvp.Value)).ToArray());

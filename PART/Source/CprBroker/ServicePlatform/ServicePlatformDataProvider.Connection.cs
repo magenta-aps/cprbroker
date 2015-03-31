@@ -15,16 +15,18 @@ namespace CprBroker.Providers.ServicePlatform
 {
     public partial class ServicePlatformDataProvider
     {
-        public TService CreateService<TInterface, TService>(string url)
+        public TService CreateService<TInterface, TService>(ServiceInfo serviceInfo)
             where TService : System.ServiceModel.ClientBase<TInterface>, TInterface, new()
-            where TInterface: class
+            where TInterface : class
         {
             // Binding
             var binding = new BasicHttpBinding(BasicHttpSecurityMode.Transport);
             binding.Security.Transport.ClientCredentialType = HttpClientCredentialType.Certificate;
 
             // End point
-            var endPointAddress = new EndpointAddress(url);
+            var uri = new Uri(this.Url);
+            uri = new Uri(uri, serviceInfo.Path);
+            var endPointAddress = new EndpointAddress(uri.ToString());
 
             // Create and initialize client
             var serviceType = typeof(TService);
@@ -43,19 +45,19 @@ namespace CprBroker.Providers.ServicePlatform
             return service;
         }
 
-        public Kvit CallGctpService(string serviceUuid, string gctpMessage, out string retXml)
+        public Kvit CallGctpService(ServiceInfo serviceInfo, string gctpMessage, out string retXml)
         {
             // Change message
             var doc = new XmlDocument();
             doc.LoadXml(gctpMessage);
             gctpMessage = doc.DocumentElement.OuterXml + Environment.NewLine;
 
-            var service = CreateService<CprServicePortType, CprServicePortTypeClient>(this.Url);
-            
-            using (var callContext = this.BeginCall(serviceUuid, serviceUuid))
+            var service = CreateService<CprServicePortType, CprServicePortTypeClient>(serviceInfo);
+
+            using (var callContext = this.BeginCall(serviceInfo.Name, serviceInfo.Name))
             {
-                var invocationContext = GetInvocationContext<CprReplica.InvocationContextType>(serviceUuid);
-                
+                var invocationContext = GetInvocationContext<CprReplica.InvocationContextType>(serviceInfo.UUID);
+
                 retXml = service.callGCTPCheckService(invocationContext, gctpMessage);
                 var kvit = Kvit.FromResponseXml(retXml);
                 if (kvit.OK)
@@ -71,7 +73,7 @@ namespace CprBroker.Providers.ServicePlatform
         }
 
         public TInvocationContext GetInvocationContext<TInvocationContext>(string serviceUuid)
-            where TInvocationContext: IInvocationContext, new()
+            where TInvocationContext : IInvocationContext, new()
         {
             return new TInvocationContext()
             {

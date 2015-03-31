@@ -28,7 +28,7 @@ namespace CprBroker.Providers.ServicePlatform
                 var xml = call.ToRequestXml(CprServices.Properties.Resources.SearchTemplate);
                 var xmlOut = "";
 
-                var kvit = CallGctpService(Constants.ServiceUuid.ADRSOG1, xml, out xmlOut);
+                var kvit = CallGctpService(ServiceInfo.ADRSOG1, xml, out xmlOut);
                 if (kvit.OK)
                 {
                     ret = call.ParseResponse(xmlOut, true);
@@ -64,13 +64,12 @@ namespace CprBroker.Providers.ServicePlatform
 
         public bool PutSubscription(Schemas.PersonIdentifier personIdentifier)
         {
-            var url = "https://exttest.serviceplatformen.dk/service/CPRSubscription/CPRSubscription/1/";
-            var service = CreateService<CprSubscriptionService.CprSubscriptionWebServicePortType, CprSubscriptionService.CprSubscriptionWebServicePortTypeClient>(url);
+            var service = CreateService<CprSubscriptionService.CprSubscriptionWebServicePortType, CprSubscriptionService.CprSubscriptionWebServicePortTypeClient>(ServiceInfo.CPRSubscription);
             using (var callContext = this.BeginCall("", ""))
             {
                 var request = new CprSubscriptionService.AddPNRSubscriptionType()
                 {
-                    InvocationContext = GetInvocationContext<CprSubscriptionService.InvocationContextType>(Constants.ServiceUuid.CPRSubscription),
+                    InvocationContext = GetInvocationContext<CprSubscriptionService.InvocationContextType>(ServiceInfo.CPRSubscription.UUID),
                     PNR = personIdentifier.CprNumber
                 };
                 var ret = service.AddPNRSubscription(request);
