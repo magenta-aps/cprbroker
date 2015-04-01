@@ -7,22 +7,13 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Providers.ServicePlatform.Responses
 {
-    public class FamilyPlusResponse
+    public class FamilyPlusResponse : BaseResponse
     {
-        private XmlDocument _ResponseDocument;
-        private XmlNamespaceManager _NamespaceManager;
         private RelationItem[] RelationNodes;
 
-        private FamilyPlusResponse()
-        { }
-
         public FamilyPlusResponse(string xml)
+            : base(xml)
         {
-            _ResponseDocument = new XmlDocument();
-            _ResponseDocument.LoadXml(xml);
-            _NamespaceManager = new XmlNamespaceManager(_ResponseDocument.NameTable);
-            _NamespaceManager.AddNamespace("c", CprServices.Constants.XmlNamespace);
-
             RelationNodes = _ResponseDocument.SelectNodes("//c:Table/c:Row", _NamespaceManager)
                 .OfType<XmlElement>()
                 .Select(e => new RelationItem(e, _NamespaceManager))
