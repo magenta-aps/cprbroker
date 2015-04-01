@@ -32,8 +32,8 @@ namespace CprBroker.Providers.ServicePlatform.Responses
         private RelationItem[] GetRelationNodes(string key)
         {
             return this.RelationNodes
-                .Where(r => 
-                    r.RelationTypeString == key
+                .Where(r =>
+                    (string.IsNullOrEmpty(key) || r.RelationTypeString == key)
                     && CprBroker.PartInterface.Strings.IsValidPersonNumber(r.PnrOrBirthdate)
                     )
                     .ToArray();
@@ -47,6 +47,13 @@ namespace CprBroker.Providers.ServicePlatform.Responses
         public PersonRelationType[] GetPersonRelations(string key, Func<string, Guid> func)
         {
             return GetRelationNodes(key).Select(n => PersonRelationType.Create(func(n.PnrOrBirthdate), null, null)).ToArray();
+        }
+
+        public string[] ToRelationPNRs()
+        {
+            return GetRelationNodes(null)
+                .Select(n => n.PnrOrBirthdate)
+                .ToArray();
         }
 
         public RelationListeType ToRelationListeType(Func<string, Guid> uuidGetter)
