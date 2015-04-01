@@ -31,7 +31,12 @@ namespace CprBroker.Providers.ServicePlatform.Responses
 
         private RelationItem[] GetRelationNodes(string key)
         {
-            return this.RelationNodes.Where(r => r.RelationTypeString == key).ToArray();
+            return this.RelationNodes
+                .Where(r => 
+                    r.RelationTypeString == key
+                    && CprBroker.PartInterface.Strings.IsValidPersonNumber(r.PnrOrBirthdate)
+                    )
+                    .ToArray();
         }
 
         public PersonFlerRelationType[] GetPersonFlerRelations(string key, Func<string, Guid> func)
@@ -86,7 +91,7 @@ namespace CprBroker.Providers.ServicePlatform.Responses
             {
                 string xPath = string.Format("c:Field[@r='{0}']/@v", key);
                 var nd = _Node.SelectSingleNode(xPath, _NamespaceManager);
-                
+
                 return nd != null ? nd.Value : null;
             }
 
