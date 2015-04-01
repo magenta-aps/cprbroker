@@ -1,0 +1,25 @@
+<root xmlns="http://www.cpr.dk">
+    <Gctp v="1.0">
+        <System r="CprSoeg">
+            <Service r="navne3">
+                <CprServiceHeader r="navne3"/>
+                <CprData u="O">
+                    <Rolle r="HovedRolle">
+                        <Table r="navne3">
+                            <Row k="0">
+                                <Field r="CNVN_ADRNVN" t="Eliasen, Monika Togliatti" v="Monika Togliatti Eliasen"/>
+                                <Field r="CNVN_EFTERNVN" v="Eliasen"/>
+                                <Field r="CNVN_FORNVN" v="Monika Togliatti"/>
+                                <Field r="CNVN_KOEN" v="K"/>
+                                <Field r="CNVN_STARTDATO" v="199802281002"/>
+                                <Field r="CNVN_STATUS" v="01"/>
+                                <Field r="HISTORIKMRK" v="X"/>
+                            </Row>
+                        </Table>
+                    </Rolle>
+                </CprData>
+                <Kvit r="Ok" t="" v="0"/>
+            </Service>
+        </System>
+    </Gctp>
+</root>
