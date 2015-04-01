@@ -9,73 +9,13 @@ using CprBroker.Engine.Local;
 using CprBroker.Engine.Part;
 using CprBroker.Engine;
 using System.Xml;
+using CprBroker.Providers.ServicePlatform.Responses;
 
 namespace CprBroker.Providers.ServicePlatform
 {
     public partial class ServicePlatformDataProvider
     {
-        public class RelationNode
-        {
-            XmlElement Node;
-
-            public RelationNode(XmlElement elm)
-            {
-                Node = elm;
-            }
-
-            public string PnrOrBirthdate
-            {
-                get { return Node.SelectSingleNode("//Field[@r='PNR_FOEDDATO']").Value; }
-            }
-
-            public string RelationTypeString
-            {
-                get { return Node.SelectSingleNode("//Field[@r='FAMMRK']").Value; }
-            }
-
-            public PersonFlerRelationType ToPersonFlerRelationType(Func<string, Guid> func)
-            {
-                return PersonFlerRelationType.Create(func(PnrOrBirthdate), null, null);
-            }
-
-            public PersonRelationType ToPersonRelationType(Func<string, Guid> func)
-            {
-                return PersonRelationType.Create(func(PnrOrBirthdate), null, null);
-            }
-        }
-
-        public RelationListeType ToRelationListeType(string familyPlusResponse, Func<string, Guid> uuidGetter)
-        {
-            var doc = new XmlDocument();
-            doc.LoadXml(familyPlusResponse);
-            var relationNodes = doc.SelectNodes("//Table/Row")
-                .OfType<XmlElement>()
-                .Select(e => new RelationNode(e))
-                .ToArray();
-
-            return new Schemas.Part.RelationListeType()
-            {
-                Fader = null,
-                Moder = null,
-
-                Boern = relationNodes.Where(r => r.RelationTypeString == "Barn").Select(r => r.ToPersonFlerRelationType(uuidGetter)).ToArray(),
-                Aegtefaelle = relationNodes.Where(r => r.RelationTypeString == "Ægtefælle").Select(r => r.ToPersonRelationType(uuidGetter)).ToArray(),
-                RegistreretPartner = null,
-
-                Bopaelssamling = null,
-
-                ErstatningAf = null,
-                ErstatningFor = null,
-
-                Foraeldremyndighedsboern = null,
-                Foraeldremyndighedsindehaver = null,
-
-                RetligHandleevneVaergeForPersonen = null,
-                RetligHandleevneVaergemaalsindehaver = null,
-
-                LokalUdvidelse = null,
-            };
-        }
+        
 
         public AttributListeType ToAttributListeType(string stamPlusResponse)
         {

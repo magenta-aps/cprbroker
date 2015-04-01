@@ -60,6 +60,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Responses\FamilyPlusResponse.cs" />
     <Compile Include="Service References\CprReplica\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
