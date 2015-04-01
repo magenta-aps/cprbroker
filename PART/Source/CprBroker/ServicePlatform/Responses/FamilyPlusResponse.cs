@@ -23,7 +23,7 @@ namespace CprBroker.Providers.ServicePlatform.Responses
             _NamespaceManager = new XmlNamespaceManager(_ResponseDocument.NameTable);
             _NamespaceManager.AddNamespace("c", CprServices.Constants.XmlNamespace);
 
-            RelationNodes = _ResponseDocument.SelectNodes("//c:Table/c:Row")
+            RelationNodes = _ResponseDocument.SelectNodes("//c:Table/c:Row", _NamespaceManager)
                 .OfType<XmlElement>()
                 .Select(e => new RelationItem(e, _NamespaceManager))
                 .ToArray();
@@ -70,7 +70,7 @@ namespace CprBroker.Providers.ServicePlatform.Responses
                 LokalUdvidelse = null,
             };
         }
-        
+
         public class RelationItem
         {
             private XmlElement _Node;
@@ -84,8 +84,10 @@ namespace CprBroker.Providers.ServicePlatform.Responses
 
             public string GetNodeValue(string key)
             {
-                string xPath = string.Format("//c:Field[@r='{0}']", key);
-                return _Node.SelectSingleNode(xPath, _NamespaceManager).Value;
+                string xPath = string.Format("c:Field[@r='{0}']/@v", key);
+                var nd = _Node.SelectSingleNode(xPath, _NamespaceManager);
+                
+                return nd != null ? nd.Value : null;
             }
 
             public string PnrOrBirthdate
@@ -95,7 +97,7 @@ namespace CprBroker.Providers.ServicePlatform.Responses
 
             public string RelationTypeString
             {
-                get { return GetNodeValue("FAMMRK']"); }
+                get { return GetNodeValue("FAMMRK"); }
             }
         }
     }
