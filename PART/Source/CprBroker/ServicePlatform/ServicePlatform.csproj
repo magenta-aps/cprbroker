@@ -73,6 +73,7 @@
     <Compile Include="ServiceInfo.cs" />
     <Compile Include="ServicePlatformDataProvider.Base.cs" />
     <Compile Include="ServicePlatformDataProvider.Connection.cs" />
+    <Compile Include="ServicePlatformDataProvider.Part.Helpers.cs" />
     <Compile Include="ServicePlatformDataProvider.Part.cs" />
   </ItemGroup>
   <ItemGroup>
