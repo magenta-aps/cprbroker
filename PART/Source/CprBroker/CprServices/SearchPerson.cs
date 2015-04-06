@@ -90,6 +90,19 @@ namespace CprBroker.Providers.CprServices
                 return null;
         }
 
+        public NavnStrukturType ToNavnStrukturType(XmlElement elm)
+        {
+            var name = CprBroker.Utilities.Strings.FirstNonEmpty(
+                GetFieldValue(elm, "CNVN_ADRNVN"),
+                GetFieldValue(elm, "ADRNVN")
+                );
+
+            if (!string.IsNullOrEmpty(name))
+                return NavnStrukturType.Create(new string[] { name }, name);
+            else
+                return null;
+        }
+
         public AdresseType ToAdresseType(XmlElement elm)
         {
             var kom = GetFieldValue(elm, "KOMKOD");
@@ -141,7 +154,7 @@ namespace CprBroker.Providers.CprServices
 
                         // Post code, district & town
                         PostCodeIdentifier = GetFieldValue(elm, "POSTNR"),
-                        DistrictName = ToPostDistrict(elm),
+                        DistrictName = ToPostDistrictText(elm),
                         DistrictSubdivisionIdentifier = GetFieldValue(elm, "BYNVN"),
 
                         // TODO: This works only in Lookup metrhods. Lookup street name and addressing name in Search methods
@@ -151,19 +164,19 @@ namespace CprBroker.Providers.CprServices
                         StreetNameForAddressingName = Strings.FirstNonEmpty(
                              GetFieldText(elm, "VEJKOD"), // ADRESSE3
                              GetFieldValue(elm, "VEJADRNVN")), // Stam+
-                        
+
                         // Not implemented
                         MailDeliverySublocationIdentifier = null,
                         PostOfficeBoxIdentifier = null,
                     }
                 },
-                // TODO: Fill post district in search methods
-                PostDistriktTekst = GetFieldText(elm, "POSTNR"),
+
+                PostDistriktTekst = ToPostDistrictText(elm),
                 SpecielVejkodeIndikator = ToSpecielVejkodeIndikator(elm),
                 SpecielVejkodeIndikatorSpecified = true,
                 UkendtAdresseIndikator = false,
 
-                // Not implemented
+                // District lookup
                 AddressPoint = null,
                 NoteTekst = null,
                 PolitiDistriktTekst = null,
@@ -189,16 +202,12 @@ namespace CprBroker.Providers.CprServices
                     FloorIdentifier = GetFieldValue(elm, "ETAGE"),
                     SuiteIdentifier = GetFieldValue(elm, "SIDEDOER"),
 
-                    StreetName = Strings.FirstNonEmpty(
-                        GetFieldText(elm, "VEJKOD"), // ADRESSE3
-                        GetFieldValue(elm, "VEJADRNVN")), // Stam+
-                    StreetNameForAddressingName = Strings.FirstNonEmpty(
-                        GetFieldText(elm, "VEJKOD"), // ADRESSE3
-                        GetFieldValue(elm, "VEJADRNVN")), // Stam+
+                    StreetName = ToStreetName(elm),
+                    StreetNameForAddressingName = ToStreetName(elm),
 
                     // Post code, district & town
                     PostCodeIdentifier = GetFieldValue(elm, "POSTNR"),
-                    DistrictName = ToPostDistrict(elm),
+                    DistrictName = ToPostDistrictText(elm),
                     DistrictSubdivisionIdentifier = GetFieldValue(elm, "BYNVN"),
 
                     // Unsupported
@@ -213,8 +222,17 @@ namespace CprBroker.Providers.CprServices
             };
         }
 
-        public string ToPostDistrict(XmlElement elm)
+        public string ToStreetName(XmlElement elm)
         {
+            return Strings.FirstNonEmpty(
+                GetFieldText(elm, "VEJKOD"), // ADRESSE3
+                GetFieldValue(elm, "VEJADRNVN")// Stam+
+            );
+        }
+
+        public string ToPostDistrictText(XmlElement elm)
+        {
+            // TODO: Fill post district in search methods
             return Strings.FirstNonEmpty(
                 GetFieldValue(elm, "CPSN_POSTDISTTXT"),
                 GetFieldText(elm, "POSTNR")
@@ -245,7 +263,7 @@ namespace CprBroker.Providers.CprServices
                     houseNr = null;
                 }
                 var postCode = GetFieldValue(elm, "POSTNR");
-                var postDist = GetFieldText(elm, "POSTNR");
+                var postDist = ToPostDistrictText(elm);
 
                 // Fill the object
                 return new AdresseType()
@@ -306,22 +324,8 @@ namespace CprBroker.Providers.CprServices
                     PostalAddressFourthLineText = GetFieldValue(elm, "UDLANDSADR4"),
                     PostalAddressFifthLineText = GetFieldValue(elm, "UDLANDSADR5"),
                     LocationDescriptionText = null,
-
                 }
             };
-        }
-
-        public NavnStrukturType ToNavnStrukturType(XmlElement elm)
-        {
-            var name = CprBroker.Utilities.Strings.FirstNonEmpty(
-                GetFieldValue(elm, "CNVN_ADRNVN"),
-                GetFieldValue(elm, "ADRNVN")
-                );
-
-            if (!string.IsNullOrEmpty(name))
-                return NavnStrukturType.Create(new string[] { name }, name);
-            else
-                return null;
         }
 
         public string GetFieldValue(XmlElement elm, string name)
