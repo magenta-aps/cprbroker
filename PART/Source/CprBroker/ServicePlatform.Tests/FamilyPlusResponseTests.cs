@@ -14,11 +14,9 @@ namespace CprBroker.Tests.ServicePlatform
 {
     namespace FamilyPlusResponseTests
     {
-        public class FamilyTestBase
+        public class FamilyTestBase : BaseResponseTests
         {
             Dictionary<string, Guid> _UuidMap = new Dictionary<string, Guid>();
-            public string[] PNRs { get { return CPRDirect.Utilities.PNRs; } }
-
             public Guid GetUuid(string pnr)
             {
                 if (!_UuidMap.ContainsKey(pnr))
@@ -28,12 +26,12 @@ namespace CprBroker.Tests.ServicePlatform
 
             public RelationListeType GetRelations(string pnr)
             {
-                var txt = File.ReadAllText(string.Format(@"Resources\{0}.Familie+.Response.OK.xml", pnr), Encoding.UTF8);
+                var txt = GetResponse(pnr, "Familie+");
                 var w = new FamilyPlusResponse(txt);
                 return w.ToRelationListeType(GetUuid);
             }
 
-            public string [] GetAllRelationTypes()
+            public string[] GetAllRelationTypes()
             {
                 List<string> relTypes = new List<string>();
                 foreach (var pnr in this.PNRs)

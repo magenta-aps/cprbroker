@@ -16,7 +16,6 @@ namespace CprBroker.Providers.ServicePlatform.Responses
         {
         }
 
-
         public AttributListeType ToAttributListeType()
         {
             var searchPerson = new SearchPerson(this._Rows.First());
