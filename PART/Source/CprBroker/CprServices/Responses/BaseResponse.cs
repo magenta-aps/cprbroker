@@ -9,6 +9,8 @@ namespace CprBroker.Providers.CprServices.Responses
     public class BaseResponse<TRowItem>
         where TRowItem : RowItem
     {
+        public static readonly string DefaultRowXPath = "//c:Table/c:Row";
+
         protected XmlDocument _ResponseDocument;
         protected XmlNamespaceManager _NamespaceManager;
         protected XmlElement[] _Rows;
@@ -19,13 +21,20 @@ namespace CprBroker.Providers.CprServices.Responses
 
         public BaseResponse(string xml,
             Func<XmlElement, XmlNamespaceManager, TRowItem> creator)
+            : this(xml, DefaultRowXPath, creator)
+        {
+        }
+
+        public BaseResponse(string xml,
+            string rowXPath,
+            Func<XmlElement, XmlNamespaceManager, TRowItem> creator)
         {
             _ResponseDocument = new XmlDocument();
             _ResponseDocument.LoadXml(xml);
             _NamespaceManager = new XmlNamespaceManager(_ResponseDocument.NameTable);
             _NamespaceManager.AddNamespace("c", CprServices.Constants.XmlNamespace);
 
-            _Rows = _ResponseDocument.SelectNodes("//c:Table/c:Row", _NamespaceManager)
+            _Rows = _ResponseDocument.SelectNodes(rowXPath, _NamespaceManager)
                 .OfType<XmlElement>()
                 .ToArray();
 
@@ -33,12 +42,6 @@ namespace CprBroker.Providers.CprServices.Responses
                 .Select(r => creator(r, _NamespaceManager))
                 .ToArray();
         }
-    }
 
-    public class BaseResponse : BaseResponse<RowItem>
-    {
-        public BaseResponse(string xml)
-            : base(xml, (e, nsMgr) => new RowItem(e, nsMgr))
-        { }
     }
 }
