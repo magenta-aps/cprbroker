@@ -78,8 +78,10 @@ namespace CprBroker.Providers.CprServices
                  out this.Timestamp);
 
             var name = GetFieldValue(elm, "CNVN_ADRNVN");
+            if (string.IsNullOrEmpty(name))
+                name = GetFieldValue(elm, "ADRNVN");
             if (!string.IsNullOrEmpty(name))
-                this.Name = NavnStrukturType.Create(name);
+                this.Name = NavnStrukturType.Create(new string[] { name }, name);
             this.PNR = GetFieldValue(elm, "PNR");
 
             #region Address
