@@ -58,7 +58,7 @@ namespace CprBroker.Providers.CprServices
         public string PNR;
         public NavnStrukturType Name;
         public AdresseType Address;
-        public DateTime Timestamp;
+        public DateTime? Timestamp;
         public string SourceXml;
 
         public bool Equals(SearchPerson other)
@@ -69,205 +69,239 @@ namespace CprBroker.Providers.CprServices
         public SearchPerson(XmlElement elm)
         {
             this.SourceXml = elm.OuterXml;
+            this.Timestamp = ToStartDate(elm);
+            this.Name = ToName(elm);
+            this.PNR = GetFieldValue(elm, "PNR");
+            this.Address = ToAdresseType(elm);
+        }
 
-            DateTime.TryParseExact(
+        public DateTime? ToStartDate(XmlElement elm)
+        {
+            DateTime ret;
+            if (DateTime.TryParseExact(
                 GetFieldValue(elm, "STARTDATO"),
                 "yyyyMMddHHmm", // 198112131338                    
                 null,
                  System.Globalization.DateTimeStyles.None,
-                 out this.Timestamp);
+                 out ret))
+                return ret;
+            else
+                return null;
+        }
 
-            var name = GetFieldValue(elm, "CNVN_ADRNVN");
-            if (string.IsNullOrEmpty(name))
-                name = GetFieldValue(elm, "ADRNVN");
-            if (!string.IsNullOrEmpty(name))
-                this.Name = NavnStrukturType.Create(new string[] { name }, name);
-            this.PNR = GetFieldValue(elm, "PNR");
-
-            #region Address
+        public AdresseType ToAdresseType(XmlElement elm)
+        {
             var kom = GetFieldValue(elm, "KOMKOD");
             var foreignCountryCode = GetFieldValue(elm, "UDRLANDEKOD");
             if (!string.IsNullOrEmpty(kom))
             {
                 var komK = decimal.Parse(kom);
 
-                this.Address = new AdresseType();
-
-                if (komK >= CprBroker.Schemas.Part.AddressConstants.GreenlandMunicipalCodeStart)
+                return new AdresseType()
                 {
-                    this.Address.Item = new GroenlandAdresseType()
-                    {
-                        AddressCompleteGreenland = new AddressCompleteGreenlandType()
-                        {
-                            CountryIdentificationCode = CountryIdentificationCodeType.Create(_CountryIdentificationSchemeType.imk, Constants.DenmarkCountryCode.ToString()),
-                            MunicipalityCode = kom,
-                            StreetCode = GetFieldValue(elm, "VEJKOD"),
-
-                            StreetBuildingIdentifier = GetFieldValue(elm, "HUSNR"),
-                            GreenlandBuildingIdentifier = GetFieldValue(elm, "BNR"),
-                            FloorIdentifier = GetFieldValue(elm, "ETAGE"),
-                            SuiteIdentifier = GetFieldValue(elm, "SIDEDOER"),
-
-                            // This is only available in Stam+
-                            StreetName = GetFieldText(elm, "VEJADRNVN"),
-                            StreetNameForAddressingName = GetFieldText(elm, "VEJADRNVN"),
-
-                            // Post code, district & town
-                            PostCodeIdentifier = GetFieldValue(elm, "POSTNR"),
-                            DistrictName = GetFieldText(elm, "POSTNR"),
-                            DistrictSubdivisionIdentifier = GetFieldValue(elm, "BYNVN"),
-
-                            // Unsupported
-                            MailDeliverySublocationIdentifier = null,
-                        },
-                        SpecielVejkodeIndikator = true,
-                        SpecielVejkodeIndikatorSpecified = true,
-                        UkendtAdresseIndikator = false,
-
-                        // Unsupported
-                        NoteTekst = null,
-                    };
-                }
-                else
-                {
-                    // Danish
-                    this.Address.Item = new DanskAdresseType()
-                    {
-                        AddressComplete = new AddressCompleteType()
-                        {
-                            AddressAccess = new AddressAccessType()
-                            {
-                                MunicipalityCode = kom,
-                                StreetCode = GetFieldValue(elm, "VEJKOD"),
-                                StreetBuildingIdentifier = GetFieldValue(elm, "HUSNR")
-                            },
-                            AddressPostal = new AddressPostalType()
-                            {
-                                CountryIdentificationCode = CountryIdentificationCodeType.Create(_CountryIdentificationSchemeType.imk, Constants.DenmarkCountryCode.ToString()),
-
-                                FloorIdentifier = GetFieldValue(elm, "ETAGE"),
-                                StreetBuildingIdentifier = GetFieldValue(elm, "HUSNR"),
-                                SuiteIdentifier = GetFieldValue(elm, "SIDEDOER"),
-
-                                // TODO: Lookup
-                                PostCodeIdentifier = GetFieldValue(elm, "POSTNR"),
-                                DistrictName = GetFieldText(elm, "POSTNR"),
-
-                                // TODO: This workd only in Lookup metrhods. Lookup street name and addressing name in Search methods
-                                StreetName = GetFieldText(elm, "VEJKOD"),
-                                // TODO: Shall we read from tm="xyz"?
-                                StreetNameForAddressingName = GetFieldText(elm, "VEJKOD"),
-                                DistrictSubdivisionIdentifier = GetFieldValue(elm, "BYNVN"),
-                                
-                                // Not implemented
-                                MailDeliverySublocationIdentifier = null,
-                                PostOfficeBoxIdentifier = null,
-                            }
-                        },
-                        // TODO: Fill post district in search methods
-                        PostDistriktTekst = GetFieldText(elm, "POSTNR"),
-                        SpecielVejkodeIndikator = false,
-                        SpecielVejkodeIndikatorSpecified = true,
-                        UkendtAdresseIndikator = false,
-
-                        // Not implemented
-                        AddressPoint = null,
-                        NoteTekst = null,
-                        PolitiDistriktTekst = null,
-                        SkoleDistriktTekst = null,
-                        SogneDistriktTekst = null,
-                        SocialDistriktTekst = null,
-                        ValgkredsDistriktTekst = null,
-                    };
-                }
+                    Item =
+                        komK >= CprBroker.Schemas.Part.AddressConstants.GreenlandMunicipalCodeStart ?
+                            ToGroenlandskAdresseType(elm, kom) as AdresseBaseType
+                            : ToDanskAdresseType(elm, kom)
+                };
             }
             else if (string.IsNullOrEmpty(foreignCountryCode))
             {
-                var streetAddress = GetFieldValue(elm, "STADR");
-                if (!string.IsNullOrEmpty(streetAddress))
-                {
-                    // Parse the strings
-                    var arr = streetAddress.Split(' ');
-                    string streetName, houseNr;
-                    if (arr.Length > 1)
-                    {
-                        streetName = string.Join(" ", arr.Take(arr.Length - 1).ToArray());
-                        houseNr = arr.Last();
-                    }
-                    else
-                    {
-                        streetName = streetAddress;
-                        houseNr = null;
-                    }
-                    var postCode = GetFieldValue(elm, "POSTNR");
-                    var postDist = GetFieldText(elm, "POSTNR");
-
-                    // Fill the object
-                    this.Address = new AdresseType()
-                    {
-                        Item = new DanskAdresseType()
-                        {
-                            AddressComplete = new AddressCompleteType()
-                            {
-                                // TODO: Can we fill Address access by lookup?
-                                AddressAccess = null,
-                                AddressPostal = new AddressPostalType()
-                                {
-                                    CountryIdentificationCode = CountryIdentificationCodeType.Create(_CountryIdentificationSchemeType.imk, Constants.DenmarkCountryCode.ToString()),
-                                    StreetName = streetName,
-                                    StreetBuildingIdentifier = houseNr,
-                                    StreetNameForAddressingName = streetName,
-                                    // TODO: See if we can get floor & suite
-                                    FloorIdentifier = null,
-                                    SuiteIdentifier = null,
-                                    DistrictName = postDist,
-                                    PostCodeIdentifier = postCode,
-
-                                    // Not implemented
-                                    MailDeliverySublocationIdentifier = null,
-                                    PostOfficeBoxIdentifier = null,
-                                    DistrictSubdivisionIdentifier = null,
-                                }
-                            },
-                            PostDistriktTekst = postDist,
-                            SpecielVejkodeIndikator = false,
-                            SpecielVejkodeIndikatorSpecified = false,
-                            UkendtAdresseIndikator = false,
-
-                            // Not implemented
-                            NoteTekst = null,
-                            AddressPoint = null,
-                            PolitiDistriktTekst = null,
-                            SkoleDistriktTekst = null,
-                            SocialDistriktTekst = null,
-                            SogneDistriktTekst = null,
-                            ValgkredsDistriktTekst = null
-                        }
-                    };
-                    //TODO" Parse address here
-                }
+                return ToAdresseTypeFromString(elm);
             }
             else
             {
-                this.Address = new AdresseType()
+                return new AdresseType()
                 {
-                    Item = new VerdenAdresseType()
-                    {
-                        ForeignAddressStructure = new ForeignAddressStructureType()
-                        {
-                            CountryIdentificationCode = CountryIdentificationCodeType.Create(_CountryIdentificationSchemeType.imk, foreignCountryCode),
-                            PostalAddressFirstLineText = GetFieldValue(elm, "UDLANDSADR1"),
-                            PostalAddressSecondLineText = GetFieldValue(elm, "UDLANDSADR2"),
-                            PostalAddressThirdLineText = GetFieldValue(elm, "UDLANDSADR3"),
-                            PostalAddressFourthLineText = GetFieldValue(elm, "UDLANDSADR4"),
-                            PostalAddressFifthLineText = GetFieldValue(elm, "UDLANDSADR5"),
-                            LocationDescriptionText = null,
+                    Item = ToVerdenAdresseType(elm, foreignCountryCode)
+                };
+            }
+        }
 
-                        }
+        public DanskAdresseType ToDanskAdresseType(XmlElement elm, string kom)
+        {
+            return new DanskAdresseType()
+            {
+                AddressComplete = new AddressCompleteType()
+                {
+                    AddressAccess = new AddressAccessType()
+                    {
+                        MunicipalityCode = kom,
+                        StreetCode = GetFieldValue(elm, "VEJKOD"),
+                        StreetBuildingIdentifier = GetFieldValue(elm, "HUSNR")
+                    },
+                    AddressPostal = new AddressPostalType()
+                    {
+                        CountryIdentificationCode = CountryIdentificationCodeType.Create(_CountryIdentificationSchemeType.imk, Constants.DenmarkCountryCode.ToString()),
+
+                        FloorIdentifier = GetFieldValue(elm, "ETAGE"),
+                        StreetBuildingIdentifier = GetFieldValue(elm, "HUSNR"),
+                        SuiteIdentifier = GetFieldValue(elm, "SIDEDOER"),
+
+                        // TODO: Lookup
+                        PostCodeIdentifier = GetFieldValue(elm, "POSTNR"),
+                        DistrictName = GetFieldText(elm, "POSTNR"),
+
+                        // TODO: This workd only in Lookup metrhods. Lookup street name and addressing name in Search methods
+                        StreetName = GetFieldText(elm, "VEJKOD"),
+                        // TODO: Shall we read from tm="xyz"?
+                        StreetNameForAddressingName = GetFieldText(elm, "VEJKOD"),
+                        DistrictSubdivisionIdentifier = GetFieldValue(elm, "BYNVN"),
+
+                        // Not implemented
+                        MailDeliverySublocationIdentifier = null,
+                        PostOfficeBoxIdentifier = null,
+                    }
+                },
+                // TODO: Fill post district in search methods
+                PostDistriktTekst = GetFieldText(elm, "POSTNR"),
+                SpecielVejkodeIndikator = false,
+                SpecielVejkodeIndikatorSpecified = true,
+                UkendtAdresseIndikator = false,
+
+                // Not implemented
+                AddressPoint = null,
+                NoteTekst = null,
+                PolitiDistriktTekst = null,
+                SkoleDistriktTekst = null,
+                SogneDistriktTekst = null,
+                SocialDistriktTekst = null,
+                ValgkredsDistriktTekst = null,
+            };
+        }
+
+        public GroenlandAdresseType ToGroenlandskAdresseType(XmlElement elm, string kom)
+        {
+            return new GroenlandAdresseType()
+            {
+                AddressCompleteGreenland = new AddressCompleteGreenlandType()
+                {
+                    CountryIdentificationCode = CountryIdentificationCodeType.Create(_CountryIdentificationSchemeType.imk, Constants.DenmarkCountryCode.ToString()),
+                    MunicipalityCode = kom,
+                    StreetCode = GetFieldValue(elm, "VEJKOD"),
+
+                    StreetBuildingIdentifier = GetFieldValue(elm, "HUSNR"),
+                    GreenlandBuildingIdentifier = GetFieldValue(elm, "BNR"),
+                    FloorIdentifier = GetFieldValue(elm, "ETAGE"),
+                    SuiteIdentifier = GetFieldValue(elm, "SIDEDOER"),
+
+                    // This is only available in Stam+
+                    StreetName = GetFieldText(elm, "VEJADRNVN"),
+                    StreetNameForAddressingName = GetFieldText(elm, "VEJADRNVN"),
+
+                    // Post code, district & town
+                    PostCodeIdentifier = GetFieldValue(elm, "POSTNR"),
+                    DistrictName = GetFieldText(elm, "POSTNR"),
+                    DistrictSubdivisionIdentifier = GetFieldValue(elm, "BYNVN"),
+
+                    // Unsupported
+                    MailDeliverySublocationIdentifier = null,
+                },
+                SpecielVejkodeIndikator = true,
+                SpecielVejkodeIndikatorSpecified = true,
+                UkendtAdresseIndikator = false,
+
+                // Unsupported
+                NoteTekst = null,
+            };
+        }
+
+        public AdresseType ToAdresseTypeFromString(XmlElement elm)
+        {
+            var streetAddress = GetFieldValue(elm, "STADR");
+            if (!string.IsNullOrEmpty(streetAddress))
+            {
+                // Parse the strings
+                var arr = streetAddress.Split(' ');
+                string streetName, houseNr;
+                if (arr.Length > 1)
+                {
+                    streetName = string.Join(" ", arr.Take(arr.Length - 1).ToArray());
+                    houseNr = arr.Last();
+                }
+                else
+                {
+                    streetName = streetAddress;
+                    houseNr = null;
+                }
+                var postCode = GetFieldValue(elm, "POSTNR");
+                var postDist = GetFieldText(elm, "POSTNR");
+
+                // Fill the object
+                return new AdresseType()
+                {
+                    Item = new DanskAdresseType()
+                    {
+                        AddressComplete = new AddressCompleteType()
+                        {
+                            // TODO: Can we fill Address access by lookup?
+                            AddressAccess = null,
+                            AddressPostal = new AddressPostalType()
+                            {
+                                CountryIdentificationCode = CountryIdentificationCodeType.Create(_CountryIdentificationSchemeType.imk, Constants.DenmarkCountryCode.ToString()),
+                                StreetName = streetName,
+                                StreetBuildingIdentifier = houseNr,
+                                StreetNameForAddressingName = streetName,
+                                // TODO: See if we can get floor & suite
+                                FloorIdentifier = null,
+                                SuiteIdentifier = null,
+                                DistrictName = postDist,
+                                PostCodeIdentifier = postCode,
+
+                                // Not implemented
+                                MailDeliverySublocationIdentifier = null,
+                                PostOfficeBoxIdentifier = null,
+                                DistrictSubdivisionIdentifier = null,
+                            }
+                        },
+                        PostDistriktTekst = postDist,
+                        SpecielVejkodeIndikator = false,
+                        SpecielVejkodeIndikatorSpecified = false,
+                        UkendtAdresseIndikator = false,
+
+                        // Not implemented
+                        NoteTekst = null,
+                        AddressPoint = null,
+                        PolitiDistriktTekst = null,
+                        SkoleDistriktTekst = null,
+                        SocialDistriktTekst = null,
+                        SogneDistriktTekst = null,
+                        ValgkredsDistriktTekst = null
                     }
                 };
             }
-            #endregion
+            return null;
+        }
+
+        public VerdenAdresseType ToVerdenAdresseType(XmlElement elm, string foreignCountryCode)
+        {
+            return new VerdenAdresseType()
+            {
+                ForeignAddressStructure = new ForeignAddressStructureType()
+                {
+                    CountryIdentificationCode = CountryIdentificationCodeType.Create(_CountryIdentificationSchemeType.imk, foreignCountryCode),
+                    PostalAddressFirstLineText = GetFieldValue(elm, "UDLANDSADR1"),
+                    PostalAddressSecondLineText = GetFieldValue(elm, "UDLANDSADR2"),
+                    PostalAddressThirdLineText = GetFieldValue(elm, "UDLANDSADR3"),
+                    PostalAddressFourthLineText = GetFieldValue(elm, "UDLANDSADR4"),
+                    PostalAddressFifthLineText = GetFieldValue(elm, "UDLANDSADR5"),
+                    LocationDescriptionText = null,
+
+                }
+            };
+        }
+
+        public NavnStrukturType ToName(XmlElement elm)
+        {
+            var name = GetFieldValue(elm, "CNVN_ADRNVN");
+
+            if (string.IsNullOrEmpty(name))
+                name = GetFieldValue(elm, "ADRNVN");
+
+            if (!string.IsNullOrEmpty(name))
+                return NavnStrukturType.Create(new string[] { name }, name);
+            else
+                return null;
         }
 
         public string GetFieldValue(XmlElement elm, string name)
