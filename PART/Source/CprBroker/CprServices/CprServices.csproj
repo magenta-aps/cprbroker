@@ -73,6 +73,7 @@
     </Compile>
     <Compile Include="SearchMethod.cs" />
     <Compile Include="SearchMethodCall.cs" />
+    <Compile Include="SearchPerson.Address.cs" />
     <Compile Include="SearchPerson.cs" />
     <Compile Include="SearchPlan.cs" />
     <Compile Include="SearchRequest.cs" />
