@@ -112,9 +112,6 @@ namespace CprBroker.Tests.ServicePlatform
             {
                 SomeHasRelations(rel => rel.Moder);
             }
-
-
-
         }
     }
 }
