@@ -21,7 +21,7 @@ namespace CprBroker.Schemas.Util
         }
         public static bool ToSpecielVejkodeIndikator(int streetCode)
         {
-            return ToSpecielVejkodeIndikator((int)streetCode);
+            return ToSpecielVejkodeIndikator((decimal)streetCode);
         }
 
         public static bool ToSpecielVejkodeIndikator(decimal streetCode)
