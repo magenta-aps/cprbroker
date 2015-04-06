@@ -14,5 +14,6 @@ namespace CprBroker.Tests.ServicePlatform
             var txt = File.ReadAllText(string.Format(@"Resources\{0}.{1}.Response.OK.xml", pnr,methodName), Encoding.UTF8);
             return txt;
         }
+
     }
 }

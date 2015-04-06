@@ -46,10 +46,17 @@ namespace CprBroker.Tests.ServicePlatform
                 Assert.Greater(matchTypes.Count(), 0);
             }
 
+            bool HasNoName(string pnr)
+            {
+                return new string[] { "0101005038", "3006980014" }.Contains(pnr);
+            }
+
             [Test]
             [TestCaseSource("PNRs")]
             public void ToAttributList_AddressingNameNotEmpty(string pnr)
             {
+                if (HasNoName(pnr))
+                    return;
                 var name = GetName(pnr);
                 Assert.IsNotEmpty(name.PersonNameForAddressingName);
             }
@@ -58,6 +65,8 @@ namespace CprBroker.Tests.ServicePlatform
             [TestCaseSource("PNRs")]
             public void ToAttributList_NameNotEmpty(string pnr)
             {
+                if (HasNoName(pnr))
+                    return;
                 var name = GetName(pnr);
                 Assert.False(name.PersonNameStructure.IsEmpty);
             }
