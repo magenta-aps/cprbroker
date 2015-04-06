@@ -49,12 +49,12 @@ using System.Xml;
 using CprBroker.Schemas.Part;
 using CprBroker.Utilities;
 
-namespace CprBroker.Providers.CprServices
+namespace CprBroker.Providers.CprServices.Responses
 {
     /// <summary>
     /// Data tuple representing a person that is returned from a search operation
     /// </summary>
-    public partial class SearchPerson : IEquatable<SearchPerson>
+    public partial class SearchPerson : Responses.RowItem, IEquatable<SearchPerson>
     {
         public string PNR;
         public NavnStrukturType Name;
@@ -67,7 +67,8 @@ namespace CprBroker.Providers.CprServices
             return string.Equals(other.PNR, PNR);
         }
 
-        public SearchPerson(XmlElement elm)
+        public SearchPerson(XmlElement elm, XmlNamespaceManager nsMgr)
+            : base(elm, nsMgr)
         {
             this.SourceXml = elm.OuterXml;
             this.Timestamp = ToStartDate(elm);
@@ -101,28 +102,6 @@ namespace CprBroker.Providers.CprServices
                 return NavnStrukturType.Create(new string[] { name }, name);
             else
                 return null;
-        }
-
-        public string GetFieldValue(XmlElement elm, string name)
-        {
-            return GetFieldAttributeValue(elm, name, "v");
-        }
-
-        public string GetFieldText(XmlElement elm, string name)
-        {
-            return GetFieldAttributeValue(elm, name, "t");
-        }
-
-        public string GetFieldAttributeValue(XmlElement elm, string name, string attributeName)
-        {
-            var nsmgr = new XmlNamespaceManager(elm.OwnerDocument.NameTable);
-            nsmgr.AddNamespace("c", Constants.XmlNamespace);
-
-            var ndPath = string.Format("c:Field[@r='{0}']", name);
-            var nd = elm.SelectSingleNode(ndPath, nsmgr);
-            if (nd != null && nd.Attributes[attributeName] != null)
-                return nd.Attributes[attributeName].Value.Trim();
-            return null;
         }
 
         public LaesResultatType ToLaesResultatType(Func<string, Guid> uuidGetter)
@@ -176,9 +155,9 @@ namespace CprBroker.Providers.CprServices
                         },
                         Virkning = VirkningType.Create(Timestamp,null)
                     }
-                }, 
+                },
                 // Unsupported
-                LokalUdvidelse = null, 
+                LokalUdvidelse = null,
                 SundhedOplysning = null
             };
         }

@@ -70,5 +70,20 @@ namespace CprBroker.Providers.CprServices.Responses
         {
             get { return this.GetNodeValue(key, attrName); }
         }
+
+        public string GetFieldValue(XmlElement elm, string name)
+        {
+            return GetFieldAttributeValue(elm, name, "v");
+        }
+
+        public string GetFieldText(XmlElement elm, string name)
+        {
+            return GetFieldAttributeValue(elm, name, "t");
+        }
+
+        public string GetFieldAttributeValue(XmlElement elm, string name, string attributeName)
+        {
+            return this[name, attributeName];
+        }        
     }
 }

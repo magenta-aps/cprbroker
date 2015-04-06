@@ -10,18 +10,17 @@ using CprBroker.Providers.CprServices.Responses;
 
 namespace CprBroker.Providers.ServicePlatform.Responses
 {
-    public class StamPlusResponse : BaseResponse
+    public class StamPlusResponse : BaseResponse<SearchPerson>
     {
         public StamPlusResponse(string xml)
-            : base(xml)
+            : base(xml, (e, nsMgr) => new SearchPerson(e, nsMgr))
         {
         }
 
         public AttributListeType ToAttributListeType()
         {
-            var searchPerson = new SearchPerson(this._Rows.First());
+            var searchPerson = this._RowItems.First();
             return searchPerson.ToRegistreringType1().AttributListe;
         }
-        
     }
 }

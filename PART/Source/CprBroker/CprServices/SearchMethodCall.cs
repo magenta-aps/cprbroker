@@ -47,6 +47,7 @@ using System.Linq;
 using System.Text;
 using System.Xml;
 using CprBroker.Schemas.Part;
+using CprBroker.Providers.CprServices.Responses;
 
 namespace CprBroker.Providers.CprServices
 {
@@ -116,7 +117,7 @@ namespace CprBroker.Providers.CprServices
             var ret = new List<SearchPerson>();
             foreach (var elm in elements)
             {
-                var p = new SearchPerson(elm);
+                var p = new SearchPerson(elm, nsmgr);
                 ret.Add(p);
             }
             return ret;

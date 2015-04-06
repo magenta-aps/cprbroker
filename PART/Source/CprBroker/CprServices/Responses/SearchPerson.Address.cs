@@ -6,7 +6,7 @@ using System.Xml;
 using CprBroker.Utilities;
 using CprBroker.Schemas.Part;
 
-namespace CprBroker.Providers.CprServices
+namespace CprBroker.Providers.CprServices.Responses
 {
     public partial class SearchPerson
     {

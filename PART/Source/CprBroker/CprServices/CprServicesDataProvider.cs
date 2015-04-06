@@ -50,6 +50,7 @@ using CprBroker.Engine;
 using CprBroker.Engine.Local;
 using CprBroker.Engine.Part;
 using CprBroker.Schemas.Part;
+using CprBroker.Providers.CprServices.Responses;
 
 namespace CprBroker.Providers.CprServices
 {

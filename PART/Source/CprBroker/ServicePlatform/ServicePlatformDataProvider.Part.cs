@@ -8,6 +8,7 @@ using CprBroker.Providers.CprServices;
 using CprBroker.Engine.Local;
 using CprBroker.Engine.Part;
 using CprBroker.Engine;
+using CprBroker.Providers.CprServices.Responses;
 
 namespace CprBroker.Providers.ServicePlatform
 {
