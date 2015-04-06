@@ -7,17 +7,13 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Providers.ServicePlatform.Responses
 {
-    public class FamilyPlusResponse : BaseResponse
+    public class FamilyPlusResponse : BaseResponse<FamilyPlusResponse.RelationItem>
     {
         private RelationItem[] RelationNodes;
 
         public FamilyPlusResponse(string xml)
-            : base(xml)
-        {
-            RelationNodes = _ResponseDocument.SelectNodes("//c:Table/c:Row", _NamespaceManager)
-                .OfType<XmlElement>()
-                .Select(e => new RelationItem(e, _NamespaceManager))
-                .ToArray();
+            : base(xml, (e,nsMgr) => new RelationItem(e, nsMgr))
+        {            
         }
 
         private RelationItem[] GetRelationNodes(string key)
@@ -74,23 +70,11 @@ namespace CprBroker.Providers.ServicePlatform.Responses
             };
         }
 
-        public class RelationItem
+        public class RelationItem : RowItem
         {
-            private XmlElement _Node;
-            private XmlNamespaceManager _NamespaceManager;
-
             public RelationItem(XmlElement elm, XmlNamespaceManager nsMgr)
+                : base(elm, nsMgr)
             {
-                _Node = elm;
-                _NamespaceManager = nsMgr;
-            }
-
-            public string GetNodeValue(string key)
-            {
-                string xPath = string.Format("c:Field[@r='{0}']/@v", key);
-                var nd = _Node.SelectSingleNode(xPath, _NamespaceManager);
-
-                return nd != null ? nd.Value : null;
             }
 
             public string PnrOrBirthdate

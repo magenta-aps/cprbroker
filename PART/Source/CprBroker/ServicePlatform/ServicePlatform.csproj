@@ -62,7 +62,9 @@
     </Compile>
     <Compile Include="Responses\BaseResponse.cs" />
     <Compile Include="Responses\FamilyPlusResponse.cs" />
-    <Compile Include="Responses\StamPlusResponse.cs" />
+    <Compile Include="Responses\StamPlusResponse.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Service References\CprReplica\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

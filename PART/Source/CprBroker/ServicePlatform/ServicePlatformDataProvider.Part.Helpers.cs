@@ -47,43 +47,7 @@ namespace CprBroker.Providers.ServicePlatform
                             FolkekirkeMedlemIndikator = default(bool),
                             FolkeregisterAdresse = new AdresseType()
                             {
-                                Item = new DanskAdresseType()
-                                {
-                                    AddressPoint = null,
-                                    NoteTekst = null,
-                                    SkoleDistriktTekst = null,
-                                    SocialDistriktTekst = null,
-                                    SpecielVejkodeIndikator = default(bool),
-                                    SogneDistriktTekst = null,
-                                    SpecielVejkodeIndikatorSpecified = default(bool),
-                                    PolitiDistriktTekst = null,
-                                    PostDistriktTekst = null,
-                                    UkendtAdresseIndikator = default(bool),
-                                    ValgkredsDistriktTekst = null,
-                                    AddressComplete = new AddressCompleteType()
-                                    {
-                                        AddressAccess = new AddressAccessType()
-                                        {
-                                            MunicipalityCode = null,
-                                            StreetBuildingIdentifier = null,
-                                            StreetCode = null
-                                        },
-                                        AddressPostal = new AddressPostalType()
-                                        {
-                                            CountryIdentificationCode = null,
-                                            StreetName = null,
-                                            StreetNameForAddressingName = null,
-                                            StreetBuildingIdentifier = null,
-                                            SuiteIdentifier = null,
-                                            DistrictSubdivisionIdentifier = null,
-                                            MailDeliverySublocationIdentifier = null,
-                                            DistrictName = null,
-                                            FloorIdentifier = null,
-                                            PostCodeIdentifier = null,
-                                            PostOfficeBoxIdentifier = null
-                                        }
-                                    }
-                                }
+                                Item = null,
                             },
                             ForskerBeskyttelseIndikator = default(bool),
                             NavneAdresseBeskyttelseIndikator = default(bool),
