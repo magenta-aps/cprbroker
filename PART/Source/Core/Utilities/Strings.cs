@@ -353,6 +353,14 @@ namespace CprBroker.Utilities
             return true;
         }
 
+        public static string FirstNonEmpty(params string[] args)
+        {
+            return args
+
+                .Where(s => !string.IsNullOrEmpty(s))
+                .FirstOrDefault();
+        }
+
     }
 
 }

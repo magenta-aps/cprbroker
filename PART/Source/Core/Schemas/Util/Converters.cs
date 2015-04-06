@@ -7,6 +7,18 @@ namespace CprBroker.Schemas.Util
 {
     public class Converters
     {
+        public static bool ToSpecielVejkodeIndikator(string streetCode)
+        {
+            int intCode ;
+            if(int.TryParse(streetCode,out intCode))
+            {
+                return ToSpecielVejkodeIndikator(intCode);
+            }
+            else
+            {
+                return false;
+            }
+        }
         public static bool ToSpecielVejkodeIndikator(int streetCode)
         {
             return ToSpecielVejkodeIndikator((int)streetCode);
