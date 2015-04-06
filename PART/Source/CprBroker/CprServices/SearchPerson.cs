@@ -152,35 +152,42 @@ namespace CprBroker.Providers.CprServices
             };
         }
 
+        public AttributListeType ToAttributListeType()
+        {
+            return new AttributListeType()
+            {
+                Egenskab = new EgenskabType[]
+                {
+                    new EgenskabType()
+                    { 
+                        NavnStruktur = Name, 
+                        Virkning = VirkningType.Create(Timestamp,null), 
+                        BirthDate = PartInterface.Strings.PersonNumberToDate(this.PNR).Value
+                    }
+                },
+                RegisterOplysning = new RegisterOplysningType[]
+                {
+                    new RegisterOplysningType() 
+                    { 
+                        Item = new CprBorgerType()
+                        { 
+                            PersonCivilRegistrationIdentifier = PNR,
+                            FolkeregisterAdresse =  Address
+                        },
+                        Virkning = VirkningType.Create(Timestamp,null)
+                    }
+                }, 
+                // Unsupported
+                LokalUdvidelse = null, 
+                SundhedOplysning = null
+            };
+        }
+
         public RegistreringType1 ToRegistreringType1()
         {
             return new RegistreringType1()
             {
-
-                AttributListe = new AttributListeType()
-                {
-                    Egenskab = new EgenskabType[]
-                    {
-                        new EgenskabType()
-                        { 
-                            NavnStruktur = Name, 
-                            Virkning = VirkningType.Create(Timestamp,null), 
-                            BirthDate = PartInterface.Strings.PersonNumberToDate(this.PNR).Value
-                        }
-                    },
-                    RegisterOplysning = new RegisterOplysningType[]
-                    {
-                        new RegisterOplysningType() 
-                        { 
-                            Item = new CprBorgerType()
-                            { 
-                                PersonCivilRegistrationIdentifier = PNR,
-                                FolkeregisterAdresse =  Address
-                            },
-                            Virkning = VirkningType.Create(Timestamp,null)
-                        }
-                    }
-                },
+                AttributListe = ToAttributListeType(),
                 RelationListe = null,
                 TilstandListe = null,
                 Tidspunkt = TidspunktType.Create(DateTime.Now),
@@ -190,7 +197,5 @@ namespace CprBroker.Providers.CprServices
                 SourceObjectsXml = this.SourceXml
             };
         }
-
-
     }
 }
