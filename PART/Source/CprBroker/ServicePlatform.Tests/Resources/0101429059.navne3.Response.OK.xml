@@ -1,1 +1,24 @@
-<root xmlns="http://www.cpr.dk"><Gctp v="1.0"><System r="CprSoeg"><Service r="navne3"><CprServiceHeader r="navne3"/><CprData u="O"><Rolle r="HovedRolle"><Table r="navne3"><Row k="0"><Field r="CNVN_ADRNVN" t="Ulling, Ulf" v="Ulf Ulling"/><Field r="CNVN_EFTERNVN" v="Ulling"/><Field r="CNVN_FORNVN" v="Ulf"/><Field r="CNVN_KOEN" v="M"/><Field r="CNVN_STARTDATO" v="194203231405"/><Field r="CNVN_STATUS" v="01"/></Row></Table></Rolle></CprData><Kvit r="Ok" t="" v="0"/></Service></System></Gctp></root>
+<root xmlns="http://www.cpr.dk">
+    <Gctp v="1.0">
+        <System r="CprSoeg">
+            <Service r="navne3">
+                <CprServiceHeader r="navne3"/>
+                <CprData u="O">
+                    <Rolle r="HovedRolle">
+                        <Table r="navne3">
+                            <Row k="0">
+                                <Field r="CNVN_ADRNVN" t="Ulling, Ulf" v="Ulf Ulling"/>
+                                <Field r="CNVN_EFTERNVN" v="Ulling"/>
+                                <Field r="CNVN_FORNVN" v="Ulf"/>
+                                <Field r="CNVN_KOEN" v="M"/>
+                                <Field r="CNVN_STARTDATO" v="194203231405"/>
+                                <Field r="CNVN_STATUS" v="01"/>
+                            </Row>
+                        </Table>
+                    </Rolle>
+                </CprData>
+                <Kvit r="Ok" t="" v="0"/>
+            </Service>
+        </System>
+    </Gctp>
+</root>
