@@ -16,6 +16,8 @@ namespace CprBroker.Providers.CprServices.Responses
         protected XmlElement[] _Rows;
         protected TRowItem[] _RowItems;
 
+        public TRowItem[] RowItems { get { return _RowItems; } }
+
         private BaseResponse()
         { }
 

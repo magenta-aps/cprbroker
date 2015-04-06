@@ -50,7 +50,7 @@ using CprBroker.Engine;
 using CprBroker.Engine.Part;
 using CprBroker.Schemas;
 using CprBroker.Schemas.Part;
-
+using CprBroker.Providers.CprServices.Responses;
 
 namespace CprBroker.Providers.CprServices
 {
@@ -83,7 +83,7 @@ namespace CprBroker.Providers.CprServices
             var kvit = Send(addressCall.Name, xml, ref token, out xmlOut);
             if (kvit.OK)
             {
-                var addressPerson = addressCall.ParseResponse(xmlOut, false).First();
+                var addressPerson = new LookupResponse(xmlOut).RowItems.First();
                 if (string.IsNullOrEmpty(addressPerson.PNR))
                     addressPerson.PNR = uuid.CprNumber;
 
@@ -100,13 +100,12 @@ namespace CprBroker.Providers.CprServices
                 kvit = Send(nameCall.Name, nameXml, ref token, out xmlOut);
                 if (kvit.OK)
                 {
-                    var namePersons = nameCall.ParseResponse(xmlOut, false);
+                    var namePersons = new LookupResponse(xmlOut).RowItems;
                     namePersons[0].PNR = uuid.CprNumber;
                     var nameRet = namePersons[0].ToRegistreringType1();
                     ret.AttributListe.Egenskab[0].NavnStruktur = nameRet.AttributListe.Egenskab[0].NavnStruktur;
                     return ret;
                 }
-
             }
             return null;
         }

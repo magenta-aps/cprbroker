@@ -98,29 +98,12 @@ namespace CprBroker.Providers.CprServices
             return doc.OuterXml;
         }
 
+        // TODO: Remove this method
         public List<SearchPerson> ParseResponse(string responseXml, bool multi)
         {
-            var doc = new XmlDocument();
-            doc.LoadXml(responseXml);
-
-            var nsmgr = new XmlNamespaceManager(doc.NameTable);
-            nsmgr.AddNamespace("c", Constants.XmlNamespace);
-
-            string path;
-            if (multi)// search method
-                path = "//c:Rolle[@r='HovedRolle']/c:Table/c:Row[not(@u)]";
-            else// lookup method
-                path = "//c:Rolle[c:Field][@r='HovedRolle']";
-
-            var elements = doc.SelectNodes(path, nsmgr).OfType<XmlElement>().ToArray();
-
-            var ret = new List<SearchPerson>();
-            foreach (var elm in elements)
-            {
-                var p = new SearchPerson(elm, nsmgr);
-                ret.Add(p);
-            }
-            return ret;
+            var ret = multi ? new SearchResponse(responseXml) as BaseResponse<SearchPerson>
+                : new LookupResponse(responseXml);
+            return ret.RowItems.ToList();
         }
 
     }

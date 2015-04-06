@@ -72,9 +72,11 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Responses\BaseResponse.cs" />
+    <Compile Include="Responses\LookupResponse.cs" />
     <Compile Include="Responses\RowItem.cs" />
     <Compile Include="Responses\SearchPerson.Address.cs" />
     <Compile Include="Responses\SearchPerson.cs" />
+    <Compile Include="Responses\SearchResponse.cs" />
     <Compile Include="SearchMethod.cs" />
     <Compile Include="SearchMethodCall.cs" />
     <Compile Include="SearchPlan.cs" />

@@ -147,7 +147,7 @@ namespace CprBroker.Providers.CprServices
                     var kvit = Send(call.Name, xml, ref token, out xmlOut);
                     if (kvit.OK)
                     {
-                        var persons = call.ParseResponse(xmlOut, true);
+                        var persons = new SearchResponse(xmlOut).RowItems.ToList();
                         if (ret == null)
                             ret = persons;
                         else
