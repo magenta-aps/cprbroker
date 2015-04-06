@@ -9,16 +9,16 @@ namespace CprBroker.Providers.ServicePlatform.Responses
 {
     public class FamilyPlusResponse : BaseResponse<FamilyPlusResponse.RelationItem>
     {
-        private RelationItem[] RelationNodes;
 
         public FamilyPlusResponse(string xml)
             : base(xml, (e,nsMgr) => new RelationItem(e, nsMgr))
-        {            
+        {
+            
         }
 
         private RelationItem[] GetRelationNodes(string key)
         {
-            return this.RelationNodes
+            return this._RowItems
                 .Where(r =>
                     (string.IsNullOrEmpty(key) || r.RelationTypeString == key)
                     && CprBroker.PartInterface.Strings.IsValidPersonNumber(r.PnrOrBirthdate)
