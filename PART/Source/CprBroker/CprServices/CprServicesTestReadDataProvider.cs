@@ -89,7 +89,7 @@ namespace CprBroker.Providers.CprServices
 
                 var cache = new UuidCache();
                 cache.FillCache(new string[] { addressPerson.PNR });
-                var ret = addressPerson.ToRegistreringType1(cache.GetUuid);
+                var ret = addressPerson.ToRegistreringType1();
 
                 // Now get the name
                 var nameMethod = new SearchMethod(Properties.Resources.NAVNE3);
@@ -102,7 +102,7 @@ namespace CprBroker.Providers.CprServices
                 {
                     var namePersons = nameCall.ParseResponse(xmlOut, false);
                     namePersons[0].PNR = uuid.CprNumber;
-                    var nameRet = namePersons[0].ToRegistreringType1(cache.GetUuid);
+                    var nameRet = namePersons[0].ToRegistreringType1();
                     ret.AttributListe.Egenskab[0].NavnStruktur = nameRet.AttributListe.Egenskab[0].NavnStruktur;
                     return ret;
                 }

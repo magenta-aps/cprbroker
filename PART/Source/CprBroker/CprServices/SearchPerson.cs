@@ -314,7 +314,7 @@ namespace CprBroker.Providers.CprServices
             };
         }
 
-        public RegistreringType1 ToRegistreringType1(Func<string, Guid> uuidGetter)
+        public RegistreringType1 ToRegistreringType1()
         {
             return new RegistreringType1()
             {
