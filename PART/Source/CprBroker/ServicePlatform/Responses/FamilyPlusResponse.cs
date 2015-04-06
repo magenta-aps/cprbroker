@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Xml;
 using CprBroker.Schemas.Part;
+using CprBroker.Providers.CprServices.Responses;
 
 namespace CprBroker.Providers.ServicePlatform.Responses
 {

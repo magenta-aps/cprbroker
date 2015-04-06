@@ -71,6 +71,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Responses\BaseResponse.cs" />
     <Compile Include="SearchMethod.cs" />
     <Compile Include="SearchMethodCall.cs" />
     <Compile Include="SearchPerson.Address.cs" />

@@ -60,7 +60,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Responses\BaseResponse.cs" />
     <Compile Include="Responses\FamilyPlusResponse.cs" />
     <Compile Include="Responses\StamPlusResponse.cs">
       <SubType>Code</SubType>

@@ -6,6 +6,7 @@ using System.Xml;
 using CprBroker.Schemas;
 using CprBroker.Schemas.Part;
 using CprBroker.Providers.CprServices;
+using CprBroker.Providers.CprServices.Responses;
 
 namespace CprBroker.Providers.ServicePlatform.Responses
 {
