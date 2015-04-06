@@ -108,21 +108,24 @@ namespace CprBroker.Providers.CprServices
                             FloorIdentifier = GetFieldValue(elm, "ETAGE"),
                             SuiteIdentifier = GetFieldValue(elm, "SIDEDOER"),
 
-                            // TODO: Lookup street name
-                            StreetName = null,
-                            StreetNameForAddressingName = null,
+                            // This is only available in Stam+
+                            StreetName = GetFieldText(elm, "VEJADRNVN"),
+                            StreetNameForAddressingName = GetFieldText(elm, "VEJADRNVN"),
 
-                            // TODO: Lookup post code and district
-                            PostCodeIdentifier = null,
-                            DistrictName = null,
+                            // Post code, district & town
+                            PostCodeIdentifier = GetFieldValue(elm, "POSTNR"),
+                            DistrictName = GetFieldText(elm, "POSTNR"),
+                            DistrictSubdivisionIdentifier = GetFieldValue(elm, "BYNVN"),
 
-                            DistrictSubdivisionIdentifier = null,
+                            // Unsupported
                             MailDeliverySublocationIdentifier = null,
                         },
                         SpecielVejkodeIndikator = true,
                         SpecielVejkodeIndikatorSpecified = true,
+                        UkendtAdresseIndikator = false,
+
+                        // Unsupported
                         NoteTekst = null,
-                        UkendtAdresseIndikator = false
                     };
                 }
                 else
@@ -154,9 +157,9 @@ namespace CprBroker.Providers.CprServices
                                 StreetName = GetFieldText(elm, "VEJKOD"),
                                 // TODO: Shall we read from tm="xyz"?
                                 StreetNameForAddressingName = GetFieldText(elm, "VEJKOD"),
-
-                                // Not implemented
                                 DistrictSubdivisionIdentifier = GetFieldValue(elm, "BYNVN"),
+                                
+                                // Not implemented
                                 MailDeliverySublocationIdentifier = null,
                                 PostOfficeBoxIdentifier = null,
                             }
