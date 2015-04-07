@@ -134,7 +134,7 @@ namespace CprBroker.Providers.CprServices
 
             List<SearchPerson> ret = null;
 
-            if (plan.IsSatisfactory)
+            //if (plan.IsSatisfactory)
             {
                 bool searchOk = true;
                 // TODO: See if tokens could be saved an reused
@@ -162,7 +162,7 @@ namespace CprBroker.Providers.CprServices
                     else
                     {
                         string callInput = string.Join(",", call.InputFields.Select(kvp => string.Format("{0}={1}", kvp.Key, kvp.Value)).ToArray());
-                        Admin.LogFormattedError("GCTP <{0}> Failed with <{1}><{2}>. Input <{3}>", call.Name, kvit.ReturnCode, kvit.ReturnText, callInput);
+                        Admin.LogFormattedError("GCTP <{0}> Failed with <{1}><{2}><{3}>. Input <{4}>", call.Name, kvit.ReturnCode, kvit.ReturnText, kvit.ReturnText2, callInput);
                         searchOk = false;
                     }
                 }
@@ -180,7 +180,7 @@ namespace CprBroker.Providers.CprServices
                     // TODO: What to do if search fails??
                 }
             }
-            else
+            //else
             {
                 string searchFields = string.Join(",", request.CriteriaFields.Select(kvp => string.Format("{0}={1}", kvp.Key, kvp.Value)).ToArray());
                 Admin.LogFormattedError("Insufficient GCTP search criteria <{0}>", searchFields);

@@ -61,6 +61,9 @@ namespace CprBroker.Providers.CprServices
         [XmlAttribute("v")]
         public string ReturnCode { get; set; }
 
+        [XmlIgnore]
+        public string ReturnText2 { get; set; }
+
         public static Kvit FromResponseXml(string responseText)
         {
             var doc = new XmlDocument();
@@ -79,6 +82,12 @@ namespace CprBroker.Providers.CprServices
                 ret.Row = kvitNode.Attributes["r"].Value;
                 ret.ReturnCode = kvitNode.Attributes["v"].Value;
                 ret.ReturnText = kvitNode.Attributes["t"].Value;
+
+                if (kvitNode.ChildNodes.Count > 0)
+                {
+                    ret.ReturnText2 = string.Join(Environment.NewLine, new Responses.ErrorResponse(kvitNode.OuterXml).ToErrorLines());
+                }
+
                 return ret;
             }
             return null;
