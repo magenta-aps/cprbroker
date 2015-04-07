@@ -104,9 +104,9 @@ namespace CprBroker.Providers.CprServices.Responses
                 return null;
         }
 
-        public LaesResultatType ToLaesResultatType(Func<string, Guid> uuidGetter)
+        public LaesResultatType ToLaesResultatType(Func<string, Guid> uuidGetter, SoegInputType1 soegInput)
         {
-            return new LaesResultatType()
+            var ret = new LaesResultatType()
             {
                 Item = new FiltreretOejebliksbilledeType()
                 {
@@ -129,6 +129,16 @@ namespace CprBroker.Providers.CprServices.Responses
                     UUID = uuidGetter(PNR).ToString()
                 }
             };
+            
+            if (soegInput != null && soegInput.SoegObjekt != null && soegInput.SoegObjekt.SoegAttributListe != null && soegInput.SoegObjekt.SoegAttributListe.SoegRegisterOplysning != null)
+            {
+                CprBroker.Utilities.Reflection.CopyMissingDetailStrings(
+                    typeof(RegisterOplysningType),
+                    soegInput.SoegObjekt.SoegAttributListe.SoegRegisterOplysning.FirstOrDefault(),
+                    (ret.Item as FiltreretOejebliksbilledeType).AttributListe.RegisterOplysning.FirstOrDefault()
+                    );
+            }
+            return ret;
         }
 
         public AttributListeType ToAttributListeType()

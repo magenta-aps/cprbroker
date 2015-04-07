@@ -173,7 +173,7 @@ namespace CprBroker.Providers.CprServices
                     var pnrs = ret.Select(p => p.PNR).ToArray();
                     cache.FillCache(pnrs);
 
-                    return ret.Select(p => p.ToLaesResultatType(cache.GetUuid)).ToArray();
+                    return ret.Select(p => p.ToLaesResultatType(cache.GetUuid, input)).ToArray();
                 }
                 else
                 {

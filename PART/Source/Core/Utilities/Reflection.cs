@@ -157,7 +157,41 @@ namespace CprBroker.Utilities
                 type.FullName,
                 new AssemblyName(type.Assembly.FullName).Name);
         }
+
+        public static void CopyMissingDetailStrings(Type t, object source, object target)
+        {
+            var props = t.GetProperties();
+            foreach (var propInfo in props)
+            {
+                var sourceValue = propInfo.GetValue(source, null);
+                var targetValue = propInfo.GetValue(target, null);
+
+                if (sourceValue != null)
+                {
+                    if (propInfo.PropertyType.Equals(typeof(string)))
+                    {
+                        if (targetValue == null || targetValue.Equals(string.Empty))
+                        {
+                            propInfo.SetValue(target, sourceValue, null);
+                        }
+                    }
+                    else if (propInfo.PropertyType.IsClass)
+                    {
+                        var sourceValueType = sourceValue.GetType();
+                        if (targetValue != null && targetValue.GetType().Equals(sourceValueType))
+                        {
+                            if(sourceValueType.IsArray)
+                            {
+                                // Unhandled
+                            }
+                            else
+                            {
+                                CopyMissingDetailStrings(sourceValueType, sourceValue, targetValue);
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
-
-
 }
