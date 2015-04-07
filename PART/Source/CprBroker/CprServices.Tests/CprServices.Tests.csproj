@@ -31,9 +31,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CprBroker.Engine, Version=2.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Core\Output\CprBroker.Engine.dll</HintPath>
+    </Reference>
     <Reference Include="CprBroker.Schemas, Version=2.2.2.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Core\Output\CprBroker.Schemas.dll</HintPath>
+    </Reference>
+    <Reference Include="CprBroker.Utilities, Version=2.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Core\Output\CprBroker.Utilities.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework, Version=2.6.2.12296, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -47,6 +55,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CprServicesDataProviderFactory.cs" />
+    <Compile Include="CprServicesDataProviderTests.cs" />
     <Compile Include="InputFieldTests.cs" />
     <Compile Include="KvitTests.cs" />
     <Compile Include="LookupMethodCallTests.cs" />
@@ -56,16 +66,22 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="SearchCriteriaFactory.cs" />
     <Compile Include="SearchMethodCallTests.cs" />
     <Compile Include="SearchMethodTests.cs" />
     <Compile Include="SearchMethodTestsBase.cs" />
     <Compile Include="SearchPlanTests.cs" />
     <Compile Include="UtilsTests.cs" />
+    <Compile Include="UuidCacheFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CprServices\CprServices.csproj">
       <Project>{F9D6A4EA-9DB1-4BA7-A5BE-0C183FBABBF8}</Project>
       <Name>CprServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PartInterface\PartInterface.csproj">
+      <Project>{da42d8bb-24d3-4416-a0bd-b98857f249ad}</Project>
+      <Name>PartInterface</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -83,6 +99,12 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <Content Include="loggingConfiguration.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

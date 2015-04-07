@@ -119,6 +119,12 @@ namespace CprBroker.Providers.CprServices
 
         public LaesResultatType[] SearchList(SoegInputType1 input)
         {
+            var cache = new UuidCache();
+            return SearchList(input, cache);
+        }
+
+        public LaesResultatType[] SearchList(SoegInputType1 input, UuidCache cache)
+        {
             var request = new SearchRequest(input.SoegObjekt.SoegAttributListe);
             var availableMethods = new List<SearchMethod>();
             availableMethods.Add(new SearchMethod(Properties.Resources.ADRSOG1));
@@ -164,7 +170,6 @@ namespace CprBroker.Providers.CprServices
                 if (searchOk)
                 {
                     // TODO: Can this break the result? is UUID assignment necessary?
-                    var cache = new UuidCache();
                     var pnrs = ret.Select(p => p.PNR).ToArray();
                     cache.FillCache(pnrs);
 
