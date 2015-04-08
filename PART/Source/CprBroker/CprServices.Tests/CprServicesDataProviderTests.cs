@@ -20,13 +20,23 @@ namespace CprBroker.Tests.CprServices
             }
 
             [Test]
-            public void Search_OK()
+            public void SearchList_NotNull()
             {
                 var prov = CprServicesDataProviderFactory.Create();
                 var inp = SearchCriteriaFactory.Create();
                 var cache = UuidCacheFactory.Create();
                 var ret = prov.SearchList(inp, cache);
-                Console.WriteLine(ret.Length);                
+                Assert.NotNull(ret);
+            }
+
+            [Test]
+            public void SearchList_DataFound()
+            {
+                var prov = CprServicesDataProviderFactory.Create();
+                var inp = SearchCriteriaFactory.Create();
+                var cache = UuidCacheFactory.Create();
+                var ret = prov.SearchList(inp, cache);
+                Console.WriteLine(ret.Length);
                 Assert.GreaterOrEqual(ret.Length, 0);
             }
         }

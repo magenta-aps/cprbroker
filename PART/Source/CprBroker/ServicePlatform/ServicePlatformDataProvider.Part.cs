@@ -28,42 +28,50 @@ namespace CprBroker.Providers.ServicePlatform
 
             List<SearchPerson> ret = null;
 
-            if (plan.IsSatisfactory)
+            if (request.IsUnique)
             {
-                bool searchOk = true;
-                var call = plan.PlannedCalls.First();
-                var xml = call.ToRequestXml(CprServices.Properties.Resources.SearchTemplate);
-                var xmlOut = "";
-
-                var kvit = CallGctpService(ServiceInfo.ADRSOG1, xml, out xmlOut);
-                if (kvit.OK)
+                if (plan.IsSatisfactory)
                 {
-                    ret = call.ParseResponse(xmlOut, true);
+                    bool searchOk = true;
+                    var call = plan.PlannedCalls.First();
+                    var xml = call.ToRequestXml(CprServices.Properties.Resources.SearchTemplate);
+                    var xmlOut = "";
+
+                    var kvit = CallGctpService(ServiceInfo.ADRSOG1, xml, out xmlOut);
+                    if (kvit.OK)
+                    {
+                        ret = call.ParseResponse(xmlOut, true);
+                    }
+                    else
+                    {
+                        searchOk = false;
+                        string callInput = string.Join(",", call.InputFields.Select(kvp => string.Format("{0}={1}", kvp.Key, kvp.Value)).ToArray());
+                        Admin.LogFormattedError("GCTP <{0}> Failed with <{1}><{2}>. Input <{3}>", call.Name, kvit.ReturnCode, kvit.ReturnText, callInput);
+                    }
+
+                    if (searchOk)
+                    {
+                        // TODO: Can this break the result? is UUID assignment necessary?
+                        var pnrs = ret.Select(p => p.PNR).ToArray();
+                        cache.FillCache(pnrs);
+
+                        return ret.Select(p => p.ToLaesResultatType(cache.GetUuid, searchCriteria)).ToArray();
+                    }
+                    else
+                    {
+                        // TODO: What to do if search fails??
+                    }
                 }
                 else
                 {
-                    searchOk = false;
-                    string callInput = string.Join(",", call.InputFields.Select(kvp => string.Format("{0}={1}", kvp.Key, kvp.Value)).ToArray());
-                    Admin.LogFormattedError("GCTP <{0}> Failed with <{1}><{2}>. Input <{3}>", call.Name, kvit.ReturnCode, kvit.ReturnText, callInput);
-                }
-
-                if (searchOk)
-                {
-                    // TODO: Can this break the result? is UUID assignment necessary?
-                    var pnrs = ret.Select(p => p.PNR).ToArray();
-                    cache.FillCache(pnrs);
-
-                    return ret.Select(p => p.ToLaesResultatType(cache.GetUuid, searchCriteria)).ToArray();
-                }
-                else
-                {
-                    // TODO: What to do if search fails??
+                    string searchFields = string.Join(",", request.CriteriaFields.Select(kvp => string.Format("{0}={1}", kvp.Key, kvp.Value)).ToArray());
+                    Admin.LogFormattedError("Insufficient GCTP search criteria <{0}>", searchFields);
                 }
             }
             else
             {
                 string searchFields = string.Join(",", request.CriteriaFields.Select(kvp => string.Format("{0}={1}", kvp.Key, kvp.Value)).ToArray());
-                Admin.LogFormattedError("Insufficient GCTP search criteria <{0}>", searchFields);
+                Admin.LogFormattedError("Contradicting GCTP search criteria <{0}>", searchFields);
             }
             return null;
         }

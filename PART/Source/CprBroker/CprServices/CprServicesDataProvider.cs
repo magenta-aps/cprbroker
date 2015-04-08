@@ -134,56 +134,64 @@ namespace CprBroker.Providers.CprServices
 
             List<SearchPerson> ret = null;
 
-            //if (plan.IsSatisfactory)
+            if (request.IsUnique)
             {
-                bool searchOk = true;
-                // TODO: See if tokens could be saved an reused
-                string token = this.SignonAndGetToken();
-
-                foreach (var call in plan.PlannedCalls)
+                if (plan.IsSatisfactory)
                 {
-                    if (ret != null && ret.Count == 0)// Discontinue search if a previous search returned zero results
-                    {
-                        searchOk = false;
-                        break;
-                    }
-                    var xml = call.ToRequestXml(Properties.Resources.SearchTemplate);
+                    bool searchOk = true;
+                    // TODO: See if tokens could be saved an reused
+                    string token = this.SignonAndGetToken();
 
-                    var xmlOut = "";
-                    var kvit = Send(call.Name, xml, ref token, out xmlOut);
-                    if (kvit.OK)
+                    foreach (var call in plan.PlannedCalls)
                     {
-                        var persons = new SearchResponse(xmlOut).RowItems.ToList();
-                        if (ret == null)
-                            ret = persons;
+                        if (ret != null && ret.Count == 0)// Discontinue search if a previous search returned zero results
+                        {
+                            searchOk = false;
+                            break;
+                        }
+                        var xml = call.ToRequestXml(Properties.Resources.SearchTemplate);
+
+                        var xmlOut = "";
+                        var kvit = Send(call.Name, xml, ref token, out xmlOut);
+                        if (kvit.OK)
+                        {
+                            var persons = new SearchResponse(xmlOut).RowItems.ToList();
+                            if (ret == null)
+                                ret = persons;
+                            else
+                                ret = ret.Intersect(persons).ToList();
+                        }
                         else
-                            ret = ret.Intersect(persons).ToList();
+                        {
+                            string callInput = string.Join(",", call.InputFields.Select(kvp => string.Format("{0}={1}", kvp.Key, kvp.Value)).ToArray());
+                            Admin.LogFormattedError("GCTP <{0}> Failed with <{1}><{2}><{3}>. Input <{4}>", call.Name, kvit.ReturnCode, kvit.ReturnText, kvit.ReturnText2, callInput);
+                            searchOk = false;
+                        }
+                    }
+
+                    if (searchOk)
+                    {
+                        // TODO: Can this break the result? is UUID assignment necessary?
+                        var pnrs = ret.Select(p => p.PNR).ToArray();
+                        cache.FillCache(pnrs);
+
+                        return ret.Select(p => p.ToLaesResultatType(cache.GetUuid, input)).ToArray();
                     }
                     else
                     {
-                        string callInput = string.Join(",", call.InputFields.Select(kvp => string.Format("{0}={1}", kvp.Key, kvp.Value)).ToArray());
-                        Admin.LogFormattedError("GCTP <{0}> Failed with <{1}><{2}><{3}>. Input <{4}>", call.Name, kvit.ReturnCode, kvit.ReturnText, kvit.ReturnText2, callInput);
-                        searchOk = false;
+                        // TODO: What to do if search fails??
                     }
-                }
-
-                if (searchOk)
-                {
-                    // TODO: Can this break the result? is UUID assignment necessary?
-                    var pnrs = ret.Select(p => p.PNR).ToArray();
-                    cache.FillCache(pnrs);
-
-                    return ret.Select(p => p.ToLaesResultatType(cache.GetUuid, input)).ToArray();
                 }
                 else
                 {
-                    // TODO: What to do if search fails??
+                    string searchFields = string.Join(",", request.CriteriaFields.Select(kvp => string.Format("{0}={1}", kvp.Key, kvp.Value)).ToArray());
+                    Admin.LogFormattedError("Insufficient GCTP search criteria <{0}>", searchFields);
                 }
             }
-            //else
+            else
             {
                 string searchFields = string.Join(",", request.CriteriaFields.Select(kvp => string.Format("{0}={1}", kvp.Key, kvp.Value)).ToArray());
-                Admin.LogFormattedError("Insufficient GCTP search criteria <{0}>", searchFields);
+                Admin.LogFormattedError("Contradicting GCTP search criteria <{0}>", searchFields);
             }
             return null;
         }

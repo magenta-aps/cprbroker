@@ -35,8 +35,8 @@ namespace CprBroker.Tests.ServicePlatform
                                         Item = new DanskAdresseType(){
                                             AddressComplete = new AddressCompleteType(){
                                                 AddressAccess = new AddressAccessType(){
-                                                    // TODO: Fails in ADRSOG1 because it is repeated HUSNR
-                                                    //StreetBuildingIdentifier = "4",
+                                                    // This field (HUSNR) is repeated later, but should pass the tests
+                                                    StreetBuildingIdentifier = "4",
                                                     MunicipalityCode = null,
                                                     StreetCode = null
                                                 },

@@ -238,10 +238,32 @@ namespace CprBroker.Providers.CprServices
             {
                 if (formatter != null)
                     value = formatter(value);
-                CriteriaFields.Add(new KeyValuePair<string, string>(name, value));
+                _CriteriaFields.Add(new KeyValuePair<string, string>(name, value));
             }
         }
 
-        public List<KeyValuePair<string, string>> CriteriaFields = new List<KeyValuePair<string, string>>();
+        public bool IsUnique
+        {
+            get
+            {
+                return _CriteriaFields
+                    .GroupBy(cf => cf.Key)
+                    .Where(g => g.Select(f=>f.Value).Distinct().Count() > 1)
+                    .Count() == 0;
+            }
+        }
+
+        private List<KeyValuePair<string, string>> _CriteriaFields = new List<KeyValuePair<string, string>>();
+
+        public KeyValuePair<string, string>[] CriteriaFields 
+        { 
+            get 
+            {
+                return this._CriteriaFields
+                    .GroupBy(cf => cf.Key)
+                    .Select(g => g.First())
+                    .ToArray();
+            }
+        }
     }
 }
