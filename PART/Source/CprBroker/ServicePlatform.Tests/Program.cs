@@ -14,32 +14,8 @@ namespace CprBroker.Tests.ServicePlatform
             
             var prov = ServicePlatformDataProviderFactory.Create();
 
-            var inp = new SoegInputType1()
-            {
-                SoegObjekt = new SoegObjektType()
-                {
-                    SoegAttributListe = new SoegAttributListeType()
-                    {
-                        SoegRegisterOplysning = new RegisterOplysningType[]{
-                            new RegisterOplysningType(){
-                                Item = new CprBorgerType(){
-                                    FolkeregisterAdresse = new AdresseType(){
-                                        Item = new DanskAdresseType(){
-                                            AddressComplete = new AddressCompleteType(){
-                                                AddressPostal = new AddressPostalType(){
-                                                    StreetName = "Industrivej",
-                                                    StreetBuildingIdentifier = "1",
-                                                    PostCodeIdentifier = "2600"
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            };
+            var inp = SearchCriteriaFactory.Create();
+
             var ret = prov.SearchList(inp);
             //var ret2 = prov.PutSubscription(new PersonIdentifier() { CprNumber = "0123456789" });
             CprBroker.Schemas.QualityLevel? ql;

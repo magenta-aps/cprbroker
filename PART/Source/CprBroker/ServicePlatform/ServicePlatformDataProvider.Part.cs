@@ -16,6 +16,12 @@ namespace CprBroker.Providers.ServicePlatform
     {
         public LaesResultatType[] SearchList(SoegInputType1 searchCriteria)
         {
+            var cache = new UuidCache();
+            return SearchList(searchCriteria, cache);
+        }
+
+        public LaesResultatType[] SearchList(SoegInputType1 searchCriteria, UuidCache cache)
+        {
             var request = new SearchRequest(searchCriteria.SoegObjekt.SoegAttributListe);
             var searchMethod = new SearchMethod(CprServices.Properties.Resources.ADRSOG1);
             var plan = new SearchPlan(request, searchMethod);
@@ -44,7 +50,6 @@ namespace CprBroker.Providers.ServicePlatform
                 if (searchOk)
                 {
                     // TODO: Can this break the result? is UUID assignment necessary?
-                    var cache = new UuidCache();
                     var pnrs = ret.Select(p => p.PNR).ToArray();
                     cache.FillCache(pnrs);
 

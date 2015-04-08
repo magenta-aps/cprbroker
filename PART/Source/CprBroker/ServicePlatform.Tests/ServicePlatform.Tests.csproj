@@ -56,8 +56,11 @@
     <Compile Include="FamilyPlusResponseTests.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SearchCriteriaFactory.cs" />
     <Compile Include="ServicePlatformDataProviderFactory.cs" />
+    <Compile Include="ServicePlatformDataProviderTests.cs" />
     <Compile Include="StamPlusResponseTests.cs" />
+    <Compile Include="UuidCacheFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CPRDirect.Tests\CPRDirect.Tests.csproj">
@@ -796,6 +799,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\3112970079.Stam+.Response.OK.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <Content Include="loggingConfiguration.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
