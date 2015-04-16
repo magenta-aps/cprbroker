@@ -104,5 +104,15 @@ namespace CprBroker.Utilities
             }
             return Decimal.Parse(decimalValue);
         }
+
+        public static DateTime? ToDateTimeOrNull(string s, string format = null)
+        {
+            DateTime d;
+            bool value = format == null ?
+                DateTime.TryParse(s, out d)
+                : DateTime.TryParseExact(s, format, null, System.Globalization.DateTimeStyles.None, out d);
+
+            return value ? d : null as DateTime?;
+        }
     }
 }

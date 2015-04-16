@@ -11,14 +11,22 @@ namespace CprBroker.Tests.ServicePlatform
 {
     namespace StamPlusResponseTests
     {
-        [TestFixture]
-        public class ToAttributListTests : BaseResponseTests
+        public class StamPlusTests : BaseResponseTests
         {
-            public AttributListeType GetAttributes(string pnr)
+            public StamPlusResponse GetResponse(string pnr)
             {
                 var txt = GetResponse(pnr, "Stam+");
                 var w = new StamPlusResponse(txt);
-                return w.ToAttributListeType();
+                return w;
+            }
+        }
+
+        [TestFixture]
+        public class ToAttributListTests : StamPlusTests
+        {
+            public AttributListeType GetAttributes(string pnr)
+            {
+                return GetResponse(pnr).ToAttributListeType();
             }
 
             public CprBorgerType GetCprBorger(string pnr)
@@ -71,5 +79,45 @@ namespace CprBroker.Tests.ServicePlatform
                 Assert.False(name.PersonNameStructure.IsEmpty);
             }
         }
+
+        [TestFixture]
+        public class ToLivStatusTypeTests : StamPlusTests
+        {
+            [Test]
+            [TestCaseSource("PNRs")]
+            public void ToLivStatusType_NotNull(string pnr)
+            {
+                var liv = GetResponse(pnr).RowItems.First().ToLivStatusType();
+                Assert.NotNull(liv);
+            }
+
+            [Test]
+            public void ToLivStatusType_AtLeastOneHasStartDate()
+            {
+                var liv = this.PNRs
+                    .Select(pnr => GetResponse(pnr).RowItems.First().ToLivStatusType().TilstandVirkning.ToVirkningType().FraTidspunkt.ToDateTime())
+                    .Where(d => d.HasValue)
+                    .Count();
+
+                Assert.Greater(liv, 0);
+            }
+
+            [Test]
+            [TestCase(LivStatusKodeType.Doed)]
+            [TestCase(LivStatusKodeType.Foedt)]
+            [TestCase(LivStatusKodeType.Forsvundet)]
+            [TestCase(LivStatusKodeType.Prenatal, Ignore = true)]
+            public void ToLivStatusType_AtLeastOneOfType(LivStatusKodeType statusCode)
+            {
+                var liv = this.PNRs
+                    .Select(pnr => GetResponse(pnr).RowItems.First().ToLivStatusType().LivStatusKode)
+                    .Where(code => code == statusCode)
+                    .Count();
+
+                Console.WriteLine("{0} {1}", statusCode, liv);
+                Assert.Greater(liv, 0);
+            }
+        }
+
     }
 }

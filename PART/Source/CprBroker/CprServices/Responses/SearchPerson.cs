@@ -151,8 +151,7 @@ namespace CprBroker.Providers.CprServices.Responses
                     { 
                         NavnStruktur = ToNavnStrukturType(), 
                         Virkning = VirkningType.Create(ToStartDate(),null), 
-                        // TODO: Get birthdate from rrelevant field
-                        BirthDate = PartInterface.Strings.PersonNumberToDate(this.ToPnr()).Value
+                        BirthDate = ToBirthdate().Value
                     }
                 },
                 RegisterOplysning = new RegisterOplysningType[]
@@ -171,6 +170,12 @@ namespace CprBroker.Providers.CprServices.Responses
                 LokalUdvidelse = null,
                 SundhedOplysning = null
             };
+        }
+
+        public DateTime? ToBirthdate()
+        {
+            // TODO: Get birthdate from rrelevant field
+            return PartInterface.Strings.PersonNumberToDate(this.ToPnr()).Value;
         }
 
         public RegistreringType1 ToRegistreringType1()
