@@ -50,6 +50,8 @@ namespace CprBroker.Providers.ServicePlatform
 {
     public class Constants
     {
+        public static readonly Guid ActorId = new Guid("{9FD5B2AA-1C83-4FFE-A036-E38308B83A98}");
+
         public class ConfigProperties
         {
             public const string Url = "Url";

@@ -9,6 +9,7 @@ using CprBroker.Engine.Local;
 using CprBroker.Engine.Part;
 using CprBroker.Engine;
 using CprBroker.Providers.CprServices.Responses;
+using CprBroker.Providers.ServicePlatform.Responses;
 
 namespace CprBroker.Providers.ServicePlatform
 {
@@ -94,10 +95,12 @@ namespace CprBroker.Providers.ServicePlatform
 
         public RegistreringType1 Read(Schemas.PersonIdentifier uuid, LaesInputType input, Func<string, Guid> cpr2uuidFunc, out Schemas.QualityLevel? ql)
         {
+            ql = Schemas.QualityLevel.DataProvider;
+
             var request = new SearchRequest(uuid.CprNumber);
 
             var allInfos = new ServiceInfo[] { ServiceInfo.StamPlus_Local, ServiceInfo.NAVNE3_Local, ServiceInfo.FamilyPlus_Local };
-
+            var responses = new List<string>();
             foreach (var m in allInfos)
             {
                 var searchMethod = m.ToSearchMethod();
@@ -108,17 +111,40 @@ namespace CprBroker.Providers.ServicePlatform
                 var kvit = CallGctpService(m, gctpMessage, out retXml);
                 if (kvit.OK)
                 {
-                    // OK
+                    responses.Add(retXml);
                 }
                 else
                 {
-                    object o = "";
+                    //Error
+                    Admin.LogFormattedError("GCTP <{0}> Failed with <{1}><{2}>. Input <{3}>", searchMethod.Name, kvit.ReturnCode, kvit.ReturnText, uuid.CprNumber);
+                    return null;
                 }
             }
 
+            // Now we are sure that all calls have succeeded
+            var stamPlus = new StamPlusResponse(responses[0]);
+            //var navne3 = new Navne3Response(responses[1]);
+            var familyPlus = new FamilyPlusResponse(responses[2]);
 
 
-            ql = Schemas.QualityLevel.DataProvider;
+            // Initial filling
+            var ret = stamPlus.RowItems.First().ToRegistreringType1();
+
+            var uuidCache = new UuidCache();
+            var pnrs = familyPlus.ToRelationPNRs().ToList();
+            pnrs.Add(uuid.CprNumber);
+            uuidCache.FillCache(pnrs.ToArray());
+
+            // Overwritten properties
+            ret.RelationListe = familyPlus.ToRelationListeType(uuidCache.GetUuid);
+            ret.TilstandListe = new TilstandListeType()
+            {
+                CivilStatus = familyPlus.ToCivilStatusType(),
+                LivStatus = stamPlus.RowItems.First().ToLivStatusType()
+            };
+            ret.AktoerRef = UnikIdType.Create(Constants.ActorId);
+            ret.SourceObjectsXml = Utilities.Strings.SerializeObject(responses.ToArray());
+
             return null;
         }
     }
