@@ -14,7 +14,17 @@ namespace CprBroker.Tests.ServicePlatform
 {
     namespace FamilyPlusResponseTests
     {
-        public class FamilyTestBase : BaseResponseTests
+        public class FamilyPlusResponseTestBase : BaseResponseTests
+        {
+            public FamilyPlusResponse GetResponse(string pnr)
+            {
+                var txt = GetResponse(pnr, "Familie+");
+                var w = new FamilyPlusResponse(txt);
+                return w;
+            }
+        }
+
+        public class FamilyTestBase : FamilyPlusResponseTestBase
         {
             Dictionary<string, Guid> _UuidMap = new Dictionary<string, Guid>();
             public Guid GetUuid(string pnr)
@@ -26,9 +36,7 @@ namespace CprBroker.Tests.ServicePlatform
 
             public RelationListeType GetRelations(string pnr)
             {
-                var txt = GetResponse(pnr, "Familie+");
-                var w = new FamilyPlusResponse(txt);
-                return w.ToRelationListeType(GetUuid);
+                return GetResponse(pnr).ToRelationListeType(GetUuid);
             }
 
             public string[] GetAllRelationTypes()
@@ -111,6 +119,27 @@ namespace CprBroker.Tests.ServicePlatform
             public void GetRelations_SomeHaveMother()
             {
                 SomeHasRelations(rel => rel.Moder);
+            }
+        }
+
+        [TestFixture]
+        public class ToCivilStatusTests : FamilyPlusResponseTestBase
+        {
+            [Test]
+            [TestCase(CivilStatusKodeType.Enke, Ignore = true)]
+            [TestCase(CivilStatusKodeType.Gift)]
+            [TestCase(CivilStatusKodeType.Laengstlevende, Ignore = true)]
+            [TestCase(CivilStatusKodeType.OphaevetPartnerskab, Ignore = true)]
+            [TestCase(CivilStatusKodeType.RegistreretPartner, Ignore = true)]
+            [TestCase(CivilStatusKodeType.Separeret, Ignore = true)]
+            [TestCase(CivilStatusKodeType.Skilt, Ignore = true)]
+            [TestCase(CivilStatusKodeType.Ugift)]
+            public void ToCivilStatus_AtLeastOnePerStatus(CivilStatusKodeType status)
+            {
+                var count = PNRs.Select(p => GetResponse(p).ToCivilStatusType().CivilStatusKode)
+                    .Where(c => c == status)
+                    .Count();
+                Assert.Greater(count, 0);
             }
         }
     }

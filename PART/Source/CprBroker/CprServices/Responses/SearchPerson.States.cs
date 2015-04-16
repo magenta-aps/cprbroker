@@ -18,9 +18,9 @@ namespace CprBroker.Providers.CprServices.Responses
             };
         }
 
+        [Obsolete("Use the response from Familie service")]
         public CivilStatusType ToCivilStatusType()
         {
-            // TODO: Fill CivilStatusType from GCTP
             return null;
         }
 

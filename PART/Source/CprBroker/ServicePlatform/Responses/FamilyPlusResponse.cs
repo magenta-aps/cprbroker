@@ -12,9 +12,9 @@ namespace CprBroker.Providers.ServicePlatform.Responses
     {
 
         public FamilyPlusResponse(string xml)
-            : base(xml, (e,nsMgr) => new RelationItem(e, nsMgr))
+            : base(xml, (e, nsMgr) => new RelationItem(e, nsMgr))
         {
-            
+
         }
 
         private RelationItem[] GetRelationNodes(string key)
@@ -68,6 +68,18 @@ namespace CprBroker.Providers.ServicePlatform.Responses
 
                 // No extension
                 LokalUdvidelse = null,
+            };
+        }
+
+        public CivilStatusType ToCivilStatusType()
+        {
+            var spouses = GetPersonRelations("Ægtefælle", pnr => Guid.NewGuid());
+            return new CivilStatusType()
+            {
+                // Detection of registered partnership, or any other status is not possible
+                CivilStatusKode = spouses.Length > 0 ? CivilStatusKodeType.Gift : CivilStatusKodeType.Ugift,
+                // Date unavailable
+                TilstandVirkning = TilstandVirkningType.Create(null),
             };
         }
 
