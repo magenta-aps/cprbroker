@@ -63,7 +63,7 @@ namespace CprBroker.Tests.CprServices
                 var ret = call.ParseResponse(responseXml, true);
                 foreach (var p in ret)
                 {
-                    Assert.IsNotNullOrEmpty(p.PNR);
+                    Assert.IsNotNullOrEmpty(p.ToPnr());
                 }
             }
 
@@ -72,7 +72,7 @@ namespace CprBroker.Tests.CprServices
             {
                 var call = new SearchMethodCall() { };
                 var ret = call.ParseResponse(responseXml, true);
-                Assert.IsNotEmpty(ret.Where(r => r.Name != null && r.Name.PersonNameStructure != null && !r.Name.PersonNameStructure.IsEmpty));
+                Assert.IsNotEmpty(ret.Where(r => r.ToNavnStrukturType() != null && r.ToNavnStrukturType().PersonNameStructure != null && !r.ToNavnStrukturType().PersonNameStructure.IsEmpty));
             }
 
             [TestCaseSource(typeof(SearchMethodTestsBase), "AvailableOutputs")]
@@ -80,7 +80,7 @@ namespace CprBroker.Tests.CprServices
             {
                 var call = new SearchMethodCall() { };
                 var ret = call.ParseResponse(responseXml, true);
-                Assert.IsNotEmpty(ret.Where(r => r.Address != null));
+                Assert.IsNotEmpty(ret.Where(r => r.ToAdresseType() != null));
             }
         }
     }
