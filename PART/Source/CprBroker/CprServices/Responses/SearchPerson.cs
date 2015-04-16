@@ -188,7 +188,7 @@ namespace CprBroker.Providers.CprServices.Responses
                 // TODO: Is this correct registration time?
                 Tidspunkt = TidspunktType.Create(DateTime.Now),
                 LivscyklusKode = LivscyklusKodeType.Rettet,
-                AktoerRef = UnikIdType.Create(Constants.ActroId),
+                AktoerRef = UnikIdType.Create(Constants.ActorId),
                 CommentText = null,
                 SourceObjectsXml = ToSourceXml()
             };
