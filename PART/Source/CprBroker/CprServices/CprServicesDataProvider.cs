@@ -172,7 +172,7 @@ namespace CprBroker.Providers.CprServices
                     if (searchOk)
                     {
                         // TODO: Can this break the result? is UUID assignment necessary?
-                        var pnrs = ret.Select(p => p.PNR).ToArray();
+                        var pnrs = ret.Select(p => p.ToPnr()).ToArray();
                         cache.FillCache(pnrs);
 
                         return ret.Select(p => p.ToLaesResultatType(cache.GetUuid, input)).ToArray();

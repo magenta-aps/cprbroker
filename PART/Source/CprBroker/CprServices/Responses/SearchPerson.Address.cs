@@ -10,10 +10,10 @@ namespace CprBroker.Providers.CprServices.Responses
 {
     public partial class SearchPerson
     {
-        public AdresseType ToAdresseType(XmlElement elm)
+        public AdresseType ToAdresseType()
         {
-            var kom = GetFieldValue(elm, "KOMKOD");
-            var foreignCountryCode = GetFieldValue(elm, "UDRLANDEKOD");
+            var kom = GetFieldValue(_Node, "KOMKOD");
+            var foreignCountryCode = GetFieldValue(_Node, "UDRLANDEKOD");
             if (!string.IsNullOrEmpty(kom))
             {
                 var komK = decimal.Parse(kom);
@@ -22,19 +22,19 @@ namespace CprBroker.Providers.CprServices.Responses
                 {
                     Item =
                         komK >= CprBroker.Schemas.Part.AddressConstants.GreenlandMunicipalCodeStart ?
-                            ToGroenlandskAdresseType(elm, kom) as AdresseBaseType
-                            : ToDanskAdresseType(elm, kom)
+                            ToGroenlandskAdresseType(_Node, kom) as AdresseBaseType
+                            : ToDanskAdresseType(_Node, kom)
                 };
             }
             else if (string.IsNullOrEmpty(foreignCountryCode))
             {
-                return ToAdresseTypeFromString(elm);
+                return ToAdresseTypeFromString(_Node);
             }
             else
             {
                 return new AdresseType()
                 {
-                    Item = ToVerdenAdresseType(elm, foreignCountryCode)
+                    Item = ToVerdenAdresseType(_Node, foreignCountryCode)
                 };
             }
         }

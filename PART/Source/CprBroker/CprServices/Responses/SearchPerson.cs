@@ -56,32 +56,32 @@ namespace CprBroker.Providers.CprServices.Responses
     /// </summary>
     public partial class SearchPerson : Responses.RowItem, IEquatable<SearchPerson>
     {
-        public string PNR;
-        public NavnStrukturType Name;
-        public AdresseType Address;
-        public DateTime? Timestamp;
-        public string SourceXml;
-
         public bool Equals(SearchPerson other)
         {
-            return string.Equals(other.PNR, PNR);
+            return string.Equals(other.ToPnr(), this.ToPnr());
         }
 
         public SearchPerson(XmlElement elm, XmlNamespaceManager nsMgr)
             : base(elm, nsMgr)
         {
-            this.SourceXml = elm.OuterXml;
-            this.Timestamp = ToStartDate(elm);
-            this.Name = ToNavnStrukturType(elm);
-            this.PNR = GetFieldValue(elm, "PNR");
-            this.Address = ToAdresseType(elm);
+
         }
 
-        public DateTime? ToStartDate(XmlElement elm)
+        public string ToPnr()
+        {
+            return GetFieldValue(_Node, "PNR");
+        }
+
+        public string ToSourceXml()
+        {
+            return this._Node.OuterXml;
+        }
+
+        public DateTime? ToStartDate()
         {
             DateTime ret;
             if (DateTime.TryParseExact(
-                GetFieldValue(elm, "STARTDATO"),
+                GetFieldValue(_Node, "STARTDATO"),
                 "yyyyMMddHHmm", // 198112131338                    
                 null,
                  System.Globalization.DateTimeStyles.None,
@@ -91,11 +91,11 @@ namespace CprBroker.Providers.CprServices.Responses
                 return null;
         }
 
-        public NavnStrukturType ToNavnStrukturType(XmlElement elm)
+        public NavnStrukturType ToNavnStrukturType()
         {
             var name = CprBroker.Utilities.Strings.FirstNonEmpty(
-                GetFieldValue(elm, "CNVN_ADRNVN"),
-                GetFieldValue(elm, "ADRNVN")
+                GetFieldValue(_Node, "CNVN_ADRNVN"),
+                GetFieldValue(_Node, "ADRNVN")
                 );
 
             if (!string.IsNullOrEmpty(name))
@@ -113,23 +113,23 @@ namespace CprBroker.Providers.CprServices.Responses
                     AttributListe = new AttributListeType()
                     {
                         Egenskab = new EgenskabType[]{
-                            new EgenskabType(){ NavnStruktur = Name}
+                            new EgenskabType(){ NavnStruktur = ToNavnStrukturType()}
                         },
                         RegisterOplysning = new RegisterOplysningType[]
                         {
                             new RegisterOplysningType() { Item = new CprBorgerType(){ 
-                                PersonCivilRegistrationIdentifier = PNR,
-                                FolkeregisterAdresse =  Address
+                                PersonCivilRegistrationIdentifier = ToPnr(),
+                                FolkeregisterAdresse =  ToAdresseType(),
                             }}
                         }
                     },
-                    BrugervendtNoegleTekst = PNR,
+                    BrugervendtNoegleTekst = ToPnr(),
                     RelationListe = null,
                     TilstandListe = null,
-                    UUID = uuidGetter(PNR).ToString()
+                    UUID = uuidGetter(ToPnr()).ToString()
                 }
             };
-            
+
             if (soegInput != null && soegInput.SoegObjekt != null && soegInput.SoegObjekt.SoegAttributListe != null && soegInput.SoegObjekt.SoegAttributListe.SoegRegisterOplysning != null)
             {
                 CprBroker.Utilities.Reflection.CopyMissingDetailStrings(
@@ -149,9 +149,10 @@ namespace CprBroker.Providers.CprServices.Responses
                 {
                     new EgenskabType()
                     { 
-                        NavnStruktur = Name, 
-                        Virkning = VirkningType.Create(Timestamp,null), 
-                        BirthDate = PartInterface.Strings.PersonNumberToDate(this.PNR).Value
+                        NavnStruktur = ToNavnStrukturType(), 
+                        Virkning = VirkningType.Create(ToStartDate(),null), 
+                        // TODO: Get birthdate from rrelevant field
+                        BirthDate = PartInterface.Strings.PersonNumberToDate(this.ToPnr()).Value
                     }
                 },
                 RegisterOplysning = new RegisterOplysningType[]
@@ -160,10 +161,10 @@ namespace CprBroker.Providers.CprServices.Responses
                     { 
                         Item = new CprBorgerType()
                         { 
-                            PersonCivilRegistrationIdentifier = PNR,
-                            FolkeregisterAdresse =  Address
+                            PersonCivilRegistrationIdentifier = ToPnr(),
+                            FolkeregisterAdresse =  ToAdresseType()
                         },
-                        Virkning = VirkningType.Create(Timestamp,null)
+                        Virkning = VirkningType.Create(ToStartDate(),null)
                     }
                 },
                 // Unsupported
@@ -179,11 +180,12 @@ namespace CprBroker.Providers.CprServices.Responses
                 AttributListe = ToAttributListeType(),
                 RelationListe = null,
                 TilstandListe = null,
+                // TODO: Is this correct registration time?
                 Tidspunkt = TidspunktType.Create(DateTime.Now),
                 LivscyklusKode = LivscyklusKodeType.Rettet,
                 AktoerRef = UnikIdType.Create(Constants.ActroId),
                 CommentText = null,
-                SourceObjectsXml = this.SourceXml
+                SourceObjectsXml = ToSourceXml()
             };
         }
     }

@@ -84,11 +84,12 @@ namespace CprBroker.Providers.CprServices
             if (kvit.OK)
             {
                 var addressPerson = new LookupResponse(xmlOut).RowItems.First();
-                if (string.IsNullOrEmpty(addressPerson.PNR))
-                    addressPerson.PNR = uuid.CprNumber;
+                var pnr = addressPerson.ToPnr();
+                if (string.IsNullOrEmpty(pnr))
+                    pnr = uuid.CprNumber;
 
                 var cache = new UuidCache();
-                cache.FillCache(new string[] { addressPerson.PNR });
+                cache.FillCache(new string[] { pnr });
                 var ret = addressPerson.ToRegistreringType1();
 
                 // Now get the name
@@ -101,9 +102,9 @@ namespace CprBroker.Providers.CprServices
                 if (kvit.OK)
                 {
                     var namePersons = new LookupResponse(xmlOut).RowItems;
-                    namePersons[0].PNR = uuid.CprNumber;
                     var nameRet = namePersons[0].ToRegistreringType1();
                     ret.AttributListe.Egenskab[0].NavnStruktur = nameRet.AttributListe.Egenskab[0].NavnStruktur;
+                    (ret.AttributListe.RegisterOplysning[0].Item as CprBorgerType).PersonCivilRegistrationIdentifier = pnr;
                     return ret;
                 }
             }
