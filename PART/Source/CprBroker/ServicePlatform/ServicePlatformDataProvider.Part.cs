@@ -80,7 +80,7 @@ namespace CprBroker.Providers.ServicePlatform
         public bool PutSubscription(Schemas.PersonIdentifier personIdentifier)
         {
             var service = CreateService<CprSubscriptionService.CprSubscriptionWebServicePortType, CprSubscriptionService.CprSubscriptionWebServicePortTypeClient>(ServiceInfo.CPRSubscription);
-            using (var callContext = this.BeginCall("", ""))
+            using (var callContext = this.BeginCall("AddPNRSubscription", personIdentifier.CprNumber))
             {
                 var request = new CprSubscriptionService.AddPNRSubscriptionType()
                 {
