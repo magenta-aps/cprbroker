@@ -82,13 +82,24 @@ namespace CprBroker.Providers.ServicePlatform
             var service = CreateService<CprSubscriptionService.CprSubscriptionWebServicePortType, CprSubscriptionService.CprSubscriptionWebServicePortTypeClient>(ServiceInfo.CPRSubscription);
             using (var callContext = this.BeginCall("AddPNRSubscription", personIdentifier.CprNumber))
             {
-                var request = new CprSubscriptionService.AddPNRSubscriptionType()
+                try
                 {
-                    InvocationContext = GetInvocationContext<CprSubscriptionService.InvocationContextType>(ServiceInfo.CPRSubscription.UUID),
-                    PNR = personIdentifier.CprNumber
-                };
-                var ret = service.AddPNRSubscription(request);
-                object o = ret;
+                    var request = new CprSubscriptionService.AddPNRSubscriptionType()
+                    {
+                        InvocationContext = GetInvocationContext<CprSubscriptionService.InvocationContextType>(ServiceInfo.CPRSubscription.UUID),
+                        PNR = personIdentifier.CprNumber
+                    };
+                    var ret = service.AddPNRSubscription(request);
+                    callContext.Succeed();
+                    return true;
+                }
+                catch(Exception ex)
+                {
+                    Admin.LogException(ex);
+                    callContext.Fail();
+                    return false;
+                }
+                //object o = ret.Result;
                 return true;
             }
         }
