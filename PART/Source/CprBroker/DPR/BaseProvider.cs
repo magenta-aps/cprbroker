@@ -201,6 +201,8 @@ namespace CprBroker.Providers.DPR
             }
         }
 
+        public static readonly object DiversionLockObject = new object();
+
         /// <summary>
         /// Sends a message through TCP to the server
         /// </summary>
@@ -217,19 +219,21 @@ namespace CprBroker.Providers.DPR
             {
                 try
                 {
-                    using (TcpClient client = new TcpClient(Address, Port))
+                    Byte[] data = Constants.DiversionEncoding.GetBytes(message);
+                    lock (DiversionLockObject)
                     {
-                        Byte[] data = Constants.DiversionEncoding.GetBytes(message);
-
-                        using (NetworkStream stream = client.GetStream())
+                        using (TcpClient client = new TcpClient(Address, Port))
                         {
-                            stream.Write(data, 0, data.Length);
-                            stream.ReadTimeout = this.TcpReadTimeout;
-                            data = new Byte[3500];
-                            bytes = stream.Read(data, 0, data.Length);
+                            using (NetworkStream stream = client.GetStream())
+                            {
+                                stream.Write(data, 0, data.Length);
+                                stream.ReadTimeout = this.TcpReadTimeout;
+                                data = new Byte[3500];
+                                bytes = stream.Read(data, 0, data.Length);
+                            }
                         }
-                        response = Constants.DiversionEncoding.GetString(data, 0, bytes);
                     }
+                    response = Constants.DiversionEncoding.GetString(data, 0, bytes);
 
                     string errorCode = response.Substring(2, 2);
                     if (ErrorCodes.ContainsKey(errorCode))
