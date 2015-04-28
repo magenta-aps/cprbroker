@@ -72,8 +72,6 @@ namespace CprBroker.Providers.DPR
 
         public const string DiversionOperationName = "Diversion";
         public static readonly Encoding DiversionEncoding = Encoding.UTF7;
-
-        
     }
 
     public enum InquiryType
