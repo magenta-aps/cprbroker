@@ -55,7 +55,7 @@ IF NOT EXISTS (SELECT * FROM sys.columns WHERE name = 'Ready' AND object_id = OB
 	ALTER TABLE Subscription ADD Ready BIT NOT NULL DEFAULT 0
 GO
 
-UPDATE Subscription SET Ready = 1 WHERE Ready IS NULL AND LastCheckedUUID IS NULL
+UPDATE Subscription SET Ready = 1 WHERE LastCheckedUUID IS NULL
 GO
 
 -----------------------------------------------------------------------------------------------
