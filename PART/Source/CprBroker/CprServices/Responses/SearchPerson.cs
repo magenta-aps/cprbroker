@@ -161,7 +161,18 @@ namespace CprBroker.Providers.CprServices.Responses
                         Item = new CprBorgerType()
                         { 
                             PersonCivilRegistrationIdentifier = ToPnr(),
-                            FolkeregisterAdresse =  ToAdresseType()
+                            FolkeregisterAdresse =  ToAdresseType(), 
+
+                            // Assumed values
+                            PersonNummerGyldighedStatusIndikator = true,
+
+                            // Unsupported
+                            AdresseNoteTekst = null,
+                            FolkekirkeMedlemIndikator = false,
+                            ForskerBeskyttelseIndikator = false,
+                            NavneAdresseBeskyttelseIndikator = false,
+                            PersonNationalityCode = null,
+                            TelefonNummerBeskyttelseIndikator = false
                         },
                         Virkning = VirkningType.Create(ToStartDate(),null)
                     }
