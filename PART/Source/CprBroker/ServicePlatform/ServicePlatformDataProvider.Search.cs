@@ -31,7 +31,7 @@ namespace CprBroker.Providers.ServicePlatform
 
             if (request.IsUnique)
             {
-                if (plan.IsSatisfactory)
+                if (plan.IsSatisfactory && plan.PlannedCalls.Count > 0)
                 {
                     bool searchOk = true;
                     var call = plan.PlannedCalls.First();
