@@ -82,7 +82,7 @@ namespace CprBroker.Providers.ServicePlatform
             // Result should not be stored locally
             ret.IsUpdatableLocally = false;
 
-
+            // UUID mappings
             var uuidCache = new UuidCache();
             var pnrs = familyPlus.ToRelationPNRs().ToList();
             pnrs.Add(uuid.CprNumber);
@@ -98,7 +98,7 @@ namespace CprBroker.Providers.ServicePlatform
             ret.AktoerRef = UnikIdType.Create(Constants.ActorId);
             ret.SourceObjectsXml = Utilities.Strings.SerializeObject(responses.ToArray());
 
-            return null;
+            return ret;
         }
     }
 }
