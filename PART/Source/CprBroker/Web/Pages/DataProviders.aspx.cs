@@ -317,7 +317,7 @@ namespace CprBroker.Web.Pages
         {
             var f = new DataProviderFactory();
             var prov = f.CreateDataProvider(dbProv as DataProvider) as IAutoUpdateDataProvider;
-            if (prov != null)
+            if (prov != null && prov.AutoUpdate)
                 return prov.IsReady ? "Yes" : "No";
             return "(N/A)";
         }
