@@ -105,6 +105,11 @@ namespace CprBroker.Engine.Part
             return false;
         }
 
+        public override bool IsUpdatableResult(CprBroker.Schemas.Part.RegistreringType1 result)
+        {
+            return result.IsUpdatableLocally;
+        }
+
         public static Guid CprToUuid(string cprNumber)
         {
             var processor = new PartInterface.PartManager();

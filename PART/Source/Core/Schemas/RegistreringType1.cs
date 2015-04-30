@@ -60,6 +60,15 @@ namespace CprBroker.Schemas.Part
         [System.Xml.Serialization.XmlIgnore]
         public DateTime BrokerUpdateDate { get; set; }
 
+        [System.Xml.Serialization.XmlIgnore]
+        public bool IsUpdatableLocally { get; set; }
+
+        public RegistreringType1()
+        {
+            this.IsUpdatableLocally = true;
+        }
+
+
         public void CalculateVirkning()
         {
             this.Virkning = null;

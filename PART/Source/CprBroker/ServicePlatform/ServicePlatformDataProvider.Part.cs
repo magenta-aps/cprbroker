@@ -78,6 +78,10 @@ namespace CprBroker.Providers.ServicePlatform
 
             // Initial filling
             var ret = stamPlus.RowItems.First().ToRegistreringType1();
+            
+            // Result should not be stored locally
+            ret.IsUpdatableLocally = false;
+
 
             var uuidCache = new UuidCache();
             var pnrs = familyPlus.ToRelationPNRs().ToList();
