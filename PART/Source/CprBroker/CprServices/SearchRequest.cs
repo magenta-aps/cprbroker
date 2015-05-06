@@ -143,7 +143,7 @@ namespace CprBroker.Providers.CprServices
                                     if (dansk.AddressComplete.AddressAccess != null)
                                     {
                                         AddCriteriaField("KOMK", dansk.AddressComplete.AddressAccess.MunicipalityCode);
-                                        AddCriteriaField("HNR", dansk.AddressComplete.AddressAccess.StreetBuildingIdentifier);
+                                        AddCriteriaField("HNR", dansk.AddressComplete.AddressAccess.StreetBuildingIdentifier, (s) => s.PadLeft(4, '0'));
                                         AddCriteriaField("VEJK", dansk.AddressComplete.AddressAccess.StreetCode);
                                     }
                                     if (dansk.AddressComplete.AddressPostal != null)
@@ -155,7 +155,7 @@ namespace CprBroker.Providers.CprServices
                                         //dansk.AddressComplete.AddressPostal.MailDeliverySublocationIdentifier
                                         AddCriteriaField("POST", dansk.AddressComplete.AddressPostal.PostCodeIdentifier);
                                         //dansk.AddressComplete.AddressPostal.PostOfficeBoxIdentifier
-                                        AddCriteriaField("HNR", dansk.AddressComplete.AddressPostal.StreetBuildingIdentifier);
+                                        AddCriteriaField("HNR", dansk.AddressComplete.AddressPostal.StreetBuildingIdentifier, (s) => s.PadLeft(4, '0'));
                                         AddCriteriaField("VNVN", dansk.AddressComplete.AddressPostal.StreetName);
                                         // TODO: is it OK to use this?
                                         AddCriteriaField("VNVN", dansk.AddressComplete.AddressPostal.StreetNameForAddressingName);
@@ -248,16 +248,16 @@ namespace CprBroker.Providers.CprServices
             {
                 return _CriteriaFields
                     .GroupBy(cf => cf.Key)
-                    .Where(g => g.Select(f=>f.Value).Distinct().Count() > 1)
+                    .Where(g => g.Select(f => f.Value).Distinct().Count() > 1)
                     .Count() == 0;
             }
         }
 
         private List<KeyValuePair<string, string>> _CriteriaFields = new List<KeyValuePair<string, string>>();
 
-        public KeyValuePair<string, string>[] CriteriaFields 
-        { 
-            get 
+        public KeyValuePair<string, string>[] CriteriaFields
+        {
+            get
             {
                 return this._CriteriaFields
                     .GroupBy(cf => cf.Key)
