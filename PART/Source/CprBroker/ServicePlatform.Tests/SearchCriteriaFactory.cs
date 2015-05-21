@@ -22,7 +22,7 @@ namespace CprBroker.Tests.ServicePlatform
                             new SoegEgenskabType(){
                                 NavnStruktur = new NavnStrukturType(){
                                     PersonNameStructure = new PersonNameStructureType(){
-                                        //PersonGivenName = "Ulf",
+                                        PersonGivenName = "uffe",
                                         //PersonSurnameName = "Ulling"
                                     }
                                 }
@@ -36,16 +36,18 @@ namespace CprBroker.Tests.ServicePlatform
                                             AddressComplete = new AddressCompleteType(){
                                                 AddressAccess = new AddressAccessType(){
                                                     // This field (HUSNR) is repeated later, but should pass the tests
-                                                    StreetBuildingIdentifier = "4",
+                                                    StreetBuildingIdentifier = "91",
                                                     MunicipalityCode = null,
                                                     StreetCode = null
                                                 },
+                                                //Industrivænget 91 1 tv 9000 Aalborg
                                                 AddressPostal = new AddressPostalType(){
-                                                    StreetBuildingIdentifier = "4",
+                                                    StreetBuildingIdentifier = "0091",
                                                     StreetName = "Industrivænget",
                                                     PostCodeIdentifier = "9000",
                                                     DistrictName = "Aalborg",
                                                     //DistrictSubdivisionIdentifier = "1",
+                                                    //FloorIdentifier = "1",
                                                     //SuiteIdentifier = "tv"
                                                 }
                                             }
