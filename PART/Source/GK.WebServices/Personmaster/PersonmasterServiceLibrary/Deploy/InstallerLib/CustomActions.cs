@@ -316,7 +316,8 @@ namespace PersonMasterInstallers
                 var patchInfos = new Dictionary<string, DatabasePatchInfo[]>();
                 patchInfos["PM"] = new DatabasePatchInfo[]{
                     new DatabasePatchInfo(new Version(1,2), Properties.Resources.patchbas_1_2, null),
-                    new DatabasePatchInfo(new Version(2,0), Properties.Resources.patchbas_2_0, null)
+                    new DatabasePatchInfo(new Version(2,0), Properties.Resources.patchbas_2_0, null),
+                    new DatabasePatchInfo(new Version(2,2), Properties.Resources.patchbas_2_2, null)
                 };
                 return DatabaseCustomAction.PatchDatabase(session, patchInfos);
             }

@@ -1782,27 +1782,44 @@ BEGIN TRY
 			AND     cpr.personMasterID = pm.objectID
 	
 	SET @RetVal = -10
+	
 	-- New ObjctIDs
-	UPDATE @ReturnTable
-	SET ObjectID = NEWID()
+	DECLARE @UniqueNewCprNumbers TABLE(CprNo VARCHAR(10), ObjectID UNIQUEIDENTIFIER)
+	
+	INSERT INTO @UniqueNewCprNumbers (CprNo)
+	SELECT DISTINCT CprNo 
+	FROM @ReturnTable
 	WHERE Gender >= 0
 		AND Existing = 0
 	
+	UPDATE @UniqueNewCprNumbers 
+	SET ObjectID = NEWID()
+	
+	UPDATE r
+	SET ObjectID = u.ObjectID
+	FROM @ReturnTable r , @UniqueNewCprNumbers u 
+	WHERE r.CprNo = u.CprNo
+	
+	Declare @Now DATETIME
+	SET @Now = GETDATE()
+
 	BEGIN TRAN
 		SET @RetVal = -11
 		
 		INSERT INTO T_PM_PersonMaster 
-		SELECT ObjectID, @objectOwnerID, GETDATE() 
+		SELECT DISTINCT ObjectID, @objectOwnerID, @Now 
 		FROM @ReturnTable 
 		WHERE Gender >= 0
 			AND Existing = 0
 		
 		SET @RetVal = -12
 		INSERT INTO T_PM_CPR 
-		SELECT EncryptByKey(key_GUID('CprNoEncryptKey'), CprNo), Birthdate, Gender, ObjectID, GETDATE(), CprNo
-		FROM @ReturnTable 
-		WHERE Gender >= 0
-			AND Existing = 0
+		SELECT EncryptByKey(key_GUID('CprNoEncryptKey'), CprNo),* 
+		FROM (SELECT DISTINCT Birthdate, Gender, ObjectID, @Now as D, CprNo
+			FROM @ReturnTable 
+			WHERE Gender >= 0
+				AND Existing = 0
+		) AS uniqueInsert
 		
 		SET @RetVal = -13
 	COMMIT TRAN
