@@ -801,6 +801,7 @@
     <Content Include="Resources\3112970079.Stam+.Response.OK.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\ADRSOG1.OK.xml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -57,6 +57,7 @@
   <ItemGroup>
     <Compile Include="DataLinqTests.cs" />
     <Compile Include="DataProvidersConfigurationSection.cs" />
+    <Compile Include="DatesTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReflectionTests.cs" />
     <Compile Include="TasksConfigurationSectionTests.cs" />

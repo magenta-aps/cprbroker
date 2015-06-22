@@ -26,20 +26,25 @@ namespace CprBroker.Providers.CprServices.Responses
 
         public LivStatusType ToLivStatusType()
         {
-            var status = GetFieldValue(_Node, "STATUS");
-            var  statusDate = GetFieldValue(_Node,"STARTDATOSTATUS");
-            int intStatus;
+            var status = Utilities.Strings.FirstNonEmpty(
+                GetFieldValue(_Node, "STATUS"),
+                GetFieldValue(_Node, "CNVN_STATUS")
+            );
 
-            if(!string.IsNullOrEmpty(status)&& int.TryParse(status,out intStatus))
+            int intStatus;
+            if (!string.IsNullOrEmpty(status) && int.TryParse(status, out intStatus))
             {
-                
                 return new LivStatusType()
                 {
                     // Passing true even if birthdate is unknow to avoid Prenatal return
                     LivStatusKode = Schemas.Util.Enums.ToLifeStatus(intStatus, true),
                     TilstandVirkning = TilstandVirkningType.Create(
                         Utilities.Dates.ToDateTimeOrNull(
-                            GetFieldValue(_Node,"STARTDATOSTATUS"),
+                            Utilities.Strings.FirstNonEmpty(
+                                GetFieldValue(_Node, "STARTDATOSTATUS"),
+                                GetFieldValue(_Node, "STARTDATO")
+                            ),
+                            "yyyyMMddHHmm",
                             "yyyyMMdd"
                         )
                     )

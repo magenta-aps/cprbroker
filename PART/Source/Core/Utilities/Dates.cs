@@ -105,14 +105,30 @@ namespace CprBroker.Utilities
             return Decimal.Parse(decimalValue);
         }
 
-        public static DateTime? ToDateTimeOrNull(string s, string format = null)
+        public static DateTime? ToDateTimeOrNull(string s, params string[] formats)
         {
-            DateTime d;
-            bool value = format == null ?
-                DateTime.TryParse(s, out d)
-                : DateTime.TryParseExact(s, format, null, System.Globalization.DateTimeStyles.None, out d);
-
-            return value ? d : null as DateTime?;
+            DateTime? ret = null;
+            if (formats == null || formats.Length == 0)
+            {
+                DateTime d;
+                if (DateTime.TryParse(s, out d))
+                    ret = d;
+            }
+            else
+            {
+                var suc = formats.Select(format =>
+                {
+                    DateTime d0;
+                    var b = DateTime.TryParseExact(s, format, null, System.Globalization.DateTimeStyles.None, out d0);
+                    return new { Format = format, Val = d0, Success = b };
+                })
+                .FirstOrDefault(r => r.Success);
+                if (suc != null)
+                {
+                    ret = suc.Val;
+                }
+            }
+            return ret;
         }
     }
 }

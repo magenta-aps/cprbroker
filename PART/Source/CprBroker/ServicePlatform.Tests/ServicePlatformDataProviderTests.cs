@@ -34,14 +34,25 @@ namespace CprBroker.Tests.ServicePlatform
             }
 
             [Test]
-            public void SearchList_DataFOund()
+            public void SearchList_DataFound()
             {
                 var prov = ServicePlatformDataProviderFactory.Create();
                 var input = SearchCriteriaFactory.Create();
                 var cache = UuidCacheFactory.Create();
-
                 var ret = prov.SearchList(input, cache);
                 Assert.Greater(ret.Length, 0);
+            }
+
+            [Test]
+            public void SearchList_LifeStatus()
+            {
+                var prov = ServicePlatformDataProviderFactory.Create();
+                var input = SearchCriteriaFactory.Create();
+                var cache = UuidCacheFactory.Create();
+                var ret = prov.SearchList(input, cache).First();
+                var oo = ret.Item as CprBroker.Schemas.Part.FiltreretOejebliksbilledeType;
+                Assert.NotNull(oo.TilstandListe);
+                Assert.NotNull(oo.TilstandListe.LivStatus.TilstandVirkning.FraTidspunkt.ToDateTime());
             }
         }
 

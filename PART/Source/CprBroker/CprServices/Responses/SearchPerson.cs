@@ -125,7 +125,7 @@ namespace CprBroker.Providers.CprServices.Responses
                     },
                     BrugervendtNoegleTekst = ToPnr(),
                     RelationListe = null,
-                    TilstandListe = null,
+                    TilstandListe = this.ToTilstandListeType(),
                     UUID = uuidGetter(ToPnr()).ToString()
                 }
             };

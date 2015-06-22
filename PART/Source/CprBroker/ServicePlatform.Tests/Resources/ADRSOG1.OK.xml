@@ -1,0 +1,128 @@
+﻿<root xmlns="http://www.cpr.dk">
+    <Gctp v="1.0">
+        <System r="CprSoeg">
+            <Service r="ADRSOG1">
+                <CprServiceHeader r="ADRSOG1"/>
+                <CprData u="O">
+                    <Rolle r="HovedRolle">
+                        <Table r="ADRSOEG">
+                            <Row k="0">
+                                <Field r="AKM" v=" "/>
+                                <Field r="CNVN_ADRNVN" t="Dorthea Dahl-Eriksen" v="Dahl-Eriksen,Dorthea"/>
+                                <Field r="CNVN_STATUS" v="01"/>
+                                <Field r="CPRS_FOEDDATO" v="19810313"/>
+                                <Field r="ETAGE" v="01"/>
+                                <Field r="HUSNR" v="091"/>
+                                <Field r="KOMKOD" v="0851"/>
+                                <Field r="PNR" v="1303814074"/>
+                                <Field r="SIDEDOER" v=" tv"/>
+                                <Field r="STARTDATO" v="198103132000"/>
+                                <Field r="TABMRK" v="1"/>
+                                <Field r="VEJKOD" v="8512"/>
+                            </Row>
+                            <Row k="1">
+                                <Field r="AKM" v=" "/>
+                                <Field r="CNVN_ADRNVN" t="Dorthea Dahl-Eriksen" v="Dahl-Eriksen,Dorthea"/>
+                                <Field r="CNVN_STATUS" v="01"/>
+                                <Field r="CPRS_FOEDDATO" v="19810313"/>
+                                <Field r="ETAGE" v="01"/>
+                                <Field r="HUSNR" v="091"/>
+                                <Field r="KOMKOD" v="0851"/>
+                                <Field r="PNR" v="1303814084"/>
+                                <Field r="SIDEDOER" v=" tv"/>
+                                <Field r="STARTDATO" v="198103132000"/>
+                                <Field r="TABMRK" v="1"/>
+                                <Field r="VEJKOD" v="8512"/>
+                            </Row>
+                            <Row k="2">
+                                <Field r="AKM" v=" "/>
+                                <Field r="CNVN_ADRNVN" t="Dorthea Dahl-Eriksen" v="Dahl-Eriksen,Dorthea"/>
+                                <Field r="CNVN_STATUS" v="01"/>
+                                <Field r="CPRS_FOEDDATO" v="19810313"/>
+                                <Field r="ETAGE" v="01"/>
+                                <Field r="HUSNR" v="091"/>
+                                <Field r="KOMKOD" v="0851"/>
+                                <Field r="PNR" v="1303814094"/>
+                                <Field r="SIDEDOER" v=" tv"/>
+                                <Field r="STARTDATO" v="198103132000"/>
+                                <Field r="TABMRK" v="1"/>
+                                <Field r="VEJKOD" v="8512"/>
+                            </Row>
+                            <Row k="3">
+                                <Field r="AKM" v=" "/>
+                                <Field r="CNVN_ADRNVN" t="Dorthea Dahl-Eriksen" v="Dahl-Eriksen,Dorthea"/>
+                                <Field r="CNVN_STATUS" v="01"/>
+                                <Field r="CPRS_FOEDDATO" v="19810313"/>
+                                <Field r="ETAGE" v="01"/>
+                                <Field r="HUSNR" v="091"/>
+                                <Field r="KOMKOD" v="0851"/>
+                                <Field r="PNR" v="1303814104"/>
+                                <Field r="SIDEDOER" v=" tv"/>
+                                <Field r="STARTDATO" v="198103132000"/>
+                                <Field r="TABMRK" v="1"/>
+                                <Field r="VEJKOD" v="8512"/>
+                            </Row>
+                            <Row k="4">
+                                <Field r="AKM" v=" "/>
+                                <Field r="CNVN_ADRNVN" t="Uffe Konrad Dahl-Eriksen" v="Dahl-Eriksen,Uffe Konrad"/>
+                                <Field r="CNVN_STATUS" v="01"/>
+                                <Field r="CPRS_FOEDDATO" v="19971231"/>
+                                <Field r="ETAGE" v="01"/>
+                                <Field r="HUSNR" v="091"/>
+                                <Field r="KOMKOD" v="0851"/>
+                                <Field r="PNR" v="3112970079"/>
+                                <Field r="SIDEDOER" v=" tv"/>
+                                <Field r="STARTDATO" v="199712311513"/>
+                                <Field r="TABMRK" v="1"/>
+                                <Field r="VEJKOD" v="8512"/>
+                            </Row>
+                            <Row k="5">
+                                <Field r="AKM" v=" "/>
+                                <Field r="CNVN_ADRNVN" t="Uffe Konrad Dahl-Eriksen" v="Dahl-Eriksen,Uffe Konrad"/>
+                                <Field r="CNVN_STATUS" v="01"/>
+                                <Field r="CPRS_FOEDDATO" v="19971231"/>
+                                <Field r="ETAGE" v="01"/>
+                                <Field r="HUSNR" v="091"/>
+                                <Field r="KOMKOD" v="0851"/>
+                                <Field r="PNR" v="3112970089"/>
+                                <Field r="SIDEDOER" v=" tv"/>
+                                <Field r="STARTDATO" v="199712311513"/>
+                                <Field r="TABMRK" v="1"/>
+                                <Field r="VEJKOD" v="8512"/>
+                            </Row>
+                            <Row k="6">
+                                <Field r="AKM" v=" "/>
+                                <Field r="CNVN_ADRNVN" t="Uffe Konrad Dahl-Eriksen" v="Dahl-Eriksen,Uffe Konrad"/>
+                                <Field r="CNVN_STATUS" v="01"/>
+                                <Field r="CPRS_FOEDDATO" v="19971231"/>
+                                <Field r="ETAGE" v="01"/>
+                                <Field r="HUSNR" v="091"/>
+                                <Field r="KOMKOD" v="0851"/>
+                                <Field r="PNR" v="3112970099"/>
+                                <Field r="SIDEDOER" v=" tv"/>
+                                <Field r="STARTDATO" v="199712311513"/>
+                                <Field r="TABMRK" v="1"/>
+                                <Field r="VEJKOD" v="8512"/>
+                            </Row>
+                            <Row k="7">
+                                <Field r="AKM" v=" "/>
+                                <Field r="CNVN_ADRNVN" t="Uffe Konrad Dahl-Eriksen" v="Dahl-Eriksen,Uffe Konrad"/>
+                                <Field r="CNVN_STATUS" v="01"/>
+                                <Field r="CPRS_FOEDDATO" v="19971231"/>
+                                <Field r="ETAGE" v="01"/>
+                                <Field r="HUSNR" v="091"/>
+                                <Field r="KOMKOD" v="0851"/>
+                                <Field r="PNR" v="3112970109"/>
+                                <Field r="SIDEDOER" v=" tv"/>
+                                <Field r="STARTDATO" v="199712311513"/>
+                                <Field r="TABMRK" v="1"/>
+                                <Field r="VEJKOD" v="8512"/>
+                            </Row>
+                        </Table>
+                    </Rolle>
+                </CprData>
+                <Kvit r="Ok" t="" v="0"/>
+            </Service>
+        </System>
+    </Gctp>
+</root>
