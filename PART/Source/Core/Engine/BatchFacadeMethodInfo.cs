@@ -94,12 +94,16 @@ namespace CprBroker.Engine
                 try
                 {
                     var currentOutput = Run(prov, currentInput);
+                    
                     var currentSucceededStates = new List<Status>();
-                    for (int i = 0; i < currentStates.Length; i++)
+                    if (IsConsistentOutput(currentInput, currentOutput))
                     {
-                        currentStates[i].Output = currentOutput[i];
-                        if (IsSucceededStatus(currentStates[i]))
-                            currentSucceededStates.Add(currentStates[i]);
+                        for (int i = 0; i < currentStates.Length; i++)
+                        {
+                            currentStates[i].Output = currentOutput[i];
+                            if (IsSucceededStatus(currentStates[i]))
+                                currentSucceededStates.Add(currentStates[i]);
+                        }
                     }
 
                     if (prov is IExternalDataProvider)
@@ -144,6 +148,11 @@ namespace CprBroker.Engine
                 ret.StandardRetur = StandardReturType.OK();
             }
             return ret;
+        }
+
+        public virtual bool IsConsistentOutput(TSingleInputItem[] currentInput, TSingleOutputItem[] currentOutput)
+        {
+            return currentInput.Length == currentOutput.Length;
         }
 
         public override sealed void InvokeUpdateMethod(object result)

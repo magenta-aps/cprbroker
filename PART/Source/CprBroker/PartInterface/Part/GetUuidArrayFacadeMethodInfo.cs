@@ -90,22 +90,6 @@ namespace CprBroker.Engine.Part
             return StandardReturType.OK();
         }
 
-        public static bool AreConsistentUuids(string[] cprNumbers, string[] uuidStrings)
-        {
-            var inconsistentUuids = Enumerable.Range(0, cprNumbers.Length)
-                    .Select(i => new { Index = i, Inp = cprNumbers[i], Out = uuidStrings[i] })
-                    .GroupBy(o => o.Inp)
-                    .Select(g => g.ToArray().Select(gi => gi.Out).Distinct())
-                    .Where(g => g.Count() > 1);
-
-            return inconsistentUuids.Count() == 0;
-        }
-
-        public override bool IsValidResult(string[] output)
-        {
-            return base.IsValidResult(output) && AreConsistentUuids(input, output);
-        }
-
         protected override BatchSubMethodInfo<IPartPersonMappingDataProvider, string, string> CreateMainSubMethod()
         {
             return new GetUuidArraySubMethodInfo(input);
@@ -145,6 +129,21 @@ namespace CprBroker.Engine.Part
             return prov.GetPersonUuidArray(input).Select(g => GuidToString(g)).ToArray();
         }
 
+        public override bool IsConsistentOutput(string[] cprNumbers, string[] uuidStrings)
+        {
+            if (base.IsConsistentOutput(cprNumbers, uuidStrings))
+            {
+                var inconsistentUuids = Enumerable.Range(0, cprNumbers.Length)
+                        .Select(i => new { Index = i, Inp = cprNumbers[i], Out = uuidStrings[i] })
+                        .GroupBy(o => o.Inp)
+                        .Select(g => g.ToArray().Select(gi => gi.Out).Distinct())
+                        .Where(g => g.Count() > 1);
+
+                return inconsistentUuids.Count() == 0;
+            }
+            return false;
+        }
+
         public override void InvokeUpdateMethod(string[] input, string[] output)
         {
             Local.UpdateDatabase.UpdatePersonUuidArray(input, output.Select(s => StringToGuid(s)).ToArray());
@@ -152,7 +151,7 @@ namespace CprBroker.Engine.Part
 
         public override bool IsUpdatableResult(string[] result)
         {
-            // TODO: In this used?
+            // TODO: Is this used?
             return true;
         }
 

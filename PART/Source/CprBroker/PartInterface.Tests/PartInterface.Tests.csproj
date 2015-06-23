@@ -79,6 +79,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CivilStatusWrapperTests.cs" />
+    <Compile Include="GetUuidArraySubMethodInfo.Tests.cs" />
     <Compile Include="GetUuidArrayFacadeMethodInfo.Tests.cs" />
     <Compile Include="IPerCallDataProviderHelperTests.cs" />
     <Compile Include="ListFacadeMethodInfoTests.cs" />

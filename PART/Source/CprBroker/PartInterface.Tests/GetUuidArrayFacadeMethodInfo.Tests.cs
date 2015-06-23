@@ -89,52 +89,5 @@ namespace CprBroker.Tests.PartInterface
                 Assert.AreNotEqual("OK", ret.FejlbeskedTekst);
             }
         }
-
-        [TestFixture]
-        public class AreConsistentUuids
-        {
-            public class GetUuidArrayFacadeMethodInfoStub : GetUuidArrayFacadeMethodInfo
-            {
-                public GetUuidArrayFacadeMethodInfoStub()
-                    : base(null, null, null)
-                { }
-            }
-            [Test]
-            public void AreConsistentUuids_Empty_True()
-            {
-                Assert.True(GetUuidArrayFacadeMethodInfo.AreConsistentUuids(
-                    new string[] { },
-                    new string[] { }
-                ));
-            }
-            [Test]
-            public void AreConsistentUuids_One_True()
-            {
-                Assert.True(GetUuidArrayFacadeMethodInfo.AreConsistentUuids(
-                    new string[] { Utilities.RandomCprNumber() },
-                    new string[] { Guid.NewGuid().ToString() }
-                ));
-            }
-
-            [Test]
-            public void AreConsistentUuids_Two_True()
-            {
-                Assert.True(GetUuidArrayFacadeMethodInfo.AreConsistentUuids(
-                    new string[] { Utilities.RandomCprNumber(), Utilities.RandomCprNumber(), },
-                    new string[] { Guid.NewGuid().ToString(), Guid.NewGuid().ToString() }
-                ));
-            }
-
-            [Test]
-            public void AreConsistentUuids_Two_False()
-            {
-                var pnr = Utilities.RandomCprNumber();
-
-                Assert.False(GetUuidArrayFacadeMethodInfo.AreConsistentUuids(
-                    new string[] { pnr, pnr },
-                    new string[] { Guid.NewGuid().ToString(), Guid.NewGuid().ToString() }
-                ));
-            }
-        }
     }
 }
