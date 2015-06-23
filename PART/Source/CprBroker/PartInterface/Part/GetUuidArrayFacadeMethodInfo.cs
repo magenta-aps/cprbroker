@@ -157,7 +157,7 @@ namespace CprBroker.Engine.Part
 
         public override bool IsValidResult(string[] result)
         {
-            // TODO: In this used?
+            // TODO: Is this used?
             return States.Where(s => !string.IsNullOrEmpty(s.Output)).FirstOrDefault() == null;
         }
     }
