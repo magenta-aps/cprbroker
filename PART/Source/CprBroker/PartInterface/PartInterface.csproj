@@ -128,7 +128,6 @@
     <Compile Include="Part\SearchListSubMethodInfo.cs" />
     <Compile Include="Part\SearchListFacadeMethodInfo.cs" />
     <Compile Include="Part\GetUuidArrayFacadeMethodInfo.cs" />
-    <Compile Include="Part\GetUuidFacadeMethodInfo.cs" />
     <Compile Include="Part\ListFacadeMethodInfo.cs" />
     <Compile Include="Part\PutSubscriptionFacadeMethodInfo.cs" />
     <Compile Include="Part\ReadFacadeMethodInfo.cs" />

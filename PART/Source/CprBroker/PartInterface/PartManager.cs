@@ -99,9 +99,13 @@ namespace CprBroker.PartInterface
 
         public GetUuidOutputType GetUuid(string userToken, string appToken, string cprNumber)
         {
-            var facadeMethod = new GetUuidFacadeMethodInfo(cprNumber, appToken, userToken);
-            var ret = GetMethodOutput<GetUuidOutputType, string>(facadeMethod);
-            return ret;
+            var ret = GetUuidArray(userToken, appToken, new string[] { cprNumber });
+            return new GetUuidOutputType()
+            {
+                Item = ret.Item == null ? null : ret.Item.FirstOrDefault(),
+                StandardRetur = ret.StandardRetur,
+                UUID = ret.UUID == null ? null : ret.UUID.FirstOrDefault()
+            };
         }
 
         public GetUuidArrayOutputType GetUuidArray(string userToken, string appToken, string[] cprNumberArray)
