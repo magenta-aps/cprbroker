@@ -71,7 +71,7 @@ namespace CprBroker.Engine.Part
         /// Otherwise, returns array of null Guid?
         /// Set to something else to change this behaviour
         /// </summary>
-        public Func<string[], Guid?[]> GetUuidArrayMethod = 
+        public Func<string[], Guid?[]> GetUuidArrayMethod =
             (pnrs) =>
             {
                 var processor = new PartInterface.PartManager();
@@ -93,7 +93,7 @@ namespace CprBroker.Engine.Part
         /// Calls ReadSubMethodInfo.CprToUuid(...)
         /// Set to something else to change this behaviour
         /// </summary>
-        public Func<string, Guid> GetUuidMethod = 
+        public Func<string, Guid> GetUuidMethod =
             (pnr) =>
             {
                 return ReadSubMethodInfo.CprToUuid(pnr);
@@ -114,7 +114,7 @@ namespace CprBroker.Engine.Part
                 {
                     for (int i = 0; i < pnrs.Length; i++)
                     {
-                        if (uuids[i].HasValue)
+                        if (uuids[i].HasValue && !_Cache.ContainsKey(pnrs[i]))
                         {
                             // TODO: Shall we check if PNR is already mapped?
                             _Cache[pnrs[i]] = uuids[i].Value;
@@ -132,11 +132,15 @@ namespace CprBroker.Engine.Part
             {
                 return this._Cache[pnr];
             }
-            else
+            else if (GetUuidMethod != null)
             {
                 var ret = this.GetUuidMethod(pnr);
                 _Cache[pnr] = ret;
                 return ret;
+            }
+            else
+            {
+                throw new Exception(string.Format("Could not fing UUID for PNR <{0}>", pnr));
             }
         }
 

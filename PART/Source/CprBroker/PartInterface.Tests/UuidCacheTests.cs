@@ -100,6 +100,18 @@ namespace CprBroker.Tests.PartInterface
                 var ret = cache.FillCache(pnrs);
                 Assert.AreEqual(0, ret);
             }
+
+            [Test]
+            public void FillCache_RepeatedPnr_OneAdded()
+            {
+                var uuids = new Guid?[] { Guid.NewGuid(), Guid.NewGuid() };
+                var cache = new UuidCache() { GetUuidArrayMethod = (arr) => uuids };
+                var pnr = Utilities.RandomCprNumber();
+                
+                var ret = cache.FillCache(new string[]{pnr,pnr});
+                Assert.AreEqual(1, ret);
+                Assert.AreEqual(uuids[0].Value, cache.GetUuid(pnr));
+            }
         }
     }
 }
