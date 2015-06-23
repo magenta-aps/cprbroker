@@ -66,25 +66,5 @@ namespace CprBroker.Tests.ServicePlatform
                 Assert.NotNull(oo.TilstandListe.LivStatus.TilstandVirkning.FraTidspunkt.ToDateTime());
             }
         }
-
-        [TestFixture]
-        public class PutSubscription : BaseResponseTests
-        {
-            [SetUp]
-            public void InitContext()
-            {
-                CprBroker.Engine.BrokerContext.Initialize(CprBroker.Utilities.Constants.BaseApplicationToken.ToString(), "NUnit");
-            }
-
-            [Test]
-            [TestCaseSource("PNRs")]
-            public void PutSubscription_OK(string pnr)
-            {
-                System.Diagnostics.Debugger.Launch();
-                var prov = ServicePlatformDataProviderFactory.Create();
-                var ret = prov.PutSubscription(new Schemas.PersonIdentifier() { CprNumber = pnr, UUID = Guid.NewGuid() });
-                Assert.True(ret);
-            }
-        }
     }
 }
