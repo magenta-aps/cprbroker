@@ -90,6 +90,22 @@ namespace CprBroker.Engine.Part
             return StandardReturType.OK();
         }
 
+        public static bool AreConsistentUuids(string[] cprNumbers, string[] uuidStrings)
+        {
+            var inconsistentUuids = Enumerable.Range(0, cprNumbers.Length)
+                    .Select(i => new { Index = i, Inp = cprNumbers[i], Out = uuidStrings[i] })
+                    .GroupBy(o => o.Inp)
+                    .Select(g => g.ToArray().Select(gi => gi.Out).Distinct())
+                    .Where(g => g.Count() > 1);
+
+            return inconsistentUuids.Count() == 0;
+        }
+
+        public override bool IsValidResult(string[] output)
+        {
+            return base.IsValidResult(output) && AreConsistentUuids(input, output);
+        }
+
         protected override BatchSubMethodInfo<IPartPersonMappingDataProvider, string, string> CreateMainSubMethod()
         {
             return new GetUuidArraySubMethodInfo(input);

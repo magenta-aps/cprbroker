@@ -59,7 +59,7 @@ namespace CprBroker.Tests.PartInterface
         public class ValidateInput
         {
             [Test]
-            public void ValidateInput_Correct_OK([Values(1, 10,1000)]int count)
+            public void ValidateInput_Correct_OK([Values(1, 10, 1000)]int count)
             {
                 var pnrs = Utilities.RandomCprNumbers(count);
                 var facade = new GetUuidArrayFacadeMethodInfo(pnrs, "", "");
@@ -79,7 +79,7 @@ namespace CprBroker.Tests.PartInterface
             }
 
             [Test]
-            public void ValidateInput_OneNull_Invalid([Random(0,10,3)] int nullIndex)
+            public void ValidateInput_OneNull_Invalid([Random(0, 10, 3)] int nullIndex)
             {
                 var pnrs = Utilities.RandomCprNumbers(10);
                 pnrs[nullIndex] = null;
@@ -87,6 +87,53 @@ namespace CprBroker.Tests.PartInterface
                 var ret = facade.ValidateInput();
                 Assert.AreNotEqual("200", ret.StatusKode);
                 Assert.AreNotEqual("OK", ret.FejlbeskedTekst);
+            }
+        }
+
+        [TestFixture]
+        public class AreConsistentUuids
+        {
+            public class GetUuidArrayFacadeMethodInfoStub : GetUuidArrayFacadeMethodInfo
+            {
+                public GetUuidArrayFacadeMethodInfoStub()
+                    : base(null, null, null)
+                { }
+            }
+            [Test]
+            public void AreConsistentUuids_Empty_True()
+            {
+                Assert.True(GetUuidArrayFacadeMethodInfo.AreConsistentUuids(
+                    new string[] { },
+                    new string[] { }
+                ));
+            }
+            [Test]
+            public void AreConsistentUuids_One_True()
+            {
+                Assert.True(GetUuidArrayFacadeMethodInfo.AreConsistentUuids(
+                    new string[] { Utilities.RandomCprNumber() },
+                    new string[] { Guid.NewGuid().ToString() }
+                ));
+            }
+
+            [Test]
+            public void AreConsistentUuids_Two_True()
+            {
+                Assert.True(GetUuidArrayFacadeMethodInfo.AreConsistentUuids(
+                    new string[] { Utilities.RandomCprNumber(), Utilities.RandomCprNumber(), },
+                    new string[] { Guid.NewGuid().ToString(), Guid.NewGuid().ToString() }
+                ));
+            }
+
+            [Test]
+            public void AreConsistentUuids_Two_False()
+            {
+                var pnr = Utilities.RandomCprNumber();
+
+                Assert.False(GetUuidArrayFacadeMethodInfo.AreConsistentUuids(
+                    new string[] { pnr, pnr },
+                    new string[] { Guid.NewGuid().ToString(), Guid.NewGuid().ToString() }
+                ));
             }
         }
     }
