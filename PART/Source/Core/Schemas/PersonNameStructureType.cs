@@ -111,11 +111,7 @@ namespace CprBroker.Schemas.Part
             }
         }
 
-        /// <summary>
-        /// Converts the object to a full name string
-        /// </summary>
-        /// <returns></returns>
-        public override string ToString()
+        public string[] ToArray()
         {
             string[] arr = new string[] 
             { 
@@ -132,7 +128,16 @@ namespace CprBroker.Schemas.Part
                     )
                 .ToArray();
 
-            return string.Join(" ", arr);
+            return arr;
+        }
+
+        /// <summary>
+        /// Converts the object to a full name string
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            return string.Join(" ", ToArray());
         }
 
         public string ToMiddleAndLastNameString()

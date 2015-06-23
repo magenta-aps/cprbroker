@@ -56,44 +56,47 @@ namespace CprBroker.Providers.CprServices
             AddCriteriaField("PNR", pnr);
         }
 
-        public SearchRequest(SoegAttributListeType attributes)
+        public SearchRequest(SoegAttributListeType attributes, bool ignoreName = false)
         {
             #region Egenskab
             if (attributes.SoegEgenskab != null)
             {
                 foreach (var egen in attributes.SoegEgenskab.Where(e => e != null))
                 {
-                    if (egen.NavnStruktur != null)
+                    if (!ignoreName)
                     {
-                        List<string> names = new List<string>();
-                        if (!string.IsNullOrEmpty(egen.NavnStruktur.PersonNameForAddressingName))
+                        if (egen.NavnStruktur != null)
                         {
-                            names.Add(egen.NavnStruktur.PersonNameForAddressingName);
-                        }
-                        if (egen.NavnStruktur.PersonNameStructure != null && !egen.NavnStruktur.PersonNameStructure.IsEmpty)
-                        {
-                            if (!string.IsNullOrEmpty(egen.NavnStruktur.PersonNameStructure.PersonGivenName))
+                            List<string> names = new List<string>();
+                            if (!string.IsNullOrEmpty(egen.NavnStruktur.PersonNameForAddressingName))
                             {
-                                names.Add(egen.NavnStruktur.PersonNameStructure.PersonGivenName);
+                                names.Add(egen.NavnStruktur.PersonNameForAddressingName);
                             }
-                            if (!string.IsNullOrEmpty(egen.NavnStruktur.PersonNameStructure.PersonMiddleName))
+                            if (egen.NavnStruktur.PersonNameStructure != null && !egen.NavnStruktur.PersonNameStructure.IsEmpty)
                             {
-                                names.Add(egen.NavnStruktur.PersonNameStructure.PersonMiddleName);
+                                if (!string.IsNullOrEmpty(egen.NavnStruktur.PersonNameStructure.PersonGivenName))
+                                {
+                                    names.Add(egen.NavnStruktur.PersonNameStructure.PersonGivenName);
+                                }
+                                if (!string.IsNullOrEmpty(egen.NavnStruktur.PersonNameStructure.PersonMiddleName))
+                                {
+                                    names.Add(egen.NavnStruktur.PersonNameStructure.PersonMiddleName);
+                                }
+                                if (!string.IsNullOrEmpty(egen.NavnStruktur.PersonNameStructure.PersonSurnameName))
+                                {
+                                    names.Add(egen.NavnStruktur.PersonNameStructure.PersonSurnameName);
+                                }
                             }
-                            if (!string.IsNullOrEmpty(egen.NavnStruktur.PersonNameStructure.PersonSurnameName))
+                            for (int i = 0; i < names.Count; i++)
                             {
-                                names.Add(egen.NavnStruktur.PersonNameStructure.PersonSurnameName);
+                                var propName = "NVN";
+                                if (i > 0)
+                                    propName += i;
+                                AddCriteriaField(propName, names[i]);
                             }
+                            //egen.NavnStruktur.KaldenavnTekst
+                            //egen.NavnStruktur.NoteTekst
                         }
-                        for (int i = 0; i < names.Count; i++)
-                        {
-                            var propName = "NVN";
-                            if (i > 0)
-                                propName += i;
-                            AddCriteriaField(propName, names[i]);
-                        }
-                        //egen.NavnStruktur.KaldenavnTekst
-                        //egen.NavnStruktur.NoteTekst
                     }
 
                     // Gender

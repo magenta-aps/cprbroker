@@ -23,7 +23,7 @@ namespace CprBroker.Providers.ServicePlatform
 
         public LaesResultatType[] SearchList(SoegInputType1 searchCriteria, UuidCache cache)
         {
-            var request = new SearchRequest(searchCriteria.SoegObjekt.SoegAttributListe);
+            var request = new SearchRequest(searchCriteria.SoegObjekt.SoegAttributListe, ignoreName: true);
             var searchMethod = new SearchMethod(CprServices.Properties.Resources.ADRSOG1);
             var plan = new SearchPlan(request, searchMethod);
 
@@ -55,8 +55,10 @@ namespace CprBroker.Providers.ServicePlatform
                         // TODO: Can this break the result? is UUID assignment necessary?
                         var pnrs = ret.Select(p => p.ToPnr()).ToArray();
                         cache.FillCache(pnrs);
-
-                        return ret.Select(p => p.ToLaesResultatType(cache.GetUuid, searchCriteria)).ToArray();
+                        
+                        return ret
+                            .Where(r => r.NameMatches(searchCriteria.SoegObjekt.SoegAttributListe.ToNavnStrukturTypeArray()))
+                            .Select(p => p.ToLaesResultatType(cache.GetUuid, searchCriteria)).ToArray();
                     }
                     else
                     {
@@ -76,5 +78,6 @@ namespace CprBroker.Providers.ServicePlatform
             }
             return null;
         }
+
     }
 }

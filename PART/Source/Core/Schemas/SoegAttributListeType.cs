@@ -72,5 +72,17 @@ namespace CprBroker.Schemas.Part
                 return null;
             }
         }
+
+        public NavnStrukturType[] ToNavnStrukturTypeArray()
+        {
+            if(this.SoegEgenskab != null)
+            {
+                return this.SoegEgenskab
+                    .Where(egen => egen != null && egen.NavnStruktur != null)
+                    .Select(egen => egen.NavnStruktur)
+                    .ToArray();
+            }
+            return new NavnStrukturType[0];
+        }
     }
 }

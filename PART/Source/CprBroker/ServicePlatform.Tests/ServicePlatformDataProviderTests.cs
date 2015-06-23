@@ -44,6 +44,17 @@ namespace CprBroker.Tests.ServicePlatform
             }
 
             [Test]
+            public void SearchList_WrongName_NoDataFound()
+            {
+                var prov = ServicePlatformDataProviderFactory.Create();
+                var input = SearchCriteriaFactory.Create();
+                input.SoegObjekt.SoegAttributListe.SoegEgenskab[0].NavnStruktur.PersonNameStructure.PersonGivenName = Guid.NewGuid().ToString();
+                var cache = UuidCacheFactory.Create();
+                var ret = prov.SearchList(input, cache);
+                Assert.AreEqual(0, ret.Length);
+            }
+
+            [Test]
             public void SearchList_LifeStatus()
             {
                 var prov = ServicePlatformDataProviderFactory.Create();

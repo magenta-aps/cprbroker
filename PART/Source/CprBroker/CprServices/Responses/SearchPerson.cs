@@ -91,17 +91,41 @@ namespace CprBroker.Providers.CprServices.Responses
                 return null;
         }
 
-        public NavnStrukturType ToNavnStrukturType()
+        public virtual string ToNameString()
         {
-            var name = CprBroker.Utilities.Strings.FirstNonEmpty(
+            return CprBroker.Utilities.Strings.FirstNonEmpty(
                 GetFieldValue(_Node, "CNVN_ADRNVN"),
                 GetFieldValue(_Node, "ADRNVN")
                 );
+        }
 
+        public NavnStrukturType ToNavnStrukturType()
+        {
+            var name = this.ToNameString();
             if (!string.IsNullOrEmpty(name))
                 return NavnStrukturType.Create(new string[] { name }, name);
             else
                 return null;
+        }
+
+        public bool NameMatches(params NavnStrukturType[] navnStrukturTypes)
+        {
+            return Array.TrueForAll<NavnStrukturType>(
+                navnStrukturTypes,
+                navnStrukturType =>
+                {
+                    if (navnStrukturType != null && navnStrukturType.PersonNameStructure != null && !navnStrukturType.PersonNameStructure.IsEmpty)
+                    {
+                        var nameFromSearch = this.ToNameString().ToLower();
+                        var namePartsArray = navnStrukturType.PersonNameStructure.ToArray();
+                        return Array.TrueForAll<string>(namePartsArray, namePart => nameFromSearch.Contains(namePart.ToLower()));
+                    }
+                    else
+                    {
+                        return true;
+                    }
+                }
+            );
         }
 
         public LaesResultatType ToLaesResultatType(Func<string, Guid> uuidGetter, SoegInputType1 soegInput)

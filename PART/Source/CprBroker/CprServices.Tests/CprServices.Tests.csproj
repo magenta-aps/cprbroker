@@ -70,6 +70,7 @@
     <Compile Include="SearchMethodCallTests.cs" />
     <Compile Include="SearchMethodTests.cs" />
     <Compile Include="SearchMethodTestsBase.cs" />
+    <Compile Include="SearchPersonTests.cs" />
     <Compile Include="SearchPlanTests.cs" />
     <Compile Include="UtilsTests.cs" />
     <Compile Include="UuidCacheFactory.cs" />
