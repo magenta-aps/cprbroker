@@ -125,6 +125,54 @@ namespace CprBroker.Tests.PartInterface
         }
 
         [TestFixture]
+        public class LockTests
+        {
+            [Test]
+            public void Locking()
+            {
+
+                var inp = new string[]{
+                    "" + 2233.ToString(),
+                    2.ToString() + 233.ToString(),
+                    22.ToString() + 33.ToString(),
+                    223.ToString() + 3.ToString(),
+                    2233.ToString() + ""
+                };
+                inp = inp.Select(o => String.Intern(o)).ToArray();
+                bool failed = false;
+                long running = 0;
+                
+                Action<int> func = (int index) =>
+                {
+                    var s = inp[index];
+                    lock (s)
+                    {
+                        if (System.Threading.Interlocked.Read(ref running) > 0)
+                            failed = true;
+                        Console.WriteLine("{0} Entering Mutex {1}", DateTime.Now, s);
+                        System.Threading.Interlocked.Increment(ref running);
+                        System.Threading.Thread.Sleep(5000);
+                        System.Threading.Interlocked.Decrement(ref running);
+                        Console.WriteLine("{0} Exiting Mutex {1}", DateTime.Now, s);
+                    }
+                };
+
+                System.Threading.Thread[] threads =
+                    inp.Select(i =>
+                        new System.Threading.Thread(new System.Threading.ParameterizedThreadStart((o) => func((int)o)))
+                        )
+                        .ToArray();
+
+                int bigIndex = 0;
+                foreach (var th in threads)
+                    th.Start(bigIndex++);
+
+                System.Threading.Thread.Sleep(inp.Length * 5000);
+                Assert.False(failed);
+            }
+        }
+
+        [TestFixture]
         public class InsertPerson : TestBase
         {
             [Test]
@@ -162,7 +210,7 @@ namespace CprBroker.Tests.PartInterface
                         var p = new Person() { UserInterfaceKeyText = Utilities.RandomCprNumber(), UUID = Guid.NewGuid() };
                         dataContext.Persons.InsertOnSubmit(p);
 
-                        
+
 
                         var pr = new PersonRegistration()
                         {
@@ -172,8 +220,8 @@ namespace CprBroker.Tests.PartInterface
                             LifecycleStatusId = 1,
                             ActorRef = ar,
                         };
-                        pr.SetContents(new RegistreringType1() 
-                        { 
+                        pr.SetContents(new RegistreringType1()
+                        {
                             Tidspunkt = new TidspunktType() { Item = DateTime.Now },
                             AktoerRef = arOio,
                         });

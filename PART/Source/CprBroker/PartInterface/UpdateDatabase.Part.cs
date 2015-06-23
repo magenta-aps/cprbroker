@@ -70,12 +70,15 @@ namespace CprBroker.Engine.Local
         /// <param name="personRegistraion"></param>
         public static void UpdatePersonRegistration(PersonIdentifier personIdentifier, Schemas.Part.RegistreringType1 personRegistraion)
         {
-            // TODO: differentiate the 'true' returned between cases when new data is inserted or just SourceObjects is updated
-            Guid? personRegistrationId = null;
-            if (MergePersonRegistration(personIdentifier, personRegistraion, out personRegistrationId))
+            lock (String.Intern(personIdentifier.UUID.ToString()))
             {
-                // TODO: move this call to a separate phase in request processing
-                NotifyPersonRegistrationUpdate(personIdentifier.UUID.Value, personRegistrationId.Value);
+                // TODO: differentiate the 'true' returned between cases when new data is inserted or just SourceObjects is updated
+                Guid? personRegistrationId = null;
+                if (MergePersonRegistration(personIdentifier, personRegistraion, out personRegistrationId))
+                {
+                    // TODO: move this call to a separate phase in request processing
+                    NotifyPersonRegistrationUpdate(personIdentifier.UUID.Value, personRegistrationId.Value);
+                }
             }
         }
 
