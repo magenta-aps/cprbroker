@@ -514,7 +514,12 @@ namespace PersonmasterServiceLibrary
                 spContext.AddInParameter("objectOwnerID", DbType.Guid, objectOwnerID);
             }
             Dictionary<string, List<string>> errors = new Dictionary<string, List<string>>();
-            var dataSet = spContext.ExecuteDataSet();
+
+            DataSet dataSet;
+            lock ("spGK_PM_GetObjectIDsFromCPRArray-impl")
+            {
+                dataSet = spContext.ExecuteDataSet();
+            }
             var returnTable = dataSet.Tables[0];
             var ret = new Guid?[returnTable.Rows.Count];
             for (int iRow = 0; iRow < returnTable.Rows.Count; iRow++)

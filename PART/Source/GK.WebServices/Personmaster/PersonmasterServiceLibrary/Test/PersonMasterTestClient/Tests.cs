@@ -293,5 +293,17 @@ namespace PersonMasterTestClient
             Assert.NotNull(aux, "Aux is null");
             Assert.AreEqual(count, ret.Length);
         }
+
+        [Test]
+        [Timeout(500)]
+        public void GetObjectIDsFromCprArray_Stress_Fast([ValueSource("CprCounts")]int count)
+        {
+            var cprNumbers = RandomCprNumbers(count);
+            PersonMasterServiceLibrary.BasicOpClient client = new PersonMasterServiceLibrary.BasicOpClient();
+            string aux = null;
+            var ret = client.GetObjectIDsFromCprArray("", cprNumbers.ToArray(), ref aux);
+            Assert.NotNull(aux, "Aux is null");
+            Assert.AreEqual(count, ret.Length);
+        }
     }
 }
