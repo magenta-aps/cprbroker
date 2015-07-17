@@ -119,9 +119,11 @@
 
         <ComponentGroup Id="CMPGRP_Pages">
             <Component Id="CMP_CPR_Site_MASTER" Directory="CPR_Pages">
+                <RemoveFile Id="Remove_CPR_Site_MASTER" Name="Site.master" On="install"/>
                 <File Id="FILE_CPR_Pages_Site_MASTER" Source="$(var.SitePath)Pages\Site.master" KeyPath="yes"/>
             </Component>
             <Component Id="CMP_CPR_DataProviders_ASPX" Directory="CPR_Pages">
+                <RemoveFile Id="Remove_CPR_DataProviders_ASPX" Name="DataProviders.aspx" On="install"/>
                 <File Id="FILE_CPR_Pages_DataProviders_ASPX" Source="$(var.SitePath)Pages\DataProviders.aspx" KeyPath="yes"/>
             </Component>
             <Component Id="CMP_CPR_LogEntries_ASPX" Directory="CPR_Pages">
@@ -129,6 +131,7 @@
                 <File Id="FILE_CPR_Pages_LogEntries_ASPX" Source="$(var.SitePath)Pages\LogEntries.aspx" KeyPath="yes"/>
             </Component>
             <Component Id="CMP_CPR_Applications_ASPX" Directory="CPR_Pages">
+                <RemoveFile Id="Remove_CPR_Applications_ASPX" Name="Applications.aspx" On="install"/>
                 <File Id="FILE_CPR_Pages_Applications_ASPX" Source="$(var.SitePath)Pages\Applications.aspx" KeyPath="yes"/>
             </Component>
             <Component Id="CMP_CPR_Budget_ASPX" Directory="CPR_Pages">
@@ -164,7 +167,7 @@
             <Component Id="CMP_CPR_Controls_MessageDisplayer_ASCX" Directory="CPR_Controls">
                 <RemoveFile Id="Remove_CPR_Controls_MessageDisplayer_ASCX" Name="MessageDisplayer.ascx" On="install" />
                 <File Id="FILE_CPR_Controls_MessageDisplayer_ASCX" Source="$(var.SitePath)Pages\Controls\MessageDisplayer.ascx" KeyPath="yes"/>
-            </Component>            
+            </Component>
 
             <!-- Css folder -->
             <Component Id="CMP_CPR_CSS" Directory="CPR_CSS">
