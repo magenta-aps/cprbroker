@@ -24,7 +24,7 @@ namespace CprBroker.Tests.DBR.Comparison.Person
                 if (CprBroker.Tests.PartInterface.Utilities.IsConsole)
                 {
                     Console.WriteLine("Loading PNRS");
-                    using (var dataContext = new DPRDataContext(RealDprDatabaseConnectionString))
+                    using (var dataContext = new DPRDataContext(Properties.Settings.Default.RealDprConnectionString))
                     {
                         KeysHolder._Keys = dataContext
                             .PersonTotals
@@ -37,7 +37,7 @@ namespace CprBroker.Tests.DBR.Comparison.Person
                 }
                 else
                 {
-                    using (var dataContext = new ExtractDataContext(CprBrokerConnectionString))
+                    using (var dataContext = new ExtractDataContext(Properties.Settings.Default.CprBrokerConnectionString))
                     {
                         if (timesRun < 1)
                         {
@@ -60,7 +60,7 @@ namespace CprBroker.Tests.DBR.Comparison.Person
         {
             if (!KeysHolder._ConvertedPersons.ContainsKey(pnr))
             {
-                using (var fakeDprDataContext = new DPRDataContext(FakeDprDatabaseConnectionString))
+                using (var fakeDprDataContext = new DPRDataContext(Properties.Settings.Default.ImitatedDprConnectionString))
                 {
                     CprConverter.DeletePersonRecords(pnr, fakeDprDataContext);
                     fakeDprDataContext.SubmitChanges();

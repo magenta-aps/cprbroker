@@ -32,7 +32,7 @@ namespace CprBroker.Tests.DBR.Comparison.Geo
 
         public override sealed string[] LoadKeys()
         {
-            using (var dataContext = new LookupDataContext(RealDprDatabaseConnectionString))
+            using (var dataContext = new LookupDataContext(Properties.Settings.Default.RealDprConnectionString))
             {
                 if (timesRun < 1)
                 {

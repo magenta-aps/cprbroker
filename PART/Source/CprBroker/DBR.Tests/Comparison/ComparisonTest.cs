@@ -15,13 +15,9 @@ namespace CprBroker.Tests.DBR.Comparison
 {
     public abstract class ComparisonTestBase
     {
-        public static string CprBrokerConnectionString = "data source=tcp:ltkcprtest\\sqlexpress; database=cprbroker;  integrated security=sspi";
-        public static string RealDprDatabaseConnectionString = "data source=tcp:ltkcprtest\\sqlexpress; database=dbr_source; integrated security=sspi";
-        public static string FakeDprDatabaseConnectionString = "data source=tcp:ltkcprtest\\sqlexpress; database=dbr_target; integrated security=sspi";
-
         static ComparisonTestBase()
         {
-            CprBroker.Tests.PartInterface.Utilities.UpdateConnectionString(CprBrokerConnectionString);
+            CprBroker.Tests.PartInterface.Utilities.UpdateConnectionString(Properties.Settings.Default.CprBrokerConnectionString);
             if (CprBroker.Tests.PartInterface.Utilities.IsConsole)
             {
                 // TODO: Uncomment for nunit-console.exe
@@ -84,9 +80,9 @@ namespace CprBroker.Tests.DBR.Comparison
         [TestCaseSource("LoadKeys")]
         public void T1_CompareCount(string pnr)
         {
-            using (var realDprDataContext = CreateDataContext(RealDprDatabaseConnectionString))
+            using (var realDprDataContext = CreateDataContext(Properties.Settings.Default.RealDprConnectionString))
             {
-                using (var fakeDprDataContext = CreateDataContext(FakeDprDatabaseConnectionString))
+                using (var fakeDprDataContext = CreateDataContext(Properties.Settings.Default.ImitatedDprConnectionString))
                 {
                     CompareCount(pnr, realDprDataContext, fakeDprDataContext);
                 }
@@ -109,9 +105,9 @@ namespace CprBroker.Tests.DBR.Comparison
             [ValueSource("LoadKeys")]string key)
         {
             ConvertObject(key);
-            using (var realDprDataContext = CreateDataContext(RealDprDatabaseConnectionString))
+            using (var realDprDataContext = CreateDataContext(Properties.Settings.Default.RealDprConnectionString))
             {
-                using (var fakeDprDataContext = CreateDataContext(FakeDprDatabaseConnectionString))
+                using (var fakeDprDataContext = CreateDataContext(Properties.Settings.Default.ImitatedDprConnectionString))
                 {
                     CompareContents(property, key, realDprDataContext, fakeDprDataContext);
                 }
