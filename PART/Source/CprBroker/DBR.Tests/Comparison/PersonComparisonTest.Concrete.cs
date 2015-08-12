@@ -204,13 +204,13 @@ namespace CprBroker.Tests.DBR.Comparison.Person
             get
             {
                 string[] excluded = {
-                                    "ExitUpdateDate", // The values in this columns are wrong, but not used.
-                                    "CprUpdateDate", // The values in this columns are wrong, but not used.
-                                    "ForeignAddressDate", // The values in this columns are wrong, but not used.
+                                    "ExitUpdateDate", // CPR Services 'udrtimestamp' ?// The values in this columns are wrong, but not used.
+                                    //"CprUpdateDate", // The values in this columns are wrong, but not used.
+                                    "ForeignAddressDate", // CPR Services 'udlandadrdto' ?// The values in this columns are wrong, but not used.
 
                                     // EXTRA - do not commit
-                                    "EntryUpdateDate",
-                                    "ExitCountryCode"
+                                    "EntryUpdateDate", // CPR Services 'indrtimestamp' ?
+                                    //"ExitCountryCode" // Already implemented
                                 };
                 return excluded;
             }
