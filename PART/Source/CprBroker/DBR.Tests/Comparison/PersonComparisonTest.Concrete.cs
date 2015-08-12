@@ -147,13 +147,13 @@ namespace CprBroker.Tests.DBR.Comparison.Person
             get
             {
                 string[] excluded = {
-                                    /* BELOW EXCLUSIONS ARE ONCE THAT ARE NOT, CURRENTLY, USED BY ANY SYSTEMS - AND FAIL IN TESTS */
-                                    "UpdateDateOfCpr", // We know that this field contains a 'wrong' date, so we do not test it.
+                                    /* BELOW EXCLUSIONS ARE ONES THAT ARE NOT, CURRENTLY, USED BY ANY SYSTEMS - AND FAIL IN TESTS */
+                                    //"CprUpdateDate", // Already implemented // We know that this field contains a 'wrong' date, so we do not test it.
 
                                     // EXTRA - DO NOT COMMIT
-                                    "MaritalStatusAuthorityCode",
-                                    "CorrectionMarker",
-                                    "SpouseDocumentation",
+                                    "MaritalStatusAuthorityCode", // CPR Services 'mynkod' ?
+                                    //"CorrectionMarker", // Already implemented
+                                    "SpouseDocumentation", // CPR Services 'aegtedok' ?
                                 };
                 return excluded;
             }
