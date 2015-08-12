@@ -47,7 +47,7 @@
       <Column Name="BNR" Member="ConstructionNumber" Storage="_BNR" Type="System.String" DbType="VarChar(4)" CanBeNull="true" />
       <Column Name="ABMRK" Member="AddressProtectionMarker" Storage="_ABMRK" Type="System.Char" DbType="VarChar(1)" CanBeNull="true" />
       <Column Name="LBMRK" Member="DirectoryProtectionMarker" Storage="_LBMRK" Type="System.Char" DbType="VarChar(1)" CanBeNull="true" />
-      <Column Name="TFDTOMRK" Member="ArrivalDateMarker" Storage="_TFDTOMRK" Type="System.Char" DbType="VarChar(1)" CanBeNull="true" />
+      <Column Name="TFDTOMRK" Member="AddressDateMarker" Storage="_TFDTOMRK" Type="System.Char" DbType="VarChar(1)" CanBeNull="true" />
       <Column Name="TILFDTO" Member="AddressDate" Storage="_TILFDTO" Type="System.Decimal" DbType="Decimal(13,0) NOT NULL" CanBeNull="false" />
       <Column Name="TILFKDTO" Member="MunicipalityArrivalDate" Storage="_TILFKDTO" Type="System.Decimal" DbType="Decimal(13,0)" CanBeNull="true" />
       <Column Name="FRAFKDTO" Member="MunicipalityLeavingDate" Storage="_FRAFKDTO" Type="System.Decimal" DbType="Decimal(13,0)" CanBeNull="true" />

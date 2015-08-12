@@ -16,34 +16,34 @@ namespace CprBroker.Tests.DBR.Comparison.Person
             {
                 string[] excluded = {
                                         
-                                    /* BELOW EXCLUSIONS ARE ONCE THAT ARE NOT, CURRENTLY, USED BY ANY SYSTEMS - AND FAIL IN TESTS */
-                                    "DirectoryProtectionMarker", // We do not test the street name as it is not present in historical records.
-                                    "SpouseMarker", // We do not know the origin of this marker.
-                                    "PaternityAuthorityName", // We can only get this one from CPR Services.
-                                    "ArrivalDateMarker", // We do not know the origin of this marker.
-                                    "PreviousAddress", // This field is not fully implemented because it is not used.
-                                    "PreviousMunicipalityName", // This field is not fully implemented because it is not used.
+                                    /* BELOW EXCLUSIONS ARE ONES THAT ARE NOT, CURRENTLY, USED BY ANY SYSTEMS - AND FAIL IN TESTS */
+                                    // "DirectoryProtectionMarker", // TODO: Lookup ?// We do not test the street name as it is not present in historical records.
+                                    "SpouseMarker", // Lookup? // We do not know the origin of this marker.
+                                    "PaternityAuthorityName", // CPR Services 'far_mynkod' ? // We can only get this one from CPR Services.
+                                    //"AddressDateMarker", // We do not know the origin of this marker.
+                                    //"PreviousAddress", // This field is not fully implemented because it is not used.
+                                    //"PreviousMunicipalityName", // This field is not fully implemented because it is not used.
 
                                     // Extra exclusions - DO NOT COMMIT
-                                        "DprLoadDate",
-                                        "MunicipalityArrivalDate",
-                                        "MunicipalityLeavingDate",
-                                        "PostDistrictName",
-                                        "PreviousAddress",
-                                        "PreviousMunicipalityName",
-                                        "PaternityDate",
+                                        "DprLoadDate", // Irrelevant for comparison
+                                        // "MunicipalityArrivalDate", // Already implemented
+                                        // "MunicipalityLeavingDate", // Already implemented
+                                        // "PostDistrictName", // Already implemented
+                                        // "PreviousAddress", // Already implemented
+                                        // "PreviousMunicipalityName", // Already implemented
+                                        // "PaternityDate", // Already implemented
                                         "FatherMarker", // DPR Specific
                                         "MotherMarker", // DPR Specific
-                                        "ExitEntryMarker", //Is this DPR specific?
-                                        "ApplicationCode",
-                                        "BirthplaceText", // lookup
-                                        "MaritalAuthorityName",
-                                        "AddressDate",
-                                        "SpousePersonalOrBirthdate",
-                                        "StandardAddress",
-                                        "AddressProtectionMarker", // to be implemented
-                                        "PnrMarkingDate",
-                                        "NationalMemoMarker" // get from DTNOTAT
+                                        //"ExitEntryMarker", // Already implemented //Is this DPR specific?
+                                        "ApplicationCode", // DPR Specific
+                                        //"BirthplaceText", // lookup
+                                        "MaritalAuthorityName", // CPR Services 'mynkod' ?
+                                        //"AddressDate", // Already implemented
+                                        //"SpousePersonalOrBirthdate", // Already implemented
+                                        // "StandardAddress", // Already implemented
+                                        // "AddressProtectionMarker", // TODO: Lookup ?
+                                        //"PnrMarkingDate", // Always null in DPR
+                                        //"NationalMemoMarker" // TODO: get from DTNOTAT
                                 };
                 return excluded;
             }

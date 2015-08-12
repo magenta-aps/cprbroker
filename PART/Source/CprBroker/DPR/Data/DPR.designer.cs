@@ -1120,8 +1120,8 @@ namespace CprBroker.Providers.DPR
     partial void OnAddressProtectionMarkerChanged();
     partial void OnDirectoryProtectionMarkerChanging(System.Nullable<char> value);
     partial void OnDirectoryProtectionMarkerChanged();
-    partial void OnArrivalDateMarkerChanging(System.Nullable<char> value);
-    partial void OnArrivalDateMarkerChanged();
+    partial void OnAddressDateMarkerChanging(System.Nullable<char> value);
+    partial void OnAddressDateMarkerChanged();
     partial void OnAddressDateChanging(decimal value);
     partial void OnAddressDateChanged();
     partial void OnMunicipalityArrivalDateChanging(System.Nullable<decimal> value);
@@ -1503,7 +1503,7 @@ namespace CprBroker.Providers.DPR
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="TFDTOMRK", Storage="_TFDTOMRK", DbType="VarChar(1)")]
-		public System.Nullable<char> ArrivalDateMarker
+		public System.Nullable<char> AddressDateMarker
 		{
 			get
 			{
@@ -1513,11 +1513,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._TFDTOMRK != value))
 				{
-					this.OnArrivalDateMarkerChanging(value);
+					this.OnAddressDateMarkerChanging(value);
 					this.SendPropertyChanging();
 					this._TFDTOMRK = value;
-					this.SendPropertyChanged("ArrivalDateMarker");
-					this.OnArrivalDateMarkerChanged();
+					this.SendPropertyChanged("AddressDateMarker");
+					this.OnAddressDateMarkerChanged();
 				}
 			}
 		}

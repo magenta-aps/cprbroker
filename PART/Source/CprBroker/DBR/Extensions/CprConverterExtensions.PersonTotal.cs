@@ -142,10 +142,9 @@ namespace CprBroker.DBR.Extensions
             }
 
             // TODO: Get from protection records
-            pt.AddressProtectionMarker = null; //DPR SPECIFIC
-            pt.DirectoryProtectionMarker = null; //DPR SPECIFIC
-            pt.ArrivalDateMarker = null; //DPR SPECIFIC
-
+            pt.AddressProtectionMarker = null; // TODO: Lookup in protection records //DPR SPECIFIC
+            pt.DirectoryProtectionMarker = null; // TODO: Lookup in protection records //DPR SPECIFIC
+            pt.AddressDateMarker = null; // TODO: Fill from address date marker //DPR SPECIFIC            
 
             pt.ChristianMark = resp.ChurchInformation.ChurchRelationship;
             if (!string.IsNullOrEmpty(resp.BirthRegistrationInformation.BirthRegistrationAuthorityCode))
@@ -153,6 +152,8 @@ namespace CprBroker.DBR.Extensions
             else
                 pt.BirthPlaceOfRegistration = null;
 
+            pt.BirthplaceText = null; //TODO: Implement BirthplaceText
+            
             pt.PnrMarkingDate = null; // Seems to be always null in DPR.
 
             pt.MotherPersonalOrBirthDate = resp.ParentsInformation.MotherPNR.Substring(0, 6) + "-" + resp.ParentsInformation.MotherPNR.Substring(6, 4);
@@ -188,7 +189,7 @@ namespace CprBroker.DBR.Extensions
                 pt.SpousePersonalOrBirthdate = resp.CurrentCivilStatus.SpouseBirthDate.Value.ToString("dd-MM-yyyy");
             }
 
-            pt.SpouseMarker = null; //DPR SPECIFIC
+            pt.SpouseMarker = null; //TODO: Lookup in current civil status //DPR SPECIFIC
             pt.PostCode = resp.ClearWrittenAddress.PostCode;
 
             pt.PostDistrictName = resp.ClearWrittenAddress.PostDistrictText.NullIfEmpty();
@@ -215,8 +216,8 @@ namespace CprBroker.DBR.Extensions
                     pt.SupplementaryAddressMarker = '1'; //DPR SPECIFIC
             }
             pt.MunicipalRelationMarker = null; //DPR SPECIFIC
-            // TODO: Should rely on DTNOTAT
-            pt.NationalMemoMarker = null;
+
+            pt.NationalMemoMarker = null; // TODO: Should rely on DTNOTAT
             pt.FormerPersonalMarker = null; //DPR SPECIFIC
             pt.PaternityAuthorityName = null; //TODO: Retrieve this from the CPR Service field far_mynkod
             pt.MaritalAuthorityName = null; //TODO: Retrieve this from the CPR Service field mynkod
@@ -281,6 +282,8 @@ namespace CprBroker.DBR.Extensions
                 null as char? : '1';
 
             pt.DprLoadDate = DateTime.Now;
+            pt.ApplicationCode = null; // DPR Specific
+
             return pt;
         }
 
