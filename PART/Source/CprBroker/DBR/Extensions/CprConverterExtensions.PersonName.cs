@@ -72,7 +72,7 @@ namespace CprBroker.DBR.Extensions
             if (!char.IsWhiteSpace(currentName.FirstNameMarker))
                 pn.FirstNameMarker = currentName.FirstNameMarker;
             if (!char.IsWhiteSpace(currentName.LastNameMarker))
-                pn.SurnameMarker = currentName.FirstNameMarker;
+                pn.SurnameMarker = currentName.LastNameMarker;
             if (currentName.NameStartDate.HasValue)
                 pn.NameStartDate = CprBroker.Utilities.Dates.DateToDecimal(currentName.NameStartDate.Value, 12);
             pn.NameTerminationDate = null; //This is the current name
@@ -103,11 +103,10 @@ namespace CprBroker.DBR.Extensions
             if (!char.IsWhiteSpace(historicalName.FirstNameMarker))
                 pn.FirstNameMarker = historicalName.FirstNameMarker;
             if (!char.IsWhiteSpace(historicalName.LastNameMarker))
-                pn.SurnameMarker = historicalName.FirstNameMarker;
+                pn.SurnameMarker = historicalName.LastNameMarker;
 
             if (historicalName.NameStartDate.HasValue)
                 pn.NameStartDate = CprBroker.Utilities.Dates.DateToDecimal(historicalName.NameStartDate.Value, 12);
-
             if (historicalName.NameEndDate.HasValue)
                 pn.NameTerminationDate = CprBroker.Utilities.Dates.DateToDecimal(historicalName.NameEndDate.Value, 12);
             pn.AddressingNameDate = null; //TODO: Can be fetched in CPR Services, adrnvnhaenstart
