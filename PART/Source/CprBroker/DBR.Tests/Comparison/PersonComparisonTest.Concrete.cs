@@ -283,9 +283,9 @@ namespace CprBroker.Tests.DBR.Comparison.Person
             {
                 return new[]{
                     // EXTRA - do not commit
-                    "CprUpdateDate",
-                    "ProtectionType",
-                    "ReportingMarker",
+                    // "CprUpdateDate", // Implemented
+                    //"ProtectionType", // Implemented
+                    "ReportingMarker", // CPR Services 'indrap' ?
                 };
             }
         }
