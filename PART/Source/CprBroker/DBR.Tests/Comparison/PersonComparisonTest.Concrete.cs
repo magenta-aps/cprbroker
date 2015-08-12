@@ -32,9 +32,9 @@ namespace CprBroker.Tests.DBR.Comparison.Person
                                         "PreviousAddress",
                                         "PreviousMunicipalityName",
                                         "PaternityDate",
-                                        "FatherMarker",
-                                        "MotherMarker",
-                                        "ExitEntryMarker",
+                                        "FatherMarker", // DPR Specific
+                                        "MotherMarker", // DPR Specific
+                                        "ExitEntryMarker", //Is this DPR specific?
                                         "ApplicationCode",
                                         "BirthplaceText", // lookup
                                         "MaritalAuthorityName",
@@ -325,9 +325,9 @@ namespace CprBroker.Tests.DBR.Comparison.Person
             {
                 return new string[]{
                     // EXTRA - DO NOT COMMIT
-                    "CprUpdateDate",
-                    "ParentalAuthorityCode",
-                    "StartDateUncertainty"
+                    //"CprUpdateDate",
+                    "CustodyStartAuthorityCode", // Only in CPR Services 'mynkod_start' ?
+                    // "StartDateMarker" //Now implemented
                 };
             }
         }
