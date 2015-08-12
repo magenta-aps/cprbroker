@@ -59,35 +59,37 @@ namespace CprBroker.Tests.DBR.Comparison.Person
             {
                 string[] excluded = {
                                     /* BELOW EXCLUSIONS ARE ONCE THAT ARE NOT, CURRENTLY, USED BY ANY SYSTEMS - AND FAIL IN TESTS */
-                                    "BirthplaceText", // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
-                                    "BirthRegistrationDate", // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
-                                    "BirthRegistrationPlaceUpdateDate", // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
-                                    "ChurchAuthorityCode", // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
-                                    "ChurchDate", // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
-                                    "ChurchRelationUpdateDate", // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
-                                    "CprUpdateDate", /* 
+                                    //"BirthplaceText", //Already implemented // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
+                                    //"BirthRegistrationDate", //Already implemented // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
+                                    "BirthRegistrationPlaceUpdateDate", // CPR Services 'foedmynhaenstart' ? // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
+                                    //"ChurchAuthorityCode", // Church district lookup? // CPR Services 'fkirkmynkod' // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
+                                    //"ChurchDate", // Already implemented // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
+                                    //"ChurchRelationUpdateDate", // Already implemented // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
+                                    //"CprUpdateDate", Already implemented 
+                                    /* 
                                                       * We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
                                                       * The field should contain a chronologically sorted list, so that client systems can use it for sorting rows.
                                                       */
-                                    "CurrentPnr", // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
-                                    "CurrentPnrUpdateDate", // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
-                                    "CustomerNumber", // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
-                                    "FatherDocumentation", // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
-                                    "FatherName", // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
-                                    "Job", // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
-                                    "KinshipUpdateDate", // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
-                                    "MotherDocumentation", // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
-                                    "MotherName", // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
-                                    "PaternityAuthorityCode", // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
-                                    "PaternityDate", // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
-                                    "PnrDate", // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
-                                    "UnderGuardianshipAuthprityCode", // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
+
+                                    //"CurrentPnr", // Already implemented // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
+                                    "CurrentPnrUpdateDate", // CPR Services 'timestamp' // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
+                                    "CustomerNumber", // DPR Specific // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
+                                    "FatherDocumentation", // CPR Sevices 'far_dok' ? // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
+                                    //"FatherName", // Already implemented // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
+                                    //"Job", // Already implemented // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
+                                    "KinshipUpdateDate", // CPR Services 'timestamp' ? // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
+                                    "MotherDocumentation", // cpr sERVICES 'mor_dok' ? // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
+                                    //"MotherName", // Already implemented // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
+                                    "PaternityAuthorityCode", // CPR Services 'far_mynkod' ? // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
+                                    "PaternityDate", // CPR Services 'farhaenstart' ? // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
+                                    "PnrDate", // CPR Services 'pnrmrkhaenstart' ? // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
+                                    "UnderGuardianshipAuthprityCode", // CPR Services 'mynkod-ctumyndig' ? // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
 
                                     // EXTRA - do not commit
-                                    "PnrMarkingDate",
-                                    "UnderGuardianshipRelationType",
-                                    "BirthplaceTextUpdateDate",
-                                    "JobDate"
+                                    "PnrMarkingDate", // CPR Services 'pnrhaenstart' ?
+                                    //"UnderGuardianshipRelationType", // Already implemented
+                                    "BirthplaceTextUpdateDate", // CPR Services 'foedtxttimestamp' ?
+                                    "JobDate" // CPR Services 'stillingsdato' ?
                                 };
                 return excluded;
             }

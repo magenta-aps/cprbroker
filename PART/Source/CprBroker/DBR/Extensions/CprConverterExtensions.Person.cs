@@ -94,7 +94,7 @@ namespace CprBroker.DBR.Extensions
              * PNR related
              */
             p.PnrMarkingDate = null; //TODO: Can be fetched in CPR Services: pnrhaenstart
-            p.PnrDate = 0; //TODO: Can be fetched in CPR Services: pnrmrkhaenstart 
+            p.PnrDate = 0; //TODO: Can be fetched in CPR Services: pnrmrkhaenstart
             p.CurrentPnrUpdateDate = null; //TODO: Can be fetched in CPR Services: timestamp
             if (!string.IsNullOrEmpty(person.PersonInformation.CurrentCprNumber))
             {
@@ -121,6 +121,7 @@ namespace CprBroker.DBR.Extensions
              * Relations related
              */
             p.KinshipUpdateDate = 0; //TODO: Can be fetched in CPR Services: timestamp
+
             if (!string.IsNullOrEmpty(person.ParentsInformation.MotherPNR))
             {
                 p.MotherPnr = decimal.Parse(person.ParentsInformation.MotherPNR);
@@ -129,7 +130,7 @@ namespace CprBroker.DBR.Extensions
             {
                 p.MotherPnr = 0;
             }
-            p.KinshipUpdateDate = 0; //TODO: Can be fetched in CPR Services: timestamp
+
             if (person.ParentsInformation.MotherBirthDate != null)
             {
                 p.MotherBirthdate = CprBroker.Utilities.Dates.DateToDecimal(person.ParentsInformation.MotherBirthDate.Value, 8);
