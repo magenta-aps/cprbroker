@@ -306,8 +306,8 @@ namespace CprBroker.Tests.DBR.Comparison.Person
             {
                 return new string[]{
                     // Extra - do not commit
-                    "CprUpdateDate",
-                    "MunicipalityCode"
+                    //"CprUpdateDate", // Implemented
+                    "MunicipalityCode" // CPR Services 'komkod'
                 };
             }
         }
@@ -325,7 +325,7 @@ namespace CprBroker.Tests.DBR.Comparison.Person
             {
                 return new string[]{
                     // EXTRA - DO NOT COMMIT
-                    //"CprUpdateDate",
+                    //"CprUpdateDate", // Implemented
                     "CustodyStartAuthorityCode", // Only in CPR Services 'mynkod_start' ?
                     // "StartDateMarker" //Now implemented
                 };
