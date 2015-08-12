@@ -168,7 +168,7 @@ namespace CprBroker.Tests.DBR.Comparison.Person
             get
             {
                 return new string[] { 
-                    "CprUpdateDate", // CPR Direct has no time component
+                    //"CprUpdateDate", // Already implemented // CPR Direct has no time component
                 };
             }
         }
