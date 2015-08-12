@@ -60,6 +60,7 @@ namespace CprBroker.DBR.Extensions
 
             if (currentAddress.CurrentAddressInformation.RelocationDate.HasValue)
                 pa.CprUpdateDate = CprBroker.Utilities.Dates.DateToDecimal(currentAddress.CurrentAddressInformation.RelocationDate.Value, 12);
+
             pa.MunicipalityCode = currentAddress.CurrentAddressInformation.MunicipalityCode;
             pa.StreetCode = currentAddress.CurrentAddressInformation.StreetCode;
             pa.HouseNumber = currentAddress.CurrentAddressInformation.HouseNumber.NullIfEmpty();
@@ -78,6 +79,7 @@ namespace CprBroker.DBR.Extensions
             }
             else
                 pa.DoorNumber = null;
+
             if (!string.IsNullOrEmpty(currentAddress.ClearWrittenAddress.BuildingNumber))
                 pa.GreenlandConstructionNumber = currentAddress.ClearWrittenAddress.BuildingNumber;
             else
@@ -99,13 +101,17 @@ namespace CprBroker.DBR.Extensions
             {
                 pa.AddressStartDate = 0;
             }
+
             if (!char.IsWhiteSpace(currentAddress.CurrentAddressInformation.RelocationDateUncertainty))
                 pa.AddressStartDateMarker = currentAddress.CurrentAddressInformation.RelocationDateUncertainty;
+
             pa.AddressEndDate = null; // This is the current date
+
             if (currentAddress.CurrentAddressInformation.LeavingMunicipalityCode > 0)
                 pa.LeavingFromMunicipalityCode = currentAddress.CurrentAddressInformation.LeavingMunicipalityCode;
             else
                 pa.LeavingFromMunicipalityCode = null;
+
             if (currentAddress.CurrentAddressInformation.LeavingMunicipalityDepartureDate != null)
             {
                 pa.LeavingFromMunicipalityDate = CprBroker.Utilities.Dates.DateToDecimal(currentAddress.CurrentAddressInformation.LeavingMunicipalityDepartureDate.Value, 12);
@@ -114,6 +120,7 @@ namespace CprBroker.DBR.Extensions
             {
                 pa.LeavingFromMunicipalityDate = null;
             }
+
             if (currentAddress.CurrentAddressInformation.MunicipalityArrivalDate != null)
             {
                 pa.MunicipalityArrivalDate = CprBroker.Utilities.Dates.DateToDecimal(currentAddress.CurrentAddressInformation.MunicipalityArrivalDate.Value, 12);
@@ -127,6 +134,7 @@ namespace CprBroker.DBR.Extensions
             pa.AlwaysNull3 = null;
             pa.AlwaysNull4 = null;
             pa.AlwaysNull5 = null;
+
             if (currentAddress.CurrentAddressInformation.StartDate != null)
             {
                 pa.AdditionalAddressDate = CprBroker.Utilities.Dates.DateToDecimal(currentAddress.CurrentAddressInformation.StartDate.Value, 12);
@@ -137,38 +145,47 @@ namespace CprBroker.DBR.Extensions
             }
 
             pa.CorrectionMarker = null;
+
             if (!string.IsNullOrEmpty(currentAddress.CurrentAddressInformation.CareOfName))
                 pa.CareOfName = currentAddress.CurrentAddressInformation.CareOfName;
             else
                 pa.CareOfName = null;
+
             if (!string.IsNullOrEmpty(currentAddress.ClearWrittenAddress.CityName))
                 pa.Town = currentAddress.ClearWrittenAddress.CityName;
             else
                 pa.Town = null;
+
             if (!string.IsNullOrEmpty(currentAddress.ClearWrittenAddress.Location))
                 pa.Location = currentAddress.ClearWrittenAddress.Location;
             else
                 pa.Location = null;
+
             if (!string.IsNullOrEmpty(currentAddress.CurrentAddressInformation.SupplementaryAddress1))
                 pa.AdditionalAddressLine1 = currentAddress.CurrentAddressInformation.SupplementaryAddress1;
             else
                 pa.AdditionalAddressLine1 = null;
+
             if (!string.IsNullOrEmpty(currentAddress.CurrentAddressInformation.SupplementaryAddress2))
                 pa.AdditionalAddressLine2 = currentAddress.CurrentAddressInformation.SupplementaryAddress2;
             else
                 pa.AdditionalAddressLine2 = null;
+
             if (!string.IsNullOrEmpty(currentAddress.CurrentAddressInformation.SupplementaryAddress3))
                 pa.AdditionalAddressLine3 = currentAddress.CurrentAddressInformation.SupplementaryAddress3;
             else
                 pa.AdditionalAddressLine3 = null;
+
             if (!string.IsNullOrEmpty(currentAddress.CurrentAddressInformation.SupplementaryAddress4))
                 pa.AdditionalAddressLine4 = currentAddress.CurrentAddressInformation.SupplementaryAddress4;
             else
                 pa.AdditionalAddressLine4 = null;
+
             if (!string.IsNullOrEmpty(currentAddress.CurrentAddressInformation.SupplementaryAddress5))
                 pa.AdditionalAddressLine5 = currentAddress.CurrentAddressInformation.SupplementaryAddress5;
             else
                 pa.AdditionalAddressLine5 = null;
+
             return pa;
         }
 
@@ -213,9 +230,9 @@ namespace CprBroker.DBR.Extensions
                 pa.AddressStartDateMarker = historicalAddress.RelocationDateUncertainty;
             if (historicalAddress.LeavingDate.HasValue)
                 pa.AddressEndDate = CprBroker.Utilities.Dates.DateToDecimal(historicalAddress.LeavingDate.Value, 12);
-            pa.LeavingFromMunicipalityCode = null; // Seems not available in historical records....
-            pa.LeavingFromMunicipalityDate = null; // Seems not available in historical records....
-            pa.MunicipalityArrivalDate = null;  //Seems only available for current address
+            pa.LeavingFromMunicipalityCode = null; // TODO: Get from previous address
+            pa.LeavingFromMunicipalityDate = null; // TODO: Get from previous address
+            pa.MunicipalityArrivalDate = null;  // TODO: Try to fill this field //Seems only available for current address
             pa.AlwaysNull1 = null;
             pa.AlwaysNull2 = null;
             pa.AlwaysNull3 = null;

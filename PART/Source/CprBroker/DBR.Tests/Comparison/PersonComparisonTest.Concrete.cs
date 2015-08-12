@@ -246,23 +246,22 @@ namespace CprBroker.Tests.DBR.Comparison.Person
             {
                 string[] excluded = {
                                     /* BELOW EXCLUSIONS ARE ONCE THAT ARE NOT, CURRENTLY, USED BY ANY SYSTEMS - AND FAIL IN TESTS */
-                                    "AddressStartDateMarker", // We do not know the origin of this marker.
-                                    "CprUpdateDate", // It is skipped for now, as the contents are wrong and not used by known systems.
-                                    "MunicipalityArrivalDate", // It is skipped for now, as the contents are wrong and not used by known systems.
-                                    "StreetAddressingName", // It is skipped for now, as the contents are wrong and not used by known systems.
+                                    //"AddressStartDateMarker", // Already implemented // We do not know the origin of this marker.
+                                    //"CprUpdateDate", // Already implemented. //It is skipped for now, as the contents are wrong and not used by known systems.
+                                    "MunicipalityArrivalDate", // TODO: Implement in histoical records // It is skipped for now, as the contents are wrong and not used by known systems.
+                                    //"StreetAddressingName", // Already implemented //It is skipped for now, as the contents are wrong and not used by known systems.
 
                                     // EXTRA - do not commit
-                                    "PostCode",
-                                    "CorrectionMarker",
-                                    "MunicipalityCode",
-                                    "MunicipalityName",
-                                    "StreetCode",
-                                    "AddressEndDate",
-                                    "CorrectionMarker",
-                                    "DoorNumber",
-                                    "LeavingFromMunicipalityCode",
-                                    "LeavingFromMunicipalityDate",
-                                    "AddressStartDate" // minor approximation problems on millisecond level
+                                    //"PostCode", // Already implemented
+                                    //"CorrectionMarker", // Already implemented
+                                    //"MunicipalityCode", // Already implemented
+                                    //"MunicipalityName", // Already implemented
+                                    //"StreetCode", // Already implemented
+                                    //"AddressEndDate",// Already implemented
+                                    //"DoorNumber", // Already implemented
+                                    //"LeavingFromMunicipalityCode", // TODO: implement in historical adresses
+                                    //"LeavingFromMunicipalityDate", // TODO: implement in historical adresses
+                                    //"AddressStartDate" // minor approximation problems on millisecond level. TODO: Ignore milliseconds in datetime comparison
                                 };
                 return excluded;
             }
