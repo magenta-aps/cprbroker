@@ -105,7 +105,7 @@
   <Table Name="dbo.DTCIV" Member="CivilStatus">
     <Type Name="CivilStatus">
       <Column Name="PNR" Type="System.Decimal" DbType="Decimal(11,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="AJFDTO" Member="UpdateDateOfCpr" Storage="_AJFDTO" Type="System.Decimal" DbType="Decimal(13,0) NOT NULL" CanBeNull="false" />
+      <Column Name="AJFDTO" Member="CprUpdateDate" Storage="_AJFDTO" Type="System.Decimal" DbType="Decimal(13,0) NOT NULL" CanBeNull="false" />
       <Column Name="CIVST" Member="MaritalStatus" Storage="_CIVST" Type="System.Char" DbType="VarChar(1)" CanBeNull="true" />
       <Column Name="MYNKOD" Member="MaritalStatusAuthorityCode" Storage="_MYNKOD" Type="System.Decimal" DbType="Decimal(5,0)" CanBeNull="true" />
       <Column Name="AEGTEPNR" Member="SpousePNR" Storage="_AEGTEPNR" Type="System.Decimal" DbType="Decimal(11,0)" IsPrimaryKey="true" CanBeNull="true" />
@@ -231,7 +231,7 @@
   </Table>
   <Table Name="dbo.DTFORALDREMYND" Member="ParentalAuthorities">
     <Type Name="ParentalAuthority">
-      <Column Name="PNR" Member="ChildPNR" Storage="_ChidPNR" Type="System.Decimal" DbType="Decimal(11,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="PNR" Member="ChildPNR" Storage="_ChildPNR" Type="System.Decimal" DbType="Decimal(11,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="RELTYP" Member="RelationType" Type="System.Decimal" DbType="Decimal(4,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="AJFDTO" Member="CprUpdateDate" Type="System.Decimal" DbType="Decimal(13,0) NOT NULL" CanBeNull="false" />
       <Column Name="START_MYNKOD" Member="CustodyStartAuthorityCode" Type="System.Decimal" DbType="Decimal(5,0) NOT NULL" CanBeNull="false" />

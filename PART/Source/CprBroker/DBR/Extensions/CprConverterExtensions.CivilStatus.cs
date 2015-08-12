@@ -58,7 +58,7 @@ namespace CprBroker.DBR.Extensions
         {
             CivilStatus cs = new CivilStatus();
             cs.PNR = Decimal.Parse(currentCivilStatus.PNR);
-            cs.UpdateDateOfCpr = CprBroker.Utilities.Dates.DateToDecimal(currentCivilStatus.Registration.RegistrationDate, 12);
+            cs.CprUpdateDate = CprBroker.Utilities.Dates.DateToDecimal(currentCivilStatus.Registration.RegistrationDate, 12);
             cs.MaritalStatus = currentCivilStatus.CivilStatusCode;
             cs.MaritalStatusAuthorityCode = null; //TODO: Can be fetched in CPR Services, mynkod
 
@@ -97,7 +97,7 @@ namespace CprBroker.DBR.Extensions
         {
             CivilStatus cs = new CivilStatus();
             cs.PNR = Decimal.Parse(historicalCivilStatus.PNR);
-            cs.UpdateDateOfCpr = CprBroker.Utilities.Dates.DateToDecimal(historicalCivilStatus.Registration.RegistrationDate, 12);
+            cs.CprUpdateDate = CprBroker.Utilities.Dates.DateToDecimal(historicalCivilStatus.Registration.RegistrationDate, 12);
             cs.MaritalStatus = historicalCivilStatus.CivilStatusCode;
             cs.MaritalStatusAuthorityCode = null; //TODO: Can be fetched in CPR Services, mynkod
 

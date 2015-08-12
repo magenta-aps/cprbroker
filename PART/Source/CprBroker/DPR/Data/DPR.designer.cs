@@ -2684,8 +2684,8 @@ namespace CprBroker.Providers.DPR
     partial void OnCreated();
     partial void OnPNRChanging(decimal value);
     partial void OnPNRChanged();
-    partial void OnUpdateDateOfCprChanging(decimal value);
-    partial void OnUpdateDateOfCprChanged();
+    partial void OnCprUpdateDateChanging(decimal value);
+    partial void OnCprUpdateDateChanged();
     partial void OnMaritalStatusChanging(System.Nullable<char> value);
     partial void OnMaritalStatusChanged();
     partial void OnMaritalStatusAuthorityCodeChanging(System.Nullable<decimal> value);
@@ -2743,7 +2743,7 @@ namespace CprBroker.Providers.DPR
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="AJFDTO", Storage="_AJFDTO", DbType="Decimal(13,0) NOT NULL")]
-		public decimal UpdateDateOfCpr
+		public decimal CprUpdateDate
 		{
 			get
 			{
@@ -2753,11 +2753,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._AJFDTO != value))
 				{
-					this.OnUpdateDateOfCprChanging(value);
+					this.OnCprUpdateDateChanging(value);
 					this.SendPropertyChanging();
 					this._AJFDTO = value;
-					this.SendPropertyChanged("UpdateDateOfCpr");
-					this.OnUpdateDateOfCprChanged();
+					this.SendPropertyChanged("CprUpdateDate");
+					this.OnCprUpdateDateChanged();
 				}
 			}
 		}
