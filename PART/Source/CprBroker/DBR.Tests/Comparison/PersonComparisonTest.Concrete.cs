@@ -44,6 +44,8 @@ namespace CprBroker.Tests.DBR.Comparison.Person
                                         "MaritalAuthorityName", // CPR Services 'mynkod' ?
                                         // Difference between test & production: It is possible in test to have DTTOTAL without DTCIV, which does not happen in production
                                         // TODO: Get the field from latest civil status -> authority code -> join with authority -> name (matches more than 99%, the rest seems to be outdated data)
+                                        // New finding: no authority name in current and historical civil status records coming from CPR extracts
+
 
                                         //"AddressDate", // Already implemented
                                         //"SpousePersonalOrBirthdate", // Already implemented
