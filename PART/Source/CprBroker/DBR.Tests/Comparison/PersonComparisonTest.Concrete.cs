@@ -52,7 +52,9 @@ namespace CprBroker.Tests.DBR.Comparison.Person
                                         // "StandardAddress", // Already implemented
                                         // "AddressProtectionMarker", // TODO: Lookup ?
                                         //"PnrMarkingDate", // Always null in DPR
-                                        //"NationalMemoMarker" // TODO: get from DTNOTAT
+                                        
+                                        "NationalMemoMarker" // TODO: get from DTNOTAT
+                                        // There seems no correlation in DPR between this field and the rows in DTNOTAN
                                 };
                 return excluded;
             }
