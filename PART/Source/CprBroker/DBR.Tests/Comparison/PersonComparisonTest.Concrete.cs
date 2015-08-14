@@ -32,12 +32,12 @@ namespace CprBroker.Tests.DBR.Comparison.Person
 
                     // Extra exclusions - DO NOT COMMIT
                     "DprLoadDate", // Irrelevant for comparison
-                    // "MunicipalityArrivalDate", // Already implemented
-                    // "MunicipalityLeavingDate", // Already implemented
-                    // "PostDistrictName", // Already implemented
-                    // "PreviousAddress", // Already implemented
-                    // "PreviousMunicipalityName", // Already implemented
-                    // "PaternityDate", // Already implemented
+                    //"MunicipalityArrivalDate", // Already implemented
+                    //"MunicipalityLeavingDate", // Already implemented
+                    //"PostDistrictName", // Already implemented
+                    //"PreviousAddress", // Already implemented
+                    //"PreviousMunicipalityName", // Already implemented
+                    //"PaternityDate", // Already implemented
                     "FatherMarker", // DPR Specific
                     "MotherMarker", // DPR Specific
                     //"ExitEntryMarker", // Already implemented //Is this DPR specific?
@@ -51,7 +51,7 @@ namespace CprBroker.Tests.DBR.Comparison.Person
 
                     //"AddressDate", // Already implemented
                     //"SpousePersonalOrBirthdate", // Already implemented
-                    // "StandardAddress", // Already implemented
+                    //"StandardAddress", // Already implemented
                     //"PnrMarkingDate", // Always null in DPR
                     
                     "NationalMemoMarker" // TODO: get from DTNOTAT
