@@ -14,48 +14,49 @@ namespace CprBroker.Tests.DBR.Comparison.Person
         {
             get
             {
-                string[] excluded = {
-                                        
-                                    /* BELOW EXCLUSIONS ARE ONES THAT ARE NOT, CURRENTLY, USED BY ANY SYSTEMS - AND FAIL IN TESTS */
-                                    // "DirectoryProtectionMarker", // TODO: Lookup ?// We do not test the street name as it is not present in historical records.
+                string[] excluded = 
+                {
+                    /* BELOW EXCLUSIONS ARE ONES THAT ARE NOT, CURRENTLY, USED BY ANY SYSTEMS - AND FAIL IN TESTS */
+                    
+                    "DirectoryProtectionMarker", // TODO: Lookup ?
+                    "AddressProtectionMarker", // TODO: Lookup ?
+                    // There seems no correlation between these markers and the rows in protection
+                    
+                    "SpouseMarker", // Lookup? // We do not know the origin of this marker.
+                    // No correlation found with rows in civil status
                                     
-                                    "SpouseMarker", // Lookup? // We do not know the origin of this marker.
-                                    // No correlation found yet
-                                    
-                                    "PaternityAuthorityName", // CPR Services 'far_mynkod' ? // We can only get this one from CPR Services.
-                                    //"AddressDateMarker", // We do not know the origin of this marker.
-                                    //"PreviousAddress", // This field is not fully implemented because it is not used.
-                                    //"PreviousMunicipalityName", // This field is not fully implemented because it is not used.
+                    "PaternityAuthorityName", // CPR Services 'far_mynkod' ?
+                    //"AddressDateMarker", // We do not know the origin of this marker.
+                    //"PreviousAddress", // This field is not fully implemented because it is not used.
+                    //"PreviousMunicipalityName", // This field is not fully implemented because it is not used.
 
-                                    // Extra exclusions - DO NOT COMMIT
-                                        "DprLoadDate", // Irrelevant for comparison
-                                        // "MunicipalityArrivalDate", // Already implemented
-                                        // "MunicipalityLeavingDate", // Already implemented
-                                        // "PostDistrictName", // Already implemented
-                                        // "PreviousAddress", // Already implemented
-                                        // "PreviousMunicipalityName", // Already implemented
-                                        // "PaternityDate", // Already implemented
-                                        "FatherMarker", // DPR Specific
-                                        "MotherMarker", // DPR Specific
-                                        //"ExitEntryMarker", // Already implemented //Is this DPR specific?
-                                        "ApplicationCode", // DPR Specific
-                                        //"BirthplaceText", // lookup
-                                        
-                                        "MaritalAuthorityName", // CPR Services 'mynkod' ?
-                                        // Difference between test & production: It is possible in test to have DTTOTAL without DTCIV, which does not happen in production
-                                        // TODO: Get the field from latest civil status -> authority code -> join with authority -> name (matches more than 99%, the rest seems to be outdated data)
-                                        // New finding: no authority name in current and historical civil status records coming from CPR extracts
+                    // Extra exclusions - DO NOT COMMIT
+                    "DprLoadDate", // Irrelevant for comparison
+                    // "MunicipalityArrivalDate", // Already implemented
+                    // "MunicipalityLeavingDate", // Already implemented
+                    // "PostDistrictName", // Already implemented
+                    // "PreviousAddress", // Already implemented
+                    // "PreviousMunicipalityName", // Already implemented
+                    // "PaternityDate", // Already implemented
+                    "FatherMarker", // DPR Specific
+                    "MotherMarker", // DPR Specific
+                    //"ExitEntryMarker", // Already implemented //Is this DPR specific?
+                    "ApplicationCode", // DPR Specific
+                    //"BirthplaceText", // lookup
+                    
+                    "MaritalAuthorityName", // CPR Services 'mynkod' ?
+                    // Difference between test & production: It is possible in test to have DTTOTAL without DTCIV, which does not happen in production
+                    // TODO: Get the field from latest civil status -> authority code -> join with authority -> name (matches more than 99%, the rest seems to be outdated data)
+                    // New finding: no authority name in current and historical civil status records coming from CPR extracts
 
-
-                                        //"AddressDate", // Already implemented
-                                        //"SpousePersonalOrBirthdate", // Already implemented
-                                        // "StandardAddress", // Already implemented
-                                        // "AddressProtectionMarker", // TODO: Lookup ?
-                                        //"PnrMarkingDate", // Always null in DPR
-                                        
-                                        "NationalMemoMarker" // TODO: get from DTNOTAT
-                                        // There seems no correlation in DPR between this field and the rows in DTNOTAN
-                                };
+                    //"AddressDate", // Already implemented
+                    //"SpousePersonalOrBirthdate", // Already implemented
+                    // "StandardAddress", // Already implemented
+                    //"PnrMarkingDate", // Always null in DPR
+                    
+                    "NationalMemoMarker" // TODO: get from DTNOTAT
+                    // There seems no correlation in DPR between this field and the rows in DTNOTAT
+                };
                 return excluded;
             }
         }
