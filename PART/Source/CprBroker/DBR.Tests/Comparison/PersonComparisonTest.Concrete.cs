@@ -18,7 +18,10 @@ namespace CprBroker.Tests.DBR.Comparison.Person
                                         
                                     /* BELOW EXCLUSIONS ARE ONES THAT ARE NOT, CURRENTLY, USED BY ANY SYSTEMS - AND FAIL IN TESTS */
                                     // "DirectoryProtectionMarker", // TODO: Lookup ?// We do not test the street name as it is not present in historical records.
+                                    
                                     "SpouseMarker", // Lookup? // We do not know the origin of this marker.
+                                    // No correlation found yet
+                                    
                                     "PaternityAuthorityName", // CPR Services 'far_mynkod' ? // We can only get this one from CPR Services.
                                     //"AddressDateMarker", // We do not know the origin of this marker.
                                     //"PreviousAddress", // This field is not fully implemented because it is not used.
@@ -37,7 +40,11 @@ namespace CprBroker.Tests.DBR.Comparison.Person
                                         //"ExitEntryMarker", // Already implemented //Is this DPR specific?
                                         "ApplicationCode", // DPR Specific
                                         //"BirthplaceText", // lookup
+                                        
                                         "MaritalAuthorityName", // CPR Services 'mynkod' ?
+                                        // Difference between test & production: It is possible in test to have DTTOTAL without DTCIV, which does not happen in production
+                                        // TODO: Get the field from latest civil status -> authority code -> join with authority -> name (matches more than 99%, the rest seems to be outdated data)
+
                                         //"AddressDate", // Already implemented
                                         //"SpousePersonalOrBirthdate", // Already implemented
                                         // "StandardAddress", // Already implemented
