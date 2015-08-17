@@ -38,8 +38,8 @@ namespace CprBroker.Tests.DBR.Comparison.Person
                     //"PreviousAddress", // Already implemented
                     //"PreviousMunicipalityName", // Already implemented
                     //"PaternityDate", // Already implemented
-                    "FatherMarker", // DPR Specific
-                    "MotherMarker", // DPR Specific
+                    "FatherMarker", // DPR Specific // TODO: Get from Parents record (FARNVN_MRK)
+                    "MotherMarker", // DPR Specific // TODO: Get from Parents record (MORNVN_MRK)
                     //"ExitEntryMarker", // Already implemented //Is this DPR specific?
                     "ApplicationCode", // DPR Specific
                     //"BirthplaceText", // lookup
