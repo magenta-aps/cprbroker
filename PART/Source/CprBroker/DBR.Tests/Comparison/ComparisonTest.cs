@@ -71,6 +71,14 @@ namespace CprBroker.Tests.DBR.Comparison
         {
             var r = prop.GetValue(realObject, null);
             var f = prop.GetValue(fakeObject, null);
+            var stringTypes = new Type[]{
+                typeof(string), typeof(char), typeof(char?)
+            };
+            if (stringTypes.Contains(prop.PropertyType))
+            {
+                r = string.Format("{0}", r).Trim();
+                f = string.Format("{0}", f).Trim();
+            }
             Assert.AreEqual(r, f, "{0}.{1}: Expected <{2}> but was<{3}>", prop.DeclaringType.Name, prop.Name, r, f);
         }
 
