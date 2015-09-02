@@ -44,6 +44,14 @@ namespace CprBroker.Tests.DBR.Comparison
             }
         }
 
+        public string[] CommonExcludedProperties
+        {
+            get
+            {
+                return new string[] { "CprUpdateDate" };
+            }
+        }
+
         public abstract string[] LoadKeys();
         public abstract IQueryable<TObject> Get(TDataContext dataContext, string key);
 
@@ -52,7 +60,7 @@ namespace CprBroker.Tests.DBR.Comparison
             var t = typeof(TObject);
             return t.GetProperties(BindingFlags.Public | BindingFlags.Instance)
                 .Where(p => p.GetCustomAttributes(typeof(System.Data.Linq.Mapping.ColumnAttribute), true).FirstOrDefault() != null)
-                .Where(p => !this.ExcludedProperties.Contains(p.Name))
+                .Where(p => !this.ExcludedProperties.Contains(p.Name) && !this.CommonExcludedProperties.Contains(p.Name))
                 .OrderBy(p => p.Name)
                 .ToArray();
         }
