@@ -15,8 +15,6 @@ namespace CprBroker.Tests.DBR.Comparison.Person
     public abstract class PersonComparisonTest<TObject> : ComparisonTest<TObject, DPRDataContext>
         where TObject : new()
     {
-        int timesRun = 0;
-        int randomTestNumber;
         public override string[] LoadKeys()
         {
             if (KeysHolder._Keys == null)
@@ -37,18 +35,30 @@ namespace CprBroker.Tests.DBR.Comparison.Person
                 }
                 else
                 {
-                    using (var dataContext = new ExtractDataContext(Properties.Settings.Default.CprBrokerConnectionString))
+                    Random r = new Random();
+                    using (var w = new System.IO.StreamWriter(string.Format("c:\\logs\\Compare-{0}-{1}-{2}.log", GetType().Name, DateTime.Now.ToString("yyyyMMdd HHmmss"), r.Next())))
                     {
-                        if (timesRun < 1)
+                        w.AutoFlush = true;
+                        w.WriteLine("Loading from <{0}>", Properties.Settings.Default.ImitatedDprConnectionString);
+                        try
                         {
-                            Random random = new Random();
-                            randomTestNumber = random.Next(85416); // We have 85426 records in the Extract table.
-                            timesRun++;
+                            using (var dataContext = new System.Data.Linq.DataContext(Properties.Settings.Default.ImitatedDprConnectionString))
+                            {
+                                dataContext.Log = w;
+                                KeysHolder._Keys = dataContext.ExecuteQuery<decimal>("select PNR FROM DTTOTAL ORDER BY PNR")
+                                    .Skip(Properties.Settings.Default.PersonComparisonSampleSkip)
+                                    .Take(Properties.Settings.Default.PersonComparisonSampleSize)
+                                    .ToArray()
+                                    .Select(pnr => pnr.ToPnrDecimalString())
+                                    .ToArray();
+                                w.WriteLine("Loaded <{0}> PNRs", KeysHolder._Keys.Length);
+                            }
                         }
-                        else
-                            timesRun = 0;
-                        KeysHolder._Keys = dataContext.ExecuteQuery<string>("select * FROM DbrPerson ORDER BY PNR").Skip(randomTestNumber).Take(10).ToArray();
-                        //return dataContext.ExtractItems.Select(ei => ei.PNR).Distinct().ToArray();
+                        catch(Exception ex)
+                        {
+                            w.WriteLine(ex.ToString());
+                            throw;
+                        }
                     }
                 }
             }
