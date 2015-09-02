@@ -28,9 +28,7 @@ namespace CprBroker.Engine.Tasks
             }
         }
 
-        public virtual void StartTask(T task)
-        {
-        }
+        public abstract void StartTask(T task);
 
         public virtual void DisposeTask(T task)
         {
