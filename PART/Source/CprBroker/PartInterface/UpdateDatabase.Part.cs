@@ -283,6 +283,10 @@ namespace CprBroker.Engine.Local
             using (var dataContext = new PartDataContext())
             {
                 var all = new Dictionary<string, Guid>(cprNumbers.Length);
+                var existing = dataContext.PersonMappings
+                    .Where(pm => cprNumbers.Contains(pm.CprNumber))
+                    .Select(pm => pm.CprNumber)
+                    .ToArray();
 
                 for (int i = 0; i < cprNumbers.Length; i++)
                 {
@@ -290,7 +294,7 @@ namespace CprBroker.Engine.Local
                     if (uuid.HasValue)
                     {
                         var cprNumber = cprNumbers[i];
-                        if (!all.ContainsKey(cprNumber))
+                        if (!all.ContainsKey(cprNumber) && !existing.Contains(cprNumber))
                         {
                             all[cprNumber] = uuid.Value;
                         }
