@@ -344,9 +344,13 @@ namespace CprBroker.Tests.DBR.Comparison.Person
     }
 
     [TestFixture]
-    public class GuardianAndParentalAuthorityRelationComparisonTests : PersonComparisonTest<GuardianAndParentalAuthorityRelation> { }
+    public class GuardianAndParentalAuthorityRelationComparisonTests : PersonComparisonTest<GuardianAndParentalAuthorityRelation> {
+        // Review 2.0
+    }
 
     [TestFixture]
-    public class GuardianAddressComparisonTests : PersonComparisonTest<GuardianAddress> { }
+    public class GuardianAddressComparisonTests : PersonComparisonTest<GuardianAddress> {
+        // Review 2.0
+    }
 
 }
