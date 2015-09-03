@@ -194,13 +194,7 @@ namespace CprBroker.Tests.DBR.Comparison.Person
             get
             {
                 string[] excluded = {
-                                    //"CprUpdateDate", // Already implemented // The values in this columns are wrong, but not used.
-
-                                    // EXTRA - DO NOT COMMIT
-                                    //"CorrectionMarker", // Already implemented
-                                    //"CountryCode", // Already implemented
-                                    //"NationalityEndDate", // Already implemented
-                                    //"NationalityStartDate", // Already implemented
+                                    // Review 2.0
                                 };
                 return excluded;
             }
@@ -329,17 +323,15 @@ namespace CprBroker.Tests.DBR.Comparison.Person
     }
 
     [TestFixture]
-    public class ParentalAuthorityConditionComparisonTests : PersonComparisonTest<ParentalAuthority>
+    public class ParentalAuthorityComparisonTests : PersonComparisonTest<ParentalAuthority>
     {
         public override string[] ExcludedProperties
         {
             get
             {
                 return new string[]{
-                    // EXTRA - DO NOT COMMIT
-                    //"CprUpdateDate", // Implemented
+                    // Review 2.0
                     "CustodyStartAuthorityCode", // Only in CPR Services 'mynkod_start' ?
-                    // "StartDateMarker" //Now implemented
                 };
             }
         }
