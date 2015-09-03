@@ -11,6 +11,8 @@ using CprBroker.DBR;
 using System.Reflection;
 using CprBroker.Utilities;
 using CprBroker.PartInterface;
+using System.Text.RegularExpressions;
+
 namespace CprBroker.Tests.DBR.Comparison
 {
     public abstract class ComparisonTestBase
@@ -79,6 +81,7 @@ namespace CprBroker.Tests.DBR.Comparison
         {
             var r = prop.GetValue(realObject, null);
             var f = prop.GetValue(fakeObject, null);
+
             var stringTypes = new Type[]{
                 typeof(string), typeof(char), typeof(char?)
             };
@@ -87,6 +90,20 @@ namespace CprBroker.Tests.DBR.Comparison
                 r = string.Format("{0}", r).Trim();
                 f = string.Format("{0}", f).Trim();
             }
+
+            var decimalTypes = new Type[] { typeof(decimal), typeof(decimal?) };
+            if (decimalTypes.Contains(prop.PropertyType))
+            {
+                var s = String.Format("{0}", r);
+                var pat = @"\A\d{12}\Z";
+                
+                if (Regex.Match(s,pat).Success) // yyyyMMddHH99 // 196804011399
+                {
+                    r = decimal.Parse(s.Substring(0, 10) + "00");
+                    f = decimal.Parse(String.Format("{0}", f).Substring(0, 10) + "00");
+                }
+            }
+
             Assert.AreEqual(r, f, "{0}.{1}: Expected <{2}> but was<{3}>", prop.DeclaringType.Name, prop.Name, r, f);
         }
 
