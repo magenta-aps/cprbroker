@@ -304,7 +304,9 @@ namespace CprBroker.Tests.DBR.Comparison.Person
     }
 
     [TestFixture]
-    public class EventComparisonTests : PersonComparisonTest<Event> { }
+    public class EventComparisonTests : PersonComparisonTest<Event> {
+        // Review 2.0
+    }
 
     [TestFixture]
     public class NoteComparisonTests : PersonComparisonTest<Note>
@@ -314,8 +316,7 @@ namespace CprBroker.Tests.DBR.Comparison.Person
             get
             {
                 return new string[]{
-                    // Extra - do not commit
-                    //"CprUpdateDate", // Implemented
+                    // Review 2.0
                     "MunicipalityCode" // CPR Services 'komkod'
                 };
             }
