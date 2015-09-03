@@ -54,7 +54,7 @@ namespace CprBroker.Tests.DBR.Comparison.Person
                                 w.WriteLine("Loaded <{0}> PNRs", KeysHolder._Keys.Length);
                             }
                         }
-                        catch(Exception ex)
+                        catch (Exception ex)
                         {
                             w.WriteLine(ex.ToString());
                             throw;
@@ -68,18 +68,15 @@ namespace CprBroker.Tests.DBR.Comparison.Person
 
         public override void ConvertObject(string pnr)
         {
-            if (!KeysHolder._ConvertedPersons.ContainsKey(pnr))
+            using (var fakeDprDataContext = new DPRDataContext(Properties.Settings.Default.ImitatedDprConnectionString))
             {
-                using (var fakeDprDataContext = new DPRDataContext(Properties.Settings.Default.ImitatedDprConnectionString))
-                {
-                    CprConverter.DeletePersonRecords(pnr, fakeDprDataContext);
-                    fakeDprDataContext.SubmitChanges();
-                    var person = ExtractManager.GetPerson(pnr);
-                    CprConverter.AppendPerson(person, fakeDprDataContext);
-                    fakeDprDataContext.SubmitChanges();
-                }
-                KeysHolder._ConvertedPersons[pnr] = true;
+                CprConverter.DeletePersonRecords(pnr, fakeDprDataContext);
+                fakeDprDataContext.SubmitChanges();
+                var person = ExtractManager.GetPerson(pnr);
+                CprConverter.AppendPerson(person, fakeDprDataContext);
+                fakeDprDataContext.SubmitChanges();
             }
+            KeysHolder._ConvertedPersons[pnr] = true;
         }
 
         public override IQueryable<TObject> Get(DPRDataContext dataContext, string key)

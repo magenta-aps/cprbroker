@@ -111,6 +111,13 @@ namespace CprBroker.Tests.DBR.Comparison
 
         [Test]
         [TestCaseSource("LoadKeys")]
+        public void T0_Convert(string key)
+        {
+            ConvertObject(key);
+        }
+
+        [Test]
+        [TestCaseSource("LoadKeys")]
         public void T1_CompareCount(string pnr)
         {
             using (var realDprDataContext = CreateDataContext(Properties.Settings.Default.RealDprConnectionString))
@@ -137,7 +144,6 @@ namespace CprBroker.Tests.DBR.Comparison
             [ValueSource("GetProperties")]PropertyInfo property,
             [ValueSource("LoadKeys")]string key)
         {
-            ConvertObject(key);
             using (var realDprDataContext = CreateDataContext(Properties.Settings.Default.RealDprConnectionString))
             {
                 using (var fakeDprDataContext = CreateDataContext(Properties.Settings.Default.ImitatedDprConnectionString))
