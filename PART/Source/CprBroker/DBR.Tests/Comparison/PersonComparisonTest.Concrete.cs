@@ -299,7 +299,9 @@ namespace CprBroker.Tests.DBR.Comparison.Person
     }
 
     [TestFixture]
-    public class DisappearanceComparisonTests : PersonComparisonTest<Disappearance> { }
+    public class DisappearanceComparisonTests : PersonComparisonTest<Disappearance> {
+        // Review 2.0
+    }
 
     [TestFixture]
     public class EventComparisonTests : PersonComparisonTest<Event> { }
