@@ -94,13 +94,14 @@ namespace CprBroker.Tests.DBR.Comparison
             var decimalTypes = new Type[] { typeof(decimal), typeof(decimal?) };
             if (decimalTypes.Contains(prop.PropertyType))
             {
-                var s = String.Format("{0}", r);
+                var sR = String.Format("{0}", r);
+                var sF = String.Format("{0}", f);
                 var pat = @"\A\d{12}\Z";
-                
-                if (Regex.Match(s,pat).Success) // yyyyMMddHH99 // 196804011399
+
+                if (Regex.Match(sR, pat).Success && Regex.Match(sF, pat).Success) // yyyyMMddHH99 // 196804011399
                 {
-                    r = decimal.Parse(s.Substring(0, 10) + "00");
-                    f = decimal.Parse(String.Format("{0}", f).Substring(0, 10) + "00");
+                    r = decimal.Parse(sR.Substring(0, 10) + "00");
+                    f = decimal.Parse(sF.Substring(0, 10) + "00");
                 }
             }
 

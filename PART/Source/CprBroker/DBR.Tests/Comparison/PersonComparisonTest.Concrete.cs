@@ -324,7 +324,9 @@ namespace CprBroker.Tests.DBR.Comparison.Person
     }
 
     [TestFixture]
-    public class MunicipalConditionComparisonTests : PersonComparisonTest<MunicipalCondition> { }
+    public class MunicipalConditionComparisonTests : PersonComparisonTest<MunicipalCondition> { 
+        // Review 2.0
+    }
 
     [TestFixture]
     public class ParentalAuthorityConditionComparisonTests : PersonComparisonTest<ParentalAuthority>
