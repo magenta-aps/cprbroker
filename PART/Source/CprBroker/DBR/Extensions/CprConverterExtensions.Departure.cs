@@ -62,7 +62,8 @@ namespace CprBroker.DBR.Extensions
                 d.PNR = Decimal.Parse(currentDeparture.PNR);
                 if (currentDeparture.ExitDate.HasValue)
                     d.CprUpdateDate = CprBroker.Utilities.Dates.DateToDecimal(currentDeparture.ExitDate.Value, 12);
-                d.ExitCountryCode = currentDeparture.ExitCountryCode;
+
+                d.ExitCountryCode = currentDeparture.ExitCountryCode != 0m ? currentDeparture.ExitCountryCode : null as decimal?;
 
                 if (currentDeparture.ExitDate.HasValue)
                     d.ExitDate = CprBroker.Utilities.Dates.DateToDecimal(currentDeparture.ExitDate.Value, 12);
@@ -97,15 +98,9 @@ namespace CprBroker.DBR.Extensions
             d.PNR = Decimal.Parse(historicalDeparture.PNR);
             if (historicalDeparture.EntryDate.HasValue)
                 d.CprUpdateDate = CprBroker.Utilities.Dates.DateToDecimal(historicalDeparture.EntryDate.Value, 12);
-            if (historicalDeparture.ExitCountryCode > 0)
-            {
-                d.ExitCountryCode = historicalDeparture.ExitCountryCode;
-            }
-            else
-            {
-                d.ExitCountryCode = null;
-            }
-            d.ExitCountryCode = historicalDeparture.ExitCountryCode;
+
+            d.ExitCountryCode = historicalDeparture.ExitCountryCode != 0m ? historicalDeparture.ExitCountryCode : null as decimal?;
+
             if (historicalDeparture.ExitDate != null)
             {
                 d.ExitDate = CprBroker.Utilities.Dates.DateToDecimal(historicalDeparture.ExitDate.Value, 12);
