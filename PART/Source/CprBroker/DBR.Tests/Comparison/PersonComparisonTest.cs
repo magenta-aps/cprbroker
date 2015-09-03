@@ -63,7 +63,6 @@ namespace CprBroker.Tests.DBR.Comparison.Person
                 }
             }
             return KeysHolder._Keys;
-
         }
 
         public override void ConvertObject(string pnr)
