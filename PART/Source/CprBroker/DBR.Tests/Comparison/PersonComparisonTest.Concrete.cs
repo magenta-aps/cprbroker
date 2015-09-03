@@ -241,7 +241,7 @@ namespace CprBroker.Tests.DBR.Comparison.Person
             get
             {
                 return new string[]{
-                    //"CprUpdateDate", // Already implemented // Data from CPR extracts only has a date but no time
+                    // Review 2.0
                     "MunicipalityCode", // FROM CPR services or maybe other records
                 };
             }
