@@ -75,6 +75,7 @@
     <Compile Include="BaseProvider.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="ClientDataProvider.cs" />
+    <Compile Include="Data\City.cs" />
     <Compile Include="Data\CivilStatus.cs" />
     <Compile Include="Data\Departure.cs" />
     <Compile Include="Data\Relation.cs" />
@@ -92,6 +93,9 @@
     <Compile Include="Data\PersonTotal7.cs" />
     <Compile Include="Data\PostDistrict.cs" />
     <Compile Include="Data\Street.cs" />
+    <Compile Include="Lookup\HouseLookupHelper.cs" />
+    <Compile Include="Lookup\HouseNumber.cs" />
+    <Compile Include="Lookup\IHouseLookup.cs" />
     <Compile Include="PersonInfo.cs" />
     <Compile Include="Data\Child.cs" />
     <Compile Include="Data\DPR.designer.cs">
@@ -180,6 +184,9 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="obj\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

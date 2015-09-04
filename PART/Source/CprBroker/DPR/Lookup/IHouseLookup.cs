@@ -48,18 +48,12 @@ using System.Text;
 
 namespace CprBroker.Providers.DPR
 {
-    public partial class PostDistrict : IHouseLookup
+    public interface IHouseLookup
     {
-        public static decimal? GetPostCode(string connectionString, decimal municipalityCode, decimal streetCode, string houseNumber)
-        {
-            return HouseLookupHelper<PostDistrict>
-                .GetPostValue<decimal?>(connectionString, municipalityCode, streetCode, houseNumber, dc => dc.PostDistricts, o => o.POSTNR);
-        }
-
-        public static string GetPostText(string connectionString, decimal municipalityCode, decimal streetCode, string houseNumber)
-        {
-            return HouseLookupHelper<PostDistrict>
-                .GetPostValue<string>(connectionString, municipalityCode, streetCode, houseNumber, dc => dc.PostDistricts, o => o.DISTTXT);
-        }
+        decimal KOMKOD { get; }
+        decimal VEJKOD { get; }
+        string HUSNRFRA { get; }
+        string HUSNRTIL { get; }
+        char LIGEULIGE { get; }
     }
 }

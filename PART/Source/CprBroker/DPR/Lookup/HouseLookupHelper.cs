@@ -48,18 +48,41 @@ using System.Text;
 
 namespace CprBroker.Providers.DPR
 {
-    public partial class PostDistrict : IHouseLookup
+    public class HouseLookupHelper<TObj>
+        where TObj : IHouseLookup
     {
-        public static decimal? GetPostCode(string connectionString, decimal municipalityCode, decimal streetCode, string houseNumber)
-        {
-            return HouseLookupHelper<PostDistrict>
-                .GetPostValue<decimal?>(connectionString, municipalityCode, streetCode, houseNumber, dc => dc.PostDistricts, o => o.POSTNR);
-        }
+        private static Dictionary<int, TObj[]> _PostDistricts = new Dictionary<int, TObj[]>();
 
-        public static string GetPostText(string connectionString, decimal municipalityCode, decimal streetCode, string houseNumber)
+        public static T GetPostValue<T>(
+            string connectionString,
+            decimal municipalityCode, decimal streetCode, string houseNumber,
+            Func<LookupDataContext, IQueryable<TObj>> loader, Func<TObj, T> getter)
         {
-            return HouseLookupHelper<PostDistrict>
-                .GetPostValue<string>(connectionString, municipalityCode, streetCode, houseNumber, dc => dc.PostDistricts, o => o.DISTTXT);
+            var databaseCode = connectionString.GetHashCode();
+
+            if (!_PostDistricts.ContainsKey(databaseCode))
+            {
+                // Pre fill from database
+                using (var dataContext = new LookupDataContext(connectionString))
+                {
+                    _PostDistricts[databaseCode] = loader(dataContext).ToArray();
+                }
+            }
+
+            var houseNumberObj = new HouseNumber(houseNumber);
+
+            var ret = _PostDistricts[databaseCode].Where(pd =>
+                pd.KOMKOD == municipalityCode
+                && pd.VEJKOD == streetCode
+                && (
+                    houseNumberObj.Between(new HouseNumber(pd.HUSNRFRA), new HouseNumber(pd.HUSNRTIL), pd.LIGEULIGE)
+                    )
+                )
+                .SingleOrDefault();
+
+            if (ret != null)
+                return getter(ret);
+            return default(T);
         }
     }
 }

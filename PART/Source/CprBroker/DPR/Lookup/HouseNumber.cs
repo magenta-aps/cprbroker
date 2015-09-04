@@ -45,21 +45,65 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace CprBroker.Providers.DPR
 {
-    public partial class PostDistrict : IHouseLookup
+    public class HouseNumber
     {
-        public static decimal? GetPostCode(string connectionString, decimal municipalityCode, decimal streetCode, string houseNumber)
+        public int? Number;
+        public char? Letter;
+        public char? EvenOddVal;
+
+        public decimal? IntValue
         {
-            return HouseLookupHelper<PostDistrict>
-                .GetPostValue<decimal?>(connectionString, municipalityCode, streetCode, houseNumber, dc => dc.PostDistricts, o => o.POSTNR);
+            get
+            {
+                if (Number.HasValue)
+                {
+                    var ret = Number.Value * 100;
+                    if (Letter.HasValue)
+                        ret += (int)Letter.Value;
+                    return ret;
+                }
+                else
+                {
+                    return null;
+                }
+            }
         }
 
-        public static string GetPostText(string connectionString, decimal municipalityCode, decimal streetCode, string houseNumber)
+        public HouseNumber(string houseNumber)
         {
-            return HouseLookupHelper<PostDistrict>
-                .GetPostValue<string>(connectionString, municipalityCode, streetCode, houseNumber, dc => dc.PostDistricts, o => o.DISTTXT);
+            houseNumber = string.Format("{0}", houseNumber).Trim();
+
+            var pat = @"\A(?<num>\d+)(?<char>[a-zA-Z]*)\Z";
+            var m = Regex.Match(houseNumber, pat);
+
+            if (m.Success)
+            {
+                int num;
+                if (int.TryParse(m.Groups["num"].Value, out num))
+                {
+                    Number = num;
+                    EvenOddVal = EvenOdd.Even;
+                    if (num % 1 == 1)
+                        EvenOddVal = EvenOdd.Odd;
+                }
+
+                if (m.Groups["char"].Length > 0)
+                    Letter = m.Groups["char"].Value[0];
+            }
+        }
+
+        public bool Between(HouseNumber from, HouseNumber to, char evenOdd)
+        {
+            return
+                true
+                && this.Number.HasValue
+                && this.EvenOddVal.Value.Equals(evenOdd)
+                && this.IntValue >= from.IntValue && this.IntValue <= to.IntValue
+                ;
         }
     }
 }
