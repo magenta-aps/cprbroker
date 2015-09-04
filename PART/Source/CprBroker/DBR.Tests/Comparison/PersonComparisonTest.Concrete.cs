@@ -269,9 +269,11 @@ namespace CprBroker.Tests.DBR.Comparison.Person
             }
         }
 
-        public override IQueryable<PersonAddress> Get(DPRDataContext dataContext, string pnr)
+        public override string[] GetOrderByColumnNames()
         {
-            return dataContext.PersonAddresses.Where(c => c.PNR == decimal.Parse(pnr)).OrderByDescending(c => c.AddressStartDate);
+            return new string[] { 
+                "TILFDTO" // Address StartDate
+            };
         }
     }
 
@@ -293,12 +295,14 @@ namespace CprBroker.Tests.DBR.Comparison.Person
     }
 
     [TestFixture]
-    public class DisappearanceComparisonTests : PersonComparisonTest<Disappearance> {
+    public class DisappearanceComparisonTests : PersonComparisonTest<Disappearance>
+    {
         // Review 2.0
     }
 
     [TestFixture]
-    public class EventComparisonTests : PersonComparisonTest<Event> {
+    public class EventComparisonTests : PersonComparisonTest<Event>
+    {
         // Review 2.0
     }
 
@@ -318,7 +322,8 @@ namespace CprBroker.Tests.DBR.Comparison.Person
     }
 
     [TestFixture]
-    public class MunicipalConditionComparisonTests : PersonComparisonTest<MunicipalCondition> { 
+    public class MunicipalConditionComparisonTests : PersonComparisonTest<MunicipalCondition>
+    {
         // Review 2.0
     }
 
@@ -338,12 +343,14 @@ namespace CprBroker.Tests.DBR.Comparison.Person
     }
 
     [TestFixture]
-    public class GuardianAndParentalAuthorityRelationComparisonTests : PersonComparisonTest<GuardianAndParentalAuthorityRelation> {
+    public class GuardianAndParentalAuthorityRelationComparisonTests : PersonComparisonTest<GuardianAndParentalAuthorityRelation>
+    {
         // Review 2.0
     }
 
     [TestFixture]
-    public class GuardianAddressComparisonTests : PersonComparisonTest<GuardianAddress> {
+    public class GuardianAddressComparisonTests : PersonComparisonTest<GuardianAddress>
+    {
         // Review 2.0
     }
 
