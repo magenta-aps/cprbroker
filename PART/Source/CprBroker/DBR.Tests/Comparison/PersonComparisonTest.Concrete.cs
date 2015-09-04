@@ -247,23 +247,8 @@ namespace CprBroker.Tests.DBR.Comparison.Person
             get
             {
                 string[] excluded = {
-                                    /* BELOW EXCLUSIONS ARE ONCE THAT ARE NOT, CURRENTLY, USED BY ANY SYSTEMS - AND FAIL IN TESTS */
-                                    //"AddressStartDateMarker", // Already implemented // We do not know the origin of this marker.
-                                    //"CprUpdateDate", // Already implemented. //It is skipped for now, as the contents are wrong and not used by known systems.
-                                    "MunicipalityArrivalDate", // TODO: Implement in histoical records // It is skipped for now, as the contents are wrong and not used by known systems.
-                                    //"StreetAddressingName", // Already implemented //It is skipped for now, as the contents are wrong and not used by known systems.
-
-                                    // EXTRA - do not commit
-                                    //"PostCode", // Already implemented
-                                    //"CorrectionMarker", // Already implemented
-                                    //"MunicipalityCode", // Already implemented
-                                    //"MunicipalityName", // Already implemented
-                                    //"StreetCode", // Already implemented
-                                    //"AddressEndDate",// Already implemented
-                                    //"DoorNumber", // Already implemented
-                                    //"LeavingFromMunicipalityCode", // TODO: implement in historical adresses
-                                    //"LeavingFromMunicipalityDate", // TODO: implement in historical adresses
-                                    //"AddressStartDate" // minor approximation problems on millisecond level. TODO: Ignore milliseconds in datetime comparison
+                                        // Review 2.0
+                                        "MunicipalityArrivalDate" // Sometimes it matches start date of previous address, other times matches birthdate
                                 };
                 return excluded;
             }

@@ -245,9 +245,9 @@ namespace CprBroker.DBR.Extensions
                 pa.CareOfName = historicalAddress.CareOfName;
             else
                 pa.CareOfName = null;
-            
+
             pa.Town = City.GetCityName(dataContext.Connection.ConnectionString, historicalAddress.MunicipalityCode, historicalAddress.StreetCode, historicalAddress.HouseNumber);
-            
+
             pa.Location = null; //Find in GoeLookup, based on street code and house number
             pa.AdditionalAddressLine1 = null; // Seems not available in historical records....
             pa.AdditionalAddressLine2 = null; // Seems not available in historical records....
