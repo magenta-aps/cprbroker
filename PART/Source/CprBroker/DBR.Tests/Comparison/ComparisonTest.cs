@@ -77,6 +77,20 @@ namespace CprBroker.Tests.DBR.Comparison
                 .ToArray();
         }
 
+        public virtual string[] GetOrderByColumnNames()
+        {
+            return GetPkColumnNames();
+        }
+
+        public string GetCorrectionMarkerColumnName()
+        {
+            return GetProperties()
+                .Select(p => new { Prop = p, Attr = p.GetCustomAttributes(typeof(System.Data.Linq.Mapping.ColumnAttribute), true).FirstOrDefault() as System.Data.Linq.Mapping.ColumnAttribute })
+                .Where(p => p.Prop.Name.ToLower().Equals("correctionmarker") || p.Attr.Name.ToLower().Equals("annkor"))
+                .Select(p => p.Attr.Name)
+                .FirstOrDefault();
+        }
+
         public void CompareProperty(TObject realObject, TObject fakeObject, PropertyInfo prop)
         {
             var r = prop.GetValue(realObject, null);
