@@ -282,7 +282,7 @@
       <Column Name="FKAJFDTO" Member="ChurchRelationUpdateDate" Type="System.Decimal" DbType="Decimal(13,0) NOT NULL" CanBeNull="false" />
       <Column Name="FKMYNKOD" Member="ChurchAuthorityCode" Type="System.Decimal" DbType="Decimal(5,0) NOT NULL" CanBeNull="false" />
       <Column Name="FKHAENST" Member="ChurchDate" Type="System.Decimal" DbType="Decimal(13,0) NOT NULL" CanBeNull="false" />
-      <Column Name="UMYMYKOD" Member="UnderGuardianshipAuthprityCode" Type="System.Decimal" DbType="Decimal(5,0)" CanBeNull="true" />
+      <Column Name="UMYMYKOD" Member="UnderGuardianshipAuthorityCode" Storage="_UnderGuardianshipAuthprityCode" Type="System.Decimal" DbType="Decimal(5,0)" CanBeNull="true" />
       <Column Name="UMAJFDTO" Member="GuardianshipUpdateDate" Type="System.Decimal" DbType="Decimal(13,0)" CanBeNull="true" />
       <Column Name="UMHAENST" Member="UnderGuardianshipDate" Type="System.Decimal" DbType="Decimal(13,0)" CanBeNull="true" />
       <Column Name="PMHAENST" Member="PnrMarkingDate" Type="System.Decimal" DbType="Decimal(13,0)" CanBeNull="true" />

@@ -83,7 +83,7 @@ namespace CprBroker.Tests.DBR.Comparison.Person
                                         "KinshipUpdateDate", // CPR Services 'timestamp' ? // Not available in CPR Extracts
                                         "PaternityAuthorityCode", // CPR Services 'far_mynkod' ? // Not available in CPR Extracts
                                         "PaternityDate", // CPR Services 'farhaenstart' ? // Not available in CPR Extracts
-                                        "UnderGuardianshipAuthprityCode", // CPR Services 'mynkod-ctumyndig' ? // Not available in CPR Extracts
+                                        "UnderGuardianshipAuthorityCode", // CPR Services 'mynkod-ctumyndig' ? // Not available in CPR Extracts
                                         "BirthplaceTextUpdateDate", // CPR Services 'foedtxttimestamp' ? // Not available in CPR Extracts
                                         "JobDate" // CPR Services 'stillingsdato' ? // Not available in CPR Extracts
                                 };

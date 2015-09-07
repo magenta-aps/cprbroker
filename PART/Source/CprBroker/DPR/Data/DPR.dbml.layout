@@ -117,7 +117,7 @@
         <classShapeMoniker Id="ad4c5d61-dbfb-400a-b829-0da01f27860b" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(7.5 : 0.96875); (6.39583333333333 : 0.968749999999999 : JumpStart); (6.22916666666667 : 0.96875 : JumpEnd); (4.625 : 0.96875)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(7.5 : 0.96875); (4.625 : 0.96875)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/DPRDataContext/PersonTotal/PersonTotal_Child" />
       <nodes>
         <classShapeMoniker Id="e41857ad-de04-40ac-b603-8b733e41b7d7" />

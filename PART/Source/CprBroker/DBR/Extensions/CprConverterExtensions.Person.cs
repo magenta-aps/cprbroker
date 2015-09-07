@@ -81,7 +81,7 @@ namespace CprBroker.DBR.Extensions
             /*
              * Guardianship related
              */
-            p.UnderGuardianshipAuthprityCode = null; //TODO: Can be retrieved from CPR Services: mynkod-ctumyndig
+            p.UnderGuardianshipAuthorityCode = null; //TODO: Can be retrieved from CPR Services: mynkod-ctumyndig
             p.GuardianshipUpdateDate = null; //TODO: Can be fetched in CPR Services: timestamp
             if (person.Disempowerment != null)
             {
