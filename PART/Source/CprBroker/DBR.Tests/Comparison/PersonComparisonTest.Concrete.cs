@@ -130,10 +130,12 @@ namespace CprBroker.Tests.DBR.Comparison.Person
                 return excluded;
             }
         }
-        public override IQueryable<PersonName> Get(DPRDataContext dataContext, string key)
+
+        public override string[] GetOrderByColumnNames()
         {
-            var pnr = decimal.Parse(key);
-            return dataContext.PersonNames.Where(pn => pn.PNR == pnr).OrderByDescending(pn => pn.NameStartDate).ThenBy(pn => pn.CorrectionMarker);
+            return new string[] { 
+                "NVHAENST"
+            };
         }
     }
 

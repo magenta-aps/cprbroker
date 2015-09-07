@@ -105,10 +105,9 @@ namespace CprBroker.DBR.Extensions
             if (!char.IsWhiteSpace(historicalName.LastNameMarker))
                 pn.SurnameMarker = historicalName.LastNameMarker;
 
-            if (historicalName.NameStartDate.HasValue)
-                pn.NameStartDate = CprBroker.Utilities.Dates.DateToDecimal(historicalName.NameStartDate.Value, 12);
-            if (historicalName.NameEndDate.HasValue)
-                pn.NameTerminationDate = CprBroker.Utilities.Dates.DateToDecimal(historicalName.NameEndDate.Value, 12);
+            pn.NameStartDate = historicalName.NameStartDateDecimal;
+            pn.NameTerminationDate = historicalName.NameEndDateDecimal;
+
             pn.AddressingNameDate = null; //TODO: Can be fetched in CPR Services, adrnvnhaenstart
             if (!char.IsWhiteSpace(historicalName.CorrectionMarker))
                 pn.CorrectionMarker = historicalName.CorrectionMarker;
@@ -127,13 +126,20 @@ namespace CprBroker.DBR.Extensions
         {
             if (!string.IsNullOrEmpty(addressingName))
             {
-                var lastNamePartCount = lastName.Split(' ').Length;
-                var addressingNameParts = addressingName.Split(' ');
-                var otherNamesPartCount = addressingNameParts.Length - lastNamePartCount;
-                return string.Format("{0},{1}",
-                    string.Join(" ", addressingNameParts.Skip(otherNamesPartCount).ToArray()),
-                    string.Join(" ", addressingNameParts.Take(otherNamesPartCount).ToArray())
-                );
+                if (addressingName.Contains(","))
+                {
+                    return addressingName;
+                }
+                else
+                {
+                    var lastNamePartCount = lastName.Split(' ').Length;
+                    var addressingNameParts = addressingName.Split(' ');
+                    var otherNamesPartCount = addressingNameParts.Length - lastNamePartCount;
+                    return string.Format("{0},{1}",
+                        string.Join(" ", addressingNameParts.Skip(otherNamesPartCount).ToArray()),
+                        string.Join(" ", addressingNameParts.Take(otherNamesPartCount).ToArray())
+                    );
+                }
             }
             return null;
         }
