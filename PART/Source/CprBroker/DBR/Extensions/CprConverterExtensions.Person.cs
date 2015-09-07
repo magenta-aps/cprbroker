@@ -81,7 +81,7 @@ namespace CprBroker.DBR.Extensions
             /*
              * Guardianship related
              */
-            p.UnderGuardianshipAuthprityCode = 0; //TODO: Can be retrieved from CPR Services: mynkod-ctumyndig
+            p.UnderGuardianshipAuthprityCode = null; //TODO: Can be retrieved from CPR Services: mynkod-ctumyndig
             p.GuardianshipUpdateDate = null; //TODO: Can be fetched in CPR Services: timestamp
             if (person.Disempowerment != null)
             {
@@ -95,7 +95,10 @@ namespace CprBroker.DBR.Extensions
              * PNR related
              */
             p.PnrMarkingDate = null; //TODO: Can be fetched in CPR Services: pnrhaenstart
-            p.PnrDate = 0; //TODO: Can be fetched in CPR Services: pnrmrkhaenstart
+            if (person.PersonInformation.PersonStartDate.HasValue)
+                p.PnrDate = CprBroker.Utilities.Dates.DateToDecimal(person.PersonInformation.PersonStartDate.Value, 12); //TODO: Can be fetched in CPR Services: pnrmrkhaenstart
+            else
+                p.PnrDate = 0;
             p.CurrentPnrUpdateDate = 0; //TODO: Can be fetched in CPR Services: timestamp// If PnrMarkingDate has value => null, otherwise, 0
             if (!string.IsNullOrEmpty(person.PersonInformation.CurrentCprNumber))
             {
@@ -121,6 +124,22 @@ namespace CprBroker.DBR.Extensions
             /*
              * Relations related
              */
+
+            Func<decimal, string, char, string> parentDocumentationGetter = (parentPnr, parentName, parentNameUncertainty) =>
+                {
+                    if (parentPnr > 0 ||
+                        (!string.IsNullOrEmpty(parentName.Trim()) && parentNameUncertainty != '=')
+                        )
+                    {
+                        return "JA";// Can still be null in somestitations
+                    }
+                    else
+                    {
+                        return null; //TODO: Can be fetched in CPR Services: far_dok
+                    }
+                };
+
+
             p.KinshipUpdateDate = 0; //TODO: Can be fetched in CPR Services: timestamp
 
             if (!string.IsNullOrEmpty(person.ParentsInformation.MotherPNR))
@@ -140,7 +159,8 @@ namespace CprBroker.DBR.Extensions
             {
                 p.MotherBirthdate = null;
             }
-            p.MotherDocumentation = null; //TODO: Can be fetched in CPR Services: mor_dok
+            p.MotherDocumentation = parentDocumentationGetter(p.MotherPnr, person.ParentsInformation.MotherName, person.ParentsInformation.MotherNameUncertainty);
+
             p.FatherPnr = decimal.Parse(person.ParentsInformation.FatherPNR);
             if (person.ParentsInformation.FatherBirthDate != null)
             {
@@ -150,7 +170,9 @@ namespace CprBroker.DBR.Extensions
             {
                 p.FatherBirthdate = null;
             }
-            p.FatherDocumentation = null; //TODO: Can be fetched in CPR Services: far_dok
+
+            p.FatherDocumentation = parentDocumentationGetter(p.FatherPnr, person.ParentsInformation.FatherName, person.ParentsInformation.FatherNameUncertainty);
+
             p.PaternityDate = null; //TODO: Can be fetched in CPR Services: farhaenstart
             p.PaternityAuthorityCode = null; //TODO: Can be fetched in CPR Services: far_mynkod
             p.MotherName = person.ParentsInformation.MotherName;

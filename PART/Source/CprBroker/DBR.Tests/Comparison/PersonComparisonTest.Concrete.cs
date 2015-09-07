@@ -78,30 +78,14 @@ namespace CprBroker.Tests.DBR.Comparison.Person
                                         "PnrDeletionDate", // Usually it is null, but is 0 a few times - excluding for now
                                         "UnderGuardianshipRelationType", //Usually it is null, but is 0 a few times - excluding for now
                                         "CustomerNumber", // This must differ from real DPR
-                                    
-                                        // End review 2.0
-
-                                    /* BELOW EXCLUSIONS ARE ONCE THAT ARE NOT, CURRENTLY, USED BY ANY SYSTEMS - AND FAIL IN TESTS */
-                                    
-                                    /* 
-                                                      * We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
-                                                      * The field should contain a chronologically sorted list, so that client systems can use it for sorting rows.
-                                                      */
-
-                                    //"CurrentPnrUpdateDate", // CPR Services 'timestamp' // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
-                                    "FatherDocumentation", // CPR Sevices 'far_dok' ? // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
-                                    "KinshipUpdateDate", // CPR Services 'timestamp' ? // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
-                                    "MotherDocumentation", // cpr sERVICES 'mor_dok' ? // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
-                                    "PaternityAuthorityCode", // CPR Services 'far_mynkod' ? // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
-                                    "PaternityDate", // CPR Services 'farhaenstart' ? // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
-                                    "PnrDate", // CPR Services 'pnrmrkhaenstart' ? // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
-                                    "UnderGuardianshipAuthprityCode", // CPR Services 'mynkod-ctumyndig' ? // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
-
-                                    // EXTRA - do not commit
-                                    "PnrMarkingDate", // CPR Services 'pnrhaenstart' ?
-                                    //"UnderGuardianshipRelationType", // Already implemented
-                                    "BirthplaceTextUpdateDate", // CPR Services 'foedtxttimestamp' ?
-                                    "JobDate" // CPR Services 'stillingsdato' ?
+                                        "FatherDocumentation", // CPR Services 'far_dok' ? // We do the best to match it, but it not exactly matching a real DPR.
+                                        "MotherDocumentation", // CPR Services 'mor_dok' ? // We do the best to match it, but it not exactly matching a real DPR.                                        
+                                        "KinshipUpdateDate", // CPR Services 'timestamp' ? // Not available in CPR Extracts
+                                        "PaternityAuthorityCode", // CPR Services 'far_mynkod' ? // Not available in CPR Extracts
+                                        "PaternityDate", // CPR Services 'farhaenstart' ? // Not available in CPR Extracts
+                                        "UnderGuardianshipAuthprityCode", // CPR Services 'mynkod-ctumyndig' ? // Not available in CPR Extracts
+                                        "BirthplaceTextUpdateDate", // CPR Services 'foedtxttimestamp' ? // Not available in CPR Extracts
+                                        "JobDate" // CPR Services 'stillingsdato' ? // Not available in CPR Extracts
                                 };
                 return excluded;
             }
