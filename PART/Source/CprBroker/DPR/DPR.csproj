@@ -75,6 +75,7 @@
     <Compile Include="BaseProvider.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="ClientDataProvider.cs" />
+    <Compile Include="Data\ChurchAdministrationDistrict.cs" />
     <Compile Include="Data\City.cs" />
     <Compile Include="Data\CivilStatus.cs" />
     <Compile Include="Data\Departure.cs" />
