@@ -70,14 +70,17 @@ namespace CprBroker.Tests.DBR.Comparison.Person
             get
             {
                 string[] excluded = {
+                                        // Review 2.0
+                                        "BirthRegistrationDate", //Usually matches PersonInformation.PersonStartDate, but not always. 
+                                        "BirthRegistrationPlaceUpdateDate", // CPR Services 'foedmynhaenstart' ? 
+                                        "ChurchAuthorityCode", // Church district lookup? Not possible so far // CPR Services 'fkirkmynkod'
+                                        "ChurchRelationUpdateDate", // Not available in CPR Extracts.
+                                        "PnrDeletionDate", // Usually it is null, but is 0 a few times - excluding for now
+                                        "UnderGuardianshipRelationType", //Usually it is null, but is 0 a few times - excluding for now
+                                        // End review 2.0
+
                                     /* BELOW EXCLUSIONS ARE ONCE THAT ARE NOT, CURRENTLY, USED BY ANY SYSTEMS - AND FAIL IN TESTS */
-                                    //"BirthplaceText", //Already implemented // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
-                                    //"BirthRegistrationDate", //Already implemented // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
-                                    "BirthRegistrationPlaceUpdateDate", // CPR Services 'foedmynhaenstart' ? // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
-                                    //"ChurchAuthorityCode", // Church district lookup? // CPR Services 'fkirkmynkod' // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
-                                    //"ChurchDate", // Already implemented // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
-                                    //"ChurchRelationUpdateDate", // Already implemented // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
-                                    //"CprUpdateDate", Already implemented 
+                                    
                                     /* 
                                                       * We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
                                                       * The field should contain a chronologically sorted list, so that client systems can use it for sorting rows.

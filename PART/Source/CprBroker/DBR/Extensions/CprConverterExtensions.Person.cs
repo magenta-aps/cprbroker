@@ -66,7 +66,8 @@ namespace CprBroker.DBR.Extensions
              * Birth date related
              */
             p.BirthRegistrationAuthorityCode = decimal.Parse(person.BirthRegistrationInformation.BirthRegistrationAuthorityCode);
-            p.BirthRegistrationDate = CprBroker.Utilities.Dates.DateToDecimal(person.BirthRegistrationInformation.Registration.RegistrationDate, 12);
+            p.BirthRegistrationDate = 0;
+
             p.BirthRegistrationPlaceUpdateDate = 0; //TODO: Can be retrieved from CPR Services: foedmynhaenstart
             p.BirthplaceTextUpdateDate = null; //TODO: Can be retrieved from CPR Services: foedtxttimestamp
             p.BirthplaceText = person.BirthRegistrationInformation.AdditionalBirthRegistrationText; //TODO: validate that this is correct
@@ -74,9 +75,9 @@ namespace CprBroker.DBR.Extensions
              * Religious related
              */
             p.ChristianMark = person.ChurchInformation.ChurchRelationship.ToString();
-            p.ChurchRelationUpdateDate = CprBroker.Utilities.Dates.DateToDecimal(person.ChurchInformation.Registration.RegistrationDate, 12);
-            p.ChurchAuthorityCode = 0; //TODO: Can be retrieved from CPR Services: fkirkmynkod
-            p.ChurchDate = CprBroker.Utilities.Dates.DateToDecimal(person.ChurchInformation.StartDate.Value, 8);
+            p.ChurchRelationUpdateDate = 0;// CprBroker.Utilities.Dates.DateToDecimal(person.ChurchInformation.Registration.RegistrationDate, 12);
+            p.ChurchAuthorityCode = 0; // ChurchAdministrationDistrict.GetAuthorityCode(dataContext.Connection.ConnectionString, person.ClearWrittenAddress.MunicipalityCode, person.ClearWrittenAddress.StreetCode, person.ClearWrittenAddress.HouseNumber);//TODO: Can be retrieved from CPR Services: fkirkmynkod
+            p.ChurchDate = CprBroker.Utilities.Dates.DateToDecimal(person.ChurchInformation.StartDate.Value, 12);
             /*
              * Guardianship related
              */
@@ -102,11 +103,11 @@ namespace CprBroker.DBR.Extensions
             }
             else
             {
-                p.CurrentPnr = null;
+                p.CurrentPnr = 0;
             }
             if (person.PersonInformation.PersonEndDate != null)
             {
-                p.PnrDeletionDate = CprBroker.Utilities.Dates.DateToDecimal(person.PersonInformation.PersonEndDate.Value, 8);
+                p.PnrDeletionDate = CprBroker.Utilities.Dates.DateToDecimal(person.PersonInformation.PersonEndDate.Value, 12);
             }
             else
             {
