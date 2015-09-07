@@ -84,9 +84,17 @@ namespace CprBroker.Tests.DBR.Comparison
 
         public string GetCorrectionMarkerColumnName()
         {
+            Func<PropertyInfo, System.Data.Linq.Mapping.ColumnAttribute, string> columnNameGetter = (p, a) =>
+            {
+                if (string.IsNullOrEmpty(a.Name))
+                    return p.Name;
+                else
+                    return a.Name;
+            };
+
             return GetProperties()
                 .Select(p => new { Prop = p, Attr = p.GetCustomAttributes(typeof(System.Data.Linq.Mapping.ColumnAttribute), true).FirstOrDefault() as System.Data.Linq.Mapping.ColumnAttribute })
-                .Where(p => p.Prop.Name.ToLower().Equals("correctionmarker") || p.Attr.Name.ToLower().Equals("annkor"))
+                .Where(p => p.Prop.Name.ToLower().Equals("correctionmarker") || columnNameGetter(p.Prop, p.Attr).ToLower().Equals("annkor"))
                 .Select(p => p.Attr.Name)
                 .FirstOrDefault();
         }
