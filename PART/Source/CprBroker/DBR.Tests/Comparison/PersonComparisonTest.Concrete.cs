@@ -115,17 +115,10 @@ namespace CprBroker.Tests.DBR.Comparison.Person
             get
             {
                 string[] excluded = {
-                                    /* BELOW EXCLUSIONS ARE ONCE THAT ARE NOT, CURRENTLY, USED BY ANY SYSTEMS - AND FAIL IN TESTS */
-                                    "AddressingNameDate", // CPR Services 'adrnvnhaenstart' ? // We know that this field contains a 'wrong' date, but it is not used by known systems, so we skip it in the tests.
-                                    "AddressingNameReportingMarker", // CPR Services 'indrap' ? // We know that this field contains a 'wrong' date, but it is not used by known systems, so we skip it in the tests.
-                                    //"CprUpdateDate", // Already implemented // We know that this field contains a 'wrong' date, but it is not used by known systems, so we skip it in the tests.
-                                    "NameAuthorityCode", // CPR Services 'mynkod' ?// We know that this field contains a 'wrong' date, but it is not used by known systems, so we skip it in the tests.
-
-                                    // EXTRA- DO NOT COMMIT
-                                    // "NameStartDate", // Already implemented
-                                    //"SurnameMarker", // Already implemented
-                                    //"MotherOrFatherDocumentation", // TODO: Not a DPR field !!
-                                    // "NameTerminationDate" // some approximation differences on 'second' level // TODO: Ignore seconds in datetime comparison
+                                        // Review 2.0
+                                        "AddressingNameDate", // CPR Services 'adrnvnhaenstart' ? // Not available in CPR Extracts
+                                        "AddressingNameReportingMarker", // CPR Services 'indrap' ? // Not available in CPR Extracts
+                                        "NameAuthorityCode", // CPR Services 'mynkod' ?// Not available in CPR Extracts
                                 };
                 return excluded;
             }
