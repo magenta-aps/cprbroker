@@ -85,7 +85,7 @@ namespace CprBroker.Tests.DBR.Comparison.Person
             var whereAnnKorr = "";
             if (!string.IsNullOrEmpty(GetCorrectionMarkerColumnName()))
                 whereAnnKorr = string.Format(" AND ({0} IS NULL OR {0} = ' ')", GetCorrectionMarkerColumnName());
-            Console.WriteLine("Corr <{0}> where <{1}>", GetCorrectionMarkerColumnName(), whereAnnKorr);
+
             return dataContext.Fill<TObject>(
                 string.Format(
                     "select * from {0} WHERE PNR={1} {2} ORDER BY {3}",
