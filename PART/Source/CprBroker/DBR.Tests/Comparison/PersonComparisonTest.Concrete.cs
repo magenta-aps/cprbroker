@@ -77,6 +77,8 @@ namespace CprBroker.Tests.DBR.Comparison.Person
                                         "ChurchRelationUpdateDate", // Not available in CPR Extracts.
                                         "PnrDeletionDate", // Usually it is null, but is 0 a few times - excluding for now
                                         "UnderGuardianshipRelationType", //Usually it is null, but is 0 a few times - excluding for now
+                                        "CustomerNumber", // This must differ from real DPR
+                                    
                                         // End review 2.0
 
                                     /* BELOW EXCLUSIONS ARE ONCE THAT ARE NOT, CURRENTLY, USED BY ANY SYSTEMS - AND FAIL IN TESTS */
@@ -86,15 +88,10 @@ namespace CprBroker.Tests.DBR.Comparison.Person
                                                       * The field should contain a chronologically sorted list, so that client systems can use it for sorting rows.
                                                       */
 
-                                    //"CurrentPnr", // Already implemented // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
-                                    "CurrentPnrUpdateDate", // CPR Services 'timestamp' // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
-                                    "CustomerNumber", // DPR Specific // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
+                                    //"CurrentPnrUpdateDate", // CPR Services 'timestamp' // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
                                     "FatherDocumentation", // CPR Sevices 'far_dok' ? // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
-                                    //"FatherName", // Already implemented // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
-                                    //"Job", // Already implemented // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
                                     "KinshipUpdateDate", // CPR Services 'timestamp' ? // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
                                     "MotherDocumentation", // cpr sERVICES 'mor_dok' ? // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
-                                    //"MotherName", // Already implemented // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
                                     "PaternityAuthorityCode", // CPR Services 'far_mynkod' ? // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
                                     "PaternityDate", // CPR Services 'farhaenstart' ? // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
                                     "PnrDate", // CPR Services 'pnrmrkhaenstart' ? // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.

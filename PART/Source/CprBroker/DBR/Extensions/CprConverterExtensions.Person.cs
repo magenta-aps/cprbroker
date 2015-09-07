@@ -61,7 +61,7 @@ namespace CprBroker.DBR.Extensions
             p.CprUpdateDate = CprBroker.Utilities.Dates.DateToDecimal(person.RegistrationDate, 12);
             p.Birthdate = CprBroker.Utilities.Dates.DateToDecimal(person.PersonInformation.Birthdate.Value, 8);
             p.Gender = person.PersonInformation.Gender.ToString();
-            p.CustomerNumber = null; //DPR SPECIFIC
+            p.CustomerNumber = null; // person.CustomerNumber is always 0 and causes an error; 
             /*
              * Birth date related
              */
@@ -96,7 +96,7 @@ namespace CprBroker.DBR.Extensions
              */
             p.PnrMarkingDate = null; //TODO: Can be fetched in CPR Services: pnrhaenstart
             p.PnrDate = 0; //TODO: Can be fetched in CPR Services: pnrmrkhaenstart
-            p.CurrentPnrUpdateDate = null; //TODO: Can be fetched in CPR Services: timestamp
+            p.CurrentPnrUpdateDate = 0; //TODO: Can be fetched in CPR Services: timestamp// If PnrMarkingDate has value => null, otherwise, 0
             if (!string.IsNullOrEmpty(person.PersonInformation.CurrentCprNumber))
             {
                 p.CurrentPnr = decimal.Parse(person.PersonInformation.CurrentCprNumber);
