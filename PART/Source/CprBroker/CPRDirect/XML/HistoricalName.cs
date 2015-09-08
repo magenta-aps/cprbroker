@@ -132,16 +132,5 @@ namespace CprBroker.Providers.CPRDirect
             }
         }
 
-        public decimal NameStartDateDecimal
-        {
-            get { return this.GetDecimal(148, 12); }
-            set { this.SetDecimal(value, 148, 12); }
-        }
-        public decimal NameEndDateDecimal
-        {
-            get { return this.GetDecimal(161, 12); }
-            set { this.SetDecimal(value, 161, 12); }
-        }
-
     }
 }
