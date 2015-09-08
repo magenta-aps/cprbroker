@@ -144,8 +144,15 @@ namespace CprBroker.DBR.Extensions
             }
 
             // TODO: Get from protection records
-            pt.AddressProtectionMarker = null; // TODO: Lookup in protection records //DPR SPECIFIC
-            pt.DirectoryProtectionMarker = null; // TODO: Lookup in protection records //DPR SPECIFIC
+            Func<ProtectionType.ProtectionCategoryCodes, char?> protectionMarkerGetter = (cd) =>
+                resp.Protection
+                .Where(p => p.ProtectionCategoryCode == cd)
+                .Count()
+                > 0 ? '1' : null as char?;
+
+            pt.AddressProtectionMarker = protectionMarkerGetter(ProtectionType.ProtectionCategoryCodes.NameAndAddress);
+            pt.DirectoryProtectionMarker = protectionMarkerGetter(ProtectionType.ProtectionCategoryCodes.LocalDirectory);
+
             pt.AddressDateMarker = null; // TODO: Fill from address date marker //DPR SPECIFIC            
 
             pt.ChristianMark = resp.ChurchInformation.ChurchRelationship;
@@ -271,7 +278,7 @@ namespace CprBroker.DBR.Extensions
                 */
             }
 
-            
+
 
             // In DPR SearchName contains both the first name and the middlename.
             pt.SearchName = ToDprFirstName(resp.CurrentNameInformation.FirstName_s, resp.CurrentNameInformation.MiddleName, true);
