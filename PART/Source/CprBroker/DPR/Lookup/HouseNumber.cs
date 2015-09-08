@@ -87,7 +87,7 @@ namespace CprBroker.Providers.DPR
                 {
                     Number = num;
                     EvenOddVal = EvenOdd.Even;
-                    if (num % 1 == 1)
+                    if (num % 2 == 1)
                         EvenOddVal = EvenOdd.Odd;
                 }
 
@@ -98,11 +98,13 @@ namespace CprBroker.Providers.DPR
 
         public bool Between(HouseNumber from, HouseNumber to, char evenOdd)
         {
+            var fromVal = from.IntValue.HasValue ? from.IntValue.Value : 0;
+            var toVal = to.IntValue.HasValue ? to.IntValue.Value : int.MaxValue;
             return
                 true
                 && this.Number.HasValue
                 && this.EvenOddVal.Value.Equals(evenOdd)
-                && this.IntValue >= from.IntValue && this.IntValue <= to.IntValue
+                && this.IntValue >= fromVal && this.IntValue <= toVal
                 ;
         }
     }

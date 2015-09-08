@@ -152,7 +152,16 @@ namespace CprBroker.DBR
             var currentAddress = person.GetFolkeregisterAdresseSource(false) as CurrentAddressWrapper;
             if (currentAddress != null)
                 dataContext.PersonAddresses.InsertOnSubmit(currentAddress.ToDpr(dataContext));
-            dataContext.PersonAddresses.InsertAllOnSubmit(person.HistoricalAddress.Select(c => c.ToDpr(dataContext)));
+
+            HistoricalAddressType previousAdr = null;
+            foreach (var adr in person.HistoricalAddress.OrderBy(a => a.RelocationDate.Value))
+            {
+                dataContext.PersonAddresses.InsertOnSubmit(adr.ToDpr(dataContext, previousAdr));
+                if (adr.CorrectionMarker == CprBroker.Schemas.Part.CorrectionMarker.OK)
+                {
+                    previousAdr = adr;
+                }
+            }
 
             dataContext.Protections.InsertAllOnSubmit(person.Protection.Select(p => p.ToDpr()));
 

@@ -86,7 +86,8 @@ namespace CprBroker.DBR.Extensions
                 pa.GreenlandConstructionNumber = null;
 
             pa.PostCode = currentAddress.ClearWrittenAddress.PostCode;
-            pa.MunicipalityName = CprBroker.Providers.CPRDirect.Authority.GetAuthorityNameByCode(pa.MunicipalityCode.ToString());
+            if (!string.IsNullOrEmpty(currentAddress.ClearWrittenAddress.HouseNumber.Trim()))
+                pa.MunicipalityName = CprBroker.Providers.CPRDirect.Authority.GetAuthorityNameByCode(pa.MunicipalityCode.ToString());
 
             if (!string.IsNullOrEmpty(currentAddress.ClearWrittenAddress.StreetAddressingName))
                 pa.StreetAddressingName = currentAddress.ClearWrittenAddress.StreetAddressingName;
@@ -189,7 +190,7 @@ namespace CprBroker.DBR.Extensions
             return pa;
         }
 
-        public static PersonAddress ToDpr(this HistoricalAddressType historicalAddress, DPRDataContext dataContext)
+        public static PersonAddress ToDpr(this HistoricalAddressType historicalAddress, DPRDataContext dataContext, HistoricalAddressType previousAddress = null)
         {
             PersonAddress pa = new PersonAddress();
             pa.PNR = Decimal.Parse(historicalAddress.PNR);
@@ -220,7 +221,9 @@ namespace CprBroker.DBR.Extensions
             if (postCode.HasValue)
                 pa.PostCode = postCode.Value;
 
-            pa.MunicipalityName = CprBroker.Providers.CPRDirect.Authority.GetAuthorityNameByCode(pa.MunicipalityCode.ToString());
+            if (!string.IsNullOrEmpty(historicalAddress.HouseNumber.Trim()))
+                pa.MunicipalityName = CprBroker.Providers.CPRDirect.Authority.GetAuthorityNameByCode(pa.MunicipalityCode.ToString());
+
             pa.StreetAddressingName = Street.GetAddressingName(dataContext.Connection.ConnectionString, historicalAddress.MunicipalityCode, historicalAddress.StreetCode); //TODO: Can be fetched in CPR Services, vejadrnvn
 
             // TODO: Shall we use length 12 or 13?
@@ -230,8 +233,16 @@ namespace CprBroker.DBR.Extensions
                 pa.AddressStartDateMarker = historicalAddress.RelocationDateUncertainty;
             if (historicalAddress.LeavingDate.HasValue)
                 pa.AddressEndDate = CprBroker.Utilities.Dates.DateToDecimal(historicalAddress.LeavingDate.Value, 12);
-            pa.LeavingFromMunicipalityCode = null; // TODO: Get from previous address
-            pa.LeavingFromMunicipalityDate = null; // TODO: Get from previous address
+            if (previousAddress != null)
+            {
+                if (!previousAddress.MunicipalityCode.Equals(historicalAddress.MunicipalityCode))
+                {
+                    pa.LeavingFromMunicipalityCode = previousAddress.MunicipalityCode;
+
+                    if (previousAddress.LeavingDate.HasValue)
+                        pa.LeavingFromMunicipalityDate = CprBroker.Utilities.Dates.DateToDecimal(previousAddress.LeavingDate.Value, 12); // TODO: Get from previous address
+                }
+            }
             pa.MunicipalityArrivalDate = null;  // TODO: Try to fill this field //Seems only available for current address
             pa.AlwaysNull1 = null;
             pa.AlwaysNull2 = null;
