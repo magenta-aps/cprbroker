@@ -198,7 +198,7 @@ namespace CprBroker.DBR.Extensions
                 pt.SpousePersonalOrBirthdate = resp.CurrentCivilStatus.SpouseBirthDate.Value.ToString("dd-MM-yyyy");
             }
 
-            pt.SpouseMarker = null; //TODO: Lookup in current civil status //DPR SPECIFIC
+            pt.SpouseMarker = null; // Unavailable in CPR Extracts
             pt.PostCode = resp.ClearWrittenAddress.PostCode;
 
             pt.PostDistrictName = resp.ClearWrittenAddress.PostDistrictText.NullIfEmpty();
@@ -226,7 +226,7 @@ namespace CprBroker.DBR.Extensions
             }
             pt.MunicipalRelationMarker = resp.MunicipalConditions.Count() > 0 ? '1' : null as char?;
 
-            pt.NationalMemoMarker = null; // TODO: Should rely on DTNOTAT
+            pt.NationalMemoMarker = resp.Notes.Count() > 0 ? '1' : null as char?;
             pt.FormerPersonalMarker = null; //DPR SPECIFIC
             pt.PaternityAuthorityName = null; //TODO: Retrieve this from the CPR Service field far_mynkod
             pt.MaritalAuthorityName = null; //TODO: Retrieve this from the CPR Service field mynkod

@@ -18,31 +18,35 @@ namespace CprBroker.Tests.DBR.Comparison.Person
                 {
                     // Review 2.0
                     "PreviousMunicipalityName", // Usually it is name of municipality of previous address, but sometimes contains the value from the minucipality that is different from the current one!!
-
+                    "SpouseMarker", // Not available in CPR Extracts
+                    "PaternityAuthorityName", // CPR Services 'far_mynkod' // Not available in CPR Extracts
+                    "DprLoadDate", // Irrelevant for comparison
+                    "FatherMarker", // No correlation found yet
+                    "MotherMarker", // No correlation found yet
+                    "ApplicationCode", // DPR Specific
+                    "MaritalAuthorityName", // CPR Services 'mynkod' ? // Not available in CPR Extracts
+                    
                     /* BELOW EXCLUSIONS ARE ONES THAT ARE NOT, CURRENTLY, USED BY ANY SYSTEMS - AND FAIL IN TESTS */
-                    "SpouseMarker", // Lookup? // We do not know the origin of this marker.
+                    
                     // No correlation found with rows in civil status
-                                    
-                    "PaternityAuthorityName", // CPR Services 'far_mynkod' ?
+                    
                     //"AddressDateMarker", // We do not know the origin of this marker.
                     //"PreviousAddress", // This field is not fully implemented because it is not used.
                     //"PreviousMunicipalityName", // This field is not fully implemented because it is not used.
 
                     // Extra exclusions - DO NOT COMMIT
-                    "DprLoadDate", // Irrelevant for comparison
+                    
                     //"MunicipalityArrivalDate", // Already implemented
                     //"MunicipalityLeavingDate", // Already implemented
                     //"PostDistrictName", // Already implemented
                     //"PreviousAddress", // Already implemented
                     //"PreviousMunicipalityName", // Already implemented
                     //"PaternityDate", // Already implemented
-                    "FatherMarker", // DPR Specific // TODO: Get from Parents record (FARNVN_MRK)
-                    "MotherMarker", // DPR Specific // TODO: Get from Parents record (MORNVN_MRK)
                     //"ExitEntryMarker", // Already implemented //Is this DPR specific?
-                    "ApplicationCode", // DPR Specific
+                    
                     //"BirthplaceText", // lookup
                     
-                    "MaritalAuthorityName", // CPR Services 'mynkod' ?
+                    
                     // Difference between test & production: It is possible in test to have DTTOTAL without DTCIV, which does not happen in production
                     // TODO: Get the field from latest civil status -> authority code -> join with authority -> name (matches more than 99%, the rest seems to be outdated data)
                     // New finding: no authority name in current and historical civil status records coming from CPR extracts
@@ -51,9 +55,6 @@ namespace CprBroker.Tests.DBR.Comparison.Person
                     //"SpousePersonalOrBirthdate", // Already implemented
                     //"StandardAddress", // Already implemented
                     //"PnrMarkingDate", // Always null in DPR
-                    
-                    "NationalMemoMarker" // TODO: get from DTNOTAT
-                    // There seems no correlation in DPR between this field and the rows in DTNOTAT
                 };
                 return excluded;
             }
