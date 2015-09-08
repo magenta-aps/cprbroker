@@ -25,36 +25,6 @@ namespace CprBroker.Tests.DBR.Comparison.Person
                     "MotherMarker", // No correlation found yet
                     "ApplicationCode", // DPR Specific
                     "MaritalAuthorityName", // CPR Services 'mynkod' ? // Not available in CPR Extracts
-                    
-                    /* BELOW EXCLUSIONS ARE ONES THAT ARE NOT, CURRENTLY, USED BY ANY SYSTEMS - AND FAIL IN TESTS */
-                    
-                    // No correlation found with rows in civil status
-                    
-                    //"AddressDateMarker", // We do not know the origin of this marker.
-                    //"PreviousAddress", // This field is not fully implemented because it is not used.
-                    //"PreviousMunicipalityName", // This field is not fully implemented because it is not used.
-
-                    // Extra exclusions - DO NOT COMMIT
-                    
-                    //"MunicipalityArrivalDate", // Already implemented
-                    //"MunicipalityLeavingDate", // Already implemented
-                    //"PostDistrictName", // Already implemented
-                    //"PreviousAddress", // Already implemented
-                    //"PreviousMunicipalityName", // Already implemented
-                    //"PaternityDate", // Already implemented
-                    //"ExitEntryMarker", // Already implemented //Is this DPR specific?
-                    
-                    //"BirthplaceText", // lookup
-                    
-                    
-                    // Difference between test & production: It is possible in test to have DTTOTAL without DTCIV, which does not happen in production
-                    // TODO: Get the field from latest civil status -> authority code -> join with authority -> name (matches more than 99%, the rest seems to be outdated data)
-                    // New finding: no authority name in current and historical civil status records coming from CPR extracts
-
-                    //"AddressDate", // Already implemented
-                    //"SpousePersonalOrBirthdate", // Already implemented
-                    //"StandardAddress", // Already implemented
-                    //"PnrMarkingDate", // Always null in DPR
                 };
                 return excluded;
             }
@@ -158,7 +128,7 @@ namespace CprBroker.Tests.DBR.Comparison.Person
             get
             {
                 return new string[] { 
-                    //"CprUpdateDate", // Already implemented // CPR Direct has no time component
+                    // Review 2.0
                 };
             }
         }
@@ -248,9 +218,7 @@ namespace CprBroker.Tests.DBR.Comparison.Person
             get
             {
                 return new[]{
-                    // EXTRA - do not commit
-                    // "CprUpdateDate", // Implemented
-                    //"ProtectionType", // Implemented
+                    // Review 2.0
                     "ReportingMarker", // CPR Services 'indrap' ?
                 };
             }
