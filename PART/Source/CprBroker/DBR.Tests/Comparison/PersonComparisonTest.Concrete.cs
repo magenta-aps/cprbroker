@@ -16,6 +16,9 @@ namespace CprBroker.Tests.DBR.Comparison.Person
             {
                 string[] excluded = 
                 {
+                    // Review 2.0
+                    "PreviousMunicipalityName", // Usually it is name of municipality of previous address, but sometimes contains the value from the minucipality that is different from the current one!!
+
                     /* BELOW EXCLUSIONS ARE ONES THAT ARE NOT, CURRENTLY, USED BY ANY SYSTEMS - AND FAIL IN TESTS */
                     
                     "DirectoryProtectionMarker", // TODO: Lookup ?

@@ -84,6 +84,12 @@ namespace CprBroker.DBR.Extensions
             /*
              * RESIDENTIAL DETAILS
              */
+
+
+            // Zero initialization
+            pt.MunicipalityArrivalDate = 0;
+            pt.MunicipalityLeavingDate = null;
+
             var adr = resp.GetFolkeregisterAdresseSource(false);
             if (adr != null)
             {
@@ -117,16 +123,12 @@ namespace CprBroker.DBR.Extensions
                             pt.AddressDate = CprBroker.Utilities.Dates.DateToDecimal(resp.CurrentAddressInformation.RelocationDate.Value, 12);
                         if (resp.CurrentAddressInformation.MunicipalityArrivalDate.HasValue)
                             pt.MunicipalityArrivalDate = CprBroker.Utilities.Dates.DateToDecimal(resp.CurrentAddressInformation.MunicipalityArrivalDate.Value, 12);
-                        else
-                            pt.MunicipalityArrivalDate = 0;
+
                         if (resp.CurrentAddressInformation.LeavingMunicipalityDepartureDate.HasValue)
                         {
                             pt.MunicipalityLeavingDate = CprBroker.Utilities.Dates.DateToDecimal(resp.CurrentAddressInformation.LeavingMunicipalityDepartureDate.Value, 12);
                         }
-                        else
-                        {
-                            pt.MunicipalityLeavingDate = 0;
-                        }
+
                         if (!string.IsNullOrEmpty(resp.CurrentAddressInformation.CareOfName))
                             pt.CareOfName = resp.CurrentAddressInformation.CareOfName;
                         else
@@ -153,7 +155,7 @@ namespace CprBroker.DBR.Extensions
                 pt.BirthPlaceOfRegistration = null;
 
             pt.BirthplaceText = null; //TODO: Implement BirthplaceText
-            
+
             pt.PnrMarkingDate = null; // Seems to be always null in DPR.
 
             pt.MotherPersonalOrBirthDate = resp.ParentsInformation.MotherPNR.Substring(0, 6) + "-" + resp.ParentsInformation.MotherPNR.Substring(6, 4);
@@ -215,7 +217,7 @@ namespace CprBroker.DBR.Extensions
                     )
                     pt.SupplementaryAddressMarker = '1'; //DPR SPECIFIC
             }
-            pt.MunicipalRelationMarker = null; //DPR SPECIFIC
+            pt.MunicipalRelationMarker = resp.MunicipalConditions.Count() > 0 ? '1' : null as char?;
 
             pt.NationalMemoMarker = null; // TODO: Should rely on DTNOTAT
             pt.FormerPersonalMarker = null; //DPR SPECIFIC
@@ -257,13 +259,19 @@ namespace CprBroker.DBR.Extensions
 
                 if (string.IsNullOrEmpty(pt.CurrentMunicipalityName))
                     pt.CurrentMunicipalityName = Authority.GetAuthorityNameByCode(prevAddress.MunicipalityCode.ToString());
+
+                pt.PreviousMunicipalityName = Authority.GetAuthorityNameByCode(prevAddress.MunicipalityCode.ToString());
+                /*
+                 * // Another algorithm
+                var previousMunicipalityAddress = previousAddresses.Where(e => e.MunicipalityCode != resp.ClearWrittenAddress.MunicipalityCode).FirstOrDefault();
+                if (previousMunicipalityAddress != null)
+                {
+                    pt.PreviousMunicipalityName = Authority.GetAuthorityNameByCode(previousMunicipalityAddress.MunicipalityCode.ToString());    
+                }
+                */
             }
 
-            var previousMunicipalityAddress = previousAddresses.Where(e => e.MunicipalityCode != resp.ClearWrittenAddress.MunicipalityCode).FirstOrDefault();
-            if (previousMunicipalityAddress != null)
-            {
-                pt.PreviousMunicipalityName = Authority.GetAuthorityNameByCode(previousMunicipalityAddress.MunicipalityCode.ToString());
-            }
+            
 
             // In DPR SearchName contains both the first name and the middlename.
             pt.SearchName = ToDprFirstName(resp.CurrentNameInformation.FirstName_s, resp.CurrentNameInformation.MiddleName, true);

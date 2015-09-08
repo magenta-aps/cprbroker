@@ -107,17 +107,30 @@ namespace CprBroker.Tests.DBR.Comparison
             var stringTypes = new Type[]{
                 typeof(string), typeof(char), typeof(char?)
             };
+            Func<object,string> stringNormalizer = (o)=>
+                string.Format("{0}", o).Trim().ToLower().Replace(" ", "").Replace("-", "").Replace(",", "").Replace("københavns", "københavn");
+
             if (stringTypes.Contains(prop.PropertyType))
             {
-                r = string.Format("{0}", r).Trim();
-                f = string.Format("{0}", f).Trim();
+                r = stringNormalizer(r);
+                f = stringNormalizer(f);
             }
 
             var decimalTypes = new Type[] { typeof(decimal), typeof(decimal?) };
             if (decimalTypes.Contains(prop.PropertyType))
             {
-                var sR = String.Format("{0}", r);
-                var sF = String.Format("{0}", f);
+                Func<object, string> decimalStringNormalizer = (o) =>
+                    {
+                        
+                        var s = String.Format("{0}", o);
+                        if (s.Equals("0"))
+                            s = "";
+                        return s;
+                    };
+
+                var sR = decimalStringNormalizer(r);
+                var sF = decimalStringNormalizer(f);
+
                 var pat = @"\A\d{12}\Z";
 
                 if (Regex.Match(sR, pat).Success && Regex.Match(sF, pat).Success) // yyyyMMddHH99 // 196804011399
@@ -125,8 +138,12 @@ namespace CprBroker.Tests.DBR.Comparison
                     r = decimal.Parse(sR.Substring(0, 10) + "00");
                     f = decimal.Parse(sF.Substring(0, 10) + "00");
                 }
+                else
+                {
+                    r = sR;
+                    f = sF;
+                }
             }
-
             Assert.AreEqual(r, f, "{0}.{1}: Expected <{2}> but was<{3}>", prop.DeclaringType.Name, prop.Name, r, f);
         }
 
