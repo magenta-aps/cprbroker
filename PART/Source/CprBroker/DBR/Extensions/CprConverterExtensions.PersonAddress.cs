@@ -224,7 +224,11 @@ namespace CprBroker.DBR.Extensions
             if (!string.IsNullOrEmpty(historicalAddress.HouseNumber.Trim()))
                 pa.MunicipalityName = CprBroker.Providers.CPRDirect.Authority.GetAuthorityNameByCode(pa.MunicipalityCode.ToString());
 
-            pa.StreetAddressingName = Street.GetAddressingName(dataContext.Connection.ConnectionString, historicalAddress.MunicipalityCode, historicalAddress.StreetCode); //TODO: Can be fetched in CPR Services, vejadrnvn
+            var streetAdressingName = Street.GetAddressingName(dataContext.Connection.ConnectionString, historicalAddress.MunicipalityCode, historicalAddress.StreetCode);
+            if (!string.IsNullOrEmpty(streetAdressingName))
+                pa.StreetAddressingName = streetAdressingName;
+            else
+                pa.StreetAddressingName = "Adresse ikke komplet";
 
             // TODO: Shall we use length 12 or 13?
             if (historicalAddress.RelocationDate.HasValue)
