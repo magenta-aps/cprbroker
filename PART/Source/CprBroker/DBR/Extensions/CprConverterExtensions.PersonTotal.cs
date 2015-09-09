@@ -165,9 +165,29 @@ namespace CprBroker.DBR.Extensions
 
             pt.PnrMarkingDate = null; // Seems to be always null in DPR.
 
-            pt.MotherPersonalOrBirthDate = resp.ParentsInformation.MotherPNR.Substring(0, 6) + "-" + resp.ParentsInformation.MotherPNR.Substring(6, 4);
+            Func<string, DateTime?, string> parentPnrOrBirthdateGetter = (parentPnr, parentBirthdate) =>
+            {
+                if (string.IsNullOrEmpty(parentPnr) || parentPnr.Equals("0000000000"))
+                {
+                    if (parentBirthdate.HasValue)
+                    {
+                        return parentBirthdate.Value.ToString("dd MM yyyy");
+                    }
+                    else
+                    {
+                        return "000000-0000";
+                    }
+                }
+                else
+                {
+                    return parentPnr.Substring(0, 6) + "-" + parentPnr.Substring(6, 4);
+                }
+            };
+
+
+            pt.MotherPersonalOrBirthDate = parentPnrOrBirthdateGetter(resp.ParentsInformation.MotherPNR, resp.ParentsInformation.MotherBirthDate);
             pt.MotherMarker = null; //DPR SPECIFIC
-            pt.FatherPersonalOrBirthdate = resp.ParentsInformation.FatherPNR.Substring(0, 6) + "-" + resp.ParentsInformation.FatherPNR.Substring(6, 4);
+            pt.FatherPersonalOrBirthdate = parentPnrOrBirthdateGetter(resp.ParentsInformation.FatherPNR, resp.ParentsInformation.FatherBirthDate);
             pt.FatherMarker = null; //DPR SPECIFIC
             if (resp.CurrentDepartureData != null && !resp.CurrentDepartureData.IsEmpty)
                 pt.ExitEntryMarker = '1'; //DPR SPECIFIC
@@ -243,36 +263,6 @@ namespace CprBroker.DBR.Extensions
             var prevAddress = previousAddresses.FirstOrDefault();
             if (prevAddress != null)
             {
-                var prevAdrStr = string.Format("{0} {1}",
-                        Street.GetAddressingName(dataContext.Connection.ConnectionString, prevAddress.MunicipalityCode, prevAddress.StreetCode),
-                        System.Text.RegularExpressions.Regex.Replace(
-                            prevAddress.HouseNumber.TrimStart('0', ' '),
-                            "(?<num>\\d+)(?<char>[a-zA-Z]+)",
-                            "${num} ${char}"));
-
-                var floorDoor = string.Format("{0} {1}",
-                    prevAddress.Floor.TrimStart('0', ' '),
-                    prevAddress.Door.TrimStart('0', ' '))
-                 .Trim();
-
-                if (!string.IsNullOrEmpty(floorDoor))
-                    prevAdrStr += "," + floorDoor;
-
-                var kom = Authority.GetAuthorityAddressByCode(prevAddress.MunicipalityCode.ToString());
-                if (!string.IsNullOrEmpty(kom))
-                    prevAdrStr += string.Format(" ({0})", kom);
-
-                pt.PreviousAddress = prevAdrStr;
-
-
-
-                if (string.IsNullOrEmpty(pt.CurrentMunicipalityName)
-                    // If it is a valid address
-                    && prevAddress.HouseNumber.Trim() != ""
-                    // Alternatively, Street.GetAddressingName(dataContext.Connection.ConnectionString, historicalAddress.MunicipalityCode, historicalAddress.StreetCode) != null
-                    )
-                    pt.CurrentMunicipalityName = Authority.GetAuthorityNameByCode(prevAddress.MunicipalityCode.ToString());
-
                 pt.PreviousMunicipalityName = Authority.GetAuthorityNameByCode(prevAddress.MunicipalityCode.ToString());
                 /*
                  * // Another algorithm
@@ -282,9 +272,37 @@ namespace CprBroker.DBR.Extensions
                     pt.PreviousMunicipalityName = Authority.GetAuthorityNameByCode(previousMunicipalityAddress.MunicipalityCode.ToString());    
                 }
                 */
+
+                if (// If it is a valid address
+                    prevAddress.HouseNumber.Trim() != ""
+                    // Alternatively, Street.GetAddressingName(dataContext.Connection.ConnectionString, historicalAddress.MunicipalityCode, historicalAddress.StreetCode) != null)
+                )
+                {
+                    var prevAdrStr = string.Format("{0} {1}",
+                            Street.GetAddressingName(dataContext.Connection.ConnectionString, prevAddress.MunicipalityCode, prevAddress.StreetCode),
+                            System.Text.RegularExpressions.Regex.Replace(
+                                prevAddress.HouseNumber.TrimStart('0', ' '),
+                                "(?<num>\\d+)(?<char>[a-zA-Z]+)",
+                                "${num} ${char}"));
+
+                    var floorDoor = string.Format("{0} {1}",
+                        prevAddress.Floor.TrimStart('0', ' '),
+                        prevAddress.Door.TrimStart('0', ' '))
+                     .Trim();
+
+                    if (!string.IsNullOrEmpty(floorDoor))
+                        prevAdrStr += "," + floorDoor;
+
+                    var kom = Authority.GetAuthorityAddressByCode(prevAddress.MunicipalityCode.ToString());
+                    if (!string.IsNullOrEmpty(kom))
+                        prevAdrStr += string.Format(" ({0})", kom);
+
+                    pt.PreviousAddress = prevAdrStr;
+
+                    if (string.IsNullOrEmpty(pt.CurrentMunicipalityName))
+                        pt.CurrentMunicipalityName = Authority.GetAuthorityNameByCode(prevAddress.MunicipalityCode.ToString());
+                }
             }
-
-
 
             // In DPR SearchName contains both the first name and the middlename.
             pt.SearchName = ToDprFirstName(resp.CurrentNameInformation.FirstName_s, resp.CurrentNameInformation.MiddleName, true);
