@@ -107,7 +107,10 @@ namespace CprBroker.Tests.DBR.Comparison
                 typeof(string), typeof(char), typeof(char?)
             };
             Func<object, string> stringNormalizer = (o) =>
-                string.Format("{0}", o).Trim().ToLower().Replace(" ", "").Replace("-", "").Replace(",", "").Replace("københavns", "københavn");
+                string.Format("{0}", o).Trim().ToLower()
+                .Replace(" ", "").Replace("-", "").Replace(",", "")
+                .Replace("københavns", "københavn")
+                .Replace("ä", "æ");
 
             if (stringTypes.Contains(prop.PropertyType))
             {
@@ -151,7 +154,7 @@ namespace CprBroker.Tests.DBR.Comparison
 
         public abstract TDataContext CreateDataContext(string connectionString);
 
-        
+
         [Test]
         [TestCaseSource("LoadKeys")]
         public void T1_CompareCount(string pnr)
