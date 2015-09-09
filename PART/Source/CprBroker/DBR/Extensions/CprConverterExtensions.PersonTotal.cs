@@ -189,8 +189,13 @@ namespace CprBroker.DBR.Extensions
             pt.MotherMarker = null; //DPR SPECIFIC
             pt.FatherPersonalOrBirthdate = parentPnrOrBirthdateGetter(resp.ParentsInformation.FatherPNR, resp.ParentsInformation.FatherBirthDate);
             pt.FatherMarker = null; //DPR SPECIFIC
-            if (resp.CurrentDepartureData != null && !resp.CurrentDepartureData.IsEmpty)
-                pt.ExitEntryMarker = '1'; //DPR SPECIFIC
+
+            if (
+                (resp.CurrentDepartureData != null && !resp.CurrentDepartureData.IsEmpty)
+                || resp.HistoricalDeparture.Where(hd => hd.IsOk()).Count() > 0
+                )
+                pt.ExitEntryMarker = '1';
+
             pt.DisappearedMarker = null; //DPR SPECIFIC
 
             if (resp.Disempowerment != null && resp.Disempowerment.DisempowermentStartDate.HasValue)
