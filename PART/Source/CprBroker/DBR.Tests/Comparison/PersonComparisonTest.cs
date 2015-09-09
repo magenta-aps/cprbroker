@@ -102,4 +102,22 @@ namespace CprBroker.Tests.DBR.Comparison.Person
         }
 
     }
+
+
+    [TestFixture]
+    public class _PersonConversion:PersonComparisonTest<object>
+    {
+        [Test]
+        [TestCaseSource("LoadKeys")]
+        public void T0_Convert(string key)
+        {
+            ConvertObject(key);
+        }
+
+        public override IQueryable<object> Get(DPRDataContext dataContext, string key)
+        {
+            return new object[] { }.AsQueryable();
+        }
+        
+    }
 }

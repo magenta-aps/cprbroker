@@ -151,13 +151,7 @@ namespace CprBroker.Tests.DBR.Comparison
 
         public abstract TDataContext CreateDataContext(string connectionString);
 
-        [Test]
-        [TestCaseSource("LoadKeys")]
-        public void T0_Convert(string key)
-        {
-            ConvertObject(key);
-        }
-
+        
         [Test]
         [TestCaseSource("LoadKeys")]
         public void T1_CompareCount(string pnr)
