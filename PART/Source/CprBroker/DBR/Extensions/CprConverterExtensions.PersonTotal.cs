@@ -264,7 +264,13 @@ namespace CprBroker.DBR.Extensions
 
                 pt.PreviousAddress = prevAdrStr;
 
-                if (string.IsNullOrEmpty(pt.CurrentMunicipalityName))
+
+
+                if (string.IsNullOrEmpty(pt.CurrentMunicipalityName)
+                    // If it is a valid address
+                    && prevAddress.HouseNumber.Trim() != ""
+                    // Alternatively, Street.GetAddressingName(dataContext.Connection.ConnectionString, historicalAddress.MunicipalityCode, historicalAddress.StreetCode) != null
+                    )
                     pt.CurrentMunicipalityName = Authority.GetAuthorityNameByCode(prevAddress.MunicipalityCode.ToString());
 
                 pt.PreviousMunicipalityName = Authority.GetAuthorityNameByCode(prevAddress.MunicipalityCode.ToString());
