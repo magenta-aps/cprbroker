@@ -152,19 +152,14 @@ namespace CprBroker.DBR
             // Addresses
             var personAddresses = new List<PersonAddress>();
             
-            HistoricalAddressType previousAdr = null;
             foreach (var adr in person.HistoricalAddress.OrderBy(a => a.RelocationDate.Value))
             {
-                personAddresses.Add(adr.ToDpr(dataContext, previousAdr));
-                if (adr.CorrectionMarker == CprBroker.Schemas.Part.CorrectionMarker.OK)
-                {
-                    previousAdr = adr;
-                }
+                personAddresses.Add(adr.ToDpr(dataContext));
             }
 
             var currentAddress = person.GetFolkeregisterAdresseSource(false) as CurrentAddressWrapper;
             if (currentAddress != null)
-                personAddresses.Add(currentAddress.ToDpr(dataContext, previousAdr));
+                personAddresses.Add(currentAddress.ToDpr(dataContext));
 
             CprConverterExtensions.ClearPreviousAddressData(personAddresses.ToArray());
             dataContext.PersonAddresses.InsertAllOnSubmit(personAddresses);
