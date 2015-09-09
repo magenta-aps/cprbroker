@@ -49,6 +49,7 @@ using System.Text;
 using CprBroker.Providers.DPR;
 using CprBroker.Providers.CPRDirect;
 using CprBroker.Schemas.Part;
+using CprBroker.Utilities;
 
 namespace CprBroker.DBR.Extensions
 {
@@ -99,14 +100,23 @@ namespace CprBroker.DBR.Extensions
                 p.PnrDate = CprBroker.Utilities.Dates.DateToDecimal(person.PersonInformation.PersonStartDate.Value, 12); //TODO: Can be fetched in CPR Services: pnrmrkhaenstart
             else
                 p.PnrDate = 0;
-            p.CurrentPnrUpdateDate = 0; //TODO: Can be fetched in CPR Services: timestamp// If PnrMarkingDate has value => null, otherwise, 0
+
             if (!string.IsNullOrEmpty(person.PersonInformation.CurrentCprNumber))
             {
                 p.CurrentPnr = decimal.Parse(person.PersonInformation.CurrentCprNumber);
+                if (person.PersonInformation.StatusStartDate.HasValue)
+                {
+                    p.CurrentPnrUpdateDate = Dates.DateToDecimal(person.PersonInformation.StatusStartDate.Value, 12);
+                }
+                else
+                {
+                    p.CurrentPnrUpdateDate = 0;
+                }
             }
             else
             {
                 p.CurrentPnr = 0;
+                p.CurrentPnrUpdateDate = 0;
             }
             if (person.PersonInformation.PersonEndDate != null)
             {

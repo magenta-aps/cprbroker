@@ -134,8 +134,8 @@ namespace CprBroker.Tests.DBR.Comparison
 
                 if (Regex.Match(sR, pat).Success && Regex.Match(sF, pat).Success) // yyyyMMddHH99 // 196804011399
                 {
-                    r = decimal.Parse(sR.Substring(0, 10) + "00");
-                    f = decimal.Parse(sF.Substring(0, 10) + "00");
+                    r = decimal.Parse(sR.Substring(0, 8) + "0000");
+                    f = decimal.Parse(sF.Substring(0, 8) + "0000");
                 }
                 else
                 {
