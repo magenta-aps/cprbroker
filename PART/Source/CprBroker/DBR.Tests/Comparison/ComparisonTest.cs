@@ -106,7 +106,7 @@ namespace CprBroker.Tests.DBR.Comparison
             var stringTypes = new Type[]{
                 typeof(string), typeof(char), typeof(char?)
             };
-            Func<object,string> stringNormalizer = (o)=>
+            Func<object, string> stringNormalizer = (o) =>
                 string.Format("{0}", o).Trim().ToLower().Replace(" ", "").Replace("-", "").Replace(",", "").Replace("københavns", "københavn");
 
             if (stringTypes.Contains(prop.PropertyType))
@@ -120,7 +120,7 @@ namespace CprBroker.Tests.DBR.Comparison
             {
                 Func<object, string> decimalStringNormalizer = (o) =>
                     {
-                        
+
                         var s = String.Format("{0}", o);
                         if (s.Equals("0"))
                             s = "";
@@ -143,7 +143,10 @@ namespace CprBroker.Tests.DBR.Comparison
                     f = sF;
                 }
             }
-            Assert.AreEqual(r, f, "{0}.{1}: Expected <{2}> but was<{3}>", prop.DeclaringType.Name, prop.Name, r, f);
+            Assert.AreEqual(r, f, "{0}({1}).{2}({3}): Expected <{4}> but was<{5}>",
+                prop.DeclaringType.Name, DataLinq.GetTableName(prop.DeclaringType),
+                prop.Name, DataLinq.GetColumnName(prop),
+                r, f);
         }
 
         public abstract TDataContext CreateDataContext(string connectionString);
