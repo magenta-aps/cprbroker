@@ -53,7 +53,7 @@ namespace CprBroker.DBR.Extensions
 {
     public static partial class CprConverterExtensions
     {
-        public static PersonAddress ToDpr(this CurrentAddressWrapper currentAddress, DPRDataContext dataContext)
+        public static PersonAddress ToDpr(this CurrentAddressWrapper currentAddress, DPRDataContext dataContext, HistoricalAddressType previousAddress = null)
         {
             PersonAddress pa = new PersonAddress();
             pa.PNR = Decimal.Parse(currentAddress.CurrentAddressInformation.PNR);
@@ -108,18 +108,11 @@ namespace CprBroker.DBR.Extensions
 
             pa.AddressEndDate = null; // This is the current date
 
-            if (currentAddress.CurrentAddressInformation.LeavingMunicipalityCode > 0)
-                pa.LeavingFromMunicipalityCode = currentAddress.CurrentAddressInformation.LeavingMunicipalityCode;
-            else
-                pa.LeavingFromMunicipalityCode = null;
+            pa.LeavingFromMunicipalityCode = null; // To be set later
 
             if (currentAddress.CurrentAddressInformation.LeavingMunicipalityDepartureDate != null)
             {
                 pa.LeavingFromMunicipalityDate = CprBroker.Utilities.Dates.DateToDecimal(currentAddress.CurrentAddressInformation.LeavingMunicipalityDepartureDate.Value, 12);
-            }
-            else
-            {
-                pa.LeavingFromMunicipalityDate = null;
             }
 
             if (currentAddress.CurrentAddressInformation.MunicipalityArrivalDate != null)
@@ -237,12 +230,13 @@ namespace CprBroker.DBR.Extensions
                 pa.AddressStartDateMarker = historicalAddress.RelocationDateUncertainty;
             if (historicalAddress.LeavingDate.HasValue)
                 pa.AddressEndDate = CprBroker.Utilities.Dates.DateToDecimal(historicalAddress.LeavingDate.Value, 12);
+
+
+            pa.LeavingFromMunicipalityCode = null; // To be set later
             if (previousAddress != null)
             {
                 if (!previousAddress.MunicipalityCode.Equals(historicalAddress.MunicipalityCode))
                 {
-                    pa.LeavingFromMunicipalityCode = previousAddress.MunicipalityCode;
-
                     if (previousAddress.LeavingDate.HasValue)
                         pa.LeavingFromMunicipalityDate = CprBroker.Utilities.Dates.DateToDecimal(previousAddress.LeavingDate.Value, 12); // TODO: Get from previous address
                 }
@@ -270,6 +264,24 @@ namespace CprBroker.DBR.Extensions
             pa.AdditionalAddressLine4 = null; // Seems not available in historical records....
             pa.AdditionalAddressLine5 = null; // Seems not available in historical records....
             return pa;
+        }
+
+        public static void ClearPreviousAddressData(PersonAddress[] addresses)
+        {
+            addresses = addresses.Where(a => !a.CorrectionMarker.HasValue).OrderBy(a => a.AddressStartDate).ToArray();
+            foreach (var a in addresses)
+                a.LeavingFromMunicipalityCode = null;
+
+            var latest = addresses.LastOrDefault();
+            if (latest != null)
+            {
+                var lastWithAnotherMunicipality = addresses.LastOrDefault(a => a.MunicipalityCode != latest.MunicipalityCode);
+                if (lastWithAnotherMunicipality != null)
+                {
+                    latest.LeavingFromMunicipalityCode = lastWithAnotherMunicipality.MunicipalityCode;
+                }
+            }
+
         }
 
     }

@@ -149,20 +149,26 @@ namespace CprBroker.DBR
             if (person.ContactAddress != null)
                 dataContext.ContactAddresses.InsertOnSubmit(person.ContactAddress.ToDpr());
 
-            var currentAddress = person.GetFolkeregisterAdresseSource(false) as CurrentAddressWrapper;
-            if (currentAddress != null)
-                dataContext.PersonAddresses.InsertOnSubmit(currentAddress.ToDpr(dataContext));
-
+            // Addresses
+            var personAddresses = new List<PersonAddress>();
+            
             HistoricalAddressType previousAdr = null;
             foreach (var adr in person.HistoricalAddress.OrderBy(a => a.RelocationDate.Value))
             {
-                dataContext.PersonAddresses.InsertOnSubmit(adr.ToDpr(dataContext, previousAdr));
+                personAddresses.Add(adr.ToDpr(dataContext, previousAdr));
                 if (adr.CorrectionMarker == CprBroker.Schemas.Part.CorrectionMarker.OK)
                 {
                     previousAdr = adr;
                 }
             }
 
+            var currentAddress = person.GetFolkeregisterAdresseSource(false) as CurrentAddressWrapper;
+            if (currentAddress != null)
+                personAddresses.Add(currentAddress.ToDpr(dataContext, previousAdr));
+
+            CprConverterExtensions.ClearPreviousAddressData(personAddresses.ToArray());
+            dataContext.PersonAddresses.InsertAllOnSubmit(personAddresses);
+            // End addresses
             dataContext.Protections.InsertAllOnSubmit(person.Protection.Select(p => p.ToDpr()));
 
             if (person.CurrentDisappearanceInformation != null)
