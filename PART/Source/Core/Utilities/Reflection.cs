@@ -180,7 +180,7 @@ namespace CprBroker.Utilities
                         var sourceValueType = sourceValue.GetType();
                         if (targetValue != null && targetValue.GetType().Equals(sourceValueType))
                         {
-                            if(sourceValueType.IsArray)
+                            if (sourceValueType.IsArray)
                             {
                                 // Unhandled
                             }
@@ -192,6 +192,27 @@ namespace CprBroker.Utilities
                     }
                 }
             }
+        }
+
+        public static bool IsTypeDerivedFromGenericType(Type typeToCheck, Type genericType)
+        {
+            if (typeToCheck == typeof(object))
+            {
+                return false;
+            }
+            else if (typeToCheck == null)
+            {
+                return false;
+            }
+            else if (typeToCheck.IsGenericType && typeToCheck.GetGenericTypeDefinition() == genericType)
+            {
+                return true;
+            }
+            else
+            {
+                return IsTypeDerivedFromGenericType(typeToCheck.BaseType, genericType);
+            }
+
         }
     }
 }

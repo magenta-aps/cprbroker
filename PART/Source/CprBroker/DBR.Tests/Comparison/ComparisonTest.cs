@@ -60,8 +60,7 @@ namespace CprBroker.Tests.DBR.Comparison
         public PropertyInfo[] GetProperties()
         {
             var t = typeof(TObject);
-            return t.GetProperties(BindingFlags.Public | BindingFlags.Instance)
-                .Where(p => p.GetCustomAttributes(typeof(System.Data.Linq.Mapping.ColumnAttribute), true).FirstOrDefault() != null)
+            return DataLinq.GetColumnProperties(t)
                 .Where(p => !this.ExcludedProperties.Contains(p.Name) && !this.CommonExcludedProperties.Contains(p.Name))
                 .OrderBy(p => p.Name)
                 .ToArray();
@@ -73,7 +72,7 @@ namespace CprBroker.Tests.DBR.Comparison
             return t.GetProperties(BindingFlags.Public | BindingFlags.Instance)
                 .Select(p => new { Prop = p, Attr = p.GetCustomAttributes(typeof(System.Data.Linq.Mapping.ColumnAttribute), true).FirstOrDefault() as System.Data.Linq.Mapping.ColumnAttribute })
                 .Where(p => p.Attr != null && p.Attr.IsPrimaryKey)
-                .Select(p => string.IsNullOrEmpty(p.Attr.Name) ? p.Prop.Name : p.Attr.Name)
+                .Select(p => DataLinq.GetColumnName(p.Prop))
                 .ToArray();
         }
 

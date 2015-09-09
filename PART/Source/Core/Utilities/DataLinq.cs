@@ -176,5 +176,23 @@ namespace CprBroker.Utilities
                 .ToArray();
         }
 
+        public static PropertyInfo[] GetColumnProperties(Type tableType)
+        {
+            return tableType.GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                .Where(p => p.GetCustomAttributes(typeof(System.Data.Linq.Mapping.ColumnAttribute), true).FirstOrDefault() != null)
+                .OrderBy(p => p.Name)
+                .ToArray();
+        }
+
+        public static string GetColumnName(PropertyInfo propertyInfo)
+        {
+            var attr = propertyInfo.GetCustomAttributes(typeof(System.Data.Linq.Mapping.ColumnAttribute), true).FirstOrDefault() as System.Data.Linq.Mapping.ColumnAttribute;
+            if (attr != null)
+            {
+                return string.IsNullOrEmpty(attr.Name) ? propertyInfo.Name : attr.Name;
+            }
+            return null;
+        }
+
     }
 }
