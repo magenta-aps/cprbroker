@@ -128,7 +128,6 @@ namespace CprBroker.Tests.DBR.Comparison
             {
                 Func<object, string> decimalStringNormalizer = (o) =>
                     {
-
                         var s = String.Format("{0}", o);
                         if (s.Equals("0"))
                             s = "";
@@ -140,7 +139,7 @@ namespace CprBroker.Tests.DBR.Comparison
 
                 var pat = @"\A\d{12}\Z";
 
-                if (Regex.Match(sR, pat).Success && Regex.Match(sF, pat).Success) // yyyyMMddHH99 // 196804011399
+                if (Regex.Match(sR, pat).Success || Regex.Match(sF, pat).Success) // yyyyMMddHH99 // 196804011399
                 {
                     r = decimal.Parse(sR.Substring(0, 8) + "0000");
                     f = decimal.Parse(sF.Substring(0, 8) + "0000");

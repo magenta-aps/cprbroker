@@ -61,8 +61,7 @@ namespace CprBroker.DBR.Extensions
             n.CprUpdateDate = CprBroker.Utilities.Dates.DateToDecimal(currentCitizenship.Registration.RegistrationDate, 12);
             n.CountryCode = currentCitizenship.CountryCode;
 
-            if (currentCitizenship.CitizenshipStartDate.HasValue)
-                n.NationalityStartDate = CprBroker.Utilities.Dates.DateToDecimal(currentCitizenship.CitizenshipStartDate.Value, 12);
+            n.NationalityStartDate = currentCitizenship.CitizenshipStartDateDecimal;
 
             n.NationalityEndDate = null; // This is the current nationality
             n.CorrectionMarker = null; //This is the current status
