@@ -27,7 +27,8 @@ namespace CprBroker.Tests.DBR.Comparison.Person
                     "MaritalAuthorityName", // CPR Services 'mynkod' ? // Not available in CPR Extracts
                     
                     // Review 2.1
-                    "PreviousAddress" // Some records are parts of municipalities without possible lookup
+                    "PreviousAddress", // Some records are parts of municipalities without possible lookup
+                    "CurrentMunicipalityName", // Some dead (status 90) people have a value from latest address while others do not
                 };
                 return excluded;
             }
@@ -199,7 +200,11 @@ namespace CprBroker.Tests.DBR.Comparison.Person
             {
                 string[] excluded = {
                                         // Review 2.0
-                                        "MunicipalityArrivalDate" // Sometimes it matches start date of previous address, other times matches birthdate
+                                        "MunicipalityArrivalDate", // Sometimes it matches start date of previous address, other times matches birthdate
+
+                                        // Review 2.1
+                                        "LeavingFromMunicipalityCode", // Some records gets this value from address records that have a correction marker - unreliable source
+                                        "LeavingFromMunicipalityDate", // Some records have no previous address but have a value equal to MunicipalityArrivalDate, which seems inconsistent
                                 };
                 return excluded;
             }
