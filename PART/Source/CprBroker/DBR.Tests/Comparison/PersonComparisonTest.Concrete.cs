@@ -34,6 +34,9 @@ namespace CprBroker.Tests.DBR.Comparison.Person
                     "AddressDateMarker", // Like PersonAddress.AddressStartDateMarker, Some real DPR records have a value that has no origin in CPR Extracts
                     "CareOfName", // Some real DPR records have a value that comes from an address that is marked as 'A' (Undo). 
                     "DataRetrievalType", // Always 'D' (from CPR extract with subscription) in DBR emulation
+
+                    // Review 2.3
+                    "FormerPersonalMarker", // Requires lookup in another person and not available in CPR Extracts
                 };
                 return excluded;
             }
@@ -127,6 +130,16 @@ namespace CprBroker.Tests.DBR.Comparison.Person
                 return excluded;
             }
         }
+
+        public override void NormalizeObject(CivilStatus obj)
+        {
+            DateTime separationTs;
+            if (!string.IsNullOrEmpty(obj.SeparationReferralTimestamp)
+                && DateTime.TryParseExact(obj.SeparationReferralTimestamp, "yyyy-MM-dd-HH.mm.ss.ffffff", null, System.Globalization.DateTimeStyles.None, out separationTs))
+            {
+                obj.SeparationReferralTimestamp = separationTs.ToString("yyyy-MM-dd-HH.mm.00.000000");
+            }
+        }
     }
 
     [TestFixture]
@@ -138,6 +151,8 @@ namespace CprBroker.Tests.DBR.Comparison.Person
             {
                 return new string[] { 
                     // Review 2.0
+                    // Review 2.3
+                    "StartAuthorityCode", // CPR Services, mynkod_start - not available in CPR Extracts
                 };
             }
         }

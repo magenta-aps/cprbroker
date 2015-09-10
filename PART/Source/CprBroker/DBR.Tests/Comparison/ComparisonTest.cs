@@ -59,6 +59,11 @@ namespace CprBroker.Tests.DBR.Comparison
             get { return false; }
         }
 
+        public virtual void NormalizeObject(TObject obj)
+        {
+
+        }
+
         public abstract string[] LoadKeys();
         public abstract IQueryable<TObject> Get(TDataContext dataContext, string key);
 
@@ -203,6 +208,9 @@ namespace CprBroker.Tests.DBR.Comparison
         {
             var realObjects = Get(realDprDataContext, key).ToArray();
             var fakeObjects = Get(fakeDprDataContext, key).ToArray();
+
+            Array.ForEach<TObject>(realObjects, o => NormalizeObject(o));
+            Array.ForEach<TObject>(fakeObjects, o => NormalizeObject(o));
 
             var numRows = 0;
             if (IgnoreCount)

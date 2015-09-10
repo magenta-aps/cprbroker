@@ -84,7 +84,7 @@ namespace CprBroker.DBR.Extensions
 
             if (currentCivilStatus.ReferenceToAnySeparation.HasValue)
             {
-                cs.SeparationReferralTimestamp = currentCivilStatus.ReferenceToAnySeparation.Value.ToString("yyyy-MM-dd-HH.mm.ss.fffff");
+                cs.SeparationReferralTimestamp = currentCivilStatus.ReferenceToAnySeparation.Value.ToString("yyyy-MM-dd-HH.mm.ss.ffffff");
             }
             else
             {
