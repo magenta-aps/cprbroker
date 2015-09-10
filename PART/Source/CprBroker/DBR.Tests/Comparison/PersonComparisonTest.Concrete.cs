@@ -25,6 +25,9 @@ namespace CprBroker.Tests.DBR.Comparison.Person
                     "MotherMarker", // No correlation found yet
                     "ApplicationCode", // DPR Specific
                     "MaritalAuthorityName", // CPR Services 'mynkod' ? // Not available in CPR Extracts
+                    
+                    // Review 2.1
+                    "PreviousAddress" // Some records are parts of municipalities without possible lookup
                 };
                 return excluded;
             }
