@@ -265,6 +265,15 @@ namespace CprBroker.Tests.DBR.Comparison.Person
     public class MunicipalConditionComparisonTests : PersonComparisonTest<MunicipalCondition>
     {
         // Review 2.0
+
+        public override bool IgnoreCount
+        {
+            get
+            {
+                // Review 2.2
+                return true; // Some records have notes in DPR with no notes in CPR Extracts
+            }
+        }
     }
 
     [TestFixture]

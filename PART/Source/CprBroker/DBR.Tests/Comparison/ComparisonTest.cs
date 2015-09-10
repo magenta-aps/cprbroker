@@ -54,6 +54,11 @@ namespace CprBroker.Tests.DBR.Comparison
             }
         }
 
+        public virtual bool IgnoreCount
+        {
+            get { return false; }
+        }
+
         public abstract string[] LoadKeys();
         public abstract IQueryable<TObject> Get(TDataContext dataContext, string key);
 
@@ -170,9 +175,12 @@ namespace CprBroker.Tests.DBR.Comparison
 
         public void CompareCount(string pnr, TDataContext realDprDataContext, TDataContext fakeDprDataContext)
         {
-            var realObjects = Get(realDprDataContext, pnr).ToArray();
-            var fakeObjects = Get(fakeDprDataContext, pnr).ToArray();
-            Assert.GreaterOrEqual(fakeObjects.Length, realObjects.Length);
+            if (!IgnoreCount)
+            {
+                var realObjects = Get(realDprDataContext, pnr).ToArray();
+                var fakeObjects = Get(fakeDprDataContext, pnr).ToArray();
+                Assert.GreaterOrEqual(fakeObjects.Length, realObjects.Length);
+            }
         }
 
         public virtual void ConvertObject(string key)
@@ -196,7 +204,14 @@ namespace CprBroker.Tests.DBR.Comparison
         {
             var realObjects = Get(realDprDataContext, key).ToArray();
             var fakeObjects = Get(fakeDprDataContext, key).ToArray();
-            for (int i = 0; i < realObjects.Length; i++)
+
+            var numRows = 0;
+            if (IgnoreCount)
+                numRows = Math.Min(realObjects.Length, fakeObjects.Length);
+            else
+                numRows = realObjects.Length;
+
+            for (int i = 0; i < numRows; i++)
             {
                 var r = realObjects[i];
                 var f = fakeObjects[i];
