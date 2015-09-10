@@ -161,7 +161,7 @@ namespace CprBroker.DBR.Extensions
             else
                 pt.BirthPlaceOfRegistration = null;
 
-            pt.BirthplaceText = null; //TODO: Implement BirthplaceText
+            pt.BirthplaceText = resp.BirthRegistrationInformation.AdditionalBirthRegistrationText;
 
             pt.PnrMarkingDate = null; // Seems to be always null in DPR.
 
