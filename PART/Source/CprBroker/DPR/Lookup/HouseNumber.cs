@@ -53,7 +53,7 @@ namespace CprBroker.Providers.DPR
     {
         public int? Number;
         public char? Letter;
-        public char? EvenOddVal;
+        public char EvenOddVal = EvenOdd.Even;
 
         public decimal? IntValue
         {
@@ -100,11 +100,11 @@ namespace CprBroker.Providers.DPR
         {
             var fromVal = from.IntValue.HasValue ? from.IntValue.Value : 0;
             var toVal = to.IntValue.HasValue ? to.IntValue.Value : int.MaxValue;
+            var myValue = this.IntValue.HasValue ? this.IntValue.Value : 0;
             return
                 true
-                && this.Number.HasValue
-                && this.EvenOddVal.Value.Equals(evenOdd)
-                && this.IntValue >= fromVal && this.IntValue <= toVal
+                && this.EvenOddVal.Equals(evenOdd)
+                && myValue >= fromVal && myValue <= toVal
                 ;
         }
     }
