@@ -205,6 +205,7 @@ namespace CprBroker.Tests.DBR.Comparison.Person
                                         // Review 2.1
                                         "LeavingFromMunicipalityCode", // Some records gets this value from address records that have a correction marker - unreliable source
                                         "LeavingFromMunicipalityDate", // Some records have no previous address but have a value equal to MunicipalityArrivalDate, which seems inconsistent
+                                        "Location", // Not available in CPR extracts for historical addresses 
                                 };
                 return excluded;
             }

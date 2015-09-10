@@ -86,7 +86,8 @@ namespace CprBroker.DBR.Extensions
                 pa.GreenlandConstructionNumber = null;
 
             pa.PostCode = currentAddress.ClearWrittenAddress.PostCode;
-            if (!string.IsNullOrEmpty(currentAddress.ClearWrittenAddress.HouseNumber.Trim()))
+
+            if (IsValidAddress(dataContext, currentAddress.ClearWrittenAddress.MunicipalityCode, currentAddress.ClearWrittenAddress.StreetCode, currentAddress.ClearWrittenAddress.HouseNumber))
                 pa.MunicipalityName = CprBroker.Providers.CPRDirect.Authority.GetAuthorityNameByCode(pa.MunicipalityCode.ToString());
 
             if (!string.IsNullOrEmpty(currentAddress.ClearWrittenAddress.StreetAddressingName))
@@ -179,6 +180,12 @@ namespace CprBroker.DBR.Extensions
             return pa;
         }
 
+        private static bool IsValidAddress(DPRDataContext dataContext, decimal municipalityCode, decimal streetCode, string houseNumber)
+        {
+            var ret = PostDistrict.GetPostText(dataContext.Connection.ConnectionString, municipalityCode, streetCode, houseNumber);
+            return ret != null;
+        }
+
         public static PersonAddress ToDpr(this HistoricalAddressType historicalAddress, DPRDataContext dataContext)
         {
             PersonAddress pa = new PersonAddress();
@@ -210,7 +217,7 @@ namespace CprBroker.DBR.Extensions
             if (postCode.HasValue)
                 pa.PostCode = postCode.Value;
 
-            if (!string.IsNullOrEmpty(historicalAddress.HouseNumber.Trim()))
+            if (IsValidAddress(dataContext, historicalAddress.MunicipalityCode, historicalAddress.StreetCode, historicalAddress.HouseNumber))
                 pa.MunicipalityName = CprBroker.Providers.CPRDirect.Authority.GetAuthorityNameByCode(pa.MunicipalityCode.ToString());
 
             var streetAdressingName = Street.GetAddressingName(dataContext.Connection.ConnectionString, historicalAddress.MunicipalityCode, historicalAddress.StreetCode);
