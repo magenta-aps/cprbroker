@@ -58,11 +58,17 @@ namespace CprBroker.Utilities
 {
     public static class DataLinq
     {
+        public static bool IsTable(Type t)
+        {
+            return t.GetCustomAttributes(typeof(TableAttribute), true).FirstOrDefault() != null;
+        }
+
         public static string GetTableName<TTable>()
         {
             Type tableType = typeof(TTable);
             return GetTableName(tableType);
         }
+
         /// <summary>
         /// Gets the name of the table that the <typeparamref name="TTable"/> is mapped to
         /// </summary>
