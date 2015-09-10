@@ -29,6 +29,11 @@ namespace CprBroker.Tests.DBR.Comparison.Person
                     // Review 2.1
                     "PreviousAddress", // Some records are parts of municipalities without possible lookup
                     "CurrentMunicipalityName", // Some dead (status 90) people have a value from latest address while others do not
+
+                    // Review 2.2
+                    "AddressDateMarker", // Like PersonAddress.AddressStartDateMarker, Some real DPR records have a value that has no origin in CPR Extracts
+                    "CareOfName", // Some real DPR records have a value that comes from an address that is marked as 'A' (Undo). 
+                    "DataRetrievalType", // Always 'D' (from CPR extract with subscription) in DBR emulation
                 };
                 return excluded;
             }
@@ -206,6 +211,9 @@ namespace CprBroker.Tests.DBR.Comparison.Person
                                         "LeavingFromMunicipalityCode", // Some records gets this value from address records that have a correction marker - unreliable source
                                         "LeavingFromMunicipalityDate", // Some records have no previous address but have a value equal to MunicipalityArrivalDate, which seems inconsistent
                                         "Location", // Not available in CPR extracts for historical addresses 
+
+                                        //Review 2.2
+                                        "AddressStartDateMarker", // Some real DPR records have a value that has no origin in CPR Extracts
                                 };
                 return excluded;
             }
