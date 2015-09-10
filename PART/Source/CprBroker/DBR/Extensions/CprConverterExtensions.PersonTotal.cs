@@ -196,7 +196,10 @@ namespace CprBroker.DBR.Extensions
                 )
                 pt.ExitEntryMarker = '1';
 
-            pt.DisappearedMarker = null; //DPR SPECIFIC
+            if (resp.CurrentDisappearanceInformation != null 
+                || resp.HistoricalDisappearance.Where(hd => hd.IsOk()).Count() > 0                
+                )
+                pt.DisappearedMarker = '1'; 
 
             if (resp.Disempowerment != null && resp.Disempowerment.DisempowermentStartDate.HasValue)
             {
@@ -277,8 +280,8 @@ namespace CprBroker.DBR.Extensions
                 {
                     pt.CurrentMunicipalityName = Authority.GetAuthorityNameByCode(prevAddress.MunicipalityCode.ToString());
                 }
-                
-                    pt.PreviousMunicipalityName = Authority.GetAuthorityNameByCode(prevAddress.MunicipalityCode.ToString());
+
+                pt.PreviousMunicipalityName = Authority.GetAuthorityNameByCode(prevAddress.MunicipalityCode.ToString());
                 /*
                  * // Another algorithm
                 var previousMunicipalityAddress = previousAddresses.Where(e => e.MunicipalityCode != resp.ClearWrittenAddress.MunicipalityCode).FirstOrDefault();
@@ -318,12 +321,12 @@ namespace CprBroker.DBR.Extensions
                         pt.CurrentMunicipalityName = Authority.GetAuthorityNameByCode(prevAddress.MunicipalityCode.ToString());
                 }
             }
-            if(resp.CurrentAddressInformation!=null && resp.CurrentAddressInformation.RelocationDate.HasValue)
+            if (resp.CurrentAddressInformation != null && resp.CurrentAddressInformation.RelocationDate.HasValue)
             {
                 var previousDeparture = resp.HistoricalDeparture
-                    .Where(d => 
-                        d.IsOk() 
-                        && d.EntryDate.HasValue 
+                    .Where(d =>
+                        d.IsOk()
+                        && d.EntryDate.HasValue
                         && d.EntryDate.Value.Date.Equals(resp.CurrentAddressInformation.RelocationDate.Value.Date)
                         )
                     .SingleOrDefault();
@@ -332,8 +335,8 @@ namespace CprBroker.DBR.Extensions
                     if (string.IsNullOrEmpty(pt.PreviousAddress))
                     {
                         pt.PreviousAddress = string.Format(
-                            "Personen er indrejst {0} fra {1}", 
-                            previousDeparture.EntryDate.Value.ToString("dd MM yyyy"), 
+                            "Personen er indrejst {0} fra {1}",
+                            previousDeparture.EntryDate.Value.ToString("dd MM yyyy"),
                             Authority.GetAuthorityNameByCode(previousDeparture.EntryCountryCode.ToString())
                             );
                     }
@@ -357,6 +360,7 @@ namespace CprBroker.DBR.Extensions
 
             pt.DprLoadDate = DateTime.Now;
             pt.ApplicationCode = null; // DPR Specific
+            pt.DataRetrievalType = 'D'; // TODO: Use other types for deleted subscriptions and loaded from CPR direct)
 
             return pt;
         }
