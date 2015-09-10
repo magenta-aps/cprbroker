@@ -268,6 +268,11 @@ namespace CprBroker.DBR.Extensions
             var prevAddress = previousAddresses.FirstOrDefault();
             if (prevAddress != null)
             {
+                if (resp.CurrentAddressInformation == null)
+                {
+                    pt.CareOfName = prevAddress.CareOfName;
+                }
+
                 pt.PreviousMunicipalityName = Authority.GetAuthorityNameByCode(prevAddress.MunicipalityCode.ToString());
                 /*
                  * // Another algorithm
@@ -308,7 +313,27 @@ namespace CprBroker.DBR.Extensions
                         pt.CurrentMunicipalityName = Authority.GetAuthorityNameByCode(prevAddress.MunicipalityCode.ToString());
                 }
             }
-
+            if(resp.CurrentAddressInformation!=null && resp.CurrentAddressInformation.RelocationDate.HasValue)
+            {
+                var previousDeparture = resp.HistoricalDeparture
+                    .Where(d => 
+                        d.IsOk() 
+                        && d.EntryDate.HasValue 
+                        && d.EntryDate.Value.Date.Equals(resp.CurrentAddressInformation.RelocationDate.Value.Date)
+                        )
+                    .SingleOrDefault();
+                if (previousDeparture != null)
+                {
+                    if (string.IsNullOrEmpty(pt.PreviousAddress))
+                    {
+                        pt.PreviousAddress = string.Format(
+                            "Personen er indrejst {0} fra {1}", 
+                            previousDeparture.EntryDate.Value.ToString("dd MM yyyy"), 
+                            Authority.GetAuthorityNameByCode(previousDeparture.EntryCountryCode.ToString())
+                            );
+                    }
+                }
+            }
             // In DPR SearchName contains both the first name and the middlename.
             pt.SearchName = ToDprFirstName(resp.CurrentNameInformation.FirstName_s, resp.CurrentNameInformation.MiddleName, true);
             if (!string.IsNullOrEmpty(resp.CurrentNameInformation.LastName))
