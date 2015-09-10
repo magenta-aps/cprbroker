@@ -273,7 +273,12 @@ namespace CprBroker.DBR.Extensions
                     pt.CareOfName = prevAddress.CareOfName;
                 }
 
-                pt.PreviousMunicipalityName = Authority.GetAuthorityNameByCode(prevAddress.MunicipalityCode.ToString());
+                if (resp.PersonInformation.Status == 90 && string.IsNullOrEmpty(pt.CurrentMunicipalityName))
+                {
+                    pt.CurrentMunicipalityName = Authority.GetAuthorityNameByCode(prevAddress.MunicipalityCode.ToString());
+                }
+                
+                    pt.PreviousMunicipalityName = Authority.GetAuthorityNameByCode(prevAddress.MunicipalityCode.ToString());
                 /*
                  * // Another algorithm
                 var previousMunicipalityAddress = previousAddresses.Where(e => e.MunicipalityCode != resp.ClearWrittenAddress.MunicipalityCode).FirstOrDefault();
