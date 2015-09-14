@@ -133,16 +133,26 @@ namespace CprBroker.Tests.DBR.Comparison.Person
             }
         }
 
-        public override void NormalizeObject(CivilStatus real, string realConnectionString, CivilStatus fake, string fakeConnectionString)
+        public static string NormalizeSeparationTimeStamp(string timestamp)
         {
             DateTime separationTs;
+            if (!string.IsNullOrEmpty(timestamp)
+                    && DateTime.TryParseExact(timestamp,
+                    new string[]{
+                        "yyyy-MM-dd-HH.mm.ss.ffffff",
+                        "yyyy-MM-dd-HH.mm.ss"
+                    }, null, System.Globalization.DateTimeStyles.None, out separationTs))
+            {
+                timestamp = separationTs.ToString("yyyy-MM-dd-HH.mm.00.000000");
+            }
+            return timestamp;
+        }
+
+        public override void NormalizeObject(CivilStatus real, string realConnectionString, CivilStatus fake, string fakeConnectionString)
+        {
             foreach (var obj in new CivilStatus[] { real, fake })
             {
-                if (!string.IsNullOrEmpty(obj.SeparationReferralTimestamp)
-                    && DateTime.TryParseExact(obj.SeparationReferralTimestamp, "yyyy-MM-dd-HH.mm.ss.ffffff", null, System.Globalization.DateTimeStyles.None, out separationTs))
-                {
-                    obj.SeparationReferralTimestamp = separationTs.ToString("yyyy-MM-dd-HH.mm.00.000000");
-                }
+                obj.SeparationReferralTimestamp = NormalizeSeparationTimeStamp(obj.SeparationReferralTimestamp);
             }
         }
     }
@@ -159,6 +169,14 @@ namespace CprBroker.Tests.DBR.Comparison.Person
                     // Review 2.3
                     "StartAuthorityCode", // CPR Services, mynkod_start - not available in CPR Extracts
                 };
+            }
+        }
+
+        public override void NormalizeObject(Separation realObject, string realConnectionString, Separation imitatedObject, string imitatedConnectionString)
+        {
+            foreach (var obj in new Separation[] { realObject, imitatedObject })
+            {
+                obj.SeparationReferalTimestamp = CivilStatusComparisonTests.NormalizeSeparationTimeStamp(obj.SeparationReferalTimestamp);
             }
         }
     }

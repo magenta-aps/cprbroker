@@ -121,7 +121,8 @@ namespace CprBroker.Tests.DBR.Comparison
                 string.Format("{0}", o).Trim().ToLower()
                 .Replace(" ", "").Replace("-", "").Replace(",", "")
                 .Replace("københavns", "københavn")
-                .Replace("ä", "æ");
+                .Replace("ä", "æ")
+                .Replace("ö", "ø");
 
             if (stringTypes.Contains(prop.PropertyType))
             {

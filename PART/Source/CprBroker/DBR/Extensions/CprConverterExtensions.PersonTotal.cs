@@ -196,12 +196,12 @@ namespace CprBroker.DBR.Extensions
 
             if (
                 resp.CurrentDepartureData != null
-                || resp.HistoricalDeparture.Where(hd => hd.IsOk()).Count() > 0
+                || resp.HistoricalDeparture.Count() > 0
                 )
                 pt.ExitEntryMarker = '1';
 
             if (resp.CurrentDisappearanceInformation != null
-                || resp.HistoricalDisappearance.Where(hd => hd.IsOk()).Count() > 0
+                || resp.HistoricalDisappearance.Count() > 0
                 )
                 pt.DisappearedMarker = '1';
 
