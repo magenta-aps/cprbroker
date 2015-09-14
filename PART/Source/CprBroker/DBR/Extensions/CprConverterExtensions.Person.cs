@@ -96,6 +96,7 @@ namespace CprBroker.DBR.Extensions
              * PNR related
              */
             p.PnrMarkingDate = null; //TODO: Can be fetched in CPR Services: pnrhaenstart
+
             if (person.PersonInformation.PersonStartDate.HasValue)
                 p.PnrDate = CprBroker.Utilities.Dates.DateToDecimal(person.PersonInformation.PersonStartDate.Value, 12); //TODO: Can be fetched in CPR Services: pnrmrkhaenstart
             else

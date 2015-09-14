@@ -40,6 +40,7 @@ namespace CprBroker.Tests.DBR.Comparison.Person
 
                     // Review 2.4
                     "ExitEntryMarker", // Some people have Departure records in real DPR with no matching records in CPR Extracts
+                    "PnrMarkingDate", // CPR Services: pnrhaenstart // Not available in CPR Extracts
                 };
                 return excluded;
             }
@@ -70,7 +71,10 @@ namespace CprBroker.Tests.DBR.Comparison.Person
                                         "PaternityDate", // CPR Services 'farhaenstart' ? // Not available in CPR Extracts
                                         "UnderGuardianshipAuthorityCode", // CPR Services 'mynkod-ctumyndig' ? // Not available in CPR Extracts
                                         "BirthplaceTextUpdateDate", // CPR Services 'foedtxttimestamp' ? // Not available in CPR Extracts
-                                        "JobDate" // CPR Services 'stillingsdato' ? // Not available in CPR Extracts
+                                        "JobDate", // CPR Services 'stillingsdato' ? // Not available in CPR Extracts
+
+                                        // Review 2.4
+                                        "PnrMarkingDate", // CPR Services: pnrhaenstart // Not available in CPR Extracts
                                 };
                 return excluded;
             }
@@ -177,7 +181,8 @@ namespace CprBroker.Tests.DBR.Comparison.Person
                 return new string[] { 
                     // Review 2.0
                     // Review 2.3
-                    "StartAuthorityCode", // CPR Services, mynkod_start - not available in CPR Extracts
+                    "StartAuthorityCode", // CPR Services 'mynkod_start' // not available in CPR Extracts
+                    "EndAuthorityCode", // CPR Services 'mynkod_slut' // not available in CPR Extracts
                 };
             }
         }

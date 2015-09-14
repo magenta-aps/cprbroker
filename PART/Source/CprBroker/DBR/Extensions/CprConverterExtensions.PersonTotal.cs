@@ -167,7 +167,7 @@ namespace CprBroker.DBR.Extensions
 
             pt.BirthplaceText = resp.BirthRegistrationInformation.AdditionalBirthRegistrationText;
 
-            pt.PnrMarkingDate = null; // Seems to be always null in DPR.
+            pt.PnrMarkingDate = null; //TODO: Can be fetched in CPR Services: pnrhaenstart
 
             Func<string, DateTime?, string> parentPnrOrBirthdateGetter = (parentPnr, parentBirthdate) =>
             {
