@@ -38,6 +38,12 @@ namespace CprBroker.Tests.DBR.Comparison.Person
                     Random r = new Random();
                     using (var w = new System.IO.StreamWriter(string.Format("c:\\logs\\Compare-{0}-{1}-{2}.log", GetType().Name, DateTime.Now.ToString("yyyyMMdd HHmmss"), r.Next())))
                     {
+                        var excludedPnrs = System.IO.File.ReadAllLines("ExcludedPNR.txt")
+                            .Select(l => l.Trim())
+                            .Where(l => l.Length > 0 && !l.StartsWith("#"))
+                            .Select(l => decimal.Parse(l))
+                            .ToArray();
+
                         w.AutoFlush = true;
                         w.WriteLine("Loading from <{0}>", Properties.Settings.Default.ImitatedDprConnectionString);
                         try
@@ -46,6 +52,7 @@ namespace CprBroker.Tests.DBR.Comparison.Person
                             {
                                 dataContext.Log = w;
                                 KeysHolder._Keys = dataContext.ExecuteQuery<decimal>("select PNR FROM DTTOTAL ORDER BY PNR")
+                                    .Where(pnr => !excludedPnrs.Contains(pnr))
                                     .Skip(Properties.Settings.Default.PersonComparisonSampleSkip)
                                     .Take(Properties.Settings.Default.PersonComparisonSampleSize)
                                     .ToArray()
