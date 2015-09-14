@@ -102,6 +102,7 @@ namespace CprBroker.Tests.DBR.Comparison.Person
                                         "NameAuthorityCode", // CPR Services 'mynkod' // Not available in CPR Extracts
                                         // Review 2.3
                                         "NameAuthorityText", // CPR Services 'myntxt' // Not available in CPR Extracts
+                                        "AuthorityTextUpdateDate" // CPR Services 'myntxttimestamp' // Not available in CPR Extracts
                                 };
                 return excluded;
             }

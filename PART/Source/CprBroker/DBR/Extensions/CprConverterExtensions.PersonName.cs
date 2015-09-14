@@ -73,8 +73,9 @@ namespace CprBroker.DBR.Extensions
                 pn.FirstNameMarker = currentName.FirstNameMarker;
             if (!char.IsWhiteSpace(currentName.LastNameMarker))
                 pn.SurnameMarker = currentName.LastNameMarker;
-            if (currentName.NameStartDate.HasValue)
-                pn.NameStartDate = CprBroker.Utilities.Dates.DateToDecimal(currentName.NameStartDate.Value, 12);
+
+            pn.NameStartDate = currentName.NameStartDateDecimal;
+
             pn.NameTerminationDate = null; //This is the current name
             pn.AddressingNameDate = null; //TODO: Can be fetched in CPR Services, adrnvnhaenstart
             pn.CorrectionMarker = null; // This is the current name
