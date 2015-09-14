@@ -99,7 +99,9 @@ namespace CprBroker.Tests.DBR.Comparison.Person
                                         // Review 2.0
                                         "AddressingNameDate", // CPR Services 'adrnvnhaenstart' ? // Not available in CPR Extracts
                                         "AddressingNameReportingMarker", // CPR Services 'indrap' ? // Not available in CPR Extracts
-                                        "NameAuthorityCode", // CPR Services 'mynkod' ?// Not available in CPR Extracts
+                                        "NameAuthorityCode", // CPR Services 'mynkod' // Not available in CPR Extracts
+                                        // Review 2.3
+                                        "NameAuthorityText", // CPR Services 'myntxt' // Not available in CPR Extracts
                                 };
                 return excluded;
             }
