@@ -50,7 +50,10 @@ namespace CprBroker.Tests.DBR.Comparison
         {
             get
             {
-                return new string[] { "CprUpdateDate" };
+                return new string[] { 
+                    "CprUpdateDate",
+                    "PNR"
+                };
             }
         }
 

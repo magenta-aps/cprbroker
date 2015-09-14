@@ -37,10 +37,14 @@ namespace CprBroker.Tests.DBR.Comparison.Person
 
                     // Review 2.3
                     "FormerPersonalMarker", // Requires lookup in another person and not available in CPR Extracts
+
+                    // Review 2.4
+                    "ExitEntryMarker", // Some people have Departure records in real DPR with no matching records in CPR Extracts
                 };
                 return excluded;
             }
         }
+        
     }
 
     [TestFixture]
@@ -205,6 +209,13 @@ namespace CprBroker.Tests.DBR.Comparison.Person
     [TestFixture]
     public class DepartureComparisonTests : PersonComparisonTest<Departure>
     {
+        public override bool IgnoreCount
+        {
+            get
+            {
+                return true; // Some people have Departure records in real DPR with no matching records in CPR Extracts
+            }
+        }
         override public string[] ExcludedProperties
         {
             get
