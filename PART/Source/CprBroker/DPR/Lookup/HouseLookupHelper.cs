@@ -53,6 +53,14 @@ namespace CprBroker.Providers.DPR
     {
         private static Dictionary<int, TObj[]> _PostDistricts = new Dictionary<int, TObj[]>();
 
+        public static TObj GetPostObject(
+            string connectionString,
+            decimal municipalityCode, decimal streetCode, string houseNumber,
+            Func<LookupDataContext, IQueryable<TObj>> loader)
+        {
+            return GetPostValue<TObj>(connectionString, municipalityCode, streetCode, houseNumber, loader, o => o);
+        }
+
         public static T GetPostValue<T>(
             string connectionString,
             decimal municipalityCode, decimal streetCode, string houseNumber,

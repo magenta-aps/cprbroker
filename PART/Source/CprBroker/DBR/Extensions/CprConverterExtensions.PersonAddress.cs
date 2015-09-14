@@ -214,8 +214,9 @@ namespace CprBroker.DBR.Extensions
                 pa.GreenlandConstructionNumber = null;
 
             var postCode = PostDistrict.GetPostCode(dataContext.Connection.ConnectionString, historicalAddress.MunicipalityCode, historicalAddress.StreetCode, historicalAddress.HouseNumber);
-            if (postCode.HasValue)
+            if (postCode.HasValue) { 
                 pa.PostCode = postCode.Value;
+            }
 
             if (IsValidAddress(dataContext, historicalAddress.MunicipalityCode, historicalAddress.StreetCode, historicalAddress.HouseNumber))
                 pa.MunicipalityName = CprBroker.Providers.CPRDirect.Authority.GetAuthorityNameByCode(pa.MunicipalityCode.ToString());

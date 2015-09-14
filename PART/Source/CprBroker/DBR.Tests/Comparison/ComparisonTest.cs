@@ -59,7 +59,8 @@ namespace CprBroker.Tests.DBR.Comparison
             get { return false; }
         }
 
-        public virtual void NormalizeObject(TObject obj)
+        public virtual void NormalizeObject(TObject realObject, string realConnectionString,
+            TObject imitatedObject, string imitatedConnectionString)
         {
 
         }
@@ -209,9 +210,6 @@ namespace CprBroker.Tests.DBR.Comparison
             var realObjects = Get(realDprDataContext, key).ToArray();
             var fakeObjects = Get(fakeDprDataContext, key).ToArray();
 
-            Array.ForEach<TObject>(realObjects, o => NormalizeObject(o));
-            Array.ForEach<TObject>(fakeObjects, o => NormalizeObject(o));
-
             var numRows = 0;
             if (IgnoreCount)
                 numRows = Math.Min(realObjects.Length, fakeObjects.Length);
@@ -222,6 +220,9 @@ namespace CprBroker.Tests.DBR.Comparison
             {
                 var r = realObjects[i];
                 var f = fakeObjects[i];
+                this.NormalizeObject(
+                    r, Properties.Settings.Default.RealDprConnectionString,
+                    f, Properties.Settings.Default.ImitatedDprConnectionString);
                 CompareProperty(r, f, property);
             }
         }

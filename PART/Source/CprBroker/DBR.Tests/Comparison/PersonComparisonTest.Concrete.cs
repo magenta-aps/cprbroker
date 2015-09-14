@@ -131,13 +131,16 @@ namespace CprBroker.Tests.DBR.Comparison.Person
             }
         }
 
-        public override void NormalizeObject(CivilStatus obj)
+        public override void NormalizeObject(CivilStatus real, string realConnectionString, CivilStatus fake, string fakeConnectionString)
         {
             DateTime separationTs;
-            if (!string.IsNullOrEmpty(obj.SeparationReferralTimestamp)
-                && DateTime.TryParseExact(obj.SeparationReferralTimestamp, "yyyy-MM-dd-HH.mm.ss.ffffff", null, System.Globalization.DateTimeStyles.None, out separationTs))
+            foreach (var obj in new CivilStatus[] { real, fake })
             {
-                obj.SeparationReferralTimestamp = separationTs.ToString("yyyy-MM-dd-HH.mm.00.000000");
+                if (!string.IsNullOrEmpty(obj.SeparationReferralTimestamp)
+                    && DateTime.TryParseExact(obj.SeparationReferralTimestamp, "yyyy-MM-dd-HH.mm.ss.ffffff", null, System.Globalization.DateTimeStyles.None, out separationTs))
+                {
+                    obj.SeparationReferralTimestamp = separationTs.ToString("yyyy-MM-dd-HH.mm.00.000000");
+                }
             }
         }
     }
@@ -229,8 +232,34 @@ namespace CprBroker.Tests.DBR.Comparison.Person
 
                                         //Review 2.2
                                         "AddressStartDateMarker", // Some real DPR records have a value that has no origin in CPR Extracts
+
                                 };
                 return excluded;
+            }
+        }
+
+        public override void NormalizeObject(PersonAddress realAddress, string realConnectionString,
+            PersonAddress imitatedAddress, string imitatedConnectionString)
+        {
+            // Review 2.3
+
+            foreach (var pa in new PersonAddress[] { realAddress, imitatedAddress })
+            {
+                // Inconsistent values seen in real DPR for PostNumber in persons with empty house number, or postcodes with open -ended house number intervals, 
+                // sometimes records have a value, sometimes it is 0
+                // Furthermore, the table DTPOSTDIST does not seem to contain the full datase in the real DPR, causeing a 0 in PersonAddress.PostCode
+                if (string.IsNullOrEmpty(string.Format("{0}", pa.HouseNumber)))
+                {
+                    pa.PostCode = 0;
+                }
+                else
+                {
+                    var postDistrict = HouseLookupHelper<PostDistrict>.GetPostObject(imitatedConnectionString, pa.MunicipalityCode, pa.StreetCode, pa.HouseNumber, dataContext => dataContext.PostDistricts);
+                    if (postDistrict == null || new HouseNumber(postDistrict.HUSNRFRA).IntValue == null || new HouseNumber(postDistrict.HUSNRTIL).IntValue == null)
+                    {
+                        pa.PostCode = 0;
+                    }
+                }
             }
         }
 
