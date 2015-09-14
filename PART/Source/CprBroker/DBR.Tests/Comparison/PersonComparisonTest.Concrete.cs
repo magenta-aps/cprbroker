@@ -135,12 +135,17 @@ namespace CprBroker.Tests.DBR.Comparison.Person
 
         public static string NormalizeSeparationTimeStamp(string timestamp)
         {
+            timestamp = string.Format("{0}", timestamp)
+                .Replace(":", " ")
+                .Replace("-", " ")
+                .Replace(".", " ")
+                ;
             DateTime separationTs;
             if (!string.IsNullOrEmpty(timestamp)
                     && DateTime.TryParseExact(timestamp,
                     new string[]{
-                        "yyyy-MM-dd-HH.mm.ss.ffffff",
-                        "yyyy-MM-dd-HH.mm.ss"
+                        "yyyy MM dd HH mm ss ffffff",
+                        "yyyy MM dd HH mm ss",
                     }, null, System.Globalization.DateTimeStyles.None, out separationTs))
             {
                 timestamp = separationTs.ToString("yyyy-MM-dd-HH.mm.00.000000");

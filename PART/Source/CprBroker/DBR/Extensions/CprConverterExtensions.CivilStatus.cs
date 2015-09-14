@@ -125,7 +125,7 @@ namespace CprBroker.DBR.Extensions
                 cs.SpouseName = null;
 
             if (historicalCivilStatus.ReferenceToAnySeparation.HasValue)
-                cs.SeparationReferralTimestamp = historicalCivilStatus.ReferenceToAnySeparation.Value.ToString();
+                cs.SeparationReferralTimestamp = historicalCivilStatus.ReferenceToAnySeparation.Value.ToString("yyyy-MM-dd-HH.mm.ss.ffffff");
 
             return cs;
         }
