@@ -217,10 +217,11 @@ namespace CprBroker.DBR.Extensions
                 pt.PaternityDate = CprBroker.Utilities.Dates.DateToDecimal(resp.ParentsInformation.FatherDate.Value, 12);
             pt.MaritalStatus = resp.CurrentCivilStatus.CivilStatusCode;
 
-            if (resp.CurrentCivilStatus.CivilStatusStartDate.HasValue)
-                pt.MaritalStatusDate = CprBroker.Utilities.Dates.DateToDecimal(resp.CurrentCivilStatus.CivilStatusStartDate.Value, 12);
+            pt.MaritalStatusDate = resp.CurrentCivilStatus.CivilStatusStartDateDecimal;
 
-            if (!string.IsNullOrEmpty(resp.CurrentCivilStatus.SpousePNR))
+            if (
+                !string.IsNullOrEmpty(resp.CurrentCivilStatus.SpousePNR)
+                && resp.CurrentCivilStatus.SpousePNR.Trim().Replace("0", "").Length > 1)
             {
                 // TODO: Shall the target include the leading zeros? 
                 pt.SpousePersonalOrBirthdate = resp.CurrentCivilStatus.SpousePNR.Substring(0, 6) + "-" + resp.CurrentCivilStatus.SpousePNR.Substring(6, 4);
