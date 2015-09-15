@@ -221,7 +221,7 @@ namespace CprBroker.DBR.Extensions
 
             if (
                 !string.IsNullOrEmpty(resp.CurrentCivilStatus.SpousePNR)
-                && resp.CurrentCivilStatus.SpousePNR.Trim().Replace("0", "").Length > 1)
+                && resp.CurrentCivilStatus.SpousePNR.Trim().Length == 10)
             {
                 // TODO: Shall the target include the leading zeros? 
                 pt.SpousePersonalOrBirthdate = resp.CurrentCivilStatus.SpousePNR.Substring(0, 6) + "-" + resp.CurrentCivilStatus.SpousePNR.Substring(6, 4);
