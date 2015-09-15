@@ -214,7 +214,8 @@ namespace CprBroker.DBR.Extensions
                 pa.GreenlandConstructionNumber = null;
 
             var postCode = PostDistrict.GetPostCode(dataContext.Connection.ConnectionString, historicalAddress.MunicipalityCode, historicalAddress.StreetCode, historicalAddress.HouseNumber);
-            if (postCode.HasValue) { 
+            if (postCode.HasValue)
+            {
                 pa.PostCode = postCode.Value;
             }
 
@@ -224,8 +225,10 @@ namespace CprBroker.DBR.Extensions
             var streetAdressingName = Street.GetAddressingName(dataContext.Connection.ConnectionString, historicalAddress.MunicipalityCode, historicalAddress.StreetCode);
             if (!string.IsNullOrEmpty(streetAdressingName))
                 pa.StreetAddressingName = streetAdressingName;
-            else
+            else if (historicalAddress.MunicipalityCode >= 101) // Real municipalites
                 pa.StreetAddressingName = "Adresse ikke komplet";
+            else
+                pa.StreetAddressingName = null;
 
             // TODO: Shall we use length 12 or 13?
             if (historicalAddress.RelocationDate.HasValue)

@@ -45,7 +45,7 @@ namespace CprBroker.Tests.DBR.Comparison.Person
                 return excluded;
             }
         }
-        
+
     }
 
     [TestFixture]
@@ -311,6 +311,7 @@ namespace CprBroker.Tests.DBR.Comparison.Person
                 "TILFDTO" // Address StartDate
             };
         }
+
     }
 
     [TestFixture]

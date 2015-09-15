@@ -74,6 +74,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Comparison\KeysHolder.cs" />
+    <Compile Include="Comparison\LoadCache.cs" />
     <Compile Include="Comparison\PersonComparisonTest.Concrete.cs" />
     <Compile Include="Comparison\PersonComparisonTest.cs" />
     <Compile Include="DbrTestBase.cs" />
