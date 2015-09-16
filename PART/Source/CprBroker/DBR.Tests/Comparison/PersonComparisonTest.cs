@@ -44,6 +44,15 @@ namespace CprBroker.Tests.DBR.Comparison.Person
                             .Select(l => decimal.Parse(l))
                             .ToArray();
 
+                        var excludedPnrs2 = new decimal[] { };
+                        using (var dataContext = new DPRDataContext(Properties.Settings.Default.RealDprConnectionString))
+                        {
+                            excludedPnrs2 = dataContext.PersonAddresses.Where(pa => pa.AddressStartDateMarker == 'U')
+                                .Select(pa => pa.PNR)
+                                .Distinct()
+                                .ToArray();
+                        }
+
                         w.AutoFlush = true;
                         w.WriteLine("Loading from <{0}>", Properties.Settings.Default.ImitatedDprConnectionString);
                         try
@@ -52,7 +61,7 @@ namespace CprBroker.Tests.DBR.Comparison.Person
                             {
                                 dataContext.Log = w;
                                 KeysHolder._Keys = dataContext.ExecuteQuery<decimal>("select PNR FROM DTTOTAL ORDER BY PNR")
-                                    .Where(pnr => !excludedPnrs.Contains(pnr))
+                                    .Where(pnr => !excludedPnrs.Contains(pnr) && !excludedPnrs2.Contains(pnr))
                                     .Skip(Properties.Settings.Default.PersonComparisonSampleSkip)
                                     .Take(Properties.Settings.Default.PersonComparisonSampleSize)
                                     .ToArray()
@@ -78,6 +87,9 @@ namespace CprBroker.Tests.DBR.Comparison.Person
             {
                 CprConverter.DeletePersonRecords(pnr, fakeDprDataContext);
                 fakeDprDataContext.SubmitChanges();
+            }
+            using (var fakeDprDataContext = new DPRDataContext(Properties.Settings.Default.ImitatedDprConnectionString))
+            {
                 var person = ExtractManager.GetPerson(pnr);
                 CprConverter.AppendPerson(person, fakeDprDataContext);
                 fakeDprDataContext.SubmitChanges();
@@ -112,7 +124,7 @@ namespace CprBroker.Tests.DBR.Comparison.Person
 
 
     [TestFixture]
-    public class _PersonConversion:PersonComparisonTest<object>
+    public class _PersonConversion : PersonComparisonTest<object>
     {
         [Test]
         [TestCaseSource("LoadKeys")]
@@ -125,6 +137,6 @@ namespace CprBroker.Tests.DBR.Comparison.Person
         {
             return new object[] { }.AsQueryable();
         }
-        
+
     }
 }
