@@ -275,6 +275,10 @@ namespace CprBroker.Tests.DBR.Comparison.Person
                                         //Review 2.2
                                         "AddressStartDateMarker", // Some real DPR records have a value that has no origin in CPR Extracts
 
+                                        // Review 2.4
+                                        "MunicipalityName", // Many real DPR invalid addresses have either a null or a value here - no rule was concluded
+                                        "StreetAddressingName", // Many real DPR invalid addresses have either a null or a value here - no rule was concluded
+
                                 };
                 return excluded;
             }
