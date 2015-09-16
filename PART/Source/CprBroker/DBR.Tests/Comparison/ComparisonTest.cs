@@ -129,7 +129,9 @@ namespace CprBroker.Tests.DBR.Comparison
                 .Replace("adresseikkekomplet", "")
                 .Replace("ü", "y")
                 .Replace("ä", "æ")
-                .Replace("ö", "ø");
+                .Replace("ö", "ø")
+                .Replace("é", "e");
+
 
             if (stringTypes.Contains(prop.PropertyType))
             {

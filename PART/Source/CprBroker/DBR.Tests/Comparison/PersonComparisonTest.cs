@@ -38,30 +38,37 @@ namespace CprBroker.Tests.DBR.Comparison.Person
                     Random r = new Random();
                     using (var w = new System.IO.StreamWriter(string.Format("c:\\logs\\Compare-{0}-{1}-{2}.log", GetType().Name, DateTime.Now.ToString("yyyyMMdd HHmmss"), r.Next())))
                     {
-                        var excludedPnrs = System.IO.File.ReadAllLines("ExcludedPNR.txt")
+                        w.AutoFlush = true;
+
+                        var excludedPnrs0 = System.IO.File.ReadAllLines("ExcludedPNR.txt")
                             .Select(l => l.Trim())
                             .Where(l => l.Length > 0 && !l.StartsWith("#"))
                             .Select(l => decimal.Parse(l))
                             .ToArray();
 
+                        var excludedPnrs1 = new decimal[] { };
                         var excludedPnrs2 = new decimal[] { };
+
                         using (var dataContext = new DPRDataContext(Properties.Settings.Default.RealDprConnectionString))
                         {
-                            excludedPnrs2 = dataContext.PersonAddresses.Where(pa => pa.AddressStartDateMarker == 'U')
+                            dataContext.Log = w;
+                            excludedPnrs1 = dataContext.PersonAddresses
+                                .Where(pa => pa.AddressStartDateMarker == 'U')
                                 .Select(pa => pa.PNR)
-                                .Distinct()
+                                .ToArray();
+                            excludedPnrs2 = dataContext.ExecuteQuery<decimal>("SELECT PNR FROM DTTOTAL WHERE INDLAESDTO IS NULL")
                                 .ToArray();
                         }
 
-                        w.AutoFlush = true;
-                        w.WriteLine("Loading from <{0}>", Properties.Settings.Default.ImitatedDprConnectionString);
+                        var excludedPnrs = excludedPnrs0.Union(excludedPnrs1).Union(excludedPnrs2).Distinct().ToArray();
+
                         try
                         {
                             using (var dataContext = new System.Data.Linq.DataContext(Properties.Settings.Default.ImitatedDprConnectionString))
                             {
                                 dataContext.Log = w;
                                 KeysHolder._Keys = dataContext.ExecuteQuery<decimal>("select PNR FROM DTTOTAL ORDER BY PNR")
-                                    .Where(pnr => !excludedPnrs.Contains(pnr) && !excludedPnrs2.Contains(pnr))
+                                    .Where(pnr => !excludedPnrs.Contains(pnr))
                                     .Skip(Properties.Settings.Default.PersonComparisonSampleSkip)
                                     .Take(Properties.Settings.Default.PersonComparisonSampleSize)
                                     .ToArray()
@@ -85,6 +92,8 @@ namespace CprBroker.Tests.DBR.Comparison.Person
         {
             using (var fakeDprDataContext = new DPRDataContext(Properties.Settings.Default.ImitatedDprConnectionString))
             {
+                DatabaseLoadCache.Root.Reset(fakeDprDataContext);
+
                 CprConverter.DeletePersonRecords(pnr, fakeDprDataContext);
                 fakeDprDataContext.SubmitChanges();
             }
@@ -95,24 +104,33 @@ namespace CprBroker.Tests.DBR.Comparison.Person
                 fakeDprDataContext.SubmitChanges();
             }
             KeysHolder._ConvertedPersons[pnr] = true;
+
+
         }
 
         public override IQueryable<TObject> Get(DPRDataContext dataContext, string key)
         {
             var tableName = Utilities.DataLinq.GetTableName<TObject>();
-            var orderBy = string.Join(", ", GetOrderByColumnNames());
-            var whereAnnKorr = "";
-            if (!string.IsNullOrEmpty(GetCorrectionMarkerColumnName()))
-                whereAnnKorr = string.Format(" AND ({0} IS NULL OR {0} = ' ')", GetCorrectionMarkerColumnName());
 
-            return dataContext.Fill<TObject>(
-                string.Format(
-                    "select * from {0} WHERE PNR={1} {2} ORDER BY {3}",
-                    tableName,
-                    key,
-                    whereAnnKorr,
-                    orderBy)
-                ).AsQueryable();
+            var cacheKey = string.Format("{0}.{1}", tableName, key);
+            return DatabaseLoadCache.Root.GetOrLoad<DPRDataContext, TObject>(dataContext,
+                cacheKey,
+                dc =>
+                {
+                    var orderBy = string.Join(", ", GetOrderByColumnNames());
+                    var whereAnnKorr = "";
+                    if (!string.IsNullOrEmpty(GetCorrectionMarkerColumnName()))
+                        whereAnnKorr = string.Format(" AND ({0} IS NULL OR {0} = ' ')", GetCorrectionMarkerColumnName());
+
+                    return dataContext.Fill<TObject>(
+                        string.Format(
+                            "select * from {0} WHERE PNR={1} {2} ORDER BY {3}",
+                            tableName,
+                            key,
+                            whereAnnKorr,
+                            orderBy)
+                        ).AsQueryable();
+                });
         }
 
         public override DPRDataContext CreateDataContext(string connectionString)
