@@ -1,7 +1,6 @@
 obj
 bin
 debug
-Output
 _UpgradeReport_Files
 
 *.suo
@@ -34,7 +33,7 @@ PART/Source/Updates/DPRUpdatesNotificationService/DocAndDeploy
 PART/Doc/LTK/Presentation 20130415
 PART/Source/Batch UUID assignment
 PART/Source/CprBroker/Web/aspnet_client
-**/Output/
+
 **/bin/
 **/obj/
 **/debug/
@@ -77,7 +76,6 @@ PART/Source/GK.WebServices/Personmaster/PersonmasterServiceLibrary/DocAndDeploy/
 obj
 bin
 debug
-Output
 _UpgradeReport_Files
 
 *.suo
@@ -110,7 +108,6 @@ PART/Source/Updates/DPRUpdatesNotificationService/DocAndDeploy
 PART/Doc/LTK/Presentation 20130415
 PART/Source/Batch UUID assignment
 PART/Source/CprBroker/Web/aspnet_client
-**/Output/
 **/bin/
 **/obj/
 **/debug/
