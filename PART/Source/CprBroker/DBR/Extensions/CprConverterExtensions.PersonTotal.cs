@@ -215,26 +215,29 @@ namespace CprBroker.DBR.Extensions
             }
             if (resp.ParentsInformation.FatherDate.HasValue)
                 pt.PaternityDate = CprBroker.Utilities.Dates.DateToDecimal(resp.ParentsInformation.FatherDate.Value, 12);
+
+            #region Marriage & spouse
+
             pt.MaritalStatus = resp.CurrentCivilStatus.CivilStatusCode;
 
             pt.MaritalStatusDate = resp.CurrentCivilStatus.CivilStatusStartDateDecimal;
 
-            if (
-                !string.IsNullOrEmpty(resp.CurrentCivilStatus.SpousePNR)
-                && resp.CurrentCivilStatus.SpousePNR.Trim().Length == 10)
-            {
-                // TODO: Shall the target include the leading zeros? 
-                pt.SpousePersonalOrBirthdate = resp.CurrentCivilStatus.SpousePNR.Substring(0, 6) + "-" + resp.CurrentCivilStatus.SpousePNR.Substring(6, 4);
-            }
-            else if (resp.CurrentCivilStatus.SpouseBirthDate.HasValue)
+            if (resp.CurrentCivilStatus.SpouseBirthDate.HasValue)
             {
                 pt.SpousePersonalOrBirthdate = resp.CurrentCivilStatus.SpouseBirthDate.Value.ToString("dd-MM-yyyy");
             }
-
+            else if (string.Format("{0}",resp.CurrentCivilStatus.SpousePNR).Trim().Length >1)                
+            {
+                pt.SpousePersonalOrBirthdate = resp.CurrentCivilStatus.SpousePNR.Substring(0, 6) + "-" + resp.CurrentCivilStatus.SpousePNR.Substring(6, 4);
+            }
             pt.SpouseMarker = null; // Unavailable in CPR Extracts
+            #endregion
+
+            #region Post code & district
             pt.PostCode = resp.ClearWrittenAddress.PostCode;
 
             pt.PostDistrictName = resp.ClearWrittenAddress.PostDistrictText.NullIfEmpty();
+            #endregion
 
             var voting = resp.ElectionInformation.OrderByDescending(e => e.ElectionInfoStartDate).FirstOrDefault();
 
