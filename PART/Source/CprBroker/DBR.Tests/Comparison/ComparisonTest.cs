@@ -122,8 +122,12 @@ namespace CprBroker.Tests.DBR.Comparison
             };
             Func<object, string> stringNormalizer = (o) =>
                 string.Format("{0}", o).Trim().ToLower()
-                .Replace(" ", "").Replace("-", "").Replace(",", "")
+                .Replace(" ", "")
+                .Replace("-", "")
+                .Replace(",", "")
                 .Replace("københavns", "københavn")
+                .Replace("adresseikkekomplet", "")
+                .Replace("ü", "y")
                 .Replace("ä", "æ")
                 .Replace("ö", "ø");
 
