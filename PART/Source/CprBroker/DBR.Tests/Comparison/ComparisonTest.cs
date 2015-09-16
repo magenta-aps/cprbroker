@@ -130,7 +130,8 @@ namespace CprBroker.Tests.DBR.Comparison
                 .Replace("ü", "y")
                 .Replace("ä", "æ")
                 .Replace("ö", "ø")
-                .Replace("é", "e");
+                .Replace("é", "e")
+                .Replace("á", "a");
 
 
             if (stringTypes.Contains(prop.PropertyType))
