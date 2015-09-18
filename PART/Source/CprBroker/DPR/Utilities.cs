@@ -167,13 +167,10 @@ namespace CprBroker.Providers.DPR
             {
                 case 'M':
                     return Schemas.Part.PersonGenderCodeType.male;
-                    break;
                 case 'K':
                     return Schemas.Part.PersonGenderCodeType.female;
-                    break;
                 default:
                     return Schemas.Part.PersonGenderCodeType.unspecified;
-                    break;
             }
         }
 

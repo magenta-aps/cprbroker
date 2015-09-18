@@ -109,10 +109,8 @@ namespace CprBroker.Providers.CPRDirect
             {
                 case 'M':
                     return PersonGenderCodeType.male;
-                    break;
                 case 'K':
                     return PersonGenderCodeType.female;
-                    break;
                 default:
                     throw new ArgumentException(
                         string.Format("Invalied value <{0}>, must be either 'M' or 'K'", gender),
@@ -126,19 +124,14 @@ namespace CprBroker.Providers.CPRDirect
             {
                 case 'A':
                     return false;
-                    break;
                 case 'F':
                     return true;
-                    break;
                 case 'M':
                     return true;
-                    break;
                 case 'S':
                     return true;
-                    break;
                 case 'U':
                     return false;
-                    break;
                 default:
                     throw new ArgumentException(
                         string.Format("Invalied value <{0}>, must be 'A', 'F', 'M', 'S' or 'U'", churchRelation),
