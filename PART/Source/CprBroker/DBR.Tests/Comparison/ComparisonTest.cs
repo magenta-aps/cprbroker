@@ -1,16 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Configuration;
-using CprBroker.Utilities.Config;
-using CprBroker.Providers.DPR;
 using NUnit.Framework;
-using CprBroker.Providers.CPRDirect;
-using CprBroker.DBR;
 using System.Reflection;
 using CprBroker.Utilities;
-using CprBroker.PartInterface;
 using System.Text.RegularExpressions;
 
 namespace CprBroker.Tests.DBR.Comparison
