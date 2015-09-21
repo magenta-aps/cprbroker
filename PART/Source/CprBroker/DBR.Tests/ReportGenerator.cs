@@ -16,6 +16,17 @@ namespace CprBroker.Tests.DBR.Comparison
                 .Where(t => Reflection.IsTypeDerivedFromGenericType(t, comparisonType) && !t.IsGenericType)
                 .ToArray();
 
+            return string.Format(
+                "h3. Fields \r\n\r\n"
+                + GenerateExclusionReport(types)
+                + "\r\n"
+                + "h3. Ignored count \r\n\r\n"
+                + GenerateConutExclusionReport(types)
+                );
+        }
+
+        public string GenerateExclusionReport(Type[] types)
+        {
             StringBuilder sb = new StringBuilder();
             foreach (var t in types)
             {
@@ -41,6 +52,30 @@ namespace CprBroker.Tests.DBR.Comparison
                 }
             }
             return sb.ToString();
+        }
+
+        public String GenerateConutExclusionReport(Type[] types)
+        {
+            var ss = types
+                .Select(t => new
+                {
+                    T = t,
+                    Ign = (bool)t.InvokeMember(
+                        "IgnoreCount",
+                        System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.GetProperty,
+                        null,
+                        Reflection.CreateInstance(t),
+                        null)
+                })
+                .Where(o => o.Ign)
+                .Select(o => string.Format(
+                    "* Type <{0}> table <{1}>",
+                    o.T.BaseType.GetGenericArguments().FirstOrDefault().Name,
+                    DataLinq.GetTableName(o.T.BaseType.GetGenericArguments().FirstOrDefault())
+                    ))
+                .ToArray();
+
+            return string.Join("\r\n", ss);
         }
     }
 }
