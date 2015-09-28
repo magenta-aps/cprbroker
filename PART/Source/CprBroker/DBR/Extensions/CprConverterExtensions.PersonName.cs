@@ -148,25 +148,28 @@ namespace CprBroker.DBR.Extensions
         public static string ToDprFirstName(string firstName, string middleName, bool upper)
         {
             int maxLength = 50;
-            firstName = string.Format("{0}", firstName);
-            middleName = string.Format("{0}", middleName);
+            firstName = string.Format("{0}", firstName).Trim();
+            middleName = string.Format("{0}", middleName).Trim();
 
-            if (firstName.Length + middleName.Length + 1 > maxLength)
+            var parts = firstName.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+            parts.AddRange(middleName.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries));
+
+            int lastIndex = parts.Count - 1;
+
+            while (
+                lastIndex >= 0 &&
+                parts.Sum(p => p.Length) + parts.Count - 1 > maxLength)
             {
-                middleName = string.Join(" ", middleName.Split(' ').Select(w => w[0].ToString().ToUpper()).ToArray());
+                parts[lastIndex] = parts[lastIndex][0].ToString().ToUpper();
+                lastIndex--;
             }
 
-            var ret = string
-                .Format("{0} {1}", firstName, middleName)
-                .Trim();
-
+            string ret = null;
+            if (parts.Count > 0)
+                ret = string.Join(" ", parts.ToArray());
             if (upper)
                 ret = ret.ToUpper();
 
-            if (string.IsNullOrEmpty(ret))
-            {
-                ret = null;
-            }
             return ret;
         }
 
