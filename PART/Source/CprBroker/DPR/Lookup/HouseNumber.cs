@@ -107,5 +107,15 @@ namespace CprBroker.Providers.DPR
                 && myValue >= fromVal && myValue <= toVal
                 ;
         }
+
+        public static int RangeClosureDegree(HouseNumber from, HouseNumber to)
+        {
+            var ret = 0;
+            if (from.IntValue.HasValue)
+                ret++;
+            if (to.IntValue.HasValue)
+                ret++;
+            return ret;
+        }
     }
 }

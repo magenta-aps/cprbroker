@@ -79,14 +79,18 @@ namespace CprBroker.Providers.DPR
 
             var houseNumberObj = new HouseNumber(houseNumber);
 
-            var ret = _PostDistricts[databaseCode].Where(pd =>
-                pd.KOMKOD == municipalityCode
-                && pd.VEJKOD == streetCode
-                && (
-                    houseNumberObj.Between(new HouseNumber(pd.HUSNRFRA), new HouseNumber(pd.HUSNRTIL), pd.LIGEULIGE)
-                    )
+            var ret = _PostDistricts[databaseCode]
+                .Where(pd =>
+                    pd.KOMKOD == municipalityCode
+                    && pd.VEJKOD == streetCode
+                    && (
+                        houseNumberObj.Between(new HouseNumber(pd.HUSNRFRA), new HouseNumber(pd.HUSNRTIL), pd.LIGEULIGE)
+                        )
                 )
-                .SingleOrDefault();
+                .OrderByDescending(
+                    pd => HouseNumber.RangeClosureDegree(new HouseNumber(pd.HUSNRFRA), new HouseNumber(pd.HUSNRTIL))
+                )
+                .FirstOrDefault();
 
             if (ret != null)
                 return getter(ret);
