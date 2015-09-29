@@ -131,7 +131,7 @@ namespace DPRUpdatesNotification
         {
             get
             {
-                return new string[] { "DTBESKYT", "DTBOERN", "DTCIV", "DTFORALDREMYND", "DTFORSV", "DTKADR", "DTNAVNE", "DTPERS", "DTSEPARATION", "DTSTAT", "DTTOTAL", "DTUDRIND" };
+                return new string[] { "DTBESKYT", "DTBOERN", "DTCIV", "DTFORALDREMYND", "DTFORSV", "DTKADR", "DTNAVNE", "DTPERS", "DTPERSBO", "DTSEPARATION", "DTSTAT", "DTTOTAL", "DTUDRIND" };
             }
         }
         public override string TablesTableName
