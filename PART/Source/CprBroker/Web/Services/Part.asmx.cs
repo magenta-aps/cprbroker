@@ -127,7 +127,8 @@ namespace CprBroker.Web.Services
         }
 
         [SoapHeader(ApplicationHeaderName)]
-        public IBasicOutput<bool> PutSubscription(Guid[] personUuids)
+        [WebMethod(Description="Explicitly puts a subscription between CPR Broker and its data sources")]
+        public BasicOutputType<bool> PutSubscription(Guid[] personUuids)
         {
             return new PartManager().PutSubscription(applicationHeader.UserToken, applicationHeader.ApplicationToken, personUuids);
         }
