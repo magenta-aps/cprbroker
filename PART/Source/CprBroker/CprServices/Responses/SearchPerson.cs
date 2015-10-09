@@ -175,7 +175,13 @@ namespace CprBroker.Providers.CprServices.Responses
                     { 
                         NavnStruktur = ToNavnStrukturType(), 
                         Virkning = VirkningType.Create(ToStartDate(),null), 
-                        BirthDate = ToBirthdate().Value
+                        BirthDate = ToBirthdate().Value,
+                        AndreAdresser = null,
+                        FoedestedNavn = null,
+                        FoedselsregistreringMyndighedNavn = null,
+                        KontaktKanal = null,
+                        NaermestePaaroerende = null, 
+                        PersonGenderCode = default(PersonGenderCodeType) // TODO: Should be in stam+
                     }
                 },
                 RegisterOplysning = new RegisterOplysningType[]

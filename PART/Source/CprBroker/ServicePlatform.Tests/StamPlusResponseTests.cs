@@ -21,6 +21,17 @@ namespace CprBroker.Tests.ServicePlatform
             }
         }
 
+        public class StamPlusTests_Concrete : StamPlusTests
+        {
+            [Test]
+            [TestCaseSource("PNRs")]
+            public void Response_OneRow(string pnr)
+            {
+                var resp = GetResponse(pnr);
+                Assert.AreEqual(1, resp.RowItems.Count());
+            }
+        }
+
         [TestFixture]
         public class ToAttributListTests : StamPlusTests
         {

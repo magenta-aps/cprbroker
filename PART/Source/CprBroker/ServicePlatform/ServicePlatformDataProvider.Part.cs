@@ -48,7 +48,7 @@ namespace CprBroker.Providers.ServicePlatform
 
             var request = new SearchRequest(uuid.CprNumber);
 
-            var allInfos = new ServiceInfo[] { ServiceInfo.StamPlus_Local, ServiceInfo.NAVNE3_Local, ServiceInfo.FamilyPlus_Local };
+            var allInfos = new ServiceInfo[] { ServiceInfo.StamPlus_Local, /*ServiceInfo.NAVNE3_Local,*/ ServiceInfo.FamilyPlus_Local };
             var responses = new List<string>();
             foreach (var m in allInfos)
             {
@@ -72,9 +72,9 @@ namespace CprBroker.Providers.ServicePlatform
 
             // Now we are sure that all calls have succeeded
             var stamPlus = new StamPlusResponse(responses[0]);
-            //var navne3 = new Navne3Response(responses[1]);
-            var familyPlus = new FamilyPlusResponse(responses[2]);
-
+            var familyPlus = new FamilyPlusResponse(responses[1]);
+            //var navne3 = new Navne3Response(responses[2]);
+            
 
             // Initial filling
             var ret = stamPlus.RowItems.First().ToRegistreringType1();

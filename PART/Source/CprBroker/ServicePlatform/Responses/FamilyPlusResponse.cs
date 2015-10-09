@@ -60,9 +60,9 @@ namespace CprBroker.Providers.ServicePlatform.Responses
                 // The rest are not available in test data for Familie+
                 Bopaelssamling = null,
                 ErstatningAf = null,
-                ErstatningFor = null,
+                ErstatningFor = null, // Not in Stam+
                 Foraeldremyndighedsboern = null,
-                Foraeldremyndighedsindehaver = null,
+                Foraeldremyndighedsindehaver = null, // TODO: Get from Family+ / CPR FORAELDR
                 RetligHandleevneVaergeForPersonen = null,
                 RetligHandleevneVaergemaalsindehaver = null,
 
