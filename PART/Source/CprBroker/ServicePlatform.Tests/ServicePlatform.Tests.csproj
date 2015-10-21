@@ -62,6 +62,7 @@
     <Compile Include="ServiceCallers.cs" />
     <Compile Include="ServicePlatformDataProviderFactory.cs" />
     <Compile Include="ServicePlatformDataProviderTests.cs" />
+    <Compile Include="ServicePlatformDataProviderTests.Part.cs" />
     <Compile Include="StamPlusResponseTests.cs" />
     <Compile Include="UuidCacheFactory.cs" />
   </ItemGroup>
