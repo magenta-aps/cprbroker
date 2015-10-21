@@ -1,1 +1,25 @@
-<root xmlns="http://www.cpr.dk"><Gctp v="1.0"><System r="CprSoeg"><Service r="Stam+"><CprServiceHeader r="Stam+"/><CprData u="O"><Rolle r="HovedRolle"><Table r="Stam+"><Row k="0"><Field r="ADRNVN" t="Møller-Madsen, Poul-Erik" v="Poul-Erik Møller-Madsen"/><Field r="FOEDDATO" v="19610807"/><Field r="KOEN" v="M"/><Field r="PNR" v="0708614327"/><Field r="POSTNR" v="0"/><Field r="STARTDATOSTATUS" v="20000630"/><Field r="STATUS" v="90"/></Row></Table></Rolle></CprData><Kvit r="Ok" t="" v="0"/></Service></System></Gctp></root>
+<root xmlns="http://www.cpr.dk">
+  <Gctp v="1.0">
+    <System r="CprSoeg">
+      <Service r="Stam+">
+        <CprServiceHeader r="Stam+" />
+        <CprData u="O">
+          <Rolle r="HovedRolle">
+            <Table r="Stam+">
+              <Row k="0">
+                <Field r="ADRNVN" t="Møller-Madsen, Poul-Erik" v="Poul-Erik Møller-Madsen" />
+                <Field r="FOEDDATO" v="19610807" />
+                <Field r="KOEN" v="M" />
+                <Field r="PNR" v="0708614327" />
+                <Field r="POSTNR" v="0" />
+                <Field r="STARTDATOSTATUS" v="20000630" />
+                <Field r="STATUS" v="90" />
+              </Row>
+            </Table>
+          </Rolle>
+        </CprData>
+        <Kvit r="Ok" t="" v="0" />
+      </Service>
+    </System>
+  </Gctp>
+</root>

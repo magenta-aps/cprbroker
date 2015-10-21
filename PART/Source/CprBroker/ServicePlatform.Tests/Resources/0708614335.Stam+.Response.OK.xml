@@ -1,1 +1,32 @@
-<root xmlns="http://www.cpr.dk"><Gctp v="1.0"><System r="CprSoeg"><Service r="Stam+"><CprServiceHeader r="Stam+"/><CprData u="O"><Rolle r="HovedRolle"><Table r="Stam+"><Row k="0"><Field r="ADRNVN" t="Mikkelsen, Harald" v="Harald Mikkelsen"/><Field r="BESKYT" v="X"/><Field r="FOEDDATO" v="19610807"/><Field r="KOEN" v="M"/><Field r="PNR" v="0708614335"/><Field r="POSTNR" v="0"/><Field r="STARTDATOSTATUS" v="19990201"/><Field r="STATUS" v="80"/><Field r="UDLANDSADR1" v="Berlinerstrasse 102"/><Field r="UDLANDSADR2" v="Udlandsadresse linje 2 2 2 2 2 2 2"/><Field r="UDLANDSADR3" v="Et sted i Tyskland"/><Field r="UDLANDSADR4" v="Udlandsadresse linje 3 3 3 3 3 3 3"/><Field r="UDLANDSADR5" v="Udlandsadresse linje 4 4 4 4 4 4 4"/><Field r="UDRLANDEKOD" v="5180"/></Row></Table></Rolle></CprData><Kvit r="Ok" t="" v="0"/></Service></System></Gctp></root>
+<root xmlns="http://www.cpr.dk">
+  <Gctp v="1.0">
+    <System r="CprSoeg">
+      <Service r="Stam+">
+        <CprServiceHeader r="Stam+" />
+        <CprData u="O">
+          <Rolle r="HovedRolle">
+            <Table r="Stam+">
+              <Row k="0">
+                <Field r="ADRNVN" t="Mikkelsen, Harald" v="Harald Mikkelsen" />
+                <Field r="BESKYT" v="X" />
+                <Field r="FOEDDATO" v="19610807" />
+                <Field r="KOEN" v="M" />
+                <Field r="PNR" v="0708614335" />
+                <Field r="POSTNR" v="0" />
+                <Field r="STARTDATOSTATUS" v="19990201" />
+                <Field r="STATUS" v="80" />
+                <Field r="UDLANDSADR1" v="Berlinerstrasse 102" />
+                <Field r="UDLANDSADR2" v="Udlandsadresse linje 2 2 2 2 2 2 2" />
+                <Field r="UDLANDSADR3" v="Et sted i Tyskland" />
+                <Field r="UDLANDSADR4" v="Udlandsadresse linje 3 3 3 3 3 3 3" />
+                <Field r="UDLANDSADR5" v="Udlandsadresse linje 4 4 4 4 4 4 4" />
+                <Field r="UDRLANDEKOD" v="5180" />
+              </Row>
+            </Table>
+          </Rolle>
+        </CprData>
+        <Kvit r="Ok" t="" v="0" />
+      </Service>
+    </System>
+  </Gctp>
+</root>

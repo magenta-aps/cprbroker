@@ -1,26 +1,26 @@
 <root xmlns="http://www.cpr.dk">
-    <Gctp v="1.0">
-        <System r="CprSoeg">
-            <Service r="Stam+">
-                <CprServiceHeader r="Stam+"/>
-                <CprData u="O">
-                    <Rolle r="HovedRolle">
-                        <Table r="Stam+">
-                            <Row k="0">
-                                <Field r="ADRNVN" t="Jensen, Arne Efraim Udtzon" v="Arne Efraim Udtzon Jensen"/>
-                                <Field r="FOEDDATO" v="19520101"/>
-                                <Field r="KOEN" v="M"/>
-                                <Field r="PNR" v="0101520013"/>
-                                <Field r="PNRGAELD" v="0107529039"/>
-                                <Field r="POSTNR" v="0"/>
-                                <Field r="STARTDATOSTATUS" v="20011107"/>
-                                <Field r="STATUS" v="50"/>
-                            </Row>
-                        </Table>
-                    </Rolle>
-                </CprData>
-                <Kvit r="Ok" t="" v="0"/>
-            </Service>
-        </System>
-    </Gctp>
+  <Gctp v="1.0">
+    <System r="CprSoeg">
+      <Service r="Stam+">
+        <CprServiceHeader r="Stam+" />
+        <CprData u="O">
+          <Rolle r="HovedRolle">
+            <Table r="Stam+">
+              <Row k="0">
+                <Field r="ADRNVN" t="Jensen, Arne Efraim Udtzon" v="Arne Efraim Udtzon Jensen" />
+                <Field r="FOEDDATO" v="19520101" />
+                <Field r="KOEN" v="M" />
+                <Field r="PNR" v="0101520013" />
+                <Field r="PNRGAELD" v="0107529039" />
+                <Field r="POSTNR" v="0" />
+                <Field r="STARTDATOSTATUS" v="20011107" />
+                <Field r="STATUS" v="50" />
+              </Row>
+            </Table>
+          </Rolle>
+        </CprData>
+        <Kvit r="Ok" t="" v="0" />
+      </Service>
+    </System>
+  </Gctp>
 </root>

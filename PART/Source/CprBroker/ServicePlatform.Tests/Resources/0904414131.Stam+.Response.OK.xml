@@ -1,1 +1,30 @@
-<root xmlns="http://www.cpr.dk"><Gctp v="1.0"><System r="CprSoeg"><Service r="Stam+"><CprServiceHeader r="Stam+"/><CprData u="O"><Rolle r="HovedRolle"><Table r="Stam+"><Row k="0"><Field r="ADRNVN" t="Holgersen, Gunnar" v="Gunnar Holgersen"/><Field r="FOEDDATO" v="19410409"/><Field r="HUSNR" v="002 "/><Field r="KOEN" v="M"/><Field r="KOMKOD" v="0851"/><Field r="PNR" v="0904414131"/><Field r="POSTNR" t="Aalborg So" v="9210"/><Field r="STADR" v="Pr Caroline Amlg 2"/><Field r="STATUS" v="01"/><Field r="VEJKOD" v="8520"/><Field r="CPSN_POSTDISTTXT" v="Aalborg So"/><Field r="VEJADRNVN" v="Pr Caroline Amlg"/></Row></Table></Rolle></CprData><Kvit r="Ok" t="" v="0"/></Service></System></Gctp></root>
+<root xmlns="http://www.cpr.dk">
+  <Gctp v="1.0">
+    <System r="CprSoeg">
+      <Service r="Stam+">
+        <CprServiceHeader r="Stam+" />
+        <CprData u="O">
+          <Rolle r="HovedRolle">
+            <Table r="Stam+">
+              <Row k="0">
+                <Field r="ADRNVN" t="Holgersen, Gunnar" v="Gunnar Holgersen" />
+                <Field r="FOEDDATO" v="19410409" />
+                <Field r="HUSNR" v="002 " />
+                <Field r="KOEN" v="M" />
+                <Field r="KOMKOD" v="0851" />
+                <Field r="PNR" v="0904414131" />
+                <Field r="POSTNR" t="Aalborg So" v="9210" />
+                <Field r="STADR" v="Pr Caroline Amlg 2" />
+                <Field r="STATUS" v="01" />
+                <Field r="VEJKOD" v="8520" />
+                <Field r="CPSN_POSTDISTTXT" v="Aalborg So" />
+                <Field r="VEJADRNVN" v="Pr Caroline Amlg" />
+              </Row>
+            </Table>
+          </Rolle>
+        </CprData>
+        <Kvit r="Ok" t="" v="0" />
+      </Service>
+    </System>
+  </Gctp>
+</root>

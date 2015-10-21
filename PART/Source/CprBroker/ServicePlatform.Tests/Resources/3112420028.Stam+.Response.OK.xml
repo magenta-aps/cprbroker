@@ -1,1 +1,34 @@
-<root xmlns="http://www.cpr.dk"><Gctp v="1.0"><System r="CprSoeg"><Service r="Stam+"><CprServiceHeader r="Stam+"/><CprData u="O"><Rolle r="HovedRolle"><Table r="Stam+"><Row k="0"><Field r="ADRNVN" t="Urmani, Alexandra" v="Alexandra Urmani"/><Field r="BYNVN" v="Hasseris"/><Field r="ETAGE" v="02"/><Field r="FOEDDATO" v="19421231"/><Field r="HUSNR" v="002 "/><Field r="KOEN" v="K"/><Field r="KOMKOD" v="0851"/><Field r="LOKALITET" v="Solhavehjemmet"/><Field r="PNR" v="3112420028"/><Field r="POSTNR" t="Aalborg" v="9000"/><Field r="SIDEDOER" v="mf"/><Field r="STADR" v="Industrivænget 2,2 mf"/><Field r="STATUS" v="01"/><Field r="VEJKOD" v="8512"/><Field r="CPSN_POSTDISTTXT" v="Aalborg"/><Field r="VEJADRNVN" v="Industrivænget"/></Row></Table></Rolle></CprData><Kvit r="Ok" t="" v="0"/></Service></System></Gctp></root>
+<root xmlns="http://www.cpr.dk">
+  <Gctp v="1.0">
+    <System r="CprSoeg">
+      <Service r="Stam+">
+        <CprServiceHeader r="Stam+" />
+        <CprData u="O">
+          <Rolle r="HovedRolle">
+            <Table r="Stam+">
+              <Row k="0">
+                <Field r="ADRNVN" t="Urmani, Alexandra" v="Alexandra Urmani" />
+                <Field r="BYNVN" v="Hasseris" />
+                <Field r="ETAGE" v="02" />
+                <Field r="FOEDDATO" v="19421231" />
+                <Field r="HUSNR" v="002 " />
+                <Field r="KOEN" v="K" />
+                <Field r="KOMKOD" v="0851" />
+                <Field r="LOKALITET" v="Solhavehjemmet" />
+                <Field r="PNR" v="3112420028" />
+                <Field r="POSTNR" t="Aalborg" v="9000" />
+                <Field r="SIDEDOER" v="mf" />
+                <Field r="STADR" v="Industrivænget 2,2 mf" />
+                <Field r="STATUS" v="01" />
+                <Field r="VEJKOD" v="8512" />
+                <Field r="CPSN_POSTDISTTXT" v="Aalborg" />
+                <Field r="VEJADRNVN" v="Industrivænget" />
+              </Row>
+            </Table>
+          </Rolle>
+        </CprData>
+        <Kvit r="Ok" t="" v="0" />
+      </Service>
+    </System>
+  </Gctp>
+</root>

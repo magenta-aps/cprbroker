@@ -1,1 +1,32 @@
-<root xmlns="http://www.cpr.dk"><Gctp v="1.0"><System r="CprSoeg"><Service r="Stam+"><CprServiceHeader r="Stam+"/><CprData u="O"><Rolle r="HovedRolle"><Table r="Stam+"><Row k="0"><Field r="ADRNVN" t="Christensen, Kurt Bang" v="Kurt Bang Christensen"/><Field r="ETAGE" v="02"/><Field r="FOEDDATO" v="19610807"/><Field r="HUSNR" v="033 "/><Field r="KOEN" v="M"/><Field r="KOMKOD" v="0851"/><Field r="PNR" v="0708610089"/><Field r="POSTNR" t="Aalborg" v="9000"/><Field r="SIDEDOER" v="tv"/><Field r="STADR" v="Søgade 33,2 tv"/><Field r="STATUS" v="01"/><Field r="VEJKOD" v="8511"/><Field r="CPSN_POSTDISTTXT" v="Aalborg"/><Field r="VEJADRNVN" v="Søgade"/></Row></Table></Rolle></CprData><Kvit r="Ok" t="" v="0"/></Service></System></Gctp></root>
+<root xmlns="http://www.cpr.dk">
+  <Gctp v="1.0">
+    <System r="CprSoeg">
+      <Service r="Stam+">
+        <CprServiceHeader r="Stam+" />
+        <CprData u="O">
+          <Rolle r="HovedRolle">
+            <Table r="Stam+">
+              <Row k="0">
+                <Field r="ADRNVN" t="Christensen, Kurt Bang" v="Kurt Bang Christensen" />
+                <Field r="ETAGE" v="02" />
+                <Field r="FOEDDATO" v="19610807" />
+                <Field r="HUSNR" v="033 " />
+                <Field r="KOEN" v="M" />
+                <Field r="KOMKOD" v="0851" />
+                <Field r="PNR" v="0708610089" />
+                <Field r="POSTNR" t="Aalborg" v="9000" />
+                <Field r="SIDEDOER" v="tv" />
+                <Field r="STADR" v="Søgade 33,2 tv" />
+                <Field r="STATUS" v="01" />
+                <Field r="VEJKOD" v="8511" />
+                <Field r="CPSN_POSTDISTTXT" v="Aalborg" />
+                <Field r="VEJADRNVN" v="Søgade" />
+              </Row>
+            </Table>
+          </Rolle>
+        </CprData>
+        <Kvit r="Ok" t="" v="0" />
+      </Service>
+    </System>
+  </Gctp>
+</root>
