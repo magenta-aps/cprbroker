@@ -22,12 +22,10 @@ namespace CprBroker.Tests.ServicePlatform
             CprBroker.Engine.BrokerContext.Initialize(CprBroker.Utilities.Constants.BaseApplicationToken.ToString(), "");
             var kvit = prov.CallGctpService(serviceInfo, gctpMessage, out retXml);
             Assert.True(kvit.OK, "GCTP failed");
-            //"C:\MagentaWorkspace\broker.github\PART\Source\CprBroker\ServicePlatform.Tests\Resources\0101429059.Familie+.Response.OK.xml"
             var path = string.Format("..\\..\\Resources\\{0}.{1}.Response.OK.xml", pnr, serviceInfo.Name);
             var doc = new System.Xml.XmlDocument();
             doc.LoadXml(retXml);
             doc.Save(path);
-            //File.WriteAllText(path, retXml, Encoding.UTF8);
         }
     }
 
@@ -38,6 +36,16 @@ namespace CprBroker.Tests.ServicePlatform
         public void GetResponse(string pnr)
         {
             base.GetResponse(pnr, ServiceInfo.FamilyPlus_Local);
+        }
+    }
+
+    [TestFixture]
+    public class StamPlusCaller : ServiceCaller
+    {
+        [TestCaseSource(typeof(CprBroker.Tests.CPRDirect.Utilities), "PNRs")]
+        public void GetResponse(string pnr)
+        {
+            base.GetResponse(pnr, ServiceInfo.StamPlus_Local);
         }
     }
 }
