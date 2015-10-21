@@ -1,1 +1,57 @@
-<root xmlns="http://www.cpr.dk"><Gctp v="1.0"><System r="CprSoeg"><Service r="Familie+"><CprServiceHeader r="Familie+"/><CprData u="O"><Rolle r="HovedRolle"><Table r="Familie+"><Row k="0"><Field r="ADRNVN" v="Janne Mortensen"/><Field r="FOEDDATO" v="19811213"/><Field r="KOEN" v="K"/><Field r="PNR" v="1312814362"/><Field r="POSTNR" v="0"/><Field r="STARTDATOSTATUS" v="19970909"/><Field r="STATUS" v="70"/><Field r="CNVN_ADRNVN" v="Janne Mortensen"/><Field r="CNVN_EFTERNVN" v="Mortensen"/><Field r="CNVN_FORNVN" v="Janne"/><Field r="CNVN_KOEN" v="K"/><Field r="CNVN_STARTDATO" v="198202052000"/><Field r="CNVN_STATUS" v="70"/><Field r="CNVN_STATUSDATOUSM" v="*"/><Field r="CNVN_STATUSSTARTDATO" v="199709091541"/></Row><Row k="1"><Field r="ADRNVN" v="Asta Jakobsen"/><Field r="CNVN_STATUS" v="01"/><Field r="CPSN_POSTDISTTXT" v="Varde"/><Field r="CPST_POSTNR" v="6800"/><Field r="FAMMRK" v="Mor"/><Field r="PNR_FOEDDATO" v="0701614038"/><Field r="STADR" v="Skovvej 77 A"/></Row><Row k="2"><Field r="ADRNVN" v="Jens Mortensen"/><Field r="CNVN_STATUS" v="01"/><Field r="CPSN_POSTDISTTXT" v="Aalborg"/><Field r="CPST_POSTNR" v="9000"/><Field r="FAMMRK" v="Far"/><Field r="PNR_FOEDDATO" v="0707614285"/><Field r="STADR" v="Industrivænget 95,1 mf"/></Row><Row k="3"><Field r="ADRNVN" v="Janne Mortensen"/><Field r="CNVN_STATUS" v="70"/><Field r="FAMMRK" v="Andet"/><Field r="PNR_FOEDDATO" v="1312814362"/></Row></Table></Rolle></CprData><Kvit r="Ok" t="" v="0"/></Service></System></Gctp></root>
+<root xmlns="http://www.cpr.dk">
+  <Gctp v="1.0">
+    <System r="CprSoeg">
+      <Service r="Familie+">
+        <CprServiceHeader r="Familie+" />
+        <CprData u="O">
+          <Rolle r="HovedRolle">
+            <Table r="Familie+">
+              <Row k="0">
+                <Field r="ADRNVN" v="Janne Mortensen" />
+                <Field r="FOEDDATO" v="19811213" />
+                <Field r="KOEN" v="K" />
+                <Field r="PNR" v="1312814362" />
+                <Field r="POSTNR" v="0" />
+                <Field r="STARTDATOSTATUS" v="19970909" />
+                <Field r="STATUS" v="70" />
+                <Field r="CNVN_ADRNVN" v="Janne Mortensen" />
+                <Field r="CNVN_EFTERNVN" v="Mortensen" />
+                <Field r="CNVN_FORNVN" v="Janne" />
+                <Field r="CNVN_KOEN" v="K" />
+                <Field r="CNVN_STARTDATO" v="198202052000" />
+                <Field r="CNVN_STATUS" v="70" />
+                <Field r="CNVN_STATUSDATOUSM" v="*" />
+                <Field r="CNVN_STATUSSTARTDATO" v="199709091541" />
+              </Row>
+              <Row k="1">
+                <Field r="ADRNVN" v="Asta Jakobsen" />
+                <Field r="CNVN_STATUS" v="01" />
+                <Field r="CPSN_POSTDISTTXT" v="Varde" />
+                <Field r="CPST_POSTNR" v="6800" />
+                <Field r="FAMMRK" v="Mor" />
+                <Field r="PNR_FOEDDATO" v="0701614038" />
+                <Field r="STADR" v="Skovvej 77 A" />
+              </Row>
+              <Row k="2">
+                <Field r="ADRNVN" v="Jens Mortensen" />
+                <Field r="CNVN_STATUS" v="01" />
+                <Field r="CPSN_POSTDISTTXT" v="Aalborg" />
+                <Field r="CPST_POSTNR" v="9000" />
+                <Field r="FAMMRK" v="Far" />
+                <Field r="PNR_FOEDDATO" v="0707614285" />
+                <Field r="STADR" v="Industrivænget 95,1 mf" />
+              </Row>
+              <Row k="3">
+                <Field r="ADRNVN" v="Janne Mortensen" />
+                <Field r="CNVN_STATUS" v="70" />
+                <Field r="FAMMRK" v="Andet" />
+                <Field r="PNR_FOEDDATO" v="1312814362" />
+              </Row>
+            </Table>
+          </Rolle>
+        </CprData>
+        <Kvit r="Ok" t="" v="0" />
+      </Service>
+    </System>
+  </Gctp>
+</root>

@@ -1,1 +1,41 @@
-<root xmlns="http://www.cpr.dk"><Gctp v="1.0"><System r="CprSoeg"><Service r="Familie+"><CprServiceHeader r="Familie+"/><CprData u="O"><Rolle r="HovedRolle"><Table r="Familie+"><Row k="0"><Field r="ADRNVN" v="Robert Udtzon Ullersen"/><Field r="FOEDDATO" v="19610801"/><Field r="KOEN" v="M"/><Field r="PNR" v="0108610069"/><Field r="PNRGAELD" v="0709610015"/><Field r="POSTNR" v="0"/><Field r="STARTDATOSTATUS" v="20011113"/><Field r="STATUS" v="60"/><Field r="CNVN_ADRNVN" v="Robert Udtzon Ullersen"/><Field r="CNVN_EFTERNVN" v="Ullersen"/><Field r="CNVN_FORNVN" v="Robert"/><Field r="CNVN_KOEN" v="M"/><Field r="CNVN_MELNVN" v="Udtzon"/><Field r="CNVN_STARTDATO" v="196110151206"/><Field r="CNVN_STARTDATOUSM" v="*"/><Field r="CNVN_STATUS" v="60"/><Field r="CNVN_STATUSSTARTDATO" v="200111130859"/></Row><Row k="1"><Field r="ADRNVN" v="Robert Udtzon Ullersen"/><Field r="CNVN_STATUS" v="60"/><Field r="FAMMRK" v="Andet"/><Field r="PNR_FOEDDATO" v="0108610069"/></Row></Table></Rolle></CprData><Kvit r="Ok" t="" v="0"/></Service></System></Gctp></root>
+<root xmlns="http://www.cpr.dk">
+  <Gctp v="1.0">
+    <System r="CprSoeg">
+      <Service r="Familie+">
+        <CprServiceHeader r="Familie+" />
+        <CprData u="O">
+          <Rolle r="HovedRolle">
+            <Table r="Familie+">
+              <Row k="0">
+                <Field r="ADRNVN" v="Robert Udtzon Ullersen" />
+                <Field r="FOEDDATO" v="19610801" />
+                <Field r="KOEN" v="M" />
+                <Field r="PNR" v="0108610069" />
+                <Field r="PNRGAELD" v="0709610015" />
+                <Field r="POSTNR" v="0" />
+                <Field r="STARTDATOSTATUS" v="20011113" />
+                <Field r="STATUS" v="60" />
+                <Field r="CNVN_ADRNVN" v="Robert Udtzon Ullersen" />
+                <Field r="CNVN_EFTERNVN" v="Ullersen" />
+                <Field r="CNVN_FORNVN" v="Robert" />
+                <Field r="CNVN_KOEN" v="M" />
+                <Field r="CNVN_MELNVN" v="Udtzon" />
+                <Field r="CNVN_STARTDATO" v="196110151206" />
+                <Field r="CNVN_STARTDATOUSM" v="*" />
+                <Field r="CNVN_STATUS" v="60" />
+                <Field r="CNVN_STATUSSTARTDATO" v="200111130859" />
+              </Row>
+              <Row k="1">
+                <Field r="ADRNVN" v="Robert Udtzon Ullersen" />
+                <Field r="CNVN_STATUS" v="60" />
+                <Field r="FAMMRK" v="Andet" />
+                <Field r="PNR_FOEDDATO" v="0108610069" />
+              </Row>
+            </Table>
+          </Rolle>
+        </CprData>
+        <Kvit r="Ok" t="" v="0" />
+      </Service>
+    </System>
+  </Gctp>
+</root>

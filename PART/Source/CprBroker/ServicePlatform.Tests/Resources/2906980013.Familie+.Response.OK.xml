@@ -1,1 +1,61 @@
-<root xmlns="http://www.cpr.dk"><Gctp v="1.0"><System r="CprSoeg"><Service r="Familie+"><CprServiceHeader r="Familie+"/><CprData u="O"><Rolle r="HovedRolle"><Table r="Familie+"><Row k="0"><Field r="ADRNVN" v="Ulrik Antonius Iversen"/><Field r="BYNVN" v="Vodskov"/><Field r="FOEDDATO" v="19980629"/><Field r="HUSNR" v="016 "/><Field r="KOEN" v="M"/><Field r="KOMKOD" v="0851"/><Field r="PNR" v="2906980013"/><Field r="POSTNR" v="9000"/><Field r="STADR" v="Søgade 16"/><Field r="STATUS" v="01"/><Field r="VEJKOD" v="8511"/><Field r="CNVN_ADRNVN" v="Ulrik Antonius Iversen"/><Field r="CNVN_EFTERNVN" v="Iversen"/><Field r="CNVN_FORNVN" v="Ulrik Antonius"/><Field r="CNVN_KOEN" v="M"/><Field r="CNVN_STARTDATO" v="199806290444"/><Field r="CNVN_STATUS" v="01"/><Field r="HISTORIKMRK" v="X"/><Field r="FORAELDREMYNMRK" v="X"/><Field r="CFMY_RELTYPA" v="00003"/><Field r="CFMY_RELTYPB" v="00004"/><Field r="CFMY_STARTDATOA" v="20080101"/><Field r="CFMY_STARTDATOB" v="20080101"/><Field r="CFMY_STARTDATOUSMA" v=" "/><Field r="CFMY_STARTDATOUSMB" v=" "/></Row><Row k="1"><Field r="ADRNVN" v="Jørgen Folmersen"/><Field r="CNVN_STATUS" v="01"/><Field r="CPSN_POSTDISTTXT" v="Aalborg"/><Field r="CPST_POSTNR" v="9000"/><Field r="FAMMRK" v="Far"/><Field r="PNR_FOEDDATO" v="0709614231"/><Field r="STADR" v="Svinget 2,1 mf"/></Row><Row k="2"><Field r="ADRNVN" v="Ulrik Antonius Iversen"/><Field r="CNVN_STATUS" v="01"/><Field r="CPSN_POSTDISTTXT" v="Aalborg"/><Field r="CPST_POSTNR" v="9000"/><Field r="FAMMRK" v="Andet"/><Field r="PNR_FOEDDATO" v="2906980013"/><Field r="STADR" v="Søgade 16"/></Row></Table></Rolle></CprData><Kvit r="Ok" t="" v="0"/></Service></System></Gctp></root>
+<root xmlns="http://www.cpr.dk">
+  <Gctp v="1.0">
+    <System r="CprSoeg">
+      <Service r="Familie+">
+        <CprServiceHeader r="Familie+" />
+        <CprData u="O">
+          <Rolle r="HovedRolle">
+            <Table r="Familie+">
+              <Row k="0">
+                <Field r="ADRNVN" v="Ulrik Antonius Iversen" />
+                <Field r="BYNVN" v="Vodskov" />
+                <Field r="FOEDDATO" v="19980629" />
+                <Field r="HUSNR" v="016 " />
+                <Field r="KOEN" v="M" />
+                <Field r="KOMKOD" v="0851" />
+                <Field r="PNR" v="2906980013" />
+                <Field r="POSTNR" v="9000" />
+                <Field r="STADR" v="Søgade 16" />
+                <Field r="STATUS" v="01" />
+                <Field r="VEJKOD" v="8511" />
+                <Field r="CNVN_ADRNVN" v="Ulrik Antonius Iversen" />
+                <Field r="CNVN_EFTERNVN" v="Iversen" />
+                <Field r="CNVN_FORNVN" v="Ulrik Antonius" />
+                <Field r="CNVN_KOEN" v="M" />
+                <Field r="CNVN_STARTDATO" v="199806290444" />
+                <Field r="CNVN_STATUS" v="01" />
+                <Field r="HISTORIKMRK" v="X" />
+                <Field r="FORAELDREMYNMRK" v="X" />
+                <Field r="CFMY_RELTYPA" v="00003" />
+                <Field r="CFMY_RELTYPB" v="00004" />
+                <Field r="CFMY_STARTDATOA" v="20080101" />
+                <Field r="CFMY_STARTDATOB" v="20080101" />
+                <Field r="CFMY_STARTDATOUSMA" v=" " />
+                <Field r="CFMY_STARTDATOUSMB" v=" " />
+              </Row>
+              <Row k="1">
+                <Field r="ADRNVN" v="Jørgen Folmersen" />
+                <Field r="CNVN_STATUS" v="01" />
+                <Field r="CPSN_POSTDISTTXT" v="Aalborg" />
+                <Field r="CPST_POSTNR" v="9000" />
+                <Field r="FAMMRK" v="Far" />
+                <Field r="PNR_FOEDDATO" v="0709614231" />
+                <Field r="STADR" v="Svinget 2,1 mf" />
+              </Row>
+              <Row k="2">
+                <Field r="ADRNVN" v="Ulrik Antonius Iversen" />
+                <Field r="CNVN_STATUS" v="01" />
+                <Field r="CPSN_POSTDISTTXT" v="Aalborg" />
+                <Field r="CPST_POSTNR" v="9000" />
+                <Field r="FAMMRK" v="Andet" />
+                <Field r="PNR_FOEDDATO" v="2906980013" />
+                <Field r="STADR" v="Søgade 16" />
+              </Row>
+            </Table>
+          </Rolle>
+        </CprData>
+        <Kvit r="Ok" t="" v="0" />
+      </Service>
+    </System>
+  </Gctp>
+</root>

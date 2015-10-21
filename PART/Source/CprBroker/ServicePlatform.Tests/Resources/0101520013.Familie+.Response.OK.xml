@@ -1,39 +1,39 @@
 <root xmlns="http://www.cpr.dk">
-    <Gctp v="1.0">
-        <System r="CprSoeg">
-            <Service r="Familie+">
-                <CprServiceHeader r="Familie+"/>
-                <CprData u="O">
-                    <Rolle r="HovedRolle">
-                        <Table r="Familie+">
-                            <Row k="0">
-                                <Field r="ADRNVN" v="Arne Efraim Udtzon Jensen"/>
-                                <Field r="FOEDDATO" v="19520101"/>
-                                <Field r="KOEN" v="M"/>
-                                <Field r="PNR" v="0101520013"/>
-                                <Field r="PNRGAELD" v="0107529039"/>
-                                <Field r="POSTNR" v="0"/>
-                                <Field r="STARTDATOSTATUS" v="20011107"/>
-                                <Field r="STATUS" v="50"/>
-                                <Field r="CNVN_ADRNVN" v="Arne Efraim Udtzon Jensen"/>
-                                <Field r="CNVN_EFTERNVN" v="Jensen"/>
-                                <Field r="CNVN_FORNVN" v="Arne Efraim Udtzon"/>
-                                <Field r="CNVN_KOEN" v="M"/>
-                                <Field r="CNVN_STARTDATO" v="195209040825"/>
-                                <Field r="CNVN_STATUS" v="50"/>
-                                <Field r="CNVN_STATUSSTARTDATO" v="200111071450"/>
-                            </Row>
-                            <Row k="1">
-                                <Field r="ADRNVN" v="Arne Efraim Udtzon Jensen"/>
-                                <Field r="CNVN_STATUS" v="50"/>
-                                <Field r="FAMMRK" v="Andet"/>
-                                <Field r="PNR_FOEDDATO" v="0101520013"/>
-                            </Row>
-                        </Table>
-                    </Rolle>
-                </CprData>
-                <Kvit r="Ok" t="" v="0"/>
-            </Service>
-        </System>
-    </Gctp>
+  <Gctp v="1.0">
+    <System r="CprSoeg">
+      <Service r="Familie+">
+        <CprServiceHeader r="Familie+" />
+        <CprData u="O">
+          <Rolle r="HovedRolle">
+            <Table r="Familie+">
+              <Row k="0">
+                <Field r="ADRNVN" v="Arne Efraim Udtzon Jensen" />
+                <Field r="FOEDDATO" v="19520101" />
+                <Field r="KOEN" v="M" />
+                <Field r="PNR" v="0101520013" />
+                <Field r="PNRGAELD" v="0107529039" />
+                <Field r="POSTNR" v="0" />
+                <Field r="STARTDATOSTATUS" v="20011107" />
+                <Field r="STATUS" v="50" />
+                <Field r="CNVN_ADRNVN" v="Arne Efraim Udtzon Jensen" />
+                <Field r="CNVN_EFTERNVN" v="Jensen" />
+                <Field r="CNVN_FORNVN" v="Arne Efraim Udtzon" />
+                <Field r="CNVN_KOEN" v="M" />
+                <Field r="CNVN_STARTDATO" v="195209040825" />
+                <Field r="CNVN_STATUS" v="50" />
+                <Field r="CNVN_STATUSSTARTDATO" v="200111071450" />
+              </Row>
+              <Row k="1">
+                <Field r="ADRNVN" v="Arne Efraim Udtzon Jensen" />
+                <Field r="CNVN_STATUS" v="50" />
+                <Field r="FAMMRK" v="Andet" />
+                <Field r="PNR_FOEDDATO" v="0101520013" />
+              </Row>
+            </Table>
+          </Rolle>
+        </CprData>
+        <Kvit r="Ok" t="" v="0" />
+      </Service>
+    </System>
+  </Gctp>
 </root>

@@ -1,1 +1,62 @@
-<root xmlns="http://www.cpr.dk"><Gctp v="1.0"><System r="CprSoeg"><Service r="Familie+"><CprServiceHeader r="Familie+"/><CprData u="O"><Rolle r="HovedRolle"><Table r="Familie+"><Row k="0"><Field r="ADRNVN" v="Hans-Martin Wicker"/><Field r="BYNVN" v="Lindholm"/><Field r="FOEDDATO" v="19610207"/><Field r="HUSNR" v="052 "/><Field r="KOEN" v="M"/><Field r="KOMKOD" v="0851"/><Field r="PNR" v="0702614155"/><Field r="POSTNR" v="9000"/><Field r="STADR" v="Svinget 52"/><Field r="STATUS" v="01"/><Field r="VEJKOD" v="8513"/><Field r="CNVN_ADRNVN" v="Hans-Martin Wicker"/><Field r="CNVN_EFTERNVN" v="Wicker"/><Field r="CNVN_FORNVN" v="Hans-Martin"/><Field r="CNVN_KOEN" v="M"/><Field r="CNVN_STARTDATO" v="197902152000"/><Field r="CNVN_STATUS" v="01"/></Row><Row k="1"><Field r="ADRNVN" v="Hans-Martin Wicker"/><Field r="CNVN_STATUS" v="01"/><Field r="CPSN_POSTDISTTXT" v="Aalborg"/><Field r="CPST_POSTNR" v="9000"/><Field r="FAMMRK" v="Andet"/><Field r="PNR_FOEDDATO" v="0702614155"/><Field r="STADR" v="Svinget 52"/></Row><Row k="2"><Field r="ADRNVN" v="Anne-Birgitte Wicker"/><Field r="CNVN_STATUS" v="01"/><Field r="CPSN_POSTDISTTXT" v="Aalborg"/><Field r="CPST_POSTNR" v="9000"/><Field r="FAMMRK" v="Ægtefælle"/><Field r="PNR_FOEDDATO" v="0709614568"/><Field r="STADR" v="Svinget 52"/></Row><Row k="3"><Field r="ADRNVN" v="Ulrik Uffe Efraim Udzinski Wicker"/><Field r="CNVN_STATUS" v="01"/><Field r="CPSN_POSTDISTTXT" v="Aalborg"/><Field r="CPST_POSTNR" v="9000"/><Field r="FAMMRK" v="Barn"/><Field r="PNR_FOEDDATO" v="0909970016"/><Field r="STADR" v="Svinget 52"/></Row></Table></Rolle></CprData><Kvit r="Ok" t="" v="0"/></Service></System></Gctp></root>
+<root xmlns="http://www.cpr.dk">
+  <Gctp v="1.0">
+    <System r="CprSoeg">
+      <Service r="Familie+">
+        <CprServiceHeader r="Familie+" />
+        <CprData u="O">
+          <Rolle r="HovedRolle">
+            <Table r="Familie+">
+              <Row k="0">
+                <Field r="ADRNVN" v="Hans-Martin Wicker" />
+                <Field r="BYNVN" v="Lindholm" />
+                <Field r="FOEDDATO" v="19610207" />
+                <Field r="HUSNR" v="052 " />
+                <Field r="KOEN" v="M" />
+                <Field r="KOMKOD" v="0851" />
+                <Field r="PNR" v="0702614155" />
+                <Field r="POSTNR" v="9000" />
+                <Field r="STADR" v="Svinget 52" />
+                <Field r="STATUS" v="01" />
+                <Field r="VEJKOD" v="8513" />
+                <Field r="CNVN_ADRNVN" v="Hans-Martin Wicker" />
+                <Field r="CNVN_EFTERNVN" v="Wicker" />
+                <Field r="CNVN_FORNVN" v="Hans-Martin" />
+                <Field r="CNVN_KOEN" v="M" />
+                <Field r="CNVN_STARTDATO" v="197902152000" />
+                <Field r="CNVN_STATUS" v="01" />
+              </Row>
+              <Row k="1">
+                <Field r="ADRNVN" v="Hans-Martin Wicker" />
+                <Field r="CNVN_STATUS" v="01" />
+                <Field r="CPSN_POSTDISTTXT" v="Aalborg" />
+                <Field r="CPST_POSTNR" v="9000" />
+                <Field r="FAMMRK" v="Andet" />
+                <Field r="PNR_FOEDDATO" v="0702614155" />
+                <Field r="STADR" v="Svinget 52" />
+              </Row>
+              <Row k="2">
+                <Field r="ADRNVN" v="Anne-Birgitte Wicker" />
+                <Field r="CNVN_STATUS" v="01" />
+                <Field r="CPSN_POSTDISTTXT" v="Aalborg" />
+                <Field r="CPST_POSTNR" v="9000" />
+                <Field r="FAMMRK" v="Ægtefælle" />
+                <Field r="PNR_FOEDDATO" v="0709614568" />
+                <Field r="STADR" v="Svinget 52" />
+              </Row>
+              <Row k="3">
+                <Field r="ADRNVN" v="Ulrik Uffe Efraim Udzinski Wicker" />
+                <Field r="CNVN_STATUS" v="01" />
+                <Field r="CPSN_POSTDISTTXT" v="Aalborg" />
+                <Field r="CPST_POSTNR" v="9000" />
+                <Field r="FAMMRK" v="Barn" />
+                <Field r="PNR_FOEDDATO" v="0909970016" />
+                <Field r="STADR" v="Svinget 52" />
+              </Row>
+            </Table>
+          </Rolle>
+        </CprData>
+        <Kvit r="Ok" t="" v="0" />
+      </Service>
+    </System>
+  </Gctp>
+</root>

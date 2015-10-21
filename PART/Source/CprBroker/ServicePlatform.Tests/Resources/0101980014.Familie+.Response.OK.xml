@@ -1,44 +1,44 @@
 <root xmlns="http://www.cpr.dk">
-    <Gctp v="1.0">
-        <System r="CprSoeg">
-            <Service r="Familie+">
-                <CprServiceHeader r="Familie+"/>
-                <CprData u="O">
-                    <Rolle r="HovedRolle">
-                        <Table r="Familie+">
-                            <Row k="0">
-                                <Field r="ADRNVN" v="Ulrikke V Villadsen"/>
-                                <Field r="FOEDDATO" v="19980101"/>
-                                <Field r="KOEN" v="K"/>
-                                <Field r="PNR" v="0101980014"/>
-                                <Field r="POSTNR" v="0"/>
-                                <Field r="STARTDATOSTATUS" v="20000630"/>
-                                <Field r="STATUS" v="90"/>
-                                <Field r="CNVN_ADRNVN" v="Ulrikke V Villadsen"/>
-                                <Field r="CNVN_EFTERNVN" v="Villadsen"/>
-                                <Field r="CNVN_FORNVN" v="Ulrikke Veronika"/>
-                                <Field r="CNVN_KOEN" v="K"/>
-                                <Field r="CNVN_STARTDATO" v="200006291610"/>
-                                <Field r="CNVN_STATUS" v="90"/>
-                                <Field r="CNVN_STATUSSTARTDATO" v="200006300000"/>
-                                <Field r="HISTORIKMRK" v="X"/>
-                                <Field r="FORAELDREMYNMRK" v="X"/>
-                                <Field r="CFMY_RELTYPA" v="00005"/>
-                                <Field r="CFMY_STARTDATOA" v="20080301"/>
-                                <Field r="CFMY_STARTDATOUSMA" v=" "/>
-                                <Field r="FORAELDRE_MYN_PNRA" v="0709614290"/>
-                            </Row>
-                            <Row k="1">
-                                <Field r="ADRNVN" v="Ulrikke V Villadsen"/>
-                                <Field r="CNVN_STATUS" v="90"/>
-                                <Field r="FAMMRK" v="Andet"/>
-                                <Field r="PNR_FOEDDATO" v="0101980014"/>
-                            </Row>
-                        </Table>
-                    </Rolle>
-                </CprData>
-                <Kvit r="Ok" t="" v="0"/>
-            </Service>
-        </System>
-    </Gctp>
+  <Gctp v="1.0">
+    <System r="CprSoeg">
+      <Service r="Familie+">
+        <CprServiceHeader r="Familie+" />
+        <CprData u="O">
+          <Rolle r="HovedRolle">
+            <Table r="Familie+">
+              <Row k="0">
+                <Field r="ADRNVN" v="Ulrikke V Villadsen" />
+                <Field r="FOEDDATO" v="19980101" />
+                <Field r="KOEN" v="K" />
+                <Field r="PNR" v="0101980014" />
+                <Field r="POSTNR" v="0" />
+                <Field r="STARTDATOSTATUS" v="20000630" />
+                <Field r="STATUS" v="90" />
+                <Field r="CNVN_ADRNVN" v="Ulrikke V Villadsen" />
+                <Field r="CNVN_EFTERNVN" v="Villadsen" />
+                <Field r="CNVN_FORNVN" v="Ulrikke Veronika" />
+                <Field r="CNVN_KOEN" v="K" />
+                <Field r="CNVN_STARTDATO" v="200006291610" />
+                <Field r="CNVN_STATUS" v="90" />
+                <Field r="CNVN_STATUSSTARTDATO" v="200006300000" />
+                <Field r="HISTORIKMRK" v="X" />
+                <Field r="FORAELDREMYNMRK" v="X" />
+                <Field r="CFMY_RELTYPA" v="00005" />
+                <Field r="CFMY_STARTDATOA" v="20080301" />
+                <Field r="CFMY_STARTDATOUSMA" v=" " />
+                <Field r="FORAELDRE_MYN_PNRA" v="0709614290" />
+              </Row>
+              <Row k="1">
+                <Field r="ADRNVN" v="Ulrikke V Villadsen" />
+                <Field r="CNVN_STATUS" v="90" />
+                <Field r="FAMMRK" v="Andet" />
+                <Field r="PNR_FOEDDATO" v="0101980014" />
+              </Row>
+            </Table>
+          </Rolle>
+        </CprData>
+        <Kvit r="Ok" t="" v="0" />
+      </Service>
+    </System>
+  </Gctp>
 </root>

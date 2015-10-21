@@ -1,1 +1,67 @@
-<root xmlns="http://www.cpr.dk"><Gctp v="1.0"><System r="CprSoeg"><Service r="Familie+"><CprServiceHeader r="Familie+"/><CprData u="O"><Rolle r="HovedRolle"><Table r="Familie+"><Row k="0"><Field r="ADRNVN" v="Uffe Konrad Dahl-Eriksen"/><Field r="ETAGE" v="01"/><Field r="FOEDDATO" v="19971231"/><Field r="HUSNR" v="091 "/><Field r="KOEN" v="M"/><Field r="KOMKOD" v="0851"/><Field r="PNR" v="3112970079"/><Field r="POSTNR" v="9000"/><Field r="SIDEDOER" v="tv"/><Field r="STADR" v="Industrivænget 91,1 tv"/><Field r="STATUS" v="01"/><Field r="VEJKOD" v="8512"/><Field r="CNVN_ADRNVN" v="Uffe Konrad Dahl-Eriksen"/><Field r="CNVN_EFTERNVN" v="Dahl-Eriksen"/><Field r="CNVN_FORNVN" v="Uffe Konrad"/><Field r="CNVN_KOEN" v="M"/><Field r="CNVN_STARTDATO" v="199802281520"/><Field r="CNVN_STATUS" v="01"/><Field r="FORAELDREMYNMRK" v="X"/><Field r="CFMY_RELTYPA" v="00003"/><Field r="CFMY_STARTDATOA" v="20080101"/><Field r="CFMY_STARTDATOUSMA" v=" "/></Row><Row k="1"><Field r="ADRNVN" v="Klaus Henriksen"/><Field r="CNVN_STATUS" v="01"/><Field r="CPSN_POSTDISTTXT" v="Aalborg"/><Field r="CPST_POSTNR" v="9000"/><Field r="FAMMRK" v="Far"/><Field r="PNR_FOEDDATO" v="0712614455"/><Field r="STADR" v="Industrivænget 2,2 mf"/></Row><Row k="2"><Field r="ADRNVN" v="Dorthea Dahl-Eriksen"/><Field r="CNVN_STATUS" v="01"/><Field r="CPSN_POSTDISTTXT" v="Aalborg"/><Field r="CPST_POSTNR" v="9000"/><Field r="FAMMRK" v="Mor"/><Field r="PNR_FOEDDATO" v="1303814074"/><Field r="STADR" v="Industrivænget 91,1 tv"/></Row><Row k="3"><Field r="ADRNVN" v="Uffe Konrad Dahl-Eriksen"/><Field r="CNVN_STATUS" v="01"/><Field r="CPSN_POSTDISTTXT" v="Aalborg"/><Field r="CPST_POSTNR" v="9000"/><Field r="FAMMRK" v="Andet"/><Field r="PNR_FOEDDATO" v="3112970079"/><Field r="STADR" v="Industrivænget 91,1 tv"/></Row></Table></Rolle></CprData><Kvit r="Ok" t="" v="0"/></Service></System></Gctp></root>
+<root xmlns="http://www.cpr.dk">
+  <Gctp v="1.0">
+    <System r="CprSoeg">
+      <Service r="Familie+">
+        <CprServiceHeader r="Familie+" />
+        <CprData u="O">
+          <Rolle r="HovedRolle">
+            <Table r="Familie+">
+              <Row k="0">
+                <Field r="ADRNVN" v="Uffe Konrad Dahl-Eriksen" />
+                <Field r="ETAGE" v="01" />
+                <Field r="FOEDDATO" v="19971231" />
+                <Field r="HUSNR" v="091 " />
+                <Field r="KOEN" v="M" />
+                <Field r="KOMKOD" v="0851" />
+                <Field r="PNR" v="3112970079" />
+                <Field r="POSTNR" v="9000" />
+                <Field r="SIDEDOER" v="tv" />
+                <Field r="STADR" v="Industrivænget 91,1 tv" />
+                <Field r="STATUS" v="01" />
+                <Field r="VEJKOD" v="8512" />
+                <Field r="CNVN_ADRNVN" v="Uffe Konrad Dahl-Eriksen" />
+                <Field r="CNVN_EFTERNVN" v="Dahl-Eriksen" />
+                <Field r="CNVN_FORNVN" v="Uffe Konrad" />
+                <Field r="CNVN_KOEN" v="M" />
+                <Field r="CNVN_STARTDATO" v="199802281520" />
+                <Field r="CNVN_STATUS" v="01" />
+                <Field r="FORAELDREMYNMRK" v="X" />
+                <Field r="CFMY_RELTYPA" v="00003" />
+                <Field r="CFMY_STARTDATOA" v="20080101" />
+                <Field r="CFMY_STARTDATOUSMA" v=" " />
+              </Row>
+              <Row k="1">
+                <Field r="ADRNVN" v="Klaus Henriksen" />
+                <Field r="CNVN_STATUS" v="01" />
+                <Field r="CPSN_POSTDISTTXT" v="Aalborg" />
+                <Field r="CPST_POSTNR" v="9000" />
+                <Field r="FAMMRK" v="Far" />
+                <Field r="PNR_FOEDDATO" v="0712614455" />
+                <Field r="STADR" v="Industrivænget 2,2 mf" />
+              </Row>
+              <Row k="2">
+                <Field r="ADRNVN" v="Dorthea Dahl-Eriksen" />
+                <Field r="CNVN_STATUS" v="01" />
+                <Field r="CPSN_POSTDISTTXT" v="Aalborg" />
+                <Field r="CPST_POSTNR" v="9000" />
+                <Field r="FAMMRK" v="Mor" />
+                <Field r="PNR_FOEDDATO" v="1303814074" />
+                <Field r="STADR" v="Industrivænget 91,1 tv" />
+              </Row>
+              <Row k="3">
+                <Field r="ADRNVN" v="Uffe Konrad Dahl-Eriksen" />
+                <Field r="CNVN_STATUS" v="01" />
+                <Field r="CPSN_POSTDISTTXT" v="Aalborg" />
+                <Field r="CPST_POSTNR" v="9000" />
+                <Field r="FAMMRK" v="Andet" />
+                <Field r="PNR_FOEDDATO" v="3112970079" />
+                <Field r="STADR" v="Industrivænget 91,1 tv" />
+              </Row>
+            </Table>
+          </Rolle>
+        </CprData>
+        <Kvit r="Ok" t="" v="0" />
+      </Service>
+    </System>
+  </Gctp>
+</root>

@@ -1,1 +1,64 @@
-<root xmlns="http://www.cpr.dk"><Gctp v="1.0"><System r="CprSoeg"><Service r="Familie+"><CprServiceHeader r="Familie+"/><CprData u="O"><Rolle r="HovedRolle"><Table r="Familie+"><Row k="0"><Field r="ADRNVN" v="Arne Henriksen"/><Field r="ETAGE" v="05"/><Field r="FOEDDATO" v="19410109"/><Field r="HUSNR" v="009 "/><Field r="KOEN" v="M"/><Field r="KOMKOD" v="0851"/><Field r="PNR" v="0901414025"/><Field r="POSTNR" v="9000"/><Field r="SIDEDOER" v="tv"/><Field r="STADR" v="Toregårdsvej 9,5 tv"/><Field r="STATUS" v="01"/><Field r="VEJKOD" v="1188"/><Field r="CNVN_ADRNVN" v="Arne Henriksen"/><Field r="CNVN_EFTERNVN" v="Henriksen"/><Field r="CNVN_FORNVN" v="Arne"/><Field r="CNVN_KOEN" v="M"/><Field r="CNVN_STARTDATO" v="196010012000"/><Field r="CNVN_STATUS" v="01"/><Field r="HISTORIKMRK" v="X"/></Row><Row k="1"><Field r="ADRNVN" v="Lars Henriksen"/><Field r="CNVN_STATUS" v="01"/><Field r="CPSN_POSTDISTTXT" v="Aalborg"/><Field r="CPST_POSTNR" v="9000"/><Field r="FAMMRK" v="Barn"/><Field r="PNR_FOEDDATO" v="0707614293"/><Field r="STADR" v="Svinget 50"/></Row><Row k="2"><Field r="ADRNVN" v="Arne Henriksen"/><Field r="CNVN_STATUS" v="01"/><Field r="CPSN_POSTDISTTXT" v="Aalborg"/><Field r="CPST_POSTNR" v="9000"/><Field r="FAMMRK" v="Andet"/><Field r="PNR_FOEDDATO" v="0901414025"/><Field r="STADR" v="Toregårdsvej 9,5 tv"/></Row><Row k="3"><Field r="ADRNVN" v="Lisbeth Henriksen"/><Field r="CNVN_STATUS" v="01"/><Field r="CPSN_POSTDISTTXT" v="Aalborg"/><Field r="CPST_POSTNR" v="9000"/><Field r="FAMMRK" v="Ægtefælle"/><Field r="PNR_FOEDDATO" v="0912414426"/><Field r="STADR" v="Toregårdsvej 9,5 tv"/></Row></Table></Rolle></CprData><Kvit r="Ok" t="" v="0"/></Service></System></Gctp></root>
+<root xmlns="http://www.cpr.dk">
+  <Gctp v="1.0">
+    <System r="CprSoeg">
+      <Service r="Familie+">
+        <CprServiceHeader r="Familie+" />
+        <CprData u="O">
+          <Rolle r="HovedRolle">
+            <Table r="Familie+">
+              <Row k="0">
+                <Field r="ADRNVN" v="Arne Henriksen" />
+                <Field r="ETAGE" v="05" />
+                <Field r="FOEDDATO" v="19410109" />
+                <Field r="HUSNR" v="009 " />
+                <Field r="KOEN" v="M" />
+                <Field r="KOMKOD" v="0851" />
+                <Field r="PNR" v="0901414025" />
+                <Field r="POSTNR" v="9000" />
+                <Field r="SIDEDOER" v="tv" />
+                <Field r="STADR" v="Toregårdsvej 9,5 tv" />
+                <Field r="STATUS" v="01" />
+                <Field r="VEJKOD" v="1188" />
+                <Field r="CNVN_ADRNVN" v="Arne Henriksen" />
+                <Field r="CNVN_EFTERNVN" v="Henriksen" />
+                <Field r="CNVN_FORNVN" v="Arne" />
+                <Field r="CNVN_KOEN" v="M" />
+                <Field r="CNVN_STARTDATO" v="196010012000" />
+                <Field r="CNVN_STATUS" v="01" />
+                <Field r="HISTORIKMRK" v="X" />
+              </Row>
+              <Row k="1">
+                <Field r="ADRNVN" v="Lars Henriksen" />
+                <Field r="CNVN_STATUS" v="01" />
+                <Field r="CPSN_POSTDISTTXT" v="Aalborg" />
+                <Field r="CPST_POSTNR" v="9000" />
+                <Field r="FAMMRK" v="Barn" />
+                <Field r="PNR_FOEDDATO" v="0707614293" />
+                <Field r="STADR" v="Svinget 50" />
+              </Row>
+              <Row k="2">
+                <Field r="ADRNVN" v="Arne Henriksen" />
+                <Field r="CNVN_STATUS" v="01" />
+                <Field r="CPSN_POSTDISTTXT" v="Aalborg" />
+                <Field r="CPST_POSTNR" v="9000" />
+                <Field r="FAMMRK" v="Andet" />
+                <Field r="PNR_FOEDDATO" v="0901414025" />
+                <Field r="STADR" v="Toregårdsvej 9,5 tv" />
+              </Row>
+              <Row k="3">
+                <Field r="ADRNVN" v="Lisbeth Henriksen" />
+                <Field r="CNVN_STATUS" v="01" />
+                <Field r="CPSN_POSTDISTTXT" v="Aalborg" />
+                <Field r="CPST_POSTNR" v="9000" />
+                <Field r="FAMMRK" v="Ægtefælle" />
+                <Field r="PNR_FOEDDATO" v="0912414426" />
+                <Field r="STADR" v="Toregårdsvej 9,5 tv" />
+              </Row>
+            </Table>
+          </Rolle>
+        </CprData>
+        <Kvit r="Ok" t="" v="0" />
+      </Service>
+    </System>
+  </Gctp>
+</root>

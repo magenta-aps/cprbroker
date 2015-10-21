@@ -1,1 +1,48 @@
-<root xmlns="http://www.cpr.dk"><Gctp v="1.0"><System r="CprSoeg"><Service r="Familie+"><CprServiceHeader r="Familie+"/><CprData u="O"><Rolle r="HovedRolle"><Table r="Familie+"><Row k="0"><Field r="ADRNVN" v="Poul-Erik Møller-Madsen"/><Field r="FOEDDATO" v="19610807"/><Field r="KOEN" v="M"/><Field r="PNR" v="0708614327"/><Field r="POSTNR" v="0"/><Field r="STARTDATOSTATUS" v="20000630"/><Field r="STATUS" v="90"/><Field r="CNVN_ADRNVN" v="Poul-Erik Møller-Madsen"/><Field r="CNVN_EFTERNVN" v="Møller-Madsen"/><Field r="CNVN_FORNVN" v="Poul-Erik"/><Field r="CNVN_KOEN" v="M"/><Field r="CNVN_STARTDATO" v="196109012000"/><Field r="CNVN_STATUS" v="90"/><Field r="CNVN_STATUSSTARTDATO" v="200006301004"/><Field r="HISTORIKMRK" v="X"/></Row><Row k="1"><Field r="ADRNVN" v="Erna Møller-Madsen"/><Field r="CNVN_STATUS" v="01"/><Field r="CPSN_POSTDISTTXT" v="Aalborg"/><Field r="CPST_POSTNR" v="9000"/><Field r="FAMMRK" v="Andet"/><Field r="PNR_FOEDDATO" v="0707614226"/><Field r="STADR" v="Industrivænget 4,st tv"/></Row><Row k="2"><Field r="ADRNVN" v="Poul-Erik Møller-Madsen"/><Field r="CNVN_STATUS" v="90"/><Field r="FAMMRK" v="Andet"/><Field r="PNR_FOEDDATO" v="0708614327"/></Row></Table></Rolle></CprData><Kvit r="Ok" t="" v="0"/></Service></System></Gctp></root>
+<root xmlns="http://www.cpr.dk">
+  <Gctp v="1.0">
+    <System r="CprSoeg">
+      <Service r="Familie+">
+        <CprServiceHeader r="Familie+" />
+        <CprData u="O">
+          <Rolle r="HovedRolle">
+            <Table r="Familie+">
+              <Row k="0">
+                <Field r="ADRNVN" v="Poul-Erik Møller-Madsen" />
+                <Field r="FOEDDATO" v="19610807" />
+                <Field r="KOEN" v="M" />
+                <Field r="PNR" v="0708614327" />
+                <Field r="POSTNR" v="0" />
+                <Field r="STARTDATOSTATUS" v="20000630" />
+                <Field r="STATUS" v="90" />
+                <Field r="CNVN_ADRNVN" v="Poul-Erik Møller-Madsen" />
+                <Field r="CNVN_EFTERNVN" v="Møller-Madsen" />
+                <Field r="CNVN_FORNVN" v="Poul-Erik" />
+                <Field r="CNVN_KOEN" v="M" />
+                <Field r="CNVN_STARTDATO" v="196109012000" />
+                <Field r="CNVN_STATUS" v="90" />
+                <Field r="CNVN_STATUSSTARTDATO" v="200006301004" />
+                <Field r="HISTORIKMRK" v="X" />
+              </Row>
+              <Row k="1">
+                <Field r="ADRNVN" v="Erna Møller-Madsen" />
+                <Field r="CNVN_STATUS" v="01" />
+                <Field r="CPSN_POSTDISTTXT" v="Aalborg" />
+                <Field r="CPST_POSTNR" v="9000" />
+                <Field r="FAMMRK" v="Andet" />
+                <Field r="PNR_FOEDDATO" v="0707614226" />
+                <Field r="STADR" v="Industrivænget 4,st tv" />
+              </Row>
+              <Row k="2">
+                <Field r="ADRNVN" v="Poul-Erik Møller-Madsen" />
+                <Field r="CNVN_STATUS" v="90" />
+                <Field r="FAMMRK" v="Andet" />
+                <Field r="PNR_FOEDDATO" v="0708614327" />
+              </Row>
+            </Table>
+          </Rolle>
+        </CprData>
+        <Kvit r="Ok" t="" v="0" />
+      </Service>
+    </System>
+  </Gctp>
+</root>

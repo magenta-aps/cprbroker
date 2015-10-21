@@ -1,1 +1,59 @@
-<root xmlns="http://www.cpr.dk"><Gctp v="1.0"><System r="CprSoeg"><Service r="Familie+"><CprServiceHeader r="Familie+"/><CprData u="O"><Rolle r="HovedRolle"><Table r="Familie+"><Row k="0"><Field r="ADRNVN" v="Aksel Sander"/><Field r="BESKYT" v="X"/><Field r="BYNVN" v="Hasseris"/><Field r="ETAGE" v="01"/><Field r="FOEDDATO" v="19610107"/><Field r="HUSNR" v="026 "/><Field r="KOEN" v="M"/><Field r="KOMKOD" v="0851"/><Field r="PNR" v="0701614011"/><Field r="POSTNR" v="9000"/><Field r="SIDEDOER" v="tv"/><Field r="STADR" v="Industrivænget 26,1 tv"/><Field r="STATUS" v="01"/><Field r="VEJKOD" v="8512"/><Field r="CNVN_ADRNVN" v="Aksel Sander"/><Field r="CNVN_EFTERNVN" v="Sander"/><Field r="CNVN_FORNVN" v="Aksel"/><Field r="CNVN_KOEN" v="M"/><Field r="CNVN_STARTDATO" v="197905012000"/><Field r="CNVN_STATUS" v="01"/><Field r="HISTORIKMRK" v="X"/></Row><Row k="1"><Field r="ADRNVN" v="Aksel Sander"/><Field r="CBSK_TYP" v="00001"/><Field r="CNVN_STATUS" v="01"/><Field r="CPSN_POSTDISTTXT" v="Aalborg"/><Field r="CPST_POSTNR" v="9000"/><Field r="FAMMRK" v="Andet"/><Field r="PNR_FOEDDATO" v="0701614011"/><Field r="STADR" v="Industrivænget 26,1 tv"/></Row><Row k="2"><Field r="ADRNVN" v="Gitte Sander"/><Field r="CBSK_TYP" v="00001"/><Field r="CNVN_STATUS" v="01"/><Field r="CPSN_POSTDISTTXT" v="Aalborg"/><Field r="CPST_POSTNR" v="9000"/><Field r="FAMMRK" v="Ægtefælle"/><Field r="PNR_FOEDDATO" v="0709614118"/><Field r="STADR" v="Industrivænget 26,1 tv"/></Row></Table></Rolle></CprData><Kvit r="Ok" t="" v="0"/></Service></System></Gctp></root>
+<root xmlns="http://www.cpr.dk">
+  <Gctp v="1.0">
+    <System r="CprSoeg">
+      <Service r="Familie+">
+        <CprServiceHeader r="Familie+" />
+        <CprData u="O">
+          <Rolle r="HovedRolle">
+            <Table r="Familie+">
+              <Row k="0">
+                <Field r="ADRNVN" v="Aksel Sander" />
+                <Field r="BESKYT" v="X" />
+                <Field r="BYNVN" v="Hasseris" />
+                <Field r="ETAGE" v="01" />
+                <Field r="FOEDDATO" v="19610107" />
+                <Field r="HUSNR" v="026 " />
+                <Field r="KOEN" v="M" />
+                <Field r="KOMKOD" v="0851" />
+                <Field r="PNR" v="0701614011" />
+                <Field r="POSTNR" v="9000" />
+                <Field r="SIDEDOER" v="tv" />
+                <Field r="STADR" v="Industrivænget 26,1 tv" />
+                <Field r="STATUS" v="01" />
+                <Field r="VEJKOD" v="8512" />
+                <Field r="CNVN_ADRNVN" v="Aksel Sander" />
+                <Field r="CNVN_EFTERNVN" v="Sander" />
+                <Field r="CNVN_FORNVN" v="Aksel" />
+                <Field r="CNVN_KOEN" v="M" />
+                <Field r="CNVN_STARTDATO" v="197905012000" />
+                <Field r="CNVN_STATUS" v="01" />
+                <Field r="HISTORIKMRK" v="X" />
+              </Row>
+              <Row k="1">
+                <Field r="ADRNVN" v="Aksel Sander" />
+                <Field r="CBSK_TYP" v="00001" />
+                <Field r="CNVN_STATUS" v="01" />
+                <Field r="CPSN_POSTDISTTXT" v="Aalborg" />
+                <Field r="CPST_POSTNR" v="9000" />
+                <Field r="FAMMRK" v="Andet" />
+                <Field r="PNR_FOEDDATO" v="0701614011" />
+                <Field r="STADR" v="Industrivænget 26,1 tv" />
+              </Row>
+              <Row k="2">
+                <Field r="ADRNVN" v="Gitte Sander" />
+                <Field r="CBSK_TYP" v="00001" />
+                <Field r="CNVN_STATUS" v="01" />
+                <Field r="CPSN_POSTDISTTXT" v="Aalborg" />
+                <Field r="CPST_POSTNR" v="9000" />
+                <Field r="FAMMRK" v="Ægtefælle" />
+                <Field r="PNR_FOEDDATO" v="0709614118" />
+                <Field r="STADR" v="Industrivænget 26,1 tv" />
+              </Row>
+            </Table>
+          </Rolle>
+        </CprData>
+        <Kvit r="Ok" t="" v="0" />
+      </Service>
+    </System>
+  </Gctp>
+</root>

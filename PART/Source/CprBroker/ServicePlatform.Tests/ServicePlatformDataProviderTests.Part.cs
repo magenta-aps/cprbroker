@@ -26,7 +26,6 @@ namespace CprBroker.Tests.ServicePlatform
             [TestCaseSource("PNRs")]
             public void PutSubscription_OK(string pnr)
             {
-                System.Diagnostics.Debugger.Launch();
                 var prov = ServicePlatformDataProviderFactory.Create();
                 var ret = prov.PutSubscription(new Schemas.PersonIdentifier() { CprNumber = pnr, UUID = Guid.NewGuid() });
                 Assert.True(ret);

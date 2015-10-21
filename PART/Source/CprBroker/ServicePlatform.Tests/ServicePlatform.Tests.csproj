@@ -59,6 +59,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SearchCriteriaFactory.cs" />
+    <Compile Include="ServiceCaller.cs" />
     <Compile Include="ServicePlatformDataProviderFactory.cs" />
     <Compile Include="ServicePlatformDataProviderTests.cs" />
     <Compile Include="StamPlusResponseTests.cs" />
