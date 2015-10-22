@@ -99,6 +99,25 @@ namespace CprBroker.Providers.CprServices.Responses
                 );
         }
 
+        public virtual PersonGenderCodeType ToPersonGenderCodeType()
+        {
+            var gender = GetFieldValue(_Node, "KOEN");
+            switch (gender)
+            {
+                case "M":
+                    return PersonGenderCodeType.male;
+                case "K":
+                    return PersonGenderCodeType.female;
+                case null:
+                    return PersonGenderCodeType.unspecified;
+                default:
+                    throw new ArgumentException(
+                        string.Format("Invalied value <{0}>, must be either 'M' or 'K'", gender),
+                        "gender");
+            }
+
+        }
+
         public NavnStrukturType ToNavnStrukturType()
         {
             var name = this.ToNameString();
@@ -181,7 +200,7 @@ namespace CprBroker.Providers.CprServices.Responses
                         FoedselsregistreringMyndighedNavn = null,
                         KontaktKanal = null,
                         NaermestePaaroerende = null, 
-                        PersonGenderCode = default(PersonGenderCodeType) // TODO: Should be in stam+
+                        PersonGenderCode = ToPersonGenderCodeType()
                     }
                 },
                 RegisterOplysning = new RegisterOplysningType[]
