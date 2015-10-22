@@ -38,11 +38,13 @@ namespace CprBroker.Tests.ServicePlatform
         {
             public RegistreringType1 CallMethod(string pnr)
             {
+                var cache = UuidCacheFactory.Create();
+
                 var stamPlus = new StamPlusResponse(GetResponse(pnr, ServiceInfo.StamPlus_Local.Name));
                 var familyPlus = new FamilyPlusResponse(GetResponse(pnr, ServiceInfo.FamilyPlus_Local.Name));
 
                 var prov = new ServicePlatformDataProvider();
-                return prov.ToRegistreringType1(stamPlus, familyPlus, null, cpr => Guid.NewGuid());
+                return prov.ToRegistreringType1(stamPlus, familyPlus, null, cpr => cache.GetUuid(cpr));
             }
 
             [TestCaseSource("PNRs")]
@@ -97,18 +99,6 @@ namespace CprBroker.Tests.ServicePlatform
             }
 
             [Test]
-            public void ToRegistreringType1_SomeHaveParentalAuthority()
-            {
-                var ret = PNRs
-                    .Select(pnr => CallMethod(pnr))
-                    .Where(reg => reg.RelationListe.Foraeldremyndighedsindehaver != null
-                        && reg.RelationListe.Foraeldremyndighedsindehaver.FirstOrDefault() != null
-                        && !string.IsNullOrEmpty(reg.RelationListe.Foraeldremyndighedsindehaver.First().ReferenceID.Item));
-
-                Assert.NotNull(ret.FirstOrDefault());
-            }
-
-            [Test]
             public void ToRegistreringType1_SomeHaveGuardian()
             {
                 var ret = PNRs
@@ -131,6 +121,56 @@ namespace CprBroker.Tests.ServicePlatform
 
                 Assert.NotNull(ret.FirstOrDefault());
             }
+
+            [Test]
+            public void ToRegistreringType1_SomeHaveParentalAuthority()
+            {
+                var ret = PNRs
+                    .Select(pnr => CallMethod(pnr))
+                    .Where(reg => reg.RelationListe.Foraeldremyndighedsindehaver != null
+                        && reg.RelationListe.Foraeldremyndighedsindehaver.FirstOrDefault() != null
+                        && !string.IsNullOrEmpty(reg.RelationListe.Foraeldremyndighedsindehaver.First().ReferenceID.Item));
+
+                Assert.NotNull(ret.FirstOrDefault());
+            }
+
+            [Test]
+            public void ToRegistreringType1_SomeHaveParentalAuthorityFromParents()
+            {
+                var ret = PNRs
+                    .Select(pnr => CallMethod(pnr))
+                    .Where(
+                        reg => reg.RelationListe.Foraeldremyndighedsindehaver != null
+                        && reg.RelationListe.Foraeldremyndighedsindehaver.FirstOrDefault() != null
+                        && reg.RelationListe.Foraeldremyndighedsindehaver.Where(
+                            p=>                            
+                                (reg.RelationListe.Fader.FirstOrDefault()!=null &&  p.ReferenceID.Item.Equals(reg.RelationListe.Fader.First().ReferenceID.Item))
+                                || (reg.RelationListe.Moder.FirstOrDefault()!=null &&  p.ReferenceID.Item.Equals(reg.RelationListe.Moder.First().ReferenceID.Item))
+                          ).Count()>0
+                        );
+
+                Assert.NotNull(ret.FirstOrDefault());
+            }
+
+            [Test]
+            public void ToRegistreringType1_SomeHaveParentalAuthorityFromNonParents()
+            {
+                var ret = PNRs
+                    .Select(pnr => CallMethod(pnr))
+                    .Where(
+                        reg => reg.RelationListe.Foraeldremyndighedsindehaver != null
+                        && reg.RelationListe.Foraeldremyndighedsindehaver.FirstOrDefault() != null
+                        && reg.RelationListe.Foraeldremyndighedsindehaver.Where(
+                            p =>
+                                (reg.RelationListe.Fader.FirstOrDefault() != null && !p.ReferenceID.Item.Equals(reg.RelationListe.Fader.First().ReferenceID.Item))
+                                || (reg.RelationListe.Moder.FirstOrDefault() != null && !p.ReferenceID.Item.Equals(reg.RelationListe.Moder.First().ReferenceID.Item))
+                          ).Count() > 0
+                        );
+
+                Assert.NotNull(ret.FirstOrDefault());
+            }
+
+            
         }
     }
 }

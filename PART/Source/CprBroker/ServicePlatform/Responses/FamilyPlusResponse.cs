@@ -46,7 +46,7 @@ namespace CprBroker.Providers.ServicePlatform.Responses
 
         public RelationListeType ToRelationListeType(Func<string, Guid> uuidGetter)
         {
-            return new Schemas.Part.RelationListeType()
+            var ret = new Schemas.Part.RelationListeType()
             {
                 // Parental
                 Fader = GetPersonRelations("Far", uuidGetter),
@@ -57,18 +57,71 @@ namespace CprBroker.Providers.ServicePlatform.Responses
                 Aegtefaelle = GetPersonRelations("Ægtefælle", uuidGetter),
                 RegistreretPartner = null,
 
+                Foraeldremyndighedsindehaver = null, // TODO: Get from Family+ / CPR FORAELDR // To be set later
+
                 // The rest are not available in test data for Familie+
                 Bopaelssamling = null,
                 ErstatningAf = null,
                 ErstatningFor = null, // Not in Stam+
                 Foraeldremyndighedsboern = null,
-                Foraeldremyndighedsindehaver = null, // TODO: Get from Family+ / CPR FORAELDR
                 RetligHandleevneVaergeForPersonen = null,
                 RetligHandleevneVaergemaalsindehaver = null,
 
                 // No extension
                 LokalUdvidelse = null,
             };
+
+            ret.Foraeldremyndighedsindehaver = ToParents(ret, uuidGetter);
+            return ret;
+        }
+
+        public PersonRelationType[] ToParents(RelationListeType relationListe, Func<string, Guid> uuidGetter)
+        {
+            var parents = new List<PersonRelationType>();
+
+            Action<string> adder = (postFix) =>
+            {
+                var item = this._RowItems.First();
+
+                var parentType = item["CFMY_RELTYP" + postFix];
+                if (!string.IsNullOrEmpty(parentType))
+                {
+
+                    Action relationUuidGetter = () =>
+                    {
+                        var relPnr = item["FORAELDRE_MYN_PNR" + postFix];
+                        if (!string.IsNullOrEmpty(relPnr) && CprBroker.PartInterface.Strings.IsValidPersonNumber(relPnr))
+                        {
+                            parents.Add(PersonRelationType.Create(uuidGetter(relPnr), null, null));
+                        }
+                    };
+
+                    var parentTypeInt = int.Parse(parentType);
+                    switch (parentTypeInt)
+                    {
+                        case 3:
+                            parents.AddRange(relationListe.Moder);
+                            break;
+                        case 4:
+                            parents.AddRange(relationListe.Fader);
+                            break;
+                        case 5:
+                            relationUuidGetter();
+                            break;
+                        case 6:
+                            relationUuidGetter();
+                            break;
+                    }
+                }
+            };
+            adder("A");
+            adder("B");
+
+            var ret = parents.Where(p => p != null).ToArray();
+            if (ret.Length == 0)
+                ret = null;
+
+            return ret;
         }
 
         public CivilStatusType ToCivilStatusType()
