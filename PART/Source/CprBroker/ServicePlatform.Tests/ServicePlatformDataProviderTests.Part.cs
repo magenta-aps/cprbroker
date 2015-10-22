@@ -134,6 +134,17 @@ namespace CprBroker.Tests.ServicePlatform
                 Assert.NotNull(ret.FirstOrDefault());
             }
 
+            string[] GetParentUuids(RegistreringType1 reg)
+            {
+                var parentUuids = new List<string>();
+                if (reg.RelationListe.Fader.FirstOrDefault() != null)
+                    parentUuids.Add(reg.RelationListe.Fader.First().ReferenceID.Item);
+                if (reg.RelationListe.Moder.FirstOrDefault() != null)
+                    parentUuids.Add(reg.RelationListe.Moder.First().ReferenceID.Item);
+                return parentUuids.ToArray();
+
+            }
+
             [Test]
             public void ToRegistreringType1_SomeHaveParentalAuthorityFromParents()
             {
@@ -143,12 +154,13 @@ namespace CprBroker.Tests.ServicePlatform
                         reg => reg.RelationListe.Foraeldremyndighedsindehaver != null
                         && reg.RelationListe.Foraeldremyndighedsindehaver.FirstOrDefault() != null
                         && reg.RelationListe.Foraeldremyndighedsindehaver.Where(
-                            p=>                            
-                                (reg.RelationListe.Fader.FirstOrDefault()!=null &&  p.ReferenceID.Item.Equals(reg.RelationListe.Fader.First().ReferenceID.Item))
-                                || (reg.RelationListe.Moder.FirstOrDefault()!=null &&  p.ReferenceID.Item.Equals(reg.RelationListe.Moder.First().ReferenceID.Item))
-                          ).Count()>0
+                            p =>
+                                GetParentUuids(reg).Contains(p.ReferenceID.Item)
+                          ).Count() > 0
                         );
-
+                Console.WriteLine("Parents " + ret.Count());
+                foreach (var reg in ret)
+                    Console.WriteLine((reg.AttributListe.RegisterOplysning.First().Item as CprBorgerType).PersonCivilRegistrationIdentifier);
                 Assert.NotNull(ret.FirstOrDefault());
             }
 
@@ -162,15 +174,15 @@ namespace CprBroker.Tests.ServicePlatform
                         && reg.RelationListe.Foraeldremyndighedsindehaver.FirstOrDefault() != null
                         && reg.RelationListe.Foraeldremyndighedsindehaver.Where(
                             p =>
-                                (reg.RelationListe.Fader.FirstOrDefault() != null && !p.ReferenceID.Item.Equals(reg.RelationListe.Fader.First().ReferenceID.Item))
-                                || (reg.RelationListe.Moder.FirstOrDefault() != null && !p.ReferenceID.Item.Equals(reg.RelationListe.Moder.First().ReferenceID.Item))
+                                !GetParentUuids(reg).Contains(p.ReferenceID.Item)
                           ).Count() > 0
                         );
-
-                Assert.NotNull(ret.FirstOrDefault());
+                Console.WriteLine("Non parents " + ret.Count());
+                foreach (var reg in ret)
+                    Console.WriteLine((reg.AttributListe.RegisterOplysning.First().Item as CprBorgerType).PersonCivilRegistrationIdentifier); Assert.NotNull(ret.FirstOrDefault());
             }
 
-            
+
         }
     }
 }
