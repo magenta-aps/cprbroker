@@ -31,7 +31,7 @@ namespace CprBroker.Providers.ServicePlatform
                     callContext.Succeed();
                     return true;
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     Admin.LogException(ex);
                     callContext.Fail();
@@ -48,7 +48,11 @@ namespace CprBroker.Providers.ServicePlatform
 
             var request = new SearchRequest(uuid.CprNumber);
 
-            var allInfos = new ServiceInfo[] { ServiceInfo.StamPlus_Local, /*ServiceInfo.NAVNE3_Local,*/ ServiceInfo.FamilyPlus_Local };
+            var allInfos = new ServiceInfo[] {                 
+                ServiceInfo.StamPlus_Local, // Although Stam is included in Familie+, Spam+ contains street and post district names (not in Familie+)
+                ServiceInfo.FamilyPlus_Local,
+            };
+
             var responses = new List<string>();
             foreach (var m in allInfos)
             {
@@ -73,14 +77,6 @@ namespace CprBroker.Providers.ServicePlatform
             // Now we are sure that all calls have succeeded
             var stamPlus = new StamPlusResponse(responses[0]);
             var familyPlus = new FamilyPlusResponse(responses[1]);
-            //var navne3 = new Navne3Response(responses[2]);
-            
-
-            // Initial filling
-            var ret = stamPlus.RowItems.First().ToRegistreringType1();
-            
-            // Result should not be stored locally
-            ret.IsUpdatableLocally = false;
 
             // UUID mappings
             var uuidCache = new UuidCache();
@@ -88,15 +84,31 @@ namespace CprBroker.Providers.ServicePlatform
             pnrs.Add(uuid.CprNumber);
             uuidCache.FillCache(pnrs.ToArray());
 
+            var ret = ToRegistreringType1(stamPlus, familyPlus, responses.ToArray(), uuidCache.GetUuid);
+
+            return ret;
+        }
+
+        public RegistreringType1 ToRegistreringType1(StamPlusResponse stamPlus, FamilyPlusResponse familyPlus, string[] sourceXmlStrings, Func<string, Guid> uuidFunc)
+        {
+            // Initial filling
+            var ret = stamPlus.RowItems.First().ToRegistreringType1();
+
+            // Result should not be stored locally
+            ret.IsUpdatableLocally = false;
+
+
             // Overwritten properties
-            ret.RelationListe = familyPlus.ToRelationListeType(uuidCache.GetUuid);
+            ret.RelationListe = familyPlus.ToRelationListeType(uuidFunc);
             ret.TilstandListe = new TilstandListeType()
             {
                 CivilStatus = familyPlus.ToCivilStatusType(),
                 LivStatus = stamPlus.RowItems.First().ToLivStatusType()
             };
             ret.AktoerRef = UnikIdType.Create(Constants.ActorId);
-            ret.SourceObjectsXml = Utilities.Strings.SerializeObject(responses.ToArray());
+
+            if (sourceXmlStrings != null)
+                ret.SourceObjectsXml = Utilities.Strings.SerializeObject(sourceXmlStrings);
 
             return ret;
         }
