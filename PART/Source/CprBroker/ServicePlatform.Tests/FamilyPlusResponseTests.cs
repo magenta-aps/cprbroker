@@ -277,5 +277,28 @@ namespace CprBroker.Tests.ServicePlatform
             }
 
         }
+
+        [TestFixture]
+        public class ToNameStartDateTests : FamilyPlusResponseTestBase
+        {
+            [Test]
+            [TestCaseSource("PNRs")]
+            public void ToNameStartDate_NotNull(string pnr)
+            {
+                var nameDate = GetResponse(pnr).ToNameStartDate();
+                Console.WriteLine(nameDate);
+
+                if (nameDate.HasValue)
+                {
+                    Assert.True(nameDate.HasValue);
+                }
+                else
+                {
+                    var name3HasValue = false;
+                    name3HasValue = new FamilyPlusResponse(GetResponse(pnr, ServiceInfo.NAVNE3_Local.Name)).ToNameStartDate().HasValue;
+                    Assert.False(name3HasValue);
+                }
+            }
+        }
     }
 }

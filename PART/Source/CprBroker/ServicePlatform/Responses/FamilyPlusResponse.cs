@@ -136,6 +136,33 @@ namespace CprBroker.Providers.ServicePlatform.Responses
             };
         }
 
+        public DateTime? ToNameStartDate(bool allowIncompleteDates = false)
+        {
+            //System.Diagnostics.Debugger.Launch();
+            var retStr = this.RowItems.First()["CNVN_STARTDATO"];
+            DateTime? ret = null;
+            if (!string.IsNullOrEmpty(retStr))
+            {
+                DateTime retDate;
+                var formats = new List<string>(new string[] { "yyyyMMdd", "yyyyMMddHHmm", });
+
+                if (allowIncompleteDates)
+                    formats.AddRange(new string[] { "yyyyMM00HHmm", "yyyy0000HHmm" });
+
+                if (
+                    DateTime.TryParseExact(
+                        retStr,
+                        formats.ToArray(),
+                        null,
+                        System.Globalization.DateTimeStyles.None,
+                        out retDate))
+                {
+                    ret = retDate;
+                }
+            }
+            return ret;
+        }
+
         public class RelationItem : RowItem
         {
             public RelationItem(XmlElement elm, XmlNamespaceManager nsMgr)
