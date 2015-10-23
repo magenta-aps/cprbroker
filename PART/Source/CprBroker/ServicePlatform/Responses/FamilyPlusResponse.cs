@@ -136,19 +136,14 @@ namespace CprBroker.Providers.ServicePlatform.Responses
             };
         }
 
-        public DateTime? ToNameStartDate(bool allowIncompleteDates = false)
+        public DateTime? GetDateTime(string field, params string[] formats)
         {
             //System.Diagnostics.Debugger.Launch();
-            var retStr = this.RowItems.First()["CNVN_STARTDATO"];
+            var retStr = this.RowItems.First()[field];
             DateTime? ret = null;
             if (!string.IsNullOrEmpty(retStr))
             {
                 DateTime retDate;
-                var formats = new List<string>(new string[] { "yyyyMMdd", "yyyyMMddHHmm", });
-
-                if (allowIncompleteDates)
-                    formats.AddRange(new string[] { "yyyyMM00HHmm", "yyyy0000HHmm" });
-
                 if (
                     DateTime.TryParseExact(
                         retStr,
@@ -161,6 +156,21 @@ namespace CprBroker.Providers.ServicePlatform.Responses
                 }
             }
             return ret;
+        }
+
+        public DateTime? ToNameStartDate(bool allowIncompleteDates = false)
+        {
+            var formats = new List<string>(new string[] { "yyyyMMdd", "yyyyMMddHHmm", });
+
+            if (allowIncompleteDates)
+                formats.AddRange(new string[] { "yyyyMM00HHmm", "yyyy0000HHmm" });
+
+            return GetDateTime("CNVN_STARTDATO", formats.ToArray());
+        }
+
+        public DateTime? ToBirthdate()
+        {
+            return GetDateTime("FOEDDATO", "yyyyMMdd");
         }
 
         public class RelationItem : RowItem

@@ -92,31 +92,36 @@ namespace CprBroker.Providers.ServicePlatform
         public RegistreringType1 ToRegistreringType1(StamPlusResponse stamPlus, FamilyPlusResponse familyPlus, string[] sourceXmlStrings, Func<string, Guid> uuidFunc)
         {
             // Initial filling
-            var ret = stamPlus.RowItems.First().ToRegistreringType1();
+            var ret = new RegistreringType1()
+            {
+                AttributListe = stamPlus.RowItems.First().ToAttributListeType(),
+                RelationListe = familyPlus.ToRelationListeType(uuidFunc),
+                TilstandListe = new TilstandListeType()
+                {
+                    CivilStatus = familyPlus.ToCivilStatusType(),
+                    LivStatus = stamPlus.RowItems.First().ToLivStatusType()
+                },
+                Tidspunkt = TidspunktType.Create(DateTime.Now),
+                LivscyklusKode = LivscyklusKodeType.Rettet,
+                AktoerRef = UnikIdType.Create(Constants.ActorId),
+                CommentText = null,
+                SourceObjectsXml = sourceXmlStrings != null ? Utilities.Strings.SerializeObject(sourceXmlStrings) : null
+            };
+
 
             // override name start date
             var dates = new DateTime?[]{
                 familyPlus.ToNameStartDate(),
                 ret.AttributListe.Egenskab.First().Virkning.FraTidspunkt.ToDateTime()
             };
-            var maxDate = dates.Where(d=>d.HasValue).OrderByDescending(d=>d.Value).FirstOrDefault();            
+            var maxDate = dates.Where(d => d.HasValue).OrderByDescending(d => d.Value).FirstOrDefault();
             ret.AttributListe.Egenskab.First().Virkning.FraTidspunkt = TidspunktType.Create(maxDate);
-            
+
+            // override birthdate
+            ret.AttributListe.Egenskab.First().BirthDate = familyPlus.ToBirthdate().Value;
+
             // Result should not be stored locally
             ret.IsUpdatableLocally = false;
-
-
-            // Overwritten properties
-            ret.RelationListe = familyPlus.ToRelationListeType(uuidFunc);
-            ret.TilstandListe = new TilstandListeType()
-            {
-                CivilStatus = familyPlus.ToCivilStatusType(),
-                LivStatus = stamPlus.RowItems.First().ToLivStatusType()
-            };
-            ret.AktoerRef = UnikIdType.Create(Constants.ActorId);
-
-            if (sourceXmlStrings != null)
-                ret.SourceObjectsXml = Utilities.Strings.SerializeObject(sourceXmlStrings);
 
             return ret;
         }

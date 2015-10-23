@@ -300,5 +300,17 @@ namespace CprBroker.Tests.ServicePlatform
                 }
             }
         }
+
+        [TestFixture]
+        public class ToBirthDateTests : FamilyPlusResponseTestBase
+        {
+            [Test]
+            [TestCaseSource("PNRs")]
+            public void ToNameStartDate_NotNull(string pnr)
+            {
+                var birthDate = GetResponse(pnr).ToBirthdate();
+                Assert.True(birthDate.HasValue);
+            }
+        }
     }
 }
