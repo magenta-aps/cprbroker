@@ -70,7 +70,7 @@ namespace CprBroker.Providers.ServicePlatform.Responses
                 // No extension
                 LokalUdvidelse = null,
             };
-
+            // Special logic for parental authority
             ret.Foraeldremyndighedsindehaver = ToParents(ret, uuidGetter);
             return ret;
         }

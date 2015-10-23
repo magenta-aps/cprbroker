@@ -99,6 +99,7 @@ namespace CprBroker.Tests.ServicePlatform
             }
 
             [Test]
+            [Ignore("Disempowerment not available in free services")]
             public void ToRegistreringType1_SomeHaveGuardian()
             {
                 var ret = PNRs
@@ -142,7 +143,6 @@ namespace CprBroker.Tests.ServicePlatform
                 if (reg.RelationListe.Moder.FirstOrDefault() != null)
                     parentUuids.Add(reg.RelationListe.Moder.First().ReferenceID.Item);
                 return parentUuids.ToArray();
-
             }
 
             [Test]
@@ -158,7 +158,7 @@ namespace CprBroker.Tests.ServicePlatform
                                 GetParentUuids(reg).Contains(p.ReferenceID.Item)
                           ).Count() > 0
                         );
-                Console.WriteLine("Parents " + ret.Count());
+                Console.WriteLine("Found: " + ret.Count());
                 foreach (var reg in ret)
                     Console.WriteLine((reg.AttributListe.RegisterOplysning.First().Item as CprBorgerType).PersonCivilRegistrationIdentifier);
                 Assert.NotNull(ret.FirstOrDefault());
@@ -177,11 +177,11 @@ namespace CprBroker.Tests.ServicePlatform
                                 !GetParentUuids(reg).Contains(p.ReferenceID.Item)
                           ).Count() > 0
                         );
-                Console.WriteLine("Non parents " + ret.Count());
+                Console.WriteLine("Found: " + ret.Count());
                 foreach (var reg in ret)
-                    Console.WriteLine((reg.AttributListe.RegisterOplysning.First().Item as CprBorgerType).PersonCivilRegistrationIdentifier); Assert.NotNull(ret.FirstOrDefault());
+                    Console.WriteLine((reg.AttributListe.RegisterOplysning.First().Item as CprBorgerType).PersonCivilRegistrationIdentifier); 
+                Assert.NotNull(ret.FirstOrDefault());
             }
-
 
         }
     }
