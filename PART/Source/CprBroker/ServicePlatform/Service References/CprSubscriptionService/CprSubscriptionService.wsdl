@@ -17,6 +17,54 @@
   <message name="RemovePNRSubscriptionResponse">
     <part name="r1" element="tns:RemovePNRSubscriptionResponse" />
   </message>
+  <message name="AddAgeRangeSubscription">
+    <part name="p1" element="tns:AddAgeRangeSubscription" />
+  </message>
+  <message name="AddAgeRangeSubscriptionResponse">
+    <part name="r1" element="tns:AddAgeRangeSubscriptionResponse" />
+  </message>
+  <message name="RemoveAgeRangeSubscription">
+    <part name="p1" element="tns:RemoveAgeRangeSubscription" />
+  </message>
+  <message name="RemoveAgeRangeSubscriptionResponse">
+    <part name="r1" element="tns:RemoveAgeRangeSubscriptionResponse" />
+  </message>
+  <message name="AddMunicipalityCodeSubscription">
+    <part name="p1" element="tns:AddMunicipalityCodeSubscription" />
+  </message>
+  <message name="AddMunicipalityCodeSubscriptionResponse">
+    <part name="r1" element="tns:AddMunicipalityCodeSubscriptionResponse" />
+  </message>
+  <message name="RemoveMunicipalityCodeSubscription">
+    <part name="p1" element="tns:RemoveMunicipalityCodeSubscription" />
+  </message>
+  <message name="RemoveMunicipalityCodeSubscriptionResponse">
+    <part name="r1" element="tns:RemoveMunicipalityCodeSubscriptionResponse" />
+  </message>
+  <message name="AddChangeCodeSubscription">
+    <part name="p1" element="tns:AddChangeCodeSubscription" />
+  </message>
+  <message name="AddChangeCodeSubscriptionResponse">
+    <part name="r1" element="tns:AddChangeCodeSubscriptionResponse" />
+  </message>
+  <message name="RemoveChangeCodeSubscription">
+    <part name="p1" element="tns:RemoveChangeCodeSubscription" />
+  </message>
+  <message name="RemoveChangeCodeSubscriptionResponse">
+    <part name="r1" element="tns:RemoveChangeCodeSubscriptionResponse" />
+  </message>
+  <message name="RemoveAll">
+    <part name="p1" element="tns:RemoveAll" />
+  </message>
+  <message name="RemoveAllResponse">
+    <part name="r1" element="tns:RemoveAllResponse" />
+  </message>
+  <message name="GetAllFilters">
+    <part name="p1" element="tns:GetAllFilters" />
+  </message>
+  <message name="GetAllFiltersResponse">
+    <part name="r1" element="tns:GetAllFiltersResponse" />
+  </message>
   <portType name="CprSubscriptionWebServicePortType">
     <operation name="AddPNRSubscription">
       <input message="tns:AddPNRSubscription" />
@@ -25,6 +73,38 @@
     <operation name="RemovePNRSubscription">
       <input message="tns:RemovePNRSubscription" />
       <output message="tns:RemovePNRSubscriptionResponse" />
+    </operation>
+    <operation name="AddAgeRangeSubscription">
+      <input message="tns:AddAgeRangeSubscription" />
+      <output message="tns:AddAgeRangeSubscriptionResponse" />
+    </operation>
+    <operation name="RemoveAgeRangeSubscription">
+      <input message="tns:RemoveAgeRangeSubscription" />
+      <output message="tns:RemoveAgeRangeSubscriptionResponse" />
+    </operation>
+    <operation name="AddMunicipalityCodeSubscription">
+      <input message="tns:AddMunicipalityCodeSubscription" />
+      <output message="tns:AddMunicipalityCodeSubscriptionResponse" />
+    </operation>
+    <operation name="RemoveMunicipalityCodeSubscription">
+      <input message="tns:RemoveMunicipalityCodeSubscription" />
+      <output message="tns:RemoveMunicipalityCodeSubscriptionResponse" />
+    </operation>
+    <operation name="AddChangeCodeSubscription">
+      <input message="tns:AddChangeCodeSubscription" />
+      <output message="tns:AddChangeCodeSubscriptionResponse" />
+    </operation>
+    <operation name="RemoveChangeCodeSubscription">
+      <input message="tns:RemoveChangeCodeSubscription" />
+      <output message="tns:RemoveChangeCodeSubscriptionResponse" />
+    </operation>
+    <operation name="RemoveAll">
+      <input message="tns:RemoveAll" />
+      <output message="tns:RemoveAllResponse" />
+    </operation>
+    <operation name="GetAllFilters">
+      <input message="tns:GetAllFilters" />
+      <output message="tns:GetAllFiltersResponse" />
     </operation>
   </portType>
   <binding name="CprSubscriptionWebServiceBinding" type="tns:CprSubscriptionWebServicePortType">
@@ -39,6 +119,78 @@
       </output>
     </operation>
     <operation name="RemovePNRSubscription">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="AddAgeRangeSubscription">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="RemoveAgeRangeSubscription">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="AddMunicipalityCodeSubscription">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="RemoveMunicipalityCodeSubscription">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="AddChangeCodeSubscription">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="RemoveChangeCodeSubscription">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="RemoveAll">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="GetAllFilters">
       <soap:operation soapAction="" />
       <input>
         <soap:body use="literal" />

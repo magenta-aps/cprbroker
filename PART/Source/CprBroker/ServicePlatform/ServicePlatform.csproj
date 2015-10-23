@@ -78,12 +78,10 @@
     <Compile Include="ServicePlatformDataProvider.Base.cs" />
     <Compile Include="ServicePlatformDataProvider.Connection.cs" />
     <Compile Include="ServicePlatformDataProvider.Search.cs" />
+    <Compile Include="ServicePlatformDataProvider.Subscription.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\CprSubscriptionService.wsdl" />
-    <None Include="Resources\CprSubscriptionServiceMsg.xsd">
-      <SubType>Designer</SubType>
-    </None>
+    <None Include="app.config" />
     <None Include="Resources\InvocationContext_20121009.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -109,7 +107,31 @@
     <None Include="Service References\CprReplica\InvocationContext_20121009.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\CprSubscriptionService\CprBroker.Providers.ServicePlatform.CprSubscriptionService.AddAgeRangeSubscriptionResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\CprSubscriptionService\CprBroker.Providers.ServicePlatform.CprSubscriptionService.AddChangeCodeSubscriptionResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\CprSubscriptionService\CprBroker.Providers.ServicePlatform.CprSubscriptionService.AddMunicipalityCodeSubscriptionResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Service References\CprSubscriptionService\CprBroker.Providers.ServicePlatform.CprSubscriptionService.AddPNRSubscriptionResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\CprSubscriptionService\CprBroker.Providers.ServicePlatform.CprSubscriptionService.GetAllFiltersResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\CprSubscriptionService\CprBroker.Providers.ServicePlatform.CprSubscriptionService.RemoveAgeRangeSubscriptionResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\CprSubscriptionService\CprBroker.Providers.ServicePlatform.CprSubscriptionService.RemoveAllResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\CprSubscriptionService\CprBroker.Providers.ServicePlatform.CprSubscriptionService.RemoveChangeCodeSubscriptionResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\CprSubscriptionService\CprBroker.Providers.ServicePlatform.CprSubscriptionService.RemoveMunicipalityCodeSubscriptionResponseType.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\CprSubscriptionService\CprBroker.Providers.ServicePlatform.CprSubscriptionService.RemovePNRSubscriptionResponseType.datasource">
@@ -156,18 +178,22 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\CprSubscriptionService\configuration91.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\CprSubscriptionService\configuration.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Service References\CprSubscriptionService\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-  </ItemGroup>
-  <ItemGroup>
+    <None Include="Service References\CprSubscriptionService\configuration.svcinfo" />
+    <None Include="Service References\CprSubscriptionService\configuration91.svcinfo" />
+    <None Include="Resources\CprSubscriptionService\CprSubscriptionService.wsdl" />
+    <None Include="Resources\CprSubscriptionService\CprSubscriptionServiceMsg.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Resources\CprSubscriptionService\InvocationContext_20121009.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Resources\CprSubscriptionService\PNR_20121119.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <Content Include="Resources\PnrLookup.xml" />
   </ItemGroup>
   <ItemGroup>
