@@ -94,6 +94,14 @@ namespace CprBroker.Providers.ServicePlatform
             // Initial filling
             var ret = stamPlus.RowItems.First().ToRegistreringType1();
 
+            // override name start date
+            var dates = new DateTime?[]{
+                familyPlus.ToNameStartDate(),
+                ret.AttributListe.Egenskab.First().Virkning.FraTidspunkt.ToDateTime()
+            };
+            var maxDate = dates.Where(d=>d.HasValue).OrderByDescending(d=>d.Value).FirstOrDefault();            
+            ret.AttributListe.Egenskab.First().Virkning.FraTidspunkt = TidspunktType.Create(maxDate);
+            
             // Result should not be stored locally
             ret.IsUpdatableLocally = false;
 
