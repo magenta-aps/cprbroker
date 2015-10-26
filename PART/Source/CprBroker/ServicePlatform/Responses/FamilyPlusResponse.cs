@@ -27,6 +27,11 @@ namespace CprBroker.Providers.ServicePlatform.Responses
                     .ToArray();
         }
 
+        public RowItem MainRow
+        {
+            get { return this._RowItems.First(); }
+        }
+
         public PersonFlerRelationType[] GetPersonFlerRelations(string key, Func<string, Guid> func)
         {
             return GetRelationNodes(key).Select(n => PersonFlerRelationType.Create(func(n.PnrOrBirthdate), null, null)).ToArray();
@@ -42,6 +47,90 @@ namespace CprBroker.Providers.ServicePlatform.Responses
             return GetRelationNodes(null)
                 .Select(n => n.PnrOrBirthdate)
                 .ToArray();
+        }
+
+        public AttributListeType ToAttributListeType()
+        {
+            return new AttributListeType()
+            {
+                Egenskab = new EgenskabType[] { ToEgenskabType() },
+                RegisterOplysning = new RegisterOplysningType[] { ToRegisterOplysningType() },
+                // Not implemented in CPR Broker
+                SundhedOplysning = null,
+                LokalUdvidelse = null,
+            };
+        }
+
+        public EgenskabType ToEgenskabType()
+        {
+            return new EgenskabType()
+            {
+                NavnStruktur = ToNavnStrukturType(),
+                PersonGenderCode = ToPersonGenderCodeType(),
+                BirthDate = ToBirthdate().Value,
+                // Not supported
+                FoedselsregistreringMyndighedNavn = null,
+                AndreAdresser = null,
+                FoedestedNavn = null,
+                KontaktKanal = null,
+                NaermestePaaroerende = null,
+
+            };
+        }
+
+        public NavnStrukturType ToNavnStrukturType()
+        {
+            return NavnStrukturType.Create(
+                new string[] { MainRow["CNVN_FORNVN"], MainRow["CNVN_EFTERNVN"] },
+                MainRow["CNVN_ADRNVN"]
+            );
+        }
+
+        public virtual PersonGenderCodeType ToPersonGenderCodeType()
+        {
+            var gender = MainRow["KOEN"];
+            switch (gender)
+            {
+                case "M":
+                    return PersonGenderCodeType.male;
+                case "K":
+                    return PersonGenderCodeType.female;
+                case null:
+                    return PersonGenderCodeType.unspecified;
+                default:
+                    throw new ArgumentException(
+                        string.Format("Invalied value <{0}>, must be either 'M' or 'K'", gender),
+                        "gender");
+            }
+
+        }
+
+        public RegisterOplysningType ToRegisterOplysningType()
+        {
+            return new RegisterOplysningType()
+            {
+                Item = new CprBorgerType() 
+                {
+                    FolkeregisterAdresse = ToFolkeregisterAdresse(),
+                    PersonCivilRegistrationIdentifier = MainRow["PNR"],
+                    PersonNummerGyldighedStatusIndikator = Schemas.Util.Enums.IsActiveCivilRegistrationStatus(decimal.Parse(MainRow["STATUS"])),
+                    
+                    // Not implemented
+                    AdresseNoteTekst = null,
+                    FolkekirkeMedlemIndikator = false,
+                    PersonNationalityCode = null,
+                    
+                    NavneAdresseBeskyttelseIndikator = false,
+                    ForskerBeskyttelseIndikator = false,                    
+                    TelefonNummerBeskyttelseIndikator = false,
+                },
+                Virkning = null, // Fill                
+            };
+        }
+
+        public AdresseType ToFolkeregisterAdresse()
+        {
+            throw new NotImplementedException();
         }
 
         public RelationListeType ToRelationListeType(Func<string, Guid> uuidGetter)
@@ -81,15 +170,13 @@ namespace CprBroker.Providers.ServicePlatform.Responses
 
             Action<string> adder = (postFix) =>
             {
-                var item = this._RowItems.First();
-
-                var parentType = item["CFMY_RELTYP" + postFix];
+                var parentType = MainRow["CFMY_RELTYP" + postFix];
                 if (!string.IsNullOrEmpty(parentType))
                 {
 
                     Action relationUuidGetter = () =>
                     {
-                        var relPnr = item["FORAELDRE_MYN_PNR" + postFix];
+                        var relPnr = MainRow["FORAELDRE_MYN_PNR" + postFix];
                         if (!string.IsNullOrEmpty(relPnr) && CprBroker.PartInterface.Strings.IsValidPersonNumber(relPnr))
                         {
                             parents.Add(PersonRelationType.Create(uuidGetter(relPnr), null, null));
@@ -139,7 +226,7 @@ namespace CprBroker.Providers.ServicePlatform.Responses
         public DateTime? GetDateTime(string field, params string[] formats)
         {
             //System.Diagnostics.Debugger.Launch();
-            var retStr = this.RowItems.First()[field];
+            var retStr = MainRow[field];
             DateTime? ret = null;
             if (!string.IsNullOrEmpty(retStr))
             {
