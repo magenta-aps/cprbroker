@@ -28,4 +28,166 @@
       <xsd:element name="Result" type="xsd:string" />
     </xsd:sequence>
   </xsd:complexType>
+  <xsd:element name="AddAgeRangeSubscription" type="tns:AddAgeRangeSubscriptionType" />
+  <xsd:complexType name="AddAgeRangeSubscriptionType">
+    <xsd:sequence>
+      <xsd:element minOccurs="1" maxOccurs="1" ref="invctx:InvocationContext" />
+      <xsd:element minOccurs="1" maxOccurs="1" ref="tns:AgeRange" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="AddAgeRangeSubscriptionResponse" type="tns:AddAgeRangeSubscriptionResponseType" />
+  <xsd:complexType name="AddAgeRangeSubscriptionResponseType">
+    <xsd:sequence>
+      <xsd:element name="Result" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="RemoveAgeRangeSubscription" type="tns:RemoveAgeRangeSubscriptionType" />
+  <xsd:complexType name="RemoveAgeRangeSubscriptionType">
+    <xsd:sequence>
+      <xsd:element minOccurs="1" maxOccurs="1" ref="invctx:InvocationContext" />
+      <xsd:element minOccurs="1" maxOccurs="1" ref="tns:AgeRange" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="RemoveAgeRangeSubscriptionResponse" type="tns:RemoveAgeRangeSubscriptionResponseType" />
+  <xsd:complexType name="RemoveAgeRangeSubscriptionResponseType">
+    <xsd:sequence>
+      <xsd:element name="Result" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="AddMunicipalityCodeSubscription" type="tns:AddMunicipalityCodeSubscriptionType" />
+  <xsd:complexType name="AddMunicipalityCodeSubscriptionType">
+    <xsd:sequence>
+      <xsd:element minOccurs="1" maxOccurs="1" ref="invctx:InvocationContext" />
+      <xsd:element minOccurs="1" maxOccurs="1" ref="tns:MunicipalityCode" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="AddMunicipalityCodeSubscriptionResponse" type="tns:AddMunicipalityCodeSubscriptionResponseType" />
+  <xsd:complexType name="AddMunicipalityCodeSubscriptionResponseType">
+    <xsd:sequence>
+      <xsd:element name="Result" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="RemoveMunicipalityCodeSubscription" type="tns:RemoveMunicipalityCodeSubscriptionType" />
+  <xsd:complexType name="RemoveMunicipalityCodeSubscriptionType">
+    <xsd:sequence>
+      <xsd:element minOccurs="1" maxOccurs="1" ref="invctx:InvocationContext" />
+      <xsd:element minOccurs="1" maxOccurs="1" ref="tns:MunicipalityCode" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="RemoveMunicipalityCodeSubscriptionResponse" type="tns:RemoveMunicipalityCodeSubscriptionResponseType" />
+  <xsd:complexType name="RemoveMunicipalityCodeSubscriptionResponseType">
+    <xsd:sequence>
+      <xsd:element name="Result" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="AddChangeCodeSubscription" type="tns:AddChangeCodeSubscriptionType" />
+  <xsd:complexType name="AddChangeCodeSubscriptionType">
+    <xsd:sequence>
+      <xsd:element minOccurs="1" maxOccurs="1" ref="invctx:InvocationContext" />
+      <xsd:element minOccurs="1" maxOccurs="1" ref="tns:ChangeCode" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="AddChangeCodeSubscriptionResponse" type="tns:AddChangeCodeSubscriptionResponseType" />
+  <xsd:complexType name="AddChangeCodeSubscriptionResponseType">
+    <xsd:sequence>
+      <xsd:element name="Result" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="RemoveChangeCodeSubscription" type="tns:RemoveChangeCodeSubscriptionType" />
+  <xsd:complexType name="RemoveChangeCodeSubscriptionType">
+    <xsd:sequence>
+      <xsd:element minOccurs="1" maxOccurs="1" ref="invctx:InvocationContext" />
+      <xsd:element minOccurs="1" maxOccurs="1" ref="tns:ChangeCode" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="RemoveChangeCodeSubscriptionResponse" type="tns:RemoveChangeCodeSubscriptionResponseType" />
+  <xsd:complexType name="RemoveChangeCodeSubscriptionResponseType">
+    <xsd:sequence>
+      <xsd:element name="Result" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="RemoveAll" type="tns:RemoveAllType" />
+  <xsd:complexType name="RemoveAllType">
+    <xsd:sequence>
+      <xsd:element minOccurs="1" maxOccurs="1" ref="invctx:InvocationContext" />
+      <xsd:element minOccurs="1" maxOccurs="1" ref="tns:FilterGroup" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="RemoveAllResponse" type="tns:RemoveAllResponseType" />
+  <xsd:complexType name="RemoveAllResponseType">
+    <xsd:sequence>
+      <xsd:element name="Result" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="GetAllFilters" type="tns:GetAllFiltersType" />
+  <xsd:complexType name="GetAllFiltersType">
+    <xsd:sequence>
+      <xsd:element minOccurs="1" maxOccurs="1" ref="invctx:InvocationContext" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="GetAllFiltersResponse" type="tns:GetAllFiltersResponseType" />
+  <xsd:complexType name="GetAllFiltersResponseType">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" maxOccurs="unbounded" ref="tns:AgeRange" />
+      <xsd:element minOccurs="0" maxOccurs="unbounded" ref="tns:ChangeCode" />
+      <xsd:element minOccurs="0" maxOccurs="unbounded" ref="tns:MunicipalityCode" />
+      <xsd:element minOccurs="0" maxOccurs="unbounded" ref="cpr:PNR" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="FilterGroup" type="tns:FilterGroup" />
+  <xsd:simpleType name="FilterGroup">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="PNR" />
+      <xsd:enumeration value="AgeRange" />
+      <xsd:enumeration value="MunicipalityCode" />
+      <xsd:enumeration value="EventChangeCode" />
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:element name="AgeRange" type="tns:AgeRange" />
+  <xsd:complexType name="AgeRange">
+    <xsd:sequence>
+      <xsd:element ref="tns:StartAge" />
+      <xsd:element ref="tns:EndAge" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="StartAge">
+    <xsd:simpleType>
+      <xsd:restriction base="xsd:nonNegativeInteger">
+        <xsd:maxLength value="3" />
+      </xsd:restriction>
+    </xsd:simpleType>
+  </xsd:element>
+  <xsd:element name="EndAge">
+    <xsd:simpleType>
+      <xsd:restriction base="xsd:nonNegativeInteger">
+        <xsd:maxLength value="3" />
+      </xsd:restriction>
+    </xsd:simpleType>
+  </xsd:element>
+  <xsd:element name="MunicipalityCode">
+    <xsd:simpleType>
+      <xsd:restriction base="xsd:nonNegativeInteger">
+        <xsd:maxLength value="4" />
+      </xsd:restriction>
+    </xsd:simpleType>
+  </xsd:element>
+  <xsd:element name="ChangeCode">
+    <xsd:simpleType>
+      <xsd:restriction base="xsd:string">
+        <xsd:maxLength value="3" />
+      </xsd:restriction>
+    </xsd:simpleType>
+  </xsd:element>
+  <xsd:element name="RemoveFilteredSubscription" type="tns:RemoveFilteredSubscriptionType" />
+  <xsd:complexType name="RemoveFilteredSubscriptionType">
+    <xsd:sequence>
+      <xsd:element minOccurs="1" maxOccurs="1" ref="invctx:InvocationContext" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="RemoveFilteredSubscriptionResponse" type="tns:RemoveFilteredSubscriptionResponseType" />
+  <xsd:complexType name="RemoveFilteredSubscriptionResponseType">
+    <xsd:sequence>
+      <xsd:element name="Result" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
 </xsd:schema>

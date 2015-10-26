@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="1a70bb7e-d020-4894-81a4-ce99413e098f" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="a227820e-6e2b-49ca-85ac-2230089b6ea5" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
     <EnableDataBinding>true</EnableDataBinding>
@@ -18,13 +18,13 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="C:\MagentaWorkspace\broker.github\PART\Source\CprBroker\ServicePlatform\Resources\CprSubscriptionService.wsdl" Protocol="file" SourceId="1" />
+    <MetadataSource Address="C:\Users\tk\Documents\GitHubVisualStudio\broker.github\PART\Source\CprBroker\ServicePlatform\Resources\CprSubscriptionService\CprSubscriptionService.wsdl" Protocol="file" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="PNR_20121119.xsd" MetadataType="Schema" ID="811a1553-c7cb-4ac8-b93b-f650b0ecb01f" SourceId="1" SourceUrl="file:///C:/MagentaWorkspace/broker.github/PART/Source/CprBroker/ServicePlatform/Resources/PNR_20121119.xsd" />
-    <MetadataFile FileName="InvocationContext_20121009.xsd" MetadataType="Schema" ID="7a81ebb7-748a-4ddb-bba4-31bcb62fcdb5" SourceId="1" SourceUrl="file:///C:/MagentaWorkspace/broker.github/PART/Source/CprBroker/ServicePlatform/Resources/InvocationContext_20121009.xsd" />
-    <MetadataFile FileName="CprSubscriptionService.wsdl" MetadataType="Wsdl" ID="fdacf4fa-4445-499c-8af0-dc538f1347a0" SourceId="1" SourceUrl="file:///C:/MagentaWorkspace/broker.github/PART/Source/CprBroker/ServicePlatform/Resources/CprSubscriptionService.wsdl" />
-    <MetadataFile FileName="CprSubscriptionServiceMsg.xsd" MetadataType="Schema" ID="cae4d13f-06f5-44ca-8381-b411bfd8d9bf" SourceId="1" SourceUrl="file:///C:/MagentaWorkspace/broker.github/PART/Source/CprBroker/ServicePlatform/Resources/CprSubscriptionServiceMsg.xsd" />
+    <MetadataFile FileName="PNR_20121119.xsd" MetadataType="Schema" ID="16ff4b33-2ce7-46f0-bfaa-5008d13286ca" SourceId="1" SourceUrl="file:///C:/Users/tk/Documents/GitHubVisualStudio/broker.github/PART/Source/CprBroker/ServicePlatform/Resources/CprSubscriptionService/PNR_20121119.xsd" />
+    <MetadataFile FileName="CprSubscriptionService.wsdl" MetadataType="Wsdl" ID="d2509d4d-e11d-4bce-9fba-3901308ce19a" SourceId="1" SourceUrl="file:///C:/Users/tk/Documents/GitHubVisualStudio/broker.github/PART/Source/CprBroker/ServicePlatform/Resources/CprSubscriptionService/CprSubscriptionService.wsdl" />
+    <MetadataFile FileName="CprSubscriptionServiceMsg.xsd" MetadataType="Schema" ID="1ce0b35f-b7a2-4ff1-beeb-26ac225a9dd9" SourceId="1" SourceUrl="file:///C:/Users/tk/Documents/GitHubVisualStudio/broker.github/PART/Source/CprBroker/ServicePlatform/Resources/CprSubscriptionService/CprSubscriptionServiceMsg.xsd" />
+    <MetadataFile FileName="InvocationContext_20121009.xsd" MetadataType="Schema" ID="a4c1c86c-4786-4732-b9b4-5fa74fbed31d" SourceId="1" SourceUrl="file:///C:/Users/tk/Documents/GitHubVisualStudio/broker.github/PART/Source/CprBroker/ServicePlatform/Resources/CprSubscriptionService/InvocationContext_20121009.xsd" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
