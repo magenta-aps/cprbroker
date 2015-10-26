@@ -15,33 +15,6 @@ namespace CprBroker.Providers.ServicePlatform
 {
     public partial class ServicePlatformDataProvider : IPutSubscriptionDataProvider, IPartReadDataProvider
     {
-        public bool PutSubscription(Schemas.PersonIdentifier personIdentifier)
-        {
-            var service = CreateService<CprSubscriptionService.CprSubscriptionWebServicePortType, CprSubscriptionService.CprSubscriptionWebServicePortTypeClient>(ServiceInfo.CPRSubscription);
-            using (var callContext = this.BeginCall("AddPNRSubscription", personIdentifier.CprNumber))
-            {
-                try
-                {
-                    var request = new CprSubscriptionService.AddPNRSubscriptionType()
-                    {
-                        InvocationContext = GetInvocationContext<CprSubscriptionService.InvocationContextType>(ServiceInfo.CPRSubscription.UUID),
-                        PNR = personIdentifier.CprNumber
-                    };
-                    var ret = service.AddPNRSubscription(request);
-                    callContext.Succeed();
-                    return true;
-                }
-                catch (Exception ex)
-                {
-                    Admin.LogException(ex);
-                    callContext.Fail();
-                    return false;
-                }
-                //object o = ret.Result;
-                return true;
-            }
-        }
-
         public RegistreringType1 Read(Schemas.PersonIdentifier uuid, LaesInputType input, Func<string, Guid> cpr2uuidFunc, out Schemas.QualityLevel? ql)
         {
             ql = Schemas.QualityLevel.DataProvider;
