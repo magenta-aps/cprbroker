@@ -234,5 +234,11 @@ namespace CprBroker.Providers.CprServices.Responses
                 }
             };
         }
+
+        public AdresseType ToContactAddress()
+        {
+            // TODO: Shall this be filled from ADRESSE4?
+            return null;
+        }
     }
 }

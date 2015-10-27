@@ -1,0 +1,15 @@
+<root xmlns="http://www.cpr.dk">
+  <Gctp v="1.0">
+    <System r="KontaktAdresse">
+      <Service r="adresse4">
+        <CprServiceHeader r="adresse4" />
+        <CprData u="O">
+          <Rolle r="HovedRolle">
+            <Table r="adresse4" />
+          </Rolle>
+        </CprData>
+        <Kvit r="Ok" t="" v="0" />
+      </Service>
+    </System>
+  </Gctp>
+</root>

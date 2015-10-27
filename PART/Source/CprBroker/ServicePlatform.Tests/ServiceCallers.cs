@@ -48,4 +48,14 @@ namespace CprBroker.Tests.ServicePlatform
             base.GetResponse(pnr, ServiceInfo.StamPlus_Local);
         }
     }
+
+    [TestFixture]
+    public class Adresse4Caller : ServiceCaller
+    {
+        [TestCaseSource(typeof(CprBroker.Tests.CPRDirect.Utilities), "PNRs")]
+        public void GetResponse(string pnr)
+        {
+            base.GetResponse(pnr, ServiceInfo.Adresse4_Local);
+        }
+    }
 }

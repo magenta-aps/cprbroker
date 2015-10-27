@@ -61,5 +61,12 @@ namespace CprBroker.Providers.ServicePlatform
             Path = "/service/CPRLookup/CPRLookup/2"
         };
 
+        public static readonly ServiceInfo Adresse4_Local = new ServiceInfo()
+        {
+            Name = "Adresse4",
+            UUID = "b7e5ee9c-1acd-41e6-b117-08a11dee6862",
+            Path = "/service/CPRLookup/CPRLookup/2"
+        };
+
     }
 }

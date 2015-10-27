@@ -1,0 +1,25 @@
+<root xmlns="http://www.cpr.dk">
+  <Gctp v="1.0">
+    <System r="KontaktAdresse">
+      <Service r="adresse4">
+        <CprServiceHeader r="adresse4" />
+        <CprData u="O">
+          <Rolle r="HovedRolle">
+            <Table r="adresse4">
+              <Row k="0">
+                <Field r="CATX_ADR1" v="Kontaktadresse Linje 1 1 1 1 1 1 1" />
+                <Field r="CATX_ADR2" v="Kontaktadresse Linje 222 222 22222" />
+                <Field r="CATX_ADR3" v="Kontaktadresse Linje 3 3 3 3 3 3 3" />
+                <Field r="CATX_ADR4" v="Kontaktadresse Linje 4 4 44 44 44" />
+                <Field r="CATX_ADR5" v="Kontaktadresse Linje 5 5 5 5 55555" />
+                <Field r="CATX_SLETDATO" v="20050715" />
+                <Field r="CATX_STARTDATO" v="20010630" />
+              </Row>
+            </Table>
+          </Rolle>
+        </CprData>
+        <Kvit r="Ok" t="" v="0" />
+      </Service>
+    </System>
+  </Gctp>
+</root>

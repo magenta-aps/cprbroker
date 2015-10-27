@@ -224,7 +224,7 @@ namespace CprBroker.Providers.CprServices.Responses
 
                 // Not supported
                 FoedselsregistreringMyndighedNavn = null,
-                AndreAdresser = null,
+                AndreAdresser = ToContactAddress(),
                 FoedestedNavn = null,
                 KontaktKanal = null,
                 NaermestePaaroerende = null,
