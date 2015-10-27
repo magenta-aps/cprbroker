@@ -49,63 +49,6 @@ namespace CprBroker.Providers.ServicePlatform.Responses
                 .ToArray();
         }
 
-        public AttributListeType ToAttributListeType()
-        {
-            return new AttributListeType()
-            {
-                Egenskab = new EgenskabType[] { ToEgenskabType() },
-                RegisterOplysning = new RegisterOplysningType[] { ToRegisterOplysningType() },
-                // Not implemented in CPR Broker
-                SundhedOplysning = null,
-                LokalUdvidelse = null,
-            };
-        }
-
-        public EgenskabType ToEgenskabType()
-        {
-            return new EgenskabType()
-            {
-                NavnStruktur = ToNavnStrukturType(),
-                PersonGenderCode = ToPersonGenderCodeType(),
-                BirthDate = ToBirthdate().Value,
-                // Not supported
-                FoedselsregistreringMyndighedNavn = null,
-                AndreAdresser = null,
-                FoedestedNavn = null,
-                KontaktKanal = null,
-                NaermestePaaroerende = null,
-
-            };
-        }
-
-        public RegisterOplysningType ToRegisterOplysningType()
-        {
-            return new RegisterOplysningType()
-            {
-                Item = new CprBorgerType() 
-                {
-                    FolkeregisterAdresse = ToFolkeregisterAdresse(),
-                    PersonCivilRegistrationIdentifier = MainRow["PNR"],
-                    PersonNummerGyldighedStatusIndikator = Schemas.Util.Enums.IsActiveCivilRegistrationStatus(decimal.Parse(MainRow["STATUS"])),
-                    
-                    // Not implemented
-                    AdresseNoteTekst = null,
-                    FolkekirkeMedlemIndikator = false,
-                    PersonNationalityCode = null,
-                    
-                    NavneAdresseBeskyttelseIndikator = false,
-                    ForskerBeskyttelseIndikator = false,                    
-                    TelefonNummerBeskyttelseIndikator = false,
-                },
-                Virkning = null, // Fill                
-            };
-        }
-
-        public AdresseType ToFolkeregisterAdresse()
-        {
-            throw new NotImplementedException();
-        }
-
         public RelationListeType ToRelationListeType(Func<string, Guid> uuidGetter)
         {
             var ret = new Schemas.Part.RelationListeType()

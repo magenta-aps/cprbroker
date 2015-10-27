@@ -203,15 +203,17 @@ namespace CprBroker.Providers.CprServices.Responses
                 {
                     new EgenskabType()
                     { 
-                        NavnStruktur = ToNavnStrukturType(), 
-                        Virkning = VirkningType.Create(ToStartDate(),null), 
+                        NavnStruktur = ToNavnStrukturType(),
+                        Virkning = VirkningType.Create(ToStartDate(),null), // Add name start date here too
+                        PersonGenderCode = ToPersonGenderCodeType(),
                         BirthDate = ToBirthdate().Value,
+
+                        // Not supported
+                        FoedselsregistreringMyndighedNavn = null,
                         AndreAdresser = null,
                         FoedestedNavn = null,
-                        FoedselsregistreringMyndighedNavn = null,
                         KontaktKanal = null,
-                        NaermestePaaroerende = null, 
-                        PersonGenderCode = ToPersonGenderCodeType(),
+                        NaermestePaaroerende = null,
                     }
                 },
                 RegisterOplysning = new RegisterOplysningType[]
@@ -224,7 +226,7 @@ namespace CprBroker.Providers.CprServices.Responses
                             FolkeregisterAdresse =  ToAdresseType(), 
 
                             // Assumed values
-                            PersonNummerGyldighedStatusIndikator = true,
+                            PersonNummerGyldighedStatusIndikator = ToPersonNummerGyldighedStatusIndikator(),
 
                             // Unsupported
                             AdresseNoteTekst = null,
@@ -234,13 +236,22 @@ namespace CprBroker.Providers.CprServices.Responses
                             PersonNationalityCode = null,
                             TelefonNummerBeskyttelseIndikator = false
                         },
-                        Virkning = VirkningType.Create(ToStartDate(),null)
+                        Virkning = VirkningType.Create(ToStartDate(),null)// Check other dates
                     }
                 },
                 // Unsupported
                 LokalUdvidelse = null,
                 SundhedOplysning = null
             };
+        }
+
+        public bool ToPersonNummerGyldighedStatusIndikator()
+        {
+            var status = this["STATUS"];
+            if (!string.IsNullOrEmpty(status))
+                return Schemas.Util.Enums.IsActiveCivilRegistrationStatus(decimal.Parse(status));
+            else
+                return true; // assumed value
         }
 
         /// <summary>
