@@ -201,47 +201,57 @@ namespace CprBroker.Providers.CprServices.Responses
             {
                 Egenskab = new EgenskabType[]
                 {
-                    new EgenskabType()
-                    { 
-                        NavnStruktur = ToNavnStrukturType(),
-                        Virkning = VirkningType.Create(ToStartDate(),null), // Add name start date here too
-                        PersonGenderCode = ToPersonGenderCodeType(),
-                        BirthDate = ToBirthdate().Value,
-
-                        // Not supported
-                        FoedselsregistreringMyndighedNavn = null,
-                        AndreAdresser = null,
-                        FoedestedNavn = null,
-                        KontaktKanal = null,
-                        NaermestePaaroerende = null,
-                    }
+                    ToEgenskabType()
                 },
                 RegisterOplysning = new RegisterOplysningType[]
                 {
-                    new RegisterOplysningType() 
-                    { 
-                        Item = new CprBorgerType()
-                        { 
-                            PersonCivilRegistrationIdentifier = ToPnr(),
-                            FolkeregisterAdresse =  ToAdresseType(), 
-
-                            // Assumed values
-                            PersonNummerGyldighedStatusIndikator = ToPersonNummerGyldighedStatusIndikator(),
-
-                            // Unsupported
-                            AdresseNoteTekst = null,
-                            FolkekirkeMedlemIndikator = false,
-                            ForskerBeskyttelseIndikator = false,
-                            NavneAdresseBeskyttelseIndikator = false,
-                            PersonNationalityCode = null,
-                            TelefonNummerBeskyttelseIndikator = false
-                        },
-                        Virkning = VirkningType.Create(ToStartDate(),null)// Check other dates
-                    }
+                    ToRegisterOplysningType()
                 },
                 // Unsupported
                 LokalUdvidelse = null,
                 SundhedOplysning = null
+            };
+        }
+
+        public EgenskabType ToEgenskabType()
+        {
+            return new EgenskabType()
+            {
+                NavnStruktur = ToNavnStrukturType(),
+                Virkning = VirkningType.Create(ToStartDate(), null), // Add name start date here too
+                PersonGenderCode = ToPersonGenderCodeType(),
+                BirthDate = ToBirthdate().Value,
+
+                // Not supported
+                FoedselsregistreringMyndighedNavn = null,
+                AndreAdresser = null,
+                FoedestedNavn = null,
+                KontaktKanal = null,
+                NaermestePaaroerende = null,
+            };
+        }
+
+        public RegisterOplysningType ToRegisterOplysningType()
+        {
+            return new RegisterOplysningType()
+            {
+                Item = new CprBorgerType()
+                {
+                    PersonCivilRegistrationIdentifier = ToPnr(),
+                    FolkeregisterAdresse = ToAdresseType(),
+
+                    // Assumed values
+                    PersonNummerGyldighedStatusIndikator = ToPersonNummerGyldighedStatusIndikator(),
+
+                    // Unsupported
+                    AdresseNoteTekst = null,
+                    FolkekirkeMedlemIndikator = false,
+                    ForskerBeskyttelseIndikator = false,
+                    NavneAdresseBeskyttelseIndikator = false,
+                    PersonNationalityCode = null,
+                    TelefonNummerBeskyttelseIndikator = false
+                },
+                Virkning = VirkningType.Create(ToStartDate(), null)// Check other dates
             };
         }
 
