@@ -91,7 +91,7 @@ namespace CprBroker.Providers.CprServices.Responses
                 return null;
         }
 
-        public virtual string ToNameString()
+        public virtual string ToAddressingName()
         {
             return CprBroker.Utilities.Strings.FirstNonEmpty(
                 GetFieldValue(_Node, "CNVN_ADRNVN"),
@@ -101,9 +101,17 @@ namespace CprBroker.Providers.CprServices.Responses
 
         public NavnStrukturType ToNavnStrukturType()
         {
-            var name = this.ToNameString();
-            if (!string.IsNullOrEmpty(name))
-                return NavnStrukturType.Create(new string[] { name }, name);
+            // Get name components
+            var adressingName = this.ToAddressingName();
+
+            var names = new string[] { this["CNVN_FORNVN"], this["CNVN_EFTERNVN"] }
+                .Where(s => !string.IsNullOrEmpty(s))
+                .ToArray();
+            if (names.Length == 0)
+                names = new string[] { adressingName };
+
+            if (!string.IsNullOrEmpty(adressingName)) // If name components exist, addressing name must exist, so this condition is correct
+                return NavnStrukturType.Create(names, adressingName);
             else
                 return null;
         }
@@ -116,7 +124,7 @@ namespace CprBroker.Providers.CprServices.Responses
                 {
                     if (navnStrukturType != null && navnStrukturType.PersonNameStructure != null && !navnStrukturType.PersonNameStructure.IsEmpty)
                     {
-                        var nameFromSearch = this.ToNameString().ToLower();
+                        var nameFromSearch = this.ToAddressingName().ToLower();
                         var namePartsArray = navnStrukturType.PersonNameStructure.ToArray();
                         return Array.TrueForAll<string>(namePartsArray, namePart => nameFromSearch.Contains(namePart.ToLower()));
                     }

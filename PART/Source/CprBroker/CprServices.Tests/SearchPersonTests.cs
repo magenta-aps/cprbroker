@@ -23,7 +23,7 @@ namespace CprBroker.Tests.CprServices
                     _Name = name;
                 }
 
-                public override string ToNameString()
+                public override string ToAddressingName()
                 {
                     return _Name;
                 }
