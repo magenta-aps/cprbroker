@@ -78,33 +78,6 @@ namespace CprBroker.Providers.ServicePlatform.Responses
             };
         }
 
-        public NavnStrukturType ToNavnStrukturType()
-        {
-            return NavnStrukturType.Create(
-                new string[] { MainRow["CNVN_FORNVN"], MainRow["CNVN_EFTERNVN"] },
-                MainRow["CNVN_ADRNVN"]
-            );
-        }
-
-        public virtual PersonGenderCodeType ToPersonGenderCodeType()
-        {
-            var gender = MainRow["KOEN"];
-            switch (gender)
-            {
-                case "M":
-                    return PersonGenderCodeType.male;
-                case "K":
-                    return PersonGenderCodeType.female;
-                case null:
-                    return PersonGenderCodeType.unspecified;
-                default:
-                    throw new ArgumentException(
-                        string.Format("Invalied value <{0}>, must be either 'M' or 'K'", gender),
-                        "gender");
-            }
-
-        }
-
         public RegisterOplysningType ToRegisterOplysningType()
         {
             return new RegisterOplysningType()
@@ -221,43 +194,6 @@ namespace CprBroker.Providers.ServicePlatform.Responses
                 // Date unavailable
                 TilstandVirkning = TilstandVirkningType.Create(null),
             };
-        }
-
-        public DateTime? GetDateTime(string field, params string[] formats)
-        {
-            //System.Diagnostics.Debugger.Launch();
-            var retStr = MainRow[field];
-            DateTime? ret = null;
-            if (!string.IsNullOrEmpty(retStr))
-            {
-                DateTime retDate;
-                if (
-                    DateTime.TryParseExact(
-                        retStr,
-                        formats.ToArray(),
-                        null,
-                        System.Globalization.DateTimeStyles.None,
-                        out retDate))
-                {
-                    ret = retDate;
-                }
-            }
-            return ret;
-        }
-
-        public DateTime? ToNameStartDate(bool allowIncompleteDates = false)
-        {
-            var formats = new List<string>(new string[] { "yyyyMMdd", "yyyyMMddHHmm", });
-
-            if (allowIncompleteDates)
-                formats.AddRange(new string[] { "yyyyMM00HHmm", "yyyy0000HHmm" });
-
-            return GetDateTime("CNVN_STARTDATO", formats.ToArray());
-        }
-
-        public DateTime? ToBirthdate()
-        {
-            return GetDateTime("FOEDDATO", "yyyyMMdd");
         }
 
         public class RelationItem : RowItem

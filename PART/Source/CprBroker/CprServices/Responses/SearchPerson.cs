@@ -77,18 +77,30 @@ namespace CprBroker.Providers.CprServices.Responses
             return this._Node.OuterXml;
         }
 
+        public DateTime? GetDateTime(string field, params string[] formats)
+        {
+            var retStr = this[field];
+            DateTime? ret = null;
+            if (!string.IsNullOrEmpty(retStr))
+            {
+                DateTime retDate;
+                if (
+                    DateTime.TryParseExact(
+                        retStr,
+                        formats.ToArray(),
+                        null,
+                        System.Globalization.DateTimeStyles.None,
+                        out retDate))
+                {
+                    ret = retDate;
+                }
+            }
+            return ret;
+        }
+
         public DateTime? ToStartDate()
         {
-            DateTime ret;
-            if (DateTime.TryParseExact(
-                GetFieldValue(_Node, "STARTDATO"),
-                "yyyyMMddHHmm", // 198112131338                    
-                null,
-                 System.Globalization.DateTimeStyles.None,
-                 out ret))
-                return ret;
-            else
-                return null;
+            return GetDateTime("STARTDATO", "yyyyMMddHHmm");
         }
 
         public virtual string ToAddressingName()
@@ -114,6 +126,16 @@ namespace CprBroker.Providers.CprServices.Responses
                 return NavnStrukturType.Create(names, adressingName);
             else
                 return null;
+        }
+
+        public DateTime? ToNameStartDate(bool allowIncompleteDates = false)
+        {
+            var formats = new List<string>(new string[] { "yyyyMMdd", "yyyyMMddHHmm", });
+
+            if (allowIncompleteDates)
+                formats.AddRange(new string[] { "yyyyMM00HHmm", "yyyy0000HHmm" });
+
+            return GetDateTime("CNVN_STARTDATO", formats.ToArray());
         }
 
         public bool NameMatches(params NavnStrukturType[] navnStrukturTypes)
@@ -189,7 +211,7 @@ namespace CprBroker.Providers.CprServices.Responses
                         FoedselsregistreringMyndighedNavn = null,
                         KontaktKanal = null,
                         NaermestePaaroerende = null, 
-                        PersonGenderCode =  PersonGenderCodeType.unspecified,
+                        PersonGenderCode = ToPersonGenderCodeType(),
                     }
                 },
                 RegisterOplysning = new RegisterOplysningType[]
@@ -221,10 +243,26 @@ namespace CprBroker.Providers.CprServices.Responses
             };
         }
 
+        /// <summary>
+        /// Gets the gender of the person
+        /// First, from KOEN field (only available in some lookup methods)
+        /// Otherwise from the CPR number
+        /// </summary>
+        /// <returns></returns>
+        public PersonGenderCodeType ToPersonGenderCodeType()
+        {
+            var ret = Schemas.Util.Enums.ToPersonGenderCodeType(this["KOEN"]);
+            if (ret == PersonGenderCodeType.unspecified)
+                ret = Schemas.Util.Enums.PersonNumberToGender(this.ToPnr());
+            return ret;
+        }
+
         public DateTime? ToBirthdate()
         {
-            // TODO: Get birthdate from rrelevant field
-            return PartInterface.Strings.PersonNumberToDate(this.ToPnr()).Value;
+            var ret = GetDateTime("FOEDDATO", "yyyyMMdd");
+            if (ret == null)
+                ret = PartInterface.Strings.PersonNumberToDate(this.ToPnr());
+            return ret;
         }
 
         public RegistreringType1 ToRegistreringType1()
