@@ -218,7 +218,7 @@ namespace CprBroker.Providers.CprServices.Responses
             return new EgenskabType()
             {
                 NavnStruktur = ToNavnStrukturType(),
-                Virkning = VirkningType.Create(ToStartDate(), null), // Add name start date here too
+                Virkning = ToEgenskabVirkning(),
                 PersonGenderCode = ToPersonGenderCodeType(),
                 BirthDate = ToBirthdate().Value,
 
@@ -229,6 +229,21 @@ namespace CprBroker.Providers.CprServices.Responses
                 KontaktKanal = null,
                 NaermestePaaroerende = null,
             };
+        }
+
+        public VirkningType ToEgenskabVirkning()
+        {
+            var latest = new DateTime?[]
+                {
+                    ToStartDate(), 
+                    ToNameStartDate(),
+                    GetDateTime("STARTDATOSTATUS","yyyyMMdd"),
+                    GetDateTime("CNVN_STATUSSTARTDATO", "yyyyMMddHHmm"),
+                }
+                .Where(d => d.HasValue)
+                .OrderByDescending(d => d.Value)
+                .FirstOrDefault();
+            return VirkningType.Create(latest, null);
         }
 
         public RegisterOplysningType ToRegisterOplysningType()

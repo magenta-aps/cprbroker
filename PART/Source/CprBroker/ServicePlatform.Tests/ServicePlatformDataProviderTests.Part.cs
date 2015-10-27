@@ -40,11 +40,11 @@ namespace CprBroker.Tests.ServicePlatform
             {
                 var cache = UuidCacheFactory.Create();
 
-                var stamPlus = new StamPlusResponse(GetResponse(pnr, ServiceInfo.StamPlus_Local.Name));
-                var familyPlus = new FamilyPlusResponse(GetResponse(pnr, ServiceInfo.FamilyPlus_Local.Name));
+                var stamPlus = GetResponse(pnr, ServiceInfo.StamPlus_Local.Name);
+                var familyPlus = GetResponse(pnr, ServiceInfo.FamilyPlus_Local.Name);
 
                 var prov = new ServicePlatformDataProvider();
-                return prov.ToRegistreringType1(stamPlus, familyPlus, null, cpr => cache.GetUuid(cpr));
+                return prov.ToRegistreringType1(stamPlus, familyPlus, cpr => cache.GetUuid(cpr));
             }
 
             [TestCaseSource("PNRs")]

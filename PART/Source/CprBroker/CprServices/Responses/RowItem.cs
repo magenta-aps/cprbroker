@@ -48,6 +48,33 @@ namespace CprBroker.Providers.CprServices.Responses
         public string GetFieldAttributeValue(XmlElement elm, string name, string attributeName)
         {
             return this[name, attributeName];
-        }        
+        }
+
+        public void Merge(RowItem item)
+        { 
+            foreach(XmlElement newFieldElement in item._Node.ChildNodes.OfType<XmlElement>())
+            {
+                var fieldName = newFieldElement.Attributes["r"].Value;
+
+                string xPath = string.Format("c:Field[@r='{0}']", fieldName);
+                var myNode = _Node.SelectSingleNode(xPath, _NamespaceManager);
+                if(myNode == null)
+                {
+                    myNode = _Node.OwnerDocument.CreateElement(newFieldElement.Name, newFieldElement.NamespaceURI);
+                    _Node.AppendChild(myNode);
+                }
+                foreach(XmlAttribute attr in newFieldElement.Attributes)
+                {
+                    var myAttr = myNode.Attributes[attr.Name];
+                    if(myAttr == null)
+                    {
+                        myAttr = _Node.OwnerDocument.CreateAttribute(attr.Prefix, attr.LocalName, attr.NamespaceURI);
+                        myNode.Attributes.Append(myAttr);
+                    }
+                    myAttr.Value = attr.Value;
+                }
+                
+            }
+        }
     }
 }

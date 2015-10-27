@@ -57,42 +57,36 @@ namespace CprBroker.Providers.ServicePlatform
             pnrs.Add(uuid.CprNumber);
             uuidCache.FillCache(pnrs.ToArray());
 
-            var ret = ToRegistreringType1(stamPlus, familyPlus, responses.ToArray(), uuidCache.GetUuid);
+            var ret = ToRegistreringType1(responses[0], responses[1], uuidCache.GetUuid);
 
             return ret;
         }
 
-        public RegistreringType1 ToRegistreringType1(StamPlusResponse stamPlus, FamilyPlusResponse familyPlus, string[] sourceXmlStrings, Func<string, Guid> uuidFunc)
+        public RegistreringType1 ToRegistreringType1(string stamPlusXml, string familyPlusXml, Func<string, Guid> uuidFunc)
         {
+            var familyPlus_Relations = new FamilyPlusResponse(familyPlusXml);
+            var familyPlus_Person = new FamilyPlusFirstRowResponse(familyPlusXml);
+
+            // Merge with Stam+, to get the fields not in Family+
+            familyPlus_Person.MainItem.Merge(new StamPlusResponse(stamPlusXml).RowItems.First());
+
             // Initial filling
             var ret = new RegistreringType1()
             {
-                AttributListe = stamPlus.RowItems.First().ToAttributListeType(),
-                RelationListe = familyPlus.ToRelationListeType(uuidFunc),
+                AttributListe = familyPlus_Person.MainItem.ToAttributListeType(),
+                RelationListe = familyPlus_Relations.ToRelationListeType(uuidFunc),
                 TilstandListe = new TilstandListeType()
                 {
-                    CivilStatus = familyPlus.ToCivilStatusType(),
-                    LivStatus = stamPlus.RowItems.First().ToLivStatusType()
+                    CivilStatus = familyPlus_Relations.ToCivilStatusType(),
+                    LivStatus = familyPlus_Person.MainItem.ToLivStatusType()
                 },
                 Tidspunkt = TidspunktType.Create(DateTime.Now),
                 LivscyklusKode = LivscyklusKodeType.Rettet,
                 AktoerRef = UnikIdType.Create(Constants.ActorId),
                 CommentText = null,
-                SourceObjectsXml = sourceXmlStrings != null ? Utilities.Strings.SerializeObject(sourceXmlStrings) : null
+                SourceObjectsXml = Utilities.Strings.SerializeObject(new string[] { stamPlusXml, familyPlusXml })
             };
-
-
-            // override name start date
-            var dates = new DateTime?[]{
-                familyPlus.ToNameStartDate(),
-                ret.AttributListe.Egenskab.First().Virkning.FraTidspunkt.ToDateTime()
-            };
-            var maxDate = dates.Where(d => d.HasValue).OrderByDescending(d => d.Value).FirstOrDefault();
-            ret.AttributListe.Egenskab.First().Virkning.FraTidspunkt = TidspunktType.Create(maxDate);
-
-            // override birthdate
-            ret.AttributListe.Egenskab.First().BirthDate = familyPlus.ToBirthdate().Value;
-
+            
             // Result should not be stored locally
             ret.IsUpdatableLocally = false;
 

@@ -157,4 +157,16 @@ namespace CprBroker.Providers.ServicePlatform.Responses
             }
         }
     }
+
+    public class FamilyPlusFirstRowResponse : BaseResponse<SearchPerson>
+    {
+        public FamilyPlusFirstRowResponse(string xml)
+            : base(xml, (e, nsMgr) => new SearchPerson(e, nsMgr))
+        {
+
+        }
+
+        public SearchPerson MainItem { get { return this.RowItems.First(); } }
+    }
+
 }
