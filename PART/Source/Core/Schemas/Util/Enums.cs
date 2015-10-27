@@ -141,6 +141,29 @@ namespace CprBroker.Schemas.Util
             return (long.Parse(cprNumber) % 2 == 1) ? PersonGenderCodeType.male : PersonGenderCodeType.female;
         }
 
+
+        public static PersonGenderCodeType ToPersonGenderCodeType(string gender)
+        {
+            gender = string.Format("{0}", gender).Trim().ToUpper();
+            
+            if (string.IsNullOrEmpty(gender))
+                return PersonGenderCodeType.unspecified;
+
+            switch (gender)
+            {
+                case "M":
+                    return PersonGenderCodeType.male;
+                case "K":
+                    return PersonGenderCodeType.female;
+                case null:
+                    return PersonGenderCodeType.unspecified;
+                default:
+                    throw new ArgumentException(
+                        string.Format("Invalied value <{0}>, must be either 'M' or 'K'", gender),
+                        "gender");
+            }
+
+        }
         
     }
 }
