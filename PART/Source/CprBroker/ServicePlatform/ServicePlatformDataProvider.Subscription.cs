@@ -59,7 +59,7 @@ namespace CprBroker.Providers.ServicePlatform
         public bool PutSubscription(PersonIdentifier personIdentifier)
         {
             var service = CreateService<CprSubscriptionService.CprSubscriptionWebServicePortType, CprSubscriptionService.CprSubscriptionWebServicePortTypeClient>(ServiceInfo.CPRSubscription);
-
+            
             using (var callContext = this.BeginCall("AddPNRSubscription", personIdentifier.CprNumber))
             {
                 try
@@ -84,17 +84,17 @@ namespace CprBroker.Providers.ServicePlatform
                                 //success
                                 break;
                             case ReturnCodePNR.NON_EXISTING_PNR:
-                                throw new Exception(String.Format("Error placing subscription for PNR <{0}>, service platform returns NON_EXISTING_PNR.", personIdentifier.CprNumber));
+                                throw new Exception(String.Format("Error placing subscription for UUID <{0}>, service platform returns NON_EXISTING_PNR.", personIdentifier.UUID));
                             default:
-                                throw new Exception(String.Format("Error placing subscription for PNR <{0}>, service platform returns unexpected code <{1}>.", personIdentifier.CprNumber, returnCode));
+                                throw new Exception(String.Format("Error placing subscription for UUID <{0}>, service platform returns unexpected code <{1}>.", personIdentifier.UUID, returnCode));
                         }
-                        //Admin.LogSuccess(String.Format("Placed service platform subscription on PNR [%s], returned value [%s] ",personIdentifier.CprNumber, returnCode)); //TODO: Remove this log line
+                        //Admin.LogSuccess(String.Format("Placed service platform subscription on UUID [%s], returned value [%s] ",personIdentifier.UUID, returnCode)); //TODO: Remove this log line
                         callContext.Succeed();
                         return true;
                     }
                     else
                     {
-                        throw new Exception(String.Format("Null value returned by service api call AddPNRSubscription, when trying to place subscription for PNR: <{0}>", personIdentifier.CprNumber));
+                        throw new Exception(String.Format("Null value returned by service api call AddPNRSubscription, when trying to place subscription for UUID: <{0}>", personIdentifier.UUID));
                     }
 
                 }
