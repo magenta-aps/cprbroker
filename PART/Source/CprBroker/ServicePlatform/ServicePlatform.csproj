@@ -50,6 +50,10 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="WinSCPnet, Version=1.2.9.5665, Culture=neutral, PublicKeyToken=2271ec4a3c56d0bf, processorArchitecture=MSIL">
+      <HintPath>..\packages\WinSCP.5.7.5\lib\WinSCPnet.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants.cs" />
@@ -79,10 +83,11 @@
     <Compile Include="ServicePlatformDataProvider.Connection.cs" />
     <Compile Include="ServicePlatformDataProvider.Part.cs" />
     <Compile Include="ServicePlatformDataProvider.Search.cs" />
+    <Compile Include="ServicePlatformDataProvider.Sftp.cs" />
     <Compile Include="ServicePlatformDataProvider.Subscription.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
+    <None Include="packages.config" />
     <None Include="Resources\InvocationContext_20121009.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -179,6 +184,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="WinSCP.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="Service References\CprSubscriptionService\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
