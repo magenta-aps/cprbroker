@@ -116,7 +116,7 @@ namespace CprBroker.Providers.ServicePlatform
                     new DataProviderConfigPropertyInfo(){Name=Constants.ConfigProperties.SftpSshHostKeyFingerprint , Type = DataProviderConfigPropertyInfoTypes.String, Confidential = true, Required=true},
                     new DataProviderConfigPropertyInfo(){Name=Constants.ConfigProperties.SftpRegexFilter , Type = DataProviderConfigPropertyInfoTypes.String, Confidential = false, Required=true},
                     new DataProviderConfigPropertyInfo(){Name=Constants.ConfigProperties.SftpProcessFilesFromSenderName , Type = DataProviderConfigPropertyInfoTypes.String, Confidential = false, Required=true},
-                     new DataProviderConfigPropertyInfo(){Name=Constants.ConfigProperties.SftpRemotePath , Type = DataProviderConfigPropertyInfoTypes.String, Confidential = false, Required=true},
+                    new DataProviderConfigPropertyInfo(){Name=Constants.ConfigProperties.SftpRemotePath , Type = DataProviderConfigPropertyInfoTypes.String, Confidential = false, Required=true},
 
 
                 };

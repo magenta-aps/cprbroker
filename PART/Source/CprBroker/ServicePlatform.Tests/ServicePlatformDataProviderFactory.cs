@@ -31,7 +31,17 @@ namespace CprBroker.Tests.ServicePlatform
                 UserSystemUUID = dic["UserSystemUUID".ToLower()],
                 ServiceAgreementUuid = dic["ServiceAgreementUuid".ToLower()],
                 UserUUID = dic["UserUUID".ToLower()],
-                CertificateSerialNumber = dic["CertificateSerialNumber".ToLower()]
+                CertificateSerialNumber = dic["CertificateSerialNumber".ToLower()],
+                SftpRemotePath = dic["SftpRemotePath".ToLower()],
+                SftpProcessFilesFromSenderName = dic["SftpProcessFilesFromSenderName".ToLower()],
+                SftpRegexFilter = dic["SftpRegexFilter".ToLower()],
+                SftpSshHostKeyFingerprint = dic["SftpSshHostKeyFingerprint".ToLower()],
+                SftpSshPrivateKeyPassword = dic["SftpSshPrivateKeyPassword".ToLower()],
+                SftpSshPrivateKeyPath = dic["SftpSshPrivateKeyPath".ToLower()],
+                SftpUser = dic["SftpUser".ToLower()],
+                SftpPort = Convert.ToInt32(dic["SftpPort".ToLower()]),
+                SftpAddress = dic["SftpAddress".ToLower()],
+                ExtractsFolder= dic["ExtractsFolder".ToLower()]
             };
 
             return prov;

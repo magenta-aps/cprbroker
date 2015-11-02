@@ -7,6 +7,7 @@ using CprBroker.Providers.CprServices;
 using CprBroker.Providers.ServicePlatform.Responses;
 using CprBroker.Providers.CprServices.Responses;
 using NUnit.Framework;
+using System.IO;
 
 namespace CprBroker.Tests.ServicePlatform
 {
@@ -66,5 +67,64 @@ namespace CprBroker.Tests.ServicePlatform
                 Assert.NotNull(oo.TilstandListe.LivStatus.TilstandVirkning.FraTidspunkt.ToDateTime());
             }
         }
+
+        [TestFixture]
+        public class Sftp
+        {
+            protected static readonly string fileName1 = "SftpUploadFileTest.txt";
+            protected static readonly string fileName2 = "SftpUploadFileTest2.txt";
+            protected static readonly string pathToWorkDir = @".\Resources\SFTP-testfiles\";
+
+            
+
+
+            [SetUp]
+            public void InitContext()
+            {
+                CprBroker.Engine.BrokerContext.Initialize(CprBroker.Utilities.Constants.BaseApplicationToken.ToString(), "NUnit");
+                var prov = ServicePlatformDataProviderFactory.Create();
+                prov.UploadFile(pathToWorkDir, fileName1);
+                prov.UploadFile(pathToWorkDir, fileName1 + CprBroker.Providers.ServicePlatform.Constants.MetaDataFilePostfix);
+                prov.UploadFile(pathToWorkDir, fileName2);
+                prov.UploadFile(pathToWorkDir, fileName2 + CprBroker.Providers.ServicePlatform.Constants.MetaDataFilePostfix);
+
+            }
+
+            [Test]
+            public void Sftp_TestListSFtpContents()
+            {
+
+                var prov = ServicePlatformDataProviderFactory.Create();
+                String[] ftpContent = prov.ListSFtpContents();
+                Assert.AreEqual(2, ftpContent.Length);
+                Assert.True((ftpContent[0].Equals(fileName1) || ftpContent[1].Equals(fileName1))
+                    && (ftpContent[0].Equals(fileName2) || ftpContent[1].Equals(fileName2)));
+            }
+
+            [Test]
+            public void Sftp_TestDownloadSftpFileToExtractsFolder()
+            {
+                var prov = ServicePlatformDataProviderFactory.Create();
+                String fileName2LocalPath = Utilities.Strings.EnsureEndString(prov.ExtractsFolder, "\\", true) + fileName2;
+                Assert.False(File.Exists(fileName2LocalPath));
+                prov.DownloadSftpFileToExtractsFolder(fileName2);
+                Assert.True(File.Exists(fileName2LocalPath));
+                Assert.True(File.Exists(fileName2LocalPath + CprBroker.Providers.ServicePlatform.Constants.MetaDataFilePostfix));
+                File.Delete(fileName2LocalPath);
+                Assert.False(File.Exists(fileName2LocalPath));
+                File.Delete(fileName2LocalPath + CprBroker.Providers.ServicePlatform.Constants.MetaDataFilePostfix);
+                Assert.False(File.Exists(fileName2LocalPath + CprBroker.Providers.ServicePlatform.Constants.MetaDataFilePostfix));
+            }
+
+            [TearDown]
+            public void tearDown()
+            {
+                var prov = ServicePlatformDataProviderFactory.Create();
+                prov.DeleteSftpFile(fileName1);
+                prov.DeleteSftpFile(fileName2);
+            }
+        }
+
+
     }
 }

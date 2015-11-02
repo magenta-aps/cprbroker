@@ -27,7 +27,7 @@ namespace CprBroker.Providers.ServicePlatform
                     RemoteDirectoryInfo directory = session.ListDirectory(subPathRemotePrepared);
                     foreach (RemoteFileInfo fileInfo in directory.Files)
                     {
-                        if (!fileInfo.Name.EndsWith(Constants.MetaDataFilePostfix))
+                        if (!fileInfo.Name.EndsWith(Constants.MetaDataFilePostfix) && !fileInfo.IsDirectory)
                         {
                             remoteFileNamesInDir.Add(fileInfo.Name);
                         }
@@ -90,8 +90,8 @@ namespace CprBroker.Providers.ServicePlatform
                     session.Open(PopulateSftpSessionOptions());
                     if (session.FileExists(remotePathPrepared) && session.FileExists(remotePathPreparedMeta))
                     {
-                        session.GetFiles(remotePathPrepared, localPathPrepared).Check();
-                        session.GetFiles(remotePathPreparedMeta, localPathPreparedMeta).Check();
+                        session.GetFiles(remotePathPrepared, localPathPrepared, false).Check();
+                        session.GetFiles(remotePathPreparedMeta, localPathPreparedMeta, false).Check();
                     }
                     else
                     {
@@ -106,20 +106,45 @@ namespace CprBroker.Providers.ServicePlatform
             }
         }
 
+        /*
+        Please Notice, that the upload function is only provided here for testing purposes - do not use this function in the production environment.
+        */
+        public void UploadFile(String localUploadDir, String fileName)
+        {
+            string fullPathToLocalFile = Utilities.Strings.EnsureEndString(localUploadDir, "/", true) + fileName;
+
+            if (!File.Exists(fullPathToLocalFile))
+            {
+                throw new Exception(String.Format("Local file {0} does not exists. Unable to upload to sftp site.", fullPathToLocalFile));
+            }
+            using (Session session = new Session())
+            {
+                String remotePathPrepared = PrepareRemotePathFile(fileName);
+                session.Open(PopulateSftpSessionOptions());
+                if (!session.FileExists(remotePathPrepared))
+                {
+                    session.PutFiles(fullPathToLocalFile, remotePathPrepared, false).Check();
+                }
+                else
+                {
+                    throw new Exception(String.Format("File {0} already exists at remote SFTP-host - unable to upload.", remotePathPrepared));
+                }
+            }
+        }
+
         protected string PrepareRemotePathDir(string subPath)
         {
-            String subPathModed = Utilities.Strings.EnsureStartString(subPath, "/", true);
-            return Utilities.Strings.EnsureEndString(subPathModed, "/", true);
+            return Utilities.Strings.EnsureEndString(subPath, "/", true);
         }
 
         protected string PrepareRemotePathFile(string fileName)
         {
-            return PrepareRemotePathDir(SftpRemotePath) + Utilities.Strings.EnsureStartString("/", fileName, false);
+            return PrepareRemotePathDir(SftpRemotePath) + fileName;
         }
 
         protected string PrepareLocalPathFile(string fileName)
         {
-            return Utilities.Strings.EnsureEndString(ExtractsFolder, "/", true) + Utilities.Strings.EnsureStartString(fileName, "/", false);
+            return Utilities.Strings.EnsureEndString(ExtractsFolder, "\\", true) + fileName;
         }
 
         protected SessionOptions PopulateSftpSessionOptions()
