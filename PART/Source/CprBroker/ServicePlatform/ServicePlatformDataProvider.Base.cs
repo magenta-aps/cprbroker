@@ -51,7 +51,7 @@ using CprBroker.Providers.CprServices;
 
 namespace CprBroker.Providers.ServicePlatform
 {
-    public partial class ServicePlatformDataProvider : IExternalDataProvider, IPerCallDataProvider
+    public partial class ServicePlatformDataProvider : IExternalDataProvider, IPerCallDataProvider, CprBroker.PartInterface.IExtractDataProvider
     {
         #region IPerCallDataProvider members
         public string[] OperationKeys
@@ -82,7 +82,21 @@ namespace CprBroker.Providers.ServicePlatform
                     string callInput = string.Join(",", call.InputFields.Select(kvp => string.Format("{0}={1}", kvp.Key, kvp.Value)).ToArray());
                     Admin.LogFormattedError("GCTP <{0}> Failed with <{1}><{2}>. Input <{3}>", call.Name, kvit.ReturnCode, kvit.ReturnText, callInput);
                 }
-                return kvit.OK;
+                bool sftpOk = false;
+                if (HasFtpSource)
+                {
+                    // TODO: Should we add more tests for SFTP connection here?
+                    
+                    // This will throw an exception if it fails
+                    ListFtpContents();
+                    sftpOk = true;
+                }
+                else
+                {
+                    sftpOk = true;
+                }
+                return kvit.OK && sftpOk;
+
             }
             catch (Exception ex)
             {
@@ -108,6 +122,7 @@ namespace CprBroker.Providers.ServicePlatform
                     new DataProviderConfigPropertyInfo(){Name=Constants.ConfigProperties.UserUUID, Type = DataProviderConfigPropertyInfoTypes.String, Confidential = true, Required=true},
                     new DataProviderConfigPropertyInfo(){Name=Constants.ConfigProperties.CertificateSerialNumber, Type = DataProviderConfigPropertyInfoTypes.String, Confidential = true, Required=true},
                     new DataProviderConfigPropertyInfo(){Name=Constants.ConfigProperties.ExtractsFolder, Type = DataProviderConfigPropertyInfoTypes.String, Confidential = true, Required=true},
+                    new DataProviderConfigPropertyInfo(){Name=Constants.ConfigProperties.HasSftpSource , Type = DataProviderConfigPropertyInfoTypes.Boolean, Confidential = false, Required=true},
                     new DataProviderConfigPropertyInfo(){Name=Constants.ConfigProperties.SftpAddress , Type = DataProviderConfigPropertyInfoTypes.String, Confidential = false, Required=true},
                     new DataProviderConfigPropertyInfo(){Name=Constants.ConfigProperties.SftpPort , Type = DataProviderConfigPropertyInfoTypes.Integer, Confidential = false, Required=true},
                     new DataProviderConfigPropertyInfo(){Name=Constants.ConfigProperties.SftpUser , Type = DataProviderConfigPropertyInfoTypes.String, Confidential = false, Required=true},
@@ -154,7 +169,13 @@ namespace CprBroker.Providers.ServicePlatform
             set { this.ConfigurationProperties[Constants.ConfigProperties.CertificateSerialNumber] = value; }
         }
 
-        public string SftpAddress
+        public bool HasFtpSource
+        {
+            get { return Convert.ToBoolean(this.ConfigurationProperties[Constants.ConfigProperties.HasSftpSource]); }
+            set { this.ConfigurationProperties[Constants.ConfigProperties.HasSftpSource] = value.ToString(); }
+        }
+
+        public string FtpAddress
         {
             get { return this.ConfigurationProperties[Constants.ConfigProperties.SftpAddress]; }
             set { this.ConfigurationProperties[Constants.ConfigProperties.SftpAddress] = value; }
@@ -168,7 +189,7 @@ namespace CprBroker.Providers.ServicePlatform
 
         public int SftpPort
         {
-            get { return DataProviderConfigPropertyInfo.GetInteger(this.ConfigurationProperties,Constants.ConfigProperties.SftpPort); }
+            get { return DataProviderConfigPropertyInfo.GetInteger(this.ConfigurationProperties, Constants.ConfigProperties.SftpPort); }
             set { this.ConfigurationProperties[Constants.ConfigProperties.SftpPort] = value.ToString(); }
         }
 

@@ -75,7 +75,7 @@ namespace CprBroker.Tests.ServicePlatform
             protected static readonly string fileName2 = "SftpUploadFileTest2.txt";
             protected static readonly string pathToWorkDir = @".\Resources\SFTP-testfiles\";
 
-            
+
 
 
             [SetUp]
@@ -95,7 +95,7 @@ namespace CprBroker.Tests.ServicePlatform
             {
 
                 var prov = ServicePlatformDataProviderFactory.Create();
-                String[] ftpContent = prov.ListSFtpContents();
+                String[] ftpContent = prov.ListFtpContents();
                 Assert.AreEqual(2, ftpContent.Length);
                 Assert.True((ftpContent[0].Equals(fileName1) || ftpContent[1].Equals(fileName1))
                     && (ftpContent[0].Equals(fileName2) || ftpContent[1].Equals(fileName2)));
@@ -107,7 +107,7 @@ namespace CprBroker.Tests.ServicePlatform
                 var prov = ServicePlatformDataProviderFactory.Create();
                 String fileName2LocalPath = Utilities.Strings.EnsureEndString(prov.ExtractsFolder, "\\", true) + fileName2;
                 Assert.False(File.Exists(fileName2LocalPath));
-                prov.DownloadSftpFileToExtractsFolder(fileName2);
+                prov.DownloadFile(fileName2, 0);
                 Assert.True(File.Exists(fileName2LocalPath));
                 Assert.True(File.Exists(fileName2LocalPath + CprBroker.Providers.ServicePlatform.Constants.MetaDataFilePostfix));
                 File.Delete(fileName2LocalPath);
@@ -120,8 +120,8 @@ namespace CprBroker.Tests.ServicePlatform
             public void tearDown()
             {
                 var prov = ServicePlatformDataProviderFactory.Create();
-                prov.DeleteSftpFile(fileName1);
-                prov.DeleteSftpFile(fileName2);
+                prov.DeleteFile(fileName1);
+                prov.DeleteFile(fileName2);
             }
         }
 

@@ -57,6 +57,7 @@ using CprBroker.Data.DataProviders;
 using System.Data;
 using CprBroker.Engine.Queues;
 using CprBroker.Utilities.Config;
+using CprBroker.PartInterface;
 
 namespace CprBroker.Providers.CPRDirect
 {
@@ -250,7 +251,7 @@ namespace CprBroker.Providers.CPRDirect
             }
         }
 
-        public static void DownloadFtpFiles(CPRDirectExtractDataProvider prov)
+        public static void DownloadFtpFiles(IExtractDataProvider prov)
         {
             if (prov.HasFtpSource)
             {
@@ -276,7 +277,7 @@ namespace CprBroker.Providers.CPRDirect
             }
         }
 
-        public static void ExtractLocalFiles(CPRDirectExtractDataProvider prov, int batchSize, bool logChecks = false)
+        public static void ExtractLocalFiles(IExtractDataProvider prov, int batchSize, bool logChecks = false)
         {
             var files = Directory.GetFiles(prov.ExtractsFolder);
 

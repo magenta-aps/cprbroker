@@ -52,6 +52,7 @@ using CprBroker.Providers.CPRDirect;
 using CprBroker.Engine.Local;
 using System.IO;
 using CprBroker.Engine.Tasks;
+using CprBroker.PartInterface;
 
 namespace CprBroker.EventBroker.Notifications
 {
@@ -71,7 +72,7 @@ namespace CprBroker.EventBroker.Notifications
             {
                 var providerFactory = new CprBroker.Engine.DataProviderFactory();
                 var dbProv = providerFactory.ReadDatabaseDataProviders();
-                var result = providerFactory.LoadExternalDataProviders(dbProv, typeof(CPRDirectExtractDataProvider)).Select(p => p as CPRDirectExtractDataProvider).ToArray();
+                var result = providerFactory.LoadExternalDataProviders(dbProv, typeof(IExtractDataProvider)).Select(p => p as IExtractDataProvider).ToArray();
 
                 if (LogChecks)
                     Admin.LogFormattedSuccess("Found {0} CPR Direct providers", result.Length);
@@ -104,7 +105,7 @@ namespace CprBroker.EventBroker.Notifications
             }
         }
 
-        protected virtual void ExecuteCPRDirectTask(CPRDirectExtractDataProvider prov)
+        protected virtual void ExecuteCPRDirectTask(IExtractDataProvider prov)
         {
 
         }

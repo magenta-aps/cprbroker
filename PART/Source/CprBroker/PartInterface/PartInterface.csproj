@@ -120,6 +120,7 @@
     <Compile Include="Events\IDataChangeEventManager.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="IDataProvider.cs" />
+    <Compile Include="IExtractDataProvider.cs" />
     <Compile Include="IPerCallDataProvider.cs" />
     <Compile Include="Manager.Events.cs" />
     <Compile Include="PartManager.cs" />

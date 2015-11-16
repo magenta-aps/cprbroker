@@ -54,12 +54,12 @@ namespace CprBroker.Providers.ServicePlatform
     public partial class ServicePlatformDataProvider
     {
 
-        public string[] ListSFtpContents()
+        public string[] ListFtpContents()
         {
-            return ListSFtpContents(SftpRemotePath);
+            return ListFtpContents(SftpRemotePath);
         }
 
-        protected string[] ListSFtpContents(string subPath)
+        protected string[] ListFtpContents(string subPath)
         {
             try //TODO: Remove exception handling - logging will be done at a higher level
             {
@@ -86,7 +86,13 @@ namespace CprBroker.Providers.ServicePlatform
             }
         }
 
-        public void DeleteSftpFile(string fileName)
+        public long GetLength(string subPath)
+        {
+            // Irrelevant in service platform SFTP
+            return 0;
+        }
+
+        public void DeleteFile(string fileName)
         {
             try //TODO: Remove exception handling - logging will be done at a higher level
             {
@@ -114,7 +120,7 @@ namespace CprBroker.Providers.ServicePlatform
             }
         }
 
-        public void DownloadSftpFileToExtractsFolder(String fileName)
+        public void DownloadFile(String fileName, long lengthUnUsed)
         {
             try //TODO: Remove exception handling - logging will be done at a higher level
             {
@@ -196,7 +202,7 @@ namespace CprBroker.Providers.ServicePlatform
             return new SessionOptions
             {
                 Protocol = Protocol.Sftp,
-                HostName = SftpAddress,
+                HostName = FtpAddress,
                 UserName = SftpUser,
                 PortNumber = SftpPort,
                 SshHostKeyFingerprint = SftpSshHostKeyFingerprint,

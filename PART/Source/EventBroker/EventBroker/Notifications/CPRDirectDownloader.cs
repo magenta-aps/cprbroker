@@ -48,13 +48,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using CprBroker.PartInterface;
 using CprBroker.Providers.CPRDirect;
 
 namespace CprBroker.EventBroker.Notifications
 {
     public class CPRDirectDownloader : CPRDirectIOExecuter
     {
-        protected override void ExecuteCPRDirectTask(CPRDirectExtractDataProvider prov)
+        protected override void ExecuteCPRDirectTask(IExtractDataProvider prov)
         {
             ExtractManager.DownloadFtpFiles(prov);
         }

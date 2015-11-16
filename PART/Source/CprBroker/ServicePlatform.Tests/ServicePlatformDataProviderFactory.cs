@@ -40,7 +40,7 @@ namespace CprBroker.Tests.ServicePlatform
                 SftpSshPrivateKeyPath = dic["SftpSshPrivateKeyPath".ToLower()],
                 SftpUser = dic["SftpUser".ToLower()],
                 SftpPort = Convert.ToInt32(dic["SftpPort".ToLower()]),
-                SftpAddress = dic["SftpAddress".ToLower()],
+                FtpAddress = dic["SftpAddress".ToLower()],
                 ExtractsFolder= dic["ExtractsFolder".ToLower()]
             };
 

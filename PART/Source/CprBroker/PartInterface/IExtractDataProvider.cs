@@ -23,9 +23,6 @@
  *
  * Contributor(s):
  * Beemen Beshara
- * Niels Elgaard Larsen
- * Leif Lodahl
- * Steen Deth
  *
  * The code is currently governed by IT- og Telestyrelsen / Danish National
  * IT and Telecom Agency
@@ -48,17 +45,17 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using CprBroker.PartInterface;
-using CprBroker.Providers.CPRDirect;
 
-namespace CprBroker.EventBroker.Notifications
+namespace CprBroker.PartInterface
 {
-    public class CPRDirectExtractor : CPRDirectIOExecuter
+    public interface IExtractDataProvider : CprBroker.Engine.IExternalDataProvider
     {
-        protected override void ExecuteCPRDirectTask(IExtractDataProvider prov)
-        {
-            ExtractManager.ExtractLocalFiles(prov, this.BatchSize, this.LogChecks);
-        }
-
+        bool HasFtpSource { get; }
+        string ExtractsFolder { get; }
+        string FtpAddress { get; }
+        string[] ListFtpContents();
+        long GetLength(string subPath);
+        void DownloadFile(string subPath, long length);
+        void DeleteFile(string subPath);
     }
 }

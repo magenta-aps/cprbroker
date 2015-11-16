@@ -59,6 +59,7 @@ namespace CprBroker.Providers.ServicePlatform
             public const string UserUUID = "User UUID";
             public const string UserSystemUUID = "User system UUID";
             public const string CertificateSerialNumber = "Certificate serial number";
+            public static readonly string HasSftpSource = "Has SFTP Source";
             public static readonly string SftpAddress = "SFTP Address";
             public static readonly string SftpPort = "SFTP Port";
             public static readonly string ExtractsFolder = "Extracts folder";
