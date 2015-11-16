@@ -51,7 +51,7 @@ namespace CprBroker.Providers.ServicePlatform
     public class Constants
     {
         public static readonly Guid ActorId = new Guid("{9FD5B2AA-1C83-4FFE-A036-E38308B83A98}");
-
+        public static readonly string MetaDataFilePostfix = ".metadata";
         public class ConfigProperties
         {
             public const string Url = "Url";
@@ -59,6 +59,17 @@ namespace CprBroker.Providers.ServicePlatform
             public const string UserUUID = "User UUID";
             public const string UserSystemUUID = "User system UUID";
             public const string CertificateSerialNumber = "Certificate serial number";
+            public static readonly string SftpAddress = "SFTP Address";
+            public static readonly string SftpPort = "SFTP Port";
+            public static readonly string ExtractsFolder = "Extracts folder";
+            public static readonly string SftpUser = "SFTP User";
+            public static readonly string SftpRegexFilter = "Filename Regex filter";
+            public static readonly string SftpSshPrivateKeyPath = "SFTP SSH Private Key Path";
+            public static readonly string SftpSshPrivateKeyPassword = "SFTP SSH Private Key Password";
+            public static readonly string SftpSshHostKeyFingerprint = "SFTP SSH Host Key Fingerprint";
+            public static readonly string SftpProcessFilesFromSenderName = "SFTP Process Files From Sender Named";
+            public static readonly string SftpRemotePath = "SFTP Remote Path (e.g. \\IN)";
+
         }
     }
 }
