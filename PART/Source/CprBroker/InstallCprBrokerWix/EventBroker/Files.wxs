@@ -123,6 +123,17 @@
                 </File>
             </Component>
 
+            <Component Id="CMP_Event_WinSCPNet_Dll" Directory="EVENT_bin">
+                <File Id="FILE_Event_WinSCPNet_Dll" Source="$(var.SitePath)bin\WinSCPnet.dll" KeyPath="yes">
+                    <CopyFile Id="FILE_Event_bin_backend_WinSCPNet_Dll" DestinationDirectory="EVENT_Backend"/>
+                </File>
+            </Component>
+            <Component Id="CMP_Event_WinSCPNet_Exe" Directory="EVENT_bin">
+                <File Id="FILE_Event_CPR_WinSCPNet_Exe" Source="$(var.SitePath)bin\WinSCP.exe" KeyPath="yes">
+                    <CopyFile Id="FILE_Event_bin_backend_WinSCPNet_Exe" DestinationDirectory="EVENT_Backend"/>
+                </File>
+            </Component>
+
         </ComponentGroup>
 
         <ComponentGroup Id="CMPGRP_EVENT_Backend">
@@ -167,7 +178,6 @@
                 <File Id="FILE_EVENT_Templates_Notification.wsdl" Source="$(var.EventSitePath)Templates\Notification.wsdl" KeyPath="yes"/>
             </Component>
         </ComponentGroup>
-
 
     </Fragment>
 </Wix>
