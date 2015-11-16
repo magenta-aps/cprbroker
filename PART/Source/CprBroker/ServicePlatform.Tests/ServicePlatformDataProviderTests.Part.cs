@@ -62,6 +62,16 @@ namespace CprBroker.Tests.ServicePlatform
                 Assert.AreEqual(gender, ret.AttributListe.Egenskab.First().PersonGenderCode);
             }
 
+            [TestCaseSource("PNRs")]
+            public void ToRegistreringType1_SaveResult(string pnr)
+            {
+                var ret = CallMethod(pnr);
+                var retXml = CprBroker.Utilities.Strings.SerializeObject(ret);
+                var path = string.Format("..\\..\\Resources\\{0}.Part.xml", pnr);
+                var doc = new System.Xml.XmlDocument();
+                doc.LoadXml(retXml);
+                doc.Save(path);
+            }
         }
     }
 }
