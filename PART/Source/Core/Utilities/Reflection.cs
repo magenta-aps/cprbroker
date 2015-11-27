@@ -23,9 +23,6 @@
  *
  * Contributor(s):
  * Beemen Beshara
- * Niels Elgaard Larsen
- * Leif Lodahl
- * Steen Deth
  *
  * The code is currently governed by IT- og Telestyrelsen / Danish National
  * IT and Telecom Agency
@@ -180,7 +177,7 @@ namespace CprBroker.Utilities
                         var sourceValueType = sourceValue.GetType();
                         if (targetValue != null && targetValue.GetType().Equals(sourceValueType))
                         {
-                            if(sourceValueType.IsArray)
+                            if (sourceValueType.IsArray)
                             {
                                 // Unhandled
                             }
@@ -192,6 +189,11 @@ namespace CprBroker.Utilities
                     }
                 }
             }
+        }
+
+        public static T ParseEnum<T>(string value)
+        {
+            return (T)Enum.Parse(typeof(T), value);
         }
     }
 }

@@ -70,7 +70,14 @@ namespace CprBroker.Providers.ServicePlatform
             public static readonly string SftpSshHostKeyFingerprint = "SFTP SSH Host Key Fingerprint";
             public static readonly string SftpProcessFilesFromSenderName = "SFTP Process Files From Sender Named";
             public static readonly string SftpRemotePath = "SFTP Remote Path (e.g. \\IN)";
+        }
 
+        public class SubscriptionFields
+        {
+            public const string PNR = "PNR";
+            public const string MunicipalityCode = "Municipality code";
+            public const string ChangeCode = "Change code";
+            //public const string AgeRange = "Age range";
         }
     }
 }

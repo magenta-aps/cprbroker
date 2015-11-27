@@ -22,6 +22,7 @@
  * Danish National IT and Telecom Agency
  *
  * Contributor(s):
+ * Beemen Beshara
  * Thomas Kristensen
  *
  * The code is currently governed by IT- og Telestyrelsen / Danish National
@@ -51,7 +52,7 @@ using System.Text;
 
 namespace CprBroker.Providers.ServicePlatform
 {
-    public partial class ServicePlatformDataProvider : IPutSubscriptionDataProvider
+    public partial class ServicePlatformDataProvider : IPutSubscriptionDataProvider, ISubscriptionManagerDataProvider
     {
 
         protected enum ReturnCodePNR { ADDED, REMOVED, ALREADY_EXISTED, NON_EXISTING_PNR };
@@ -59,12 +60,11 @@ namespace CprBroker.Providers.ServicePlatform
         public bool PutSubscription(PersonIdentifier personIdentifier)
         {
             var service = CreateService<CprSubscriptionService.CprSubscriptionWebServicePortType, CprSubscriptionService.CprSubscriptionWebServicePortTypeClient>(ServiceInfo.CPRSubscription);
-            
+
             using (var callContext = this.BeginCall("AddPNRSubscription", personIdentifier.CprNumber))
             {
                 try
                 {
-
                     var request = new CprSubscriptionService.AddPNRSubscriptionType()
                     {
                         InvocationContext = GetInvocationContext<CprSubscriptionService.InvocationContextType>(ServiceInfo.CPRSubscription.UUID),
@@ -107,5 +107,162 @@ namespace CprBroker.Providers.ServicePlatform
             }
         }
 
+        public string[] SubscriptionFields
+        {
+            get
+            {
+                return new string[] { 
+                    Constants.SubscriptionFields.PNR, 
+                    Constants.SubscriptionFields.MunicipalityCode,
+                    Constants.SubscriptionFields.ChangeCode,
+                    //Constants.SubscriptionFields.AgeRange 
+                };
+            }
+        }
+
+        public string[] GetSubscriptions(string field)
+        {
+            if (SubscriptionFields.Contains(field))
+            {
+                var service = CreateService<CprSubscriptionService.CprSubscriptionWebServicePortType, CprSubscriptionService.CprSubscriptionWebServicePortTypeClient>(ServiceInfo.CPRSubscription);
+                var invocationContext = this.GetInvocationContext<CprSubscriptionService.InvocationContextType>(ServiceInfo.CPRSubscription.UUID);
+
+                using (var callContext = this.BeginCall("GetAllFilters", ""))
+                {
+                    var filters = service.GetAllFilters(new CprSubscriptionService.GetAllFiltersType() { InvocationContext = invocationContext });
+                    callContext.Succeed();
+
+                    switch (field)
+                    {
+                        case Constants.SubscriptionFields.PNR:
+                            return filters.PNR;
+
+                        case Constants.SubscriptionFields.MunicipalityCode:
+                            return filters.MunicipalityCode;
+
+                        case Constants.SubscriptionFields.ChangeCode:
+                            return filters.ChangeCode;
+
+                        //case Constants.SubscriptionFields.AgeRange:
+                        //    return filters.AgeRange;
+                    }
+                }
+            }
+            return null;
+        }
+
+        public bool PutSubscription(string field, string value)
+        {
+            if (SubscriptionFields.Contains(field))
+            {
+                var service = CreateService<CprSubscriptionService.CprSubscriptionWebServicePortType, CprSubscriptionService.CprSubscriptionWebServicePortTypeClient>(ServiceInfo.CPRSubscription);
+                var invocationContext = this.GetInvocationContext<CprSubscriptionService.InvocationContextType>(ServiceInfo.CPRSubscription.UUID);
+                string ret = null;
+
+                using (var callContext = this.BeginCall("PutSubscription", value))
+                {
+                    switch (field)
+                    {
+                        case Constants.SubscriptionFields.PNR:
+                            ret = service.AddPNRSubscription(
+                                new CprSubscriptionService.AddPNRSubscriptionType()
+                                {
+                                    InvocationContext = invocationContext,
+                                    PNR = value
+                                }).Result;
+                            break;
+
+                        case Constants.SubscriptionFields.MunicipalityCode:
+                            ret = service.AddMunicipalityCodeSubscription(
+                                new CprSubscriptionService.AddMunicipalityCodeSubscriptionType()
+                                {
+                                    InvocationContext = invocationContext,
+                                    MunicipalityCode = value
+                                }).Result;
+                            break;
+
+                        case Constants.SubscriptionFields.ChangeCode:
+                            ret = service.AddChangeCodeSubscription(
+                                new CprSubscriptionService.AddChangeCodeSubscriptionType()
+                                {
+                                    InvocationContext = invocationContext,
+                                    ChangeCode = value
+                                }).Result;
+                            break;
+
+                        //case Constants.SubscriptionFields.AgeRange:
+                        //    return filters.AgeRange;
+                    }
+                    if (!string.IsNullOrEmpty(ret))
+                    {
+                        var retCode = Utilities.Reflection.ParseEnum<ReturnCodePNR>(ret);
+                        var result = retCode == ReturnCodePNR.ADDED || retCode == ReturnCodePNR.ALREADY_EXISTED;
+                        if (result)
+                            callContext.Succeed();
+                        else
+                            callContext.Fail();
+                        return result;
+                    }
+                }
+            }
+            return false;
+        }
+
+        public bool RemoveSubscription(string field, string value)
+        {
+            if (SubscriptionFields.Contains(field))
+            {
+                var service = CreateService<CprSubscriptionService.CprSubscriptionWebServicePortType, CprSubscriptionService.CprSubscriptionWebServicePortTypeClient>(ServiceInfo.CPRSubscription);
+                var invocationContext = this.GetInvocationContext<CprSubscriptionService.InvocationContextType>(ServiceInfo.CPRSubscription.UUID);
+                string ret = null;
+
+                using (var callContext = this.BeginCall("RemoveSubscription", ""))
+                {
+                    switch (field)
+                    {
+                        case Constants.SubscriptionFields.PNR:
+                            ret = service.RemovePNRSubscription(
+                                new CprSubscriptionService.RemovePNRSubscriptionType()
+                                {
+                                    InvocationContext = invocationContext,
+                                    PNR = value
+                                }).Result;
+                            break;
+
+                        case Constants.SubscriptionFields.MunicipalityCode:
+                            ret = service.RemoveMunicipalityCodeSubscription(
+                                new CprSubscriptionService.RemoveMunicipalityCodeSubscriptionType()
+                                {
+                                    InvocationContext = invocationContext,
+                                    MunicipalityCode = value
+                                }).Result;
+                            break;
+
+                        case Constants.SubscriptionFields.ChangeCode:
+                            ret = service.RemoveChangeCodeSubscription(
+                                new CprSubscriptionService.RemoveChangeCodeSubscriptionType()
+                                {
+                                    InvocationContext = invocationContext,
+                                    ChangeCode = value
+                                }).Result;
+                            break;
+
+                        //case Constants.SubscriptionFields.AgeRange:
+                        //    return filters.AgeRange;
+                    }
+                    if (!string.IsNullOrEmpty(ret))
+                    {
+                        var retCode = Utilities.Reflection.ParseEnum<ReturnCodePNR>(ret);
+                        var result = retCode == ReturnCodePNR.REMOVED;
+                        if (result)
+                            callContext.Succeed();
+                        else
+                            callContext.Fail();
+                        return result;
+                    }
+                }
+            }
+            return false;
+        }
     }
 }
