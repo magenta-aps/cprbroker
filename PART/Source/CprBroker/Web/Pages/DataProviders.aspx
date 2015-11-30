@@ -66,7 +66,7 @@
             </asp:TemplateField>
             <asp:TemplateField ShowHeader="False" ControlStyle-CssClass="CommandButton" HeaderText="Auto Update ready">
                 <ItemTemplate>
-                    <table style="text-align:center; width:100%">
+                    <table style="text-align: center; width: 100%">
                         <tr>
                             <td><%# GetIsReady(Container.DataItem) %></td>
                             <td>
@@ -92,6 +92,13 @@
                 </ItemTemplate>
                 <EditItemTemplate>
                 </EditItemTemplate>
+            </asp:TemplateField>
+            <asp:TemplateField>
+                <ItemTemplate>
+                    <asp:HyperLink runat="server"  href='<%# "/mvc/pages/dataproviders/" + Eval("DataProviderId") %>'>
+                        Subscriptions
+                    </asp:HyperLink>
+                </ItemTemplate>
             </asp:TemplateField>
         </Columns>
     </asp:GridView>
