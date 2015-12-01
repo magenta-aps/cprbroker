@@ -76,6 +76,13 @@
                     </table>
                 </ItemTemplate>
             </asp:TemplateField>
+            <asp:TemplateField HeaderText="Subscriptions">
+                <ItemTemplate>
+                    <asp:LinkButton runat="server" CssClass="CommandButton" href='<%# "/mvc/pages/dataproviders/" + Eval("DataProviderId") %>' Visible='<%# typeof(ISubscriptionManagerDataProvider).IsAssignableFrom(Type.GetType(Eval("TypeName").ToString())) %>'>                        
+                        Manage
+                    </asp:LinkButton>
+                </ItemTemplate>
+            </asp:TemplateField>
             <asp:CommandField ShowDeleteButton="True" ControlStyle-CssClass="CommandButton" />
             <asp:TemplateField ControlStyle-CssClass="UpDownButton">
                 <ItemTemplate>
@@ -92,13 +99,6 @@
                 </ItemTemplate>
                 <EditItemTemplate>
                 </EditItemTemplate>
-            </asp:TemplateField>
-            <asp:TemplateField>
-                <ItemTemplate>
-                    <asp:HyperLink runat="server"  href='<%# "/mvc/pages/dataproviders/" + Eval("DataProviderId") %>'>
-                        Subscriptions
-                    </asp:HyperLink>
-                </ItemTemplate>
             </asp:TemplateField>
         </Columns>
     </asp:GridView>

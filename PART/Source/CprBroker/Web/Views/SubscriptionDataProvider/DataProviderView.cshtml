@@ -1,4 +1,86 @@
 ﻿@using CprBroker.Engine;
-@model CprBroker.Engine.ISubscriptionManagerDataProvider
+@model Tuple<CprBroker.Engine.ISubscriptionManagerDataProvider, Guid>
 
-@Model.GetType().Name;
+<html>
+<head>
+    <link rel="stylesheet" href="~/Pages/CSS/style.css" />
+    <script src="~/Scripts/jquery-2.1.4.min.js"></script>
+</head>
+</html>
+
+<div class="modal static">
+    <!-- Modal HTML -->
+    <div class="modal-dialog  modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">@Model.ToString()</h4>
+            </div>
+            <div class="modal-body">
+                @foreach (var field in Model.Item1.SubscriptionFields)
+                {
+                    var fieldSubscriptions = @Model.Item1.GetSubscriptions(field);
+                    var fieldLookups = Model.Item1.EnumerateField(field);
+                    if (fieldSubscriptions == null)
+                        fieldSubscriptions = new string[0];
+
+                    <div>
+                        <div class="GridHeader">
+                            @field
+                        </div>
+                        @{int i = 0;}
+                        @if (fieldLookups != null)
+                        {
+                            foreach (var fieldLookup in fieldLookups)
+                            {
+                                <div class="@{Output.Write((i++ % 2 == 0)? "Row" : "AlternateRow");}">
+                                    @{var id = field.Trim() + "_" + @fieldLookup.Key;}
+                                    <input type="checkbox" name="chkSubscription" checked="@fieldSubscriptions.Contains(fieldLookup.Key)" value="@fieldLookup.Key" id="@id" field="@field" />
+                                    <label for=@id>@fieldLookup.Value</label>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            if (fieldSubscriptions == null || fieldSubscriptions.Length == 0)
+                            {
+                                Output.Write("(None)");
+                            }
+                            else
+                            {
+                                foreach (var fieldSubscription in fieldSubscriptions)
+                                {
+                                    <p>@fieldSubscription</p>
+                                }
+                            }
+                            var addTextBoxId = field.Replace(" ", "") + "_new";
+
+                            <input type="text" id="@addTextBoxId" field="@field" />
+                            <a>
+                                <button class="CommandButton" textboxid="@addTextBoxId" name="addSubscription">Add</button>
+                            </a>
+                        }
+                    </div>
+                }
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script language="javascript">
+    $('[name="addSubscription"]').click(function () {
+        var id = this.getAttribute('textboxid');
+        var txt = $('#' + id);
+        var field = txt.attr('field');
+        var value = txt.val();
+        var dataProviderId = '@Model.Item2';
+        var url = '/mvc/pages/dataproviders/' + dataProviderId + '/addsubscription/' + field + '/' + value;
+
+        $.get(url, null, function (data, textStatus, jqXHR) {
+            // reload the page or section
+        });
+        alert(url);
+    })
+</script>

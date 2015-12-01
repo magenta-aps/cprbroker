@@ -23,9 +23,6 @@
  *
  * Contributor(s):
  * Beemen Beshara
- * Niels Elgaard Larsen
- * Leif Lodahl
- * Steen Deth
  *
  * The code is currently governed by IT- og Telestyrelsen / Danish National
  * IT and Telecom Agency
@@ -85,7 +82,7 @@ namespace CprBroker.Providers.CPRDirect
             }
         }
 
-        class AuthorityShortInfo
+        public class AuthorityShortInfo
         {
             public string Code;
             public string AuthorityName;
@@ -216,6 +213,53 @@ namespace CprBroker.Providers.CPRDirect
             {
                 return null;
             }
+        }
+
+        public static Authority[] _AllAuthorities;
+        public static Authority[] AllAuthorities
+        {
+            get
+            {
+                try
+                {
+                    Constants.AuthorityLock.EnterUpgradeableReadLock();
+                    if (_AllAuthorities == null)
+                    {
+                        try
+                        {
+                            Constants.AuthorityLock.EnterWriteLock();
+                            if (_AllAuthorities == null)
+                            {
+                                using (var dataContext = new LookupDataContext())
+                                {
+                                    _AllAuthorities = dataContext
+                                        .Authorities
+                                        .ToArray();
+                                }
+                            }
+                        }
+                        finally
+                        {
+                            Constants.AuthorityLock.ExitWriteLock();
+                        }
+                    }
+                }
+                finally
+                {
+                    Constants.AuthorityLock.ExitUpgradeableReadLock();
+                }
+                return _AllAuthorities.ToList().ToArray();
+            }
+        }
+
+        public static Authority[] GetAuthorities(Constants.AuthorityTypes type, bool getInactive = false)
+        {
+            return AllAuthorities
+                .Where(auth =>
+                    int.Parse(auth.AuthorityType) == (int)type
+                    && (getInactive || auth.EndDate == null)
+                    )
+                .ToArray();
         }
 
     }

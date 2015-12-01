@@ -264,5 +264,19 @@ namespace CprBroker.Providers.ServicePlatform
             }
             return false;
         }
+
+        public Dictionary<string, string> EnumerateField(string field)
+        {
+            switch (field)
+            {
+                case Constants.SubscriptionFields.MunicipalityCode:
+                    return CprBroker.Providers.CPRDirect.Authority.GetAuthorities(
+                        CprBroker.Providers.CPRDirect.Constants.AuthorityTypes.Municipality)
+                        .ToDictionary(auth => auth.AuthorityCode, auth => auth.AuthorityName);
+
+                default:
+                    return null;
+            }
+        }
     }
 }

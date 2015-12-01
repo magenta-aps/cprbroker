@@ -23,9 +23,6 @@
  *
  * Contributor(s):
  * Beemen Beshara
- * Niels Elgaard Larsen
- * Leif Lodahl
- * Steen Deth
  *
  * The code is currently governed by IT- og Telestyrelsen / Danish National
  * IT and Telecom Agency
@@ -254,5 +251,10 @@ namespace CprBroker.Providers.CPRDirect
         public static System.Threading.ReaderWriterLockSlim AuthorityLock = new System.Threading.ReaderWriterLockSlim();
         
         public const string OnlineOperationName = "Online";
+
+        public enum AuthorityTypes
+        {
+            Municipality = 5
+        }
     }
 }
