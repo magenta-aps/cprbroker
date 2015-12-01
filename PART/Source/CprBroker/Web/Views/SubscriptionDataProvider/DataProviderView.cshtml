@@ -25,7 +25,7 @@
                         fieldSubscriptions = new string[0];
 
                     <div>
-                        <div class="GridHeader">
+                        <div class="GridHeader222">
                             @field
                         </div>
                         @{int i = 0;}
@@ -33,11 +33,11 @@
                         {
                             foreach (var fieldLookup in fieldLookups)
                             {
-                                <div class="@{Output.Write((i++ % 2 == 0)? "Row" : "AlternateRow");}">
+                                <div222 class="@{Output.Write((i++ % 2 == 0)? "Row222" : "AlternateRow222");}">
                                     @{var id = field.Trim() + "_" + @fieldLookup.Key;}
                                     <input type="checkbox" name="chkSubscription" checked="@fieldSubscriptions.Contains(fieldLookup.Key)" value="@fieldLookup.Key" id="@id" field="@field" />
                                     <label for=@id>@fieldLookup.Value</label>
-                                </div>
+                                </div222>
                             }
                         }
                         else
@@ -50,14 +50,17 @@
                             {
                                 foreach (var fieldSubscription in fieldSubscriptions)
                                 {
-                                    <p>@fieldSubscription</p>
+                                    <p>
+                                        @fieldSubscription
+                                        <button class="CommandButton222" name="removeSubscription" field="@field" fieldValue="@fieldSubscription">X</button>
+                                    </p>
                                 }
                             }
                             var addTextBoxId = field.Replace(" ", "") + "_new";
 
                             <input type="text" id="@addTextBoxId" field="@field" />
                             <a>
-                                <button class="CommandButton" textboxid="@addTextBoxId" name="addSubscription">Add</button>
+                                <button class="CommandButton222" textboxid="@addTextBoxId" name="addSubscription">Add</button>
                             </a>
                         }
                     </div>
@@ -76,16 +79,49 @@
         var field = txt.attr('field');
         var value = txt.val();
         var dataProviderId = '@Model.Item2';
-        var url = '/mvc/pages/dataproviders/' + dataProviderId + '/addsubscription/' + field + '/' + value;
+        var url = '/mvc/pages/dataproviders/' + dataProviderId + '/putsubscription/' + field + '/' + value;
 
         $.get(url)
             .done(function (data, textStatus, jqXHR) {
                 // reload the page or section
-                alert(textStatus);
             })
             .fail(function (data, textStatus) {
                 alert('failed');
             });
-        alert(url);
+    });
+
+    $('[name="removeSubscription"]').click(function () {
+        var field = this.getAttribute('field');
+        var value = this.getAttribute('fieldValue');
+        var dataProviderId = '@Model.Item2';
+        var url = '/mvc/pages/dataproviders/' + dataProviderId + '/removesubscription/' + field + '/' + value;
+
+        $.get(url)
+            .done(function (data, textStatus, jqXHR) {
+                // reload the page or section
+            })
+            .fail(function (data, textStatus) {
+                alert('failed');
+            });
+    });
+
+    $('[name="chkSubscription"]').click(function () {
+        var chk = this;
+        var field = this.getAttribute('field');
+        var value = this.getAttribute('value');
+        var dataProviderId = '@Model.Item2';
+
+        var url = '/mvc/pages/dataproviders/' + dataProviderId
+            + ((this.checked) ? '/putsubscription/' : '/removesubscription/')
+            + field + '/' + value;
+
+        $.get(url)
+            .done(function (data, textStatus, jqXHR) {
+                // reload the page or section
+            })
+            .fail(function (data, textStatus) {
+                alert('failed');
+                chk.checked = !chk.checked;
+            });
     })
 </script>
