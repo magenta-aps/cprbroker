@@ -78,9 +78,14 @@
         var dataProviderId = '@Model.Item2';
         var url = '/mvc/pages/dataproviders/' + dataProviderId + '/addsubscription/' + field + '/' + value;
 
-        $.get(url, null, function (data, textStatus, jqXHR) {
-            // reload the page or section
-        });
+        $.get(url)
+            .done(function (data, textStatus, jqXHR) {
+                // reload the page or section
+                alert(textStatus);
+            })
+            .fail(function (data, textStatus) {
+                alert('failed');
+            });
         alert(url);
     })
 </script>
