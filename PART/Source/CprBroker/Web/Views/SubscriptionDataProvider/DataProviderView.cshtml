@@ -19,7 +19,14 @@
             <div class="modal-body">
                 @foreach (var field in Model.Item1.SubscriptionFields)
                 {
-                    Html.RenderPartial("~/Views/SubscriptionDataProvider/DataProviderFieldView.cshtml", new Tuple<isubscriptionmanagerdataprovider, guid, string>(Model.Item1, Model.Item2, field));
+                    <span id="@{Output.Write("spn_" + field);}">
+                        @{
+                    Html.RenderPartial(
+                        "~/Views/SubscriptionDataProvider/DataProviderFieldView.cshtml",
+                        new Tuple<ISubscriptionManagerDataProvider, Guid, string>(Model.Item1, Model.Item2, field)
+                        );
+                        }
+                    </span>
                 }
             </div>
             <div class="modal-footer">
@@ -29,55 +36,75 @@
     </div>
 </div>
 <script language="javascript">
-    $('[name="addSubscription"]').click(function () {
-        var id = this.getAttribute('textboxid');
-        var txt = $('#' + id);
-        var field = txt.attr('field');
-        var value = txt.val();
+
+    function setDataProviderButtonEvents() {
+
+        $('[name="addSubscription"]').unbind('click');
+        $('[name="addSubscription"]').click(function () {
+            var id = this.getAttribute('textboxid');
+            var txt = $('#' + id);
+            var field = txt.attr('field');
+            var value = txt.val();
+            var dataProviderId = '@Model.Item2';
+            var url = '/mvc/pages/dataproviders/' + dataProviderId + '/putsubscription/' + field + '/' + value;
+
+            $.get(url)
+                .done(function (data, textStatus, jqXHR) {
+                    refreshField(field);
+                })
+                .fail(function (data, textStatus) {
+                    alert('failed');
+                });
+        });
+
+        $('[name="removeSubscription"]').unbind('click');
+        $('[name="removeSubscription"]').click(function () {
+            var field = this.getAttribute('field');
+            var value = this.getAttribute('fieldValue');
+            var dataProviderId = '@Model.Item2';
+            var url = '/mvc/pages/dataproviders/' + dataProviderId + '/removesubscription/' + field + '/' + value;
+
+            $.get(url)
+                .done(function (data, textStatus, jqXHR) {
+                    refreshField(field);
+                })
+                .fail(function (data, textStatus) {
+                    alert('failed');
+                });
+        });
+
+        $('[name="chkSubscription"]').unbind('click');
+        $('[name="chkSubscription"]').click(function () {
+            var chk = this;
+            var field = this.getAttribute('field');
+            var value = this.getAttribute('value');
+            var dataProviderId = '@Model.Item2';
+
+            var url = '/mvc/pages/dataproviders/' + dataProviderId
+                + ((this.checked) ? '/putsubscription/' : '/removesubscription/')
+                + field + '/' + value;
+
+            $.get(url)
+                .done(function (data, textStatus, jqXHR) {
+                    refreshField(field);
+                })
+                .fail(function (data, textStatus) {
+                    alert('failed');
+                    chk.checked = !chk.checked;
+                });
+        })
+    }
+
+    function refreshField(field) {
+        var fieldSpan = $('#spn_' + field);
         var dataProviderId = '@Model.Item2';
-        var url = '/mvc/pages/dataproviders/' + dataProviderId + '/putsubscription/' + field + '/' + value;
 
-        $.get(url)
-            .done(function (data, textStatus, jqXHR) {
-                // reload the page or section
-            })
-            .fail(function (data, textStatus) {
-                alert('failed');
-            });
-    });
+        var url = '/mvc/pages/dataproviders/' + dataProviderId + '/view/' + field;
+        
+        fieldSpan.load(url, function (data) {
+            setDataProviderButtonEvents();
+        });
+    }
+    setDataProviderButtonEvents();
 
-    $('[name="removeSubscription"]').click(function () {
-        var field = this.getAttribute('field');
-        var value = this.getAttribute('fieldValue');
-        var dataProviderId = '@Model.Item2';
-        var url = '/mvc/pages/dataproviders/' + dataProviderId + '/removesubscription/' + field + '/' + value;
-
-        $.get(url)
-            .done(function (data, textStatus, jqXHR) {
-                // reload the page or section
-            })
-            .fail(function (data, textStatus) {
-                alert('failed');
-            });
-    });
-
-    $('[name="chkSubscription"]').click(function () {
-        var chk = this;
-        var field = this.getAttribute('field');
-        var value = this.getAttribute('value');
-        var dataProviderId = '@Model.Item2';
-
-        var url = '/mvc/pages/dataproviders/' + dataProviderId
-            + ((this.checked) ? '/putsubscription/' : '/removesubscription/')
-            + field + '/' + value;
-
-        $.get(url)
-            .done(function (data, textStatus, jqXHR) {
-                // reload the page or section
-            })
-            .fail(function (data, textStatus) {
-                alert('failed');
-                chk.checked = !chk.checked;
-            });
-    })
 </script>

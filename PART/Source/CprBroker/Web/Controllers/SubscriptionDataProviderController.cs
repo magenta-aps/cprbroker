@@ -34,7 +34,7 @@ namespace CprBroker.Web.Controllers
             var factory = new DataProviderFactory();
             var dataProvider = factory.GetDataProvider<ISubscriptionManagerDataProvider>(dataProviderId);
 
-            return View("DataProviderView", new Tuple<ISubscriptionManagerDataProvider, Guid>(dataProvider, dataProviderId));
+            return View("DataProviderFieldView", new Tuple<ISubscriptionManagerDataProvider, Guid, string>(dataProvider, dataProviderId, field));
         }
 
         [Route("{dataProviderId:Guid}/putsubscription/{field}/{value}")]
