@@ -19,51 +19,7 @@
             <div class="modal-body">
                 @foreach (var field in Model.Item1.SubscriptionFields)
                 {
-                    var fieldSubscriptions = @Model.Item1.GetSubscriptions(field);
-                    var fieldLookups = Model.Item1.EnumerateField(field);
-                    if (fieldSubscriptions == null)
-                        fieldSubscriptions = new string[0];
-
-                    <div>
-                        <div class="GridHeader222">
-                            @field
-                        </div>
-                        @{int i = 0;}
-                        @if (fieldLookups != null)
-                        {
-                            foreach (var fieldLookup in fieldLookups)
-                            {
-                                <div222 class="@{Output.Write((i++ % 2 == 0)? "Row222" : "AlternateRow222");}">
-                                    @{var id = field.Trim() + "_" + @fieldLookup.Key;}
-                                    <input type="checkbox" name="chkSubscription" checked="@fieldSubscriptions.Contains(fieldLookup.Key)" value="@fieldLookup.Key" id="@id" field="@field" />
-                                    <label for=@id>@fieldLookup.Value</label>
-                                </div222>
-                            }
-                        }
-                        else
-                        {
-                            if (fieldSubscriptions == null || fieldSubscriptions.Length == 0)
-                            {
-                                Output.Write("(None)");
-                            }
-                            else
-                            {
-                                foreach (var fieldSubscription in fieldSubscriptions)
-                                {
-                                    <p>
-                                        @fieldSubscription
-                                        <button class="CommandButton222" name="removeSubscription" field="@field" fieldValue="@fieldSubscription">X</button>
-                                    </p>
-                                }
-                            }
-                            var addTextBoxId = field.Replace(" ", "") + "_new";
-
-                            <input type="text" id="@addTextBoxId" field="@field" />
-                            <a>
-                                <button class="CommandButton222" textboxid="@addTextBoxId" name="addSubscription">Add</button>
-                            </a>
-                        }
-                    </div>
+                    Html.RenderPartial("~/Views/SubscriptionDataProvider/DataProviderFieldView.cshtml", new Tuple<isubscriptionmanagerdataprovider, guid, string>(Model.Item1, Model.Item2, field));
                 }
             </div>
             <div class="modal-footer">

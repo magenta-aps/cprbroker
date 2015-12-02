@@ -24,6 +24,19 @@ namespace CprBroker.Web.Controllers
             return View("DataProviderView", new Tuple<ISubscriptionManagerDataProvider, Guid>(dataProvider, dataProviderId));
         }
 
+        [Route("{dataProviderId:Guid}/view/{field}")]
+        public ActionResult ViewDetails(Guid dataProviderId, string field)
+        {
+            CprBroker.Engine.BrokerContext.Initialize(
+                CprBroker.Utilities.Constants.BaseApplicationToken.ToString(),
+                this.HttpContext.User.Identity.Name);
+
+            var factory = new DataProviderFactory();
+            var dataProvider = factory.GetDataProvider<ISubscriptionManagerDataProvider>(dataProviderId);
+
+            return View("DataProviderView", new Tuple<ISubscriptionManagerDataProvider, Guid>(dataProvider, dataProviderId));
+        }
+
         [Route("{dataProviderId:Guid}/putsubscription/{field}/{value}")]
         public ActionResult PutSubscription(Guid dataProviderId, string field, string value)
         {
