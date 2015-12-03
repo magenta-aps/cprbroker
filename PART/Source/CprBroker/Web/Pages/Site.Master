@@ -157,5 +157,6 @@
         </table>
         <!--  ////////// L Bottom Ends here //////////  -->
     </form>
+    <asp:ContentPlaceHolder runat="server" ID="Footer"></asp:ContentPlaceHolder>
 </body>
 </html>

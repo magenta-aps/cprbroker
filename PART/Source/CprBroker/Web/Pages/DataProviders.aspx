@@ -112,8 +112,9 @@
     </asp:DropDownList>
     <uc1:ConfigPropertyGridEditor runat="server" ID="newDataProvider" OnDataBinding="newDataProvider_DataBinding"
         OnInsertCommand="newDataProvider_InsertCommand" />
+</asp:Content>
 
-
+<asp:Content runat="server" ContentPlaceHolderID="Footer">
     <!-- Modal dialog box to show individual subscriptions - hidden by default-->
     <div id="dataProviderModal" class="modal static">
 
@@ -146,6 +147,7 @@
             $.get(url)
                 .done(function (data, textStatus, jqXHR) {
                     $('#dataProviderPopup').html(data);
+                    setDataProviderButtonEvents();
                     $('#dataProviderModal').modal('show');
                 })
             .fail(function () {
