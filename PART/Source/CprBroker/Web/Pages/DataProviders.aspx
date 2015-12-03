@@ -151,7 +151,7 @@
                     $('#dataProviderModal').modal('show');
                 })
             .fail(function () {
-                alert('asldja;skd;la');
+                alert('failed');
             });
         });
 

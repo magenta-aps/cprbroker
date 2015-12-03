@@ -9,7 +9,7 @@
 }
 
 <div>
-    <div class="GridHeader222">
+    <div class="GridHeader">
         @field
     </div>
     @{int i = 0;}
@@ -17,11 +17,11 @@
     {
         foreach (var fieldLookup in fieldLookups)
         {
-            <div222 class="@{Output.Write((i++ % 2 == 0)? "Row222" : "AlternateRow222");}">
+            <div class="@{Output.Write((i++ % 2 == 0)? "Row" : "AlternateRow");}">
                 @{var id = field.Trim() + "_" + @fieldLookup.Key;}
                 <input type="checkbox" name="chkSubscription" checked="@fieldSubscriptions.Contains(fieldLookup.Key)" value="@fieldLookup.Key" id="@id" field="@field" />
                 <label for=@id>@fieldLookup.Value</label>
-            </div222>
+            </div>
         }
     }
     else
@@ -36,7 +36,7 @@
             {
                 <p>
                     @fieldSubscription
-                    <button class="CommandButton222" name="removeSubscription" field="@field" fieldvalue="@fieldSubscription">X</button>
+                    <button class="CommandButton" name="removeSubscription" field="@field" fieldvalue="@fieldSubscription">X</button>
                 </p>
             }
         }
@@ -44,7 +44,7 @@
 
         <input type="text" id="@addTextBoxId" field="@field" />
         <a>
-            <button class="CommandButton222" textboxid="@addTextBoxId" name="addSubscription">Add</button>
+            <button class="CommandButton" textboxid="@addTextBoxId" name="addSubscription">Add</button>
         </a>
     }
 </div>
