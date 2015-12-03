@@ -78,9 +78,11 @@
             </asp:TemplateField>
             <asp:TemplateField HeaderText="Subscriptions">
                 <ItemTemplate>
-                    <asp:LinkButton runat="server" CssClass="CommandButton" href='<%# "/mvc/pages/dataproviders/" + Eval("DataProviderId") %>' Visible='<%# typeof(ISubscriptionManagerDataProvider).IsAssignableFrom(Type.GetType(Eval("TypeName").ToString())) %>'>                        
+                    <button runat="server" type="button" class="CommandButton"
+                        visible='<%# typeof(ISubscriptionManagerDataProvider).IsAssignableFrom(Type.GetType(Eval("TypeName").ToString())) %>'
+                        name="openDataProviderModal" dataproviderid='<%#Eval("DataProviderId") %>'>
                         Manage
-                    </asp:LinkButton>
+                    </button>
                 </ItemTemplate>
             </asp:TemplateField>
             <asp:CommandField ShowDeleteButton="True" ControlStyle-CssClass="CommandButton" />
@@ -110,4 +112,46 @@
     </asp:DropDownList>
     <uc1:ConfigPropertyGridEditor runat="server" ID="newDataProvider" OnDataBinding="newDataProvider_DataBinding"
         OnInsertCommand="newDataProvider_InsertCommand" />
+
+
+    <!-- Modal dialog box to show individual subscriptions - hidden by default-->
+    <div id="dataProviderModal" class="modal static">
+
+        <!-- Modal HTML -->
+        <div class="modal-dialog  modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Title</h4>
+                </div>
+                <div class="modal-body">
+                    Body
+                <span id="dataProviderPopup"></span>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" language="javascript">
+
+        $('[name="openDataProviderModal"]').unbind('click');
+
+        $('[name="openDataProviderModal"]').click(function () {
+
+            var dataProviderId = this.getAttribute('dataProviderId');
+            var url = '/mvc/pages/dataproviders/' + dataProviderId;
+
+            $.get(url)
+                .done(function (data, textStatus, jqXHR) {
+                    $('#dataProviderPopup').html(data);
+                    $('#dataProviderModal').modal('show');
+                })
+            .fail(function () {
+                alert('asldja;skd;la');
+            });
+        });
+
+    </script>
 </asp:Content>

@@ -1,40 +1,18 @@
 ﻿@using CprBroker.Engine;
 @model Tuple<CprBroker.Engine.ISubscriptionManagerDataProvider, Guid>
 
-<html>
-<head>
-    <link rel="stylesheet" href="~/Pages/CSS/style.css" />
-    <script src="~/Scripts/jquery-2.1.4.min.js"></script>
-</head>
-</html>
 
-<div class="modal static">
-    <!-- Modal HTML -->
-    <div class="modal-dialog  modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">@Model.ToString()</h4>
-            </div>
-            <div class="modal-body">
-                @foreach (var field in Model.Item1.SubscriptionFields)
-                {
-                    <span id="@{Output.Write("spn_" + field);}">
-                        @{
-                    Html.RenderPartial(
-                        "~/Views/SubscriptionDataProvider/DataProviderFieldView.cshtml",
-                        new Tuple<ISubscriptionManagerDataProvider, Guid, string>(Model.Item1, Model.Item2, field)
-                        );
-                        }
-                    </span>
-                }
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
+@foreach (var field in Model.Item1.SubscriptionFields)
+{
+    <span id="@{Output.Write("spn_" + field);}">
+        @{
+    Html.RenderPartial(
+        "~/Views/SubscriptionDataProvider/DataProviderFieldView.cshtml",
+        new Tuple<ISubscriptionManagerDataProvider, Guid, string>(Model.Item1, Model.Item2, field)
+        );
+        }
+    </span>
+}
 <script language="javascript">
 
     function setDataProviderButtonEvents() {
@@ -100,7 +78,7 @@
         var dataProviderId = '@Model.Item2';
 
         var url = '/mvc/pages/dataproviders/' + dataProviderId + '/view/' + field;
-        
+
         fieldSpan.load(url, function (data) {
             setDataProviderButtonEvents();
         });

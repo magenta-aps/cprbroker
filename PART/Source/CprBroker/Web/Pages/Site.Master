@@ -6,7 +6,11 @@
 <head runat="server">
     <title>CPR Broker</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link href="CSS/style.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="CSS/style.css" />
+    <script type="text/javascript" src="/Content/libs/jquery-1.11.1/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="/Content/libs/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/Content/libs/bootstrap-3.3.5-dist/css/bootstrap.min.css"  />
+    <link href="/Content/PagedList.css" rel="stylesheet" type="text/css" />
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 
