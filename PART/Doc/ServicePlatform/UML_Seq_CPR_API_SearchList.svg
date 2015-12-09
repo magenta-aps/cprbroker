@@ -19,12 +19,12 @@
 		.st9 {fill:#0083b9;font-family:Calibri;font-size:0.833336em}
 		.st10 {fill:#0083b9;font-family:Calibri;font-size:2.50001em}
 		.st11 {fill:#ffffff;stroke:#1cade4;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.237638}
-		.st12 {marker-end:url(#mrkr4-157);stroke:#1cade4;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.237638}
+		.st12 {marker-end:url(#mrkr4-158);stroke:#1cade4;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.237638}
 		.st13 {fill:#1cade4;fill-opacity:1;stroke:#1cade4;stroke-opacity:1;stroke-width:0.068333106914821}
 		.st14 {fill:#ffffff;stroke:none;stroke-linecap:butt}
 		.st15 {fill:#1cade4;font-family:Calibri;font-size:0.666664em}
 		.st16 {fill:#ffffff;stroke:none;stroke-linecap:butt;stroke-width:7.2}
-		.st17 {marker-end:url(#mrkr3-223);stroke:#1cade4;stroke-dasharray:1.66346,1.18819;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.237638}
+		.st17 {marker-end:url(#mrkr3-224);stroke:#1cade4;stroke-dasharray:1.66346,1.18819;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.237638}
 		.st18 {fill:none;fill-rule:evenodd;font-size:12px;overflow:visible;stroke-linecap:square;stroke-miterlimit:3}
 	]]>
 	</style>
@@ -53,14 +53,14 @@
 		<g id="lend4">
 			<path d="M 2 1 L 0 0 L 2 -1 L 2 1 " style="stroke:none"/>
 		</g>
-		<marker id="mrkr4-157" class="st13" v:arrowType="4" v:arrowSize="3" v:setback="29.2684" refX="-29.268389662028"
+		<marker id="mrkr4-158" class="st13" v:arrowType="4" v:arrowSize="3" v:setback="29.2684" refX="-29.268389662028"
 				orient="auto" markerUnits="strokeWidth" overflow="visible">
 			<use xlink:href="#lend4" transform="scale(-14.634194831014,-14.634194831014) "/>
 		</marker>
 		<g id="lend3">
 			<path d="M 2 1 L 0 0 L 2 -1 " style="stroke-linecap:round;stroke-linejoin:round;fill:none"/>
 		</g>
-		<marker id="mrkr3-223" class="st13" v:arrowType="3" v:arrowSize="3" orient="auto" markerUnits="strokeWidth"
+		<marker id="mrkr3-224" class="st13" v:arrowType="3" v:arrowSize="3" orient="auto" markerUnits="strokeWidth"
 				overflow="visible">
 			<use xlink:href="#lend3" transform="scale(-14.634194831014,-14.634194831014) "/>
 		</marker>
@@ -555,7 +555,7 @@
 				<v:ud v:nameU="ShowDestruction" v:prompt="" v:val="VT0(0):5"/>
 			</v:userDefs>
 			<title>Object lifeline.1051</title>
-			<desc>ADRSOG1</desc>
+			<desc>ADRSOG1 SOAP/GCTP</desc>
 			<g id="shape1052-105" v:mID="1052" v:groupContext="shape" transform="translate(13.6772,-7.08661)">
 				<title>Sheet.1052</title>
 				<rect x="0" y="816.378" width="51.0236" height="25.5118" class="st4"/>
@@ -575,9 +575,10 @@
 				<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 				<v:textRect cx="39.189" cy="822.047" width="78.38" height="39.685"/>
 				<rect x="0" y="802.205" width="78.378" height="39.685" class="st4"/>
-				<text x="18.73" y="825.05" class="st6" v:langID="1030"><v:paragraph v:horizAlign="1"/><v:tabList/>ADRSOG1</text>			</g>
+				<text x="18.73" y="819.05" class="st6" v:langID="1030"><v:paragraph v:horizAlign="1"/><v:tabList/>ADRSOG1<v:newlineChar/><tspan
+							x="14.64" dy="1.2em" class="st7">SOAP</tspan>/GCTP</text>			</g>
 		</g>
-		<g id="shape1066-117" v:mID="1066" v:groupContext="shape" transform="translate(1377.48,155.259) rotate(90)">
+		<g id="shape1066-118" v:mID="1066" v:groupContext="shape" transform="translate(1377.48,155.259) rotate(90)">
 			<title>Sheet.1066</title>
 			<desc>Service UUID:6538f113-b1e6-4b21-8fe1-28b7bf78a1bd</desc>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
@@ -594,28 +595,28 @@
 						v:langID="1030">28</tspan><tspan class="st7" v:langID="1030">b</tspan><tspan class="st7" v:langID="1030">7</tspan><tspan
 						class="st7" v:langID="1030">bf</tspan><tspan class="st7" v:langID="1030">78</tspan><tspan class="st7"
 						v:langID="1030">a</tspan><tspan class="st7" v:langID="1030">1</tspan><tspan class="st7" v:langID="1030">bd</tspan></text>		</g>
-		<g id="shape1076-145" v:mID="1076" v:groupContext="shape" transform="translate(26.0079,-790.787)">
+		<g id="shape1076-146" v:mID="1076" v:groupContext="shape" transform="translate(26.0079,-790.787)">
 			<title>Sheet.1076</title>
 			<desc>CPR API: Search List</desc>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 			<v:textRect cx="227.941" cy="831.89" width="455.89" height="20"/>
 			<rect x="0" y="821.89" width="455.882" height="20" class="st8"/>
 			<text x="4" y="840.89" class="st10" v:langID="1033"><v:paragraph/><v:tabList/>CPR API: Search List</text>		</g>
-		<g id="shape1082-148" v:mID="1082" v:groupContext="shape" transform="translate(-763.937,556.237) rotate(-90)">
+		<g id="shape1082-149" v:mID="1082" v:groupContext="shape" transform="translate(-763.937,556.237) rotate(-90)">
 			<title>Activation</title>
 			<v:userDefs>
 				<v:ud v:nameU="visVersion" v:prompt="" v:val="VT0(15):26"/>
 			</v:userDefs>
 			<rect x="0" y="833.386" width="404.584" height="8.50394" class="st11"/>
 		</g>
-		<g id="shape1083-150" v:mID="1083" v:groupContext="shape" transform="translate(-677.055,182.835) rotate(-90)">
+		<g id="shape1083-151" v:mID="1083" v:groupContext="shape" transform="translate(-677.055,182.835) rotate(-90)">
 			<title>Activation.1083</title>
 			<v:userDefs>
 				<v:ud v:nameU="visVersion" v:prompt="" v:val="VT0(15):26"/>
 			</v:userDefs>
 			<rect x="0" y="833.386" width="23.4479" height="8.50394" class="st11"/>
 		</g>
-		<g id="shape1067-152" v:mID="1067" v:groupContext="shape" v:layerMember="0" transform="translate(73.7008,-675.416)">
+		<g id="shape1067-153" v:mID="1067" v:groupContext="shape" v:layerMember="0" transform="translate(73.7008,-675.416)">
 			<title>Message.1067</title>
 			<desc>Initialize()</desc>
 			<v:userDefs>
@@ -629,14 +630,14 @@
 			<path d="M0 834.8 L79.93 834.8" class="st12"/>
 			<rect v:rectContext="textBkgnd" x="27.4082" y="830.003" width="32.0658" height="9.59985" class="st14"/>
 			<text x="27.41" y="837.2" class="st15" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Initialize()</text>		</g>
-		<g id="shape1086-160" v:mID="1086" v:groupContext="shape" transform="translate(-590.173,193.402) rotate(-90)">
+		<g id="shape1086-161" v:mID="1086" v:groupContext="shape" transform="translate(-590.173,193.402) rotate(-90)">
 			<title>Activation.1086</title>
 			<v:userDefs>
 				<v:ud v:nameU="visVersion" v:prompt="" v:val="VT0(15):26"/>
 			</v:userDefs>
 			<rect x="0" y="833.386" width="17.0079" height="8.50394" class="st11"/>
 		</g>
-		<g id="shape1081-162" v:mID="1081" v:groupContext="shape" v:layerMember="0" transform="translate(160.583,-658.409)">
+		<g id="shape1081-163" v:mID="1081" v:groupContext="shape" v:layerMember="0" transform="translate(160.583,-658.409)">
 			<title>Message</title>
 			<desc>&#60;&#60;create&#62;&#62; (SoegInputType1, SourceUsageOrder)</desc>
 			<v:userDefs>
@@ -648,18 +649,18 @@
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 			<v:textRect cx="43.4409" cy="834.803" width="73.39" height="36.8035"/>
 			<path d="M0 834.8 L79.93 834.8" class="st12"/>
-			<rect v:rectContext="textBkgnd" x="11.6542" y="820.403" width="63.5738" height="28.7996" class="st14"/>
+			<rect v:rectContext="textBkgnd" x="11.6542" y="820.403" width="63.5738" height="28.7996" class="st16"/>
 			<text x="25.15" y="827.6" class="st15" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>&#60;&#60;create&#62;&#62;<v:newlineChar/><tspan
 						x="14.88" dy="1.2em" class="st7">(</tspan>SoegInputType1,<v:newlineChar/><tspan x="11.65" dy="1.2em"
 						class="st7">SourceUsageOrder</tspan>)</text>		</g>
-		<g id="shape1087-171" v:mID="1087" v:groupContext="shape" transform="translate(-590.173,544.252) rotate(-90)">
+		<g id="shape1087-172" v:mID="1087" v:groupContext="shape" transform="translate(-590.173,544.252) rotate(-90)">
 			<title>Activation.1087</title>
 			<v:userDefs>
 				<v:ud v:nameU="visVersion" v:prompt="" v:val="VT0(15):26"/>
 			</v:userDefs>
 			<rect x="0" y="833.386" width="331.007" height="8.50394" class="st11"/>
 		</g>
-		<g id="shape1077-173" v:mID="1077" v:groupContext="shape" v:layerMember="0" transform="translate(240.378,-605.968)">
+		<g id="shape1077-174" v:mID="1077" v:groupContext="shape" v:layerMember="0" transform="translate(240.378,-605.968)">
 			<title>Self Message</title>
 			<desc>RunMainMethod(IDataProvider as TInterface)</desc>
 			<v:userDefs>
@@ -671,9 +672,9 @@
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 			<v:textRect cx="7.08661" cy="858.898" width="158.88" height="17.6036"/>
 			<path d="M7.09 841.89 L25.09 841.89 L25.09 875.91 L14.04 875.91" class="st12"/>
-			<rect v:rectContext="textBkgnd" x="-67.4441" y="854.098" width="149.062" height="9.59985" class="st16"/>
+			<rect v:rectContext="textBkgnd" x="-67.4441" y="854.098" width="149.062" height="9.59985" class="st14"/>
 			<text x="-67.44" y="861.3" class="st15" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>RunMainMethod(IDataProvider as TInterface)</text>		</g>
-		<g id="shape1068-180" v:mID="1068" v:groupContext="shape" v:layerMember="0" transform="translate(73.7008,-621.558)">
+		<g id="shape1068-181" v:mID="1068" v:groupContext="shape" v:layerMember="0" transform="translate(73.7008,-621.558)">
 			<title>Message.1068</title>
 			<desc>Invoke(IDataProvider)</desc>
 			<v:userDefs>
@@ -687,14 +688,14 @@
 			<path d="M0 834.8 L166.81 834.8" class="st12"/>
 			<rect v:rectContext="textBkgnd" x="51.2003" y="830.003" width="71.3633" height="9.59985" class="st14"/>
 			<text x="51.2" y="837.2" class="st15" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Invoke(IDataProvider)</text>		</g>
-		<g id="shape1088-187" v:mID="1088" v:groupContext="shape" transform="translate(-503.291,522.992) rotate(-90)">
+		<g id="shape1088-188" v:mID="1088" v:groupContext="shape" transform="translate(-503.291,522.992) rotate(-90)">
 			<title>Activation.1088</title>
 			<v:userDefs>
 				<v:ud v:nameU="visVersion" v:prompt="" v:val="VT0(15):26"/>
 			</v:userDefs>
 			<rect x="0" y="833.386" width="238.881" height="8.50394" class="st11"/>
 		</g>
-		<g id="shape1069-189" v:mID="1069" v:groupContext="shape" v:layerMember="0" transform="translate(247.465,-550.692)">
+		<g id="shape1069-190" v:mID="1069" v:groupContext="shape" v:layerMember="0" transform="translate(247.465,-550.692)">
 			<title>Message.1069</title>
 			<desc>SearchList (SoegInputType1)</desc>
 			<v:userDefs>
@@ -709,7 +710,7 @@
 			<rect v:rectContext="textBkgnd" x="15.7269" y="825.328" width="57.5544" height="19.1997" class="st16"/>
 			<text x="28.07" y="832.53" class="st15" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>SearchList<v:newlineChar/><tspan
 						x="15.73" dy="1.2em" class="st7">(</tspan>SoegInputType1)</text>		</g>
-		<g id="shape1089-197" v:mID="1089" v:groupContext="shape" v:layerMember="0" transform="translate(331.512,-540.771)">
+		<g id="shape1089-198" v:mID="1089" v:groupContext="shape" v:layerMember="0" transform="translate(331.512,-540.771)">
 			<title>Self Message.1089</title>
 			<desc>CallGctpService (ServiceInfo, gctpMessage)</desc>
 			<v:userDefs>
@@ -724,14 +725,14 @@
 			<rect v:rectContext="textBkgnd" x="-36.6531" y="849.298" width="87.4797" height="19.1997" class="st16"/>
 			<text x="-18.08" y="856.5" class="st15" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>CallGctpService<v:newlineChar/><tspan
 						x="-36.65" dy="1.2em" class="st7">(</tspan>ServiceInfo, gctpMessage)</text>		</g>
-		<g id="shape1092-205" v:mID="1092" v:groupContext="shape" transform="translate(-416.409,459.213) rotate(-90)">
+		<g id="shape1092-206" v:mID="1092" v:groupContext="shape" transform="translate(-416.409,459.213) rotate(-90)">
 			<title>Activation.1092</title>
 			<v:userDefs>
 				<v:ud v:nameU="visVersion" v:prompt="" v:val="VT0(15):26"/>
 			</v:userDefs>
 			<rect x="0" y="833.386" width="89.4155" height="8.50394" class="st11"/>
 		</g>
-		<g id="shape1091-207" v:mID="1091" v:groupContext="shape" v:layerMember="0" transform="translate(334.346,-471.322)">
+		<g id="shape1091-208" v:mID="1091" v:groupContext="shape" v:layerMember="0" transform="translate(334.346,-471.322)">
 			<title>Message.1091</title>
 			<desc>callGCTP CheckService (Invocation ContextType, gctpMessage)</desc>
 			<v:userDefs>
@@ -743,12 +744,12 @@
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 			<v:textRect cx="43.4409" cy="848.976" width="54.93" height="56.0034"/>
 			<path d="M0 848.98 L79.93 848.98" class="st12"/>
-			<rect v:rectContext="textBkgnd" x="20.8847" y="824.977" width="45.1126" height="47.9995" class="st16"/>
+			<rect v:rectContext="textBkgnd" x="20.8847" y="824.977" width="45.1126" height="47.9995" class="st14"/>
 			<text x="29.33" y="832.18" class="st15" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>callGCTP<v:newlineChar/><tspan
 						x="22.08" dy="1.2em" class="st7">CheckService<v:newlineChar/></tspan><tspan x="25.13" dy="1.2em"
 						class="st7">(</tspan>Invocation<v:newlineChar/><tspan x="21.85" dy="1.2em" class="st7">ContextType</tspan>,<v:newlineChar/><tspan
 						x="20.88" dy="1.2em" class="st7">gctpMessage</tspan>)</text>		</g>
-		<g id="shape1096-218" v:mID="1096" v:groupContext="shape" v:layerMember="0" transform="translate(421.228,-386.283)">
+		<g id="shape1096-219" v:mID="1096" v:groupContext="shape" v:layerMember="0" transform="translate(421.228,-386.283)">
 			<title>Return Message.1096</title>
 			<desc>retXml as string</desc>
 			<v:userDefs>
@@ -762,14 +763,14 @@
 			<path d="M0 834.8 L-86.88 834.8" class="st17"/>
 			<rect v:rectContext="textBkgnd" x="-68.8448" y="830.003" width="50.8079" height="9.59985" class="st16"/>
 			<text x="-68.84" y="837.2" class="st15" v:langID="1030"><v:paragraph v:horizAlign="1"/><v:tabList/>retXml as string</text>		</g>
-		<g id="shape1097-226" v:mID="1097" v:groupContext="shape" transform="translate(-316.063,428.678) rotate(-90)">
+		<g id="shape1097-227" v:mID="1097" v:groupContext="shape" transform="translate(-316.063,428.678) rotate(-90)">
 			<title>Activation.1097</title>
 			<v:userDefs>
 				<v:ud v:nameU="visVersion" v:prompt="" v:val="VT0(15):26"/>
 			</v:userDefs>
 			<rect x="0" y="833.386" width="31.1811" height="8.50394" class="st11"/>
 		</g>
-		<g id="shape1093-228" v:mID="1093" v:groupContext="shape" v:layerMember="0" transform="translate(421.228,-437.306)">
+		<g id="shape1093-229" v:mID="1093" v:groupContext="shape" v:layerMember="0" transform="translate(421.228,-437.306)">
 			<title>Message.1093</title>
 			<desc>callGctpService (gctpMessage in soap body)</desc>
 			<v:userDefs>
@@ -785,7 +786,7 @@
 			<text x="25.45" y="827.6" class="st15" v:langID="1030"><v:paragraph v:horizAlign="1"/><v:tabList/>callGctpService<v:newlineChar/><tspan
 						x="27.62" dy="1.2em" class="st7" v:langID="1033">(</tspan><tspan class="st7" v:langID="1033">gctpMessage <v:newlineChar/></tspan><tspan
 						x="28.32" dy="1.2em" class="st7" v:langID="1033">in soap body</tspan><tspan class="st7" v:langID="1033">)</tspan></text>		</g>
-		<g id="shape1095-239" v:mID="1095" v:groupContext="shape" v:layerMember="0" transform="translate(521.575,-408.96)">
+		<g id="shape1095-240" v:mID="1095" v:groupContext="shape" v:layerMember="0" transform="translate(521.575,-408.96)">
 			<title>Return Message</title>
 			<desc>callGCTPCheck ServiceResponse</desc>
 			<v:userDefs>
@@ -797,10 +798,10 @@
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 			<v:textRect cx="-50.1732" cy="834.803" width="64.26" height="27.2035"/>
 			<path d="M0 834.8 L-100.35 834.8" class="st17"/>
-			<rect v:rectContext="textBkgnd" x="-77.3955" y="825.203" width="54.4447" height="19.1997" class="st14"/>
+			<rect v:rectContext="textBkgnd" x="-77.3955" y="825.203" width="54.4447" height="19.1997" class="st16"/>
 			<text x="-74.02" y="832.4" class="st15" v:langID="1030"><v:paragraph v:horizAlign="1"/><v:tabList/>callGCTPCheck<v:newlineChar/><tspan
 						x="-77.4" dy="1.2em" class="st7">ServiceResponse</tspan></text>		</g>
-		<g id="shape1100-247" v:mID="1100" v:groupContext="shape" v:layerMember="0" transform="translate(331.512,-373.527)">
+		<g id="shape1100-248" v:mID="1100" v:groupContext="shape" v:layerMember="0" transform="translate(331.512,-373.527)">
 			<title>Return Message.1100</title>
 			<desc>Kvit</desc>
 			<v:userDefs>
@@ -814,7 +815,7 @@
 			<path d="M7.09 841.89 L7.09 845.18 L25.09 845.18 L25.09 870.24 L7.09 870.24" class="st17"/>
 			<rect v:rectContext="textBkgnd" x="18.9442" y="851.263" width="12.2849" height="9.59985" class="st14"/>
 			<text x="18.94" y="858.46" class="st15" v:langID="1030"><v:paragraph v:horizAlign="1"/><v:tabList/>Kvit</text>		</g>
-		<g id="shape1101-254" v:mID="1101" v:groupContext="shape" v:layerMember="0" transform="translate(334.346,-315.416)">
+		<g id="shape1101-255" v:mID="1101" v:groupContext="shape" v:layerMember="0" transform="translate(334.346,-315.416)">
 			<title>Return Message.1101</title>
 			<desc>LaesResultatType[]</desc>
 			<v:userDefs>
@@ -828,7 +829,7 @@
 			<path d="M0 834.8 L-86.88 834.8" class="st17"/>
 			<rect v:rectContext="textBkgnd" x="-74.2394" y="830.003" width="61.597" height="9.59985" class="st14"/>
 			<text x="-74.24" y="837.2" class="st15" v:langID="1030"><v:paragraph v:horizAlign="1"/><v:tabList/>LaesResultatType[]</text>		</g>
-		<g id="shape1102-261" v:mID="1102" v:groupContext="shape" v:layerMember="0" transform="translate(243.213,-295.574)">
+		<g id="shape1102-262" v:mID="1102" v:groupContext="shape" v:layerMember="0" transform="translate(243.213,-295.574)">
 			<title>Return Message.1102</title>
 			<desc>LaesResultatType[]</desc>
 			<v:userDefs>
@@ -840,7 +841,7 @@
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 			<v:textRect cx="-84.7559" cy="834.803" width="71.41" height="17.6036"/>
 			<path d="M0 834.8 L-169.51 834.8" class="st17"/>
-			<rect v:rectContext="textBkgnd" x="-115.554" y="830.003" width="61.597" height="9.59985" class="st16"/>
+			<rect v:rectContext="textBkgnd" x="-115.554" y="830.003" width="61.597" height="9.59985" class="st14"/>
 			<text x="-115.55" y="837.2" class="st15" v:langID="1030"><v:paragraph v:horizAlign="1"/><v:tabList/>LaesResultatType[]</text>		</g>
 	</g>
 </svg>
