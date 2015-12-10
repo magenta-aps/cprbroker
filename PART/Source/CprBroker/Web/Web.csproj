@@ -140,6 +140,16 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\libs\bootstrap-3.3.5-dist\css\bootstrap-theme.css" />
+    <Content Include="Content\libs\bootstrap-3.3.5-dist\css\bootstrap-theme.min.css" />
+    <Content Include="Content\libs\bootstrap-3.3.5-dist\css\bootstrap.css" />
+    <Content Include="Content\libs\bootstrap-3.3.5-dist\css\bootstrap.min.css" />
+    <Content Include="Content\libs\bootstrap-3.3.5-dist\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\libs\bootstrap-3.3.5-dist\js\bootstrap.js" />
+    <Content Include="Content\libs\bootstrap-3.3.5-dist\js\bootstrap.min.js" />
+    <Content Include="Content\libs\bootstrap-3.3.5-dist\js\npm.js" />
+    <Content Include="Content\libs\jquery-1.11.1\jquery-1.11.1.js" />
+    <Content Include="Content\libs\jquery-1.11.1\jquery-1.11.1.min.js" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Pages\Controls\ConfigPropertyEditor.ascx" />
     <Content Include="Pages\Controls\ConfigPropertyGridEditor.ascx" />
@@ -150,13 +160,22 @@
     <Content Include="Pages\Budget.aspx" />
     <Content Include="Pages\Dbr.aspx" />
     <Content Include="Pages\ExternalCalls.aspx" />
+    <Content Include="Content\libs\bootstrap-3.3.5-dist\css\bootstrap-theme.css.map" />
+    <Content Include="Content\libs\bootstrap-3.3.5-dist\css\bootstrap.css.map" />
+    <Content Include="Content\libs\bootstrap-3.3.5-dist\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\libs\bootstrap-3.3.5-dist\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\libs\bootstrap-3.3.5-dist\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\libs\bootstrap-3.3.5-dist\fonts\glyphicons-halflings-regular.woff2" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-2.1.4.js" />
     <Content Include="Scripts\jquery-2.1.4.min.js" />
     <Content Include="web.config">
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Scripts\jquery-2.1.4.min.map" />
+    <Content Include="Views\SubscriptionDataProvider\DataProviderFieldView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -379,7 +398,9 @@
     <Content Include="Views\SubscriptionDataProvider\DataProviderView.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="packages.config" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

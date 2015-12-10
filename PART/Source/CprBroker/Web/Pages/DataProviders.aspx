@@ -125,8 +125,7 @@
                     <h4 class="modal-title">Title</h4>
                 </div>
                 <div class="modal-body">
-                    Body
-                <span id="dataProviderPopup"></span>
+                    <span id="dataProviderPopup"></span>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

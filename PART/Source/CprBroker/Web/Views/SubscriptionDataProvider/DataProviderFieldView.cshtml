@@ -8,21 +8,22 @@
         fieldSubscriptions = new string[0];
 }
 
-<div>
-    <div class="GridHeader">
+    <h1>
         @field
-    </div>
-    @{int i = 0;}
+    </h1>
+    
     @if (fieldLookups != null)
     {
-        foreach (var fieldLookup in fieldLookups)
-        {
-            <div class="@{Output.Write((i++ % 2 == 0)? "Row" : "AlternateRow");}">
-                @{var id = field.Trim() + "_" + @fieldLookup.Key;}
-                <input type="checkbox" name="chkSubscription" checked="@fieldSubscriptions.Contains(fieldLookup.Key)" value="@fieldLookup.Key" id="@id" field="@field" />
-                <label for=@id>@fieldLookup.Value</label>
-            </div>
-        }
+        <div class="row" >
+            @foreach (var fieldLookup in fieldLookups)
+            {
+                <div class="col-sm-3">
+                    @{var id = field.Trim() + "_" + @fieldLookup.Key;}
+                    <input type="checkbox" name="chkSubscription" checked="@fieldSubscriptions.Contains(fieldLookup.Key)" value="@fieldLookup.Key" id="@id" field="@field" />
+                    <label for=@id>@fieldLookup.Value</label>
+                </div>
+            }
+        </div>
     }
     else
     {
@@ -32,19 +33,25 @@
         }
         else
         {
-            foreach (var fieldSubscription in fieldSubscriptions)
-            {
-                <p>
-                    @fieldSubscription
-                    <button class="CommandButton" name="removeSubscription" field="@field" fieldvalue="@fieldSubscription">X</button>
-                </p>
-            }
+            <div class="row">
+                @foreach (var fieldSubscription in fieldSubscriptions)
+                {
+                    <div class="col-sm-2">
+                        @fieldSubscription
+                        <button type="button" class="btn btn-default btn-sm" name="removeSubscription" field="@field" fieldvalue="@fieldSubscription">
+                            <span class="glyphicon glyphicon-minus"></span>
+                        </button>
+                    </div>
+                }
+            </div>
         }
         var addTextBoxId = field.Replace(" ", "") + "_new";
 
-        <input type="text" id="@addTextBoxId" field="@field" />
-        <a>
-            <button class="CommandButton" textboxid="@addTextBoxId" name="addSubscription">Add</button>
-        </a>
+        <div class="row">
+            <input type="text" id="@addTextBoxId" field="@field" class="input-sm" />
+            <button class="btn btn-default btn-sm" textboxid="@addTextBoxId" name="addSubscription">
+                <span class="glyphicon glyphicon-plus"></span>
+            </button>
+        </div>
     }
 </div>

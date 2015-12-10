@@ -15,5 +15,7 @@ namespace CprBroker.Engine
 
         bool PutSubscription(string field, string value);
         bool RemoveSubscription(string field, string value);
+
+        Dictionary<string, string> EnumerateField(string field);
     }
 }
