@@ -23,9 +23,6 @@
  *
  * Contributor(s):
  * Beemen Beshara
- * Niels Elgaard Larsen
- * Leif Lodahl
- * Steen Deth
  *
  * The code is currently governed by IT- og Telestyrelsen / Danish National
  * IT and Telecom Agency
