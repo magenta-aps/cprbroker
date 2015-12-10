@@ -88,16 +88,20 @@
             <asp:CommandField ShowDeleteButton="True" ControlStyle-CssClass="CommandButton" />
             <asp:TemplateField ControlStyle-CssClass="UpDownButton">
                 <ItemTemplate>
-                    <asp:ImageButton runat="server" ID="UpButton" ImageUrl="Images/Up.jpg" CommandName="Up"
-                        CommandArgument='<%# Eval("DataProviderId") %>' />
+                    <asp:LinkButton runat="server" ID="UpButton" CommandName="Up"
+                        CommandArgument='<%# Eval("DataProviderId") %>' >
+                        <span class="glyphicon glyphicon-chevron-up"></span>
+                    </asp:LinkButton>
                 </ItemTemplate>
                 <EditItemTemplate>
                 </EditItemTemplate>
             </asp:TemplateField>
             <asp:TemplateField ControlStyle-CssClass="UpDownButton">
                 <ItemTemplate>
-                    <asp:ImageButton runat="server" ID="DownButton" ImageUrl="Images/Down.jpg" CommandName="Down"
-                        CommandArgument='<%# Eval("DataProviderId") %>' />
+                    <asp:LinkButton runat="server" ID="DownButton" CommandName="Down"
+                        CommandArgument='<%# Eval("DataProviderId") %>' >
+                        <span class="glyphicon glyphicon-chevron-down"></span>
+                    </asp:LinkButton>
                 </ItemTemplate>
                 <EditItemTemplate>
                 </EditItemTemplate>

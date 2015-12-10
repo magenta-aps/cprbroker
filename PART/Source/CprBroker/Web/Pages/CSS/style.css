@@ -111,13 +111,9 @@ hr {
 }
 
 .UpDownButton {
-    display: block;
-    background-color: #42498c;
-    text-align: center;
-    color: #ffffff;
-    font-weight: 700;
-    font-family: Arial;
-    border: 0;
+    display:block;
+    padding:5px;
+    font-size:1.5em;
 }
 
 .CriteriaButton {
