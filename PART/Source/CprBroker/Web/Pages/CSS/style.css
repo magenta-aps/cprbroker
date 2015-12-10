@@ -110,10 +110,11 @@ hr {
     border: 0;
 }
 
-.UpDownButton {
+.UpDownButton span{
     display:block;
     padding:5px;
     font-size:1.5em;
+    color:#000000;
 }
 
 .CriteriaButton {
