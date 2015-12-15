@@ -11,6 +11,8 @@
             <ComponentGroupRef Id="CMPGRP_bin"/>
             <ComponentGroupRef Id="CMPGRP_Config"/>
             <ComponentGroupRef Id="CMPGRP_Pages"/>
+            <ComponentGroupRef Id="CMPGRP_CPR_Bootstrap"/>
+            <ComponentGroupRef Id="CMPGRP_CPR_jQuery"/>
             <ComponentGroupRef Id="CMPGRP_Services"/>
             <ComponentGroupRef Id="CMPGRP_Logging"/>
 

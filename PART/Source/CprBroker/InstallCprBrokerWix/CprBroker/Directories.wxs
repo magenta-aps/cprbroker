@@ -1,22 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:sql="http://schemas.microsoft.com/wix/SqlExtension" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
-  <Fragment xmlns="http://schemas.microsoft.com/wix/2006/wi">
-    <DirectoryRef Id="INSTALLDIR">
-      <Directory Id="CprBroker" Name="CprBroker">
-        <Directory Id="CPR_Website" Name="Website" >
-          <Directory Id="CPR_App_Themes" Name="App_Themes">
-            <Directory Id="CPR_DefaultTheme" Name="DefaultTheme"/>
-          </Directory>
-          <Directory Id="CPR_bin" Name="bin" />
-          <Directory Id="CPR_Config" Name="Config" />
-          <Directory Id="CPR_Pages" Name="Pages">
-            <Directory Id="CPR_CSS" Name="CSS"/>
-            <Directory Id="CPR_Controls" Name="Controls"/>
-            <Directory Id="CPR_Images" Name="Images"/>
-          </Directory>
-          <Directory Id="CPR_Services" Name="Services" />
-        </Directory>
-      </Directory>
-    </DirectoryRef>
-  </Fragment>
+    <Fragment xmlns="http://schemas.microsoft.com/wix/2006/wi">
+        <DirectoryRef Id="INSTALLDIR">
+            <Directory Id="CprBroker" Name="CprBroker">
+                <Directory Id="CPR_Website" Name="Website" >
+                    <Directory Id="CPR_App_Themes" Name="App_Themes">
+                        <Directory Id="CPR_DefaultTheme" Name="DefaultTheme"/>
+                    </Directory>
+                    <Directory Id="CPR_bin" Name="bin" />
+                    <Directory Id="CPR_Config" Name="Config" />
+                    <Directory Id="CPR_Pages" Name="Pages">
+                        <Directory Id="CPR_CSS" Name="CSS"/>
+                        <Directory Id="CPR_Controls" Name="Controls"/>
+                        <Directory Id="CPR_Images" Name="Images"/>
+                    </Directory>
+                    <Directory Id="CPR_Views" Name="Views">
+                        <Directory Id="CPR_Views_SubscriptionDataProvider" Name="SubscriptionDataProvider"/>
+                    </Directory>
+                    <Directory Id="CPR_Content" Name="Content">
+                        <Directory Id="CPR_libs" Name="libs">
+                            <Directory Id="CPR_Bootstrap" Name="bootstrap-3.3.5-dist">
+                                <Directory Id="CPR_Bootstrap_css" Name="css" />
+                                <Directory Id="CPR_Bootstrap_fonts" Name="fonts" />
+                                <Directory Id="CPR_Bootstrap_js" Name="js" />
+                            </Directory>
+                            <Directory Id="CPR_jQuery" Name="jquery-1.11.1" />
+                        </Directory>
+                    </Directory>
+                    <Directory Id="CPR_Services" Name="Services" />
+                </Directory>
+            </Directory>
+        </DirectoryRef>
+    </Fragment>
 </Wix>

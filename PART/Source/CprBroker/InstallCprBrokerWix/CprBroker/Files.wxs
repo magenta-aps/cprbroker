@@ -179,13 +179,10 @@
             <!-- Css folder -->
             <Component Id="CMP_CPR_CSS" Directory="CPR_CSS">
                 <RemoveFile Id="Remove_CPR_CSS" Name="style.css" On="install" />
-                <File Id="FILE_CPR_CSS" Source="$(var.SitePath)Pages\CSS\style.css" KeyPath="yes"/>
+                <File Id="FILE_CPR_CSS" Source="$(var.SitePath)Pages\CSS\style.css" KeyPath="yes" />
             </Component>
 
             <!-- Images folder -->
-            <Component Id="CMP_CPR_IMAGES_Down" Directory="CPR_Images">
-                <File Id="FILE_CPR_IMAGES_Down" Source="$(var.SitePath)Pages\Images\Down.jpg" KeyPath="yes"/>
-            </Component>
             <Component Id="CMP_CPR_IMAGES_left_menu_bg" Directory="CPR_Images">
                 <File Id="FILE_CPR_IMAGES_left_menu_bg" Source="$(var.SitePath)Pages\Images\left_menu_bg.gif" KeyPath="yes"/>
             </Component>
@@ -201,8 +198,54 @@
             <Component Id="CMP_CPR_IMAGES_unn_bottom" Directory="CPR_Images">
                 <File Id="FILE_CPR_IMAGES_unn_bottom" Source="$(var.SitePath)Pages\Images\unn_bottom.gif" KeyPath="yes"/>
             </Component>
-            <Component Id="CMP_CPR_IMAGES_Up" Directory="CPR_Images">
-                <File Id="FILE_CPR_IMAGES_Up" Source="$(var.SitePath)Pages\Images\Up.jpg" KeyPath="yes"/>
+            
+            <!-- Old images to be removed -->
+            <Component Id="CMP_CPR_IMAGES_Down" Directory="CPR_Images" Guid="{1FF5E746-71F5-49E2-A404-C568ABC02730}">
+                <RemoveFile Id="RF_0" On="both" Name="Down.jpg"/>
+            </Component>
+            <Component Id="CMP_CPR_IMAGES_Up" Directory="CPR_Images" Guid="{492C9DAB-4248-4A01-87A2-2C285481F496}">
+                <RemoveFile Id="RF_1" On="both" Name="Up.jpg"/>
+            </Component>
+
+            <!--MVC Views-->
+            <Component Id="CMP_CPR_Views_SubscriptionDataProvider_DataProviderFieldView" Directory="CPR_Views_SubscriptionDataProvider">
+                <File Id="FILE_CPR_Views_SubscriptionDataProvider_DataProviderFieldView" Source="$(var.SitePath)Views\SubscriptionDataProvider\DataProviderFieldView.cshtml" KeyPath="yes"/>
+            </Component>
+            <Component Id="CMP_CPR_Views_SubscriptionDataProvider_DataProviderView" Directory="CPR_Views_SubscriptionDataProvider">
+                <File Id="FILE_CPR_Views_SubscriptionDataProvider_DataProviderView" Source="$(var.SitePath)Views\SubscriptionDataProvider\DataProviderView.cshtml" KeyPath="yes"/>
+            </Component>
+
+        </ComponentGroup>
+
+        <ComponentGroup Id="CMPGRP_CPR_Bootstrap">
+            <Component Id="CMP_CPR_Bootstrap_css" Directory="CPR_Bootstrap_css" Guid="{CA21406A-13D1-4579-B25A-4AAEFB328BCA}">
+                <File Id="FILE_CPR_BS_0" Source="$(var.SitePath)Content\libs\bootstrap-3.3.5-dist\css\bootstrap-theme.css" />
+                <File Id="FILE_CPR_BS_1" Source="$(var.SitePath)Content\libs\bootstrap-3.3.5-dist\css\bootstrap-theme.css.map" />
+                <File Id="FILE_CPR_BS_2" Source="$(var.SitePath)Content\libs\bootstrap-3.3.5-dist\css\bootstrap-theme.min.css" />
+                <File Id="FILE_CPR_BS_3" Source="$(var.SitePath)Content\libs\bootstrap-3.3.5-dist\css\bootstrap.css" />
+                <File Id="FILE_CPR_BS_4" Source="$(var.SitePath)Content\libs\bootstrap-3.3.5-dist\css\bootstrap.css.map" />
+                <File Id="FILE_CPR_BS_5" Source="$(var.SitePath)Content\libs\bootstrap-3.3.5-dist\css\bootstrap.min.css" KeyPath="yes" />
+            </Component>
+
+            <Component Id="CMP_CPR_Bootstrap_fonts" Directory="CPR_Bootstrap_fonts" Guid="{976D6674-7701-4BE8-8C40-786D1AF8877F}">
+                <File Id="FILE_CPR_BS_10" Source="$(var.SitePath)Content\libs\bootstrap-3.3.5-dist\fonts\glyphicons-halflings-regular.eot" KeyPath="yes" />
+                <File Id="FILE_CPR_BS_11" Source="$(var.SitePath)Content\libs\bootstrap-3.3.5-dist\fonts\glyphicons-halflings-regular.svg" />
+                <File Id="FILE_CPR_BS_12" Source="$(var.SitePath)Content\libs\bootstrap-3.3.5-dist\fonts\glyphicons-halflings-regular.ttf" />
+                <File Id="FILE_CPR_BS_13" Source="$(var.SitePath)Content\libs\bootstrap-3.3.5-dist\fonts\glyphicons-halflings-regular.woff" />
+                <File Id="FILE_CPR_BS_14" Source="$(var.SitePath)Content\libs\bootstrap-3.3.5-dist\fonts\glyphicons-halflings-regular.woff2" />
+            </Component>
+
+            <Component Id="CMP_CPR_Bootstrap_js" Directory="CPR_Bootstrap_js" Guid="{EE3297F9-A842-4C60-92A1-46797E64C18C}">
+                <File Id="FILE_CPR_BS_20" Source="$(var.SitePath)Content\libs\bootstrap-3.3.5-dist\js\bootstrap.js" />
+                <File Id="FILE_CPR_BS_21" Source="$(var.SitePath)Content\libs\bootstrap-3.3.5-dist\js\bootstrap.min.js" />
+                <File Id="FILE_CPR_BS_22" Source="$(var.SitePath)Content\libs\bootstrap-3.3.5-dist\js\npm.js" />
+            </Component>
+        </ComponentGroup>
+
+        <ComponentGroup Id="CMPGRP_CPR_jQuery">
+            <Component Id="CMP_CPR_jQuery" Directory="CPR_jQuery" Guid="{5F02C030-8EDC-4EFB-9914-8F497A248F77}">
+                <File Id="FILE_CPR_jQuery_0" Source="$(var.SitePath)Content\libs\jquery-1.11.1\jquery-1.11.1.js" />
+                <File Id="FILE_CPR_jQuery_1" Source="$(var.SitePath)Content\libs\jquery-1.11.1\jquery-1.11.1.min.js" KeyPath="yes" />
             </Component>
         </ComponentGroup>
 
