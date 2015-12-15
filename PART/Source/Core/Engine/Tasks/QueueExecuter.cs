@@ -16,12 +16,12 @@ namespace CprBroker.Engine.Tasks
         {
             this.Queue = queue;
             // TODO: Read this from some config
-            this.TimerInterval = TimeSpan.FromSeconds(10);
+            this.TimerInterval = TimeSpan.FromSeconds(30);
         }
 
         protected override void PerformTimerAction()
         {
-            this.Queue.RunAll();
+            this.Queue.RunOneBatch();
         }
 
         public class EqualityComparer : IEqualityComparer<QueueExecuter>

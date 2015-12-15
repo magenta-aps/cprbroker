@@ -32,10 +32,10 @@
         <elementListCompartment Id="0a5d93da-5484-4e68-bb06-4e1e53998632" absoluteBounds="10.39, 1.21, 1.9700000000000002, 6.403035481770833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="b8bebd5d-955c-48ad-acac-5526af185947" absoluteBounds="4.375, 6.25, 2, 1.9631982421875005">
+    <classShape Id="b8bebd5d-955c-48ad-acac-5526af185947" absoluteBounds="4.25, 6.75, 2, 1.9631982421875005">
       <DataClassMoniker Name="/DPRDataContext/Nationality" />
       <nestedChildShapes>
-        <elementListCompartment Id="ea8c750d-dc6e-472a-b9f3-dbde91a9c35d" absoluteBounds="4.3900000000000006, 6.7100000000000009, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="ea8c750d-dc6e-472a-b9f3-dbde91a9c35d" absoluteBounds="4.2650000000000006, 7.2100000000000009, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
     <classShape Id="1e812134-9008-4bd9-b5ee-40547631ee7a" absoluteBounds="0.75, 6.5, 2, 2.7324039713541666">
@@ -117,7 +117,7 @@
         <classShapeMoniker Id="ad4c5d61-dbfb-400a-b829-0da01f27860b" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(7.5 : 0.96875); (6.39583333333333 : 0.968749999999999 : JumpStart); (6.22916666666667 : 0.96875 : JumpEnd); (4.625 : 0.96875)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(7.5 : 0.96875); (4.625 : 0.96875)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/DPRDataContext/PersonTotal/PersonTotal_Child" />
       <nodes>
         <classShapeMoniker Id="e41857ad-de04-40ac-b603-8b733e41b7d7" />
@@ -138,14 +138,14 @@
         <classShapeMoniker Id="417a32f9-d71c-4d19-b114-a7677b90d466" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(7.5 : 7.23159912109375); (6.375 : 7.23159912109375)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(7.5 : 7.73159912109375); (6.25 : 7.73159912109375)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/DPRDataContext/PersonTotal/PersonTotal_Nationality" />
       <nodes>
         <classShapeMoniker Id="e41857ad-de04-40ac-b603-8b733e41b7d7" />
         <classShapeMoniker Id="b8bebd5d-955c-48ad-acac-5526af185947" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(7.5 : 8.75405110677083); (2.75 : 8.75405110677083)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(7.5 : 9.00405110677083); (2.75 : 9.00405110677083)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/DPRDataContext/PersonTotal/PersonTotal_Separation" />
       <nodes>
         <classShapeMoniker Id="e41857ad-de04-40ac-b603-8b733e41b7d7" />
@@ -179,7 +179,7 @@
         <classShapeMoniker Id="506637ad-9e0d-4289-8885-b213d6e2ee48" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(7.5 : 9.39305047851563); (0.6250025 : 9.39305047851563); (0.6250025 : 2.65549967447917)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(7.5 : 9.39305047851562); (0.6250025 : 9.39305047851562); (0.6250025 : 2.65549967447917)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/DPRDataContext/PersonTotal/PersonTotal_Relation1" />
       <nodes>
         <classShapeMoniker Id="e41857ad-de04-40ac-b603-8b733e41b7d7" />

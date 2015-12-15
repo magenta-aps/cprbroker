@@ -14,9 +14,6 @@ namespace CprBroker.Tests.DBR
     {
         public class ClassicRequestTypeTestsBase
         {
-            public static string CprBrokerConnectionString = Comparison.ComparisonTest<object, ExtractDataContext>.CprBrokerConnectionString;
-            public static string FakeDprDatabaseConnectionString = Comparison.ComparisonTest<object, ExtractDataContext>.FakeDprDatabaseConnectionString;
-
             public static string[] PNRs
             {
                 get
@@ -86,7 +83,7 @@ namespace CprBroker.Tests.DBR
             public void Process_NormalPerson_OK(string pnr)
             {
                 var req = CreateRequest(pnr);
-                var resp = req.Process(FakeDprDatabaseConnectionString) as ClassicResponseType;
+                var resp = req.Process(Properties.Settings.Default.ImitatedDprConnectionString) as ClassicResponseType;
                 Assert.AreEqual("00", resp.ErrorNumber);
             }
 
@@ -94,13 +91,13 @@ namespace CprBroker.Tests.DBR
             [TestCaseSource(typeof(ClassicRequestTypeTestsBase), "PNRs")]
             public void Process_NormalPerson_GoesToDbr(string pnr)
             {
-                using (var dataContext = new DPRDataContext(FakeDprDatabaseConnectionString))
+                using (var dataContext = new DPRDataContext(Properties.Settings.Default.ImitatedDprConnectionString))
                 {
                     CprConverter.DeletePersonRecords(pnr, dataContext);
                 }
                 var req = CreateRequest(pnr);
-                var resp = req.Process(FakeDprDatabaseConnectionString) as ClassicResponseType;
-                using (var dataContext = new DPRDataContext(FakeDprDatabaseConnectionString))
+                var resp = req.Process(Properties.Settings.Default.ImitatedDprConnectionString) as ClassicResponseType;
+                using (var dataContext = new DPRDataContext(Properties.Settings.Default.ImitatedDprConnectionString))
                 {
                     var t = dataContext.PersonTotals.Where(pt => pt.PNR == decimal.Parse(pnr)).FirstOrDefault();
                     Assert.NotNull(t);

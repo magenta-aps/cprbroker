@@ -72,9 +72,10 @@ namespace CprBroker.DBR.Extensions
             if (!char.IsWhiteSpace(currentName.FirstNameMarker))
                 pn.FirstNameMarker = currentName.FirstNameMarker;
             if (!char.IsWhiteSpace(currentName.LastNameMarker))
-                pn.SurnameMarker = currentName.FirstNameMarker;
-            if (currentName.NameStartDate.HasValue)
-                pn.NameStartDate = CprBroker.Utilities.Dates.DateToDecimal(currentName.NameStartDate.Value, 12);
+                pn.SurnameMarker = currentName.LastNameMarker;
+
+            pn.NameStartDate = currentName.NameStartDateDecimal;
+
             pn.NameTerminationDate = null; //This is the current name
             pn.AddressingNameDate = null; //TODO: Can be fetched in CPR Services, adrnvnhaenstart
             pn.CorrectionMarker = null; // This is the current name
@@ -103,13 +104,11 @@ namespace CprBroker.DBR.Extensions
             if (!char.IsWhiteSpace(historicalName.FirstNameMarker))
                 pn.FirstNameMarker = historicalName.FirstNameMarker;
             if (!char.IsWhiteSpace(historicalName.LastNameMarker))
-                pn.SurnameMarker = historicalName.FirstNameMarker;
+                pn.SurnameMarker = historicalName.LastNameMarker;
 
-            if (historicalName.NameStartDate.HasValue)
-                pn.NameStartDate = CprBroker.Utilities.Dates.DateToDecimal(historicalName.NameStartDate.Value, 12);
+            pn.NameStartDate = historicalName.NameStartDateDecimal;
+            pn.NameTerminationDate = historicalName.NameEndDateDecimal;
 
-            if (historicalName.NameEndDate.HasValue)
-                pn.NameTerminationDate = CprBroker.Utilities.Dates.DateToDecimal(historicalName.NameEndDate.Value, 12);
             pn.AddressingNameDate = null; //TODO: Can be fetched in CPR Services, adrnvnhaenstart
             if (!char.IsWhiteSpace(historicalName.CorrectionMarker))
                 pn.CorrectionMarker = historicalName.CorrectionMarker;
@@ -128,13 +127,20 @@ namespace CprBroker.DBR.Extensions
         {
             if (!string.IsNullOrEmpty(addressingName))
             {
-                var lastNamePartCount = lastName.Split(' ').Length;
-                var addressingNameParts = addressingName.Split(' ');
-                var otherNamesPartCount = addressingNameParts.Length - lastNamePartCount;
-                return string.Format("{0},{1}",
-                    string.Join(" ", addressingNameParts.Skip(otherNamesPartCount).ToArray()),
-                    string.Join(" ", addressingNameParts.Take(otherNamesPartCount).ToArray())
-                );
+                if (addressingName.Contains(","))
+                {
+                    return addressingName;
+                }
+                else
+                {
+                    var lastNamePartCount = lastName.Split(' ').Length;
+                    var addressingNameParts = addressingName.Split(' ');
+                    var otherNamesPartCount = addressingNameParts.Length - lastNamePartCount;
+                    return string.Format("{0},{1}",
+                        string.Join(" ", addressingNameParts.Skip(otherNamesPartCount).ToArray()),
+                        string.Join(" ", addressingNameParts.Take(otherNamesPartCount).ToArray())
+                    );
+                }
             }
             return null;
         }
@@ -142,25 +148,28 @@ namespace CprBroker.DBR.Extensions
         public static string ToDprFirstName(string firstName, string middleName, bool upper)
         {
             int maxLength = 50;
-            firstName = string.Format("{0}", firstName);
-            middleName = string.Format("{0}", middleName);
+            firstName = string.Format("{0}", firstName).Trim();
+            middleName = string.Format("{0}", middleName).Trim();
 
-            if (firstName.Length + middleName.Length + 1 > maxLength)
+            var parts = firstName.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+            parts.AddRange(middleName.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries));
+
+            int lastIndex = parts.Count - 1;
+
+            while (
+                lastIndex >= 0 &&
+                parts.Sum(p => p.Length) + parts.Count - 1 > maxLength)
             {
-                middleName = string.Join(" ", middleName.Split(' ').Select(w => w[0].ToString().ToUpper()).ToArray());
+                parts[lastIndex] = parts[lastIndex][0].ToString().ToUpper();
+                lastIndex--;
             }
 
-            var ret = string
-                .Format("{0} {1}", firstName, middleName)
-                .Trim();
-
+            string ret = null;
+            if (parts.Count > 0)
+                ret = string.Join(" ", parts.ToArray());
             if (upper)
                 ret = ret.ToUpper();
 
-            if (string.IsNullOrEmpty(ret))
-            {
-                ret = null;
-            }
             return ret;
         }
 

@@ -127,7 +127,17 @@ ___________Attribute template _____________________________
                 </xsl:choose>
               </xsl:otherwise>
     </xsl:choose>
-        }&#xa;</xsl:template>
+        }
+<xsl:choose>
+      <xsl:when test="@dateFormat != ''">
+        <xsl:text>&#xa;        public Decimal </xsl:text>
+        <xsl:value-of select="@name"/><xsl:text>Decimal</xsl:text>
+        {
+            get { return this.GetDecimal(<xsl:value-of select="@position"/><xsl:call-template name="lengthTemplate"/><xsl:text>); }</xsl:text>
+        }&#xa;
+</xsl:when>
+</xsl:choose>
+  </xsl:template>
   
   
   <!-- 

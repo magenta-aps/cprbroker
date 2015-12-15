@@ -58,7 +58,7 @@ namespace CprBroker.DBR.Extensions
         {
             CivilStatus cs = new CivilStatus();
             cs.PNR = Decimal.Parse(currentCivilStatus.PNR);
-            cs.UpdateDateOfCpr = CprBroker.Utilities.Dates.DateToDecimal(currentCivilStatus.Registration.RegistrationDate, 12);
+            cs.CprUpdateDate = CprBroker.Utilities.Dates.DateToDecimal(currentCivilStatus.Registration.RegistrationDate, 12);
             cs.MaritalStatus = currentCivilStatus.CivilStatusCode;
             cs.MaritalStatusAuthorityCode = null; //TODO: Can be fetched in CPR Services, mynkod
 
@@ -70,8 +70,7 @@ namespace CprBroker.DBR.Extensions
 
             cs.SpouseDocumentation = null; //TODO: Can be fetched in CPR Services, aegtedok
 
-            if (currentCivilStatus.CivilStatusStartDate.HasValue)
-                cs.MaritalStatusDate = CprBroker.Utilities.Dates.DateToDecimal(currentCivilStatus.CivilStatusStartDate.Value, 12);
+            cs.MaritalStatusDate = currentCivilStatus.CivilStatusStartDateDecimal;
 
             cs.MaritalEndDate = null; //This is the current status
             cs.CorrectionMarker = null; //This is the current status
@@ -84,7 +83,7 @@ namespace CprBroker.DBR.Extensions
 
             if (currentCivilStatus.ReferenceToAnySeparation.HasValue)
             {
-                cs.SeparationReferralTimestamp = currentCivilStatus.ReferenceToAnySeparation.Value.ToString("yyyy-MM-dd-HH.mm.ss.fffff");
+                cs.SeparationReferralTimestamp = currentCivilStatus.ReferenceToAnySeparation.Value.ToString("yyyy-MM-dd-HH.mm.ss.ffffff");
             }
             else
             {
@@ -97,7 +96,7 @@ namespace CprBroker.DBR.Extensions
         {
             CivilStatus cs = new CivilStatus();
             cs.PNR = Decimal.Parse(historicalCivilStatus.PNR);
-            cs.UpdateDateOfCpr = CprBroker.Utilities.Dates.DateToDecimal(historicalCivilStatus.Registration.RegistrationDate, 12);
+            cs.CprUpdateDate = CprBroker.Utilities.Dates.DateToDecimal(historicalCivilStatus.Registration.RegistrationDate, 12);
             cs.MaritalStatus = historicalCivilStatus.CivilStatusCode;
             cs.MaritalStatusAuthorityCode = null; //TODO: Can be fetched in CPR Services, mynkod
 
@@ -109,11 +108,8 @@ namespace CprBroker.DBR.Extensions
 
             cs.SpouseDocumentation = null; //This is the current status
 
-            if (historicalCivilStatus.CivilStatusStartDate.HasValue)
-                cs.MaritalStatusDate = CprBroker.Utilities.Dates.DateToDecimal(historicalCivilStatus.CivilStatusStartDate.Value, 12);
-
-            if (historicalCivilStatus.CivilStatusEndDate.HasValue)
-                cs.MaritalEndDate = CprBroker.Utilities.Dates.DateToDecimal(historicalCivilStatus.CivilStatusEndDate.Value, 12);
+            cs.MaritalStatusDate = historicalCivilStatus.CivilStatusStartDateDecimal;
+            cs.MaritalEndDate = historicalCivilStatus.CivilStatusEndDateDecimal;
 
             cs.CorrectionMarker = historicalCivilStatus.CorrectionMarker;
             cs.AuthorityTextUpdateDate = null; //TODO: Can be fetched in CPR Services, myntxttimestamp
@@ -125,7 +121,7 @@ namespace CprBroker.DBR.Extensions
                 cs.SpouseName = null;
 
             if (historicalCivilStatus.ReferenceToAnySeparation.HasValue)
-                cs.SeparationReferralTimestamp = historicalCivilStatus.ReferenceToAnySeparation.Value.ToString();
+                cs.SeparationReferralTimestamp = historicalCivilStatus.ReferenceToAnySeparation.Value.ToString("yyyy-MM-dd-HH.mm.ss.ffffff");
 
             return cs;
         }

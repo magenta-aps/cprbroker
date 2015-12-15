@@ -49,6 +49,7 @@ using System.Text;
 using CprBroker.Providers.DPR;
 using CprBroker.Providers.CPRDirect;
 using CprBroker.Schemas.Part;
+using CprBroker.Utilities;
 
 namespace CprBroker.DBR.Extensions
 {
@@ -61,12 +62,13 @@ namespace CprBroker.DBR.Extensions
             p.CprUpdateDate = CprBroker.Utilities.Dates.DateToDecimal(person.RegistrationDate, 12);
             p.Birthdate = CprBroker.Utilities.Dates.DateToDecimal(person.PersonInformation.Birthdate.Value, 8);
             p.Gender = person.PersonInformation.Gender.ToString();
-            p.CustomerNumber = null; //DPR SPECIFIC
+            p.CustomerNumber = null; // person.CustomerNumber is always 0 and causes an error; 
             /*
              * Birth date related
              */
             p.BirthRegistrationAuthorityCode = decimal.Parse(person.BirthRegistrationInformation.BirthRegistrationAuthorityCode);
-            p.BirthRegistrationDate = CprBroker.Utilities.Dates.DateToDecimal(person.BirthRegistrationInformation.Registration.RegistrationDate, 12);
+            p.BirthRegistrationDate = 0;
+
             p.BirthRegistrationPlaceUpdateDate = 0; //TODO: Can be retrieved from CPR Services: foedmynhaenstart
             p.BirthplaceTextUpdateDate = null; //TODO: Can be retrieved from CPR Services: foedtxttimestamp
             p.BirthplaceText = person.BirthRegistrationInformation.AdditionalBirthRegistrationText; //TODO: validate that this is correct
@@ -74,13 +76,13 @@ namespace CprBroker.DBR.Extensions
              * Religious related
              */
             p.ChristianMark = person.ChurchInformation.ChurchRelationship.ToString();
-            p.ChurchRelationUpdateDate = CprBroker.Utilities.Dates.DateToDecimal(person.ChurchInformation.Registration.RegistrationDate, 12);
-            p.ChurchAuthorityCode = 0; //TODO: Can be retrieved from CPR Services: fkirkmynkod
-            p.ChurchDate = CprBroker.Utilities.Dates.DateToDecimal(person.ChurchInformation.StartDate.Value, 8);
+            p.ChurchRelationUpdateDate = 0;// CprBroker.Utilities.Dates.DateToDecimal(person.ChurchInformation.Registration.RegistrationDate, 12);
+            p.ChurchAuthorityCode = 0; // ChurchAdministrationDistrict.GetAuthorityCode(dataContext.Connection.ConnectionString, person.ClearWrittenAddress.MunicipalityCode, person.ClearWrittenAddress.StreetCode, person.ClearWrittenAddress.HouseNumber);//TODO: Can be retrieved from CPR Services: fkirkmynkod
+            p.ChurchDate = CprBroker.Utilities.Dates.DateToDecimal(person.ChurchInformation.StartDate.Value, 12);
             /*
              * Guardianship related
              */
-            p.UnderGuardianshipAuthprityCode = 0; //TODO: Can be retrieved from CPR Services: mynkod-ctumyndig
+            p.UnderGuardianshipAuthorityCode = null; //TODO: Can be retrieved from CPR Services: mynkod-ctumyndig
             p.GuardianshipUpdateDate = null; //TODO: Can be fetched in CPR Services: timestamp
             if (person.Disempowerment != null)
             {
@@ -94,19 +96,32 @@ namespace CprBroker.DBR.Extensions
              * PNR related
              */
             p.PnrMarkingDate = null; //TODO: Can be fetched in CPR Services: pnrhaenstart
-            p.PnrDate = 0; //TODO: Can be fetched in CPR Services: pnrmrkhaenstart 
-            p.CurrentPnrUpdateDate = null; //TODO: Can be fetched in CPR Services: timestamp
+
+            if (person.PersonInformation.PersonStartDate.HasValue)
+                p.PnrDate = CprBroker.Utilities.Dates.DateToDecimal(person.PersonInformation.PersonStartDate.Value, 12); //TODO: Can be fetched in CPR Services: pnrmrkhaenstart
+            else
+                p.PnrDate = 0;
+
             if (!string.IsNullOrEmpty(person.PersonInformation.CurrentCprNumber))
             {
                 p.CurrentPnr = decimal.Parse(person.PersonInformation.CurrentCprNumber);
+                if (person.PersonInformation.StatusStartDate.HasValue)
+                {
+                    p.CurrentPnrUpdateDate = Dates.DateToDecimal(person.PersonInformation.StatusStartDate.Value, 12);
+                }
+                else
+                {
+                    p.CurrentPnrUpdateDate = 0;
+                }
             }
             else
             {
-                p.CurrentPnr = null;
+                p.CurrentPnr = 0;
+                p.CurrentPnrUpdateDate = 0;
             }
             if (person.PersonInformation.PersonEndDate != null)
             {
-                p.PnrDeletionDate = CprBroker.Utilities.Dates.DateToDecimal(person.PersonInformation.PersonEndDate.Value, 8);
+                p.PnrDeletionDate = CprBroker.Utilities.Dates.DateToDecimal(person.PersonInformation.PersonEndDate.Value, 12);
             }
             else
             {
@@ -120,7 +135,24 @@ namespace CprBroker.DBR.Extensions
             /*
              * Relations related
              */
+
+            Func<decimal, string, char, string> parentDocumentationGetter = (parentPnr, parentName, parentNameUncertainty) =>
+                {
+                    if (parentPnr > 0 ||
+                        (!string.IsNullOrEmpty(parentName.Trim()) && parentNameUncertainty != '=')
+                        )
+                    {
+                        return "JA";// Can still be null in somestitations
+                    }
+                    else
+                    {
+                        return null; //TODO: Can be fetched in CPR Services: far_dok
+                    }
+                };
+
+
             p.KinshipUpdateDate = 0; //TODO: Can be fetched in CPR Services: timestamp
+
             if (!string.IsNullOrEmpty(person.ParentsInformation.MotherPNR))
             {
                 p.MotherPnr = decimal.Parse(person.ParentsInformation.MotherPNR);
@@ -129,7 +161,7 @@ namespace CprBroker.DBR.Extensions
             {
                 p.MotherPnr = 0;
             }
-            p.KinshipUpdateDate = 0; //TODO: Can be fetched in CPR Services: timestamp
+
             if (person.ParentsInformation.MotherBirthDate != null)
             {
                 p.MotherBirthdate = CprBroker.Utilities.Dates.DateToDecimal(person.ParentsInformation.MotherBirthDate.Value, 8);
@@ -138,7 +170,8 @@ namespace CprBroker.DBR.Extensions
             {
                 p.MotherBirthdate = null;
             }
-            p.MotherDocumentation = null; //TODO: Can be fetched in CPR Services: mor_dok
+            p.MotherDocumentation = parentDocumentationGetter(p.MotherPnr, person.ParentsInformation.MotherName, person.ParentsInformation.MotherNameUncertainty);
+
             p.FatherPnr = decimal.Parse(person.ParentsInformation.FatherPNR);
             if (person.ParentsInformation.FatherBirthDate != null)
             {
@@ -148,7 +181,9 @@ namespace CprBroker.DBR.Extensions
             {
                 p.FatherBirthdate = null;
             }
-            p.FatherDocumentation = null; //TODO: Can be fetched in CPR Services: far_dok
+
+            p.FatherDocumentation = parentDocumentationGetter(p.FatherPnr, person.ParentsInformation.FatherName, person.ParentsInformation.FatherNameUncertainty);
+
             p.PaternityDate = null; //TODO: Can be fetched in CPR Services: farhaenstart
             p.PaternityAuthorityCode = null; //TODO: Can be fetched in CPR Services: far_mynkod
             p.MotherName = person.ParentsInformation.MotherName;

@@ -79,3 +79,8 @@ OR
   EXISTS (select * from DTSTAT S where S.PNR=T.PNR and s.ANNKOR is null and HAENSLUT is null and S.MYNKOD <> 5100) 
 )
 
+==========================
+ Populate DPR Geo lookups
+==========================
+BatchClient.exe /envType "BatchClient.UpdateGeoLocationInformation, BatchClient" /source "vejregister.txt" /otherDb "data source=dbserver; initial catalog=cprbroker; integrated security=sspi; user id=; password=;" 
+BatchClient.exe /envType "BatchClient.UpdatePostCodeInformation, BatchClient" /source "a370727.txt" /otherDb "data source=dbserver; initial catalog=cprbroker; integrated security=sspi; user id=; password=;"

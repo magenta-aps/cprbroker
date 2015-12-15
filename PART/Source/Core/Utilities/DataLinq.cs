@@ -55,11 +55,17 @@ namespace CprBroker.Utilities
 {
     public static class DataLinq
     {
+        public static bool IsTable(Type t)
+        {
+            return t.GetCustomAttributes(typeof(TableAttribute), true).FirstOrDefault() != null;
+        }
+
         public static string GetTableName<TTable>()
         {
             Type tableType = typeof(TTable);
             return GetTableName(tableType);
         }
+
         /// <summary>
         /// Gets the name of the table that the <typeparamref name="TTable"/> is mapped to
         /// </summary>
@@ -171,6 +177,24 @@ namespace CprBroker.Utilities
             return arr.GroupBy(o => pkGetter(o))
                 .Select(g => g.First())
                 .ToArray();
+        }
+
+        public static PropertyInfo[] GetColumnProperties(Type tableType)
+        {
+            return tableType.GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                .Where(p => p.GetCustomAttributes(typeof(System.Data.Linq.Mapping.ColumnAttribute), true).FirstOrDefault() != null)
+                .OrderBy(p => p.Name)
+                .ToArray();
+        }
+
+        public static string GetColumnName(PropertyInfo propertyInfo)
+        {
+            var attr = propertyInfo.GetCustomAttributes(typeof(System.Data.Linq.Mapping.ColumnAttribute), true).FirstOrDefault() as System.Data.Linq.Mapping.ColumnAttribute;
+            if (attr != null)
+            {
+                return string.IsNullOrEmpty(attr.Name) ? propertyInfo.Name : attr.Name;
+            }
+            return null;
         }
 
     }

@@ -134,13 +134,10 @@ namespace CprBroker.Providers.KMD
             {
                 case Schemas.Part.PersonGenderCodeType.male:
                     return 'M';
-                    break;
                 case Schemas.Part.PersonGenderCodeType.female:
                     return 'K';
-                    break;
                 default:
                     return '*';
-                    break;
             }
         }
 

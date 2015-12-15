@@ -1,7 +1,6 @@
 obj
 bin
 debug
-
 _UpgradeReport_Files
 
 *.suo
@@ -107,7 +106,6 @@ PART/Source/Updates/DPRUpdatesNotificationService/DocAndDeploy
 PART/Doc/LTK/Presentation 20130415
 PART/Source/Batch UUID assignment
 PART/Source/CprBroker/Web/aspnet_client
-
 **/bin/
 **/obj/
 **/debug/

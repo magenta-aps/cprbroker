@@ -45,39 +45,56 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using CprBroker.Schemas.Part;
-using CprBroker.Utilities;
 
 namespace CprBroker.Providers.DPR
 {
-    public partial class ParentalAuthority
+    public class HouseLookupHelper<TObj>
+        where TObj : IHouseLookup
     {
-        public PersonRelationType ToRelationType(PersonTotal personTotal, Relation[] relations, Func<decimal, Guid> cpr2uuidConverter)
+        private static Dictionary<int, TObj[]> _PostDistricts = new Dictionary<int, TObj[]>();
+
+        public static TObj GetPostObject(
+            string connectionString,
+            decimal municipalityCode, decimal streetCode, string houseNumber,
+            Func<LookupDataContext, IQueryable<TObj>> loader)
         {
-            string pnr = null;
-            var relation = relations.Where(r => r.PNR == this.ChildPNR && r.RelationType == this.RelationType).SingleOrDefault();
-            switch ((int)this.RelationType)
+            return GetPostValue<TObj>(connectionString, municipalityCode, streetCode, houseNumber, loader, o => o);
+        }
+
+        public static T GetPostValue<T>(
+            string connectionString,
+            decimal municipalityCode, decimal streetCode, string houseNumber,
+            Func<LookupDataContext, IQueryable<TObj>> loader, Func<TObj, T> getter)
+        {
+            var databaseCode = connectionString.GetHashCode();
+
+            if (!_PostDistricts.ContainsKey(databaseCode))
             {
-                case 3:
-                    pnr = personTotal.MotherPersonalOrBirthDate;
-                    break;
-                case 4:
-                    pnr = personTotal.FatherPersonalOrBirthdate;
-                    break;
-                case 5:
-                    pnr = relation.RelationPNR.ToPnrDecimalString();
-                    break;
-                case 6:
-                    pnr = relation.RelationPNR.ToPnrDecimalString();
-                    break;
+                // Pre fill from database
+                using (var dataContext = new LookupDataContext(connectionString))
+                {
+                    _PostDistricts[databaseCode] = loader(dataContext).ToArray();
+                }
             }
-            if (pnr != null)
-            {
-                var pnrDec = Utilities.ToParentPnr(pnr);
-                if (pnrDec.HasValue)
-                    return PersonRelationType.Create(cpr2uuidConverter(pnrDec.Value), StartDate, EndDate);
-            }
-            return null;
+
+            var houseNumberObj = new HouseNumber(houseNumber);
+
+            var ret = _PostDistricts[databaseCode]
+                .Where(pd =>
+                    pd.KOMKOD == municipalityCode
+                    && pd.VEJKOD == streetCode
+                    && (
+                        houseNumberObj.Between(new HouseNumber(pd.HUSNRFRA), new HouseNumber(pd.HUSNRTIL), pd.LIGEULIGE)
+                        )
+                )
+                .OrderByDescending(
+                    pd => HouseNumber.RangeClosureDegree(new HouseNumber(pd.HUSNRFRA), new HouseNumber(pd.HUSNRTIL))
+                )
+                .FirstOrDefault();
+
+            if (ret != null)
+                return getter(ret);
+            return default(T);
         }
     }
 }

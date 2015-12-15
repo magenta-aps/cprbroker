@@ -59,7 +59,7 @@ namespace CprBroker.DBR.Extensions
             Separation s = new Separation();
             s.PNR = Decimal.Parse(currentSeparation.PNR);
             s.CprUpdateDate = CprBroker.Utilities.Dates.DateToDecimal(currentSeparation.Registration.RegistrationDate, 12);
-            s.SeparationReferalTimestamp = currentSeparation.ReferenceToAnyMaritalStatus.Value.ToString();
+            s.SeparationReferalTimestamp = currentSeparation.ReferenceToAnyMaritalStatus.Value.ToString("yyyy-MM-dd-HH.mm.ss.ffffff");
             s.CorrectionMarker = null; //This is the current status
             s.StartAuthorityCode = 0; //TODO: Can be fetched in CPR Services, mynkod_start
             s.StartDate = currentSeparation.SeparationStartDate.Value;
@@ -75,7 +75,7 @@ namespace CprBroker.DBR.Extensions
             Separation s = new Separation();
             s.PNR = Decimal.Parse(historicalSeparation.PNR);
             s.CprUpdateDate = CprBroker.Utilities.Dates.DateToDecimal(historicalSeparation.Registration.RegistrationDate, 12);
-            s.SeparationReferalTimestamp = historicalSeparation.ReferenceToAnyMaritalStatus.Value.ToString();
+            s.SeparationReferalTimestamp = historicalSeparation.ReferenceToAnyMaritalStatus.Value.ToString("yyyy-MM-dd-HH.mm.ss.ffffff");
             s.CorrectionMarker = historicalSeparation.CorrectionMarker;
             s.StartAuthorityCode = 0; //TODO: Can be fetched in CPR Services, mynkod_start
             s.StartDate = historicalSeparation.SeparationStartDate.Value;

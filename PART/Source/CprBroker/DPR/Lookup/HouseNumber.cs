@@ -45,39 +45,77 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using CprBroker.Schemas.Part;
-using CprBroker.Utilities;
+using System.Text.RegularExpressions;
 
 namespace CprBroker.Providers.DPR
 {
-    public partial class ParentalAuthority
+    public class HouseNumber
     {
-        public PersonRelationType ToRelationType(PersonTotal personTotal, Relation[] relations, Func<decimal, Guid> cpr2uuidConverter)
+        public int? Number;
+        public char? Letter;
+        public char EvenOddVal = EvenOdd.Even;
+
+        public decimal? IntValue
         {
-            string pnr = null;
-            var relation = relations.Where(r => r.PNR == this.ChildPNR && r.RelationType == this.RelationType).SingleOrDefault();
-            switch ((int)this.RelationType)
+            get
             {
-                case 3:
-                    pnr = personTotal.MotherPersonalOrBirthDate;
-                    break;
-                case 4:
-                    pnr = personTotal.FatherPersonalOrBirthdate;
-                    break;
-                case 5:
-                    pnr = relation.RelationPNR.ToPnrDecimalString();
-                    break;
-                case 6:
-                    pnr = relation.RelationPNR.ToPnrDecimalString();
-                    break;
+                if (Number.HasValue)
+                {
+                    var ret = Number.Value * 100;
+                    if (Letter.HasValue)
+                        ret += (int)Letter.Value;
+                    return ret;
+                }
+                else
+                {
+                    return null;
+                }
             }
-            if (pnr != null)
+        }
+
+        public HouseNumber(string houseNumber)
+        {
+            houseNumber = string.Format("{0}", houseNumber).Trim();
+
+            var pat = @"\A(?<num>\d+)(?<char>[a-zA-Z]*)\Z";
+            var m = Regex.Match(houseNumber, pat);
+
+            if (m.Success)
             {
-                var pnrDec = Utilities.ToParentPnr(pnr);
-                if (pnrDec.HasValue)
-                    return PersonRelationType.Create(cpr2uuidConverter(pnrDec.Value), StartDate, EndDate);
+                int num;
+                if (int.TryParse(m.Groups["num"].Value, out num))
+                {
+                    Number = num;
+                    EvenOddVal = EvenOdd.Even;
+                    if (num % 2 == 1)
+                        EvenOddVal = EvenOdd.Odd;
+                }
+
+                if (m.Groups["char"].Length > 0)
+                    Letter = m.Groups["char"].Value[0];
             }
-            return null;
+        }
+
+        public bool Between(HouseNumber from, HouseNumber to, char evenOdd)
+        {
+            var fromVal = from.IntValue.HasValue ? from.IntValue.Value : 0;
+            var toVal = to.IntValue.HasValue ? to.IntValue.Value : int.MaxValue;
+            var myValue = this.IntValue.HasValue ? this.IntValue.Value : 0;
+            return
+                true
+                && this.EvenOddVal.Equals(evenOdd)
+                && myValue >= fromVal && myValue <= toVal
+                ;
+        }
+
+        public static int RangeClosureDegree(HouseNumber from, HouseNumber to)
+        {
+            var ret = 0;
+            if (from.IntValue.HasValue)
+                ret++;
+            if (to.IntValue.HasValue)
+                ret++;
+            return ret;
         }
     }
 }

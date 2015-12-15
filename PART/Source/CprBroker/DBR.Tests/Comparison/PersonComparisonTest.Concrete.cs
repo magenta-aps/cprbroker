@@ -14,40 +14,38 @@ namespace CprBroker.Tests.DBR.Comparison.Person
         {
             get
             {
-                string[] excluded = {
-                                        
-                                    /* BELOW EXCLUSIONS ARE ONCE THAT ARE NOT, CURRENTLY, USED BY ANY SYSTEMS - AND FAIL IN TESTS */
-                                    "DirectoryProtectionMarker", // We do not test the street name as it is not present in historical records.
-                                    "SpouseMarker", // We do not know the origin of this marker.
-                                    "PaternityAuthorityName", // We can only get this one from CPR Services.
-                                    "ArrivalDateMarker", // We do not know the origin of this marker.
-                                    "PreviousAddress", // This field is not fully implemented because it is not used.
-                                    "PreviousMunicipalityName", // This field is not fully implemented because it is not used.
+                string[] excluded = 
+                {
+                    // Review 2.0
+                    "PreviousMunicipalityName", // Usually it is name of municipality of previous address, but sometimes contains the value from the minucipality that is different from the current one!!
+                    "SpouseMarker", // Not available in CPR Extracts
+                    "PaternityAuthorityName", // CPR Services 'far_mynkod' // Not available in CPR Extracts
+                    "DprLoadDate", // Irrelevant for comparison
+                    "FatherMarker", // No correlation found yet
+                    "MotherMarker", // No correlation found yet
+                    "ApplicationCode", // DPR Specific
+                    "MaritalAuthorityName", // CPR Services 'mynkod' ? // Not available in CPR Extracts
+                    
+                    // Review 2.1
+                    "PreviousAddress", // Some records are parts of municipalities without possible lookup
+                    "CurrentMunicipalityName", // Some dead (status 90) people have a value from latest address while others do not
 
-                                    // Extra exclusions - DO NOT COMMIT
-                                        "DprLoadDate",
-                                        "MunicipalityArrivalDate",
-                                        "MunicipalityLeavingDate",
-                                        "PostDistrictName",
-                                        "PreviousAddress",
-                                        "PreviousMunicipalityName",
-                                        "PaternityDate",
-                                        "FatherMarker",
-                                        "MotherMarker",
-                                        "ExitEntryMarker",
-                                        "ApplicationCode",
-                                        "BirthplaceText", // lookup
-                                        "MaritalAuthorityName",
-                                        "AddressDate",
-                                        "SpousePersonalOrBirthdate",
-                                        "StandardAddress",
-                                        "AddressProtectionMarker", // to be implemented
-                                        "PnrMarkingDate",
-                                        "NationalMemoMarker" // get from DTNOTAT
-                                };
+                    // Review 2.2
+                    "AddressDateMarker", // Like PersonAddress.AddressStartDateMarker, Some real DPR records have a value that has no origin in CPR Extracts
+                    "CareOfName", // Some real DPR records have a value that comes from an address that is marked as 'A' (Undo). 
+                    "DataRetrievalType", // Always 'D' (from CPR extract with subscription) in DBR emulation
+
+                    // Review 2.3
+                    "FormerPersonalMarker", // Requires lookup in another person and not available in CPR Extracts
+
+                    // Review 2.4
+                    "ExitEntryMarker", // Some people have Departure records in real DPR with no matching records in CPR Extracts
+                    "PnrMarkingDate", // CPR Services: pnrhaenstart // Not available in CPR Extracts
+                };
                 return excluded;
             }
         }
+
     }
 
     [TestFixture]
@@ -58,36 +56,25 @@ namespace CprBroker.Tests.DBR.Comparison.Person
             get
             {
                 string[] excluded = {
-                                    /* BELOW EXCLUSIONS ARE ONCE THAT ARE NOT, CURRENTLY, USED BY ANY SYSTEMS - AND FAIL IN TESTS */
-                                    "BirthplaceText", // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
-                                    "BirthRegistrationDate", // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
-                                    "BirthRegistrationPlaceUpdateDate", // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
-                                    "ChurchAuthorityCode", // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
-                                    "ChurchDate", // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
-                                    "ChurchRelationUpdateDate", // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
-                                    "CprUpdateDate", /* 
-                                                      * We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
-                                                      * The field should contain a chronologically sorted list, so that client systems can use it for sorting rows.
-                                                      */
-                                    "CurrentPnr", // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
-                                    "CurrentPnrUpdateDate", // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
-                                    "CustomerNumber", // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
-                                    "FatherDocumentation", // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
-                                    "FatherName", // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
-                                    "Job", // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
-                                    "KinshipUpdateDate", // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
-                                    "MotherDocumentation", // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
-                                    "MotherName", // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
-                                    "PaternityAuthorityCode", // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
-                                    "PaternityDate", // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
-                                    "PnrDate", // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
-                                    "UnderGuardianshipAuthprityCode", // We know that this field contains wrong data, but it is not used by known systems, so we skip it in the tests.
+                                        // Review 2.0
+                                        "BirthRegistrationDate", //Usually matches PersonInformation.PersonStartDate, but not always. 
+                                        "BirthRegistrationPlaceUpdateDate", // CPR Services 'foedmynhaenstart' ? 
+                                        "ChurchAuthorityCode", // Church district lookup? Not possible so far // CPR Services 'fkirkmynkod'
+                                        "ChurchRelationUpdateDate", // Not available in CPR Extracts.
+                                        "PnrDeletionDate", // Usually it is null, but is 0 a few times - excluding for now
+                                        "UnderGuardianshipRelationType", //Usually it is null, but is 0 a few times - excluding for now
+                                        "CustomerNumber", // This must differ from real DPR
+                                        "FatherDocumentation", // CPR Services 'far_dok' ? // We do the best to match it, but it not exactly matching a real DPR.
+                                        "MotherDocumentation", // CPR Services 'mor_dok' ? // We do the best to match it, but it not exactly matching a real DPR.                                        
+                                        "KinshipUpdateDate", // CPR Services 'timestamp' ? // Not available in CPR Extracts
+                                        "PaternityAuthorityCode", // CPR Services 'far_mynkod' ? // Not available in CPR Extracts
+                                        "PaternityDate", // CPR Services 'farhaenstart' ? // Not available in CPR Extracts
+                                        "UnderGuardianshipAuthorityCode", // CPR Services 'mynkod-ctumyndig' ? // Not available in CPR Extracts
+                                        "BirthplaceTextUpdateDate", // CPR Services 'foedtxttimestamp' ? // Not available in CPR Extracts
+                                        "JobDate", // CPR Services 'stillingsdato' ? // Not available in CPR Extracts
 
-                                    // EXTRA - do not commit
-                                    "PnrMarkingDate",
-                                    "UnderGuardianshipRelationType",
-                                    "BirthplaceTextUpdateDate",
-                                    "JobDate"
+                                        // Review 2.4
+                                        "PnrMarkingDate", // CPR Services: pnrhaenstart // Not available in CPR Extracts
                                 };
                 return excluded;
             }
@@ -103,7 +90,7 @@ namespace CprBroker.Tests.DBR.Comparison.Person
             {
                 return new string[] { 
                     // EXTRA - do not commit
-                    "MotherOrFatherDocumentation",
+                    "MotherOrFatherDocumentation", // CPR Service ?
                 };
             }
         }
@@ -117,25 +104,23 @@ namespace CprBroker.Tests.DBR.Comparison.Person
             get
             {
                 string[] excluded = {
-                                    /* BELOW EXCLUSIONS ARE ONCE THAT ARE NOT, CURRENTLY, USED BY ANY SYSTEMS - AND FAIL IN TESTS */
-                                    "AddressingNameDate", // We know that this field contains a 'wrong' date, but it is not used by known systems, so we skip it in the tests.
-                                    "AddressingNameReportingMarker", // We know that this field contains a 'wrong' date, but it is not used by known systems, so we skip it in the tests.
-                                    "CprUpdateDate", // We know that this field contains a 'wrong' date, but it is not used by known systems, so we skip it in the tests.
-                                    "NameAuthorityCode", // We know that this field contains a 'wrong' date, but it is not used by known systems, so we skip it in the tests.
-
-                                    // EXTRA- DO NOT COMMIT
-                                    "NameStartDate",
-                                    "SurnameMarker",
-                                    "MotherOrFatherDocumentation",
-                                    "NameTerminationDate" // some approximation differences on 'second' level
+                                        // Review 2.0
+                                        "AddressingNameDate", // CPR Services 'adrnvnhaenstart' ? // Not available in CPR Extracts
+                                        "AddressingNameReportingMarker", // CPR Services 'indrap' ? // Not available in CPR Extracts
+                                        "NameAuthorityCode", // CPR Services 'mynkod' // Not available in CPR Extracts
+                                        // Review 2.3
+                                        "NameAuthorityText", // CPR Services 'myntxt' // Not available in CPR Extracts
+                                        "AuthorityTextUpdateDate" // CPR Services 'myntxttimestamp' // Not available in CPR Extracts
                                 };
                 return excluded;
             }
         }
-        public override IQueryable<PersonName> Get(DPRDataContext dataContext, string key)
+
+        public override string[] GetOrderByColumnNames()
         {
-            var pnr = decimal.Parse(key);
-            return dataContext.PersonNames.Where(pn => pn.PNR == pnr).OrderByDescending(pn => pn.NameStartDate).ThenBy(pn => pn.CorrectionMarker);
+            return new string[] { 
+                "NVHAENST"
+            };
         }
     }
 
@@ -147,15 +132,41 @@ namespace CprBroker.Tests.DBR.Comparison.Person
             get
             {
                 string[] excluded = {
-                                    /* BELOW EXCLUSIONS ARE ONCE THAT ARE NOT, CURRENTLY, USED BY ANY SYSTEMS - AND FAIL IN TESTS */
-                                    "UpdateDateOfCpr", // We know that this field contains a 'wrong' date, so we do not test it.
-
-                                    // EXTRA - DO NOT COMMIT
-                                    "MaritalStatusAuthorityCode",
-                                    "CorrectionMarker",
-                                    "SpouseDocumentation",
+                                        // Review 2.0
+                                    "MaritalStatusAuthorityCode", // CPR Services 'mynkod' ?
+                                    "SpouseDocumentation", // CPR Services 'aegtedok' ?
+                                    "AuthorityTextUpdateDate", // CPR Services, myntxttimestamp
+                                    "MaritalStatusAuthorityText"// CPR Services, myntxt
                                 };
                 return excluded;
+            }
+        }
+
+        public static string NormalizeSeparationTimeStamp(string timestamp)
+        {
+            timestamp = string.Format("{0}", timestamp)
+                .Replace(":", " ")
+                .Replace("-", " ")
+                .Replace(".", " ")
+                ;
+            DateTime separationTs;
+            if (!string.IsNullOrEmpty(timestamp)
+                    && DateTime.TryParseExact(timestamp,
+                    new string[]{
+                        "yyyy MM dd HH mm ss ffffff",
+                        "yyyy MM dd HH mm ss",
+                    }, null, System.Globalization.DateTimeStyles.None, out separationTs))
+            {
+                timestamp = separationTs.ToString("yyyy-MM-dd-HH.mm.00.000000");
+            }
+            return timestamp;
+        }
+
+        public override void NormalizeObject(CivilStatus real, string realConnectionString, CivilStatus fake, string fakeConnectionString)
+        {
+            foreach (var obj in new CivilStatus[] { real, fake })
+            {
+                obj.SeparationReferralTimestamp = NormalizeSeparationTimeStamp(obj.SeparationReferralTimestamp);
             }
         }
     }
@@ -168,8 +179,19 @@ namespace CprBroker.Tests.DBR.Comparison.Person
             get
             {
                 return new string[] { 
-                    "CprUpdateDate", // CPR Direct has no time component
+                    // Review 2.0
+                    // Review 2.3
+                    "StartAuthorityCode", // CPR Services 'mynkod_start' // not available in CPR Extracts
+                    "EndAuthorityCode", // CPR Services 'mynkod_slut' // not available in CPR Extracts
                 };
+            }
+        }
+
+        public override void NormalizeObject(Separation realObject, string realConnectionString, Separation imitatedObject, string imitatedConnectionString)
+        {
+            foreach (var obj in new Separation[] { realObject, imitatedObject })
+            {
+                obj.SeparationReferalTimestamp = CivilStatusComparisonTests.NormalizeSeparationTimeStamp(obj.SeparationReferalTimestamp);
             }
         }
     }
@@ -182,14 +204,7 @@ namespace CprBroker.Tests.DBR.Comparison.Person
             get
             {
                 string[] excluded = {
-                                    "CprUpdateDate", // The values in this columns are wrong, but not used.
-
-                                    // EXTRA - DO NOT COMMIT
-                                    "CorrectionMarker",
-                                    "CountryCode",
-                                    "CprUpdateDate",
-                                    "NationalityEndDate",
-                                    "NationalityStartDate",
+                                    // Review 2.0
                                 };
                 return excluded;
             }
@@ -199,18 +214,22 @@ namespace CprBroker.Tests.DBR.Comparison.Person
     [TestFixture]
     public class DepartureComparisonTests : PersonComparisonTest<Departure>
     {
+        public override bool IgnoreCount
+        {
+            get
+            {
+                return true; // Some people have Departure records in real DPR with no matching records in CPR Extracts
+            }
+        }
         override public string[] ExcludedProperties
         {
             get
             {
                 string[] excluded = {
-                                    "ExitUpdateDate", // The values in this columns are wrong, but not used.
-                                    "CprUpdateDate", // The values in this columns are wrong, but not used.
-                                    "ForeignAddressDate", // The values in this columns are wrong, but not used.
-
-                                    // EXTRA - do not commit
-                                    "EntryUpdateDate",
-                                    "ExitCountryCode"
+                                    // Review 2.0
+                                    "ExitUpdateDate", // CPR Services 'udrtimestamp' ?// The values in this columns are wrong, but not used.
+                                    "ForeignAddressDate", // CPR Services 'udlandadrdto' ?// The values in this columns are wrong, but not used.
+                                    "EntryUpdateDate", // CPR Services 'indrtimestamp' ?
                                 };
                 return excluded;
             }
@@ -230,7 +249,7 @@ namespace CprBroker.Tests.DBR.Comparison.Person
             get
             {
                 return new string[]{
-                    "CprUpdateDate", // Data from CPR extracts only has a date but no time
+                    // Review 2.0
                     "MunicipalityCode", // FROM CPR services or maybe other records
                 };
             }
@@ -245,33 +264,58 @@ namespace CprBroker.Tests.DBR.Comparison.Person
             get
             {
                 string[] excluded = {
-                                    /* BELOW EXCLUSIONS ARE ONCE THAT ARE NOT, CURRENTLY, USED BY ANY SYSTEMS - AND FAIL IN TESTS */
-                                    "AddressStartDateMarker", // We do not know the origin of this marker.
-                                    "CprUpdateDate", // It is skipped for now, as the contents are wrong and not used by known systems.
-                                    "MunicipalityArrivalDate", // It is skipped for now, as the contents are wrong and not used by known systems.
-                                    "StreetAddressingName", // It is skipped for now, as the contents are wrong and not used by known systems.
+                                        // Review 2.0
+                                        "MunicipalityArrivalDate", // Sometimes it matches start date of previous address, other times matches birthdate
 
-                                    // EXTRA - do not commit
-                                    "PostCode",
-                                    "CorrectionMarker",
-                                    "MunicipalityCode",
-                                    "MunicipalityName",
-                                    "StreetCode",
-                                    "AddressEndDate",
-                                    "CorrectionMarker",
-                                    "DoorNumber",
-                                    "LeavingFromMunicipalityCode",
-                                    "LeavingFromMunicipalityDate",
-                                    "AddressStartDate" // minor approximation problems on millisecond level
+                                        // Review 2.1
+                                        "LeavingFromMunicipalityCode", // Some records gets this value from address records that have a correction marker - unreliable source
+                                        "LeavingFromMunicipalityDate", // Some records have no previous address but have a value equal to MunicipalityArrivalDate, which seems inconsistent
+                                        "Location", // Not available in CPR extracts for historical addresses 
+
+                                        //Review 2.2
+                                        "AddressStartDateMarker", // Some real DPR records have a value that has no origin in CPR Extracts
+
+                                        // Review 2.4
+                                        "MunicipalityName", // Many real DPR invalid addresses have either a null or a value here - no rule was concluded
+                                        "StreetAddressingName", // Many real DPR invalid addresses have either a null or a value here - no rule was concluded
+
                                 };
                 return excluded;
             }
         }
 
-        public override IQueryable<PersonAddress> Get(DPRDataContext dataContext, string pnr)
+        public override void NormalizeObject(PersonAddress realAddress, string realConnectionString,
+            PersonAddress imitatedAddress, string imitatedConnectionString)
         {
-            return dataContext.PersonAddresses.Where(c => c.PNR == decimal.Parse(pnr)).OrderByDescending(c => c.AddressStartDate);
+            // Review 2.3
+
+            foreach (var pa in new PersonAddress[] { realAddress, imitatedAddress })
+            {
+                // Inconsistent values seen in real DPR for PostNumber in persons with empty house number, or postcodes with open -ended house number intervals, 
+                // sometimes records have a value, sometimes it is 0
+                // Furthermore, the table DTPOSTDIST does not seem to contain the full datase in the real DPR, causeing a 0 in PersonAddress.PostCode
+                if (string.IsNullOrEmpty(string.Format("{0}", pa.HouseNumber)))
+                {
+                    pa.PostCode = 0;
+                }
+                else
+                {
+                    var postDistrict = HouseLookupHelper<PostDistrict>.GetPostObject(imitatedConnectionString, pa.MunicipalityCode, pa.StreetCode, pa.HouseNumber, dataContext => dataContext.PostDistricts);
+                    if (postDistrict == null || new HouseNumber(postDistrict.HUSNRFRA).IntValue == null || new HouseNumber(postDistrict.HUSNRTIL).IntValue == null)
+                    {
+                        pa.PostCode = 0;
+                    }
+                }
+            }
         }
+
+        public override string[] GetOrderByColumnNames()
+        {
+            return new string[] { 
+                "TILFDTO" // Address StartDate
+            };
+        }
+
     }
 
     [TestFixture]
@@ -282,20 +326,24 @@ namespace CprBroker.Tests.DBR.Comparison.Person
             get
             {
                 return new[]{
-                    // EXTRA - do not commit
-                    "CprUpdateDate",
-                    "ProtectionType",
-                    "ReportingMarker",
+                    // Review 2.0
+                    "ReportingMarker", // CPR Services 'indrap' ?
                 };
             }
         }
     }
 
     [TestFixture]
-    public class DisappearanceComparisonTests : PersonComparisonTest<Disappearance> { }
+    public class DisappearanceComparisonTests : PersonComparisonTest<Disappearance>
+    {
+        // Review 2.0
+    }
 
     [TestFixture]
-    public class EventComparisonTests : PersonComparisonTest<Event> { }
+    public class EventComparisonTests : PersonComparisonTest<Event>
+    {
+        // Review 2.0
+    }
 
     [TestFixture]
     public class NoteComparisonTests : PersonComparisonTest<Note>
@@ -305,38 +353,53 @@ namespace CprBroker.Tests.DBR.Comparison.Person
             get
             {
                 return new string[]{
-                    // Extra - do not commit
-                    "CprUpdateDate",
-                    "MunicipalityCode"
+                    // Review 2.0
+                    "MunicipalityCode" // CPR Services 'komkod'
                 };
             }
         }
     }
 
     [TestFixture]
-    public class MunicipalConditionComparisonTests : PersonComparisonTest<MunicipalCondition> { }
+    public class MunicipalConditionComparisonTests : PersonComparisonTest<MunicipalCondition>
+    {
+        // Review 2.0
+
+        public override bool IgnoreCount
+        {
+            get
+            {
+                // Review 2.2
+                return true; // Some records have notes in DPR with no notes in CPR Extracts
+            }
+        }
+    }
 
     [TestFixture]
-    public class ParentalAuthorityConditionComparisonTests : PersonComparisonTest<ParentalAuthority>
+    public class ParentalAuthorityComparisonTests : PersonComparisonTest<ParentalAuthority>
     {
         public override string[] ExcludedProperties
         {
             get
             {
                 return new string[]{
-                    // EXTRA - DO NOT COMMIT
-                    "CprUpdateDate",
-                    "ParentalAuthorityCode",
-                    "StartDateUncertainty"
+                    // Review 2.0
+                    "CustodyStartAuthorityCode", // Only in CPR Services 'mynkod_start' ?
                 };
             }
         }
     }
 
     [TestFixture]
-    public class GuardianAndParentalAuthorityRelationComparisonTests : PersonComparisonTest<GuardianAndParentalAuthorityRelation> { }
+    public class GuardianAndParentalAuthorityRelationComparisonTests : PersonComparisonTest<GuardianAndParentalAuthorityRelation>
+    {
+        // Review 2.0
+    }
 
     [TestFixture]
-    public class GuardianAddressComparisonTests : PersonComparisonTest<GuardianAddress> { }
+    public class GuardianAddressComparisonTests : PersonComparisonTest<GuardianAddress>
+    {
+        // Review 2.0
+    }
 
 }

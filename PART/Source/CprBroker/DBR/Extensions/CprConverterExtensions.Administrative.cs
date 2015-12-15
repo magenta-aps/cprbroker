@@ -92,7 +92,7 @@ namespace CprBroker.DBR.Extensions
             m.ConditionMarker = condition.MunicipalConditionCode;
 
             if (condition.MunicipalConditionStartDate.HasValue)
-                m.ConditionDate = CprBroker.Utilities.Dates.DateToDecimal(condition.MunicipalConditionStartDate.Value, 8);
+                m.ConditionDate = CprBroker.Utilities.Dates.DateToDecimal(condition.MunicipalConditionStartDate.Value, 12);
 
             m.ConditionComments = condition.MunicipalConditionComment;
             return m;

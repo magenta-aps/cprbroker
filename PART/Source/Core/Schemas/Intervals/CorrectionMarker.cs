@@ -97,5 +97,10 @@ namespace CprBroker.Schemas.Part
 
             return dataObjects.AsQueryable();
         }
+
+        public static bool IsOk(this IHasCorrectionMarker obj)
+        {
+            return obj.CorrectionMarker.Equals(CorrectionMarker.OK);
+        }
     }
 }

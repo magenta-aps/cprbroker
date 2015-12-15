@@ -9,7 +9,13 @@ namespace CprBroker.Tests.DBR
     {
         public static void Main()
         {
-            
+            var cmp = new Comparison.ReportGenerator();
+            var report = ""
+                + cmp.GenerateReport(typeof(Comparison.Person.PersonComparisonTest<>))
+                //+ cmp.GenerateReport(typeof(Comparison.Geo.GeoLookupComparisonTest<>))
+                ;
+
+            Console.WriteLine(report);
         }
     }
 }

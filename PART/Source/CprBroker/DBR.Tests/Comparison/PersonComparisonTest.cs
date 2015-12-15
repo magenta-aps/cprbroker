@@ -15,8 +15,6 @@ namespace CprBroker.Tests.DBR.Comparison.Person
     public abstract class PersonComparisonTest<TObject> : ComparisonTest<TObject, DPRDataContext>
         where TObject : new()
     {
-        int timesRun = 0;
-        int randomTestNumber;
         public override string[] LoadKeys()
         {
             if (KeysHolder._Keys == null)
@@ -24,7 +22,7 @@ namespace CprBroker.Tests.DBR.Comparison.Person
                 if (CprBroker.Tests.PartInterface.Utilities.IsConsole)
                 {
                     Console.WriteLine("Loading PNRS");
-                    using (var dataContext = new DPRDataContext(RealDprDatabaseConnectionString))
+                    using (var dataContext = new DPRDataContext(Properties.Settings.Default.RealDprConnectionString))
                     {
                         KeysHolder._Keys = dataContext
                             .PersonTotals
@@ -37,51 +35,125 @@ namespace CprBroker.Tests.DBR.Comparison.Person
                 }
                 else
                 {
-                    using (var dataContext = new ExtractDataContext(CprBrokerConnectionString))
+                    Random r = new Random();
+                    using (var w = new System.IO.StreamWriter(string.Format("c:\\logs\\Compare-{0}-{1}-{2}.log", GetType().Name, DateTime.Now.ToString("yyyyMMdd HHmmss"), r.Next())))
                     {
-                        if (timesRun < 1)
+                        w.AutoFlush = true;
+
+                        var excludedPnrs0 = System.IO.File.ReadAllLines("ExcludedPNR.txt")
+                            .Select(l => l.Trim())
+                            .Where(l => l.Length > 0 && !l.StartsWith("#"))
+                            .Select(l => decimal.Parse(l))
+                            .ToArray();
+
+                        var excludedPnrs1 = new decimal[] { };
+                        var excludedPnrs2 = new decimal[] { };
+
+                        using (var dataContext = new DPRDataContext(Properties.Settings.Default.RealDprConnectionString))
                         {
-                            Random random = new Random();
-                            randomTestNumber = random.Next(85416); // We have 85426 records in the Extract table.
-                            timesRun++;
+                            dataContext.Log = w;
+                            excludedPnrs1 = dataContext.PersonAddresses
+                                .Where(pa => pa.AddressStartDateMarker == 'U')
+                                .Select(pa => pa.PNR)
+                                .ToArray();
+                            excludedPnrs2 = dataContext.ExecuteQuery<decimal>("SELECT PNR FROM DTTOTAL WHERE INDLAESDTO IS NULL")
+                                .ToArray();
                         }
-                        else
-                            timesRun = 0;
-                        KeysHolder._Keys = dataContext.ExecuteQuery<string>("select * FROM DbrPerson ORDER BY PNR").Skip(randomTestNumber).Take(10).ToArray();
-                        //return dataContext.ExtractItems.Select(ei => ei.PNR).Distinct().ToArray();
+
+                        var excludedPnrs = excludedPnrs0.Union(excludedPnrs1).Union(excludedPnrs2).Distinct().ToArray();
+
+                        try
+                        {
+                            using (var dataContext = new System.Data.Linq.DataContext(Properties.Settings.Default.ImitatedDprConnectionString))
+                            {
+                                dataContext.Log = w;
+                                KeysHolder._Keys = dataContext.ExecuteQuery<decimal>("select PNR FROM DTTOTAL ORDER BY PNR")
+                                    .Where(pnr => !excludedPnrs.Contains(pnr))
+                                    .Skip(Properties.Settings.Default.PersonComparisonSampleSkip)
+                                    .Take(Properties.Settings.Default.PersonComparisonSampleSize)
+                                    .ToArray()
+                                    .Select(pnr => pnr.ToPnrDecimalString())
+                                    .ToArray();
+                                w.WriteLine("Loaded <{0}> PNRs", KeysHolder._Keys.Length);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            w.WriteLine(ex.ToString());
+                            throw;
+                        }
                     }
                 }
             }
             return KeysHolder._Keys;
-
         }
 
         public override void ConvertObject(string pnr)
         {
-            if (!KeysHolder._ConvertedPersons.ContainsKey(pnr))
+            using (var fakeDprDataContext = new DPRDataContext(Properties.Settings.Default.ImitatedDprConnectionString))
             {
-                using (var fakeDprDataContext = new DPRDataContext(FakeDprDatabaseConnectionString))
-                {
-                    CprConverter.DeletePersonRecords(pnr, fakeDprDataContext);
-                    fakeDprDataContext.SubmitChanges();
-                    var person = ExtractManager.GetPerson(pnr);
-                    CprConverter.AppendPerson(person, fakeDprDataContext);
-                    fakeDprDataContext.SubmitChanges();
-                }
-                KeysHolder._ConvertedPersons[pnr] = true;
+                DatabaseLoadCache.Root.Reset(fakeDprDataContext);
+
+                CprConverter.DeletePersonRecords(pnr, fakeDprDataContext);
+                fakeDprDataContext.SubmitChanges();
             }
+            using (var fakeDprDataContext = new DPRDataContext(Properties.Settings.Default.ImitatedDprConnectionString))
+            {
+                var person = ExtractManager.GetPerson(pnr);
+                CprConverter.AppendPerson(person, fakeDprDataContext);
+                fakeDprDataContext.SubmitChanges();
+            }
+            KeysHolder._ConvertedPersons[pnr] = true;
+
+
         }
 
         public override IQueryable<TObject> Get(DPRDataContext dataContext, string key)
         {
             var tableName = Utilities.DataLinq.GetTableName<TObject>();
-            var propNames = string.Join(", ", GetPkColumnNames());
-            return dataContext.Fill<TObject>(string.Format("select * from " + tableName + " WHERE PNR={0} ORDER BY " + propNames, key)).AsQueryable();
+
+            var cacheKey = string.Format("{0}.{1}", tableName, key);
+            return DatabaseLoadCache.Root.GetOrLoad<DPRDataContext, TObject>(dataContext,
+                cacheKey,
+                dc =>
+                {
+                    var orderBy = string.Join(", ", GetOrderByColumnNames());
+                    var whereAnnKorr = "";
+                    if (!string.IsNullOrEmpty(GetCorrectionMarkerColumnName()))
+                        whereAnnKorr = string.Format(" AND ({0} IS NULL OR {0} = ' ')", GetCorrectionMarkerColumnName());
+
+                    return dataContext.Fill<TObject>(
+                        string.Format(
+                            "select * from {0} WHERE PNR={1} {2} ORDER BY {3}",
+                            tableName,
+                            key,
+                            whereAnnKorr,
+                            orderBy)
+                        ).AsQueryable();
+                });
         }
 
         public override DPRDataContext CreateDataContext(string connectionString)
         {
             return new DPRDataContext(connectionString);
+        }
+
+    }
+
+
+    [TestFixture]
+    public class _PersonConversion : PersonComparisonTest<object>
+    {
+        [Test]
+        [TestCaseSource("LoadKeys")]
+        public void T0_Convert(string key)
+        {
+            ConvertObject(key);
+        }
+
+        public override IQueryable<object> Get(DPRDataContext dataContext, string key)
+        {
+            return new object[] { }.AsQueryable();
         }
 
     }

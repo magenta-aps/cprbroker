@@ -84,6 +84,12 @@ namespace CprBroker.DBR.Extensions
             /*
              * RESIDENTIAL DETAILS
              */
+
+
+            // Zero initialization
+            pt.MunicipalityArrivalDate = 0;
+            pt.MunicipalityLeavingDate = null;
+
             var adr = resp.GetFolkeregisterAdresseSource(false);
             if (adr != null)
             {
@@ -92,60 +98,66 @@ namespace CprBroker.DBR.Extensions
                 {
                     if (schemaAdr.Item is DanskAdresseType || schemaAdr.Item is GroenlandAdresseType)
                     {
-                        pt.MunicipalityCode = resp.CurrentAddressInformation.MunicipalityCode;
-                        pt.StreetCode = resp.CurrentAddressInformation.StreetCode;
-                        pt.HouseNumber = resp.CurrentAddressInformation.HouseNumber;
+                        if (IsValidAddress(dataContext, resp.ClearWrittenAddress.MunicipalityCode, resp.ClearWrittenAddress.StreetCode, resp.ClearWrittenAddress.HouseNumber))
+                        {
+                            pt.MunicipalityCode = resp.CurrentAddressInformation.MunicipalityCode;
+                            pt.StreetCode = resp.CurrentAddressInformation.StreetCode;
+                            pt.HouseNumber = resp.CurrentAddressInformation.HouseNumber;
 
-                        if (!string.IsNullOrEmpty(resp.CurrentAddressInformation.Floor))
-                            pt.Floor = resp.CurrentAddressInformation.Floor;
-                        else
-                            pt.Floor = null;
-                        if (!string.IsNullOrEmpty(resp.CurrentAddressInformation.Door))
-                        {
-                            if (new string[] { "th", "tv", "mf" }.Contains(resp.CurrentAddressInformation.Door))
-                                pt.Door = resp.CurrentAddressInformation.Door.PadLeft(4, ' ');
+                            if (!string.IsNullOrEmpty(resp.CurrentAddressInformation.Floor))
+                                pt.Floor = resp.CurrentAddressInformation.Floor;
                             else
-                                pt.Door = resp.CurrentAddressInformation.Door;
+                                pt.Floor = null;
+                            if (!string.IsNullOrEmpty(resp.CurrentAddressInformation.Door))
+                            {
+                                if (new string[] { "th", "tv", "mf" }.Contains(resp.CurrentAddressInformation.Door))
+                                    pt.Door = resp.CurrentAddressInformation.Door.PadLeft(4, ' ');
+                                else
+                                    pt.Door = resp.CurrentAddressInformation.Door;
+                            }
+                            else
+                                pt.Door = null;
+                            if (!string.IsNullOrEmpty(resp.CurrentAddressInformation.BuildingNumber))
+                                pt.ConstructionNumber = resp.CurrentAddressInformation.BuildingNumber;
+                            else
+                                pt.ConstructionNumber = null;
+                            if (resp.CurrentAddressInformation.RelocationDate.HasValue)
+                                pt.AddressDate = CprBroker.Utilities.Dates.DateToDecimal(resp.CurrentAddressInformation.RelocationDate.Value, 12);
+                            if (resp.CurrentAddressInformation.MunicipalityArrivalDate.HasValue)
+                                pt.MunicipalityArrivalDate = CprBroker.Utilities.Dates.DateToDecimal(resp.CurrentAddressInformation.MunicipalityArrivalDate.Value, 12);
+
+                            if (resp.CurrentAddressInformation.LeavingMunicipalityDepartureDate.HasValue)
+                            {
+                                pt.MunicipalityLeavingDate = CprBroker.Utilities.Dates.DateToDecimal(resp.CurrentAddressInformation.LeavingMunicipalityDepartureDate.Value, 12);
+                            }
+
+                            if (!string.IsNullOrEmpty(resp.CurrentAddressInformation.CareOfName))
+                                pt.CareOfName = resp.CurrentAddressInformation.CareOfName;
+                            else
+                                pt.CareOfName = null;
+                            if (!string.IsNullOrEmpty(resp.ClearWrittenAddress.CityName))
+                                pt.CityName = resp.ClearWrittenAddress.CityName;
+                            else
+                                pt.CityName = null;
+                            if (pt.MunicipalityCode > 0)
+                                pt.CurrentMunicipalityName = CprBroker.Providers.CPRDirect.Authority.GetAuthorityNameByCode(pt.MunicipalityCode.ToString());
                         }
-                        else
-                            pt.Door = null;
-                        if (!string.IsNullOrEmpty(resp.CurrentAddressInformation.BuildingNumber))
-                            pt.ConstructionNumber = resp.CurrentAddressInformation.BuildingNumber;
-                        else
-                            pt.ConstructionNumber = null;
-                        if (resp.CurrentAddressInformation.RelocationDate.HasValue)
-                            pt.AddressDate = CprBroker.Utilities.Dates.DateToDecimal(resp.CurrentAddressInformation.RelocationDate.Value, 12);
-                        if (resp.CurrentAddressInformation.MunicipalityArrivalDate.HasValue)
-                            pt.MunicipalityArrivalDate = CprBroker.Utilities.Dates.DateToDecimal(resp.CurrentAddressInformation.MunicipalityArrivalDate.Value, 12);
-                        else
-                            pt.MunicipalityArrivalDate = 0;
-                        if (resp.CurrentAddressInformation.LeavingMunicipalityDepartureDate.HasValue)
-                        {
-                            pt.MunicipalityLeavingDate = CprBroker.Utilities.Dates.DateToDecimal(resp.CurrentAddressInformation.LeavingMunicipalityDepartureDate.Value, 12);
-                        }
-                        else
-                        {
-                            pt.MunicipalityLeavingDate = 0;
-                        }
-                        if (!string.IsNullOrEmpty(resp.CurrentAddressInformation.CareOfName))
-                            pt.CareOfName = resp.CurrentAddressInformation.CareOfName;
-                        else
-                            pt.CareOfName = null;
-                        if (!string.IsNullOrEmpty(resp.ClearWrittenAddress.CityName))
-                            pt.CityName = resp.ClearWrittenAddress.CityName;
-                        else
-                            pt.CityName = null;
-                        if (pt.MunicipalityCode > 0)
-                            pt.CurrentMunicipalityName = CprBroker.Providers.CPRDirect.Authority.GetAuthorityNameByCode(pt.MunicipalityCode.ToString());
                     }
                 }
             }
 
-            // TODO: Get from protection records
-            pt.AddressProtectionMarker = null; //DPR SPECIFIC
-            pt.DirectoryProtectionMarker = null; //DPR SPECIFIC
-            pt.ArrivalDateMarker = null; //DPR SPECIFIC
 
+            // TODO: Get from protection records
+            Func<ProtectionType.ProtectionCategoryCodes, char?> protectionMarkerGetter = (cd) =>
+                resp.Protection
+                .Where(p => p.ProtectionCategoryCode == cd)
+                .Count()
+                > 0 ? '1' : null as char?;
+
+            pt.AddressProtectionMarker = protectionMarkerGetter(ProtectionType.ProtectionCategoryCodes.NameAndAddress);
+            pt.DirectoryProtectionMarker = protectionMarkerGetter(ProtectionType.ProtectionCategoryCodes.LocalDirectory);
+
+            pt.AddressDateMarker = null; // TODO: Fill from address date marker //DPR SPECIFIC            
 
             pt.ChristianMark = resp.ChurchInformation.ChurchRelationship;
             if (!string.IsNullOrEmpty(resp.BirthRegistrationInformation.BirthRegistrationAuthorityCode))
@@ -153,15 +165,45 @@ namespace CprBroker.DBR.Extensions
             else
                 pt.BirthPlaceOfRegistration = null;
 
-            pt.PnrMarkingDate = null; // Seems to be always null in DPR.
+            pt.BirthplaceText = resp.BirthRegistrationInformation.AdditionalBirthRegistrationText;
 
-            pt.MotherPersonalOrBirthDate = resp.ParentsInformation.MotherPNR.Substring(0, 6) + "-" + resp.ParentsInformation.MotherPNR.Substring(6, 4);
+            pt.PnrMarkingDate = null; //TODO: Can be fetched in CPR Services: pnrhaenstart
+
+            Func<string, DateTime?, string> parentPnrOrBirthdateGetter = (parentPnr, parentBirthdate) =>
+            {
+                if (string.IsNullOrEmpty(parentPnr) || parentPnr.Equals("0000000000"))
+                {
+                    if (parentBirthdate.HasValue)
+                    {
+                        return parentBirthdate.Value.ToString("dd MM yyyy");
+                    }
+                    else
+                    {
+                        return "000000-0000";
+                    }
+                }
+                else
+                {
+                    return parentPnr.Substring(0, 6) + "-" + parentPnr.Substring(6, 4);
+                }
+            };
+
+
+            pt.MotherPersonalOrBirthDate = parentPnrOrBirthdateGetter(resp.ParentsInformation.MotherPNR, resp.ParentsInformation.MotherBirthDate);
             pt.MotherMarker = null; //DPR SPECIFIC
-            pt.FatherPersonalOrBirthdate = resp.ParentsInformation.FatherPNR.Substring(0, 6) + "-" + resp.ParentsInformation.FatherPNR.Substring(6, 4);
+            pt.FatherPersonalOrBirthdate = parentPnrOrBirthdateGetter(resp.ParentsInformation.FatherPNR, resp.ParentsInformation.FatherBirthDate);
             pt.FatherMarker = null; //DPR SPECIFIC
-            if (resp.CurrentDepartureData != null && !resp.CurrentDepartureData.IsEmpty)
-                pt.ExitEntryMarker = '1'; //DPR SPECIFIC
-            pt.DisappearedMarker = null; //DPR SPECIFIC
+
+            if (
+                resp.CurrentDepartureData != null
+                || resp.HistoricalDeparture.Count() > 0
+                )
+                pt.ExitEntryMarker = '1';
+
+            if (resp.CurrentDisappearanceInformation != null
+                || resp.HistoricalDisappearance.Count() > 0
+                )
+                pt.DisappearedMarker = '1';
 
             if (resp.Disempowerment != null && resp.Disempowerment.DisempowermentStartDate.HasValue)
             {
@@ -173,25 +215,29 @@ namespace CprBroker.DBR.Extensions
             }
             if (resp.ParentsInformation.FatherDate.HasValue)
                 pt.PaternityDate = CprBroker.Utilities.Dates.DateToDecimal(resp.ParentsInformation.FatherDate.Value, 12);
+
+            #region Marriage & spouse
+
             pt.MaritalStatus = resp.CurrentCivilStatus.CivilStatusCode;
 
-            if (resp.CurrentCivilStatus.CivilStatusStartDate.HasValue)
-                pt.MaritalStatusDate = CprBroker.Utilities.Dates.DateToDecimal(resp.CurrentCivilStatus.CivilStatusStartDate.Value, 12);
+            pt.MaritalStatusDate = resp.CurrentCivilStatus.CivilStatusStartDateDecimal;
 
-            if (!string.IsNullOrEmpty(resp.CurrentCivilStatus.SpousePNR))
-            {
-                // TODO: Shall the target include the leading zeros? 
-                pt.SpousePersonalOrBirthdate = resp.CurrentCivilStatus.SpousePNR.Substring(0, 6) + "-" + resp.CurrentCivilStatus.SpousePNR.Substring(6, 4);
-            }
-            else if (resp.CurrentCivilStatus.SpouseBirthDate.HasValue)
+            if (resp.CurrentCivilStatus.SpouseBirthDate.HasValue)
             {
                 pt.SpousePersonalOrBirthdate = resp.CurrentCivilStatus.SpouseBirthDate.Value.ToString("dd-MM-yyyy");
             }
+            else if (string.Format("{0}",resp.CurrentCivilStatus.SpousePNR).Trim().Length >1)                
+            {
+                pt.SpousePersonalOrBirthdate = resp.CurrentCivilStatus.SpousePNR.Substring(0, 6) + "-" + resp.CurrentCivilStatus.SpousePNR.Substring(6, 4);
+            }
+            pt.SpouseMarker = null; // Unavailable in CPR Extracts
+            #endregion
 
-            pt.SpouseMarker = null; //DPR SPECIFIC
+            #region Post code & district
             pt.PostCode = resp.ClearWrittenAddress.PostCode;
 
             pt.PostDistrictName = resp.ClearWrittenAddress.PostDistrictText.NullIfEmpty();
+            #endregion
 
             var voting = resp.ElectionInformation.OrderByDescending(e => e.ElectionInfoStartDate).FirstOrDefault();
 
@@ -214,9 +260,9 @@ namespace CprBroker.DBR.Extensions
                     )
                     pt.SupplementaryAddressMarker = '1'; //DPR SPECIFIC
             }
-            pt.MunicipalRelationMarker = null; //DPR SPECIFIC
-            // TODO: Should rely on DTNOTAT
-            pt.NationalMemoMarker = null;
+            pt.MunicipalRelationMarker = resp.MunicipalConditions.Count() > 0 ? '1' : null as char?;
+
+            pt.NationalMemoMarker = resp.Notes.Count() > 0 ? '1' : null as char?;
             pt.FormerPersonalMarker = null; //DPR SPECIFIC
             pt.PaternityAuthorityName = null; //TODO: Retrieve this from the CPR Service field far_mynkod
             pt.MaritalAuthorityName = null; //TODO: Retrieve this from the CPR Service field mynkod
@@ -233,37 +279,77 @@ namespace CprBroker.DBR.Extensions
             var prevAddress = previousAddresses.FirstOrDefault();
             if (prevAddress != null)
             {
-                var prevAdrStr = string.Format("{0} {1}",
-                        Street.GetAddressingName(dataContext.Connection.ConnectionString, prevAddress.MunicipalityCode, prevAddress.StreetCode),
-                        System.Text.RegularExpressions.Regex.Replace(
-                            prevAddress.HouseNumber.TrimStart('0', ' '),
-                            "(?<num>\\d+)(?<char>[a-zA-Z]+)",
-                            "${num} ${char}"));
+                if (resp.CurrentAddressInformation == null)
+                {
+                    pt.CareOfName = prevAddress.CareOfName;
+                }
 
-                var floorDoor = string.Format("{0} {1}",
-                    prevAddress.Floor.TrimStart('0', ' '),
-                    prevAddress.Door.TrimStart('0', ' '))
-                 .Trim();
-
-                if (!string.IsNullOrEmpty(floorDoor))
-                    prevAdrStr += "," + floorDoor;
-
-                var kom = Authority.GetAuthorityAddressByCode(prevAddress.MunicipalityCode.ToString());
-                if (!string.IsNullOrEmpty(kom))
-                    prevAdrStr += string.Format(" ({0})", kom);
-
-                pt.PreviousAddress = prevAdrStr;
-
-                if (string.IsNullOrEmpty(pt.CurrentMunicipalityName))
+                if (resp.PersonInformation.Status == 90 && string.IsNullOrEmpty(pt.CurrentMunicipalityName))
+                {
                     pt.CurrentMunicipalityName = Authority.GetAuthorityNameByCode(prevAddress.MunicipalityCode.ToString());
-            }
+                }
 
-            var previousMunicipalityAddress = previousAddresses.Where(e => e.MunicipalityCode != resp.ClearWrittenAddress.MunicipalityCode).FirstOrDefault();
-            if (previousMunicipalityAddress != null)
+                pt.PreviousMunicipalityName = Authority.GetAuthorityNameByCode(prevAddress.MunicipalityCode.ToString());
+                /*
+                 * // Another algorithm
+                var previousMunicipalityAddress = previousAddresses.Where(e => e.MunicipalityCode != resp.ClearWrittenAddress.MunicipalityCode).FirstOrDefault();
+                if (previousMunicipalityAddress != null)
+                {
+                    pt.PreviousMunicipalityName = Authority.GetAuthorityNameByCode(previousMunicipalityAddress.MunicipalityCode.ToString());    
+                }
+                */
+
+                if (// If it is a valid address
+                    prevAddress.HouseNumber.Trim() != ""
+                    // Alternatively, Street.GetAddressingName(dataContext.Connection.ConnectionString, historicalAddress.MunicipalityCode, historicalAddress.StreetCode) != null)
+                )
+                {
+                    var prevAdrStr = string.Format("{0} {1}",
+                            Street.GetAddressingName(dataContext.Connection.ConnectionString, prevAddress.MunicipalityCode, prevAddress.StreetCode),
+                            System.Text.RegularExpressions.Regex.Replace(
+                                prevAddress.HouseNumber.TrimStart('0', ' '),
+                                "(?<num>\\d+)(?<char>[a-zA-Z]+)",
+                                "${num} ${char}"));
+
+                    var floorDoor = string.Format("{0} {1}",
+                        prevAddress.Floor.TrimStart('0', ' '),
+                        prevAddress.Door.TrimStart('0', ' '))
+                     .Trim();
+
+                    if (!string.IsNullOrEmpty(floorDoor))
+                        prevAdrStr += "," + floorDoor;
+
+                    var kom = Authority.GetAuthorityAddressByCode(prevAddress.MunicipalityCode.ToString());
+                    if (!string.IsNullOrEmpty(kom))
+                        prevAdrStr += string.Format(" ({0})", kom);
+
+                    pt.PreviousAddress = prevAdrStr;
+
+                    if (string.IsNullOrEmpty(pt.CurrentMunicipalityName))
+                        pt.CurrentMunicipalityName = Authority.GetAuthorityNameByCode(prevAddress.MunicipalityCode.ToString());
+                }
+            }
+            if (resp.CurrentAddressInformation != null && resp.CurrentAddressInformation.RelocationDate.HasValue)
             {
-                pt.PreviousMunicipalityName = Authority.GetAuthorityNameByCode(previousMunicipalityAddress.MunicipalityCode.ToString());
+                var previousDeparture = resp.HistoricalDeparture
+                    .Where(d =>
+                        d.IsOk()
+                        && d.EntryDate.HasValue
+                        && d.EntryDate.Value.Date.Equals(resp.CurrentAddressInformation.RelocationDate.Value.Date)
+                        )
+                    .SingleOrDefault();
+                if (previousDeparture != null)
+                {
+                    if (string.IsNullOrEmpty(pt.PreviousAddress))
+                    {
+                        pt.PreviousAddress = string.Format(
+                            "Personen er indrejst {0} fra {1}",
+                            previousDeparture.EntryDate.Value.ToString("dd MM yyyy"),
+                            Authority.GetAuthorityNameByCode(previousDeparture.EntryCountryCode.ToString())
+                            );
+                    }
+                }
             }
-
             // In DPR SearchName contains both the first name and the middlename.
             pt.SearchName = ToDprFirstName(resp.CurrentNameInformation.FirstName_s, resp.CurrentNameInformation.MiddleName, true);
             if (!string.IsNullOrEmpty(resp.CurrentNameInformation.LastName))
@@ -281,6 +367,9 @@ namespace CprBroker.DBR.Extensions
                 null as char? : '1';
 
             pt.DprLoadDate = DateTime.Now;
+            pt.ApplicationCode = null; // DPR Specific
+            pt.DataRetrievalType = 'D'; // TODO: Use other types for deleted subscriptions and loaded from CPR direct)
+
             return pt;
         }
 

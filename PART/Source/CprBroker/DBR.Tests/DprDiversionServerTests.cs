@@ -20,7 +20,7 @@ namespace CprBroker.Tests.DBR
                 {
                     get
                     {
-                        return ClassicRequestTypeTests.ClassicRequestTypeTestsBase.FakeDprDatabaseConnectionString;
+                        return Properties.Settings.Default.ImitatedDprConnectionString;
                     }
                 }
             }
