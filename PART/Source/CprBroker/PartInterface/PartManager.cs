@@ -111,7 +111,7 @@ namespace CprBroker.PartInterface
             return GetBatchMethodOutput<IPartPersonMappingDataProvider, GetUuidArrayOutputType, string, string>(facadeMethod);
         }
 
-        public IBasicOutput<bool> PutSubscription(string userToken, string appToken, Guid[] personUuids)
+        public BasicOutputType<bool> PutSubscription(string userToken, string appToken, Guid[] personUuids)
         {
             var facadeMethod = new PutSubscriptionFacadeMethodInfo(personUuids, appToken, userToken);
             return GetMethodOutput<bool>(facadeMethod);

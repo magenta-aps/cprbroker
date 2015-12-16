@@ -64,7 +64,8 @@ namespace CprBroker.Providers.CPRDirect
             Start,
             Regular,
             End,
-            Error
+            Error,
+            SubscriptionDeletionReceipt
         }
 
         public ExtractParseSession()
@@ -90,6 +91,8 @@ namespace CprBroker.Providers.CPRDirect
                 return WrapperParseGroup.End;
             else if (w is ErrorRecordType)
                 return WrapperParseGroup.Error;
+            else if (w is SubscriptionDeletionReceiptType)
+                return WrapperParseGroup.SubscriptionDeletionReceipt;
             else
                 return WrapperParseGroup.Regular;
         }

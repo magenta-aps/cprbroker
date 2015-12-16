@@ -76,6 +76,7 @@ namespace CprBroker.Utilities.ConsoleApps
         public string PersonMasterUrl = "";
         public string PersonMasterSpnName = "";
         public int MaxThreads = 1;
+        public string NewPassword;
 
 
 
@@ -100,9 +101,10 @@ namespace CprBroker.Utilities.ConsoleApps
             var pmUrlArg = new CommandArgumentSpec() { Switch = "/pmUrl", ValueRequirement = ValueRequirement.NotRequired, MaxOccurs = 1 };
             var pmSpnArg = new CommandArgumentSpec() { Switch = "/pmSpn", ValueRequirement = ValueRequirement.NotRequired, MaxOccurs = 1 };
             var maxThreadsArg = new CommandArgumentSpec() { Switch = "/maxThreads", ValueRequirement = ValueRequirement.NotRequired, MaxOccurs = 1 };
+            var newPasswordArg = new CommandArgumentSpec() { Switch = "/newPassword", ValueRequirement = ValueRequirement.NotRequired, MaxOccurs = 1 };
 
             var arguments = CommandlineParser.SplitCommandArguments(args);
-            CommandlineParser.ValidateCommandline(arguments, new CommandArgumentSpec[] { envTypeArg, startPnrArg, sourceArg, partUrlArg, brokerArg, otherDbArg, otherDbArg2, appTokenArg, userTokenArg, pmUrlArg, pmSpnArg, maxThreadsArg });
+            CommandlineParser.ValidateCommandline(arguments, new CommandArgumentSpec[] { envTypeArg, startPnrArg, sourceArg, partUrlArg, brokerArg, otherDbArg, otherDbArg2, appTokenArg, userTokenArg, pmUrlArg, pmSpnArg, maxThreadsArg, newPasswordArg });
 
             string envTypeName = envTypeArg.FoundArguments[0].Value;
             var ret = Reflection.CreateInstance<ConsoleEnvironment>(envTypeName);
@@ -118,6 +120,7 @@ namespace CprBroker.Utilities.ConsoleApps
                 ret.UserToken = userTokenArg.FoundArguments.Select(a => a.Value).FirstOrDefault();
                 ret.PersonMasterUrl = pmUrlArg.FoundArguments.Select(a => a.Value).FirstOrDefault();
                 ret.PersonMasterSpnName = pmSpnArg.FoundArguments.Select(a => a.Value).FirstOrDefault();
+                ret.NewPassword = newPasswordArg.FoundArguments.Select(a => a.Value).FirstOrDefault();
                 var threads = maxThreadsArg.FoundArguments.Select(a => a.Value).FirstOrDefault();
                 var intThreads = 0;
                 if (int.TryParse(threads, out intThreads))
