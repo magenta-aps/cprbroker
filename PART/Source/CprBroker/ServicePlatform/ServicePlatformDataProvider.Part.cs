@@ -91,7 +91,6 @@ namespace CprBroker.Providers.ServicePlatform
             }
 
             // Now we are sure that all calls have succeeded
-            var stamPlus = new StamPlusResponse(responses[0]);
             var familyPlus = new FamilyPlusResponse(responses[1]);
 
             // UUID mappings
