@@ -231,7 +231,10 @@ namespace CprBroker.Providers.CprServices.Responses
                     PostalAddressFourthLineText = GetFieldValue(elm, "UDLANDSADR4"),
                     PostalAddressFifthLineText = GetFieldValue(elm, "UDLANDSADR5"),
                     LocationDescriptionText = null,
-                }
+                }, 
+                
+                NoteTekst = null,
+                UkendtAdresseIndikator = false
             };
         }
 

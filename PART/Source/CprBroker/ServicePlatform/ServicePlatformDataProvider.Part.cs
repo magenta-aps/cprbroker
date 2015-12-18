@@ -122,6 +122,7 @@ namespace CprBroker.Providers.ServicePlatform
                     CivilStatus = familyPlus_Relations.ToCivilStatusType(),
                     LivStatus = familyPlus_Person.MainItem.ToLivStatusType()
                 },
+                // TODO: is a value possible here?
                 Tidspunkt = TidspunktType.Create(DateTime.Now),
                 LivscyklusKode = LivscyklusKodeType.Rettet,
                 AktoerRef = UnikIdType.Create(Constants.ActorId),
