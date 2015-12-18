@@ -57,7 +57,7 @@ namespace CprBroker.Providers.CPRDirect
     public partial class CPRDirectClientDataProvider : IPartReadDataProvider, IPutSubscriptionDataProvider, IExternalDataProvider, IPerCallDataProvider, ICprDirectPersonDataProvider
     {
         #region IPartReadDataProvider members
-        
+
         public RegistreringType1 Read(CprBroker.Schemas.PersonIdentifier uuid, LaesInputType input, Func<string, Guid> cpr2uuidFunc, out QualityLevel? ql)
         {
             ql = QualityLevel.Cpr;
@@ -151,11 +151,13 @@ namespace CprBroker.Providers.CPRDirect
         public string Address
         {
             get { return ConfigurationProperties[Constants.PropertyNames.Address]; }
+            set { ConfigurationProperties[Constants.PropertyNames.Address] = value; }
         }
 
         public int Port
         {
             get { return Convert.ToInt32(ConfigurationProperties[Constants.PropertyNames.Port]); }
+            set { ConfigurationProperties[Constants.PropertyNames.Port] = value.ToString(); }
         }
 
         #endregion
