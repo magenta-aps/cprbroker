@@ -273,6 +273,7 @@ namespace CprBroker.EventBroker.Subscriptions
                     () =>
                     from sub in context.Subscriptions
                     where sub.ApplicationId == CprBroker.Engine.BrokerContext.Current.ApplicationId
+                    && sub.Deactivated == null
                     select sub;
 
                 // Add filter for subscription id (if required)
