@@ -62,7 +62,9 @@ PersonRegistration.Contents column by effect date (attributes and relationships)
 ----------------------
 BatchClient.exe /envType "BatchClient.SortContentsByDate, BatchClient" /brokerDb "data source=dbserver; initial catalog=cprbroker; integrated security=sspi; user id=; password=;"
  
-
+Unsubscribe CPR Direct
+------------------------
+BatchClient.exe /envType "BatchClient.UbsubscribeCprDirect, BatchClient" /source data.txt /brokerDb "Data Source=dbserver; initial catalog=cprbroker; integrated security=sspi; user id=; password=;" /appToken "11111111-2222-3333-4444-555555555555" /userToken MyUser
 
 ========================
 Creating the data file

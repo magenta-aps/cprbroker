@@ -63,6 +63,7 @@ namespace BatchClient
         public override void ProcessPerson(string cprNumberOrUuid)
         {
             var partService = new BatchClient.Part.Part();
+            partService.UseDefaultCredentials = true;
             partService.Url = this.PartServiceUrl;
             partService.ApplicationHeaderValue = new BatchClient.Part.ApplicationHeader() { ApplicationToken = this.ApplicationToken, UserToken = this.UserToken };
             //partService.Credentials = new System.Net.NetworkCredential("", "", "");
