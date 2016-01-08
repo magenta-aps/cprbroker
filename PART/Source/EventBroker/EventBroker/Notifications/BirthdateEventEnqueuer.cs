@@ -117,7 +117,7 @@ namespace CprBroker.EventBroker.Notifications
             }
         }
 
-        private void EnqueueBirthdateEvents()
+        public void EnqueueBirthdateEvents()
         {
             using (var dataContext = new Data.EventBrokerDataContext())
             {
