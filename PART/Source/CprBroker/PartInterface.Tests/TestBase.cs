@@ -55,6 +55,7 @@ using Microsoft.Practices.EnterpriseLibrary.Logging;
 using Microsoft.Practices.EnterpriseLibrary.Logging.Configuration;
 using CprBroker.Utilities.Config;
 using System.Configuration;
+using CprBroker.Utilities;
 
 namespace CprBroker.Tests.PartInterface
 {
@@ -323,5 +324,14 @@ namespace CprBroker.Tests.PartInterface
             return ret;
         }
 
+        public void RegisterDataProviderType<T>(bool clear = false)
+            where T : CprBroker.Engine.IDataProvider
+        {
+            var section = CprBroker.Utilities.Config.ConfigManager.Current.DataProvidersSection;
+            if (clear)
+                section.KnownTypes.Clear();
+            section.KnownTypes.Add(new TypeElement() { TypeName = typeof(T).IdentifyableName() });
+            CprBroker.Utilities.Config.ConfigManager.Current.Commit();
+        }
     }
 }
