@@ -23,9 +23,6 @@
  *
  * Contributor(s):
  * Beemen Beshara
- * Niels Elgaard Larsen
- * Leif Lodahl
- * Steen Deth
  *
  * The code is currently governed by IT- og Telestyrelsen / Danish National
  * IT and Telecom Agency
@@ -48,6 +45,7 @@
 	Checks whether a birthdate subscription should fire a notification
 	If so, creates a new row in EventNotification table with its child rows
 */
+
 IF EXISTS (SELECT * FROM sys.procedures WHERE name = 'EnqueueBirthdateEventNotifications')
 	BEGIN
 		DROP  Procedure  EnqueueBirthdateEventNotifications
@@ -69,6 +67,20 @@ AS
 	DECLARE @PriorDays INT
 	DECLARE @IsForAllPersons BIT
 	
+	IF (NOT EXISTS (
+		SELECT BDS.SubscriptionId 
+		FROM BirthdateSubscription BDS
+		INNER JOIN Subscription S ON S.SubscriptionId = BDS.SubscriptionId 
+		WHERE BDS.SubscriptionId = @SubscriptionId
+		AND S.Deactivated IS NULL
+	))
+	BEGIN
+		DECLARE @SubscriptionIdStr varchar(50);
+		SET @SubscriptionIdStr = cast(@SubscriptionId as varchar(50))
+		RAISERROR (N'An active birthdate subscription with ID ''%s'' was not found', 9, -1, @SubscriptionIdStr);
+		RETURN
+	END
+
 	-- Get subscription parameters
 	SELECT @AgeYears = AgeYears, @PriorDays=PriorDays, @IsForAllPersons= IsForAllPersons
 	FROM Subscription AS S 
