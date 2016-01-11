@@ -20,6 +20,7 @@ namespace CprBroker.Tests.EventBroker
         }
 
         [Test]
+        [Ignore("Too big for integration tests")]
         public void DataChange_SubscriptionForAll_Sent()
         {
             using (var dataContext = new EventBrokerDataContext(EventDatabase.ConnectionString))
@@ -32,7 +33,7 @@ namespace CprBroker.Tests.EventBroker
             {
                 backEnd.StartTasks();
 
-                Thread.Sleep(2000);                
+                Thread.Sleep(3000);
             }
 
             using (var dataContext = new EventBrokerDataContext(EventDatabase.ConnectionString))
