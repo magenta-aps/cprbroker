@@ -95,7 +95,7 @@ namespace CprBroker.EventBroker.Subscriptions
 
             using (var dataContext = new Data.EventBrokerDataContext())
             {
-                var subscription = (from sub in dataContext.Subscriptions
+                var subscription = (from sub in Data.Subscription.ActiveSubscriptions(dataContext)
                                     where sub.SubscriptionId == SubscriptionId && sub.SubscriptionTypeId == (int)this.SubscriptionType
                                     select sub
                                     ).SingleOrDefault();

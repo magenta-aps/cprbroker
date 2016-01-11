@@ -95,9 +95,12 @@ namespace CprBroker.EventBroker.Notifications
                     Admin.LogFormattedSuccess("DataChangeEventEnqueuer.PushNotifications(): <{0}> data changes found", dbObjects.Length);
 
                     DateTime now = DateTime.Now;
-                    MatchDataChangeEventsWithSubscriptionCriteria(dataContext, dbObjects, now);
 
+                    // Update list of persons that are included/removed from the criteria subscriptions
+                    MatchDataChangeEventsWithSubscriptionCriteria(dataContext, dbObjects, now);
                     dataContext.UpdatePersonLists(now, lastReceivedOrder, (int)Data.SubscriptionType.SubscriptionTypes.DataChange);
+                    
+                    // Now make a cross product between data changes and included persons
                     dataContext.EnqueueDataChangeEventNotifications(now, lastReceivedOrder, (int)Data.SubscriptionType.SubscriptionTypes.DataChange);
 
                     //TODO: Move this logic to above stored procedure
@@ -111,7 +114,8 @@ namespace CprBroker.EventBroker.Notifications
 
         private void MatchDataChangeEventsWithSubscriptionCriteria(Data.EventBrokerDataContext dataContext, Data.DataChangeEvent[] dataChangeEvents, DateTime now)
         {
-            var criteriaSubscriptions = dataContext.Subscriptions.Where(sub => sub.Criteria != null).ToArray();
+            var criteriaSubscriptions = Data.Subscription.ActiveSubscriptions(dataContext).Where(sub => sub.Criteria != null).ToArray();
+
             foreach (var subscription in criteriaSubscriptions)
             {
                 subscription.MatchDataChangeEventsWithCriteria(dataChangeEvents);

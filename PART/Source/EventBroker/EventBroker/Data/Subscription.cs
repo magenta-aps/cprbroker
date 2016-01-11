@@ -121,6 +121,14 @@ namespace CprBroker.EventBroker.Data
             return ret;
         }
 
+        public static IQueryable<Subscription> ActiveSubscriptions(EventBrokerDataContext dataContext)
+        {
+            return dataContext.Subscriptions
+                .Where(s => s.Deactivated == null)
+                // TODO: Detect Deactivated applications here
+                ;
+        }
+
         public int AddMatchingSubscriptionPersons(EventBrokerDataContext eventDataContext, int batchSize)
         {
             using (var partDataContext = new PartDataContext())
@@ -189,16 +197,17 @@ namespace CprBroker.EventBroker.Data
 
         public static Subscription[] GetNonReadySubscriptions(EventBrokerDataContext dataContext)
         {
-            return dataContext.Subscriptions
-                .Where(s => s.Deactivated == null && s.Ready == false)
+            return ActiveSubscriptions(dataContext)
+                .Where(s => s.Ready == false)
                 .OrderBy(s => s.Created)
                 .ToArray();
         }
 
         public void MatchDataChangeEventsWithCriteria(DataChangeEvent[] dataChangeEvents)
         {
-            var temp = GetDataChangeEventMatches(dataChangeEvents);
-            this.SubscriptionCriteriaMatches.AddRange(temp);
+            var matches = GetDataChangeEventMatches(dataChangeEvents);
+            this.SubscriptionCriteriaMatches.AddRange(matches);
         }
+
     }
 }
