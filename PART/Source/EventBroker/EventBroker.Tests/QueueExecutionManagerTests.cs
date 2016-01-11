@@ -6,7 +6,7 @@ using NUnit.Framework;
 using CprBroker.EventBroker.Notifications;
 using CprBroker.Engine.Tasks;
 
-namespace CprBroker.EventBroker.Tests
+namespace CprBroker.Tests.EventBroker
 {
     namespace QueueExecutionManagerTests
     {

@@ -8,7 +8,7 @@ using CprBroker.EventBroker.Backend;
 using System.Threading;
 using CprBroker.Tests.PartInterface;
 
-namespace CprBroker.EventBroker.Tests
+namespace CprBroker.Tests.EventBroker
 {
     [TestFixture]
     public class DataFlowTest : TestBase

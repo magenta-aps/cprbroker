@@ -9,7 +9,7 @@ using System.IO;
 using System.Data.SqlClient;
 using CprBroker.Tests.PartInterface;
 
-namespace CprBroker.EventBroker.Tests
+namespace CprBroker.Tests.EventBroker
 {
     namespace EnqueueDataChangeEventNotifications
     {

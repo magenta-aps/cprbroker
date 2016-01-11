@@ -8,7 +8,7 @@
     <ProjectGuid>{057782C3-CBED-47FD-AE53-5E030540CEB2}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CprBroker.EventBroker.Tests</RootNamespace>
+    <RootNamespace>CprBroker.Tests.EventBroker</RootNamespace>
     <AssemblyName>CprBroker.EventBroker.Tests</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>
@@ -97,11 +97,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataChangeEventPullerTests.cs" />
+    <Compile Include="Notifications\DataChangeEventPullerTests.cs" />
     <Compile Include="DataFlowTest.cs" />
     <Compile Include="EnqueueDataChangeEventNotifications.Tests.cs" />
     <Compile Include="EventNotificationTests.cs" />
     <Compile Include="Notifications\BirthdateEventEnqueuerTests.cs" />
+    <Compile Include="Notifications\DataChangeEventEnqueuerTests.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Notifications\NotificationTestBase.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueueExecutionManagerTests.cs" />

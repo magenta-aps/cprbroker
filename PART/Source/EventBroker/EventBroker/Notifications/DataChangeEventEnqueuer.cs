@@ -73,6 +73,11 @@ namespace CprBroker.EventBroker.Notifications
 
         protected override void PerformTimerAction()
         {
+            EnqueueAllDataChanges();
+        }
+
+        public void EnqueueAllDataChanges()
+        {
             using (var dataContext = new Data.EventBrokerDataContext())
             {
                 // Pulls the next n data changes from the database
@@ -99,7 +104,7 @@ namespace CprBroker.EventBroker.Notifications
                     // Update list of persons that are included/removed from the criteria subscriptions
                     MatchDataChangeEventsWithSubscriptionCriteria(dataContext, dbObjects, now);
                     dataContext.UpdatePersonLists(now, lastReceivedOrder, (int)Data.SubscriptionType.SubscriptionTypes.DataChange);
-                    
+
                     // Now make a cross product between data changes and included persons
                     dataContext.EnqueueDataChangeEventNotifications(now, lastReceivedOrder, (int)Data.SubscriptionType.SubscriptionTypes.DataChange);
 
