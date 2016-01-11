@@ -84,7 +84,7 @@ namespace CprBroker.EventBroker.Notifications
                     .ToArray();
 
                 // Used to detect whether all subscriptions are ready. i.e. all criteria subscriptions have completed the initial population
-                Func<bool> allSubsriptionsReady = () => Data.Subscription.GetNonReadySubscriptions(dataContext).Length == 0;
+                Func<bool> allSubsriptionsReady = () => Data.Subscription.NonReadySubscriptions(dataContext).Length == 0;
 
                 var dbObjects = puller();
 
@@ -118,7 +118,7 @@ namespace CprBroker.EventBroker.Notifications
 
             foreach (var subscription in criteriaSubscriptions)
             {
-                subscription.MatchDataChangeEventsWithCriteria(dataChangeEvents);
+                subscription.UpdateCriteriaMatches(dataChangeEvents);
             }
             dataContext.SubmitChanges();
         }

@@ -82,7 +82,7 @@ namespace CprBroker.EventBroker.Tests
                         cprDataContext.SubmitChanges();
                     }
 
-                    var sss = subscription.GetDataChangeEventMatches(dataChangeEvent).ToArray();
+                    var sss = subscription.Matches(dataChangeEvent).ToArray();
                     Assert.IsNotEmpty(sss);
                 }
             }
@@ -110,7 +110,7 @@ namespace CprBroker.EventBroker.Tests
                         cprDataContext.SubmitChanges();
                     }
 
-                    var sss = subscription.GetDataChangeEventMatches(dataChangeEvent).ToArray();
+                    var sss = subscription.Matches(dataChangeEvent).ToArray();
                     Assert.IsEmpty(sss);
                 }
             }

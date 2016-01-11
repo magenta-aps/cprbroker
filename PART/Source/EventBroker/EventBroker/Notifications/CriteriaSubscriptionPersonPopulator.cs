@@ -17,7 +17,7 @@ namespace CprBroker.EventBroker.Notifications
         {
             using (var eventDataContext = new Data.EventBrokerDataContext())
             {
-                var subscriptions = Data.Subscription.GetNonReadySubscriptions(eventDataContext);
+                var subscriptions = Data.Subscription.NonReadySubscriptions(eventDataContext);
 
                 if (this.LogTimerEvents)
                     Admin.LogFormattedSuccess("Found <{0}> pending criteria subscriptions", subscriptions.Length);
