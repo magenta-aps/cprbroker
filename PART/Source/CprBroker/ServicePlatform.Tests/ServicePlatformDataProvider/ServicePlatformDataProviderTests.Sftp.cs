@@ -94,13 +94,14 @@ namespace CprBroker.Tests.ServicePlatform
                 var prov = ServicePlatformDataProviderFactory.Create();
                 String fileName2LocalPath = Utilities.Strings.EnsureEndString(prov.ExtractsFolder, "\\", true) + fileName2;
                 Assert.False(File.Exists(fileName2LocalPath));
+                
                 prov.DownloadFile(fileName2, 0);
+                
                 Assert.True(File.Exists(fileName2LocalPath));
                 Assert.True(File.Exists(fileName2LocalPath + CprBroker.Providers.ServicePlatform.Constants.MetaDataFilePostfix));
-                File.Delete(fileName2LocalPath);
-                Assert.False(File.Exists(fileName2LocalPath));
+                
+                File.Delete(fileName2LocalPath);                
                 File.Delete(fileName2LocalPath + CprBroker.Providers.ServicePlatform.Constants.MetaDataFilePostfix);
-                Assert.False(File.Exists(fileName2LocalPath + CprBroker.Providers.ServicePlatform.Constants.MetaDataFilePostfix));
             }
 
             [TearDown]
