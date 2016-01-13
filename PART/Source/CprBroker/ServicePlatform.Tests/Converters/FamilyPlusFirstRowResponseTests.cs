@@ -53,51 +53,53 @@ using CprBroker.Providers.ServicePlatform;
 using CprBroker.Providers.ServicePlatform.Responses;
 using System.Xml;
 
-namespace CprBroker.Tests.ServicePlatform
+namespace CprBroker.Tests.ServicePlatform.Converters
 {
-    public class FamilyPlusFirstRowResponseTestBase : BaseResponseTests
+    namespace FamilyPlusResponseTests
     {
-        public FamilyPlusFirstRowResponse GetResponse(string pnr)
+        public class FamilyPlusFirstRowResponseTestBase : BaseResponseTests
         {
-            var txt = GetResponse(pnr, "Familie+");
-            var w = new FamilyPlusFirstRowResponse(txt);
-            return w;
-        }
-    }
-
-    [TestFixture]
-    public class ToBirthDateTests : FamilyPlusFirstRowResponseTestBase
-    {
-        [Test]
-        [TestCaseSource("PNRs")]
-        public void ToNameStartDate_NotNull(string pnr)
-        {
-            var birthDate = GetResponse(pnr).MainItem.ToBirthdate();
-            Assert.True(birthDate.HasValue);
-        }
-    }
-
-    [TestFixture]
-    public class ToNameStartDateTests : FamilyPlusFirstRowResponseTestBase
-    {
-        [Test]
-        [TestCaseSource("PNRs")]
-        public void ToNameStartDate_NotNull(string pnr)
-        {
-            var nameDate = GetResponse(pnr).MainItem.ToNameStartDate();
-            Console.WriteLine(nameDate);
-
-            if (nameDate.HasValue)
+            public FamilyPlusFirstRowResponse GetResponse(string pnr)
             {
-                Assert.True(nameDate.HasValue);
-            }
-            else
-            {
-                var name3HasValue = false;
-                name3HasValue = new FamilyPlusFirstRowResponse(GetResponse(pnr, ServiceInfo.NAVNE3_Local.Name)).MainItem.ToNameStartDate().HasValue;
-                Assert.False(name3HasValue);
+                var txt = GetResponse(pnr, "Familie+");
+                var w = new FamilyPlusFirstRowResponse(txt);
+                return w;
             }
         }
-    }
 
+        [TestFixture]
+        public class ToBirthDateTests : FamilyPlusFirstRowResponseTestBase
+        {
+            [Test]
+            [TestCaseSource("PNRs")]
+            public void ToNameStartDate_NotNull(string pnr)
+            {
+                var birthDate = GetResponse(pnr).MainItem.ToBirthdate();
+                Assert.True(birthDate.HasValue);
+            }
+        }
+
+        [TestFixture]
+        public class ToNameStartDateTests : FamilyPlusFirstRowResponseTestBase
+        {
+            [Test]
+            [TestCaseSource("PNRs")]
+            public void ToNameStartDate_NotNull(string pnr)
+            {
+                var nameDate = GetResponse(pnr).MainItem.ToNameStartDate();
+                Console.WriteLine(nameDate);
+
+                if (nameDate.HasValue)
+                {
+                    Assert.True(nameDate.HasValue);
+                }
+                else
+                {
+                    var name3HasValue = false;
+                    name3HasValue = new FamilyPlusFirstRowResponse(GetResponse(pnr, ServiceInfo.NAVNE3_Local.Name)).MainItem.ToNameStartDate().HasValue;
+                    Assert.False(name3HasValue);
+                }
+            }
+        }
+    }
 }

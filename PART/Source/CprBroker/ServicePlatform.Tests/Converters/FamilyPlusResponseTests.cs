@@ -53,7 +53,7 @@ using CprBroker.Providers.ServicePlatform;
 using CprBroker.Providers.ServicePlatform.Responses;
 using System.Xml;
 
-namespace CprBroker.Tests.ServicePlatform
+namespace CprBroker.Tests.ServicePlatform.Converters
 {
     namespace FamilyPlusResponseTests
     {
@@ -67,7 +67,7 @@ namespace CprBroker.Tests.ServicePlatform
             }
         }
 
-        public class FamilyTestBase : FamilyPlusResponseTestBase
+        public class AssumptionsTests : FamilyPlusResponseTestBase
         {
             Dictionary<string, Guid> _UuidMap = new Dictionary<string, Guid>();
             public Guid GetUuid(string pnr)

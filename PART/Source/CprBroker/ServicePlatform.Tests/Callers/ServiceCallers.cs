@@ -50,7 +50,7 @@ using CprBroker.Providers.ServicePlatform;
 using CprBroker.Providers.CprServices;
 using System.IO;
 
-namespace CprBroker.Tests.ServicePlatform
+namespace CprBroker.Tests.ServicePlatform.Callers
 {
     public class ServiceCaller
     {

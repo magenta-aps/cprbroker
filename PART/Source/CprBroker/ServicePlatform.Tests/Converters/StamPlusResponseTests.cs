@@ -50,7 +50,7 @@ using CprBroker.Providers.ServicePlatform;
 using CprBroker.Providers.ServicePlatform.Responses;
 using CprBroker.Schemas.Part;
 
-namespace CprBroker.Tests.ServicePlatform
+namespace CprBroker.Tests.ServicePlatform.Converters
 {
     namespace StamPlusResponseTests
     {
