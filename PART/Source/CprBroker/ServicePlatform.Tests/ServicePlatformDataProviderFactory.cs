@@ -80,8 +80,8 @@ namespace CprBroker.Tests.ServicePlatform
                 CertificateSerialNumber = dic["CertificateSerialNumber".ToLower()],
 
                 SftpRemotePath = dic["SftpRemotePath".ToLower()],
-                SftpProcessFilesFromSenderName = dic["SftpProcessFilesFromSenderName".ToLower()],
-                SftpRegexFilter = dic["SftpRegexFilter".ToLower()],
+                //SftpProcessFilesFromSenderName = dic["SftpProcessFilesFromSenderName".ToLower()],
+                //SftpRegexFilter = dic["SftpRegexFilter".ToLower()],
                 SftpSshHostKeyFingerprint = dic["SftpSshHostKeyFingerprint".ToLower()],
                 SftpSshPrivateKeyPassword = dic["SftpSshPrivateKeyPassword".ToLower()],
                 SftpSshPrivateKeyPath = dic["SftpSshPrivateKeyPath".ToLower()],

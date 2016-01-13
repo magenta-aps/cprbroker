@@ -81,7 +81,6 @@ namespace CprBroker.Tests.ServicePlatform
             [Test]
             public void Sftp_TestListSFtpContents()
             {
-
                 var prov = ServicePlatformDataProviderFactory.Create();
                 String[] ftpContent = prov.ListFtpContents();
                 Assert.AreEqual(2, ftpContent.Length);

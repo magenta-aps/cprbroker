@@ -64,12 +64,12 @@ namespace CprBroker.Providers.ServicePlatform
             public static readonly string SftpPort = "SFTP Port";
             public static readonly string ExtractsFolder = "Extracts folder";
             public static readonly string SftpUser = "SFTP User";
-            public static readonly string SftpRegexFilter = "Filename Regex filter";
+            //public static readonly string SftpRegexFilter = "Filename Regex filter";
             public static readonly string SftpSshPrivateKeyPath = "SFTP SSH Private Key Path";
             public static readonly string SftpSshPrivateKeyPassword = "SFTP SSH Private Key Password";
             public static readonly string SftpSshHostKeyFingerprint = "SFTP SSH Host Key Fingerprint";
-            public static readonly string SftpProcessFilesFromSenderName = "SFTP Process Files From Sender Named";
-            public static readonly string SftpRemotePath = "SFTP Remote Path (e.g. \\IN)";
+            //public static readonly string SftpProcessFilesFromSenderName = "SFTP Process Files From Sender Named";
+            public static readonly string SftpRemotePath = "SFTP Remote Path (e.g. /IN)";
         }
 
         public class SubscriptionFields

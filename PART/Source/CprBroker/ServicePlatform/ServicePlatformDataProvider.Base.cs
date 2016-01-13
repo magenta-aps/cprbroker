@@ -120,17 +120,19 @@ namespace CprBroker.Providers.ServicePlatform
                     new DataProviderConfigPropertyInfo(){Name=Constants.ConfigProperties.ServiceAgreementUuid, Type = DataProviderConfigPropertyInfoTypes.String, Confidential = true, Required=true},
                     new DataProviderConfigPropertyInfo(){Name=Constants.ConfigProperties.UserSystemUUID, Type = DataProviderConfigPropertyInfoTypes.String, Confidential = true, Required=true},
                     new DataProviderConfigPropertyInfo(){Name=Constants.ConfigProperties.UserUUID, Type = DataProviderConfigPropertyInfoTypes.String, Confidential = true, Required=true},
+
                     new DataProviderConfigPropertyInfo(){Name=Constants.ConfigProperties.CertificateSerialNumber, Type = DataProviderConfigPropertyInfoTypes.String, Confidential = true, Required=true},
                     new DataProviderConfigPropertyInfo(){Name=Constants.ConfigProperties.ExtractsFolder, Type = DataProviderConfigPropertyInfoTypes.String, Confidential = true, Required=true},
                     new DataProviderConfigPropertyInfo(){Name=Constants.ConfigProperties.HasSftpSource , Type = DataProviderConfigPropertyInfoTypes.Boolean, Confidential = false, Required=true},
+
                     new DataProviderConfigPropertyInfo(){Name=Constants.ConfigProperties.SftpAddress , Type = DataProviderConfigPropertyInfoTypes.String, Confidential = false, Required=true},
                     new DataProviderConfigPropertyInfo(){Name=Constants.ConfigProperties.SftpPort , Type = DataProviderConfigPropertyInfoTypes.Integer, Confidential = false, Required=true},
                     new DataProviderConfigPropertyInfo(){Name=Constants.ConfigProperties.SftpUser , Type = DataProviderConfigPropertyInfoTypes.String, Confidential = false, Required=true},
                     new DataProviderConfigPropertyInfo(){Name=Constants.ConfigProperties.SftpSshPrivateKeyPath , Type = DataProviderConfigPropertyInfoTypes.String, Confidential = false, Required=true},
                     new DataProviderConfigPropertyInfo(){Name=Constants.ConfigProperties.SftpSshPrivateKeyPassword , Type = DataProviderConfigPropertyInfoTypes.String, Confidential = true, Required=true},
                     new DataProviderConfigPropertyInfo(){Name=Constants.ConfigProperties.SftpSshHostKeyFingerprint , Type = DataProviderConfigPropertyInfoTypes.String, Confidential = true, Required=true},
-                    new DataProviderConfigPropertyInfo(){Name=Constants.ConfigProperties.SftpRegexFilter , Type = DataProviderConfigPropertyInfoTypes.String, Confidential = false, Required=true},
-                    new DataProviderConfigPropertyInfo(){Name=Constants.ConfigProperties.SftpProcessFilesFromSenderName , Type = DataProviderConfigPropertyInfoTypes.String, Confidential = false, Required=true},
+                    //new DataProviderConfigPropertyInfo(){Name=Constants.ConfigProperties.SftpRegexFilter , Type = DataProviderConfigPropertyInfoTypes.String, Confidential = false, Required=true},
+                    //new DataProviderConfigPropertyInfo(){Name=Constants.ConfigProperties.SftpProcessFilesFromSenderName , Type = DataProviderConfigPropertyInfoTypes.String, Confidential = false, Required=true},
                     new DataProviderConfigPropertyInfo(){Name=Constants.ConfigProperties.SftpRemotePath , Type = DataProviderConfigPropertyInfoTypes.String, Confidential = false, Required=true},
 
 
@@ -193,6 +195,9 @@ namespace CprBroker.Providers.ServicePlatform
             set { this.ConfigurationProperties[Constants.ConfigProperties.SftpPort] = value.ToString(); }
         }
 
+        /// <summary>
+        /// Path to SSH private key file (PuTTY format)
+        /// </summary>
         public string SftpSshPrivateKeyPath
         {
             get { return this.ConfigurationProperties[Constants.ConfigProperties.SftpSshPrivateKeyPath]; }
@@ -211,17 +216,19 @@ namespace CprBroker.Providers.ServicePlatform
             set { this.ConfigurationProperties[Constants.ConfigProperties.SftpSshHostKeyFingerprint] = value; }
         }
 
+        /*
         public string SftpRegexFilter
         {
             get { return this.ConfigurationProperties[Constants.ConfigProperties.SftpRegexFilter]; }
             set { this.ConfigurationProperties[Constants.ConfigProperties.SftpRegexFilter] = value; }
         }
-
+        */
+        /*
         public string SftpProcessFilesFromSenderName
         {
             get { return this.ConfigurationProperties[Constants.ConfigProperties.SftpProcessFilesFromSenderName]; }
             set { this.ConfigurationProperties[Constants.ConfigProperties.SftpProcessFilesFromSenderName] = value; }
-        }
+        }*/
 
         public string ExtractsFolder
         {
