@@ -54,7 +54,10 @@ namespace CprBroker.Tests.ServicePlatform
     {
         public static ServicePlatformDataProvider Create()
         {
-            var lines = File.ReadAllLines(@"..\..\demo.dat");
+            string filePath;
+            filePath = @"..\..\prod.dat";
+            filePath = @"..\..\demo.dat";
+            var lines = File.ReadAllLines(filePath);
             var dic = new Dictionary<string, string>();
             foreach (var l in lines)
             {
@@ -70,11 +73,12 @@ namespace CprBroker.Tests.ServicePlatform
             var prov = new CprBroker.Providers.ServicePlatform.ServicePlatformDataProvider()
             {
                 ConfigurationProperties = new Dictionary<string, string>(),
-                Url = "https://exttest.serviceplatformen.dk",
+                Url = dic["Url".ToLower()],
                 UserSystemUUID = dic["UserSystemUUID".ToLower()],
                 ServiceAgreementUuid = dic["ServiceAgreementUuid".ToLower()],
                 UserUUID = dic["UserUUID".ToLower()],
                 CertificateSerialNumber = dic["CertificateSerialNumber".ToLower()],
+
                 SftpRemotePath = dic["SftpRemotePath".ToLower()],
                 SftpProcessFilesFromSenderName = dic["SftpProcessFilesFromSenderName".ToLower()],
                 SftpRegexFilter = dic["SftpRegexFilter".ToLower()],
@@ -84,7 +88,7 @@ namespace CprBroker.Tests.ServicePlatform
                 SftpUser = dic["SftpUser".ToLower()],
                 SftpPort = Convert.ToInt32(dic["SftpPort".ToLower()]),
                 FtpAddress = dic["SftpAddress".ToLower()],
-                ExtractsFolder= dic["ExtractsFolder".ToLower()]
+                ExtractsFolder = dic["ExtractsFolder".ToLower()]
             };
 
             return prov;

@@ -51,7 +51,14 @@ namespace CprBroker.Tests.ServicePlatform
 {
     public class BaseResponseTests
     {
-        public string[] PNRs { get { return CPRDirect.Utilities.PNRs; } }
+        public string[] PNRs { 
+            get 
+            { 
+                return CPRDirect.Utilities.PNRs; 
+                //return new string[] { "" };
+            } 
+        }
+
         public string GetResponse(string pnr, string methodName)
         {
             var txt = File.ReadAllText(string.Format(@"Resources\{0}.{1}.Response.OK.xml", pnr,methodName), Encoding.UTF8);
