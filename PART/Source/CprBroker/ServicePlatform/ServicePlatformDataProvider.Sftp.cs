@@ -182,6 +182,12 @@ namespace CprBroker.Providers.ServicePlatform
             }
         }
 
+        public bool IsDataFile(string localPath)
+        {
+            // Metadata files are not data files
+            return !localPath.ToLower().EndsWith(Constants.MetaDataFilePostfix.ToLower());
+        }
+
         protected string PrepareRemotePathDir(string subPath)
         {
             return Utilities.Strings.EnsureEndString(subPath, "/", true);

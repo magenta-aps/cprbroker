@@ -285,13 +285,19 @@ namespace CprBroker.Providers.CPRDirect
             {
                 try
                 {
-                    Admin.LogFormattedSuccess("Reading file <{0}> ", file);
-                    ExtractManager.ImportFileInSteps(file, batchSize);
-                    Admin.LogFormattedSuccess("Importing file <{0}> succeeded", file);
-
+                    if (prov.IsDataFile(file))
+                    {
+                        Admin.LogFormattedSuccess("Reading file <{0}> ", file);
+                        ExtractManager.ImportFileInSteps(file, batchSize);
+                        Admin.LogFormattedSuccess("Importing file <{0}> succeeded", file);
+                    }
+                    else
+                    {
+                        // Skip non data files metadata file
+                        Admin.LogFormattedSuccess("File <{0}> is not a data file", file);
+                    }
                     MoveToProcessed(prov.ExtractsFolder, file);
                     Admin.LogFormattedSuccess("File <{0}> moved to \\Processed folder", file);
-
                 }
                 catch (Exception ex)
                 {

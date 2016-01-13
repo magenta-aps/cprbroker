@@ -57,5 +57,6 @@ namespace CprBroker.PartInterface
         long GetLength(string subPath);
         void DownloadFile(string subPath, long length);
         void DeleteFile(string subPath);
+        bool IsDataFile(string localPath);
     }
 }

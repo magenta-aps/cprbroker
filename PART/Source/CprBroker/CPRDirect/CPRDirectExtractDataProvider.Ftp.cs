@@ -182,5 +182,11 @@ namespace CprBroker.Providers.CPRDirect
                 }
             }
         }
+
+        public bool IsDataFile(string localPath)
+        {
+            // Accept all files
+            return true;
+        }
     }
 }
