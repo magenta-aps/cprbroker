@@ -56,26 +56,6 @@ namespace CprBroker.Tests.ServicePlatform
 {
     namespace ServicePlatformDataProviderTests
     {
-
-        [TestFixture]
-        public class PutSubscription : BaseResponseTests
-        {
-            [SetUp]
-            public void InitContext()
-            {
-                CprBroker.Engine.BrokerContext.Initialize(CprBroker.Utilities.Constants.BaseApplicationToken.ToString(), "NUnit");
-            }
-
-            [Test]
-            [TestCaseSource("PNRs")]
-            public void PutSubscription_OK(string pnr)
-            {
-                var prov = ServicePlatformDataProviderFactory.Create();
-                var ret = prov.PutSubscription(new Schemas.PersonIdentifier() { CprNumber = pnr, UUID = Guid.NewGuid() });
-                Assert.True(ret);
-            }
-        }
-
         [TestFixture]
         public class ToRegistreringType1 : BaseResponseTests
         {

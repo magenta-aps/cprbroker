@@ -62,8 +62,10 @@
     <Compile Include="SearchCriteriaFactory.cs" />
     <Compile Include="Callers\ServiceCallers.cs" />
     <Compile Include="ServicePlatformDataProviderFactory.cs" />
-    <Compile Include="ServicePlatformDataProviderTests.cs" />
-    <Compile Include="ServicePlatformDataProviderTests.Part.cs" />
+    <Compile Include="ServicePlatformDataProvider\ServicePlatformDataProviderTests.SearchList.cs" />
+    <Compile Include="ServicePlatformDataProvider\ServicePlatformDataProviderTests.Sftp.cs" />
+    <Compile Include="ServicePlatformDataProvider\ServicePlatformDataProviderTests.Part.PutSubscription.cs" />
+    <Compile Include="ServicePlatformDataProvider\ServicePlatformDataProviderTests.ToRegistreringType1.cs" />
     <Compile Include="Converters\StamPlusResponseTests.cs" />
     <Compile Include="UuidCacheFactory.cs" />
   </ItemGroup>
