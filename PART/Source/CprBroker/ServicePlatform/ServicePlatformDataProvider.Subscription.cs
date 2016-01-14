@@ -138,7 +138,7 @@ namespace CprBroker.Providers.ServicePlatform
                             return filters.PNR;
 
                         case Constants.SubscriptionFields.MunicipalityCode:
-                            return filters.MunicipalityCode;
+                            return filters.MunicipalityCode.Select(c => c.PadLeft(4, '0')).ToArray();
 
                         case Constants.SubscriptionFields.ChangeCode:
                             return filters.ChangeCode;
