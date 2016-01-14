@@ -190,6 +190,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\CprEvents.txt" />
     <Content Include="WinSCP.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

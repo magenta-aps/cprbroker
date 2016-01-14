@@ -1,0 +1,36 @@
+﻿A01 Flytning
+A02 Forsvinding
+A03 Genfinding
+A04 Genindrejse
+A06 Udrejse
+A07 Ændring af supplerende adresse
+A08 Opdatering af udlandsfelter/valgretsfelter
+A09 Korrektion af aktuel adresse
+A10 Annullation af aktuel adresse - udrejse eller forsvinding
+A13 Navneændring (ved ændring af adresseringsnavn/fornavn/mellemnavn/efternavn)
+A14 Navngivelse
+A15 Opdater navnefelter (ved ændring af adresseringsnavn/fornavn/mellemnavn/efternavn)
+A16 Korrektion af aktuelle navne (ved ændring af fornavn/mellemnavn/efternavn)
+A17 Annullation af aktuelle navne (ved ændring af fornavn/mellemnavn/efternavn)
+A21 Dødsfald
+A24 Ændring af civilstandsdata
+A25 Annullation af aktuel civilstand (annullation af dødsfald)
+A33 Beskyttelse
+A34 Folkekirkeforhold + Stilling
+A40 Annullation af personnummer
+A42 Teknisk ændring af adresser - batch
+A45 PNR-abonnement
+A47 Opdater kontaktadresse
+A73 Under værgemål (umyndiggørelse)
+A74 Rekvisition af personposter
+K74 Rekvisition af personposter (maskinelt dannet periodisk)
+P02 Sletning af personnummer
+P03 Ændring af personnummer
+P10 Ændring af postnummer/bynavn/lokalitet/vejnavn
+P11 Automatisk sletning af navne- og adressebeskyttelse/notat/kontaktadresse/forældremyndighed
+P31 Indrejse med personnummer - indberet
+P42 Ændre personnummer - fortryd
+P43 Slet personnummer - fortryd (en person får sit tidligere personnummer tilbage)
+P48 Korrektion af aktuel separation
+P49 Annullation af aktuel separation
+P56 Annullation af aktuel folkekirkeforhold

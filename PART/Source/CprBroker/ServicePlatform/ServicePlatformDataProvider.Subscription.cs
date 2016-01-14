@@ -274,6 +274,12 @@ namespace CprBroker.Providers.ServicePlatform
                         CprBroker.Providers.CPRDirect.Constants.AuthorityTypes.Municipality)
                         .ToDictionary(auth => auth.AuthorityCode, auth => auth.AuthorityName);
 
+                case Constants.SubscriptionFields.ChangeCode:
+                    return Properties.Resources.CprEvents
+                        .Split(Environment.NewLine.ToArray(), StringSplitOptions.RemoveEmptyEntries)
+                        .Select(line => line.Split(' '))
+                        .ToDictionary(arr => arr.First(), arr => string.Join(" ", arr.Skip(1).ToArray()));
+
                 default:
                     return null;
             }
