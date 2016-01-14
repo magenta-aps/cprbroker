@@ -36,7 +36,7 @@ else
     }
     else
     {
-        <div class="row">
+        <div class="row col-sm-9 col-sm-pull-0">
             @foreach (var fieldSubscription in fieldSubscriptions)
             {
                 <div class="col-sm-2">
@@ -50,7 +50,7 @@ else
     }
     var addTextBoxId = field.Replace(" ", "") + "_new";
     <br />
-    <div class="row">
+    <div class="row col-sm-9 col-sm-pull-0">
         <input type="text" id="@addTextBoxId" field="@field" class="input-sm" />
         <button class="btn btn-default btn-sm" textboxid="@addTextBoxId" name="addSubscription">
             <span class="glyphicon glyphicon-plus"></span>
