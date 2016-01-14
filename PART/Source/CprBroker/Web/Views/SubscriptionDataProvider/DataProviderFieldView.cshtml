@@ -8,14 +8,17 @@
         fieldSubscriptions = new string[0];
 }
 
-<h1>
-    @field
-</h1>
-
 @if (fieldLookups != null)
 {
     <div class="row col-sm-9 col-sm-pull-0">
-        @foreach (var fieldLookup in fieldLookups)
+        @{
+    var fieldLookupArray = fieldLookups.ToArray();
+    if (fieldLookupArray.Where(o => o.Value.Length > 30).Count() > 0)
+    {
+        fieldLookupArray = fieldLookupArray.OrderBy(f => f.Value.Length).ToArray();
+    }
+        }
+        @foreach (var fieldLookup in fieldLookupArray)
         {
             <div class="col-sm-3">
                 @{var id = field.Trim() + "_" + @fieldLookup.Key;}
@@ -46,7 +49,7 @@ else
         </div>
     }
     var addTextBoxId = field.Replace(" ", "") + "_new";
-
+    <br />
     <div class="row">
         <input type="text" id="@addTextBoxId" field="@field" class="input-sm" />
         <button class="btn btn-default btn-sm" textboxid="@addTextBoxId" name="addSubscription">

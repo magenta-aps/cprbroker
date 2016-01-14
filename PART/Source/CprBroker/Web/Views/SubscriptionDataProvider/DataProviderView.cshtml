@@ -18,10 +18,11 @@
         @foreach (var field in Model.Item1.SubscriptionFields)
         {
             <li @{Output.Write(isFirstField(field) ? "class=\"active\"" : "");}>
-                <a data-toggle="tab" href="@{Output.Write("#" + spanId(field));}" >@field</a>
+                <a data-toggle="tab" href="@{Output.Write("#" + spanId(field));}"><b>@field</b></a>
             </li>
         }
     </ul>
+    <br />
     <div class="tab-content">
         @foreach (var field in Model.Item1.SubscriptionFields)
         {

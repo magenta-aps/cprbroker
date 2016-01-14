@@ -126,7 +126,7 @@
         <div class="modal-dialog  modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Title</h4>
+                    <h4 class="modal-title">Subscriptions</h4>
                 </div>
                 <div class="modal-body">
                     <span id="dataProviderPopup"></span>
