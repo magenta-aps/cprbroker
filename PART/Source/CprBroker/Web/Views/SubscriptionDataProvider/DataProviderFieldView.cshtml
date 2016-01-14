@@ -8,50 +8,49 @@
         fieldSubscriptions = new string[0];
 }
 
-    <h1>
-        @field
-    </h1>
-    
-    @if (fieldLookups != null)
+<h1>
+    @field
+</h1>
+
+@if (fieldLookups != null)
+{
+    <div class="row col-sm-9 col-sm-pull-0">
+        @foreach (var fieldLookup in fieldLookups)
+        {
+            <div class="col-sm-3">
+                @{var id = field.Trim() + "_" + @fieldLookup.Key;}
+                <input type="checkbox" name="chkSubscription" checked="@fieldSubscriptions.Contains(fieldLookup.Key)" value="@fieldLookup.Key" id="@id" field="@field" />
+                <label for=@id style="overflow-wrap:break-word">@fieldLookup.Value</label>
+            </div>
+        }
+    </div>
+}
+else
+{
+    if (fieldSubscriptions == null || fieldSubscriptions.Length == 0)
     {
-        <div class="row" >
-            @foreach (var fieldLookup in fieldLookups)
+        Output.Write("(None)");
+    }
+    else
+    {
+        <div class="row">
+            @foreach (var fieldSubscription in fieldSubscriptions)
             {
-                <div class="col-sm-3">
-                    @{var id = field.Trim() + "_" + @fieldLookup.Key;}
-                    <input type="checkbox" name="chkSubscription" checked="@fieldSubscriptions.Contains(fieldLookup.Key)" value="@fieldLookup.Key" id="@id" field="@field" />
-                    <label for=@id>@fieldLookup.Value</label>
+                <div class="col-sm-2">
+                    @fieldSubscription
+                    <button type="button" class="btn btn-default btn-sm" name="removeSubscription" field="@field" fieldvalue="@fieldSubscription">
+                        <span class="glyphicon glyphicon-minus"></span>
+                    </button>
                 </div>
             }
         </div>
     }
-    else
-    {
-        if (fieldSubscriptions == null || fieldSubscriptions.Length == 0)
-        {
-            Output.Write("(None)");
-        }
-        else
-        {
-            <div class="row">
-                @foreach (var fieldSubscription in fieldSubscriptions)
-                {
-                    <div class="col-sm-2">
-                        @fieldSubscription
-                        <button type="button" class="btn btn-default btn-sm" name="removeSubscription" field="@field" fieldvalue="@fieldSubscription">
-                            <span class="glyphicon glyphicon-minus"></span>
-                        </button>
-                    </div>
-                }
-            </div>
-        }
-        var addTextBoxId = field.Replace(" ", "") + "_new";
+    var addTextBoxId = field.Replace(" ", "") + "_new";
 
-        <div class="row">
-            <input type="text" id="@addTextBoxId" field="@field" class="input-sm" />
-            <button class="btn btn-default btn-sm" textboxid="@addTextBoxId" name="addSubscription">
-                <span class="glyphicon glyphicon-plus"></span>
-            </button>
-        </div>
-    }
-</div>
+    <div class="row">
+        <input type="text" id="@addTextBoxId" field="@field" class="input-sm" />
+        <button class="btn btn-default btn-sm" textboxid="@addTextBoxId" name="addSubscription">
+            <span class="glyphicon glyphicon-plus"></span>
+        </button>
+    </div>
+}

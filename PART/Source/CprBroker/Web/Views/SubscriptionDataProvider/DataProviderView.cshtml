@@ -1,18 +1,42 @@
 ﻿@using CprBroker.Engine;
 @model Tuple<CprBroker.Engine.ISubscriptionManagerDataProvider, Guid>
 
+@functions{
+    string spanId(string f)
+    {
+        return "spn_" + f.Replace(" ", "");
+    }
 
-@foreach (var field in Model.Item1.SubscriptionFields)
-{
-    <span id="@{Output.Write("spn_" + field);}">
-        @{
-    Html.RenderPartial(
-        "~/Views/SubscriptionDataProvider/DataProviderFieldView.cshtml",
-        new Tuple<ISubscriptionManagerDataProvider, Guid, string>(Model.Item1, Model.Item2, field)
-        );
-        }
-    </span>
+    bool isFirstField(string f)
+    {
+        return f.Equals(Model.Item1.SubscriptionFields.Last());
+    }
 }
+
+<div class="container">
+    <ul class="nav nav-tabs">
+        @foreach (var field in Model.Item1.SubscriptionFields)
+        {
+            <li @{Output.Write(isFirstField(field) ? "class=\"active\"" : "");}>
+                <a data-toggle="tab" href="@{Output.Write("#" + spanId(field));}" >@field</a>
+            </li>
+        }
+    </ul>
+    <div class="tab-content">
+        @foreach (var field in Model.Item1.SubscriptionFields)
+        {
+            <div id="@spanId(field)" class="tab-pane fade@{ Output.Write(isFirstField(field)? " in active":"");}">
+                @{
+            Html.RenderPartial(
+                "~/Views/SubscriptionDataProvider/DataProviderFieldView.cshtml",
+                new Tuple<ISubscriptionManagerDataProvider, Guid, string>(Model.Item1, Model.Item2, field)
+                );
+                }
+            </div>
+        }
+    </div>
+</div>
+
 <script language="javascript">
 
     function setDataProviderButtonEvents() {
