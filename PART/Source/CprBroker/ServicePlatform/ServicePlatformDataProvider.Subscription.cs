@@ -112,10 +112,10 @@ namespace CprBroker.Providers.ServicePlatform
             get
             {
                 return new string[] { 
-                    Constants.SubscriptionFields.PNR, 
                     Constants.SubscriptionFields.MunicipalityCode,
                     Constants.SubscriptionFields.ChangeCode,
-                    //Constants.SubscriptionFields.AgeRange 
+                    Constants.SubscriptionFields.PNR,
+                    //Constants.SubscriptionFields.AgeRange
                 };
             }
         }
