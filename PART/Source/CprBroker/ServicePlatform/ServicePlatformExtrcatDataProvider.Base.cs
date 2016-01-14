@@ -77,6 +77,7 @@ namespace CprBroker.Providers.ServicePlatform
             }
             catch (Exception ex)
             {
+                CprBroker.Engine.Local.Admin.LogException(ex);
                 return false;
             }
         }
@@ -99,11 +100,11 @@ namespace CprBroker.Providers.ServicePlatform
                     new DataProviderConfigPropertyInfo(){Name=Constants.ConfigProperties.SftpPort , Type = DataProviderConfigPropertyInfoTypes.Integer, Confidential = false, Required=true},
                     new DataProviderConfigPropertyInfo(){Name=Constants.ConfigProperties.SftpUser , Type = DataProviderConfigPropertyInfoTypes.String, Confidential = false, Required=true},
                     new DataProviderConfigPropertyInfo(){Name=Constants.ConfigProperties.SftpSshPrivateKeyPath , Type = DataProviderConfigPropertyInfoTypes.String, Confidential = false, Required=true},
-                    new DataProviderConfigPropertyInfo(){Name=Constants.ConfigProperties.SftpSshPrivateKeyPassword , Type = DataProviderConfigPropertyInfoTypes.String, Confidential = true, Required=true},
+                    new DataProviderConfigPropertyInfo(){Name=Constants.ConfigProperties.SftpSshPrivateKeyPassword , Type = DataProviderConfigPropertyInfoTypes.String, Confidential = true, Required=false},
                     new DataProviderConfigPropertyInfo(){Name=Constants.ConfigProperties.SftpSshHostKeyFingerprint , Type = DataProviderConfigPropertyInfoTypes.String, Confidential = false, Required=true},
                     //new DataProviderConfigPropertyInfo(){Name=Constants.ConfigProperties.SftpRegexFilter , Type = DataProviderConfigPropertyInfoTypes.String, Confidential = false, Required=true},
                     //new DataProviderConfigPropertyInfo(){Name=Constants.ConfigProperties.SftpProcessFilesFromSenderName , Type = DataProviderConfigPropertyInfoTypes.String, Confidential = false, Required=true},
-                    new DataProviderConfigPropertyInfo(){Name=Constants.ConfigProperties.SftpRemotePath , Type = DataProviderConfigPropertyInfoTypes.String, Confidential = false, Required=true},
+                    new DataProviderConfigPropertyInfo(){Name=Constants.ConfigProperties.SftpRemotePath , Type = DataProviderConfigPropertyInfoTypes.String, Confidential = false, Required=false},
                 };
             }
         }
