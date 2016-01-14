@@ -63,7 +63,7 @@
     <Compile Include="Callers\ServiceCallers.cs" />
     <Compile Include="ServicePlatformDataProviderFactory.cs" />
     <Compile Include="ServicePlatformDataProvider\ServicePlatformDataProviderTests.SearchList.cs" />
-    <Compile Include="ServicePlatformDataProvider\ServicePlatformDataProviderTests.Sftp.cs" />
+    <Compile Include="ServicePlatformExtractDataProvider\ServicePlatformExtractDataProviderTests.Sftp.cs" />
     <Compile Include="ServicePlatformDataProvider\ServicePlatformDataProviderTests.Part.PutSubscription.cs" />
     <Compile Include="ServicePlatformDataProvider\ServicePlatformDataProviderTests.ToRegistreringType1.cs" />
     <Compile Include="Converters\StamPlusResponseTests.cs" />

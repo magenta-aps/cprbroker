@@ -51,7 +51,7 @@ using System.IO;
 
 namespace CprBroker.Providers.ServicePlatform
 {
-    public partial class ServicePlatformDataProvider
+    public partial class ServicePlatformExtractDataProvider
     {
 
         public string[] ListFtpContents()

@@ -52,7 +52,7 @@ namespace CprBroker.Tests.ServicePlatform
 {
     public class ServicePlatformDataProviderFactory
     {
-        public static ServicePlatformDataProvider Create()
+        static Dictionary<string, string> LoadValues()
         {
             string filePath;
             filePath = @"..\..\prod.dat";
@@ -69,6 +69,12 @@ namespace CprBroker.Tests.ServicePlatform
                     dic[key.ToLower()] = val;
                 }
             }
+            return dic;
+        }
+
+        public static ServicePlatformDataProvider Create()
+        {
+            var dic = LoadValues();
 
             var prov = new CprBroker.Providers.ServicePlatform.ServicePlatformDataProvider()
             {
@@ -78,6 +84,18 @@ namespace CprBroker.Tests.ServicePlatform
                 ServiceAgreementUuid = dic["ServiceAgreementUuid".ToLower()],
                 UserUUID = dic["UserUUID".ToLower()],
                 CertificateSerialNumber = dic["CertificateSerialNumber".ToLower()],
+            };
+
+            return prov;
+        }
+
+        public static ServicePlatformExtractDataProvider CreateExtractDataProvider()
+        {
+            var dic = LoadValues();
+
+            var prov = new CprBroker.Providers.ServicePlatform.ServicePlatformExtractDataProvider()
+            {
+                ConfigurationProperties = new Dictionary<string, string>(),
 
                 SftpRemotePath = dic["SftpRemotePath".ToLower()],
                 //SftpProcessFilesFromSenderName = dic["SftpProcessFilesFromSenderName".ToLower()],

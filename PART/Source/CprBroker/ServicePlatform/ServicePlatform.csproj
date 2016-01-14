@@ -80,11 +80,12 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="ServiceInfo.cs" />
+    <Compile Include="ServicePlatformExtrcatDataProvider.Base.cs" />
     <Compile Include="ServicePlatformDataProvider.Base.cs" />
     <Compile Include="ServicePlatformDataProvider.Connection.cs" />
     <Compile Include="ServicePlatformDataProvider.Part.cs" />
     <Compile Include="ServicePlatformDataProvider.Search.cs" />
-    <Compile Include="ServicePlatformDataProvider.Sftp.cs" />
+    <Compile Include="ServicePlatformExtractDataProvider.Sftp.cs" />
     <Compile Include="ServicePlatformDataProvider.Subscription.cs" />
   </ItemGroup>
   <ItemGroup>
