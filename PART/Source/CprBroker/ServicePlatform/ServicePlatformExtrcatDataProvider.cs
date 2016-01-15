@@ -51,7 +51,7 @@ using CprBroker.Providers.CprServices;
 
 namespace CprBroker.Providers.ServicePlatform
 {
-    public partial class ServicePlatformExtractDataProvider : IExternalDataProvider, CprBroker.PartInterface.IExtractDataProvider
+    public partial class ServicePlatformExtractDataProvider : IExternalDataProvider, CprBroker.PartInterface.IExtractDataProvider, IPartPeriodDataProvider, IPartReadDataProvider
     {
         #region IDataProvider members
 
@@ -185,5 +185,19 @@ namespace CprBroker.Providers.ServicePlatform
         }
 
         #endregion
+
+        public Schemas.Part.FiltreretOejebliksbilledeType ReadPeriod(DateTime fromDate, DateTime toDate, Schemas.PersonIdentifier pId, Func<string, Guid> cpr2uuidFunc)
+        {
+            // The same format as CPR Direct extracts, reuse the functionality
+            var prov = new CPRDirect.CPRDirectExtractDataProvider();
+            return prov.ReadPeriod(fromDate, toDate, pId, cpr2uuidFunc);
+        }
+
+        public Schemas.Part.RegistreringType1 Read(Schemas.PersonIdentifier uuid, Schemas.Part.LaesInputType input, Func<string, Guid> cpr2uuidFunc, out Schemas.QualityLevel? ql)
+        {
+            // The same format as CPR Direct extracts, reuse the functionality
+            var prov = new CPRDirect.CPRDirectExtractDataProvider();
+            return prov.Read(uuid, input, cpr2uuidFunc, out ql);
+        }
     }
 }

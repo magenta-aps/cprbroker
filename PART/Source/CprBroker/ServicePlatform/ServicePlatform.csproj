@@ -80,7 +80,7 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="ServiceInfo.cs" />
-    <Compile Include="ServicePlatformExtrcatDataProvider.Base.cs" />
+    <Compile Include="ServicePlatformExtrcatDataProvider.cs" />
     <Compile Include="ServicePlatformDataProvider.Base.cs" />
     <Compile Include="ServicePlatformDataProvider.Connection.cs" />
     <Compile Include="ServicePlatformDataProvider.Part.cs" />
