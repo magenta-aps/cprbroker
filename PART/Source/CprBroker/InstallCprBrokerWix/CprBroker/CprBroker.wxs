@@ -9,6 +9,7 @@
             <ComponentGroupRef Id="CMPGRP_Root"/>
             <ComponentGroupRef Id="CMPGRP_AppThemes"/>
             <ComponentGroupRef Id="CMPGRP_bin"/>
+            <ComponentGroupRef Id="CMPGRP_bin_Mvc"/>
             <ComponentGroupRef Id="CMPGRP_Config"/>
             <ComponentGroupRef Id="CMPGRP_Pages"/>
             <ComponentGroupRef Id="CMPGRP_CPR_Bootstrap"/>

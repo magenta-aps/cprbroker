@@ -115,7 +115,7 @@
             <Component Id="CMP_CPR_AjaxControlToolkit__Dll" Directory="CPR_bin">
                 <File Id="FILE_CPR_bin_AjaxControlToolkit__DLL" Source="$(var.SitePath)bin\AjaxControlToolkit.dll" KeyPath="yes"/>
             </Component>
-
+            
             <Component Id="CMP_CPR_WinSCPNet_Dll" Directory="CPR_bin">
                 <File Id="FILE_CPR_WinSCPNet_Dll" Source="$(var.SitePath)bin\WinSCPnet.dll" KeyPath="yes"/>
             </Component>
@@ -124,6 +124,31 @@
             </Component>
         </ComponentGroup>
 
+        <ComponentGroup Id="CMPGRP_bin_Mvc">
+            <Component Id="CMP_CPR_Mvc_Dll" Directory="CPR_bin">
+                <File Id="FILE_CPR_bin_Mvc_DLL" Source="$(var.SitePath)bin\System.Web.Mvc.dll" KeyPath="yes"/>
+            </Component>
+            <Component Id="CMP_CPR_Web_Razor_Dll" Directory="CPR_bin">
+                <File Id="FILE_CPR_bin_Web_Razor_DLL" Source="$(var.SitePath)bin\System.Web.Razor.dll" KeyPath="yes"/>
+            </Component>
+            <Component Id="CMP_CPR_WebPages_Razor_Dll" Directory="CPR_bin">
+                <File Id="FILE_CPR_bin_WebPages_Razor_DLL" Source="$(var.SitePath)bin\System.Web.WebPages.Razor.dll" KeyPath="yes"/>
+            </Component>
+            <Component Id="CMP_CPR_WebPages_Dll" Directory="CPR_bin">
+                <File Id="FILE_CPR_bin_WebPages_DLL" Source="$(var.SitePath)bin\System.Web.WebPages.dll" KeyPath="yes"/>
+            </Component>
+            <Component Id="CMP_CPR_Web_Optimization_Dll" Directory="CPR_bin">
+                <File Id="FILE_CPR_bin_Web_Optimization_DLL" Source="$(var.SitePath)bin\System.Web.Optimization.dll" KeyPath="yes"/>
+            </Component>
+            <Component Id="CMP_CPR_WebPages_Deployment_Dll" Directory="CPR_bin">
+                <File Id="FILE_CPR_bin_WebPages_Deployment_DLL" Source="$(var.SitePath)bin\System.Web.WebPages.Deployment.dll" KeyPath="yes"/>
+            </Component>
+            <Component Id="CMP_CPR_PagedList_Mvc_Dll" Directory="CPR_bin">
+                <File Id="FILE_CPR_bin_PagedList_Mvc_DLL" Source="$(var.SitePath)bin\PagedList.Mvc.dll" KeyPath="yes"/>
+            </Component>
+
+        </ComponentGroup>
+        
         <ComponentGroup Id="CMPGRP_Pages">
             <Component Id="CMP_CPR_Site_MASTER" Directory="CPR_Pages">
                 <RemoveFile Id="Remove_CPR_Site_MASTER" Name="Site.master" On="install"/>
