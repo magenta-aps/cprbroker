@@ -216,9 +216,5 @@ namespace CprBroker.Providers.ServicePlatform
                 SshPrivateKeyPassphrase = SftpSshPrivateKeyPassword
             };
         }
-
-
-
-
     }
 }
