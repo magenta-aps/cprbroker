@@ -203,6 +203,10 @@ namespace CprBrokerWixInstallers
                 typeof(CprBroker.Providers.ServicePlatform.ServicePlatformExtractDataProvider),
             };
             CprBroker.Installers.Installation.AddKnownDataProviderTypes(types, cprConfigFilePath);
+
+            // Set ASP.NET to target framework version                
+            CprBroker.Installers.WebsiteCustomAction.RunRegIIS(string.Format("-s {0}", cprWebInstallationInfo.TargetWmiSubPath), new Version(4, 0));
+
         }
     }
 }

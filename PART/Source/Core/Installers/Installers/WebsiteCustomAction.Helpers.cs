@@ -129,7 +129,7 @@ namespace CprBroker.Installers
             Installation.RunCommand(fileName, args);
         }
 
-        private static void RunRegIIS(string args, Version frameworkVersion)
+        public static void RunRegIIS(string args, Version frameworkVersion)
         {
             string fileName = Installation.GetNetFrameworkDirectory(frameworkVersion) + "aspnet_regiis.exe";
             // use aspnet_regiis for 64 bit machines whenever possible

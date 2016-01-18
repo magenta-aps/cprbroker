@@ -417,6 +417,7 @@ namespace CprBrokerWixInstallers
 
                 WebInstallationOptions cprOptions = new WebInstallationOptions()
                 {
+                    FrameworkVersion = new Version(4, 0),
                     EncryptConnectionStrings = true,
                     ConnectionStrings = new Dictionary<string, string>(connectionStrings),
                     InitializeFlatFileLogging = true,
