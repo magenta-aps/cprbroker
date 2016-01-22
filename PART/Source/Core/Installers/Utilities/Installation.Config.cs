@@ -232,18 +232,14 @@ namespace CprBroker.Installers
                 if (targetAttribute == null)
                 {
                     targetAttribute = targetNode.OwnerDocument.CreateAttribute(sourceAttribute.Name);
-                }
-                else if (mergeOption == MergeOption.Ignore)
-                {
-                    continue;
-                }
-                else
-                {
                     targetNode.Attributes.Append(targetAttribute);
+                    targetAttribute.Value = sourceAttribute.Value;
                 }
-                targetAttribute.Value = sourceAttribute.Value;
+                else if (mergeOption == MergeOption.Overwrite)
+                {
+                    targetAttribute.Value = sourceAttribute.Value;
+                }
             }
-
 
             targetNode.OwnerDocument.Save(toConfigFile);
             return true;

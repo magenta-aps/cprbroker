@@ -17,6 +17,7 @@ namespace CprWixInstallers.Tests
             [Test]
             public void AddMvcElements_Run_CorrectTargetContents()
             {
+                System.Diagnostics.Debugger.Launch();
                 var createdPath = "created.xml";
                 File.WriteAllText(createdPath, Properties.Resources.OldWebConfig);
 

@@ -148,6 +148,16 @@
         The system.webServer section is required for running ASP.NET AJAX under Internet
         Information Services 7.0.  It is not necessary for previous version of IIS.
     -->
+    <!--Sample for access restriction for web services-->
+    <!--<location path="Services/Part.asmx/Read">
+        <system.web>
+            <authorization >
+                <deny users="*"/>
+            </authorization>
+        </system.web>
+    </location>-->
+    <!-- Configuration of Microsoft Entrprise Library Logging-->
+    <loggingConfiguration configSource="Config\loggingConfiguration.config"/>
     <system.webServer>
         <validation validateIntegratedModeConfiguration="false"/>
         <modules>
@@ -164,14 +174,5 @@
             <add name="ScriptResource" preCondition="integratedMode" verb="GET,HEAD" path="ScriptResource.axd" type="System.Web.Handlers.ScriptResourceHandler, System.Web.Extensions, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35"/>
         </handlers>
     </system.webServer>
-    <!--Sample for access restriction for web services-->
-    <!--<location path="Services/Part.asmx/Read">
-        <system.web>
-            <authorization >
-                <deny users="*"/>
-            </authorization>
-        </system.web>
-    </location>-->
-    <!-- Configuration of Microsoft Entrprise Library Logging-->
-    <loggingConfiguration configSource="Config\loggingConfiguration.config"/>
+
 </configuration>
