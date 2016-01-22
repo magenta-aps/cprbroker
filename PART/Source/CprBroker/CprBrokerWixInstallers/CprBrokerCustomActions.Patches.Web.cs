@@ -207,6 +207,9 @@ namespace CprBrokerWixInstallers
             // Set ASP.NET to target framework version                
             CprBroker.Installers.WebsiteCustomAction.RunRegIIS(string.Format("-s {0}", cprWebInstallationInfo.TargetWmiSubPath), new Version(4, 0));
 
+            // Remove config section that is already in machine.config
+            CprBroker.Installers.Installation.RemoveXmlNode(cprConfigFilePath, "//sectionGroup[@name='scripting']");
+
         }
     }
 }

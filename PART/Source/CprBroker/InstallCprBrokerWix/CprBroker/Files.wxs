@@ -147,6 +147,10 @@
                 <File Id="FILE_CPR_bin_PagedList_Mvc_DLL" Source="$(var.SitePath)bin\PagedList.Mvc.dll" KeyPath="yes"/>
             </Component>
 
+            <Component Id="CMP_CPR_Web_Infrastructure_Dll" Directory="CPR_bin">
+                <File Id="FILE_CPR_bin_Web_Infrastructure_DLL" Source="$(var.SitePath)bin\Microsoft.Web.Infrastructure.dll" KeyPath="yes"/>
+            </Component>
+            
         </ComponentGroup>
         
         <ComponentGroup Id="CMPGRP_Pages">

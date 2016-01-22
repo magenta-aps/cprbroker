@@ -74,11 +74,11 @@ namespace CprBroker.Installers
             return configuration;
         }
 
-        public static XmlNode RemoveSectionNode(string configFileName, string nodeName)
+        public static XmlNode RemoveXmlNode(string configFileName, string path)
         {
             XmlDocument doc = new XmlDocument();
             doc.Load(configFileName);
-            XmlNode node = doc.SelectSingleNode("//" + nodeName);
+            XmlNode node = doc.SelectSingleNode(path);
             if (node != null)
             {
                 var parentNode = node.ParentNode;
@@ -86,6 +86,12 @@ namespace CprBroker.Installers
                 doc.Save(configFileName);
             }
             return node;
+        }
+
+        public static XmlNode RemoveSectionNode(string configFileName, string nodeName)
+        {
+            var path = "//" + nodeName;
+            return RemoveXmlNode(configFileName, path);
         }
 
         public static void AddConfigSectionDefinition(string configFilePath, string groupName, string sectionName, Type sectionType)
