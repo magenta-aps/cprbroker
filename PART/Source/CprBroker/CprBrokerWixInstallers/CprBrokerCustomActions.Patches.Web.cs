@@ -54,6 +54,7 @@ using CprBroker.Installers.EventBrokerInstallers;
 using CprBroker.Utilities.Config;
 using System.Xml;
 using System.Xml.XPath;
+using System.IO;
 
 namespace CprBrokerWixInstallers
 {
@@ -207,9 +208,74 @@ namespace CprBrokerWixInstallers
             // Set ASP.NET to target framework version                
             CprBroker.Installers.WebsiteCustomAction.RunRegIIS(string.Format("-s {0}", cprWebInstallationInfo.TargetWmiSubPath), new Version(4, 0));
 
-            // Remove config section that is already in machine.config
-            CprBroker.Installers.Installation.RemoveXmlNode(cprConfigFilePath, "//sectionGroup[@name='scripting']");
+            // ADD MVC Elements
+            AddMvcElements(cprConfigFilePath);
+        }
 
+        public static void AddMvcElements(string configFilePath)
+        {
+            var templatePath = string.Format("{0}\\{1}.xml", new FileInfo(configFilePath).Directory.FullName, new Random().Next(10000, 100000));
+            File.WriteAllText(templatePath, Properties.Resources.MvcWebConfig);
+
+            CprBroker.Installers.Installation.RemoveXmlNode(
+                configFilePath,
+                "//configuration/configSections/sectionGroup[@name='system.web.extensions']");
+
+            CprBroker.Installers.Installation.CopyConfigNode(
+                "//configuration/configSections",
+                "//configuration/configSections/sectionGroup[@name='system.web.webPages.razor']",
+                "sectionGroup",
+                templatePath, configFilePath, CprBroker.Installers.Installation.MergeOption.Overwrite);
+
+            CprBroker.Installers.Installation.CopyConfigNode(
+                "//configuration/system.web",
+                "//configuration/system.web/compilation",
+                "compilation",
+                templatePath, configFilePath, CprBroker.Installers.Installation.MergeOption.Overwrite);
+
+            CprBroker.Installers.Installation.CopyConfigNode(
+                "//configuration/system.web",
+                "//configuration/system.web/pages",
+                "pages",
+                templatePath, configFilePath, CprBroker.Installers.Installation.MergeOption.Overwrite);
+
+            CprBroker.Installers.Installation.RemoveXmlNode(
+                configFilePath,
+                "//configuration/system.web/httpHandlers");
+
+            CprBroker.Installers.Installation.RemoveXmlNode(
+                configFilePath,
+                "//configuration/system.web/httpModules");
+
+            CprBroker.Installers.Installation.RemoveXmlNode(
+                configFilePath,
+                "//configuration/system.codedom");
+
+            CprBroker.Installers.Installation.CopyConfigNode(
+                "//configuration",
+                "//configuration/runtime",
+                "runtime",
+                templatePath, configFilePath, CprBroker.Installers.Installation.MergeOption.Overwrite);
+
+            CprBroker.Installers.Installation.CopyConfigNode(
+                "//configuration",
+                "//configuration/system.web.webPages.razor",
+                "system.web.webPages.razor",
+                templatePath, configFilePath, CprBroker.Installers.Installation.MergeOption.Overwrite);
+
+            CprBroker.Installers.Installation.RemoveXmlNode(
+                configFilePath,
+                "//configuration/system.webServer/validation");
+
+            CprBroker.Installers.Installation.RemoveXmlNode(
+                configFilePath,
+                "//configuration/system.webServer/modules");
+
+            CprBroker.Installers.Installation.CopyConfigNode(
+                "//configuration/system.webServer",
+                "//configuration/system.webServer/handlers",
+                "handlers",
+                templatePath, configFilePath, CprBroker.Installers.Installation.MergeOption.Overwrite);
         }
     }
 }

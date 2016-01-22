@@ -56,6 +56,8 @@ using System.Diagnostics;
 using System.ServiceProcess;
 using CprBroker.Utilities;
 using CprBroker.Utilities.Config;
+using System.Xml.Linq;
+using System.Xml.XPath;
 
 namespace CprBroker.Installers
 {
@@ -187,6 +189,11 @@ namespace CprBroker.Installers
         public static bool CopyConfigNode(string parentNodePath, string nodeName, string fromConfigFile, string toConfigFile, MergeOption mergeOption)
         {
             string nodePath = string.Format("{0}/{1}", parentNodePath, nodeName);
+            return CopyConfigNode(parentNodePath, nodePath, nodeName, fromConfigFile, toConfigFile, mergeOption);
+        }
+
+        public static bool CopyConfigNode(string parentNodePath, string nodePath, string nodeName, string fromConfigFile, string toConfigFile, MergeOption mergeOption)
+        {
 
             XmlNode sourceNode = GetConfigNode(nodePath, ref fromConfigFile);
             XmlNode targetNode = GetConfigNode(nodePath, ref toConfigFile);
@@ -243,6 +250,7 @@ namespace CprBroker.Installers
         }
 
         #endregion
+
 
         #region Standard sections
 

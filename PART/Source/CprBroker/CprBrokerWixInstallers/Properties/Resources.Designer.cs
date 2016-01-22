@@ -323,6 +323,22 @@ namespace CprBrokerWixInstallers.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
+        ///&lt;configuration&gt;
+        ///
+        ///    &lt;configSections&gt;
+        ///
+        ///        &lt;addConfigNode&gt;
+        ///            &lt;sectionGroup name=&quot;system.web.webPages.razor&quot; type=&quot;System.Web.WebPages.Razor.Configuration.RazorWebSectionGroup, System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35&quot;&gt;
+        ///                &lt;section name=&quot;host&quot; type=&quot;System.Web.WebPages.Razor.Configuration.HostSection, System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31BF3856 [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string MvcWebConfig {
+            get {
+                return ResourceManager.GetString("MvcWebConfig", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to /*
         ///	This file patches the CPR broker database to version 1.3
         ///	Creates tables Extract, ExtractItem and Authority
@@ -498,12 +514,12 @@ namespace CprBrokerWixInstallers.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to CREATE NONCLUSTERED INDEX [IX_QueueItem_QueueId] ON [dbo].[QueueItem] 
-        ///(
-        ///	[QueueId] ASC
-        ///)
-        ///INCLUDE ( [AttemptCount],
-        ///[SemaphoreId]) 
+        ///   Looks up a localized string similar to IF NOT EXISTS (SELECT * FROM sys.indexes si WHERE si.name = N&apos;IX_QueueItem_QueueId&apos;)
+        ///	CREATE NONCLUSTERED INDEX [IX_QueueItem_QueueId] ON [dbo].[QueueItem] 
+        ///	(
+        ///		[QueueId] ASC
+        ///	)
+        ///	INCLUDE ( [AttemptCount],[SemaphoreId]) 
         ///GO
         ///.
         /// </summary>
