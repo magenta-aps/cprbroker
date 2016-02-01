@@ -29,7 +29,7 @@ namespace CprBroker.Tests.Utilities
         {
             var last = new TasksConfigurationSection.TaskElement();
             var b = last.BatchSize;
-            Assert.AreEqual(100, b);
+            Assert.AreEqual("100", b);
         }
 
         [Test]
@@ -37,7 +37,7 @@ namespace CprBroker.Tests.Utilities
         {
             var last = new TasksConfigurationSection.TaskElement();
             var b = last.RunEvery;
-            Assert.AreEqual(TimeSpan.FromMinutes(1), b);
+            Assert.AreEqual(TimeSpan.FromMinutes(1).ToString(), b);
         }
 
         [Test]
