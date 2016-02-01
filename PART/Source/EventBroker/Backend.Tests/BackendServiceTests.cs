@@ -81,9 +81,11 @@ namespace CprBroker.Tests.EventBroker.Backend
             }
         }
 
+        
         [Test]
         public void Create_XTimes_NoBlocking([Values(1, 10, 100, 1000)]int count)
         {
+            CprBroker.Engine.BrokerContext.Initialize(CprBroker.Utilities.Constants.EventBrokerApplicationToken.ToString(), "");
             var services = new List<BackendService>();
             for (int i = 0; i < count; i++)
             {
