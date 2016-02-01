@@ -57,15 +57,9 @@ namespace CprBroker.Tests.EventBroker.Notifications
     namespace BirthdateEventEnqueuerTests
     {
         [Ignore]
-        public class BirthdateEventEnqueuerTestBase : TestBase
+        public class BirthdateEventEnqueuerTestBase : NotificationTestBase
         {
-            [SetUp]
-            public void Setup()
-            {
-                BrokerContext.Initialize(CprBroker.Utilities.Constants.BaseApplicationToken.ToString(), "");
-                base.RegisterDataProviderType<CprBroker.EventBroker.Subscriptions.SubscriptionDataProvider>(true);
-            }
-
+            
             public BasicOutputType<BirthdateSubscriptionType> CreateBirthdateSubscription(int? years, int days, params Guid[] uuids)
             {
                 var mgr = new CprBroker.EventBroker.Subscriptions.SubscriptionManager();
@@ -77,20 +71,6 @@ namespace CprBroker.Tests.EventBroker.Notifications
             {
                 var mgr = new CprBroker.EventBroker.Subscriptions.SubscriptionManager();
                 var ret = mgr.RemoveBirthDateSubscription("", BrokerContext.Current.ApplicationToken, subscriptionId);
-                return ret;
-            }
-
-            public BasicOutputType<ChangeSubscriptionType> CreateChangeSubscription(params Guid[] uuids)
-            {
-                var mgr = new CprBroker.EventBroker.Subscriptions.SubscriptionManager();
-                var ret = mgr.Subscribe("", BrokerContext.Current.ApplicationToken, new Schemas.Part.FileShareChannelType() { Path = "c:\\Notif\\Temp" }, uuids);
-                return ret;
-            }
-
-            public BasicOutputType<bool> RemoveChangeSubscription(Guid subscriptionId)
-            {
-                var mgr = new CprBroker.EventBroker.Subscriptions.SubscriptionManager();
-                var ret = mgr.Unsubscribe("", BrokerContext.Current.ApplicationToken, subscriptionId);
                 return ret;
             }
 

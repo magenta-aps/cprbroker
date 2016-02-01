@@ -48,7 +48,7 @@ using System.Text;
 using NUnit.Framework;
 using CprBroker.EventBroker.Notifications;
 
-namespace CprBroker.Tests.EventBroker
+namespace CprBroker.Tests.EventBroker.Notifications
 {
     namespace DataChangeEventPullerTests
     {

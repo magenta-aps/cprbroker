@@ -68,6 +68,7 @@ namespace CprBroker.EventBroker.Data
             loadOptions.LoadWith<Subscription>((Subscription sub) => sub.Channels);
             loadOptions.LoadWith<Subscription>((Subscription sub) => sub.SubscriptionPersons);
         }
+
         public CprBroker.Schemas.Part.SubscriptionType ToOioSubscription(string appToken)
         {
             CprBroker.Schemas.Part.SubscriptionType ret = null;
@@ -121,6 +122,14 @@ namespace CprBroker.EventBroker.Data
             return ret;
         }
 
+        public static IQueryable<Subscription> ActiveSubscriptions(EventBrokerDataContext dataContext)
+        {
+            return dataContext.Subscriptions
+                .Where(s => s.Deactivated == null)
+                // TODO: Detect Deactivated applications here
+                ;
+        }
+
         public int AddMatchingSubscriptionPersons(EventBrokerDataContext eventDataContext, int batchSize)
         {
             using (var partDataContext = new PartDataContext())
@@ -143,9 +152,14 @@ namespace CprBroker.EventBroker.Data
                     .ToArray();
 
                 // Search for matching criteria
-                var personRegistrationIds = persons.Where(p => p.PersonRegistrationId.HasValue).Select(p => p.PersonRegistrationId.Value).ToArray();
+                var personRegistrationIds = persons
+                    .Where(p => p.PersonRegistrationId.HasValue)
+                    .Select(p => p.PersonRegistrationId.Value)
+                    .ToArray();
                 var soegObject = Strings.Deserialize<SoegObjektType>(this.Criteria.ToString());
-                var matchingPersons = CprBroker.Data.Part.PersonRegistrationKey.GetByCriteria(partDataContext, soegObject, personRegistrationIds).ToArray();
+                var matchingPersons = CprBroker.Data.Part.PersonRegistrationKey
+                    .GetByCriteria(partDataContext, soegObject, personRegistrationIds)
+                    .ToArray();
 
                 if (persons.Count() == batchSize)
                 {
@@ -169,36 +183,45 @@ namespace CprBroker.EventBroker.Data
             }
         }
 
-        public IEnumerable<SubscriptionCriteriaMatch> GetDataChangeEventMatches(DataChangeEvent[] dataChangeEvents)
+        public IEnumerable<SubscriptionCriteriaMatch> Matches(DataChangeEvent[] dataChangeEvents)
         {
-            var personRegistrationIds = dataChangeEvents.Select(dce => dce.PersonRegistrationId).ToArray();
+            var personRegistrationIds = dataChangeEvents
+                .Select(dce => dce.PersonRegistrationId)
+                .ToArray();
 
             var soegObject = Strings.Deserialize<SoegObjektType>(this.Criteria.ToString());
             using (var partDataContext = new PartDataContext())
             {
                 // Add new persons                    
-                var matchingPersons = CprBroker.Data.Part.PersonRegistrationKey.GetByCriteria(partDataContext, soegObject, personRegistrationIds).ToArray();
+                var matchingPersons = CprBroker.Data.Part.PersonRegistrationKey
+                    .GetByCriteria(partDataContext, soegObject, personRegistrationIds)
+                    .ToArray();
+
                 var temp = matchingPersons.Select(prk => new SubscriptionCriteriaMatch()
                 {
                     SubscriptionCriteriaMatchId = Guid.NewGuid(),
-                    DataChangeEventId = dataChangeEvents.Where(dce => dce.PersonRegistrationId == prk.PersonRegistrationId).Select(dce => dce.DataChangeEventId).First(),
+                    DataChangeEventId = dataChangeEvents
+                        .Where(dce => dce.PersonRegistrationId == prk.PersonRegistrationId)
+                        .Select(dce => dce.DataChangeEventId)
+                        .First(),
                 });
                 return temp;
             }
         }
 
-        public static Subscription[] GetNonReadySubscriptions(EventBrokerDataContext dataContext)
+        public static Subscription[] NonReadySubscriptions(EventBrokerDataContext dataContext)
         {
-            return dataContext.Subscriptions
-                .Where(s => s.Deactivated == null && s.Ready == false)
+            return ActiveSubscriptions(dataContext)
+                .Where(s => s.Ready == false)
                 .OrderBy(s => s.Created)
                 .ToArray();
         }
 
-        public void MatchDataChangeEventsWithCriteria(DataChangeEvent[] dataChangeEvents)
+        public void UpdateCriteriaMatches(DataChangeEvent[] dataChangeEvents)
         {
-            var temp = GetDataChangeEventMatches(dataChangeEvents);
-            this.SubscriptionCriteriaMatches.AddRange(temp);
+            var matches = Matches(dataChangeEvents);
+            this.SubscriptionCriteriaMatches.AddRange(matches);
         }
+
     }
 }

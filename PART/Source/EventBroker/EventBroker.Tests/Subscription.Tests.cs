@@ -50,7 +50,7 @@ using CprBroker.EventBroker.Data;
 using CprBroker.Data.Part;
 using CprBroker.Tests.PartInterface;
 
-namespace CprBroker.EventBroker.Tests
+namespace CprBroker.Tests.EventBroker
 {
 
     namespace SubscriptionTests
@@ -72,7 +72,7 @@ namespace CprBroker.EventBroker.Tests
                 using (var dataContext = new EventBrokerDataContext(EventDatabase.ConnectionString))
                 {
                     var subscription = AddSubscription(dataContext, Utils.CreateSoegObject(municipalityCode), false, true, SubscriptionType.SubscriptionTypes.DataChange);
-                    var dataChangeEvent = AddChanges(dataContext, dbReg);
+                    var dataChangeEvent = AddChanges(dataContext, false, dbReg);
                     dataContext.SubmitChanges();
 
                     using (var cprDataContext = new PartDataContext())
@@ -82,7 +82,7 @@ namespace CprBroker.EventBroker.Tests
                         cprDataContext.SubmitChanges();
                     }
 
-                    var sss = subscription.GetDataChangeEventMatches(dataChangeEvent).ToArray();
+                    var sss = subscription.Matches(dataChangeEvent).ToArray();
                     Assert.IsNotEmpty(sss);
                 }
             }
@@ -100,7 +100,7 @@ namespace CprBroker.EventBroker.Tests
                 using (var dataContext = new EventBrokerDataContext(EventDatabase.ConnectionString))
                 {
                     var subscription = AddSubscription(dataContext, Utils.CreateSoegObject(municipalityCode + "222"), false, true, SubscriptionType.SubscriptionTypes.DataChange);
-                    var dataChangeEvent = AddChanges(dataContext, dbReg);
+                    var dataChangeEvent = AddChanges(dataContext, false, dbReg);
                     dataContext.SubmitChanges();
 
                     using (var cprDataContext = new PartDataContext())
@@ -110,7 +110,7 @@ namespace CprBroker.EventBroker.Tests
                         cprDataContext.SubmitChanges();
                     }
 
-                    var sss = subscription.GetDataChangeEventMatches(dataChangeEvent).ToArray();
+                    var sss = subscription.Matches(dataChangeEvent).ToArray();
                     Assert.IsEmpty(sss);
                 }
             }

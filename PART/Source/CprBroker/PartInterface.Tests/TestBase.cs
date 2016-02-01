@@ -292,8 +292,7 @@ namespace CprBroker.Tests.PartInterface
             sub.SubscriptionPersons.AddRange(ret);
             return ret;
         }
-
-        public DataChangeEvent[] AddChanges(EventBrokerDataContext dataContext, int count)
+        public DataChangeEvent[] AddChanges(EventBrokerDataContext dataContext, int count, bool submit = true)
         {
             var ret = new DataChangeEvent[count];
             for (int i = 0; i < count; i++)
@@ -309,18 +308,22 @@ namespace CprBroker.Tests.PartInterface
                 };
             }
             dataContext.DataChangeEvents.InsertAllOnSubmit(ret);
+            if (submit)
+                dataContext.SubmitChanges();
             return ret;
         }
 
-        public DataChangeEvent[] AddChanges(EventBrokerDataContext dataContext, params PersonRegistration[] regs)
+        public DataChangeEvent[] AddChanges(EventBrokerDataContext dataContext, bool submit = true, params PersonRegistration[] regs)
         {
-            var ret = AddChanges(dataContext, regs.Length);
+            var ret = AddChanges(dataContext, regs.Length, false);
             for (int i = 0; i < regs.Length; i++)
             {
                 ret[i].PersonUuid = regs[i].UUID;
                 ret[i].PersonRegistrationId = regs[i].PersonRegistrationId;
             }
             dataContext.DataChangeEvents.InsertAllOnSubmit(ret);
+            if (submit)
+                dataContext.SubmitChanges();
             return ret;
         }
 

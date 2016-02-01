@@ -52,8 +52,9 @@ using CprBroker.Data.Part;
 using CprBroker.Schemas.Part;
 using CprBroker.EventBroker.Data;
 using CprBroker.Tests.PartInterface;
+using EvData = CprBroker.EventBroker.Data;
 
-namespace CprBroker.EventBroker.Tests
+namespace CprBroker.Tests.EventBroker
 {
     [TestFixture]
     public class UpdatePersonLists : TestBase
@@ -67,12 +68,12 @@ namespace CprBroker.EventBroker.Tests
             using (var dataContext = new EventBrokerDataContext(EventDatabase.ConnectionString))
             {
                 var dce = AddChanges(dataContext, 2);
-                var sub = AddSubscription(dataContext, Utils.CreateSoegObject(municipalityCode), false, true, Data.SubscriptionType.SubscriptionTypes.DataChange);
+                var sub = AddSubscription(dataContext, Utils.CreateSoegObject(municipalityCode), false, true, EvData.SubscriptionType.SubscriptionTypes.DataChange);
                 sub.SubscriptionCriteriaMatches.Add(new SubscriptionCriteriaMatch() { SubscriptionCriteriaMatchId = Guid.NewGuid(), DataChangeEvent = dce[0] });
 
                 dataContext.SubmitChanges();
 
-                int records = dataContext.UpdatePersonLists(DateTime.Now, int.MaxValue, (int)Data.SubscriptionType.SubscriptionTypes.DataChange);
+                int records = dataContext.UpdatePersonLists(DateTime.Now, int.MaxValue, (int)EvData.SubscriptionType.SubscriptionTypes.DataChange);
                 var subscriptionPersons = dataContext.SubscriptionPersons.Where(sp => sp.SubscriptionId == sub.SubscriptionId && sp.Removed == null).ToArray();
                 Assert.AreEqual(1, subscriptionPersons.Length);
                 Assert.Null(subscriptionPersons[0].Removed);
@@ -91,7 +92,7 @@ namespace CprBroker.EventBroker.Tests
             {
                 // Init data
                 var dce = AddChanges(dataContext, 2);
-                var sub = AddSubscription(dataContext, Utils.CreateSoegObject(municipalityCode), false, true, Data.SubscriptionType.SubscriptionTypes.DataChange);
+                var sub = AddSubscription(dataContext, Utils.CreateSoegObject(municipalityCode), false, true, EvData.SubscriptionType.SubscriptionTypes.DataChange);
                 var persons = AddPersons(sub, 1);
                 persons[0].PersonUuid = dce[0].PersonUuid;                
 
@@ -99,7 +100,7 @@ namespace CprBroker.EventBroker.Tests
                 dataContext.SubmitChanges();
 
                 // Action
-                int records = dataContext.UpdatePersonLists(DateTime.Now, int.MaxValue, (int)Data.SubscriptionType.SubscriptionTypes.DataChange);
+                int records = dataContext.UpdatePersonLists(DateTime.Now, int.MaxValue, (int)EvData.SubscriptionType.SubscriptionTypes.DataChange);
                 
                 // Refresh from DB
                 dataContext.Refresh(System.Data.Linq.RefreshMode.OverwriteCurrentValues, dataContext.SubscriptionPersons);
@@ -121,13 +122,13 @@ namespace CprBroker.EventBroker.Tests
             using (var dataContext = new EventBrokerDataContext(EventDatabase.ConnectionString))
             {
                 var dce = AddChanges(dataContext, 2);
-                var sub = AddSubscription(dataContext, Utils.CreateSoegObject(municipalityCode), false, true, Data.SubscriptionType.SubscriptionTypes.DataChange);
+                var sub = AddSubscription(dataContext, Utils.CreateSoegObject(municipalityCode), false, true, EvData.SubscriptionType.SubscriptionTypes.DataChange);
                 sub.SubscriptionPersons.Add(new SubscriptionPerson() { SubscriptionPersonId = Guid.NewGuid(), PersonUuid = dce[0].PersonUuid, Created = DateTime.Now, Removed = null });
                 sub.SubscriptionCriteriaMatches.Add(new SubscriptionCriteriaMatch() { SubscriptionCriteriaMatchId = Guid.NewGuid(), DataChangeEvent = dce[0] });
 
                 dataContext.SubmitChanges();
 
-                int records = dataContext.UpdatePersonLists(DateTime.Now, int.MaxValue, (int)Data.SubscriptionType.SubscriptionTypes.DataChange);
+                int records = dataContext.UpdatePersonLists(DateTime.Now, int.MaxValue, (int)EvData.SubscriptionType.SubscriptionTypes.DataChange);
                 var subscriptionPerson = dataContext.SubscriptionPersons.Where(sp => sp.SubscriptionId == sub.SubscriptionId).Single();
                 Assert.Null(subscriptionPerson.Removed);
 
@@ -143,10 +144,10 @@ namespace CprBroker.EventBroker.Tests
             using (var dataContext = new EventBrokerDataContext(EventDatabase.ConnectionString))
             {
                 var dce = AddChanges(dataContext, 2);
-                var sub = AddSubscription(dataContext, Utils.CreateSoegObject(municipalityCode), false, true, Data.SubscriptionType.SubscriptionTypes.DataChange);
+                var sub = AddSubscription(dataContext, Utils.CreateSoegObject(municipalityCode), false, true, EvData.SubscriptionType.SubscriptionTypes.DataChange);
                 dataContext.SubmitChanges();
 
-                int records = dataContext.UpdatePersonLists(DateTime.Now, int.MaxValue, (int)Data.SubscriptionType.SubscriptionTypes.DataChange);
+                int records = dataContext.UpdatePersonLists(DateTime.Now, int.MaxValue, (int)EvData.SubscriptionType.SubscriptionTypes.DataChange);
                 var subscriptionPerson = dataContext.SubscriptionPersons.Where(sp => sp.SubscriptionId == sub.SubscriptionId).SingleOrDefault();
                 Assert.Null(subscriptionPerson);
 

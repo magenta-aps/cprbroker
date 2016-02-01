@@ -7,7 +7,7 @@ using CprBroker.EventBroker.Data;
 using System.IO;
 using CprBroker.Data.Part;
 
-namespace CprBroker.EventBroker.Tests
+namespace CprBroker.Tests.EventBroker
 {
     public class Utils
     {

@@ -8,7 +8,7 @@ using CprBroker.EventBroker.Backend;
 using System.Threading;
 using CprBroker.Tests.PartInterface;
 
-namespace CprBroker.EventBroker.Tests
+namespace CprBroker.Tests.EventBroker
 {
     [TestFixture]
     public class DataFlowTest : TestBase
@@ -20,6 +20,7 @@ namespace CprBroker.EventBroker.Tests
         }
 
         [Test]
+        [Ignore("Too big for integration tests")]
         public void DataChange_SubscriptionForAll_Sent()
         {
             using (var dataContext = new EventBrokerDataContext(EventDatabase.ConnectionString))
@@ -32,7 +33,7 @@ namespace CprBroker.EventBroker.Tests
             {
                 backEnd.StartTasks();
 
-                Thread.Sleep(2000);                
+                Thread.Sleep(3000);
             }
 
             using (var dataContext = new EventBrokerDataContext(EventDatabase.ConnectionString))

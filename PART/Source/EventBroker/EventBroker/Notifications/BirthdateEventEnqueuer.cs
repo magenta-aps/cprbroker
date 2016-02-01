@@ -123,10 +123,9 @@ namespace CprBroker.EventBroker.Notifications
             {
                 DateTime today = DateTime.Today;
 
-                var subscriptions = dataContext.Subscriptions
+                var subscriptions = Data.Subscription.ActiveSubscriptions(dataContext)
                     .Where(s =>
-                        s.BirthdateSubscription != null
-                        && s.Deactivated == null)
+                        s.BirthdateSubscription != null)
                     .ToArray();
 
                 foreach (var subscription in subscriptions)

@@ -140,8 +140,8 @@ namespace CprBroker.EventBroker.Subscriptions
                 Subscription.SetLoadOptionsForChildren(loadOptions);
                 dataContext.LoadOptions = loadOptions;
 
-                var subscription = (from sub in dataContext.Subscriptions
-                                    where sub.SubscriptionId == subscriptionId && !sub.Deactivated.HasValue && sub.SubscriptionTypeId == (int)subscriptionType
+                var subscription = (from sub in Subscription.ActiveSubscriptions(dataContext)
+                                    where sub.SubscriptionId == subscriptionId && sub.SubscriptionTypeId == (int)subscriptionType
                                     select sub
                                     ).SingleOrDefault();
 
@@ -271,9 +271,8 @@ namespace CprBroker.EventBroker.Subscriptions
                 // Create basic LINQ expression
                 System.Linq.Expressions.Expression<Func<IQueryable<Subscription>>> exp =
                     () =>
-                    from sub in context.Subscriptions
+                    from sub in Subscription.ActiveSubscriptions(context)
                     where sub.ApplicationId == CprBroker.Engine.BrokerContext.Current.ApplicationId
-                    && sub.Deactivated == null
                     select sub;
 
                 // Add filter for subscription id (if required)

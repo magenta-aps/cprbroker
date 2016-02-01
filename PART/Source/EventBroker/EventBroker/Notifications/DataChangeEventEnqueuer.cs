@@ -73,6 +73,11 @@ namespace CprBroker.EventBroker.Notifications
 
         protected override void PerformTimerAction()
         {
+            EnqueueAllDataChanges();
+        }
+
+        public void EnqueueAllDataChanges()
+        {
             using (var dataContext = new Data.EventBrokerDataContext())
             {
                 // Pulls the next n data changes from the database
@@ -84,7 +89,7 @@ namespace CprBroker.EventBroker.Notifications
                     .ToArray();
 
                 // Used to detect whether all subscriptions are ready. i.e. all criteria subscriptions have completed the initial population
-                Func<bool> allSubsriptionsReady = () => Data.Subscription.GetNonReadySubscriptions(dataContext).Length == 0;
+                Func<bool> allSubsriptionsReady = () => Data.Subscription.NonReadySubscriptions(dataContext).Length == 0;
 
                 var dbObjects = puller();
 
@@ -95,9 +100,12 @@ namespace CprBroker.EventBroker.Notifications
                     Admin.LogFormattedSuccess("DataChangeEventEnqueuer.PushNotifications(): <{0}> data changes found", dbObjects.Length);
 
                     DateTime now = DateTime.Now;
-                    MatchDataChangeEventsWithSubscriptionCriteria(dataContext, dbObjects, now);
 
+                    // Update list of persons that are included/removed from the criteria subscriptions
+                    MatchDataChangeEventsWithSubscriptionCriteria(dataContext, dbObjects, now);
                     dataContext.UpdatePersonLists(now, lastReceivedOrder, (int)Data.SubscriptionType.SubscriptionTypes.DataChange);
+
+                    // Now make a cross product between data changes and included persons
                     dataContext.EnqueueDataChangeEventNotifications(now, lastReceivedOrder, (int)Data.SubscriptionType.SubscriptionTypes.DataChange);
 
                     //TODO: Move this logic to above stored procedure
@@ -111,10 +119,11 @@ namespace CprBroker.EventBroker.Notifications
 
         private void MatchDataChangeEventsWithSubscriptionCriteria(Data.EventBrokerDataContext dataContext, Data.DataChangeEvent[] dataChangeEvents, DateTime now)
         {
-            var criteriaSubscriptions = dataContext.Subscriptions.Where(sub => sub.Criteria != null).ToArray();
+            var criteriaSubscriptions = Data.Subscription.ActiveSubscriptions(dataContext).Where(sub => sub.Criteria != null).ToArray();
+
             foreach (var subscription in criteriaSubscriptions)
             {
-                subscription.MatchDataChangeEventsWithCriteria(dataChangeEvents);
+                subscription.UpdateCriteriaMatches(dataChangeEvents);
             }
             dataContext.SubmitChanges();
         }
