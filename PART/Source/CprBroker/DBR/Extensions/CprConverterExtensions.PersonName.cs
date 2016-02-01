@@ -167,7 +167,7 @@ namespace CprBroker.DBR.Extensions
             string ret = null;
             if (parts.Count > 0)
                 ret = string.Join(" ", parts.ToArray());
-            if (upper)
+            if (upper && ret != null)
                 ret = ret.ToUpper();
 
             return ret;
