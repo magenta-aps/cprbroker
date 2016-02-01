@@ -85,6 +85,7 @@ namespace CprBroker.Tests.CPRDirect.Tools
 
             [Test]
             [Sequential]
+            [Ignore]
             public void FtpUrl_Port_OK(
                 [Values("localhost", "127.0.0.1")]string address,
                 [Values(22, 23)] int port,
