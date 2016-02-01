@@ -348,7 +348,7 @@ namespace CprBroker.Tests.CPRDirect.Objects
             }
 
             [Test]
-            [ExpectedException(typeof(InvalidOperationException))]
+            [ExpectedException(typeof(ArgumentOutOfRangeException))]
             public void FillFrom_MultipleStartRecords_Exception()
             {
                 var w = new StartRecordWrapperStub();
