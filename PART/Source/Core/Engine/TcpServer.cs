@@ -59,7 +59,7 @@ namespace CprBroker.Engine
                     }
                 }
                 System.Threading.Thread.Sleep(100);
-            } while (true);
+            } while (_Sessions.Count > 0);
         }
 
         private void BeginAccept()
