@@ -13,6 +13,8 @@
     <WixVariable Id="WixUINewIco" Value="Bitmaps\New.ico"/>
     <WixVariable Id="WixUIUpIco" Value="Bitmaps\Up.ico"/>
 
+    <WixVariable Id="WixUILicenseRtf" Value="License.rtf" />
+
     <Binary Id="WixUI_Bmp_Banner" SourceFile="!(wix.WixUIBannerBmp=$(var.bannerBmp))" />
     <Binary Id="WixUI_Bmp_Dialog" SourceFile="!(wix.WixUIDialogBmp=$(var.dialogBmp))" />
     <Binary Id="WixUI_Ico_Exclam" SourceFile="!(wix.WixUIExclamationIco=$(var.exclamationIco))" />
@@ -53,7 +55,7 @@
       <Publish Dialog="LicenseAgreementDlg" Control="Next" Event="NewDialog" Value="InstallDirDlg">LicenseAccepted = "1"</Publish>
 
       <Publish Dialog="InstallDirDlg" Control="Back" Event="NewDialog" Value="LicenseAgreementDlg">1</Publish>
-      
+
       <Publish Dialog="InstallDirDlg" Control="Next" Event="SetTargetPath" Value="[WIXUI_INSTALLDIR]" Order="1">1</Publish>
       <Publish Dialog="InstallDirDlg" Control="Next" Event="DoAction" Value="WixUIValidatePath" Order="2">NOT WIXUI_DONTVALIDATEPATH</Publish>
       <Publish Dialog="InstallDirDlg" Control="Next" Event="SpawnDialog" Value="InvalidDirDlg" Order="3"><![CDATA[NOT WIXUI_DONTVALIDATEPATH AND WIXUI_INSTALLDIR_VALID<>"1"]]></Publish>
@@ -63,7 +65,7 @@
       <Publish Dialog="InstallDirDlg" Control="Next" Event="NewDialog" Value="WebSiteOrDirectoryDialog" Order="7"><![CDATA[(WIXUI_DONTVALIDATEPATH OR WIXUI_INSTALLDIR_VALID="1") AND (WEB_MultipleSitesAllowed = "True") AND (WEB_SitesFound)]]></Publish>
       <Publish Dialog="InstallDirDlg" Control="Next" Event="NewDialog" Value="WebsiteDialog" Order="7"><![CDATA[(WIXUI_DONTVALIDATEPATH OR WIXUI_INSTALLDIR_VALID="1") AND (WEB_MultipleSitesAllowed = "True") AND (NOT WEB_SitesFound)]]></Publish>
       <Publish Dialog="InstallDirDlg" Control="Next" Event="NewDialog" Value="WebDirectoryDialog" Order="7"><![CDATA[(WIXUI_DONTVALIDATEPATH OR WIXUI_INSTALLDIR_VALID="1") AND (WEB_MultipleSitesAllowed = "False")]]></Publish>
-      
+
       <Publish Dialog="InstallDirDlg" Control="ChangeFolder" Property="_BrowseProperty" Value="[WIXUI_INSTALLDIR]" Order="1">1</Publish>
       <Publish Dialog="InstallDirDlg" Control="ChangeFolder" Event="SpawnDialog" Value="BrowseDlg" Order="2">1</Publish>
 
@@ -84,7 +86,7 @@
       <!-- Next -->
       <Publish Dialog="WebsiteDialog" Control="Next"  Event="DoAction" Value="PreDatabaseDialog" Order="101"><![CDATA[WEB_Valid = "True"]]></Publish>
       <Publish Dialog="WebsiteDialog" Control="Next" Event="NewDialog" Value="DatabaseDialog" Order="102"><![CDATA[WEB_Valid = "True"]]></Publish>
-      
+
       <!-- Back -->
       <Publish Dialog="WebDirectoryDialog" Control="Back" Event="NewDialog" Value="InstallDirDlg" Order="1"><![CDATA[WEB_Feature = "CPR"]]></Publish>
       <Publish Dialog="WebDirectoryDialog" Control="Back" Event="NewDialog" Value="EventBrokerDialog" Order="1"><![CDATA[WEB_Feature = "EVENT"]]></Publish>
