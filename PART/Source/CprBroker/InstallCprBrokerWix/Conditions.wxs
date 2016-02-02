@@ -21,7 +21,7 @@
     <!--IIS-->
     <PropertyRef Id="IISMAJORVERSION"/>
     <Condition Message="This application requires IIS 6 or higher">
-      <![CDATA[Installed OR (IISMAJORVERSION AND IISMAJORVERSION >= #6)]]>
+      <![CDATA[Installed OR (IISMAJORVERSION AND (IISMAJORVERSION = "#6" OR IISMAJORVERSION = "#7" OR IISMAJORVERSION = "#8" OR IISMAJORVERSION = "#9" OR IISMAJORVERSION = "#10"))]]>
     </Condition>
 
     <!--IIS 6 metabase compatibility-->
