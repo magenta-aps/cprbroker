@@ -328,9 +328,9 @@ namespace CprBrokerWixInstallers.Properties {
         ///
         ///    &lt;configSections&gt;
         ///
-        ///        &lt;addConfigNode&gt;
-        ///            &lt;sectionGroup name=&quot;system.web.webPages.razor&quot; type=&quot;System.Web.WebPages.Razor.Configuration.RazorWebSectionGroup, System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35&quot;&gt;
-        ///                &lt;section name=&quot;host&quot; type=&quot;System.Web.WebPages.Razor.Configuration.HostSection, System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31BF3856 [rest of string was truncated]&quot;;.
+        ///        &lt;!-- PART--&gt;
+        ///        &lt;sectionGroup name=&quot;system.web.webPages.razor&quot; type=&quot;System.Web.WebPages.Razor.Configuration.RazorWebSectionGroup, System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35&quot;&gt;
+        ///            &lt;section name=&quot;host&quot; type=&quot;System.Web.WebPages.Razor.Configuration.HostSection, System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35&quot; r [rest of string was truncated]&quot;;.
         /// </summary>
         public static string MvcWebConfig {
             get {
@@ -514,6 +514,17 @@ namespace CprBrokerWixInstallers.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(&apos;Semaphore&apos;) AND name = &apos;WaitCount&apos; )
+        ///ALTER TABLE [dbo].[Semaphore]
+        ///    ADD [WaitCount] INT DEFAULT 1 NULL;.
+        /// </summary>
+        public static string PatchDatabase_2_2_6 {
+            get {
+                return ResourceManager.GetString("PatchDatabase_2_2_6", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to IF NOT EXISTS (SELECT * FROM sys.indexes si WHERE si.name = N&apos;IX_QueueItem_QueueId&apos;)
         ///	CREATE NONCLUSTERED INDEX [IX_QueueItem_QueueId] ON [dbo].[QueueItem] 
         ///	(
@@ -649,6 +660,7 @@ namespace CprBrokerWixInstallers.Properties {
         ///            CONSTRAINT [PK_Semaphore] PRIMARY KEY CLUSTERED ([SemaphoreId] ASC)
         ///            CONSTRAINT [DF_Semaphore_SemaphoreId]  DEFAULT (newid()),
         ///	    [CreatedDate] [datetime] NOT NULL,
+        ///		[WaitCount] INT DEFAULT 1 NULL,
         ///	    [SignaledDate] [datetime] NULL,
         ///    ) ON [PRIMARY]
         ///END

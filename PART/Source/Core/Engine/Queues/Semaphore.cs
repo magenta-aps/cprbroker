@@ -61,7 +61,7 @@ namespace CprBroker.Engine.Queues
             Impl = db;
         }
 
-        public static Semaphore Create()
+        public static Semaphore Create(int waitCount = 1)
         {
             using (var dataContext = new QueueDataContext())
             {
@@ -69,6 +69,7 @@ namespace CprBroker.Engine.Queues
                 {
                     SemaphoreId = Guid.NewGuid(),
                     CreatedDate = DateTime.Now,
+                    WaitCount = waitCount,
                     SignaledDate = null
                 };
                 dataContext.Semaphores.InsertOnSubmit(ret);
@@ -95,7 +96,15 @@ namespace CprBroker.Engine.Queues
                 var semaphore = dataContext.Semaphores.Where(s => s.SemaphoreId == this.Impl.SemaphoreId).Single();
                 if (!semaphore.SignaledDate.HasValue)
                 {
-                    semaphore.SignaledDate = DateTime.Now;
+                    if (!semaphore.WaitCount.HasValue || semaphore.WaitCount.Value == 1)
+                    {
+                        semaphore.WaitCount = 0;
+                        semaphore.SignaledDate = DateTime.Now;
+                    }
+                    else
+                    {
+                        semaphore.WaitCount--;
+                    }
                     dataContext.SubmitChanges();
                 }
             }
