@@ -61,7 +61,12 @@ namespace CprBroker.Engine.Queues
             Impl = db;
         }
 
-        public static Semaphore Create(int waitCount = 1)
+        public static Semaphore Create()
+        {
+            return Create(1);
+        }
+
+        public static Semaphore Create(int waitCount)
         {
             using (var dataContext = new QueueDataContext())
             {
