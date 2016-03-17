@@ -61,12 +61,46 @@ namespace CprBroker.Tests.CPRDirect.Partials
             var registration = pers.ToRegistreringType1(CprToUuid);
         }
 
-        //[Test]
-        //public void ToFiltreretOejebliksbilledeType(
-        //    [ValueSource(typeof(Utilities), "PNRs")]string pnr)
-        //{
-        //    System.Diagnostics.Debugger.Launch();
-        //    var all = IndividualHistoryResponseType.
-        //}
+        [Test]
+        public void ToFiltreretOejebliksbilledeType(
+            [ValueSource(typeof(Utilities), "PNRs")]string pnr)
+        {
+            System.Diagnostics.Debugger.Launch();
+            var historyResponse = new IndividualHistoryResponseType(
+                new Schemas.PersonIdentifier() { CprNumber = pnr, UUID = Guid.NewGuid() },
+                (new IndividualResponseType[] { CprBroker.Tests.CPRDirect.Persons.Person.GetPerson(pnr) }).AsQueryable());
+            var pers = historyResponse.IndividualResponseObjects.First();
+            //historyResponse.IndividualResponseObjects.ToList().RemoveAt(0);
+
+            pers.CurrentDepartureData = null;  //005 ?
+            pers.CurrentDisappearanceInformation = null;  //007
+            pers.BirthRegistrationInformation = null;  //009
+            pers.CurrentCitizenship = null;  //010
+            pers.ChurchInformation = null;  //011
+            pers.CurrentCivilStatus = null;  //012
+            pers.CurrentSeparation = null;  //013
+            pers.MunicipalConditions = null;  //018
+            pers.Notes = null;  //019
+            pers.ElectionInformation = null;  //020
+            pers.RelocationOrder = null;  //021
+
+            pers.HistoricalPNR.Clear();  //022 ?
+            pers.HistoricalAddress.Clear();  //023
+            pers.HistoricalDeparture.Clear();  //024 ?
+            pers.HistoricalDisappearance.Clear();  //025
+            pers.HistoricalName.Clear();  //026
+            pers.HistoricalCitizenship.Clear();  //027
+            pers.HistoricalChurchInformation.Clear();  //028
+            pers.HistoricalCivilStatus.Clear();  //029
+            pers.HistoricalSeparation.Clear();  //030
+
+            pers.Events = null;  //099 ?
+            pers.ErrorRecord = null;  //910 ?
+            pers.SubscriptionDeletionReceipt = null;  //997 ?
+
+            //What about 999?
+            var registration = historyResponse.ToFiltreretOejebliksbilledeType(CprToUuid);
+
+        }
     }
 }
