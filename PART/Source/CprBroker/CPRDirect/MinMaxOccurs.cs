@@ -70,6 +70,13 @@ namespace CprBroker.Providers.CPRDirect
 
         public void ValidateList(IList<Wrapper> w, string identifierString = null)
         {
+            //Todo: change
+            if (CprBroker.Config.Properties.Settings.Default.CprDirectAllowPartial)
+            {
+                // TODO: do something better
+                return;
+            }
+
             if (w.Where(a => a == null).Count() > 0)
             {
                 throw new ArgumentNullException();

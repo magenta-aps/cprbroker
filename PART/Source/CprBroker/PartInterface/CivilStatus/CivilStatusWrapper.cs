@@ -64,6 +64,10 @@ namespace CprBroker.Schemas.Part
 
         public CivilStatusType ToCivilStatusType(ISeparation currentSeparation)
         {
+            if (this._CivilStatus == null)
+            {
+                return null;
+            }
             var statusCode = new CivilStatusLookupMap().Map(this._CivilStatus.CivilStatusCode);
 
             // TODO: Copy from DPR
