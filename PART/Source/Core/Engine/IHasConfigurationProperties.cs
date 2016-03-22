@@ -49,7 +49,7 @@ namespace CprBroker.Engine
 
         public static DataProviderConfigProperty[] ToDisplayableProperties(this IHasConfigurationProperties prov)
         {
-            return (from pInfo in prov.ConfigurationKeys
+            return (from pInfo in prov.ToAllPropertyInfo()
                     join pp in prov.ConfigurationProperties
                     on pInfo.Name equals pp.Key into joined
                     from pVal in joined.DefaultIfEmpty()
