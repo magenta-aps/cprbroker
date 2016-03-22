@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using NUnit.Framework;
 using CprBroker.Providers.CPRDirect;
+using CprBroker.Schemas.Part;
 
 namespace CprBroker.Tests.CPRDirect.Partials
 {
@@ -59,6 +60,10 @@ namespace CprBroker.Tests.CPRDirect.Partials
             //What about 999?
 
             var registration = pers.ToRegistreringType1(CprToUuid);
+            var borgerType = (CprBorgerType)registration.AttributListe.RegisterOplysning[0].Item;
+            StringAssert.AreEqualIgnoringCase(pnr, borgerType.PersonCivilRegistrationIdentifier);
+            Assert.IsNotNull(borgerType.FolkeregisterAdresse);
+            Assert.IsNotNull(registration.AttributListe.Egenskab[0].NavnStruktur);
         }
 
         [Test]
@@ -70,8 +75,6 @@ namespace CprBroker.Tests.CPRDirect.Partials
                 new Schemas.PersonIdentifier() { CprNumber = pnr, UUID = Guid.NewGuid() },
                 (new IndividualResponseType[] { CprBroker.Tests.CPRDirect.Persons.Person.GetPerson(pnr) }).AsQueryable());
             var pers = historyResponse.IndividualResponseObjects.First();
-            //historyResponse.IndividualResponseObjects.ToList().RemoveAt(0);
-
             pers.CurrentDepartureData = null;  //005 ?
             pers.CurrentDisappearanceInformation = null;  //007
             pers.BirthRegistrationInformation = null;  //009
@@ -100,7 +103,10 @@ namespace CprBroker.Tests.CPRDirect.Partials
 
             //What about 999?
             var registration = historyResponse.ToFiltreretOejebliksbilledeType(CprToUuid);
-
+            var borgerType = (CprBorgerType) registration.AttributListe.RegisterOplysning[0].Item;
+            StringAssert.AreEqualIgnoringCase(pnr, borgerType.PersonCivilRegistrationIdentifier);
+            Assert.IsNotNull(borgerType.FolkeregisterAdresse);
+            Assert.IsNotNull(registration.AttributListe.Egenskab[0].NavnStruktur);
         }
     }
 }
