@@ -60,9 +60,18 @@ namespace CprBroker.Tests.CPRDirect.Partials
             //What about 999?
 
             var registration = pers.ToRegistreringType1(CprToUuid);
+            
+            // Make the newest objects come at index 0
+            registration.OrderByStartDate(false);
+            
             var borgerType = (CprBorgerType)registration.AttributListe.RegisterOplysning[0].Item;
-            StringAssert.AreEqualIgnoringCase(pnr, borgerType.PersonCivilRegistrationIdentifier);
-            Assert.IsNotNull(borgerType.FolkeregisterAdresse);
+
+            if (borgerType.PersonNummerGyldighedStatusIndikator) // The CPR number is still active
+                StringAssert.AreEqualIgnoringCase(pnr, borgerType.PersonCivilRegistrationIdentifier);
+
+            if (pers.PersonInformation.Status != 90 && pers.PersonInformation.Status != 70) // Not dead or disappeared
+                Assert.IsNotNull(borgerType.FolkeregisterAdresse);
+
             Assert.IsNotNull(registration.AttributListe.Egenskab[0].NavnStruktur);
         }
 
@@ -103,7 +112,7 @@ namespace CprBroker.Tests.CPRDirect.Partials
 
             //What about 999?
             var registration = historyResponse.ToFiltreretOejebliksbilledeType(CprToUuid);
-            var borgerType = (CprBorgerType) registration.AttributListe.RegisterOplysning[0].Item;
+            var borgerType = (CprBorgerType)registration.AttributListe.RegisterOplysning[0].Item;
             StringAssert.AreEqualIgnoringCase(pnr, borgerType.PersonCivilRegistrationIdentifier);
             Assert.IsNotNull(borgerType.FolkeregisterAdresse);
             Assert.IsNotNull(registration.AttributListe.Egenskab[0].NavnStruktur);
