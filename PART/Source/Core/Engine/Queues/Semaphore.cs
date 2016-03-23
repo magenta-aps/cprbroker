@@ -114,5 +114,25 @@ namespace CprBroker.Engine.Queues
                 }
             }
         }
+
+        public void Wait()
+        {
+            Wait(1);
+        }
+
+        public void Wait(int waitCount)
+        {
+            using (var dataContext = new QueueDataContext())
+            {
+                var semaphore = dataContext.Semaphores.Where(s => s.SemaphoreId == this.Impl.SemaphoreId).Single();
+                semaphore.SignaledDate = null;
+                if (semaphore.WaitCount.HasValue)
+                    semaphore.WaitCount += waitCount;
+                else
+                    semaphore.WaitCount = waitCount;
+
+                dataContext.SubmitChanges();
+            }
+        }
     }
 }
