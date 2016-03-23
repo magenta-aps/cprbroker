@@ -94,14 +94,24 @@ namespace CprBroker.Engine.Queues
             return null;
         }
 
+        public void SignalAll()
+        {
+            Signal(Impl.WaitCount.HasValue ? Impl.WaitCount.Value : 1);
+        }
+
         public void Signal()
+        {
+            Signal(1);
+        }
+
+        public void Signal(int count)
         {
             using (var dataContext = new QueueDataContext())
             {
                 var semaphore = dataContext.Semaphores.Where(s => s.SemaphoreId == this.Impl.SemaphoreId).Single();
                 if (!semaphore.SignaledDate.HasValue)
                 {
-                    if (!semaphore.WaitCount.HasValue || semaphore.WaitCount.Value == 1)
+                    if (!semaphore.WaitCount.HasValue || semaphore.WaitCount.Value <= count)
                     {
                         semaphore.WaitCount = 0;
                         semaphore.SignaledDate = DateTime.Now;
