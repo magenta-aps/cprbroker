@@ -180,6 +180,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\4357.txt" />
+    <Content Include="loggingConfiguration.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="packages.config" />
     <None Include="Resources\U12170-P opgavenr 110901 ADRNVN FE_FixedLength" />
     <None Include="App.config" />
