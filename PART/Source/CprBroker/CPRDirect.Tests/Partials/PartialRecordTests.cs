@@ -24,34 +24,6 @@ namespace CprBroker.Tests.CPRDirect.Partials
             return UuidCache.GetUuid(pnr);
         }
 
-        [Test]
-        public void ToRegistreringType1_Reduced_HasNameAddressPnr(
-            [ValueSource(typeof(Utilities), "PNRs")]string pnr)
-        {
-            var all = IndividualResponseType.ParseBatch(Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE);
-            var pers = all.Where(p => p.PersonInformation.PNR == pnr).First();
-
-            ClearOptionalRecords(pers);
-
-            var registration = pers.ToRegistreringType1(CprToUuid);
-
-            // Make the newest objects come at index 0
-            registration.OrderByStartDate(false);
-
-            var borgerType = (CprBorgerType)registration.AttributListe.RegisterOplysning[0].Item;
-
-            if (borgerType.PersonNummerGyldighedStatusIndikator) // The CPR number is still active
-            {
-                Assert.IsNotNull(borgerType.PersonCivilRegistrationIdentifier);
-                StringAssert.AreEqualIgnoringCase(pnr, borgerType.PersonCivilRegistrationIdentifier);
-
-                if (pers.PersonInformation.Status != 70 && pers.PersonInformation.Status != 80 && pers.PersonInformation.Status != 90) // Not disappeared, emigrated or dead
-                    Assert.IsNotNull(borgerType.FolkeregisterAdresse);
-            }
-            Assert.IsNotNull(registration.AttributListe.Egenskab[0].NavnStruktur, "Name not found");
-            Assert.IsNotNull(registration.TilstandListe.LivStatus, "Life status not found");
-        }
-
         private static void ClearOptionalRecords(IndividualResponseType pers)
         {
             //Todo: Beemen should review these.
@@ -82,6 +54,37 @@ namespace CprBroker.Tests.CPRDirect.Partials
             pers.Events.Clear();  //099 ?
             pers.ErrorRecord = null;  //910 ?
             pers.SubscriptionDeletionReceipt.Clear();  //997 ?
+        }
+
+        readonly string[] PersonsWithoutNames = new string[] { "0101005038", "3006980014" };
+        
+        [Test]
+        public void ToRegistreringType1_Reduced_HasNameAddressPnr(
+            [ValueSource(typeof(Utilities), "PNRs")]string pnr)
+        {
+            var all = IndividualResponseType.ParseBatch(Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE);
+            var pers = all.Where(p => p.PersonInformation.PNR == pnr).First();
+
+            ClearOptionalRecords(pers);
+
+            var registration = pers.ToRegistreringType1(CprToUuid);
+
+            // Make the newest objects come at index 0
+            registration.OrderByStartDate(false);
+
+            var borgerType = (CprBorgerType)registration.AttributListe.RegisterOplysning[0].Item;
+
+            if (borgerType.PersonNummerGyldighedStatusIndikator) // The CPR number is still active
+            {
+                Assert.IsNotNull(borgerType.PersonCivilRegistrationIdentifier);
+                StringAssert.AreEqualIgnoringCase(pnr, borgerType.PersonCivilRegistrationIdentifier);
+
+                if (pers.PersonInformation.Status != 70 && pers.PersonInformation.Status != 80 && pers.PersonInformation.Status != 90) // Not disappeared, emigrated or dead
+                    Assert.IsNotNull(borgerType.FolkeregisterAdresse);
+            }
+            if (!PersonsWithoutNames.Contains(pnr)) // two persons with no current name
+                Assert.False(registration.AttributListe.Egenskab[0].NavnStruktur.PersonNameStructure.IsEmpty, "Name not found");
+            Assert.IsNotNull(registration.TilstandListe.LivStatus, "Life status not found");
         }
 
         [Test]
@@ -128,7 +131,7 @@ namespace CprBroker.Tests.CPRDirect.Partials
         }
 
         [Test]
-        public void ToFiltreretOejebliksbilledeType(
+        public void ToFiltreretOejebliksbilledeType_Reduced_HasNameAddressPnr(
             [ValueSource(typeof(Utilities), "PNRs")]string pnr)
         {
             var historyResponse = new IndividualHistoryResponseType(
@@ -154,11 +157,12 @@ namespace CprBroker.Tests.CPRDirect.Partials
                 if (pers.PersonInformation.Status != 70 && pers.PersonInformation.Status != 80 && pers.PersonInformation.Status != 90) // Not disappeared, emigrated or dead
                     Assert.IsNotNull(borgerType.FolkeregisterAdresse);
             }
-            Assert.IsNotNull(registration.AttributListe.Egenskab[0].NavnStruktur);
+            if (!PersonsWithoutNames.Contains(pnr))
+                Assert.False(registration.AttributListe.Egenskab[0].NavnStruktur.PersonNameStructure.IsEmpty);
         }
-
+        
         [Test]
-        public void ToFiltreretOejebliksbilledeType_CompareBeforeAndAfterClear(
+        public void ToFiltreretOejebliksbilledeType_Reduced_CompareBeforeAndAfterClear(
             [ValueSource(typeof(Utilities), "PNRs")]string pnr)
         {
             var historyResponse = new IndividualHistoryResponseType(
