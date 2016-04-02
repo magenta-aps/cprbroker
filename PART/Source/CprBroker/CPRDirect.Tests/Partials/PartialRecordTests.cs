@@ -198,11 +198,6 @@ namespace CprBroker.Tests.CPRDirect.Partials
                     Strings.SerializeObject(registration.AttributListe.Egenskab.Last().NavnStruktur)
                 );
             }
-
-            StringAssert.AreEqualIgnoringCase(
-                Strings.SerializeObject(registrationBefore.TilstandListe.LivStatus),
-                Strings.SerializeObject(registration.TilstandListe.LivStatus)
-            );
         }
     }
 }
