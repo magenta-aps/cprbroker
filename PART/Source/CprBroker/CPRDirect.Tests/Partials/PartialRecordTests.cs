@@ -108,16 +108,16 @@ namespace CprBroker.Tests.CPRDirect.Partials
             if (pers.PersonInformation.Status == 1 || pers.PersonInformation.Status == 3)
             {
                 StringAssert.AreEqualIgnoringCase(
-                    CprBroker.Utilities.Strings.SerializeObject(borgerTypeBefore.FolkeregisterAdresse.Item),
-                    CprBroker.Utilities.Strings.SerializeObject(borgerType.FolkeregisterAdresse.Item)
+                    Strings.SerializeObject(borgerTypeBefore.FolkeregisterAdresse.Item),
+                    Strings.SerializeObject(borgerType.FolkeregisterAdresse.Item)
                 );
                 StringAssert.AreEqualIgnoringCase(
-                    CprBroker.Utilities.Strings.SerializeObject(borgerTypeBefore.PersonCivilRegistrationIdentifier),
-                    CprBroker.Utilities.Strings.SerializeObject(borgerType.PersonCivilRegistrationIdentifier)
+                    Strings.SerializeObject(borgerTypeBefore.PersonCivilRegistrationIdentifier),
+                    Strings.SerializeObject(borgerType.PersonCivilRegistrationIdentifier)
                 );
                 StringAssert.AreEqualIgnoringCase(
-                    CprBroker.Utilities.Strings.SerializeObject(registrationBefore.AttributListe.Egenskab[0].NavnStruktur),
-                    CprBroker.Utilities.Strings.SerializeObject(registration.AttributListe.Egenskab[0].NavnStruktur)
+                    Strings.SerializeObject(registrationBefore.AttributListe.Egenskab[0].NavnStruktur),
+                    Strings.SerializeObject(registration.AttributListe.Egenskab[0].NavnStruktur)
                 );
             }
 
@@ -186,16 +186,16 @@ namespace CprBroker.Tests.CPRDirect.Partials
             {
                 Console.WriteLine("{0} {1}", pnr, pers.PersonInformation.Status);
                 StringAssert.AreEqualIgnoringCase(
-                    CprBroker.Utilities.Strings.SerializeObject(borgerTypeBefore.FolkeregisterAdresse.Item),
-                    CprBroker.Utilities.Strings.SerializeObject(borgerType.FolkeregisterAdresse.Item)
+                    Strings.SerializeObject(borgerTypeBefore.FolkeregisterAdresse.Item),
+                    Strings.SerializeObject(borgerType.FolkeregisterAdresse.Item)
                 );
                 StringAssert.AreEqualIgnoringCase(
-                    CprBroker.Utilities.Strings.SerializeObject(borgerTypeBefore.PersonCivilRegistrationIdentifier),
-                    CprBroker.Utilities.Strings.SerializeObject(borgerType.PersonCivilRegistrationIdentifier)
+                    Strings.SerializeObject(borgerTypeBefore.PersonCivilRegistrationIdentifier),
+                    Strings.SerializeObject(borgerType.PersonCivilRegistrationIdentifier)
                 );
                 StringAssert.AreEqualIgnoringCase(
-                    CprBroker.Utilities.Strings.SerializeObject(registrationBefore.AttributListe.Egenskab.Last().NavnStruktur),
-                    CprBroker.Utilities.Strings.SerializeObject(registration.AttributListe.Egenskab.Last().NavnStruktur)
+                    Strings.SerializeObject(registrationBefore.AttributListe.Egenskab.Last().NavnStruktur),
+                    Strings.SerializeObject(registration.AttributListe.Egenskab.Last().NavnStruktur)
                 );
             }
 
