@@ -24,7 +24,7 @@ namespace CprBroker.Tests.CPRDirect.Partials
             return UuidCache.GetUuid(pnr);
         }
 
-        private static void ClearOptionalRecords(IndividualResponseType pers)
+        public static void ClearOptionalRecords(IndividualResponseType pers)
         {
             //Todo: Beemen should review these.
             //Do the data correspond to the record numbers?
@@ -56,8 +56,8 @@ namespace CprBroker.Tests.CPRDirect.Partials
             pers.SubscriptionDeletionReceipt.Clear();  //997 ?
         }
 
-        readonly string[] PersonsWithoutNames = new string[] { "0101005038", "3006980014" };
-        
+        internal static readonly string[] PersonsWithoutNames = new string[] { "0101005038", "3006980014" };
+
         [Test]
         public void ToRegistreringType1_Reduced_HasNameAddressPnr(
             [ValueSource(typeof(Utilities), "PNRs")]string pnr)
@@ -160,7 +160,7 @@ namespace CprBroker.Tests.CPRDirect.Partials
             if (!PersonsWithoutNames.Contains(pnr))
                 Assert.False(registration.AttributListe.Egenskab[0].NavnStruktur.PersonNameStructure.IsEmpty);
         }
-        
+
         [Test]
         public void ToFiltreretOejebliksbilledeType_Reduced_CompareBeforeAndAfterClear(
             [ValueSource(typeof(Utilities), "PNRs")]string pnr)

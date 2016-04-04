@@ -73,7 +73,7 @@ namespace CprBroker.Tests.CPRDirect.Objects
                             if (!p.NameStartDate.HasValue)
                                 return "Null";
 
-                            var date = PartInterface.Strings.PersonNumberToDate(p.PNR).Value;
+                            var date = CprBroker.PartInterface.Strings.PersonNumberToDate(p.PNR).Value;
                             if (p.NameStartDate.Value.Date == date)
                                 return "Same Day";
                             if ((date - p.NameStartDate.Value).TotalDays < 30)
@@ -94,7 +94,7 @@ namespace CprBroker.Tests.CPRDirect.Objects
                     .GroupBy(
                         p =>
                         {
-                            var date = PartInterface.Strings.PersonNumberToDate(p.PersonInformation.PNR).Value;
+                            var date = CprBroker.PartInterface.Strings.PersonNumberToDate(p.PersonInformation.PNR).Value;
                             //DateTime? nameDate
 
 
