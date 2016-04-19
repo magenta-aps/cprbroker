@@ -5,7 +5,7 @@
     <ItemTemplate>
         <b>
             <%# Eval("Name")%>:</b>
-        <cc1:SmartTextBox ID="SmartTextBox" runat="server" Type='<%# Eval("Type") %>' Text='<%# Bind("Value") %>'
+        <cc1:SmartTextBox ID="SmartTextBox" runat="server" Type='<%# Eval("Type") %>' EnumType='<%# Eval("EnumType") %>' Text='<%# Bind("Value") %>'
             Required='<%# Bind("Required") %>' Confidential='<%# Bind("Confidential") %>' />
     </ItemTemplate>
 </asp:DataList>

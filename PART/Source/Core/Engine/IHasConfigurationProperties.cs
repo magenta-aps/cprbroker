@@ -59,7 +59,8 @@ namespace CprBroker.Engine
                         Value = (string.IsNullOrEmpty(pVal.Key) || pInfo.Confidential) ? null : pVal.Value,
                         Confidential = pInfo.Confidential,
                         Required = pInfo.Required,
-                        Type = pInfo.Type
+                        Type = pInfo.Type,
+                        EnumType = pInfo.EnumType
                     })
                     .ToArray();
         }

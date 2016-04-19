@@ -106,6 +106,18 @@ namespace CprBroker.Web.Controls
             }
         }
 
+        public Type EnumType
+        {
+            get
+            {
+                return FromViewstate<Type>("EnumType");
+            }
+            set
+            {
+                ViewState["EnumType"] = value;
+            }
+        }
+
         [DefaultValue(null)]
         public string ValidationGroup
         {
@@ -139,23 +151,37 @@ namespace CprBroker.Web.Controls
         public RegularExpressionValidator intRegularExpressionValidator = new RegularExpressionValidator();
         public RegularExpressionValidator decimalRegularExpressionValidator = new RegularExpressionValidator();
         public CheckBox booleanCheckBox = new CheckBox();
+        public DropDownList dropDown = new DropDownList();
 
         protected override void CreateChildControls()
         {
             InnerTextBox.ID = "txt";
             InnerTextBox.TextMode = Confidential ? TextBoxMode.Password : TextBoxMode.SingleLine;
-            InnerTextBox.Visible = Type != DataProviderConfigPropertyInfoTypes.Boolean;
+            InnerTextBox.Visible =
+                Type == DataProviderConfigPropertyInfoTypes.Decimal
+                || Type == DataProviderConfigPropertyInfoTypes.Integer
+                || Type == DataProviderConfigPropertyInfoTypes.String;
             Controls.Add(InnerTextBox);
+
+            dropDown.Visible = this.Type == DataProviderConfigPropertyInfoTypes.Enumeration;
+            if (EnumType != null)
+            {
+                foreach (var n in Enum.GetNames(this.EnumType))
+                    dropDown.Items.Add(n);
+
+                dropDown.SelectedValue = Enum.ToObject(EnumType, 0).ToString();
+            }
+            Controls.Add(dropDown);
 
             requiredValidator.ControlToValidate = "txt";
             requiredValidator.Text = "Required";
             requiredValidator.ValidationGroup = ValidationGroup;
-            requiredValidator.Enabled = Required && Type != DataProviderConfigPropertyInfoTypes.Boolean;
+            requiredValidator.Enabled = Required && InnerTextBox.Visible;
             requiredValidator.Visible = requiredValidator.Enabled;
             Controls.Add(requiredValidator);
 
             regularExpressionValidator.ControlToValidate = "txt";
-            regularExpressionValidator.Enabled = !string.IsNullOrEmpty(ValidationExpression) && Type != DataProviderConfigPropertyInfoTypes.Boolean;
+            regularExpressionValidator.Enabled = !string.IsNullOrEmpty(ValidationExpression) && InnerTextBox.Visible;
             regularExpressionValidator.Visible = regularExpressionValidator.Enabled;
             regularExpressionValidator.Text = "Invalid Input";
             regularExpressionValidator.ValidationGroup = ValidationGroup;
@@ -163,7 +189,7 @@ namespace CprBroker.Web.Controls
 
 
             intRegularExpressionValidator.ControlToValidate = "txt";
-            intRegularExpressionValidator.Enabled = this.Type == DataProviderConfigPropertyInfoTypes.Integer;
+            intRegularExpressionValidator.Enabled = this.Type == DataProviderConfigPropertyInfoTypes.Integer && InnerTextBox.Visible;
             intRegularExpressionValidator.Visible = intRegularExpressionValidator.Enabled;
             intRegularExpressionValidator.ValidationGroup = ValidationGroup;
             intRegularExpressionValidator.ValidationExpression = "\\d*";
@@ -171,7 +197,7 @@ namespace CprBroker.Web.Controls
             Controls.Add(intRegularExpressionValidator);
 
             decimalRegularExpressionValidator.ControlToValidate = "txt";
-            decimalRegularExpressionValidator.Enabled = this.Type == DataProviderConfigPropertyInfoTypes.Decimal;
+            decimalRegularExpressionValidator.Enabled = this.Type == DataProviderConfigPropertyInfoTypes.Decimal && InnerTextBox.Visible;
             decimalRegularExpressionValidator.Visible = decimalRegularExpressionValidator.Enabled;
             decimalRegularExpressionValidator.ValidationGroup = ValidationGroup;
             decimalRegularExpressionValidator.ValidationExpression = "\\d*([.,]\\d+)?";
@@ -180,7 +206,6 @@ namespace CprBroker.Web.Controls
 
             booleanCheckBox.Visible = this.Type == DataProviderConfigPropertyInfoTypes.Boolean;
             Controls.Add(booleanCheckBox);
-
         }
 
         public string Text
@@ -191,6 +216,10 @@ namespace CprBroker.Web.Controls
                 {
                     return this.booleanCheckBox.Checked.ToString();
                 }
+                else if (this.Type == DataProviderConfigPropertyInfoTypes.Enumeration)
+                {
+                    return dropDown.SelectedValue;
+                }
                 else
                 {
                     return InnerTextBox.Text;
@@ -198,6 +227,8 @@ namespace CprBroker.Web.Controls
             }
             set
             {
+                this.EnsureChildControls();
+
                 if (this.Type == DataProviderConfigPropertyInfoTypes.Boolean)
                 {
                     try
@@ -209,6 +240,10 @@ namespace CprBroker.Web.Controls
                         booleanCheckBox.Checked = false;
                     }
                 }
+                else if (Type == DataProviderConfigPropertyInfoTypes.Enumeration)
+                {
+                    dropDown.SelectedValue = value;
+                }
                 else
                 {
                     InnerTextBox.Text = value;
@@ -218,7 +253,7 @@ namespace CprBroker.Web.Controls
 
         public object Value
         {
-            get 
+            get
             {
                 switch (this.Type)
                 {
@@ -313,6 +348,7 @@ namespace CprBroker.Web.Controls
         {
             return new SmartTextField();
         }
+
         protected override void InitializeDataCell(DataControlFieldCell cell, DataControlRowState rowState)
         {
             if ((rowState & DataControlRowState.Edit) > 0)

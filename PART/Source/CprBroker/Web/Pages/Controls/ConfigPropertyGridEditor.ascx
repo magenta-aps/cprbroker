@@ -15,7 +15,7 @@
         </asp:TemplateField>
         <asp:TemplateField>
             <ItemTemplate>
-                <cc1:SmartTextBox ID="SmartTextBox" runat="server" Type='<%# Eval("Type") %>' Required='<%# Eval("Required") %>'
+                <cc1:SmartTextBox ID="SmartTextBox" runat="server" Type='<%# Eval("Type") %>' EnumType='<%# Eval("EnumType") %>' Required='<%# Eval("Required") %>'
                     Confidential='<%# Eval("Confidential") %>' ValidationGroup="Add" />
             </ItemTemplate>
         </asp:TemplateField>
