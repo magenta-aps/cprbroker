@@ -56,7 +56,7 @@ using CprBroker.Engine.Part;
 
 namespace CprBroker.Providers.CPRDirect
 {
-    public partial class CPRDirectExtractDataProvider : IPartReadDataProvider, IExternalDataProvider, IPartPeriodDataProvider, ICprDirectPersonDataProvider
+    public partial class CPRDirectExtractDataProvider : IPartReadDataProvider, IExternalDataProvider, IPartPeriodDataProvider, ICprDirectPersonDataProvider, ILocalProxyDataProvider
     {
         #region IPartReadDataProvider members
         public RegistreringType1 Read(CprBroker.Schemas.PersonIdentifier uuid, LaesInputType input, Func<string, Guid> cpr2uuidFunc, out QualityLevel? ql)
@@ -156,6 +156,7 @@ namespace CprBroker.Providers.CPRDirect
             {
                 return new DataProviderConfigPropertyInfo[] { 
                     new DataProviderConfigPropertyInfo(){ Name=Constants.PropertyNames.ExtractsFolder, Type= DataProviderConfigPropertyInfoTypes.String, Required=true, Confidential=false},
+                    new DataProviderConfigPropertyInfo(){Name=Constants.PropertyNames.LocalProxyUsage, Type = DataProviderConfigPropertyInfoTypes.Enumeration, Confidential = false, Required=true, EnumType = typeof(LocalProxyUsageOptions)},
                     new DataProviderConfigPropertyInfo(){ Name=Constants.PropertyNames.MultiLine, Type= DataProviderConfigPropertyInfoTypes.Boolean, Required=true, Confidential=false},
                     new DataProviderConfigPropertyInfo(){ Name=Constants.PropertyNames.HasFtpSource, Type= DataProviderConfigPropertyInfoTypes.Boolean, Required=true, Confidential=false},
                     new DataProviderConfigPropertyInfo(){ Name=Constants.PropertyNames.FtpAddress, Type= DataProviderConfigPropertyInfoTypes.String, Required=false, Confidential=false},                    
@@ -173,6 +174,20 @@ namespace CprBroker.Providers.CPRDirect
         }
         #endregion
 
+        #region ILocalProxyDataProvider
+        public LocalProxyUsageOptions LocalProxyUsage
+        {
+            get
+            {
+                return DataProviderConfigPropertyInfo.GetEnum<LocalProxyUsageOptions>(ConfigurationProperties, Constants.PropertyNames.LocalProxyUsage);
+            }
+            set
+            {
+                this.ConfigurationProperties[Constants.PropertyNames.LocalProxyUsage] = value.ToString();
+            }
+        }        
+        #endregion
+        
         #region Specific members
         public string ExtractsFolder
         {
@@ -227,7 +242,6 @@ namespace CprBroker.Providers.CPRDirect
         }
         #endregion
 
-
         #region ICprDirectPersonDataProvider members
 
         public IndividualResponseType GetPerson(string cprNumber)
@@ -235,5 +249,7 @@ namespace CprBroker.Providers.CPRDirect
             return ExtractManager.GetPerson(cprNumber);
         }
         #endregion
+
+        
     }
 }

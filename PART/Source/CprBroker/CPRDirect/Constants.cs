@@ -240,6 +240,7 @@ namespace CprBroker.Providers.CPRDirect
             public static readonly string FtpUser = "FTP User";
             public static readonly string FtpPassword = "FTP Password";
             public static readonly string FtpRegexFilter = "FTP Regex filter";
+            public static readonly string LocalProxyUsage = "Local proxy usage";
         }
 
         public static class ResponseLengths

@@ -242,6 +242,9 @@ namespace CprBroker.Web.Controls
                 }
                 else if (Type == DataProviderConfigPropertyInfoTypes.Enumeration)
                 {
+                    if (string.IsNullOrEmpty(value))
+                        value = Enum.ToObject(EnumType, 0).ToString();
+
                     dropDown.SelectedValue = value;
                 }
                 else

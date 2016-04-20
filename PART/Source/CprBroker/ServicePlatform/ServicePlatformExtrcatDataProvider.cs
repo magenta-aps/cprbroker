@@ -51,7 +51,7 @@ using CprBroker.Providers.CprServices;
 
 namespace CprBroker.Providers.ServicePlatform
 {
-    public partial class ServicePlatformExtractDataProvider : IExternalDataProvider, CprBroker.PartInterface.IExtractDataProvider, IPartPeriodDataProvider, IPartReadDataProvider
+    public partial class ServicePlatformExtractDataProvider : IExternalDataProvider, CprBroker.PartInterface.IExtractDataProvider, IPartPeriodDataProvider, IPartReadDataProvider, ILocalProxyDataProvider
     {
         #region IDataProvider members
 
@@ -94,6 +94,8 @@ namespace CprBroker.Providers.ServicePlatform
             {
                 return new DataProviderConfigPropertyInfo[]{
                     new DataProviderConfigPropertyInfo(){Name=Constants.ConfigProperties.ExtractsFolder, Type = DataProviderConfigPropertyInfoTypes.String, Confidential = false, Required=true},
+                    new DataProviderConfigPropertyInfo(){Name=Constants.ConfigProperties.LocalProxyUsage, Type = DataProviderConfigPropertyInfoTypes.Enumeration, Confidential = false, Required=true, EnumType = typeof(LocalProxyUsageOptions)},
+
                     new DataProviderConfigPropertyInfo(){Name=Constants.ConfigProperties.HasSftpSource , Type = DataProviderConfigPropertyInfoTypes.Boolean, Confidential = false, Required=true},
 
                     new DataProviderConfigPropertyInfo(){Name=Constants.ConfigProperties.SftpAddress , Type = DataProviderConfigPropertyInfoTypes.String, Confidential = false, Required=true},
@@ -110,6 +112,18 @@ namespace CprBroker.Providers.ServicePlatform
         }
 
         public Dictionary<string, string> ConfigurationProperties { get; set; }
+
+        public LocalProxyUsageOptions LocalProxyUsage
+        {
+            get
+            {
+                return DataProviderConfigPropertyInfo.GetEnum<LocalProxyUsageOptions>(ConfigurationProperties, Constants.ConfigProperties.LocalProxyUsage);
+            }
+            set
+            {
+                this.ConfigurationProperties[Constants.ConfigProperties.LocalProxyUsage] = value.ToString();
+            }
+        }
         #endregion
 
         #region Config properties
@@ -199,5 +213,7 @@ namespace CprBroker.Providers.ServicePlatform
             var prov = new CPRDirect.CPRDirectExtractDataProvider();
             return prov.Read(uuid, input, cpr2uuidFunc, out ql);
         }
+
+
     }
 }
