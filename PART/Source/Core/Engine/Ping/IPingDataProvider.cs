@@ -45,37 +45,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using CprBroker.Schemas;
-using CprBroker.Schemas.Part;
 
-namespace CprBroker.Engine
+namespace CprBroker.Engine.Ping
 {
     /// <summary>
-    /// Facade method for Log
+    /// Allows external systems to ping this system
     /// </summary>
-    public class LogFacadeMethod : GenericFacadeMethodInfo<bool>
+    public interface IPingDataProvider : IDataProvider
     {
-        string Text;
-
-        public LogFacadeMethod(string text, string appToken, string userToken)
-            : base(appToken, userToken)
-        {
-            Text = text;
-        }
-
-        public override void Initialize()
-        {
-            SubMethodInfos = new SubMethodInfo[]
-            {
-                new SubMethodInfo<ILoggingDataProvider,bool>()
-                {
-                    FailIfNoDataProvider=true,
-                    FailOnDefaultOutput=true,
-                    LocalDataProviderOption= SourceUsageOrder.LocalThenExternal,
-                    Method= (prov)=>prov.Log(Text),
-                    UpdateMethod=null
-                }
-            };
-        }
+        bool Ping();
     }
 }

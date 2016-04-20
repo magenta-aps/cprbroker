@@ -49,6 +49,8 @@ using System.Diagnostics;
 using CprBroker.Schemas;
 using CprBroker.Schemas.Part;
 using CprBroker.Engine;
+using CprBroker.Engine.DataProviders;
+using CprBroker.Engine.Capabilities;
 using CprBroker.Data;
 using CprBroker.Data.DataProviders;
 using CprBroker.Data.Applications;

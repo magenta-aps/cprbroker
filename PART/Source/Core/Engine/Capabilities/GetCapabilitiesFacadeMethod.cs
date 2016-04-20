@@ -48,41 +48,31 @@ using System.Text;
 using CprBroker.Schemas;
 using CprBroker.Schemas.Part;
 
-namespace CprBroker.Engine
+namespace CprBroker.Engine.Capabilities
 {
     /// <summary>
-    /// Facade method for IsImplementing
+    /// Facade method for GetCapabilities
     /// </summary>
-    public class IsImplementingFacadeMethod : GenericFacadeMethodInfo<bool>
+    public class GetCapabilitiesFacadeMethod:GenericFacadeMethodInfo<ServiceVersionType[]>
     {
-        string MethodName;
-        string Version;
-
-        public IsImplementingFacadeMethod(string appToken, string userToken, string methodName, string version)
+        public GetCapabilitiesFacadeMethod(string appToken, string userToken)
             : base(appToken, userToken)
-        {
-            MethodName = methodName;
-            Version = version;
-        }
+        { }
 
         public override void Initialize()
         {
             SubMethodInfos = new SubMethodInfo[]
             {
-                new SubMethodInfo<IVersionManager,bool>()
+                new SubMethodInfo<IVersionManager,ServiceVersionType[]>()
                 {
                     FailIfNoDataProvider=true,
-                    FailOnDefaultOutput=false,
+                    FailOnDefaultOutput=true,
                     LocalDataProviderOption= SourceUsageOrder.LocalThenExternal,
-                    Method= (prov)=>prov.IsImplementing(MethodName,Version),
+                    Method= (prov)=>prov.GetCapabilities(),
                     UpdateMethod=null
                 }
             };
-        }
 
-        public override bool IsValidResult(bool output)
-        {
-            return true;
         }
     }
 }
