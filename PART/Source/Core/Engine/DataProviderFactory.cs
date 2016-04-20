@@ -236,26 +236,81 @@ namespace CprBroker.Engine
 
         #region Filtration by type
 
+        private int GetClassOrder(IDataProvider p)
+        {
+            /*
+             * PreLocal = 1
+             * Local = 2
+             * PostLocal = 3
+             * PureExternal = 4
+             */
+            if (p is IExternalDataProvider)
+            {
+                if (p is ILocalProxyDataProvider)
+                {
+                    switch ((p as ILocalProxyDataProvider).LocalProxyUsage)
+                    {
+                        case LocalProxyUsageOptions.BeforeLocal:
+                            return 1;
+                        case LocalProxyUsageOptions.AfterLocal:
+                            return 3;
+                        default: //LocalProxyUsageOptions.Default
+                            return 4;
+                    }
+                }
+                else
+                {
+                    return 4;
+                }
+            }
+            else
+            {
+                return 2; // Local
+            }
+        }
 
         public IEnumerable<IDataProvider> GetDataProviderList(IEnumerable<string> knownTypeNames, DataProvider[] dbProviders, Type interfaceType, SourceUsageOrder localOption)
         {
+            var realLocals = LoadLocalDataProviders(knownTypeNames, interfaceType);
+            var allExternals = LoadExternalDataProviders(dbProviders, interfaceType);
+
+            int i = 0;
+            var all = realLocals.Concat(allExternals)
+                .Select(p => new
+                {
+                    Prov = p,
+                    Index = i++,
+                    External = (p is IExternalDataProvider),
+                    Class = GetClassOrder(p)
+                });
+
             switch (localOption)
             {
                 case SourceUsageOrder.ExternalOnly:
-                    return LoadExternalDataProviders(dbProviders, interfaceType);
+                    // All externals in the defined order
+                    all = all
+                        .Where(p => p.External)
+                        .OrderBy(p => p.Index);
+                    break;
 
                 case SourceUsageOrder.LocalOnly:
-                    return LoadLocalDataProviders(knownTypeNames, interfaceType);
+                    // Pre local -> local -> post local
+                    all = all
+                        .Where(p => new int[] { 1, 2, 3 }.Contains(p.Class))
+                        .OrderBy(p => p.Class)
+                        .ThenBy(p => p.Index);
+                    break;
 
                 case SourceUsageOrder.LocalThenExternal:
-                    return LoadLocalDataProviders(knownTypeNames, interfaceType)
-                        .Concat(
-                            LoadExternalDataProviders(dbProviders, interfaceType)
-                        );
+                    all = all.OrderBy(p => p.Class);
+                    break;
 
                 default:
-                    return new IDataProvider[0];
+                    all = all.Take(0);
+                    break;
             }
+
+            return all.Select(p => p.Prov).AsEnumerable();
         }
 
         #endregion

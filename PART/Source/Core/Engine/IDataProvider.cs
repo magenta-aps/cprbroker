@@ -74,6 +74,18 @@ namespace CprBroker.Engine
 
     }
 
+    public enum LocalProxyUsageOptions
+    {
+        Default,
+        BeforeLocal,
+        AfterLocal
+    }
+
+    public interface ILocalProxyDataProvider
+    {
+        LocalProxyUsageOptions LocalProxyUsage { get; set; }
+    }
+
     public interface IAutoUpdateDataProvider
     {
         bool AutoUpdate { get; }
