@@ -98,10 +98,11 @@ namespace CprBroker.PartInterface
             if (cprNumber.Substring(6, 4) != "0000")
             {
                 /*
-                 * We cannot do modulus control on people with birth dates 19650101 or 19660101,
-                 * thus those dates just pass through with no control at all.
+                 * We cannot enforce modulus control on people with birth date 1 january in all years
+                 * This started with people born on 19650101 or 19660101,
+                 * but is now applicable to all years.
                  */
-                if (cprNumber.Substring(0, 6) == "010165" || cprNumber.Substring(0, 6) == "010166")
+                if (cprNumber.StartsWith("0101"))
                 {
                     result = true;
                 }
