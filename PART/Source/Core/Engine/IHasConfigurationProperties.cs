@@ -23,7 +23,7 @@ namespace CprBroker.Engine
             if (obj.ConfigurationProperties == null)
                 obj.ConfigurationProperties = new Dictionary<string, string>();
 
-            var keys = obj.ConfigurationKeys.Select(k => k.Name).ToArray();
+            var keys = obj.ToAllPropertyInfo().Select(k => k.Name).ToArray();
             foreach (var o in encryptedPropsObj.ToPropertiesDictionary(keys))
             {
                 obj.ConfigurationProperties[o.Key] = o.Value;
