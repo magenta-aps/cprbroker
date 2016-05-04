@@ -62,16 +62,12 @@ namespace CprBroker.DBR
         {
             if (this.LargeData == Providers.DPR.DetailType.ExtendedData && this.Type == Providers.DPR.InquiryType.DataUpdatedAutomaticallyFromCpr)
             {
-                var cprDirectProviders = LoadDataProviders<CPRDirectClientDataProvider>();
-
-                var provAndResponse = cprDirectProviders
-                    .Select(p => new { Prov = p, Ret = p.GetPerson(this.PNR) })
-                    .FirstOrDefault(p => p.Ret != null);
-
-                if (provAndResponse != null)
+                CPRDirectClientDataProvider usedProvider = null;
+                var getPersonResult = GetPerson(out usedProvider);
+                if (getPersonResult != null)
                 {
                     // Put a subscription if needed
-                    if (provAndResponse.Prov.DisableSubscriptions)
+                    if (usedProvider.DisableSubscriptions)
                     {
                         // We have to create a subscription elsewhere
                         var subscriptionResult = this.PutSubscription();
@@ -82,7 +78,7 @@ namespace CprBroker.DBR
                     }
 
                     // Update the DPR database
-                    this.UpdateDatabase(provAndResponse.Ret, dprConnectionString);
+                    this.UpdateDatabase(getPersonResult, dprConnectionString);
 
                     // Return  the result
                     var ret = new ClassicResponseType()
@@ -95,7 +91,6 @@ namespace CprBroker.DBR
                     };
 
                     return ret;
-
                 }
                 else
                 {
@@ -108,6 +103,22 @@ namespace CprBroker.DBR
                 // TODO: unimplemented mode of operation
                 throw new NotImplementedException();
             }
+        }
+
+        public virtual IndividualResponseType GetPerson(out CPRDirectClientDataProvider usedProvider)
+        {
+            var cprDirectProviders = LoadDataProviders<CPRDirectClientDataProvider>();
+            foreach (var prov in cprDirectProviders)
+            {
+                var resp = prov.GetPerson(this.PNR);
+                if (resp != null)
+                {
+                    usedProvider = prov;
+                    return resp;
+                }
+            }
+            usedProvider = null;
+            return null;
         }
 
         public bool PutSubscription()
