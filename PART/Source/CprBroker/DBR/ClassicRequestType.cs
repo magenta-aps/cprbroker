@@ -82,32 +82,20 @@ namespace CprBroker.DBR
                     }
 
                     // Update the DPR database
-                    using (var conn = new SqlConnection(dprConnectionString))
+                    this.UpdateDatabase(provAndResponse.Ret, dprConnectionString);
+
+                    // Return  the result
+                    var ret = new ClassicResponseType()
                     {
-                        using (var dataContext = new DPRDataContext(conn))
-                        {
-                            CprConverter.AppendPerson(provAndResponse.Ret, dataContext);
+                        Type = this.Type,
+                        LargeData = this.LargeData,
+                        PNR = this.PNR,
+                        ErrorNumber = "00",
+                        Data = "Basen er opdateret"
+                    };
 
-                            conn.Open();
-                            using (var trans = conn.BeginTransaction())
-                            {
-                                dataContext.Transaction = trans;
-                                CprConverter.DeletePersonRecords(this.PNR, dataContext);
-                                conn.BulkInsertChanges(dataContext.GetChangeSet().Inserts, trans);
-                                trans.Commit();
-                            }
-                            var ret = new ClassicResponseType()
-                            {
-                                Type = this.Type,
-                                LargeData = this.LargeData,
-                                PNR = this.PNR,
-                                ErrorNumber = "00",
-                                Data = "Basen er opdateret"
-                            };
+                    return ret;
 
-                            return ret;
-                        }
-                    }
                 }
                 else
                 {
@@ -129,6 +117,26 @@ namespace CprBroker.DBR
             var putSubscriptionRet = subscriptionDataProviders
                 .FirstOrDefault(sdp => sdp.PutSubscription(pId));
             return putSubscriptionRet != null;
+        }
+
+        public virtual void UpdateDatabase(IndividualResponseType response, string dprConnectionString)
+        {
+            using (var conn = new SqlConnection(dprConnectionString))
+            {
+                using (var dataContext = new DPRDataContext(conn))
+                {
+                    CprConverter.AppendPerson(response, dataContext);
+
+                    conn.Open();
+                    using (var trans = conn.BeginTransaction())
+                    {
+                        dataContext.Transaction = trans;
+                        CprConverter.DeletePersonRecords(this.PNR, dataContext);
+                        conn.BulkInsertChanges(dataContext.GetChangeSet().Inserts, trans);
+                        trans.Commit();
+                    }
+                }
+            }
         }
 
         public virtual IEnumerable<T> LoadDataProviders<T>()
