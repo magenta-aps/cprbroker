@@ -57,9 +57,9 @@ namespace CprBroker.Tests.DBR
 
         public class ClassicRequestTypeStub : ClassicRequestType
         {
-            public override IEnumerable<ICprDirectPersonDataProvider> LoadDataProviders()
+            public override IEnumerable<T> LoadDataProviders<T>()
             {
-                return new ICprDirectPersonDataProvider[] { new CprDirectExtractDataProviderStub() };
+                return new T[] { new CprDirectExtractDataProviderStub() as T };
             }
         }
 
