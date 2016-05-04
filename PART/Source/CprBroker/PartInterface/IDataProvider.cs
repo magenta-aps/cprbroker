@@ -90,4 +90,9 @@ namespace CprBroker.Engine
     {
         bool PutSubscription(PersonIdentifier personIdentifier);
     }
+
+    public interface IPutSubscriptionDataProvider2 : IPutSubscriptionDataProvider
+    {
+        bool DisableSubscriptions { get; }
+    }
 }

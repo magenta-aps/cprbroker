@@ -232,7 +232,7 @@ namespace CprBroker.Providers.CPRDirect
         {
             public static readonly string Address = "Address";
             public static readonly string Port = "Port";
-            public static readonly string PutSubscription = "Put subscription";
+            public static readonly string DisableSubscriptions = "Disable subscription";
             public static readonly string ExtractsFolder = "Extracts folder";
             public static readonly string MultiLine = "Multi line";
             public static readonly string HasFtpSource = "Has FTP Source";
