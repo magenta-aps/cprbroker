@@ -121,7 +121,7 @@ namespace CprBroker.DBR
             return null;
         }
 
-        public bool PutSubscription()
+        public virtual bool PutSubscription()
         {
             var subscriptionDataProviders = LoadDataProviders<IPutSubscriptionDataProvider>();
             var pId = new PersonIdentifier() { CprNumber = this.PNR, UUID = null };
