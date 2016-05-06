@@ -51,13 +51,13 @@ using CprBroker.Providers.CPRDirect;
 using Moq;
 using Moq.Linq;
 using CprBroker.Engine;
-
+using CprBroker.Providers.DPR;
 namespace CprBroker.Tests.DBR
 {
     namespace ClassicRequestTypeTests
     {
         [TestFixture]
-        public class _Process
+        public partial class Process
         {
             [Test]
             public void Process_NoDataProviders_Null()
@@ -70,6 +70,34 @@ namespace CprBroker.Tests.DBR
 
                 var req = mock.Object;
                 Assert.IsNull(req.Process(""));
+            }
+
+            [Test]
+            [ExpectedException(typeof(NotImplementedException))]
+            public void Process_MasterData_Exception(
+                [Values(InquiryType.DataNotUpdatedAutomatically, InquiryType.DataUpdatedAutomaticallyFromCpr, InquiryType.DeleteAutomaticDataUpdateFromCpr)]InquiryType inquiryType)
+            {
+                var req = new ClassicRequestType()
+                {
+                    LargeData = Providers.DPR.DetailType.MasterData,
+                    Type = inquiryType
+                };
+                req.Process("");
+            }
+
+            [Test]
+            [ExpectedException(typeof(NotImplementedException))]
+            public void Process_NoSubscription_Exception(
+                [Values(DetailType.ExtendedData, DetailType.MasterData)]DetailType detailType,
+                [Values(InquiryType.DataNotUpdatedAutomatically, InquiryType.DeleteAutomaticDataUpdateFromCpr)] InquiryType inquiryType
+                )
+            {
+                var req = new ClassicRequestType()
+                {
+                    LargeData = Providers.DPR.DetailType.MasterData,
+                    Type = inquiryType
+                };
+                req.Process("");
             }
         }
     }

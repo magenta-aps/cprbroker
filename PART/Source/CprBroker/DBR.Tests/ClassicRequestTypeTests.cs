@@ -50,6 +50,7 @@ using CprBroker.DBR;
 using CprBroker.Providers.CPRDirect;
 using CprBroker.Providers.DPR;
 using System.Net;
+using Moq;
 
 namespace CprBroker.Tests.DBR
 {
@@ -61,10 +62,7 @@ namespace CprBroker.Tests.DBR
             {
                 get
                 {
-                    using (var dataContext = new ExtractDataContext())
-                    {
-                        return dataContext.ExtractItems.Select(ei => ei.PNR).Distinct().Take(10).ToArray();
-                    }
+                    return CprBroker.Tests.CPRDirect.Utilities.PNRs.Take(10).ToArray();
                 }
             }
 
@@ -107,17 +105,42 @@ namespace CprBroker.Tests.DBR
         }
 
         [TestFixture]
-        public class Process : ClassicRequestTypeTestsBase
+        public partial class Process : ClassicRequestTypeTestsBase
         {
+
+            int DatabaseUpdateCalls = 0;
+
+            [SetUp]
+            public void Setup()
+            {
+                DatabaseUpdateCalls = 0;
+            }
+
 
             public ClassicRequestType CreateRequest(string pnr)
             {
-                var req = new ClassicRequestTypeStub();
-                Console.WriteLine(req.Length);
+                var mock = new Mock<ClassicRequestType>();
+                
+                var req = mock.Object;
+                
                 req.Contents = new string(' ', 12);
                 req.Type = Providers.DPR.InquiryType.DataUpdatedAutomaticallyFromCpr;
                 req.PNR = pnr;
                 req.LargeData = Providers.DPR.DetailType.ExtendedData;
+                CPRDirectClientDataProvider prov = new CPRDirectClientDataProvider() { ConfigurationProperties = new Dictionary<string, string>(), DisableSubscriptions = false };
+                mock.Setup(r => r.GetPerson(out prov)).Returns(
+                    CprBroker.Tests.CPRDirect.Persons.Person.GetPerson(pnr)
+                    );
+                mock.Setup(r => r.UpdateDatabase(It.IsAny<IndividualResponseType>(), It.IsAny<string>()))
+                    .Callback(() => 
+                        DatabaseUpdateCalls++
+                        );
+                mock.Setup(r => r.Process(It.IsAny<string>())).Callback(
+                () =>
+                    Console.WriteLine("Here")
+                    )
+                .CallBase();
+                //return mock;
                 return req;
             }
 
@@ -126,25 +149,18 @@ namespace CprBroker.Tests.DBR
             public void Process_NormalPerson_OK(string pnr)
             {
                 var req = CreateRequest(pnr);
-                var resp = req.Process(Properties.Settings.Default.ImitatedDprConnectionString) as ClassicResponseType;
+                var resp = req.Process("") as ClassicResponseType;
                 Assert.AreEqual("00", resp.ErrorNumber);
             }
 
             [Test]
             [TestCaseSource(typeof(ClassicRequestTypeTestsBase), "PNRs")]
-            public void Process_NormalPerson_GoesToDbr(string pnr)
+            public void Process_NormalPerson_UpdateDatabaseCalled(string pnr)
             {
-                using (var dataContext = new DPRDataContext(Properties.Settings.Default.ImitatedDprConnectionString))
-                {
-                    CprConverter.DeletePersonRecords(pnr, dataContext);
-                }
+                DatabaseUpdateCalls = 0;
                 var req = CreateRequest(pnr);
                 var resp = req.Process(Properties.Settings.Default.ImitatedDprConnectionString) as ClassicResponseType;
-                using (var dataContext = new DPRDataContext(Properties.Settings.Default.ImitatedDprConnectionString))
-                {
-                    var t = dataContext.PersonTotals.Where(pt => pt.PNR == decimal.Parse(pnr)).FirstOrDefault();
-                    Assert.NotNull(t);
-                }
+                Assert.AreEqual(1, DatabaseUpdateCalls);
             }
         }
     }
