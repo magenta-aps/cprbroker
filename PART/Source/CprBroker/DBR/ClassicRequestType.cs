@@ -136,7 +136,7 @@ namespace CprBroker.DBR
             {
                 using (var dataContext = new DPRDataContext(conn))
                 {
-                    CprConverter.AppendPerson(response, dataContext);
+                    CprConverter.AppendPerson(response, dataContext, CprBroker.Providers.DPR.DataRetrievalTypes.CprDirectWithSubscription);
 
                     conn.Open();
                     using (var trans = conn.BeginTransaction())

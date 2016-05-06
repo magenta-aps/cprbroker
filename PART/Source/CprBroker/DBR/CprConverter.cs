@@ -109,7 +109,7 @@ namespace CprBroker.DBR
             return ret;
         }
 
-        public static void AppendPerson(IndividualResponseType person, DPRDataContext dataContext)
+        public static void AppendPerson(IndividualResponseType person, DPRDataContext dataContext, char dataRetrievalType = CprBroker.Providers.DPR.DataRetrievalTypes.Extract)
         {
             dataContext.PersonTotal7s.InsertOnSubmit(person.ToPersonTotal(dataContext));
 

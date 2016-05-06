@@ -55,7 +55,7 @@ namespace CprBroker.DBR.Extensions
     public partial class CprConverterExtensions
     {
 
-        public static PersonTotal7 ToPersonTotal(this IndividualResponseType resp, DPRDataContext dataContext)
+        public static PersonTotal7 ToPersonTotal(this IndividualResponseType resp, DPRDataContext dataContext, char dataRetrievalType = CprBroker.Providers.DPR.DataRetrievalTypes.Extract)
         {
             /*
              * TODO: implement INDLAESDTO             * 
@@ -226,7 +226,7 @@ namespace CprBroker.DBR.Extensions
             {
                 pt.SpousePersonalOrBirthdate = resp.CurrentCivilStatus.SpouseBirthDate.Value.ToString("dd-MM-yyyy");
             }
-            else if (string.Format("{0}",resp.CurrentCivilStatus.SpousePNR).Trim().Length >1)                
+            else if (string.Format("{0}", resp.CurrentCivilStatus.SpousePNR).Trim().Length > 1)
             {
                 pt.SpousePersonalOrBirthdate = resp.CurrentCivilStatus.SpousePNR.Substring(0, 6) + "-" + resp.CurrentCivilStatus.SpousePNR.Substring(6, 4);
             }
@@ -368,7 +368,7 @@ namespace CprBroker.DBR.Extensions
 
             pt.DprLoadDate = DateTime.Now;
             pt.ApplicationCode = null; // DPR Specific
-            pt.DataRetrievalType = 'D'; // TODO: Use other types for deleted subscriptions and loaded from CPR direct)
+            pt.DataRetrievalType = dataRetrievalType; // TODO: Use other types for deleted subscriptions and loaded from CPR direct)
 
             return pt;
         }
