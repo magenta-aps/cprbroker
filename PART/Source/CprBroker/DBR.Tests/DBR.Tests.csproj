@@ -93,7 +93,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="ClassicRequestTypeTests.cs" />
+    <Compile Include="ClassicRequestTypeTestsBase.cs" />
     <Compile Include="ClassicRequestTypeTests.Process.cs" />
     <Compile Include="Comparison\ComparisonTest.cs" />
     <Compile Include="Comparison\GeoLookupComparisonTest.Concrete.cs" />

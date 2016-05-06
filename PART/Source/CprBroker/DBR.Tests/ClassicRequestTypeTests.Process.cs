@@ -99,6 +99,61 @@ namespace CprBroker.Tests.DBR
                 };
                 req.Process("");
             }
+
+            int DatabaseUpdateCalls = 0;
+
+            [SetUp]
+            public void Setup()
+            {
+                DatabaseUpdateCalls = 0;
+            }
+
+
+            public ClassicRequestType CreateRequest(string pnr)
+            {
+                var mock = new Mock<ClassicRequestType>();
+
+                var req = mock.Object;
+
+                req.Contents = new string(' ', 12);
+                req.Type = Providers.DPR.InquiryType.DataUpdatedAutomaticallyFromCpr;
+                req.PNR = pnr;
+                req.LargeData = Providers.DPR.DetailType.ExtendedData;
+                CPRDirectClientDataProvider prov = new CPRDirectClientDataProvider() { ConfigurationProperties = new Dictionary<string, string>(), DisableSubscriptions = false };
+                mock.Setup(r => r.GetPerson(out prov)).Returns(
+                    CprBroker.Tests.CPRDirect.Persons.Person.GetPerson(pnr)
+                    );
+                mock.Setup(r => r.UpdateDatabase(It.IsAny<IndividualResponseType>(), It.IsAny<string>()))
+                    .Callback(() =>
+                        DatabaseUpdateCalls++
+                        );
+                mock.Setup(r => r.Process(It.IsAny<string>())).Callback(
+                () =>
+                    Console.WriteLine("Here")
+                    )
+                .CallBase();
+                //return mock;
+                return req;
+            }
+
+            [Test]
+            [TestCaseSource(typeof(ClassicRequestTypeTestsBase), "PNRs")]
+            public void Process_NormalPerson_OK(string pnr)
+            {
+                var req = CreateRequest(pnr);
+                var resp = req.Process("") as ClassicResponseType;
+                Assert.AreEqual("00", resp.ErrorNumber);
+            }
+
+            [Test]
+            [TestCaseSource(typeof(ClassicRequestTypeTestsBase), "PNRs")]
+            public void Process_NormalPerson_UpdateDatabaseCalled(string pnr)
+            {
+                DatabaseUpdateCalls = 0;
+                var req = CreateRequest(pnr);
+                var resp = req.Process(Properties.Settings.Default.ImitatedDprConnectionString) as ClassicResponseType;
+                Assert.AreEqual(1, DatabaseUpdateCalls);
+            }
         }
     }
 }
