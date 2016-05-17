@@ -52,11 +52,13 @@ namespace CprBroker.Tests.ServicePlatform
 {
     public class ServicePlatformDataProviderFactory
     {
-        static Dictionary<string, string> LoadValues()
+        static Dictionary<string, string> LoadValues(string filePath = null)
         {
-            string filePath;
-            filePath = @"..\..\prod.dat";
-            filePath = @"..\..\demo.dat";
+            if (string.IsNullOrEmpty(filePath))
+            {
+                filePath = @"..\..\prod.dat";
+                filePath = @"..\..\demo.dat";
+            }
             var lines = File.ReadAllLines(filePath);
             var dic = new Dictionary<string, string>();
             foreach (var l in lines)
@@ -72,9 +74,9 @@ namespace CprBroker.Tests.ServicePlatform
             return dic;
         }
 
-        public static ServicePlatformDataProvider Create()
+        public static ServicePlatformDataProvider Create(string filePath = null)
         {
-            var dic = LoadValues();
+            var dic = LoadValues(filePath);
 
             var prov = new CprBroker.Providers.ServicePlatform.ServicePlatformDataProvider()
             {

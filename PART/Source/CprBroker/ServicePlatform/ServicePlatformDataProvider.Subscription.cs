@@ -132,16 +132,18 @@ namespace CprBroker.Providers.ServicePlatform
                     var filters = service.GetAllFilters(new CprSubscriptionService.GetAllFiltersType() { InvocationContext = invocationContext });
                     callContext.Succeed();
 
+                    Func<string[], string[]> isNull = s => (s != null) ? s : new string[] { };
+
                     switch (field)
                     {
                         case Constants.SubscriptionFields.PNR:
-                            return filters.PNR;
+                            return isNull(filters.PNR);
 
                         case Constants.SubscriptionFields.MunicipalityCode:
-                            return filters.MunicipalityCode.Select(c => c.PadLeft(4, '0')).ToArray();
+                            return isNull(filters.MunicipalityCode).Select(c => c.PadLeft(4, '0')).ToArray();
 
                         case Constants.SubscriptionFields.ChangeCode:
-                            return filters.ChangeCode;
+                            return isNull(filters.ChangeCode);
 
                         //case Constants.SubscriptionFields.AgeRange:
                         //    return filters.AgeRange;
