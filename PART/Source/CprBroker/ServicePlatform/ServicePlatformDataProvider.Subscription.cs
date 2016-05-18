@@ -55,7 +55,7 @@ namespace CprBroker.Providers.ServicePlatform
     public partial class ServicePlatformDataProvider : IPutSubscriptionDataProvider, ISubscriptionManagerDataProvider
     {
 
-        protected enum ReturnCodePNR { ADDED, REMOVED, ALREADY_EXISTED, NON_EXISTING_PNR };
+        public enum ReturnCodePNR { ADDED, REMOVED, ALREADY_EXISTED, NON_EXISTING_PNR, Other };
 
         public bool PutSubscription(PersonIdentifier personIdentifier)
         {
@@ -155,6 +155,12 @@ namespace CprBroker.Providers.ServicePlatform
 
         public bool PutSubscription(string field, string value)
         {
+            ReturnCodePNR retCode;
+            return PutSubscription(field, value, out retCode);
+        }
+
+        public bool PutSubscription(string field, string value, out ReturnCodePNR retCode)
+        {
             if (SubscriptionFields.Contains(field))
             {
                 var service = CreateService<CprSubscriptionService.CprSubscriptionWebServicePortType, CprSubscriptionService.CprSubscriptionWebServicePortTypeClient>(ServiceInfo.CPRSubscription);
@@ -197,16 +203,18 @@ namespace CprBroker.Providers.ServicePlatform
                     }
                     if (!string.IsNullOrEmpty(ret))
                     {
-                        var retCode = Utilities.Reflection.ParseEnum<ReturnCodePNR>(ret);
+                        retCode = Utilities.Reflection.ParseEnum<ReturnCodePNR>(ret);
                         var result = retCode == ReturnCodePNR.ADDED || retCode == ReturnCodePNR.ALREADY_EXISTED;
                         if (result)
                             callContext.Succeed();
                         else
                             callContext.Fail();
+
                         return result;
                     }
                 }
             }
+            retCode = ReturnCodePNR.Other;
             return false;
         }
 
