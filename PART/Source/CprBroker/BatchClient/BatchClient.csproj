@@ -73,6 +73,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Core\Output\CprBroker.Utilities.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation">
+      <HintPath>..\..\Dll\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
     <Reference Include="nunit.framework, Version=2.6.2.12296, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Dll\nunit.framework.dll</HintPath>
@@ -112,6 +115,7 @@
     <Compile Include="LoadAllDataFromDatabase.cs" />
     <Compile Include="LoadDummyData.cs" />
     <Compile Include="LogFileAnalyzer.cs" />
+    <Compile Include="MergeServicePlatformSubscriptions.cs" />
     <Compile Include="Part.cs" />
     <Compile Include="PopulateSearchCache.cs" />
     <Compile Include="Program.cs" />
@@ -258,6 +262,14 @@
     <ProjectReference Include="..\PersonMaster\PersonMaster.csproj">
       <Project>{51186183-BEEA-4B6D-8865-B7070EFCA126}</Project>
       <Name>PersonMaster</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ServicePlatform.Tests\ServicePlatform.Tests.csproj">
+      <Project>{8f016e38-d959-4eaf-9e1a-07d395e764fe}</Project>
+      <Name>ServicePlatform.Tests</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ServicePlatform\ServicePlatform.csproj">
+      <Project>{233be1ab-28da-4b2f-8cc0-4bb3d88adc95}</Project>
+      <Name>ServicePlatform</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
