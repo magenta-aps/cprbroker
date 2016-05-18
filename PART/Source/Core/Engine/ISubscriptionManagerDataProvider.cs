@@ -61,6 +61,7 @@ namespace CprBroker.Engine
                 var res = false;
                 try
                 {
+                    Console.WriteLine("Adding : PNR {0} of {1}", ret.Added.Count + 1, toAdd.Length);
                     res = prov.PutSubscription(field, value);
                 }
                 catch (Exception ex)
