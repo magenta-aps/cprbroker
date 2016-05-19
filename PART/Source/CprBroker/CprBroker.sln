@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KMD", "KMD\KMD.csproj", "{47B58366-342A-4699-9CF5-E13FB8F8B413}"
 EndProject
@@ -457,38 +457,6 @@ Global
 		{4FB91DE2-3C1A-4F3D-BCE9-AE0E110C08D7}.Release|Mono.ActiveCfg = Release|Any CPU
 		{4FB91DE2-3C1A-4F3D-BCE9-AE0E110C08D7}.Release|Win32.ActiveCfg = Release|Any CPU
 		{4FB91DE2-3C1A-4F3D-BCE9-AE0E110C08D7}.Release|x86.ActiveCfg = Release|Any CPU
-		{8F5A0507-F753-4D18-AA06-01C491B0ECB0}.Debug|.NET.ActiveCfg = Debug|Any CPU
-		{8F5A0507-F753-4D18-AA06-01C491B0ECB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8F5A0507-F753-4D18-AA06-01C491B0ECB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8F5A0507-F753-4D18-AA06-01C491B0ECB0}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{8F5A0507-F753-4D18-AA06-01C491B0ECB0}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{8F5A0507-F753-4D18-AA06-01C491B0ECB0}.Debug|Mono.ActiveCfg = Debug|Any CPU
-		{8F5A0507-F753-4D18-AA06-01C491B0ECB0}.Debug|Win32.ActiveCfg = Debug|Any CPU
-		{8F5A0507-F753-4D18-AA06-01C491B0ECB0}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{8F5A0507-F753-4D18-AA06-01C491B0ECB0}.Release|.NET.ActiveCfg = Release|Any CPU
-		{8F5A0507-F753-4D18-AA06-01C491B0ECB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8F5A0507-F753-4D18-AA06-01C491B0ECB0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8F5A0507-F753-4D18-AA06-01C491B0ECB0}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{8F5A0507-F753-4D18-AA06-01C491B0ECB0}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{8F5A0507-F753-4D18-AA06-01C491B0ECB0}.Release|Mono.ActiveCfg = Release|Any CPU
-		{8F5A0507-F753-4D18-AA06-01C491B0ECB0}.Release|Win32.ActiveCfg = Release|Any CPU
-		{8F5A0507-F753-4D18-AA06-01C491B0ECB0}.Release|x86.ActiveCfg = Release|Any CPU
-		{4C8867A1-EE8D-410B-A6D3-E283E29A061C}.Debug|.NET.ActiveCfg = Debug|Any CPU
-		{4C8867A1-EE8D-410B-A6D3-E283E29A061C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4C8867A1-EE8D-410B-A6D3-E283E29A061C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4C8867A1-EE8D-410B-A6D3-E283E29A061C}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{4C8867A1-EE8D-410B-A6D3-E283E29A061C}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{4C8867A1-EE8D-410B-A6D3-E283E29A061C}.Debug|Mono.ActiveCfg = Debug|Any CPU
-		{4C8867A1-EE8D-410B-A6D3-E283E29A061C}.Debug|Win32.ActiveCfg = Debug|Any CPU
-		{4C8867A1-EE8D-410B-A6D3-E283E29A061C}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{4C8867A1-EE8D-410B-A6D3-E283E29A061C}.Release|.NET.ActiveCfg = Release|Any CPU
-		{4C8867A1-EE8D-410B-A6D3-E283E29A061C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4C8867A1-EE8D-410B-A6D3-E283E29A061C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4C8867A1-EE8D-410B-A6D3-E283E29A061C}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{4C8867A1-EE8D-410B-A6D3-E283E29A061C}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{4C8867A1-EE8D-410B-A6D3-E283E29A061C}.Release|Mono.ActiveCfg = Release|Any CPU
-		{4C8867A1-EE8D-410B-A6D3-E283E29A061C}.Release|Win32.ActiveCfg = Release|Any CPU
-		{4C8867A1-EE8D-410B-A6D3-E283E29A061C}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
