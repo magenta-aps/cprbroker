@@ -31,6 +31,14 @@ namespace BatchClient
             prov = CprBroker.Tests.ServicePlatform.ServicePlatformDataProviderFactory.Create(sourceFiles.First());
             pnrFiles = sourceFiles.Skip(1).ToArray();
 
+            /*
+            // Subscribe to all event codes
+            var allEventCodes = prov.EnumerateField(CprBroker.Providers.ServicePlatform.Constants.SubscriptionFields.ChangeCode);
+            foreach(var eventCode in allEventCodes)
+                prov.PutSubscription(CprBroker.Providers.ServicePlatform.Constants.SubscriptionFields.ChangeCode, eventCode.Key);
+             */
+
+
             existing = prov.SubscriptionFields
                 .Select(f => new { f, values = prov.GetSubscriptions(f) })
                 .ToDictionary(f => f.f, f => f.values);
