@@ -51,7 +51,7 @@ namespace BatchClient
         {
             var field = pnr.Length == 4 ? Constants.SubscriptionFields.MunicipalityCode :
                 pnr.Length == 10 ? Constants.SubscriptionFields.PNR :
-                Constants.SubscriptionFields.MunicipalityCode;
+                Constants.SubscriptionFields.ChangeCode;
 
             if (existing[field].Contains(pnr))
             {
