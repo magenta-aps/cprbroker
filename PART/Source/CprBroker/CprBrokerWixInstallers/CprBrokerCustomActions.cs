@@ -291,6 +291,16 @@ namespace CprBrokerWixInstallers
                                 Properties.Resources.InitializePersonSearchCache}),
                         PatchAction = null
                     },
+                    new DatabasePatchInfo(){
+                        Version = new Version(2,2,6),
+                        SqlScript = string.Join(
+                            lineSep,
+                            new string[]{
+                                Properties.Resources.PatchDatabase_2_2_6
+                            }
+                        ),
+                        PatchAction = null
+                    }
                 };
 
                 patchInfos["EVENT"] = new DatabasePatchInfo[] { 

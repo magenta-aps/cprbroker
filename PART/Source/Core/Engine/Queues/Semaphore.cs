@@ -63,12 +63,18 @@ namespace CprBroker.Engine.Queues
 
         public static Semaphore Create()
         {
+            return Create(1);
+        }
+
+        public static Semaphore Create(int waitCount)
+        {
             using (var dataContext = new QueueDataContext())
             {
                 var ret = new DbSemaphore()
                 {
                     SemaphoreId = Guid.NewGuid(),
                     CreatedDate = DateTime.Now,
+                    WaitCount = waitCount,
                     SignaledDate = null
                 };
                 dataContext.Semaphores.InsertOnSubmit(ret);
@@ -88,16 +94,54 @@ namespace CprBroker.Engine.Queues
             return null;
         }
 
+        public void SignalAll()
+        {
+            Signal(Impl.WaitCount.HasValue ? Impl.WaitCount.Value : 1);
+        }
+
         public void Signal()
+        {
+            Signal(1);
+        }
+
+        public void Signal(int count)
         {
             using (var dataContext = new QueueDataContext())
             {
                 var semaphore = dataContext.Semaphores.Where(s => s.SemaphoreId == this.Impl.SemaphoreId).Single();
                 if (!semaphore.SignaledDate.HasValue)
                 {
-                    semaphore.SignaledDate = DateTime.Now;
+                    if (!semaphore.WaitCount.HasValue || semaphore.WaitCount.Value <= count)
+                    {
+                        semaphore.WaitCount = 0;
+                        semaphore.SignaledDate = DateTime.Now;
+                    }
+                    else
+                    {
+                        semaphore.WaitCount--;
+                    }
                     dataContext.SubmitChanges();
                 }
+            }
+        }
+
+        public void Wait()
+        {
+            Wait(1);
+        }
+
+        public void Wait(int waitCount)
+        {
+            using (var dataContext = new QueueDataContext())
+            {
+                var semaphore = dataContext.Semaphores.Where(s => s.SemaphoreId == this.Impl.SemaphoreId).Single();
+                semaphore.SignaledDate = null;
+                if (semaphore.WaitCount.HasValue)
+                    semaphore.WaitCount += waitCount;
+                else
+                    semaphore.WaitCount = waitCount;
+
+                dataContext.SubmitChanges();
             }
         }
     }

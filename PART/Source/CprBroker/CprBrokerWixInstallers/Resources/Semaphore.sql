@@ -5,6 +5,7 @@ BEGIN
             CONSTRAINT [PK_Semaphore] PRIMARY KEY CLUSTERED ([SemaphoreId] ASC)
             CONSTRAINT [DF_Semaphore_SemaphoreId]  DEFAULT (newid()),
 	    [CreatedDate] [datetime] NOT NULL,
+		[WaitCount] INT DEFAULT 1 NULL,
 	    [SignaledDate] [datetime] NULL,
     ) ON [PRIMARY]
 END
