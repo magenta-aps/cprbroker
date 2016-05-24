@@ -45,54 +45,31 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using CprBroker.Schemas;
-using CprBroker.Schemas.Part;
-using CprBroker.Data;
+using NUnit.Framework;
+using CprBroker.DBR;
+using CprBroker.Providers.CPRDirect;
+using CprBroker.Providers.DPR;
+using System.Net;
+using Moq;
 
-namespace CprBroker.Engine
+namespace CprBroker.Tests.DBR
 {
-    /// <summary>
-    /// Contains methods of the Part interface that need an existing UUID
-    /// </summary>
-    public interface IPartReadDataProvider : IDataProvider
+    namespace ClassicRequestTypeTests
     {
-        RegistreringType1 Read(PersonIdentifier uuid, LaesInputType input, Func<string, Guid> cpr2uuidFunc, out QualityLevel? ql);
-    }
+        public class ClassicRequestTypeTestsBase
+        {
+            public static string[] PNRs
+            {
+                get
+                {
+                    return CprBroker.Tests.CPRDirect.Utilities.PNRs.Take(10).ToArray();
+                }
+            }
 
-    public interface IPartPeriodDataProvider : IDataProvider
-    {
-        FiltreretOejebliksbilledeType ReadPeriod(DateTime fromDate, DateTime toDate, PersonIdentifier pId, Func<string, Guid> cpr2uuidFunc);
-    }
-
-    /// <summary>
-    /// Contains the Search method of the Part interface
-    /// </summary>
-    public interface IPartSearchDataProvider : IDataProvider
-    {
-        Guid[] Search(SoegInputType1 searchCriteria);
-    }
-
-    public interface IPartSearchListDataProvider : IDataProvider
-    {
-        LaesResultatType[] SearchList(SoegInputType1 searchCriteria);
-    }
-
-    /// <summary>
-    /// Allows retrieval of person UUID from his CPR number
-    /// </summary>
-    public interface IPartPersonMappingDataProvider : IDataProvider
-    {
-        Guid? GetPersonUuid(string cprNumber);
-        Guid?[] GetPersonUuidArray(string[] cprNumberArray);
-    }
-
-    public interface IPutSubscriptionDataProvider : IDataProvider
-    {
-        bool PutSubscription(PersonIdentifier personIdentifier);
-    }
-
-    public interface IPutSubscriptionDataProvider2 : IPutSubscriptionDataProvider
-    {
-        bool DisableSubscriptions { get; }
+            static ClassicRequestTypeTestsBase()
+            {
+                // Comparison tests already sets connection string in config
+            }
+        }
     }
 }

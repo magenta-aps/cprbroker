@@ -55,7 +55,7 @@ namespace CprBroker.Providers.ServicePlatform
     public partial class ServicePlatformDataProvider : IPutSubscriptionDataProvider, ISubscriptionManagerDataProvider
     {
 
-        protected enum ReturnCodePNR { ADDED, REMOVED, ALREADY_EXISTED, NON_EXISTING_PNR };
+        public enum ReturnCodePNR { ADDED, REMOVED, ALREADY_EXISTED, NON_EXISTING_PNR, Other };
 
         public bool PutSubscription(PersonIdentifier personIdentifier)
         {
@@ -132,16 +132,18 @@ namespace CprBroker.Providers.ServicePlatform
                     var filters = service.GetAllFilters(new CprSubscriptionService.GetAllFiltersType() { InvocationContext = invocationContext });
                     callContext.Succeed();
 
+                    Func<string[], string[]> isNull = s => (s != null) ? s : new string[] { };
+
                     switch (field)
                     {
                         case Constants.SubscriptionFields.PNR:
-                            return filters.PNR;
+                            return isNull(filters.PNR);
 
                         case Constants.SubscriptionFields.MunicipalityCode:
-                            return filters.MunicipalityCode.Select(c => c.PadLeft(4, '0')).ToArray();
+                            return isNull(filters.MunicipalityCode).Select(c => c.PadLeft(4, '0')).ToArray();
 
                         case Constants.SubscriptionFields.ChangeCode:
-                            return filters.ChangeCode;
+                            return isNull(filters.ChangeCode);
 
                         //case Constants.SubscriptionFields.AgeRange:
                         //    return filters.AgeRange;
@@ -152,6 +154,12 @@ namespace CprBroker.Providers.ServicePlatform
         }
 
         public bool PutSubscription(string field, string value)
+        {
+            ReturnCodePNR retCode;
+            return PutSubscription(field, value, out retCode);
+        }
+
+        public bool PutSubscription(string field, string value, out ReturnCodePNR retCode)
         {
             if (SubscriptionFields.Contains(field))
             {
@@ -195,16 +203,18 @@ namespace CprBroker.Providers.ServicePlatform
                     }
                     if (!string.IsNullOrEmpty(ret))
                     {
-                        var retCode = Utilities.Reflection.ParseEnum<ReturnCodePNR>(ret);
+                        retCode = Utilities.Reflection.ParseEnum<ReturnCodePNR>(ret);
                         var result = retCode == ReturnCodePNR.ADDED || retCode == ReturnCodePNR.ALREADY_EXISTED;
                         if (result)
                             callContext.Succeed();
                         else
                             callContext.Fail();
+
                         return result;
                     }
                 }
             }
+            retCode = ReturnCodePNR.Other;
             return false;
         }
 

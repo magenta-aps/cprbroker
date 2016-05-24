@@ -54,7 +54,7 @@ using CprBroker.Utilities;
 
 namespace CprBroker.Providers.CPRDirect
 {
-    public partial class CPRDirectClientDataProvider : IPartReadDataProvider, IPutSubscriptionDataProvider, IExternalDataProvider, IPerCallDataProvider, ICprDirectPersonDataProvider
+    public partial class CPRDirectClientDataProvider : IPartReadDataProvider, IPutSubscriptionDataProvider2, IExternalDataProvider, IPerCallDataProvider, ICprDirectPersonDataProvider
     {
         #region IPartReadDataProvider members
 
@@ -67,7 +67,10 @@ namespace CprBroker.Providers.CPRDirect
                 UuidCache cache = new UuidCache();
                 cache.FillCache(response.RelatedPnrs);
 
-                return response.ToRegistreringType1(cpr2uuidFunc);
+                var ret = response.ToRegistreringType1(cpr2uuidFunc);
+                // Do not save the result if subscriptions are disabled
+                ret.IsUpdatableLocally = !DisableSubscriptions;
+                return ret;
             }
             else
             {
@@ -77,9 +80,15 @@ namespace CprBroker.Providers.CPRDirect
 
         public bool PutSubscription(PersonIdentifier personIdentifier)
         {
+            if (DisableSubscriptions)
+                return false;
+
             if (IPartPerCallDataProviderHelper.CanCallOnline(personIdentifier.CprNumber))
             {
-                IndividualRequestType request = new IndividualRequestType(true, DataType.NoData, decimal.Parse(personIdentifier.CprNumber));
+                IndividualRequestType request = new IndividualRequestType(
+                    putSubscription: true,
+                    dataType: DataType.NoData,
+                    pnr: decimal.Parse(personIdentifier.CprNumber));
                 IndividualResponseType response = this.GetResponse(request);
                 return true;
             }
@@ -125,7 +134,8 @@ namespace CprBroker.Providers.CPRDirect
             {
                 return new DataProviderConfigPropertyInfo[] { 
                     new DataProviderConfigPropertyInfo(){ Name=Constants.PropertyNames.Address, Type= DataProviderConfigPropertyInfoTypes.String, Required=true, Confidential=false},
-                    new DataProviderConfigPropertyInfo(){ Name=Constants.PropertyNames.Port, Type= DataProviderConfigPropertyInfoTypes.Integer, Required=true, Confidential=false}
+                    new DataProviderConfigPropertyInfo(){ Name=Constants.PropertyNames.Port, Type= DataProviderConfigPropertyInfoTypes.Integer, Required=true, Confidential=false},
+                    new DataProviderConfigPropertyInfo(){ Name=Constants.PropertyNames.DisableSubscriptions, Type= DataProviderConfigPropertyInfoTypes.Boolean, Required=true, Confidential=false}
                 };
             }
         }
@@ -160,6 +170,12 @@ namespace CprBroker.Providers.CPRDirect
             set { ConfigurationProperties[Constants.PropertyNames.Port] = value.ToString(); }
         }
 
+        public bool DisableSubscriptions
+        {
+            get { return this.GetBoolean(Constants.PropertyNames.DisableSubscriptions, false); }
+            set { ConfigurationProperties[Constants.PropertyNames.DisableSubscriptions] = value.ToString(); }
+        }
+
         #endregion
 
         #region ICprDirectPersonDataProvider members
@@ -168,7 +184,10 @@ namespace CprBroker.Providers.CPRDirect
         {
             if (IPartPerCallDataProviderHelper.CanCallOnline(cprNumber))
             {
-                IndividualRequestType request = new IndividualRequestType(true, DataType.DefinedByTask, decimal.Parse(cprNumber));
+                IndividualRequestType request = new IndividualRequestType(
+                    putSubscription: !this.DisableSubscriptions,
+                    dataType: DataType.DefinedByTask,
+                    pnr: decimal.Parse(cprNumber));
                 IndividualResponseType response = this.GetResponse(request);
 
                 return response;

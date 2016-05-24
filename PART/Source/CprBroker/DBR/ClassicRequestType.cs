@@ -51,6 +51,8 @@ using CprBroker.Data.DataProviders;
 using CprBroker.Providers.CPRDirect;
 using CprBroker.Providers.DPR;
 using CprBroker.Utilities.Config;
+using CprBroker.PartInterface;
+using CprBroker.Schemas;
 
 namespace CprBroker.DBR
 {
@@ -60,40 +62,35 @@ namespace CprBroker.DBR
         {
             if (this.LargeData == Providers.DPR.DetailType.ExtendedData && this.Type == Providers.DPR.InquiryType.DataUpdatedAutomaticallyFromCpr)
             {
-                var providers = LoadDataProviders();
-
-                var response = providers
-                    .Select(p => p.GetPerson(this.PNR))
-                    .First(p => p != null);
-
-                if (response != null)
+                CPRDirectClientDataProvider usedProvider = null;
+                var getPersonResult = GetPerson(out usedProvider);
+                if (getPersonResult != null)
                 {
-                    using (var conn = new SqlConnection(dprConnectionString))
+                    // Put a subscription if needed
+                    if (usedProvider.DisableSubscriptions)
                     {
-                        using (var dataContext = new DPRDataContext(conn))
+                        // We have to create a subscription elsewhere
+                        var subscriptionResult = this.PutSubscription();
+                        if (!subscriptionResult)
                         {
-                            CprConverter.AppendPerson(response, dataContext);
-
-                            conn.Open();
-                            using (var trans = conn.BeginTransaction())
-                            {
-                                dataContext.Transaction = trans;
-                                CprConverter.DeletePersonRecords(this.PNR, dataContext);
-                                conn.BulkInsertChanges(dataContext.GetChangeSet().Inserts, trans);
-                                trans.Commit();
-                            }
-                            var ret = new ClassicResponseType()
-                            {
-                                Type = this.Type,
-                                LargeData = this.LargeData,
-                                PNR = this.PNR,
-                                ErrorNumber = "00",
-                                Data = "Basen er opdateret"
-                            };
-
-                            return ret;
+                            throw new NotImplementedException();
                         }
                     }
+
+                    // Update the DPR database
+                    this.UpdateDatabase(getPersonResult, dprConnectionString);
+
+                    // Return  the result
+                    var ret = new ClassicResponseType()
+                    {
+                        Type = this.Type,
+                        LargeData = this.LargeData,
+                        PNR = this.PNR,
+                        ErrorNumber = "00",
+                        Data = "Basen er opdateret"
+                    };
+
+                    return ret;
                 }
                 else
                 {
@@ -108,15 +105,61 @@ namespace CprBroker.DBR
             }
         }
 
-        public virtual IEnumerable<ICprDirectPersonDataProvider> LoadDataProviders()
+        public virtual IndividualResponseType GetPerson(out CPRDirectClientDataProvider usedProvider)
+        {
+            var cprDirectProviders = LoadDataProviders<CPRDirectClientDataProvider>();
+            foreach (var prov in cprDirectProviders)
+            {
+                var resp = prov.GetPerson(this.PNR);
+                if (resp != null)
+                {
+                    usedProvider = prov;
+                    return resp;
+                }
+            }
+            usedProvider = null;
+            return null;
+        }
+
+        public virtual bool PutSubscription()
+        {
+            var subscriptionDataProviders = LoadDataProviders<IPutSubscriptionDataProvider>();
+            var pId = new PersonIdentifier() { CprNumber = this.PNR, UUID = null };
+            var putSubscriptionRet = subscriptionDataProviders
+                .FirstOrDefault(sdp => sdp.PutSubscription(pId));
+            return putSubscriptionRet != null;
+        }
+
+        public virtual void UpdateDatabase(IndividualResponseType response, string dprConnectionString)
+        {
+            using (var conn = new SqlConnection(dprConnectionString))
+            {
+                using (var dataContext = new DPRDataContext(conn))
+                {
+                    CprConverter.AppendPerson(response, dataContext, CprBroker.Providers.DPR.DataRetrievalTypes.CprDirectWithSubscription);
+
+                    conn.Open();
+                    using (var trans = conn.BeginTransaction())
+                    {
+                        dataContext.Transaction = trans;
+                        CprConverter.DeletePersonRecords(this.PNR, dataContext);
+                        conn.BulkInsertChanges(dataContext.GetChangeSet().Inserts, trans);
+                        trans.Commit();
+                    }
+                }
+            }
+        }
+
+        public virtual IEnumerable<T> LoadDataProviders<T>()
+            where T : class, IDataProvider
         {
             DataProvidersConfigurationSection section = ConfigManager.Current.DataProvidersSection;
             var providerFactory = new DataProviderFactory();
             DataProvider[] dbProviders = providerFactory.ReadDatabaseDataProviders();
 
             var providers = providerFactory
-                .GetDataProviderList(section, dbProviders, typeof(ICprDirectPersonDataProvider), Schemas.SourceUsageOrder.LocalThenExternal)
-                .Select(p => p as ICprDirectPersonDataProvider);
+                .GetDataProviderList(section, dbProviders, typeof(T), Schemas.SourceUsageOrder.LocalThenExternal)
+                .Select(p => p as T);
             return providers;
         }
     }

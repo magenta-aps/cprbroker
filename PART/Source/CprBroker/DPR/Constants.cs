@@ -89,4 +89,12 @@ namespace CprBroker.Providers.DPR
         public const char Even = 'L';
         public const char Odd = 'U';
     }
+
+    public class DataRetrievalTypes
+    {
+        public const char Extract = '*'; // also 'U' or null
+        public const char CprDirectWithoutSubscription = 'I';
+        public const char CprDirectWithSubscription = 'D';
+        public const char CprDirectWithDeletedSubscription = 'R';
+    }
 }

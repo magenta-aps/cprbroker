@@ -64,6 +64,8 @@ namespace CprBroker.Providers.ServicePlatform
         {
             // Binding
             var binding = new BasicHttpBinding(BasicHttpSecurityMode.Transport);
+            binding.MaxReceivedMessageSize = 1024 * 1024 * 10;
+            binding.MaxBufferSize = 1024 * 1024 * 10;
             binding.Security.Transport.ClientCredentialType = HttpClientCredentialType.Certificate;
             // Because default max 8192 is smaller than the returned GCTP message
             binding.ReaderQuotas.MaxStringContentLength = 1024 * 1024;
