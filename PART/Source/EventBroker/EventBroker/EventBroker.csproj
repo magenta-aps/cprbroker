@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -10,12 +10,13 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>CprBroker.EventBroker</RootNamespace>
     <AssemblyName>CprBroker.EventBroker</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -25,6 +26,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -33,6 +35,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CprBroker.Config, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -104,28 +107,46 @@
     <Compile Include="Data\EventNotification.cs" />
     <Compile Include="Data\Subscription.cs" />
     <Compile Include="Data\SubscriptionType.cs" />
-    <Compile Include="Notifications\BudgetChecker.cs" />
-    <Compile Include="Notifications\CPRDirectDownloader.cs" />
-    <Compile Include="Notifications\CprBrokerEventEnqueuer.cs" />
+    <Compile Include="Notifications\BudgetChecker.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Notifications\CPRDirectDownloader.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Notifications\CprBrokerEventEnqueuer.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Notifications\CprBrokerEventEnqueuer.Designer.cs">
       <DependentUpon>CprBrokerEventEnqueuer.cs</DependentUpon>
     </Compile>
-    <Compile Include="Notifications\CPRDirectExtractor.cs" />
-    <Compile Include="Notifications\CPRDirectIOExecuter.cs" />
-    <Compile Include="Notifications\CriteriaSubscriptionPersonPopulator.cs" />
-    <Compile Include="Notifications\DataChangeEventPuller.cs" />
+    <Compile Include="Notifications\CPRDirectExtractor.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Notifications\CPRDirectIOExecuter.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Notifications\CriteriaSubscriptionPersonPopulator.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Notifications\DataChangeEventPuller.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Subscriptions\SubscribeOnCriteriaFacadeMethod.cs" />
     <Compile Include="Subscriptions\GetActiveSubscriptionsListFacadeMethod.cs" />
     <Compile Include="Subscriptions\SubscribeOnBirthdateFacadeMethod.cs" />
     <Compile Include="Subscriptions\SubscribeFacadeMethod.cs" />
     <Compile Include="Subscriptions\ISubscriptionDataProvider.cs" />
     <Compile Include="Subscriptions\SubscriptionManager.cs" />
-    <Compile Include="Notifications\BirthdateEventEnqueuer.cs" />
+    <Compile Include="Notifications\BirthdateEventEnqueuer.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Notifications\BirthdateEventEnqueuer.Designer.cs">
       <DependentUpon>BirthdateEventEnqueuer.cs</DependentUpon>
     </Compile>
     <Compile Include="Notifications\Channel.cs" />
-    <Compile Include="Notifications\DataChangeEventEnqueuer.cs" />
+    <Compile Include="Notifications\DataChangeEventEnqueuer.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Notifications\DataChangeEventEnqueuer.Designer.cs">
       <DependentUpon>DataChangeEventEnqueuer.cs</DependentUpon>
     </Compile>
