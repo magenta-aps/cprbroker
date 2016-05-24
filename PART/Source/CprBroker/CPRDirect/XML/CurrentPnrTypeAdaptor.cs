@@ -84,7 +84,8 @@ namespace CprBroker.Providers.CPRDirect
             }
             else
             {
-                return null;
+                //return Converters.ToDateTime(this.PersonInformation.PersonStartDate this.PersonInformation.PersonStartDateUncertainty);
+                return this.PersonInformation.PersonStartDate;
             }
         }
 
@@ -115,7 +116,7 @@ namespace CprBroker.Providers.CPRDirect
 
         public bool ToPersonNummerGyldighedStatusIndikator()
         {
-            return true;
+            return Schemas.Util.Enums.IsActiveCivilRegistrationStatus(this.PersonInformation.Status);
         }
 
         public IRegistrationInfo Registration

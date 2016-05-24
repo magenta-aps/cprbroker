@@ -55,9 +55,25 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Dll\Microsoft.Practices.EnterpriseLibrary.Logging.dll</HintPath>
     </Reference>
-    <Reference Include="nunit.framework, Version=2.6.1.12217, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Dll\nunit.framework.dll</HintPath>
+    <Reference Include="nunit.core, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <HintPath>..\packages\NUnitTestAdapter.2.0.0\lib\nunit.core.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="nunit.core.interfaces, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <HintPath>..\packages\NUnitTestAdapter.2.0.0\lib\nunit.core.interfaces.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="nunit.framework, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="nunit.util, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <HintPath>..\packages\NUnitTestAdapter.2.0.0\lib\nunit.util.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="NUnit.VisualStudio.TestAdapter, Version=2.0.0.0, Culture=neutral, PublicKeyToken=4cb40d35494691ac, processorArchitecture=MSIL">
+      <HintPath>..\packages\NUnitTestAdapter.2.0.0\lib\NUnit.VisualStudio.TestAdapter.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -84,6 +100,8 @@
     <Compile Include="Objects\CompositeWrapper.Tests.cs" />
     <Compile Include="Objects\IndividualResponse.Relations.Tests.cs" />
     <Compile Include="Objects\EgenskabInterval.Tests.cs" />
+    <Compile Include="Partials\PartialRecordTests.cs" />
+    <Compile Include="Partials\ReadTests.cs" />
     <Compile Include="Persons\P_0101520013.cs" />
     <Compile Include="Persons\P_0101980014.cs" />
     <Compile Include="Persons\P_0108610069.cs" />
@@ -132,6 +150,10 @@
       <Project>{74212D20-BB98-401F-A5F7-03669B2CD07A}</Project>
       <Name>Local</Name>
     </ProjectReference>
+    <ProjectReference Include="..\PartInterface.Tests\PartInterface.Tests.csproj">
+      <Project>{06ccc703-83f2-44b9-b67a-f7f3a0071e2d}</Project>
+      <Name>PartInterface.Tests</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PartInterface\PartInterface.csproj">
       <Project>{DA42D8BB-24D3-4416-A0BD-B98857F249AD}</Project>
       <Name>PartInterface</Name>
@@ -163,6 +185,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\4357.txt" />
+    <Content Include="loggingConfiguration.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="packages.config" />
     <None Include="Resources\U12170-P opgavenr 110901 ADRNVN FE_FixedLength" />
     <None Include="App.config" />
     <None Include="Resources\U12170-P opgavenr 110901 ADRNVN FE" />

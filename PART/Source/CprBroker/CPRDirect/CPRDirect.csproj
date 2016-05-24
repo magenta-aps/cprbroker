@@ -107,11 +107,6 @@
     </Compile>
     <Compile Include="Wrappers\CprDirectWrapper.cs" />
     <Compile Include="Wrappers\PersonRecordWrapper.cs" />
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <DependentUpon>Settings.settings</DependentUpon>
-    </Compile>
     <Compile Include="Lookup\Authority.cs" />
     <Compile Include="XML\BirthRegistrationInformation.cs" />
     <Compile Include="XML\Child.cs" />
@@ -188,10 +183,6 @@
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>LookupDataContext.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
-    </None>
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <None Include="XML\Definitions.xml">
       <SubType>Designer</SubType>

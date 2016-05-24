@@ -106,6 +106,10 @@ namespace CprBroker.Providers.CPRDirect
 
         public string ToFoedselsregistreringMyndighedNavn()
         {
+            if(this.BirthRegistrationInformation == null)
+            {
+                return null;
+            }
             return this.BirthRegistrationInformation.ToFoedselsregistreringMyndighedNavn();
         }
 

@@ -128,7 +128,7 @@ namespace CprBroker.Providers.CPRDirect
 
 
         #region IExternalDataProvider Members
-        public DataProviderConfigPropertyInfo[] ConfigurationKeys
+        public virtual DataProviderConfigPropertyInfo[] ConfigurationKeys
         {
             get
             {
@@ -180,7 +180,7 @@ namespace CprBroker.Providers.CPRDirect
 
         #region ICprDirectPersonDataProvider members
 
-        public IndividualResponseType GetPerson(string cprNumber)
+        public virtual IndividualResponseType GetPerson(string cprNumber)
         {
             if (IPartPerCallDataProviderHelper.CanCallOnline(cprNumber))
             {
