@@ -107,6 +107,7 @@
   <ItemGroup>
     <Content Include="Resources\EventNotification.sql" />
     <Content Include="GenerateScript.txt" />
+    <Content Include="CustomAction.config" />
     <None Include="Resources\SubscriptionType.sql" />
     <Content Include="Resources\BirthdateEventNotification.sql" />
     <Content Include="Resources\BirthdateSubscription.sql" />
