@@ -81,7 +81,7 @@ namespace CprBroker.Installers.EventBrokerInstallers
 
         private static Version GetServiceExeFrameworkVersion()
         {
-            return new Version(2, 0);
+            return new Version(4, 0);
         }
 
         private static string GetExistingServiceExePath()
