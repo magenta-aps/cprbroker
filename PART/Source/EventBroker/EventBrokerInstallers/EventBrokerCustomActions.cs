@@ -137,7 +137,7 @@ namespace CprBroker.Installers.EventBrokerInstallers
             try
             {
                 StopService(ServiceName);
-                UninstallService(GetServiceExeFullFileName(session), new Version(2, 0));
+                UninstallService(GetServiceExeFullFileName(session), GetServiceExeFrameworkVersion());
                 return ActionResult.Success;
             }
             catch (Exception ex)
@@ -307,7 +307,7 @@ namespace CprBroker.Installers.EventBrokerInstallers
 
             var actions = new Action[] {
                 ()=> StopService(ServiceName),
-                ()=> UninstallService(path, new Version(2, 0))
+                ()=> UninstallService(path, GetServiceExeFrameworkVersion())
             };
 
             foreach (var action in actions)
