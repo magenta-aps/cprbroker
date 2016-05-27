@@ -18,6 +18,12 @@
       <![CDATA[Installed OR NETFRAMEWORK35]]>
     </Condition>
 
+    <!--.NET Framework-->
+    <PropertyRef Id="WIX_IS_NETFRAMEWORK_46_OR_LATER_INSTALLED"/>
+    <Condition Message="This application requires .NET Framework 4.6.1. Please install the .NET Framework then run this installer again.">
+      <![CDATA[Installed OR WIX_IS_NETFRAMEWORK_46_OR_LATER_INSTALLED]]>
+    </Condition>
+
     <!--IIS-->
     <PropertyRef Id="IISMAJORVERSION"/>
     <Condition Message="This application requires IIS 6 or higher">
