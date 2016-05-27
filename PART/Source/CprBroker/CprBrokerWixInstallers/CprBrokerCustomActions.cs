@@ -572,7 +572,11 @@ namespace CprBrokerWixInstallers
                     new WebPatchInfo()
                     {
                         Version = new Version(2,2,6),
-                        PatchAction = () => EventBrokerCustomActions.MigrateBackendToDotNet40(session)
+                        PatchAction = () => {
+                            EventBrokerCustomActions.MigrateBackendToDotNet40(session);
+                            var eventWebInstallationInfo = WebInstallationInfo.CreateFromFeature(session, "EVENT");
+                            WebsiteCustomAction.RunRegIIS(string.Format("-s {0}", eventWebInstallationInfo.TargetWmiSubPath), new Version(4, 0));
+                        }
                     }
                 };
 
