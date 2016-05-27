@@ -231,59 +231,59 @@ namespace CprBrokerWixInstallers
                 var lineSep = Environment.NewLine + "GO" + Environment.NewLine;
                 var patchInfos = new Dictionary<string, DatabasePatchInfo[]>();
                 patchInfos["CPR"] = new DatabasePatchInfo[]{
-                    new DatabasePatchInfo(){ 
-                        Version = new Version(1,3), 
-                        SqlScript = Properties.Resources.PatchDatabase_1_3, 
+                    new DatabasePatchInfo(){
+                        Version = new Version(1,3),
+                        SqlScript = Properties.Resources.PatchDatabase_1_3,
                         PatchAction = conn => CprBroker.Providers.CPRDirect.Authority.ImportText(Properties.Resources.Authority_4357, conn)
                     },
-                    new DatabasePatchInfo(){ 
-                        Version = new Version(1,3,2), 
-                        SqlScript = Properties.Resources.PatchDatabase_1_3_2, 
+                    new DatabasePatchInfo(){
+                        Version = new Version(1,3,2),
+                        SqlScript = Properties.Resources.PatchDatabase_1_3_2,
                         PatchAction = null
                     },
-                    new DatabasePatchInfo(){ 
-                        Version = new Version(1,4), 
-                        SqlScript = Properties.Resources.PatchDatabase_1_4, 
+                    new DatabasePatchInfo(){
+                        Version = new Version(1,4),
+                        SqlScript = Properties.Resources.PatchDatabase_1_4,
                         PatchAction = null
                     },
-                    new DatabasePatchInfo(){ 
+                    new DatabasePatchInfo(){
                         Version = new Version(2,1),
                         SqlScript = Properties.Resources.PatchDatabase_2_1,
                         PatchAction = null
                     },
-                    new DatabasePatchInfo(){ 
+                    new DatabasePatchInfo(){
                         Version = new Version(2,2),
                         SqlScript = Properties.Resources.PatchDatabase_2_2,
                         PatchAction = null
                     },
-                    new DatabasePatchInfo(){ 
+                    new DatabasePatchInfo(){
                         Version = new Version(2,2,1),
                         SqlScript = Properties.Resources.PatchDatabase_2_2_1,
                         PatchAction = null
                     },
-                    new DatabasePatchInfo(){ 
+                    new DatabasePatchInfo(){
                         Version = new Version(2,2,2),
                         SqlScript = Properties.Resources.PatchDatabase_2_2_2,
-                        PatchAction = conn=> DatabaseCustomAction.InsertLookup<CprBroker.Data.DataProviders.BudgetInterval>(Properties.Resources.BudgetInterval_Csv, conn) 
+                        PatchAction = conn=> DatabaseCustomAction.InsertLookup<CprBroker.Data.DataProviders.BudgetInterval>(Properties.Resources.BudgetInterval_Csv, conn)
                     },
-                    new DatabasePatchInfo(){ 
+                    new DatabasePatchInfo(){
                         Version = new Version(2,2,3),
                         SqlScript = Properties.Resources.PatchDatabase_2_2_3,
-                        PatchAction = conn=> 
+                        PatchAction = conn=>
                             {
                                 DatabaseCustomAction.InsertLookup<CprBroker.Data.Queues.DbQueue>(Properties.Resources.Queue_Csv, conn);
                                 CprBroker.Providers.CPRDirect.Authority.ImportText(Properties.Resources.Authority_4357, conn);
                             }
                     },
-                    new DatabasePatchInfo(){ 
+                    new DatabasePatchInfo(){
                         Version = new Version(2,2,5),
                         SqlScript = Properties.Resources.PatchDatabase_DbrTest,
                         PatchAction = null
                     },
-                    new DatabasePatchInfo(){ 
+                    new DatabasePatchInfo(){
                         Version = new Version(2,2,3),
                         SqlScript = string.Join(
-                            lineSep, 
+                            lineSep,
                             new string[]{
                                 Properties.Resources.PatchDatabase_2_2_3,
                                 Properties.Resources.PersonSearchCache,
@@ -303,7 +303,7 @@ namespace CprBrokerWixInstallers
                     }
                 };
 
-                patchInfos["EVENT"] = new DatabasePatchInfo[] { 
+                patchInfos["EVENT"] = new DatabasePatchInfo[] {
                     new DatabasePatchInfo(){
                         Version = new Version(2,2),
                         SqlScript = CprBroker.Installers.EventBrokerInstallers.Properties.Resources.PatchDatabase_2_2,
@@ -439,17 +439,17 @@ namespace CprBrokerWixInstallers
                             ConfigSectionGroupName = Constants.DataProvidersSectionGroupName,
                             ConfigSectionEncryptionOptions = new ConfigSectionEncryptionOptions[]
                             {
-                                new ConfigSectionEncryptionOptions(){ 
-                                    SectionName = DataProviderKeysSection.SectionName, 
-                                    SectionType=typeof(DataProviderKeysSection), 
+                                new ConfigSectionEncryptionOptions(){
+                                    SectionName = DataProviderKeysSection.SectionName,
+                                    SectionType=typeof(DataProviderKeysSection),
                                     CustomMethod = config=>{
                                         CprBroker.Installers.Installation.RemoveSectionNode(config.FilePath, DataProviderKeysSection.SectionName);
                                         config = CprBroker.Installers.Installation.OpenConfigFile(config.FilePath);
                                         DataProviderKeysSection.RegisterNewKeys(config);
                                     }
                                 },
-                                new ConfigSectionEncryptionOptions(){ 
-                                    SectionName = DataProvidersConfigurationSection.SectionName, 
+                                new ConfigSectionEncryptionOptions(){
+                                    SectionName = DataProvidersConfigurationSection.SectionName,
                                     SectionType=typeof(DataProvidersConfigurationSection),
                                     CustomMethod =null
                                 }
@@ -462,6 +462,7 @@ namespace CprBrokerWixInstallers
                 connectionStrings["CprBroker.Config.Properties.Settings.EventBrokerConnectionString"] = DatabaseSetupInfo.CreateFromFeature(session, "EVENT").CreateConnectionString(false, true);
                 WebInstallationOptions eventOptions = new WebInstallationOptions()
                 {
+                    FrameworkVersion = new Version(4, 0),
                     EncryptConnectionStrings = false,
                     ConnectionStrings = connectionStrings,
                     InitializeFlatFileLogging = true,
@@ -473,14 +474,14 @@ namespace CprBrokerWixInstallers
                             ConfigSectionGroupName = Constants.DataProvidersSectionGroupName,
                             ConfigSectionEncryptionOptions = new ConfigSectionEncryptionOptions[]
                             {
-                                new ConfigSectionEncryptionOptions(){ 
-                                    SectionName = DataProviderKeysSection.SectionName, 
+                                new ConfigSectionEncryptionOptions(){
+                                    SectionName = DataProviderKeysSection.SectionName,
                                     SectionType=typeof(DataProviderKeysSection), 
                                     // DO NOT create new encryption keys here
                                     //CustomMethod = config=>DataProviderKeysSection.RegisterNewKeys(config)
                                 },
-                                new ConfigSectionEncryptionOptions(){ 
-                                    SectionName = DataProvidersConfigurationSection.SectionName, 
+                                new ConfigSectionEncryptionOptions(){
+                                    SectionName = DataProvidersConfigurationSection.SectionName,
                                     SectionType=typeof(DataProvidersConfigurationSection),
                                     CustomMethod =null
                                 }
@@ -534,9 +535,9 @@ namespace CprBrokerWixInstallers
             {
                 var featurePatchInfos = new Dictionary<string, WebPatchInfo[]>();
 
-                featurePatchInfos["CPR"] = new WebPatchInfo[] { 
+                featurePatchInfos["CPR"] = new WebPatchInfo[] {
                     new WebPatchInfo()
-                    { 
+                    {
                         Version = new Version(1,3),
                         PatchAction = () => PatchWebsite_1_3_0(session)
                     },
@@ -562,11 +563,16 @@ namespace CprBrokerWixInstallers
                     }
                 };
 
-                featurePatchInfos["EVENT"] = new WebPatchInfo[] { 
+                featurePatchInfos["EVENT"] = new WebPatchInfo[] {
                     new WebPatchInfo()
-                    { 
+                    {
                         Version = new Version(2,2),
                         PatchAction = () => EventBrokerCustomActions.MoveBackendServiceToNewLocation(session)
+                    },
+                    new WebPatchInfo()
+                    {
+                        Version = new Version(2,2,6),
+                        PatchAction = () => EventBrokerCustomActions.MigrateBackendToDotNet40(session)
                     }
                 };
 

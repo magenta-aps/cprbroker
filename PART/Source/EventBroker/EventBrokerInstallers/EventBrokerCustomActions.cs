@@ -301,5 +301,28 @@ namespace CprBroker.Installers.EventBrokerInstallers
             return ActionResult.Success;
         }
 
+        public static void MigrateBackendToDotNet40(Session session)
+        {
+            var path = GetServiceExeFullFileName(session);
+
+            var actions = new Action[] {
+                ()=> StopService(ServiceName),
+                ()=> UninstallService(path, new Version(2, 0))
+            };
+
+            foreach (var action in actions)
+            {
+                try
+                {
+                    action();
+                }
+                catch (Exception ex)
+                { session.Log(ex.ToString()); }
+            }
+
+            InstallService(path, GetServiceExeFrameworkVersion());
+            StartService(ServiceName);
+        }
+
     }
 }
