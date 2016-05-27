@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension" >
 
-    <Product Id="EDC872CC-46FA-478B-B7E8-87FAA3C9421A" Name="Cpr Broker" Language="1033" Version="2.2.5.0" Manufacturer="ITST" UpgradeCode="FF0F6556-3323-43A8-9AB3-E567BEF13F6A">
+    <Product Id="F2D4A021-6B91-4697-8420-19C203B23F0C" Name="Cpr Broker" Language="1033" Version="2.2.6.0" Manufacturer="ITST" UpgradeCode="FF0F6556-3323-43A8-9AB3-E567BEF13F6A">
 
         <Package InstallerVersion="200" Compressed="yes" />
         <Media Id="1" Cabinet="media1.cab" EmbedCab="yes" />
@@ -22,10 +22,10 @@
 
         <Upgrade Id="FF0F6556-3323-43A8-9AB3-E567BEF13F6A">
             <!--Detect old version -->
-            <UpgradeVersion Maximum="2.2.5.0" IncludeMaximum="no" Property="OLDER_VERSION_DETECTED" OnlyDetect="yes" MigrateFeatures="yes" />
+            <UpgradeVersion Maximum="2.2.6.0" IncludeMaximum="no" Property="OLDER_VERSION_DETECTED" OnlyDetect="yes" MigrateFeatures="yes" />
 
             <!--Detect newer versions, set a property that triggers a condition failure -->
-            <UpgradeVersion Minimum="2.2.5.0" IncludeMinimum="no" Property="NEWER_VERSION_DETECTED" OnlyDetect="yes" />
+            <UpgradeVersion Minimum="2.2.6.0" IncludeMinimum="no" Property="NEWER_VERSION_DETECTED" OnlyDetect="yes" />
         </Upgrade>
 
         <!-- Special detection for 2.2.2 buggy upgrade code-->
