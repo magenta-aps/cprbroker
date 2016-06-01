@@ -50,11 +50,11 @@ namespace CprBroker.Providers.ServicePlatform
 {
     public class ServiceInfo
     {
-        public string Name { get; private set; }
-        public string UUID { get; private set; }
-        public string Path { get; private set; }
+        public string Name { get; protected set; }
+        public string UUID { get; protected set; }
+        public string Path { get; protected set; }
 
-        private ServiceInfo()
+        protected ServiceInfo()
         { }
 
         public CprServices.SearchMethod ToSearchMethod()
@@ -62,26 +62,44 @@ namespace CprBroker.Providers.ServicePlatform
             return new CprServices.SearchMethod(Properties.Resources.PnrLookup) { Name = Name };
         }
 
-        public static readonly ServiceInfo CPRSubscription = new ServiceInfo()
+        public static ServiceInfo CPRSubscription
         {
-            Name = "CPR Subscription",
-            UUID = "9cdccc2f-3243-11e2-8fef-d4bed98c5934",
-            Path = "/service/CPRSubscription/CPRSubscription/1/"
-        };
+            get
+            {
+                return new ServiceInfo()
+                {
+                    Name = "CPR Subscription",
+                    UUID = "9cdccc2f-3243-11e2-8fef-d4bed98c5934",
+                    Path = "/service/CPRSubscription/CPRSubscription/1/"
+                };
+            }
+        }
 
-        public static readonly ServiceInfo ADRSOG1 = new ServiceInfo() 
+        public static ServiceInfo ADRSOG1
         {
-            Name = "ADRSOG1",
-            UUID = "6538f113-b1e6-4b21-8fe1-28b7bf78a1bd",
-            Path = "/service/CPRLookup/CPRLookup/2"
-        };
+            get
+            {
+                return new ServiceInfo()
+                {
+                    Name = "ADRSOG1",
+                    UUID = "6538f113-b1e6-4b21-8fe1-28b7bf78a1bd",
+                    Path = "/service/CPRLookup/CPRLookup/2"
+                };
+            }
+        }
 
-        public static readonly ServiceInfo ForwardToCprService = new ServiceInfo()
+        public static ServiceInfo ForwardToCprService
         {
-            Name = "CPR Service",
-            UUID = "8ee213c7-25a9-11e2-8770-d4bed98c63db",
-            Path = "/service/CPRService/CPRService/1"
-        };
+            get
+            {
+                return new ServiceInfo()
+                {
+                    Name = "CPR Service",
+                    UUID = "8ee213c7-25a9-11e2-8770-d4bed98c63db",
+                    Path = "/service/CPRService/CPRService/1"
+                };
+            }
+        }
 
         public static readonly ServiceInfo StamPlus_Local = new ServiceInfo()
         {
