@@ -60,47 +60,52 @@ namespace CprBroker.Providers.CPRDirect
 {
     public static class ExtractManager
     {
-        public static void ImportText(string text)
-        {
-            ImportText(text, "");
-        }
-
-        public static void ImportText(string text, string sourceFileName)
+        public static void ImportText(string text, string sourceFileName = "")
         {
             var parseResult = new ExtractParseSession(text, Constants.DataObjectMap);
-            var extract = parseResult.ToExtract(sourceFileName);
-            var extractItems = parseResult.ToExtractItems(extract.ExtractId, Constants.DataObjectMap, Constants.RelationshipMap, Constants.MultiRelationshipMap);
-            var queueItems = parseResult.ToQueueItems(extract.ExtractId);
-            var extractErrors = parseResult.ToExtractErrors(extract.ExtractId);
+            ImportParseResult(parseResult, sourceFileName);
+        }
+
+        public static void ImportParseResult(ExtractParseSession parseResult, string sourceFileName, bool enqueueConversion = true)
+        {
+            var extractId = InitExtract(sourceFileName, parseResult, true);
 
             using (var conn = new SqlConnection(ConfigManager.Current.Settings.CprBrokerConnectionString))
             {
                 conn.Open();
 
-                conn.BulkInsertAll<Extract>(new Extract[] { extract });
-                conn.BulkInsertAll<ExtractItem>(extractItems);
-                conn.BulkInsertAll<ExtractError>(extractErrors);
-
-                // This is not used in production - OK to enqueue after inserting. ALso needed because there is no use of semaphores
-                var stagingQueue = CprBroker.Engine.Queues.Queue.GetQueues<ExtractStagingQueue>(ExtractStagingQueue.QueueId).First();
-                stagingQueue.Enqueue(queueItems);
+                var extractItems = parseResult.ToExtractItems(extractId, Constants.DataObjectMap, Constants.RelationshipMap, Constants.MultiRelationshipMap);
+                var queueItems = parseResult.ToQueueItems(extractId);
+                var extractErrors = parseResult.ToExtractErrors(extractId);
 
                 using (var dataContext = new ExtractDataContext())
                 {
-                    extract = dataContext.Extracts.Where(ex => ex.ExtractId == extract.ExtractId).First();
+                    var extract = dataContext.Extracts.Where(ex => ex.ExtractId == extractId).First();
+
+                    var semaphore = Semaphore.GetById(extract.SemaphoreId.Value);
+
+                    conn.BulkInsertAll<ExtractItem>(extractItems);
+                    conn.BulkInsertAll<ExtractError>(extractErrors);
+
+                    if (enqueueConversion)
+                    {
+                        var stagingQueue = CprBroker.Engine.Queues.Queue.GetQueues<ExtractStagingQueue>(ExtractStagingQueue.QueueId).First();
+                        stagingQueue.Enqueue(queueItems, semaphore);
+                    }
+
                     extract.Ready = true;
                     dataContext.SubmitChanges();
+
+                    semaphore.Signal();
                 }
             }
         }
 
-        public static void ImportFileInSteps(string path, int batchSize)
+        public static void ImportFileInSteps(string path, int batchSize, Encoding encoding = null)
         {
-            ImportFileInSteps(path, batchSize, Constants.ExtractEncoding);
-        }
+            if (encoding == null)
+                encoding = Constants.ExtractEncoding;
 
-        public static void ImportFileInSteps(string path, int batchSize, Encoding encoding)
-        {
             Admin.LogFormattedSuccess("Importing file <{0}>, batch size <{1}>, encoding <{2}>", path, batchSize, encoding.EncodingName);
             using (var dataStream = new FileStream(path, FileMode.Open, FileAccess.Read))
             {
@@ -182,14 +187,17 @@ namespace CprBroker.Providers.CPRDirect
             }
         }
 
-        private static Guid InitExtract(string path, ExtractParseSession extractSession)
+        private static Guid InitExtract(string path, ExtractParseSession extractSession, bool forceNew = false)
         {
             Semaphore semaphore;
-            Extract extract;
-            using (var dataContext = new ExtractDataContext(CprBroker.Utilities.Config.ConfigManager.Current.Settings.CprBrokerConnectionString))
+            Extract extract = null;
+            using (var dataContext = new ExtractDataContext())
             {
                 // Find existing extract or create a new one
-                extract = dataContext.Extracts.Where(e => e.Filename == path && e.ProcessedLines != null && !e.Ready).OrderByDescending(e => e.ImportDate).FirstOrDefault();
+                if (!forceNew)
+                {
+                    extract = dataContext.Extracts.Where(e => e.Filename == path && e.ProcessedLines != null && !e.Ready).OrderByDescending(e => e.ImportDate).FirstOrDefault();
+                }
 
                 if (extract == null)
                 {
