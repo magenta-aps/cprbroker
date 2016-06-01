@@ -63,7 +63,33 @@ namespace CprBroker.Tests.CPRDirect.Objects
                 var registration = individual.ToRegistreringType1(nr => Guid.NewGuid());
                 Assert.NotNull(registration);
             }
+        }
 
+        [TestFixture]
+        public class SaveAsExtract : CprBroker.Tests.PartInterface.TestBase
+        {
+            [Test]
+            [TestCaseSource(typeof(Utilities), "PNRs")]
+            public void SaveAsExtract_OK(string pnr)
+            {
+                // Validate that extract tables are empty
+                using (var dataContext = new CprBroker.Providers.CPRDirect.ExtractDataContext(this.CprDatabase.ConnectionString))
+                {
+                    Assert.AreEqual(0, dataContext.Extracts.Count());
+                    Assert.AreEqual(0, dataContext.ExtractItems.Count(ei => ei.PNR == pnr));
+                }
+
+                // Save to database
+                var individual = IndividualResponseType.ParseBatch(Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE).Where(o => o.PersonInformation.PNR == pnr).First();
+                individual.SaveAsExtract();
+
+                // Validate that extract tables are no longer empty
+                using (var dataContext = new CprBroker.Providers.CPRDirect.ExtractDataContext(this.CprDatabase.ConnectionString))
+                {
+                    Assert.AreEqual(1, dataContext.Extracts.Count());
+                    Assert.Greater(dataContext.ExtractItems.Count(ei => ei.PNR == pnr), 0);
+                }
+            }
         }
     }
 }
