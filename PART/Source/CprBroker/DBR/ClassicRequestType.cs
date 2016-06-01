@@ -53,6 +53,7 @@ using CprBroker.Providers.DPR;
 using CprBroker.Utilities.Config;
 using CprBroker.PartInterface;
 using CprBroker.Schemas;
+using CprBroker.Schemas.Wrappers;
 
 namespace CprBroker.DBR
 {
@@ -60,45 +61,49 @@ namespace CprBroker.DBR
     {
         public override DiversionResponse Process(string dprConnectionString)
         {
-            if (this.LargeData == Providers.DPR.DetailType.ExtendedData && this.Type == Providers.DPR.InquiryType.DataUpdatedAutomaticallyFromCpr)
+            ValidateOperationMode();
+
+            CPRDirectClientDataProvider usedProvider = null;
+            var individualResponse = GetPerson(out usedProvider);
+            if (individualResponse == null)
             {
-                CPRDirectClientDataProvider usedProvider = null;
-                var getPersonResult = GetPerson(out usedProvider);
-                if (getPersonResult != null)
+                // TODO: person not found, return error
+                throw new NotImplementedException();
+            }
+
+            // Put a subscription if needed
+            if (usedProvider.DisableSubscriptions)
+            {
+                // We have to create a subscription elsewhere
+                var subscriptionResult = this.PutSubscription();
+                if (!subscriptionResult)
                 {
-                    // Put a subscription if needed
-                    if (usedProvider.DisableSubscriptions)
-                    {
-                        // We have to create a subscription elsewhere
-                        var subscriptionResult = this.PutSubscription();
-                        if (!subscriptionResult)
-                        {
-                            throw new NotImplementedException();
-                        }
-                    }
-
-                    // Update the DPR database
-                    this.UpdateDatabase(getPersonResult, dprConnectionString);
-
-                    // Return  the result
-                    var ret = new ClassicResponseType()
-                    {
-                        Type = this.Type,
-                        LargeData = this.LargeData,
-                        PNR = this.PNR,
-                        ErrorNumber = "00",
-                        Data = "Basen er opdateret"
-                    };
-
-                    return ret;
-                }
-                else
-                {
-                    // TODO: person not found, return error
                     throw new NotImplementedException();
                 }
             }
-            else
+
+            // Update the the broker's database
+            this.SaveAsExtract(individualResponse);
+
+            // Update the DPR database
+            this.UpdateDprDatabase(dprConnectionString);
+
+            // Return  the result
+            var ret = new ClassicResponseType()
+            {
+                Type = this.Type,
+                LargeData = this.LargeData,
+                PNR = this.PNR,
+                ErrorNumber = "00",
+                Data = "Basen er opdateret"
+            };
+
+            return ret;
+        }
+
+        private void ValidateOperationMode()
+        {
+            if (this.LargeData != Providers.DPR.DetailType.ExtendedData || this.Type != Providers.DPR.InquiryType.DataUpdatedAutomaticallyFromCpr)
             {
                 // TODO: unimplemented mode of operation
                 throw new NotImplementedException();
@@ -130,12 +135,21 @@ namespace CprBroker.DBR
             return putSubscriptionRet != null;
         }
 
-        public virtual void UpdateDatabase(IndividualResponseType response, string dprConnectionString)
+        public virtual void SaveAsExtract(IndividualResponseType response)
+        {
+            response.SaveAsExtract(true);
+        }
+
+        public virtual void UpdateDprDatabase(string dprConnectionString, IndividualResponseType response = null)
         {
             using (var conn = new SqlConnection(dprConnectionString))
             {
                 using (var dataContext = new DPRDataContext(conn))
                 {
+                    if (response == null)
+                    {
+                        response = ExtractManager.GetPerson(this.PNR);
+                    }
                     CprConverter.AppendPerson(response, dataContext, CprBroker.Providers.DPR.DataRetrievalTypes.CprDirectWithSubscription);
 
                     conn.Open();
