@@ -12,7 +12,7 @@ namespace CprBroker.Tests.DBR.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "12.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "14.0.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -20,36 +20,6 @@ namespace CprBroker.Tests.DBR.Properties {
         public static Settings Default {
             get {
                 return defaultInstance;
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("data source=locahost\\\\sqlexpress; database=cprbroker;  integrated security=sspi\"")]
-        public string CprBrokerConnectionString {
-            get {
-                return ((string)(this["CprBrokerConnectionString"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("data source=localhost\\\\sqlexpress; database=dbr_source; integrated security=sspi")]
-        public string RealDprConnectionString {
-            get {
-                return ((string)(this["RealDprConnectionString"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("data source=localhost\\\\sqlexpress; database=dbr_target; integrated security=sspi")]
-        public string ImitatedDprConnectionString {
-            get {
-                return ((string)(this["ImitatedDprConnectionString"]));
             }
         }
         
@@ -68,6 +38,36 @@ namespace CprBroker.Tests.DBR.Properties {
         public int PersonComparisonSampleSize {
             get {
                 return ((int)(this["PersonComparisonSampleSize"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("data source=locahost\\sqlexpress; database=cprbroker; integrated security=sspi")]
+        public string CprBrokerConnectionString {
+            get {
+                return ((string)(this["CprBrokerConnectionString"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("data source=localhost\\sqlexpress; database=dbr_source; integrated security=sspi")]
+        public string RealDprConnectionString {
+            get {
+                return ((string)(this["RealDprConnectionString"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("data source=localhost\\sqlexpress; database=dbr_target; integrated security=sspi")]
+        public string ImitatedDprConnectionString {
+            get {
+                return ((string)(this["ImitatedDprConnectionString"]));
             }
         }
     }

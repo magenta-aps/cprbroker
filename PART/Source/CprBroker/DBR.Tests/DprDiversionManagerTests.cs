@@ -80,23 +80,6 @@ namespace CprBroker.Tests.DBR
             }
 
             [Test]
-            public void Start_StartAndStop_ZeroCurrent([Range(1, 20)] int count)
-            {
-                using (var manager = new DprDiversionManagerStub())
-                {
-                    for (int i = 0; i < count; i++)
-                        AddDbrQueue(true);
-
-                    manager.Start();
-                    manager.WaitForFirstRun();
-
-                    manager.Stop();
-                    var c = manager.GetCurrentTaskExecuters().Length;
-                    Assert.AreEqual(0, c);
-                }
-            }
-
-            [Test]
             public void Start_Queue_GoesToDbr()
             {
                 string pnr = "";

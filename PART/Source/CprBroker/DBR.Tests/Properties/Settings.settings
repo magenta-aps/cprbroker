@@ -2,32 +2,32 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="CprBroker.Tests.DBR.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="CprBrokerConnectionString" Type="(Connection string)" Scope="Application">
-      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
-&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
-  &lt;ConnectionString&gt;data source=locahost\\sqlexpress; database=cprbroker;  integrated security=sspi"&lt;/ConnectionString&gt;
-&lt;/SerializableConnectionString&gt;</DesignTimeValue>
-      <Value Profile="(Default)">data source=locahost\\sqlexpress; database=cprbroker;  integrated security=sspi"</Value>
-    </Setting>
-    <Setting Name="RealDprConnectionString" Type="(Connection string)" Scope="Application">
-      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
-&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
-  &lt;ConnectionString&gt;data source=localhost\\sqlexpress; database=dbr_source; integrated security=sspi&lt;/ConnectionString&gt;
-&lt;/SerializableConnectionString&gt;</DesignTimeValue>
-      <Value Profile="(Default)">data source=localhost\\sqlexpress; database=dbr_source; integrated security=sspi</Value>
-    </Setting>
-    <Setting Name="ImitatedDprConnectionString" Type="(Connection string)" Scope="Application">
-      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
-&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
-  &lt;ConnectionString&gt;data source=localhost\\sqlexpress; database=dbr_target; integrated security=sspi&lt;/ConnectionString&gt;
-&lt;/SerializableConnectionString&gt;</DesignTimeValue>
-      <Value Profile="(Default)">data source=localhost\\sqlexpress; database=dbr_target; integrated security=sspi</Value>
-    </Setting>
     <Setting Name="PersonComparisonSampleSkip" Type="System.Int32" Scope="Application">
       <Value Profile="(Default)">0</Value>
     </Setting>
     <Setting Name="PersonComparisonSampleSize" Type="System.Int32" Scope="Application">
       <Value Profile="(Default)">10</Value>
+    </Setting>
+    <Setting Name="CprBrokerConnectionString" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;data source=locahost\sqlexpress; database=cprbroker; integrated security=sspi&lt;/ConnectionString&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">data source=locahost\sqlexpress; database=cprbroker; integrated security=sspi</Value>
+    </Setting>
+    <Setting Name="RealDprConnectionString" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;data source=localhost\sqlexpress; database=dbr_source; integrated security=sspi&lt;/ConnectionString&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">data source=localhost\sqlexpress; database=dbr_source; integrated security=sspi</Value>
+    </Setting>
+    <Setting Name="ImitatedDprConnectionString" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;data source=localhost\sqlexpress; database=dbr_target; integrated security=sspi&lt;/ConnectionString&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">data source=localhost\sqlexpress; database=dbr_target; integrated security=sspi</Value>
     </Setting>
   </Settings>
 </SettingsFile>
