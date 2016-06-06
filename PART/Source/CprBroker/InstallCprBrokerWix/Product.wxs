@@ -1,39 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension" >
 
-    <Product Id="F2D4A021-6B91-4697-8420-19C203B23F0C" Name="Cpr Broker" Language="1033" Version="2.2.6.0" Manufacturer="ITST" UpgradeCode="FF0F6556-3323-43A8-9AB3-E567BEF13F6A">
+  <Product Id="BD88AB84-D596-4BB1-A774-B5609DADD5CD" Name="Cpr Broker" Language="1033" Version="2.2.6.1" Manufacturer="ITST" UpgradeCode="FF0F6556-3323-43A8-9AB3-E567BEF13F6A">
 
-        <Package InstallerVersion="200" Compressed="yes" />
-        <Media Id="1" Cabinet="media1.cab" EmbedCab="yes" />
+    <Package InstallerVersion="200" Compressed="yes" />
+    <Media Id="1" Cabinet="media1.cab" EmbedCab="yes" />
 
-        <PropertyRef Id="Dummy_ConditionsFragmentRefProp"/>
-        <PropertyRef Id="Dummy_CprBrokerFragmentRefProp"/>
-        <PropertyRef Id="Dummy_EventBrokerFragmentRefProp"/>
-        <PropertyRef Id="Dummy_StandardActionTextFragmentRefProp"/>
-        <PropertyRef Id="Dummy_DatabasePatchFragmentRefProp"/>
-        <PropertyRef Id="Dummy_WebPatchFragmentRefProp"/>
-        <PropertyRef Id="Dummy_MergeOldVersionProductCodesRefProp"/>
+    <PropertyRef Id="Dummy_ConditionsFragmentRefProp"/>
+    <PropertyRef Id="Dummy_CprBrokerFragmentRefProp"/>
+    <PropertyRef Id="Dummy_EventBrokerFragmentRefProp"/>
+    <PropertyRef Id="Dummy_StandardActionTextFragmentRefProp"/>
+    <PropertyRef Id="Dummy_DatabasePatchFragmentRefProp"/>
+    <PropertyRef Id="Dummy_WebPatchFragmentRefProp"/>
+    <PropertyRef Id="Dummy_MergeOldVersionProductCodesRefProp"/>
 
-        <DirectoryRef Id="TARGETDIR"/>
+    <DirectoryRef Id="TARGETDIR"/>
 
-        <UIRef Id="CprBrokerUI"/>
+    <UIRef Id="CprBrokerUI"/>
 
-        <FeatureRef Id="CprBrokerFeature"/>
+    <FeatureRef Id="CprBrokerFeature"/>
 
-        <Upgrade Id="FF0F6556-3323-43A8-9AB3-E567BEF13F6A">
-            <!--Detect old version -->
-            <UpgradeVersion Maximum="2.2.6.0" IncludeMaximum="no" Property="OLDER_VERSION_DETECTED" OnlyDetect="yes" MigrateFeatures="yes" />
+    <Upgrade Id="FF0F6556-3323-43A8-9AB3-E567BEF13F6A">
+      <!--Detect old version -->
+      <UpgradeVersion Maximum="2.2.6.1" IncludeMaximum="no" Property="OLDER_VERSION_DETECTED" OnlyDetect="yes" MigrateFeatures="yes" />
 
-            <!--Detect newer versions, set a property that triggers a condition failure -->
-            <UpgradeVersion Minimum="2.2.6.0" IncludeMinimum="no" Property="NEWER_VERSION_DETECTED" OnlyDetect="yes" />
-        </Upgrade>
+      <!--Detect newer versions, set a property that triggers a condition failure -->
+      <UpgradeVersion Minimum="2.2.6.1" IncludeMinimum="no" Property="NEWER_VERSION_DETECTED" OnlyDetect="yes" />
+    </Upgrade>
 
-        <!-- Special detection for 2.2.2 buggy upgrade code-->
-        <Upgrade Id="1F0F6556-3323-43A8-9AB3-E567BEF13F6A">
-            <!--Detect old version -->
-            <UpgradeVersion Maximum="2.2.3.0" IncludeMaximum="no" Property="OLDER_VERSION_DETECTED_2_2_2" OnlyDetect="yes" MigrateFeatures="yes" />
-        </Upgrade>
+    <!-- Special detection for 2.2.2 buggy upgrade code-->
+    <Upgrade Id="1F0F6556-3323-43A8-9AB3-E567BEF13F6A">
+      <!--Detect old version -->
+      <UpgradeVersion Maximum="2.2.3.0" IncludeMaximum="no" Property="OLDER_VERSION_DETECTED_2_2_2" OnlyDetect="yes" MigrateFeatures="yes" />
+    </Upgrade>
 
 
-    </Product>
+  </Product>
 </Wix>
