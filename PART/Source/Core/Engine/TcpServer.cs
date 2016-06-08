@@ -72,7 +72,7 @@ namespace CprBroker.Engine
 
         private void AcceptCallback(IAsyncResult result)
         {
-            BrokerContext.Initialize(Utilities.Constants.EventBrokerApplicationToken.ToString(), "");
+            BrokerContext.Initialize(Utilities.Constants.EventBrokerApplicationToken.ToString(), Utilities.Constants.UserToken);
 
             if (_Running)
             {
@@ -129,12 +129,12 @@ namespace CprBroker.Engine
             else
             {
                 Local.Admin.LogFormattedSuccess("AcceptCallback() Finished - was not run");
-            }            
+            }
         }
 
         private void ReceiveCallback(IAsyncResult result)
         {
-            BrokerContext.Initialize(Utilities.Constants.EventBrokerApplicationToken.ToString(), "");
+            BrokerContext.Initialize(Utilities.Constants.EventBrokerApplicationToken.ToString(), Utilities.Constants.UserToken);
 
             if (_Running)
             {

@@ -111,8 +111,8 @@ namespace CprBroker.EventBroker.Backend
 
         public void StopTasks()
         {
-            foreach (var queue in this._TaskExecuters)
-                queue.Stop();
+            foreach (var task in this._TaskExecuters)
+                task.Stop();
         }
 
         protected override void OnStart(string[] args)
@@ -125,6 +125,7 @@ namespace CprBroker.EventBroker.Backend
 
         protected override void OnStop()
         {
+            BrokerContext.Initialize(Constants.EventBrokerApplicationToken.ToString(), Constants.UserToken);
             StopTasks();
         }
 

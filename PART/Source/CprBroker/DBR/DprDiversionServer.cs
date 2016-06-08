@@ -58,7 +58,7 @@ namespace CprBroker.DBR
 
         public override byte[] ProcessMessage(byte[] message)
         {
-            BrokerContext.Initialize(Utilities.Constants.EventBrokerApplicationToken.ToString(), "");
+            BrokerContext.Initialize(Utilities.Constants.EventBrokerApplicationToken.ToString(), Utilities.Constants.UserToken);
             try
             {
                 var req = DiversionRequest.Parse(message);
