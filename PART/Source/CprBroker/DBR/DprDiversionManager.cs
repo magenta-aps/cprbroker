@@ -54,7 +54,7 @@ namespace CprBroker.DBR
     {
         public override void StartTask(DprDiversionServer task)
         {
-            CprBroker.Engine.Local.Admin.LogSuccess(string.Format("Staring DBR Diversion: {0}", task.ToString()));
+            CprBroker.Engine.Local.Admin.LogSuccess(string.Format("Starting DBR Diversion: {0}", task.ToString()));
             task.Start();
         }
 
