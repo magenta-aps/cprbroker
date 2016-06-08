@@ -54,12 +54,13 @@ namespace CprBroker.DBR
     {
         public override void StartTask(DprDiversionServer task)
         {
-            CprBroker.Engine.Local.Admin.LogSuccess(string.Format("Staring DBR Diversion: queue<{0}> on port<{1}>", task.DbrQueue.QueueId, task.Port));
+            CprBroker.Engine.Local.Admin.LogSuccess(string.Format("Staring DBR Diversion: {0}", task.ToString()));
             task.Start();
         }
 
         public override void DisposeTask(DprDiversionServer task)
         {
+            CprBroker.Engine.Local.Admin.LogSuccess(string.Format("Stopping DBR Diversion: {0}", task.ToString()));
             task.Stop();
             task.Dispose();
         }

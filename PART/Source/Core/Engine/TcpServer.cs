@@ -27,9 +27,9 @@ namespace CprBroker.Engine
         {
             CprBroker.Engine.Local.Admin.LogFormattedSuccess("Starting TCP server <{0}> ", Port);
             _Running = true;
-            System.Net.IPHostEntry localhost = System.Net.Dns.GetHostEntry(System.Net.Dns.GetHostName());
+            System.Net.IPHostEntry localhost = System.Net.Dns.GetHostEntry("localhost");
             System.Net.IPEndPoint serverEndPoint;
-            serverEndPoint = new System.Net.IPEndPoint(localhost.AddressList[0], Port);
+            serverEndPoint = new System.Net.IPEndPoint(localhost.AddressList.Last(), Port);
 
             _serverSocket = new System.Net.Sockets.Socket(serverEndPoint.Address.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
 
@@ -72,8 +72,12 @@ namespace CprBroker.Engine
 
         private void AcceptCallback(IAsyncResult result)
         {
+            BrokerContext.Initialize(Utilities.Constants.EventBrokerApplicationToken.ToString(), "");
+
             if (_Running)
             {
+                Local.Admin.LogFormattedSuccess("AcceptCallback started");
+
                 Session session = new Session();
                 try
                 {
@@ -94,6 +98,8 @@ namespace CprBroker.Engine
                 }
                 catch (SocketException e)
                 {
+                    Local.Admin.LogException(e);
+
                     if (session.socket != null)
                     {
                         session.socket.Close();
@@ -107,6 +113,7 @@ namespace CprBroker.Engine
                 }
                 catch (Exception e)
                 {
+                    Local.Admin.LogException(e);
                     if (session.socket != null)
                     {
                         session.socket.Close();
@@ -119,12 +126,19 @@ namespace CprBroker.Engine
                     BeginAccept();
                 }
             }
+            else
+            {
+                Local.Admin.LogFormattedSuccess("AcceptCallback() Finished - was not run");
+            }            
         }
 
         private void ReceiveCallback(IAsyncResult result)
         {
+            BrokerContext.Initialize(Utilities.Constants.EventBrokerApplicationToken.ToString(), "");
+
             if (_Running)
             {
+                Local.Admin.LogFormattedSuccess("ReceiveCallback started");
 
                 //get our connection from the callback
                 Session conn = (Session)result.AsyncState;
@@ -168,6 +182,10 @@ namespace CprBroker.Engine
                         }
                     }
                 }
+            }
+            else
+            {
+                Local.Admin.LogFormattedSuccess("ReceiveCallback finished - not run");
             }
         }
 

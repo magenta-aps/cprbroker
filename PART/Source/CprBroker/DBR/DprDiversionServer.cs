@@ -58,16 +58,25 @@ namespace CprBroker.DBR
 
         public override byte[] ProcessMessage(byte[] message)
         {
-            var req = DiversionRequest.Parse(message);
-            if (req != null)
+            BrokerContext.Initialize(Utilities.Constants.EventBrokerApplicationToken.ToString(), "");
+            try
             {
-                var ret = req.Process(ConnectionString);
-                return ret.ToBytes();
+                var req = DiversionRequest.Parse(message);
+                if (req != null)
+                {
+                    var ret = req.Process(ConnectionString);
+                    return ret.ToBytes();
+                }
+                else
+                {
+                    // Invalid request.
+                    // TODO: Handle invalid request
+                    return new byte[0];
+                }
             }
-            else
+            catch (Exception ex)
             {
-                // Invalid request.
-                // TODO: Handle invalid request
+                CprBroker.Engine.Local.Admin.LogException(ex);
                 return new byte[0];
             }
         }
@@ -78,6 +87,15 @@ namespace CprBroker.DBR
             {
                 return this.DbrQueue.ConnectionString;
             }
+        }
+
+        public override string ToString()
+        {
+            return string.Format("{0} : queue<{1}> port<{2}>",
+                GetType().Name,
+                this.DbrQueue.QueueId,
+                this.Port
+                );
         }
 
         public class EqualityComparer : IEqualityComparer<DprDiversionServer>
@@ -107,5 +125,5 @@ namespace CprBroker.DBR
         }
     }
 
-    
+
 }
