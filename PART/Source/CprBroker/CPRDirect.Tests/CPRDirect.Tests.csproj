@@ -87,6 +87,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ExtractManager.Tests.cs" />
+    <Compile Include="ExtractStagingQueueTests.cs" />
     <Compile Include="HistoryContinuity\Address.cs" />
     <Compile Include="Helpers.cs" />
     <Compile Include="HistoryContinuity\Base.cs" />
