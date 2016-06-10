@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CprBroker.Tests.CPRDirect
+namespace CprBroker.Tests.CPRDirect.Queues
 {
     [TestFixture]
     public class DbrBaseQueueTests : CprBroker.Tests.PartInterface.TestBase
