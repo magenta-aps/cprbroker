@@ -7,7 +7,7 @@ using CprBroker.DBR;
 
 namespace CprBroker.Tests.DBR
 {
-    namespace QueueTests
+    namespace DbrQueueTests
     {
         [TestFixture]
         public class DbrQueueTests : DbrTestBase
