@@ -62,5 +62,28 @@ namespace CprBroker.Tests.CPRDirect.Objects
                 var objects = resp.GetChildrenAsTimedObjects();
             }
         }
+
+        [TestFixture]
+        public class Parse
+        {
+            [Test]
+            public void Parse_SampleBatch_OK()
+            {
+                var wrappers = CompositeWrapper.Parse(Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE_FixedLength, Constants.DataObjectMap);
+                Assert.IsNotEmpty(wrappers);
+            }
+
+            [Test]
+            [ExpectedException(ExpectedMessage = "555", MatchType = MessageMatch.Contains)]
+            public void Parse_SampleBatchWithError_Exception()
+            {
+                var wrappers = CompositeWrapper.Parse(Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE_FixedLength, Constants.DataObjectMap);
+                wrappers[1].Contents = "555" + wrappers[1].Contents.Substring(3);
+
+                var text = string.Join("", wrappers.Select(w => w.Contents).ToArray());
+
+                var wrappers2 = CompositeWrapper.Parse(text, Constants.DataObjectMap);
+            }
+        }
     }
 }

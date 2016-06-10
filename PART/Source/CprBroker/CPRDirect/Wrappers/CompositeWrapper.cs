@@ -85,7 +85,8 @@ namespace CprBroker.Providers.CPRDirect
         public static List<Wrapper> Parse(TextReader rd, Dictionary<string, Type> typeMap, long maxCount)
         {
             var ret = new List<Wrapper>();
-
+            var lastTypeCode = "";
+            var lastTypeLength = 0;
             while (rd.Peek() > -1 && ret.Count() < maxCount)
             {
                 string typeCode = Read(rd, Constants.DataObjectCodeLength);
@@ -94,11 +95,23 @@ namespace CprBroker.Providers.CPRDirect
                 {
                     type = typeMap[typeCode];
                 }
-                catch { throw; }
+                catch (Exception ex)
+                {
+                    throw new Exception(
+                        string.Format(
+                            "Wrapper for type code <{0}> was not found. Last parsed type was <{1}> of length <{2}>",
+                            typeCode,
+                            lastTypeCode,
+                            lastTypeLength),
+                        ex);
+                }
                 var wrapper = Utilities.Reflection.CreateInstance(type) as Wrapper;
                 var subData = Read(rd, wrapper.Length - typeCode.Length);
                 wrapper.Contents = typeCode + subData;
                 ret.Add(wrapper);
+
+                lastTypeLength = wrapper.Length;
+                lastTypeCode = typeCode;
 
                 // Consume new line characters
                 while (new int[] { 10, 13 }.Contains((int)rd.Peek()))
