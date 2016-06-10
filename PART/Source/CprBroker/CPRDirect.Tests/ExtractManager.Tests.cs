@@ -25,6 +25,16 @@ namespace CprBroker.Tests.CPRDirect
             {
                 ExtractManager.ImportText(Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE_FixedLength);
             }
+
+            [Test]
+            public void ImportText_GoesToStagingQueue()
+            {
+                // TODO: Should this go under CprDirect.Tests??
+                CprBroker.Providers.CPRDirect.ExtractManager.ImportText(CprBroker.Tests.CPRDirect.Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE_FixedLength);
+                var q = CprBroker.Engine.Queues.Queue.GetQueues<CprBroker.Providers.CPRDirect.ExtractStagingQueue>().Single();
+                var items = q.GetNext(1);
+                Assert.IsNotEmpty(items);
+            }
         }
 
         [TestFixture]

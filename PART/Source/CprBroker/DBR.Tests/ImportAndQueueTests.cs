@@ -7,23 +7,13 @@ using CprBroker.DBR;
 
 namespace CprBroker.Tests.DBR
 {
-    namespace PersonConversionTests
+    namespace QueueTests
     {
         [TestFixture]
-        public class ConvertPersons : DbrTestBase
+        public class ExtractStagingQueueTests : DbrTestBase
         {
             [Test]
-            public void _100_ConvertPersons_Extract_ExistsInQueue()
-            {
-                // TODO: Should this go under CprDirect.Tests??
-                CprBroker.Providers.CPRDirect.ExtractManager.ImportText(CprBroker.Tests.CPRDirect.Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE_FixedLength);
-                var q = CprBroker.Engine.Queues.Queue.GetQueues<CprBroker.Providers.CPRDirect.ExtractStagingQueue>().Single();
-                var items = q.GetNext(1);
-                Assert.IsNotEmpty(items);
-            }
-
-            [Test]
-            public void _200_ConvertPersons_Extract_GoesToBaseDbrQueue()
+            public void RunOneBatch_GoesToBaseDbrQueue()
             {
                 CprBroker.Providers.CPRDirect.ExtractManager.ImportText(CprBroker.Tests.CPRDirect.Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE_FixedLength);
                 var stagingQueue = CprBroker.Engine.Queues.Queue.GetQueues<CprBroker.Providers.CPRDirect.ExtractStagingQueue>().Single();
@@ -32,9 +22,13 @@ namespace CprBroker.Tests.DBR
                 var items = dbrBaseQueue.GetNext(1);
                 Assert.IsNotEmpty(items);
             }
+        }
 
+        [TestFixture]
+        public class DbrBaseQueueTests : DbrTestBase
+        {
             [Test]
-            public void _300_ConvertPersons_Extract_GoesToDbrQueue()
+            public void RunOneBatch_GoesToDbrQueue()
             {
                 // Init DB
                 CprBroker.Providers.CPRDirect.ExtractManager.ImportText(CprBroker.Tests.CPRDirect.Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE_FixedLength);
@@ -51,9 +45,13 @@ namespace CprBroker.Tests.DBR
                 var items = dbrQueue.GetNext(1);
                 Assert.IsNotEmpty(items);
             }
+        }
 
+        [TestFixture]
+        public class DbrQueueTests : DbrTestBase
+        {
             [Test]
-            public void _400_DbrQueue_GoesToDbrDatabase([ValueSource(typeof(PerPerson.PersonBaseTest), "CprNumbers")] string pnr)
+            public void RunOneBatch_GoesToDbrDatabase([ValueSource(typeof(PerPerson.PersonBaseTest), "CprNumbers")] string pnr)
             {
                 // Init DB & env
                 CprBroker.Engine.BrokerContext.Initialize(CprBroker.Utilities.Constants.BaseApplicationToken.ToString(), "test user");
