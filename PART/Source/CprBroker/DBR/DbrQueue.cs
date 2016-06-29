@@ -118,7 +118,7 @@ namespace CprBroker.DBR
                                 CprConverter.AppendPerson(response, dprDataContext);
 
                                 var currentGroup = itemGroups.Last();
-                                if (currentGroup.Items.Where(gi => gi.PNR == item.PNR).FirstOrDefault() != null)
+                                if (currentGroup.Items.FirstOrDefault(gi => gi.PNR == item.PNR) != null)
                                 {
                                     currentGroup = new Batch();
                                     itemGroups.Add(currentGroup);
