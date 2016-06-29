@@ -21,6 +21,10 @@
 
     <FeatureRef Id="CprBrokerFeature"/>
 
+    <!-- 
+      Windows installer does not detect upgrades that only differ by build number (fourth field in the version)
+      https://msdn.microsoft.com/en-us/library/windows/desktop/aa372379(v=vs.85).aspx
+    -->
     <Upgrade Id="FF0F6556-3323-43A8-9AB3-E567BEF13F6A">
       <!--Detect old version -->
       <UpgradeVersion Maximum="2.2.6.1" IncludeMaximum="no" Property="OLDER_VERSION_DETECTED" OnlyDetect="yes" MigrateFeatures="yes" />
