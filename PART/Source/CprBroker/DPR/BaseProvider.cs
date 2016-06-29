@@ -201,7 +201,7 @@ namespace CprBroker.Providers.DPR
             }
         }
 
-        public static readonly object DiversionLockObject = new object();
+        private static readonly object DiversionLockObject = new object();
 
         /// <summary>
         /// Sends a message through TCP to the server

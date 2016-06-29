@@ -45,15 +45,8 @@
  * ***** END LICENSE BLOCK ***** */
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.IO;
-using CprBroker.Providers.DPR;
-using CprBroker.Schemas;
 using CprBroker.Schemas.Part;
-using CprBroker.Utilities.ConsoleApps;
-using CprBroker.Data;
 using CprBroker.Data.Part;
 
 namespace BatchClient
