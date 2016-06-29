@@ -399,6 +399,42 @@
       <Attribute name="SeparationEndDateUncertainty" danishName="SLUT_DT_UMRK-SEPARATION" format="Alpha" length="1" position="48" description="Separation end date uncertainty marker"/>
     </Object>
 
+    <Object name="_RelativeClearWrittenAddress" base="PersonRecordWrapper" danishName="P12180-031" length="269" description="Relative (Mother, father or child) with clear written address" minOccurs="0" maxOccurs="1" recordTypeCode="">
+      <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
+      <Attribute name="PNR" danishName="PNR" format="Alpha" length="10" position="4" description="CPR Number"/>
+      <!--
+        <Attribute name="MotherPNR" danishName="PNRMOR" format="Alpha" length="10" position="14" description="Mother CPR Number"/>
+        Fill in child classes
+      -->
+      <Attribute name="AddressingName" danishName="ADRNVN" format="Alpha" length="34" position="24" description=""/>
+      <Attribute name="CareOfName" danishName="CONVN" format="Alpha" length="34" position="58" description=""/>
+      <Attribute name="LOKALITET" danishName="LOKALITET" format="Alpha" length="34" position="92" description=""/>
+      <Attribute name="StandardAddress" danishName="STANDARDADR" format="Alpha" length="34" position="126" description="Vejadrnvn,husnr,etage,sidedoer "/>
+      <Attribute name="CityName" danishName="BYNVN" format="Alpha" length="34" position="160" description=""/>
+      <Attribute name="PostCode" danishName="POSTNR" format="Numeric" length="4" position="194" description=""/>
+      <Attribute name="PostDistrict" danishName="POSTDISTTXT" format="Alpha" length="20" position="198" description=""/>
+      <Attribute name="MunicipalityCode" danishName="KOMKOD" format="Numeric" length="4" position="218" description=""/>
+      <Attribute name="StreetCode" danishName="VEJKOD" format="Numeric" length="4" position="222" description=""/>
+      <Attribute name="HouseNumber" danishName="HUSNR" format="Alpha" length="4" position="226" description=""/>
+      <Attribute name="Floor" danishName="ETAGE" format="Alpha" length="2" position="230" description=""/>
+      <Attribute name="Door" danishName="SIDEDOER" format="Alpha" length="4" position="232" description=""/>
+      <Attribute name="BuildingNumber" danishName="BNR" format="Alpha" length="4" position="236" description=""/>
+      <Attribute name="StreetAddressingName" danishName="VEJADRNVN" format="Alpha" length="20" position="240" description=""/>
+      <Attribute name="ProtectionStartDate" danishName="START_DT-BESKYTTELSE" format="Alpha" length="10" position="260" description="" dateFormat="yyyy-MM-dd"/>
+    </Object>
+
+    <Object name="MotherWithClearWrittenAddress" base="_RelativeClearWrittenAddressType" danishName="P12180-031" length="269" description="Mother with clear written address" minOccurs="0" maxOccurs="1" recordTypeCode="031">
+      <Attribute name="MotherPNR" danishName="PNRMOR" format="Alpha" length="10" position="14" description="Mother CPR Number"/>
+    </Object>
+
+    <Object name="FatherWithClearWrittenAddress" base="_RelativeClearWrittenAddressType" danishName="P12180-032" length="269" description="Father with clear written address" minOccurs="0" maxOccurs="1" recordTypeCode="032">
+      <Attribute name="FatherPNR" danishName="PNRMOR" format="Alpha" length="10" position="14" description="Mother CPR Number"/>
+    </Object>
+
+    <Object name="ChildWithClearWrittenAddress" base="_RelativeClearWrittenAddressType" danishName="P12180-033" length="269" description="Child with clear written address" minOccurs="0" maxOccurs="1" recordTypeCode="033">
+      <Attribute name="MotherPNR" danishName="PNRMOR" format="Alpha" length="10" position="14" description="Mother CPR Number"/>
+    </Object>
+
     <Object name="Events" base="PersonRecordWrapper" danishName="P12170-099" length="45" description="Events" minOccurs="0" maxOccurs="1000000" recordTypeCode="099">
       <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
       <Attribute name="PNR" danishName="PNR" format="Alpha" length="10" position="4" description="CPR Number"/>
@@ -421,7 +457,7 @@
       <Attribute name="PNR" danishName="PNR" format="Alpha" length="10" position="4" description="CPR Number"/>
       <Attribute name="UpdateTime" danishName="TIMESTAMPU" format="Numeric" length="12" position="14" description="Update date and time" dateFormat="yyyyMMddHHmm"/>
       <Attribute name="Incident" danishName="HAENDELSE" format="Alpha" length="3" position="26" description="Incident"/>
-      <Attribute name="KeyConstant" danishName="NGLKONST" format="Alpha" length="15" position="29" description="Key Constant, blank on output if the field is not filled out input"/>      
+      <Attribute name="KeyConstant" danishName="NGLKONST" format="Alpha" length="15" position="29" description="Key Constant, blank on output if the field is not filled out input"/>
     </Object>
 
     <Object name="EndRecord" danishName="P12170-999" length="21" description="End record">

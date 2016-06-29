@@ -109,6 +109,9 @@ namespace CprBroker.Providers.CPRDirect
             _DataObjectMap["028"] = typeof(HistoricalChurchInformationType);
             _DataObjectMap["029"] = typeof(HistoricalCivilStatusType);
             _DataObjectMap["030"] = typeof(HistoricalSeparationType);
+            _DataObjectMap["031"] = typeof(MotherWithClearWrittenAddressType);
+            _DataObjectMap["032"] = typeof(FatherWithClearWrittenAddressType);
+            _DataObjectMap["033"] = typeof(ChildWithClearWrittenAddressType);
             _DataObjectMap["099"] = typeof(EventsType);
             _DataObjectMap["910"] = typeof(ErrorRecordType);
             _DataObjectMap["997"] = typeof(SubscriptionDeletionReceiptType);
