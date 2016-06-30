@@ -22,9 +22,11 @@ namespace BatchClient
 
             if (!string.IsNullOrEmpty(this.BrokerConnectionString))
                 Utilities.UpdateConnectionString(this.BrokerConnectionString);
-            var token = string.IsNullOrEmpty(this.ApplicationToken) ? CprBroker.Utilities.Constants.BaseApplicationToken.ToString() : this.ApplicationToken;
 
-            CprBroker.Engine.BrokerContext.Initialize(token, "");
+            if (string.IsNullOrEmpty(this.ApplicationToken))
+                this.ApplicationToken = CprBroker.Utilities.Constants.BaseApplicationToken.ToString();
+
+            CprBroker.Engine.BrokerContext.Initialize(ApplicationToken, "");
 
             var sourceFiles = this.SourceFile.Split(",;".ToArray(), StringSplitOptions.RemoveEmptyEntries);
 
@@ -49,7 +51,7 @@ namespace BatchClient
             return pnrFiles
                 .SelectMany(f => File.ReadAllLines(f))
                 .Where(v => !string.IsNullOrEmpty(v))
-                .Select(v => v.Length <= 3 ? v.PadLeft(4,'0') :
+                .Select(v => v.Length <= 3 ? v.PadLeft(4, '0') :
                     Regex.IsMatch(v, @"\A\d{9,10}\Z") ? v.PadLeft(10, '0') :
                     v
                 ).ToArray();
@@ -57,6 +59,8 @@ namespace BatchClient
 
         public override void ProcessPerson(string pnr)
         {
+            CprBroker.Engine.BrokerContext.Initialize(ApplicationToken, "");
+
             var field = pnr.Length == 4 ? Constants.SubscriptionFields.MunicipalityCode :
                 pnr.Length == 10 ? Constants.SubscriptionFields.PNR :
                 Constants.SubscriptionFields.ChangeCode;
@@ -67,7 +71,7 @@ namespace BatchClient
             }
             else
             {
-                Log("Subscriping");
+                Log("Subscribing");
                 ServicePlatformDataProvider.ReturnCodePNR retCode;
                 if (prov.PutSubscription(field, pnr, out retCode))
                 { }
