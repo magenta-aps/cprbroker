@@ -10,183 +10,69 @@ namespace CprBroker.Engine
     public class TcpServer : IDisposable
     {
         public int Port { get; set; }
-        private int _maxQueueLength = 1000;
-        private int _bufferSize = 1024;
+        public string Address { get; set; }
 
-        bool _Running = false;
-        private System.Net.Sockets.Socket _serverSocket;
-        private List<Session> _Sessions = new List<Session>();
+        System.Net.Sockets.TcpListener _Listener;
 
-        public class Session
-        {
-            public byte[] buffer;
-            public System.Net.Sockets.Socket socket;
-        }
+        public int BufferSize { get; set; } = 12;
+        public TimeSpan MaxWait { get; set; } = TimeSpan.FromSeconds(1);
 
         public bool Start()
         {
-            CprBroker.Engine.Local.Admin.LogFormattedSuccess("Starting TCP server <{0}> ", Port);
-            _Running = true;
-            System.Net.IPHostEntry localhost = System.Net.Dns.GetHostEntry("localhost");
-            System.Net.IPEndPoint serverEndPoint;
-            serverEndPoint = new System.Net.IPEndPoint(localhost.AddressList.Last(), Port);
+            IPAddress ipAddress;
+            if (string.IsNullOrEmpty(Address))
+            {
+                System.Net.IPHostEntry localhost = System.Net.Dns.GetHostEntry("localhost");
+                ipAddress = localhost.AddressList.Last();
+            }
+            else
+            {
+                ipAddress = IPAddress.Parse(Address);
+            }
+            CprBroker.Engine.Local.Admin.LogFormattedSuccess("Starting TCP server at address <{0}>, port <{1}>", ipAddress, Port);
 
-            _serverSocket = new System.Net.Sockets.Socket(serverEndPoint.Address.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+            _Listener = new TcpListener(ipAddress, Port);
+            _Listener.Start();
 
-            _serverSocket.Bind(serverEndPoint);
-            _serverSocket.Listen(_maxQueueLength);
-            //warning, only call this once, this is a bug in .net 2.0 that breaks if 
-            // you're running multiple asynch accepts, this bug may be fixed, but
-            // it was a major pain in the ass previously, so make sure there is only one
-            //BeginAccept running
+            while (true)
+            {
+                System.Threading.Thread.Sleep(10);
+                var client = _Listener.BeginAcceptTcpClient(new AsyncCallback(AcceptTcpClient), null);
+            }
 
-            BeginAccept();
-            CprBroker.Engine.Local.Admin.LogFormattedSuccess("TCP server started at<{0}> ", Port);
+            CprBroker.Engine.Local.Admin.LogFormattedSuccess("TCP server started address <{0}>, port <{1}>", ipAddress, Port);
             return true;
+        }
+
+        void AcceptTcpClient(IAsyncResult result)
+        {
+            BrokerContext.Initialize(Utilities.Constants.EventBrokerApplicationToken.ToString(), Utilities.Constants.UserToken);
+
+            TcpClient tcpClient = _Listener.EndAcceptTcpClient(result);
+
+            Local.Admin.LogFormattedSuccess("TcpServer <{0}>: client connected", this.ToString());
+
+            int index = 0;
+
+            DateTime startTime = DateTime.Now;
+
+            byte[] messageBytes = new byte[BufferSize];
+            var stream = tcpClient.GetStream();
+
+            while (index < messageBytes.Length && DateTime.Now - startTime < MaxWait)
+            {
+                int readBytes = stream.Read(messageBytes, index, BufferSize - index);
+                index += readBytes;
+            }
+
+            Local.Admin.LogFormattedSuccess("TcpServer <{0}>: procesing message <{1}>", this.ToString(), Encoding.ASCII.GetString(messageBytes));
+            var responseBytes = ProcessMessage(messageBytes);
+            stream.Write(responseBytes, 0, responseBytes.Length);
         }
 
         public void Stop()
         {
-            _Running = false;
-            do
-            {
-                lock (_Sessions)
-                {
-                    if (_Sessions.Count == 0 && _serverSocket != null)
-                    {
-                        _serverSocket.Close();
-                        break;
-                    }
-                }
-                System.Threading.Thread.Sleep(100);
-            } while (_Sessions.Count > 0);
-        }
-
-        private void BeginAccept()
-        {
-            if (_Running)
-            {
-                _serverSocket.BeginAccept(new AsyncCallback(AcceptCallback), _serverSocket);
-            }
-        }
-
-        private void AcceptCallback(IAsyncResult result)
-        {
-            BrokerContext.Initialize(Utilities.Constants.EventBrokerApplicationToken.ToString(), Utilities.Constants.UserToken);
-
-            if (_Running)
-            {
-                Local.Admin.LogFormattedSuccess("AcceptCallback started");
-
-                Session session = new Session();
-                try
-                {
-                    //Finish accepting the connection
-                    var sessionSocket = result.AsyncState as Socket;
-                    session = new Session();
-                    session.socket = sessionSocket.EndAccept(result);
-                    session.buffer = new byte[_bufferSize];
-                    lock (_Sessions)
-                    {
-                        _Sessions.Add(session);
-                    }
-                    //Queue recieving of data from the connection
-                    session.socket.BeginReceive(session.buffer, 0, session.buffer.Length, SocketFlags.None, new AsyncCallback(ReceiveCallback), session);
-
-                    //Queue the accept of the next incomming connection
-                    BeginAccept();
-                }
-                catch (SocketException e)
-                {
-                    Local.Admin.LogException(e);
-
-                    if (session.socket != null)
-                    {
-                        session.socket.Close();
-                        lock (_Sessions)
-                        {
-                            _Sessions.Remove(session);
-                        }
-                    }
-                    //Queue the next accept, think this should be here, stop attacks based on killing the waiting listeners
-                    BeginAccept();
-                }
-                catch (Exception e)
-                {
-                    Local.Admin.LogException(e);
-                    if (session.socket != null)
-                    {
-                        session.socket.Close();
-                        lock (_Sessions)
-                        {
-                            _Sessions.Remove(session);
-                        }
-                    }
-                    //Queue the next accept, think this should be here, stop attacks based on killing the waiting listeners
-                    BeginAccept();
-                }
-            }
-            else
-            {
-                Local.Admin.LogFormattedSuccess("AcceptCallback() Finished - was not run");
-            }
-        }
-
-        private void ReceiveCallback(IAsyncResult result)
-        {
-            BrokerContext.Initialize(Utilities.Constants.EventBrokerApplicationToken.ToString(), Utilities.Constants.UserToken);
-
-            if (_Running)
-            {
-                Local.Admin.LogFormattedSuccess("ReceiveCallback started");
-
-                //get our connection from the callback
-                Session conn = (Session)result.AsyncState;
-                //catch any errors, we'd better not have any
-                try
-                {
-                    //Grab our buffer and count the number of bytes receives
-                    int bytesRead = conn.socket.EndReceive(result);
-                    //make sure we've read something, if we haven't it supposadly means that the client disconnected
-                    if (bytesRead > 0)
-                    {
-                        //put whatever you want to do when you receive data here
-                        var response = ProcessMessage(conn.buffer.Take(bytesRead).ToArray());
-                        conn.socket.Send(response);
-
-                        //Queue the next receive
-                        conn.socket.BeginReceive(conn.buffer, 0, conn.buffer.Length, SocketFlags.None, new AsyncCallback(ReceiveCallback), conn);
-                    }
-                    else
-                    {
-                        //Callback run but no data, close the connection
-                        //supposadly means a disconnect
-                        //and we still have to close the socket, even though we throw the event later
-                        conn.socket.Close();
-                        lock (_Sessions)
-                        {
-                            _Sessions.Remove(conn);
-                        }
-                    }
-                }
-                catch (SocketException e)
-                {
-                    //Something went terribly wrong
-                    //which shouldn't have happened
-                    if (conn.socket != null)
-                    {
-                        conn.socket.Close();
-                        lock (_Sessions)
-                        {
-                            _Sessions.Remove(conn);
-                        }
-                    }
-                }
-            }
-            else
-            {
-                Local.Admin.LogFormattedSuccess("ReceiveCallback finished - not run");
-            }
+            _Listener.Stop();
         }
 
         public virtual byte[] ProcessMessage(byte[] message)

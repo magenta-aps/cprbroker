@@ -66,6 +66,18 @@ namespace CprBroker.DBR
             set { DataProviderConfigProperty.Templates.SetConnectionString(value, this.ConfigurationProperties); }
         }
 
+        public string Address
+        {
+            get
+            {
+                return this.ConfigurationProperties["Address"];
+            }
+            set
+            {
+                this.ConfigurationProperties["Address"] = value;
+            }
+        }
+
         public int? Port
         {
             get
@@ -80,6 +92,23 @@ namespace CprBroker.DBR
             set
             {
                 this.ConfigurationProperties["Port"] = value.HasValue ? "" : value.Value.ToString();
+            }
+        }
+
+        public int? MaxWaitMilliseconds
+        {
+            get
+            {
+                var s = this.ConfigurationProperties["MaxWaitMilliseconds"];
+                int ret;
+                if (int.TryParse(s, out ret))
+                    return ret;
+                else
+                    return null;
+            }
+            set
+            {
+                this.ConfigurationProperties["MaxWaitMilliseconds"] = value.HasValue ? "" : value.Value.ToString();
             }
         }
 
@@ -167,13 +196,15 @@ namespace CprBroker.DBR
             return ret.ToArray();
         }
 
-
         public override Engine.DataProviderConfigPropertyInfo[] ConfigurationKeys
         {
             get
             {
                 var ret = new List<Engine.DataProviderConfigPropertyInfo>(DataProviderConfigPropertyInfo.Templates.ConnectionStringKeys);
+                ret.Add(new DataProviderConfigPropertyInfo() { Confidential = false, Name = "Address", Type = DataProviderConfigPropertyInfoTypes.String, Required = false });
                 ret.Add(new DataProviderConfigPropertyInfo() { Confidential = false, Name = "Port", Type = DataProviderConfigPropertyInfoTypes.Integer, Required = false });
+                ret.Add(new DataProviderConfigPropertyInfo() { Confidential = false, Name = "MaxWaitMilliseconds", Type = DataProviderConfigPropertyInfoTypes.Integer, Required = false });
+
                 return ret.ToArray();
             }
         }
@@ -199,7 +230,14 @@ namespace CprBroker.DBR
         {
             if (DiversionEnabled)
             {
-                var listener = new DprDiversionServer() { Port = this.Port.Value, DbrQueue = this };
+                var listener = new DprDiversionServer()
+                {
+                    Address = this.Address,
+                    Port = this.Port.Value,
+                    DbrQueue = this,
+                    BufferSize = 12,
+                    MaxWait = TimeSpan.FromMilliseconds(MaxWaitMilliseconds.HasValue ? MaxWaitMilliseconds.Value : 1000)
+                };
                 return listener;
             }
             return null;
