@@ -12,9 +12,12 @@ namespace CprBroker.Engine
         public int Port { get; set; }
         public string Address { get; set; }
 
+        public readonly object LockObject = new object();
+
         System.Net.Sockets.TcpListener _Listener;
 
-        public int BufferSize { get; set; } = 12;
+        public int InputMessageSize { get; set; } = 12;
+        public int MaxThreads { get; set; } = 5;
         public TimeSpan MaxWait { get; set; } = TimeSpan.FromSeconds(1);
 
         public bool Start()
@@ -34,45 +37,68 @@ namespace CprBroker.Engine
             _Listener = new TcpListener(ipAddress, Port);
             _Listener.Start();
 
-            while (true)
+            for (int i = 0; i < MaxThreads; i++)
             {
-                System.Threading.Thread.Sleep(10);
-                var client = _Listener.BeginAcceptTcpClient(new AsyncCallback(AcceptTcpClient), null);
+                var dummyAsyncResult = _Listener.BeginAcceptTcpClient(new AsyncCallback(AcceptTcpClient), null);
             }
-
             CprBroker.Engine.Local.Admin.LogFormattedSuccess("TCP server started address <{0}>, port <{1}>", ipAddress, Port);
             return true;
         }
 
         void AcceptTcpClient(IAsyncResult result)
         {
-            BrokerContext.Initialize(Utilities.Constants.EventBrokerApplicationToken.ToString(), Utilities.Constants.UserToken);
-
-            TcpClient tcpClient = _Listener.EndAcceptTcpClient(result);
-
-            Local.Admin.LogFormattedSuccess("TcpServer <{0}>: client connected", this.ToString());
-
-            int index = 0;
-
-            DateTime startTime = DateTime.Now;
-
-            byte[] messageBytes = new byte[BufferSize];
-            var stream = tcpClient.GetStream();
-
-            while (index < messageBytes.Length && DateTime.Now - startTime < MaxWait)
+            try
             {
-                int readBytes = stream.Read(messageBytes, index, BufferSize - index);
-                index += readBytes;
-            }
+                BrokerContext.Initialize(Utilities.Constants.EventBrokerApplicationToken.ToString(), Utilities.Constants.UserToken);
 
-            Local.Admin.LogFormattedSuccess("TcpServer <{0}>: processing message <{1}>", this.ToString(), Encoding.ASCII.GetString(messageBytes));
-            var responseBytes = ProcessMessage(messageBytes);
-            stream.Write(responseBytes, 0, responseBytes.Length);
+                try
+                {
+                    TcpClient tcpClient = _Listener.EndAcceptTcpClient(result);
+
+                    Local.Admin.LogFormattedSuccess("TcpServer <{0}>: client connected", this.ToString());
+
+                    int index = 0;
+
+                    DateTime startTime = DateTime.Now;
+
+                    byte[] messageBytes = new byte[InputMessageSize];
+                    var stream = tcpClient.GetStream();
+
+                    while (index < messageBytes.Length && DateTime.Now - startTime < MaxWait)
+                    {
+                        int readBytes = stream.Read(messageBytes, index, InputMessageSize - index);
+                        index += readBytes;
+                    }
+
+                    Local.Admin.LogFormattedSuccess("TcpServer <{0}>: processing message <{1}>", this.ToString(), Encoding.ASCII.GetString(messageBytes));
+                    var responseBytes = ProcessMessage(messageBytes);
+                    stream.Write(responseBytes, 0, responseBytes.Length);
+                }
+                catch (Exception ex)
+                {
+                    Local.Admin.LogException(ex);
+                }
+            }
+            finally
+            {
+                lock (LockObject)
+                {
+                    if (_Listener != null)
+                        _Listener.BeginAcceptTcpClient(AcceptTcpClient, null);
+                }
+            }
         }
 
         public void Stop()
         {
-            _Listener.Stop();
+            lock (LockObject)
+            {
+                var tmpListener = _Listener;
+                _Listener = null;
+
+                if (tmpListener != null)
+                    tmpListener.Stop();
+            }
         }
 
         public virtual byte[] ProcessMessage(byte[] message)

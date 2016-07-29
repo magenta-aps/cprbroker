@@ -17,6 +17,10 @@ namespace CprBroker.Tests.Engine
         {
             public class TcpServerStub : TcpServer
             {
+                public TcpServerStub()
+                {
+                    this.InputMessageSize = Guid.NewGuid().ToString().Length;
+                }
                 public int Calls = 0;
 
                 public override byte[] ProcessMessage(byte[] message)
@@ -26,6 +30,8 @@ namespace CprBroker.Tests.Engine
                 }
 
                 Func<byte[], byte[]> _ProcessMessage = (msg) => msg;
+
+                
             }
 
             public class Client
@@ -39,7 +45,7 @@ namespace CprBroker.Tests.Engine
                 {
                     var enc = System.Text.Encoding.GetEncoding(1252);
                     byte[] inBytes = enc.GetBytes(msg);
-                    using (var client = new TcpClient("Beemen-PC", _Server.Port))
+                    using (var client = new TcpClient(_Server.Address, _Server.Port))
                     {
                         using (var stream = client.GetStream() as NetworkStream)
                         {
@@ -77,7 +83,7 @@ namespace CprBroker.Tests.Engine
             public void Run_ManyConnections_OK(int count)
             {
                 BrokerContext.Initialize(CprBroker.Utilities.Constants.BaseApplicationToken.ToString(), "");
-                using (var server = new TcpServerStub() { Port = NewPort() })
+                using (var server = new TcpServerStub() { Port = NewPort(), Address = "127.0.0.1" })
                 {
                     server.Start();
 
