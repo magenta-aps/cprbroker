@@ -235,7 +235,7 @@ namespace CprBroker.DBR
                     Address = this.Address,
                     Port = this.Port.Value,
                     DbrQueue = this,
-                    BufferSize = 12,
+                    InputMessageSize = 12,
                     MaxWait = TimeSpan.FromMilliseconds(MaxWaitMilliseconds.HasValue ? MaxWaitMilliseconds.Value : 1000)
                 };
                 return listener;
