@@ -91,7 +91,7 @@ namespace CprBroker.Tests.ServicePlatform
                 String fileName2LocalPath = Utilities.Strings.EnsureEndString(prov.ExtractsFolder, "\\", true) + fileName2;
                 Assert.False(File.Exists(fileName2LocalPath));
 
-                prov.DownloadFile(fileName2, 0);
+                prov.DownloadFile(fileName2,fileName2LocalPath, 0);
 
                 Assert.True(File.Exists(fileName2LocalPath));
                 Assert.True(File.Exists(fileName2LocalPath + CprBroker.Providers.ServicePlatform.Constants.MetaDataFilePostfix));

@@ -87,9 +87,9 @@ namespace CprBroker.Providers.ServicePlatform
             }
         }
 
-        public string CompanionFilePath(string ftpPath)
+        public string CompanionFilePostfix
         {
-            return ftpPath + Constants.MetaDataFilePostfix;
+            get { return Constants.MetaDataFilePostfix; }
         }
 
         public long GetLength(string subPath)
