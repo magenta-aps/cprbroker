@@ -312,9 +312,17 @@ namespace CprBroker.Providers.CPRDirect
                         // Skip non data files metadata file
                         Admin.LogFormattedSuccess("File <{0}> is not a data file", file);
                     }
-                    var processedFilePath = ExtractPaths.ProcessedFilePath(prov, file, true);
-                    File.Move(file, processedFilePath);
-                    Admin.LogFormattedSuccess("File <{0}> moved to \\Processed folder <{1}>", file, processedFilePath);
+                    if (prov.KeepFilesLocally)
+                    {
+                        var processedFilePath = ExtractPaths.ProcessedFilePath(prov, file, true);
+                        File.Move(file, processedFilePath);
+                        Admin.LogFormattedSuccess("File <{0}> moved to \\Processed folder <{1}>", file, processedFilePath);
+                    }
+                    else
+                    {
+                        File.Delete(file);
+                        Admin.LogFormattedSuccess("File <{0}> deleted after processing", file);
+                    }
                 }
                 catch (Exception ex)
                 {
