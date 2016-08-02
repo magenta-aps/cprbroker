@@ -110,6 +110,9 @@
     <Compile Include="Notifications\BudgetChecker.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Notifications\CprDirectCleaner.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Notifications\CPRDirectDownloader.cs">
       <SubType>Component</SubType>
     </Compile>

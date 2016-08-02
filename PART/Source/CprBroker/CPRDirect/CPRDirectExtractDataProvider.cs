@@ -168,11 +168,7 @@ namespace CprBroker.Providers.CPRDirect
             }
         }
 
-        public Dictionary<string, string> ConfigurationProperties
-        {
-            get;
-            set;
-        }
+        public Dictionary<string, string> ConfigurationProperties { get; set; } = new Dictionary<string, string>();
         #endregion
 
         #region ILocalProxyDataProvider

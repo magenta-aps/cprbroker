@@ -6,6 +6,7 @@ using CprBroker.Providers.CPRDirect;
 using NUnit.Framework;
 using System.IO;
 using CprBroker.Engine.Queues;
+using CprBroker.Engine;
 
 namespace CprBroker.Tests.CPRDirect
 {
@@ -77,6 +78,50 @@ namespace CprBroker.Tests.CPRDirect
                     Assert.True(semaphore.Impl.SignaledDate.HasValue);
                     Assert.AreEqual(0, semaphore.Impl.WaitCount);
                 }
+            }
+        }
+
+        [TestFixture]
+        public class CleanProcessedFolder
+        {
+            [Test]
+            public void CleanProcessedFolder_EmptyFolder_Nothing()
+            {
+                var path = "Tests\\" + CprBroker.Utilities.Strings.NewRandomString(10);
+                var prov = new CPRDirectExtractDataProvider() { ExtractsFolder = path };
+
+                var processedPath = ExtractPaths.ProcessedFolder(prov);
+                Directory.CreateDirectory(processedPath);
+
+                ExtractManager.CleanProcessedFolder(prov);
+            }
+
+            [Test]
+            public void CleanProcessedFolder_RootAndNonRootFiles_Deleted()
+            {
+                BrokerContext.Initialize(CprBroker.Utilities.Constants.BaseApplicationToken.ToString(), "");
+
+                var path = new DirectoryInfo("Tests\\" + CprBroker.Utilities.Strings.NewRandomString(10)).FullName;
+                var prov = new CPRDirectExtractDataProvider() { ExtractsFolder = path };
+
+                var processedPath = ExtractPaths.ProcessedFolder(prov);
+                var processedSubPath = processedPath + "\\" + CprBroker.Utilities.Strings.NewRandomString(5);
+
+                Directory.CreateDirectory(processedSubPath);
+
+                var files = new string[] {processedPath, processedSubPath }.Select(p=> p + "\\" + CprBroker.Utilities.Strings.NewRandomString(5)).ToArray();
+                Array.ForEach(files, f => File.WriteAllText(f, "ABCD"));
+
+                var initialContents = Directory.GetFiles(processedPath, "*", SearchOption.AllDirectories);
+                Assert.AreEqual(2, initialContents.Length);
+
+                ExtractManager.CleanProcessedFolder(prov);
+
+                var postContents = Directory.GetFiles(processedPath, "*", SearchOption.AllDirectories);
+                Assert.IsEmpty(postContents);
+
+                // Cleanup
+                Directory.Delete(path, true);
             }
         }
     }

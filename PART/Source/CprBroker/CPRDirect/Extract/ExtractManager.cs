@@ -331,6 +331,39 @@ namespace CprBroker.Providers.CPRDirect
             }
         }
 
+        public static void CleanProcessedFolder(IExtractDataProvider prov, bool logChecks = false)
+        {
+            if (logChecks)
+            {
+                Admin.LogFormattedSuccess("Checking folder <{0}> for processed extracts", prov.ExtractsFolder);
+            }
+
+            if (!prov.KeepFilesLocally)
+            {
+                var path = ExtractPaths.ProcessedFolder(prov);
+                foreach (var file in Directory.GetFiles(path, "*", SearchOption.AllDirectories))
+                {
+                    Admin.LogFormattedSuccess("Deleting extract file <{0}>", file);
+                    try
+                    {
+                        File.Delete(file);
+                        Admin.LogFormattedSuccess("Extract file <{0}> deleted successfully", file);
+                    }
+                    catch (Exception ex)
+                    {
+                        Admin.LogException(ex, file);
+                    }
+                }
+            }
+            else
+            {
+                if (logChecks)
+                {
+                    Admin.LogFormattedSuccess("Skipping cleanup for extract folder <{0}>. KeepFilesLocally is true", prov.ExtractsFolder);
+                }
+            }
+        }
+
         public static void ConvertPersons()
         {
             ConvertPersons(1);
