@@ -48,6 +48,7 @@ using System.Linq;
 using System.Text;
 using WinSCP;
 using System.IO;
+using CprBroker.Providers.CPRDirect;
 
 namespace CprBroker.Providers.ServicePlatform
 {
@@ -86,6 +87,11 @@ namespace CprBroker.Providers.ServicePlatform
             }
         }
 
+        public string CompanionFilePath(string ftpPath)
+        {
+            return ftpPath + Constants.MetaDataFilePostfix;
+        }
+
         public long GetLength(string subPath)
         {
             // Irrelevant in service platform SFTP
@@ -99,7 +105,7 @@ namespace CprBroker.Providers.ServicePlatform
                 using (Session session = new Session())
                 {
                     String remotePathPrepared = session.EscapeFileMask(PrepareRemotePathFile(fileName));
-                    String remotePathPreparedMeta = session.EscapeFileMask(PrepareRemotePathFile(fileName) + Constants.MetaDataFilePostfix);
+                    String remotePathPreparedMeta = session.EscapeFileMask(PrepareRemotePathFile(ExtractPaths.CompanionFilePath(this, fileName)));
 
                     session.Open(PopulateSftpSessionOptions());
                     if (session.FileExists(remotePathPrepared) && session.FileExists(remotePathPreparedMeta))
@@ -125,17 +131,18 @@ namespace CprBroker.Providers.ServicePlatform
             try //TODO: Remove exception handling - logging will be done at a higher level
             {
                 String localPathPrepared = localPath;
-                String localPathPreparedMeta = localPathPrepared + Constants.MetaDataFilePostfix;
+                String localPathPreparedMeta = ExtractPaths.CompanionFilePath(this, localPathPrepared);
 
                 if (File.Exists(localPathPrepared) || File.Exists(localPathPreparedMeta))
                 {
+                    // This block should not be reached because the paths are checked at a higher level
                     throw new Exception(String.Format("File {0} or its {1}-file {2} already exists in local extracts folder. Unable to download.", localPathPrepared, Constants.MetaDataFilePostfix, localPathPreparedMeta));
                 }
 
                 using (Session session = new Session())
                 {
                     String remotePathPrepared = session.EscapeFileMask(PrepareRemotePathFile(fileName));
-                    String remotePathPreparedMeta = session.EscapeFileMask(PrepareRemotePathFile(fileName) + Constants.MetaDataFilePostfix);
+                    String remotePathPreparedMeta = session.EscapeFileMask(PrepareRemotePathFile(ExtractPaths.CompanionFilePath(this, fileName)));
 
                     session.Open(PopulateSftpSessionOptions());
                     if (session.FileExists(remotePathPrepared) && session.FileExists(remotePathPreparedMeta))
@@ -156,9 +163,11 @@ namespace CprBroker.Providers.ServicePlatform
             }
         }
 
-        /*
-        Please Notice, that the upload function is only provided here for testing purposes - do not use this function in the production environment.
-        */
+        /// <summary>
+        /// Please Notice, that the upload function is only provided here for testing purposes - do not use this function in the production environment.
+        /// </summary>
+        /// <param name="localUploadDir"></param>
+        /// <param name="fileName"></param>
         public void UploadFile(String localUploadDir, String fileName)
         {
             string fullPathToLocalFile = Utilities.Strings.EnsureEndString(localUploadDir, "/", true) + fileName;

@@ -113,6 +113,11 @@ namespace CprBroker.Providers.CPRDirect
             }
         }
 
+        public string CompanionFilePostfix
+        {
+            get { return null; }
+        }
+
         public string PutTempFileOnFtp()
         {
             var filePath = CprBroker.Utilities.Strings.NewUniquePath(this.ExtractsFolder, "txt");

@@ -54,6 +54,7 @@ namespace CprBroker.PartInterface
         string ExtractsFolder { get; }
         string FtpAddress { get; }
         string[] ListFtpContents();
+        string CompanionFilePostfix { get; }
         long GetLength(string subPath);
         void DownloadFile(string subPath, string localPath, long length);
         void DeleteFile(string subPath);

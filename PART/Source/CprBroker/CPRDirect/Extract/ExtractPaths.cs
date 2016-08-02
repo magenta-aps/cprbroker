@@ -41,7 +41,7 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
- using CprBroker.PartInterface;
+using CprBroker.PartInterface;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -72,14 +72,16 @@ namespace CprBroker.Providers.CPRDirect
         {
             var localName = LocalName(ftpFileName);
             var folder = TempDownloadFolder(prov);
-            return UniqueFileName(folder, localName, createDirIfNeeded);
+            var postfix = prov.CompanionFilePostfix;
+            return UniqueFileName(folder, localName, postfix, createDirIfNeeded);
         }
 
         public static string ProcessedFilePath(IExtractDataProvider prov, string ftpFileName, bool createDirIfNeeded)
         {
             var localName = LocalName(ftpFileName);
             var folder = ProcessedFolder(prov);
-            return UniqueFileName(folder, localName, createDirIfNeeded);
+            var postFix = prov.CompanionFilePostfix;
+            return UniqueFileName(folder, localName, postFix, createDirIfNeeded);
         }
 
         public static string ExtractFilePath(IExtractDataProvider prov, string ftpFileName)
@@ -89,7 +91,17 @@ namespace CprBroker.Providers.CPRDirect
             return folder + localName;
         }
 
-        public static string UniqueFileName(string targetFolder, string localName, bool createDirIfNeeded = false)
+        public static string CompanionFilePath(IExtractDataProvider prov, string path)
+        {
+            return CompanionFilePath(path, prov.CompanionFilePostfix);
+        }
+
+        public static string CompanionFilePath(string path, string postFix)
+        {
+            return string.Format("{0}{1}", path, postFix);
+        }
+
+        public static string UniqueFileName(string targetFolder, string localName, string companionFilePostfix, bool createDirIfNeeded = false)
         {
             targetFolder = CprBroker.Utilities.Strings.EnsureDirectoryEndSlash(targetFolder, true);
             var targetDirInfo = new DirectoryInfo(targetFolder);
@@ -97,7 +109,7 @@ namespace CprBroker.Providers.CPRDirect
             var targetFile = targetDirInfo.FullName + localName;
             var targetFileInfo = new FileInfo(localName);
 
-            while (File.Exists(targetFile))
+            while (File.Exists(targetFile) || File.Exists(CompanionFilePath(targetFile, companionFilePostfix)))
             {
                 targetFile = string.Format("{0}{1}\\{2}",
                       targetDirInfo.FullName,
