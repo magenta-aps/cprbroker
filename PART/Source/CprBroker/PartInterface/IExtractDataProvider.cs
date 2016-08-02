@@ -55,8 +55,9 @@ namespace CprBroker.PartInterface
         string FtpAddress { get; }
         string[] ListFtpContents();
         long GetLength(string subPath);
-        void DownloadFile(string subPath, long length);
+        void DownloadFile(string subPath, string localPath, long length);
         void DeleteFile(string subPath);
         bool IsDataFile(string localPath);
+        bool KeepFilesLocally { get; }
     }
 }

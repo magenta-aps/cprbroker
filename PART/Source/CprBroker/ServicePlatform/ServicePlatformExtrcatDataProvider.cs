@@ -198,6 +198,14 @@ namespace CprBroker.Providers.ServicePlatform
             set { this.ConfigurationProperties[Constants.ConfigProperties.SftpRemotePath] = value; }
         }
 
+        public bool KeepFilesLocally
+        {
+            get
+            {
+                return false;
+            }
+        }
+
         #endregion
 
         public Schemas.Part.FiltreretOejebliksbilledeType ReadPeriod(DateTime fromDate, DateTime toDate, Schemas.PersonIdentifier pId, Func<string, Guid> cpr2uuidFunc)

@@ -120,11 +120,11 @@ namespace CprBroker.Providers.ServicePlatform
             }
         }
 
-        public void DownloadFile(String fileName, long lengthUnUsed)
+        public void DownloadFile(String fileName, string localPath, long lengthUnUsed)
         {
             try //TODO: Remove exception handling - logging will be done at a higher level
             {
-                String localPathPrepared = PrepareLocalPathFile(fileName);
+                String localPathPrepared = localPath;
                 String localPathPreparedMeta = localPathPrepared + Constants.MetaDataFilePostfix;
 
                 if (File.Exists(localPathPrepared) || File.Exists(localPathPreparedMeta))
@@ -196,11 +196,6 @@ namespace CprBroker.Providers.ServicePlatform
         protected string PrepareRemotePathFile(string fileName)
         {
             return PrepareRemotePathDir(SftpRemotePath) + fileName;
-        }
-
-        protected string PrepareLocalPathFile(string fileName)
-        {
-            return Utilities.Strings.EnsureEndString(ExtractsFolder, "\\", true) + fileName;
         }
 
         protected SessionOptions PopulateSftpSessionOptions()

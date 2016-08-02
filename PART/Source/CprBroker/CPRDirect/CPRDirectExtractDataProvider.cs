@@ -121,8 +121,9 @@ namespace CprBroker.Providers.CPRDirect
                     var filePath = CprBroker.Utilities.Strings.NewUniquePath(this.ExtractsFolder, "txt");
                     File.WriteAllText(filePath, "ABC");
                     string ss = File.ReadAllText(filePath);
-                    var tmpFile = ExtractManager.MoveToProcessed(this.ExtractsFolder, filePath);
-                    File.Delete(tmpFile);
+                    string processedPath = ExtractPaths.ProcessedFilePath(this, filePath, true);
+                    File.Move(filePath, processedPath);                    
+                    File.Delete(processedPath);
 
                     if (this.HasFtpSource)
                     {

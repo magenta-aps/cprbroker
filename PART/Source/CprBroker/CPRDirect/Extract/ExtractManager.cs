@@ -263,14 +263,22 @@ namespace CprBroker.Providers.CPRDirect
                 Admin.LogFormattedSuccess("Listing FTP contents at <{0}> ", prov.FtpAddress);
                 var ftpFiles = prov.ListFtpContents();
                 Admin.LogFormattedSuccess("Found <{0}> files at FTP <{1}> ", ftpFiles.Count(), prov.FtpAddress);
+
                 foreach (var ftpFile in ftpFiles)
                 {
                     try
                     {
                         string name = ftpFile;
-                        Admin.LogFormattedSuccess("Downloading FTP file <{0}>", name);
+
+                        string tmpDownloadFile = ExtractPaths.TempDownloadFilePath(prov, name, true);
+                        Admin.LogFormattedSuccess("Downloading FTP file <{0}> to <{1}>", name, tmpDownloadFile);
                         var len = prov.GetLength(name);
-                        prov.DownloadFile(name, len);
+                        prov.DownloadFile(name, tmpDownloadFile, len);
+
+                        var extractFilePath = ExtractPaths.ExtractFilePath(prov, ftpFile);
+                        Admin.LogFormattedSuccess("Staging file, moving <{0}> to <{1}>", tmpDownloadFile, extractFilePath);
+                        File.Move(tmpDownloadFile, extractFilePath);
+
                         Admin.LogFormattedSuccess("Deleting FTP file <{0}> ", ftpFile);
                         prov.DeleteFile(name);
                     }
@@ -304,34 +312,15 @@ namespace CprBroker.Providers.CPRDirect
                         // Skip non data files metadata file
                         Admin.LogFormattedSuccess("File <{0}> is not a data file", file);
                     }
-                    MoveToProcessed(prov.ExtractsFolder, file);
-                    Admin.LogFormattedSuccess("File <{0}> moved to \\Processed folder", file);
+                    var processedFilePath = ExtractPaths.ProcessedFilePath(prov, file, true);
+                    File.Move(file, processedFilePath);
+                    Admin.LogFormattedSuccess("File <{0}> moved to \\Processed folder <{1}>", file, processedFilePath);
                 }
                 catch (Exception ex)
                 {
                     Admin.LogException(ex);
                 }
             }
-        }
-
-        public static string MoveToProcessed(string folder, string fileFullPath)
-        {
-            var processedFolderPath = new DirectoryInfo(folder).FullName + "\\Processed";
-            var targetFilePath = processedFolderPath + "\\" + new FileInfo(fileFullPath).Name;
-
-            while (File.Exists(targetFilePath))
-            {
-                processedFolderPath = new DirectoryInfo(folder).FullName + "\\Processed\\" + Utilities.Strings.NewRandomString(5) + "\\";
-                targetFilePath = processedFolderPath + "\\" + new FileInfo(fileFullPath).Name;
-            }
-
-            if (!Directory.Exists(processedFolderPath))
-            {
-                Directory.CreateDirectory(processedFolderPath);
-            }
-
-            File.Move(fileFullPath, targetFilePath);
-            return targetFilePath;
         }
 
         public static void ConvertPersons()

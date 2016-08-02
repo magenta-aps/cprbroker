@@ -146,10 +146,8 @@ namespace CprBroker.Providers.CPRDirect
         }
 
 
-        public void DownloadFile(string subPath, long length)
+        public void DownloadFile(string subPath, string localFileName, long length)
         {
-            string localFileName = ExtractsFolder + "\\" + subPath.Split(new char[] { '\\', '/' }).Last();
-            Console.WriteLine(localFileName);
             long readSoFar = 0;
             var request = CreateFtpConnection(subPath);
             using (var resp = request.GetResponse())
@@ -187,6 +185,14 @@ namespace CprBroker.Providers.CPRDirect
         {
             // Accept all files
             return true;
+        }
+
+        public bool KeepFilesLocally
+        {
+            get
+            {
+                return false;
+            }
         }
     }
 }
