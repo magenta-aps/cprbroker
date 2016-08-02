@@ -51,6 +51,7 @@ using CprBroker.Providers.ServicePlatform.Responses;
 using CprBroker.Providers.CprServices.Responses;
 using NUnit.Framework;
 using System.IO;
+using CprBroker.Providers.CPRDirect;
 
 namespace CprBroker.Tests.ServicePlatform
 {
@@ -64,7 +65,7 @@ namespace CprBroker.Tests.ServicePlatform
             protected static readonly string pathToWorkDir = @".\Resources\SFTP-testfiles\";
 
             [SetUp]
-            public void InitContext()
+            public void SetUp()
             {
                 CprBroker.Engine.BrokerContext.Initialize(CprBroker.Utilities.Constants.BaseApplicationToken.ToString(), "NUnit");
                 var prov = ServicePlatformDataProviderFactory.CreateExtractDataProvider();
@@ -75,23 +76,26 @@ namespace CprBroker.Tests.ServicePlatform
             }
 
             [Test]
-            public void Sftp_TestListSFtpContents()
+            public void ListFtpContents_SampleFilesAdded_ContainsSampleFiles()
             {
                 var prov = ServicePlatformDataProviderFactory.CreateExtractDataProvider();
+                
+                // The sample files should have been added in the InitContext() startup method
                 String[] ftpContent = prov.ListFtpContents();
+
                 Assert.AreEqual(2, ftpContent.Length);
                 Assert.True((ftpContent[0].Equals(fileName1) || ftpContent[1].Equals(fileName1))
                     && (ftpContent[0].Equals(fileName2) || ftpContent[1].Equals(fileName2)));
             }
 
             [Test]
-            public void Sftp_TestDownloadSftpFileToExtractsFolder()
+            public void DownloadFile_Normal_ExistsInExtractsFolder()
             {
                 var prov = ServicePlatformDataProviderFactory.CreateExtractDataProvider();
                 String fileName2LocalPath = Utilities.Strings.EnsureEndString(prov.ExtractsFolder, "\\", true) + fileName2;
                 Assert.False(File.Exists(fileName2LocalPath));
 
-                prov.DownloadFile(fileName2,fileName2LocalPath, 0);
+                prov.DownloadFile(fileName2, fileName2LocalPath, 0);
 
                 Assert.True(File.Exists(fileName2LocalPath));
                 Assert.True(File.Exists(fileName2LocalPath + CprBroker.Providers.ServicePlatform.Constants.MetaDataFilePostfix));
@@ -100,8 +104,21 @@ namespace CprBroker.Tests.ServicePlatform
                 File.Delete(fileName2LocalPath + CprBroker.Providers.ServicePlatform.Constants.MetaDataFilePostfix);
             }
 
+            [Test]
+            [ExpectedException(ExpectedMessage = "already exists", MatchType = MessageMatch.Contains)]
+            public void DownloadFile_CompanionExistsLocally_Exception()
+            {
+                var prov = ServicePlatformDataProviderFactory.CreateExtractDataProvider();
+                String fileName2LocalPath = Utilities.Strings.EnsureEndString(prov.ExtractsFolder, "\\", true) + fileName2;
+                var companionFile2Path = ExtractPaths.CompanionFilePath(prov, fileName2LocalPath);
+                Assert.False(File.Exists(fileName2LocalPath));
+                File.WriteAllText(companionFile2Path, "ABC");
+
+                prov.DownloadFile(fileName2, fileName2LocalPath, 0);
+            }
+
             [TearDown]
-            public void tearDown()
+            public void TearDown()
             {
                 var prov = ServicePlatformDataProviderFactory.CreateExtractDataProvider();
                 prov.DeleteFile(fileName1);

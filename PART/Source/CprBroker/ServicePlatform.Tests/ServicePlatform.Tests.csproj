@@ -78,6 +78,10 @@
       <Project>{f9f2357b-981f-4048-96c5-315ee3872276}</Project>
       <Name>CPRDirect.Tests</Name>
     </ProjectReference>
+    <ProjectReference Include="..\CPRDirect\CPRDirect.csproj">
+      <Project>{eddb494d-782d-4d45-8599-633057b9b203}</Project>
+      <Name>CPRDirect</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CprServices\CprServices.csproj">
       <Project>{f9d6a4ea-9db1-4ba7-a5be-0c183fbabbf8}</Project>
       <Name>CprServices</Name>
