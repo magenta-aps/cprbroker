@@ -24,6 +24,7 @@
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
     <TargetFrameworkProfile />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -126,6 +127,7 @@
     </Content>
     <Content Include="Config\applicationSettings.config" />
     <Content Include="Config\loggingConfiguration.config" />
+    <Content Include="Config\log4net.config" />
     <None Include="Templates\Notification.wsdl" />
   </ItemGroup>
   <ItemGroup>
