@@ -70,6 +70,7 @@ namespace CprBroker.Utilities
         {
             public static readonly string Category = "General";
             public static readonly string ApplicationId = "ApplicationId";
+            public static readonly string ActivityId = "ActivityId";
             public static readonly string ApplicationToken = "ApplicationToken";
             public static readonly string ApplicationName = "ApplicationName";
             public static readonly string UserToken = "UserToken";

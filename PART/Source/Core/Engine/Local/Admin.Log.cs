@@ -50,6 +50,11 @@ using CprBroker.Schemas;
 using CprBroker.Engine;
 using CprBroker.Data;
 using CprBroker.Utilities;
+using log4net;
+using log4net.Core;
+using log4net.Util;
+using System.IO;
+using CprBroker.Utilities.Config;
 
 namespace CprBroker.Engine.Local
 {
@@ -126,6 +131,47 @@ namespace CprBroker.Engine.Local
             LogException(ex, string.Format("{0}. Application={1}; Subscription={2} sent to {3}", TextMessages.NotificationSentSuccessfully, applicationToken, subscriptionId, notificationUrl));
         }
 
+        public static void AddNewLog(TraceEventType logType, string methodName, string text, string objectType, string xml)
+        {
+            //AddNewLog_EntLib(logType, methodName, text, objectType, xml);
+            AddNewLog_Log4net(logType, methodName, text, objectType, xml);
+        }
+
+        private static readonly ILog log = LogManager.GetLogger(typeof(object));
+        static Admin()
+        {
+            var mainConfigPath = ConfigUtils.GetConfigFile().FilePath;
+            var path = Path.Combine(
+                new FileInfo(mainConfigPath).Directory.FullName,
+                string.Format("{0}", ConfigManager.Current.Settings.Log4NetConfig)
+                );
+
+            log4net.Config.XmlConfigurator.ConfigureAndWatch(new FileInfo(path));
+        }
+
+        public static void AddNewLog_Log4net(TraceEventType logType, string methodName, string text, string objectType, string xml)
+        {
+            var props = new PropertiesDictionary();
+            foreach (var kvp in Props(methodName, objectType, xml))
+                props[kvp.Key] = kvp.Value == null ? "" : kvp.Value;
+
+            var logEvent = new LoggingEvent(new LoggingEventData()
+            {
+                Level = new Level((int)logType, logType.ToString()),
+                Message = text,
+                TimeStamp = DateTime.Now,
+                UserName = BrokerContext.Current.UserName,
+                ExceptionString = null,
+                Domain = null,
+                Identity = null,
+                LocationInfo = null,
+                LoggerName = null,
+                Properties = props,
+                ThreadName = null
+            });
+            log.Logger.Log(logEvent);
+        }
+
         /// <summary>
         /// Writes a new entry to the system log
         /// Other methods are used as some sort of overload fro different logging usages
@@ -135,7 +181,7 @@ namespace CprBroker.Engine.Local
         /// <param name="text"></param>
         /// <param name="objectType"></param>
         /// <param name="xml"></param>
-        public static void AddNewLog(TraceEventType logType, string methodName, string text, string objectType, string xml)
+        public static void AddNewLog_EntLib(TraceEventType logType, string methodName, string text, string objectType, string xml)
         {
             // Fill default values
             if (string.IsNullOrEmpty(methodName))
@@ -154,15 +200,10 @@ namespace CprBroker.Engine.Local
             //ent.Priority = ;
             //ent.Title = ;
 
-            Dictionary<string, object> extendedProperties = ent.ExtendedProperties as Dictionary<string, object>;
-            extendedProperties[Constants.Logging.ApplicationId] = BrokerContext.Current.ApplicationId;
-            extendedProperties[Constants.Logging.ApplicationName] = BrokerContext.Current.ApplicationName;
-            extendedProperties[Constants.Logging.ApplicationToken] = BrokerContext.Current.ApplicationToken;
-            extendedProperties[Constants.Logging.UserToken] = BrokerContext.Current.UserToken;
-            extendedProperties[Constants.Logging.UserName] = BrokerContext.Current.UserName;
-            extendedProperties[Constants.Logging.MethodName] = methodName;
-            extendedProperties[Constants.Logging.DataObjectType] = objectType;
-            extendedProperties[Constants.Logging.DataObjectXml] = xml;
+
+            var extendedProperties = ent.ExtendedProperties as Dictionary<string, object>;
+            foreach (var kvp in Props(methodName, objectType, xml))
+                extendedProperties[kvp.Key] = kvp.Value;
 
             var keys = extendedProperties.Keys.ToArray();
             foreach (var key in keys)
@@ -174,6 +215,22 @@ namespace CprBroker.Engine.Local
             }
 
             Microsoft.Practices.EnterpriseLibrary.Logging.Logger.Write(ent);
+        }
+
+        public static Dictionary<string, object> Props(string methodName, string objectType, string xml)
+        {
+            Dictionary<string, object> extendedProperties = new Dictionary<string, object>();
+            extendedProperties[Constants.Logging.ApplicationId] = BrokerContext.Current.ApplicationId;
+            extendedProperties[Constants.Logging.ActivityId] = BrokerContext.Current.ActivityId;
+            extendedProperties[Constants.Logging.ApplicationName] = BrokerContext.Current.ApplicationName;
+            extendedProperties[Constants.Logging.ApplicationToken] = BrokerContext.Current.ApplicationToken;
+            extendedProperties[Constants.Logging.UserToken] = BrokerContext.Current.UserToken;
+            extendedProperties[Constants.Logging.UserName] = BrokerContext.Current.UserName;
+            extendedProperties[Constants.Logging.MethodName] = methodName;
+            extendedProperties[Constants.Logging.DataObjectType] = objectType;
+            extendedProperties[Constants.Logging.DataObjectXml] = xml;
+
+            return extendedProperties;
         }
 
     }
