@@ -57,7 +57,7 @@ namespace CprBrokerWixInstallers
     {
         private static readonly string[] FeatureSuffices = new string[] { "CPR", "EVENT" };
 
-        private static string GetRegistryKey(string key, string suffix, Session session)
+        private static string GetRegistryKey(string key, string suffix, SessionAdapter session)
         {
             var path = string.Format("HKEY_LOCAL_MACHINE\\{0}\\{1}", key, suffix);
             string pat = @"\[(?<propName>\w+)\]";
@@ -72,6 +72,10 @@ namespace CprBrokerWixInstallers
 
         [CustomAction]
         public static ActionResult RunRegistrySearch(Session session)
+        {
+            return RunRegistrySearch(session.Adapter());
+        }
+        public static ActionResult RunRegistrySearch(SessionAdapter session)
         {
             View regLocatorView = session.Database.OpenView("SELECT * FROM RegLocator");
             regLocatorView.Execute();
@@ -135,6 +139,10 @@ namespace CprBrokerWixInstallers
 
         [CustomAction]
         public static ActionResult RunWriteRegistryValues(Session session)
+        {
+            return RunWriteRegistryValues(session.Adapter());
+        }
+        public static ActionResult RunWriteRegistryValues(SessionAdapter session)
         {
             string[] keys = session.CustomActionData["REGISTRY_KEYS"].Split(',');
             string[] names = session.CustomActionData["REGISTRY_NAMES"].Split(',');

@@ -51,7 +51,7 @@ namespace CprBroker.Installers
 {
     public abstract class BaseSetupInfo
     {
-        public static string GetRegistryProductRoot(Session session, bool includeLocalMachine)
+        public static string GetRegistryProductRoot(SessionAdapter session, bool includeLocalMachine)
         {
             var ret = string.Format(@"Software\{0}\{1}", session.GetPropertyValue(PropertyNames.Manufacturer), session.GetPropertyValue(PropertyNames.ProductName));
             if (includeLocalMachine)
@@ -59,12 +59,12 @@ namespace CprBroker.Installers
             return ret;
         }
 
-        public static string GetRegistryPath(Session session, string subRoot, string featureName, bool includeLocalMachine)
+        public static string GetRegistryPath(SessionAdapter session, string subRoot, string featureName, bool includeLocalMachine)
         {
             return string.Format(@"{0}\{1}\{2}", GetRegistryProductRoot(session, includeLocalMachine), subRoot, featureName);
         }
 
-        public static void AddRegistryEntries(Session session, string subRoot, Dictionary<string, string> propertyToRegistryMappings, string featureName, string componentName)
+        public static void AddRegistryEntries(SessionAdapter session, string subRoot, Dictionary<string, string> propertyToRegistryMappings, string featureName, string componentName)
         {
             string key = GetRegistryPath(session, subRoot, featureName, false);
             View lView = session.Database.OpenView("SELECT * FROM Registry");
@@ -86,7 +86,7 @@ namespace CprBroker.Installers
             }
         }
 
-        public static void CopyRegistryToProperties(Session session, string subRoot, Dictionary<string, string> propertyToRegistryMappings, string featureName)
+        public static void CopyRegistryToProperties(SessionAdapter session, string subRoot, Dictionary<string, string> propertyToRegistryMappings, string featureName)
         {
             string key = GetRegistryPath(session, subRoot, featureName, true);
             string keyWithoutFeature = key.Replace("\\" + featureName, "");
@@ -103,7 +103,7 @@ namespace CprBroker.Installers
             }
         }
 
-        public static CustomActionData GetCustomActionData(Session session)
+        public static CustomActionData GetCustomActionData(SessionAdapter session)
         {
             var ret = new CustomActionData();
             ret[PropertyNames.InstallDir] = session.GetPropertyValue(PropertyNames.InstallDir);
@@ -115,7 +115,7 @@ namespace CprBroker.Installers
             return ret;
         }
 
-        public static void SetSuggestedPropertyValues(Session session, string featureName, string[] allFeatureNames, string[] allSuggestedNames, string[] propertyNames)
+        public static void SetSuggestedPropertyValues(SessionAdapter session, string featureName, string[] allFeatureNames, string[] allSuggestedNames, string[] propertyNames)
         {
             var index = Array.IndexOf<string>(allFeatureNames, featureName);
             if (index != -1)

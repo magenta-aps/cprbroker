@@ -55,7 +55,7 @@ namespace CprBroker.Installers
 {
     public static partial class DatabaseCustomAction
     {
-        public static ActionResult AppSearch_DB(Session session, bool databaseShouldBeNew)
+        public static ActionResult AppSearch_DB(SessionAdapter session, bool databaseShouldBeNew)
         {
             RunDatabaseAction(
                 session,
@@ -84,6 +84,11 @@ namespace CprBroker.Installers
 
         public static ActionResult PreDatabaseDialog(Session session)
         {
+            return PreDatabaseDialog(session.Adapter());
+        }
+
+        public static ActionResult PreDatabaseDialog(SessionAdapter session)
+        {
             var featureName = session.GetPropertyValue(DatabaseSetupInfo.FeaturePropertyName);
             var databaseSetupInfo = DatabaseSetupInfo.CreateFromFeature(session, featureName);
             if (databaseSetupInfo != null)
@@ -97,7 +102,7 @@ namespace CprBroker.Installers
             return ActionResult.Success;
         }
 
-        public static ActionResult AfterDatabaseDialog(Session session, bool databaseShouldBeNew)
+        public static ActionResult AfterDatabaseDialog(SessionAdapter session, bool databaseShouldBeNew)
         {
             var databaseSetupInfo = DatabaseSetupInfo.CreateFromCurrentDetails(session);
             databaseSetupInfo.UseExistingDatabase = false;
@@ -110,6 +115,10 @@ namespace CprBroker.Installers
         }
 
         public static ActionResult AfterInstallInitialize_DB(Session session)
+        {
+            return AfterInstallInitialize_DB(session.Adapter());
+        }
+        public static ActionResult AfterInstallInitialize_DB(SessionAdapter session)
         {
             RunDatabaseAction(
                 session,
@@ -128,7 +137,7 @@ namespace CprBroker.Installers
             return ActionResult.Success;
         }
 
-        public static bool TestConnectionString(Session session, DatabaseSetupInfo dbInfo, bool databaseShouldBeNew, bool userInterfaceEnabled)
+        public static bool TestConnectionString(SessionAdapter session, DatabaseSetupInfo dbInfo, bool databaseShouldBeNew, bool userInterfaceEnabled)
         {
             string message = "";
             dbInfo.UseExistingDatabase = false;
@@ -166,7 +175,7 @@ namespace CprBroker.Installers
             }
         }
 
-        static void RunDatabaseAction(Session session, Action<string> func)
+        static void RunDatabaseAction(SessionAdapter session, Action<string> func)
         {
             foreach (var featureName in DatabaseSetupInfo.GetDatabaseFeatureNames(session))
             {
@@ -174,7 +183,7 @@ namespace CprBroker.Installers
             }
         }
 
-        public static ActionResult DeployDatabase(Session session, Dictionary<string, string> createDatabaseObjectsSql, Dictionary<string, KeyValuePair<string, string>[]> lookupDataArray, Dictionary<string, Action<SqlConnection>> customMethods = null)
+        public static ActionResult DeployDatabase(SessionAdapter session, Dictionary<string, string> createDatabaseObjectsSql, Dictionary<string, KeyValuePair<string, string>[]> lookupDataArray, Dictionary<string, Action<SqlConnection>> customMethods = null)
         {
             var featureNames = DatabaseSetupInfo.GetDatabaseFeatureNames(session);
             var databaseSetupInformation = featureNames.ToDictionary(fn => fn, featureName => DatabaseSetupInfo.CreateFromFeature(session, featureName));
@@ -202,7 +211,7 @@ namespace CprBroker.Installers
             return ActionResult.Success;
         }
 
-        public static ActionResult RemoveDatabase(Session session, bool askUser)
+        public static ActionResult RemoveDatabase(SessionAdapter session, bool askUser)
         {
             RunDatabaseAction(
                 session,
@@ -227,7 +236,7 @@ namespace CprBroker.Installers
             return ActionResult.Success;
         }
 
-        public static ActionResult PatchDatabase(Session session, Dictionary<string, DatabasePatchInfo[]> featurePatchInfos)
+        public static ActionResult PatchDatabase(SessionAdapter session, Dictionary<string, DatabasePatchInfo[]> featurePatchInfos)
         {
             var version = session.GetDetectedOlderVersion();
 

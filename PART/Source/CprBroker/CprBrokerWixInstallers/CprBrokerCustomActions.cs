@@ -63,23 +63,27 @@ namespace CprBrokerWixInstallers
         [CustomAction]
         public static ActionResult CalculateExecutionElevated(Session session)
         {
-            return ProductCustomActions.CalculateExecutionElevated(session);
+            return ProductCustomActions.CalculateExecutionElevated(session.Adapter());
         }
 
         [CustomAction]
         public static ActionResult ReEvaluateLaunchConditions(Session session)
         {
-            return ProductCustomActions.ReEvaluateLaunchConditions(session);
+            return ProductCustomActions.ReEvaluateLaunchConditions(session.Adapter());
         }
 
         [CustomAction]
         public static ActionResult SetNetworkServiceUserName(Session session)
         {
-            return ProductCustomActions.SetNetworkServiceUserName(session);
+            return ProductCustomActions.SetNetworkServiceUserName(session.Adapter());
         }
 
         [CustomAction]
         public static ActionResult AfterInstallInitialize_Product(Session session)
+        {
+            return AfterInstallInitialize_Product(session.Adapter());
+        }
+        public static ActionResult AfterInstallInitialize_Product(SessionAdapter session)
         {
             try
             {
@@ -95,6 +99,10 @@ namespace CprBrokerWixInstallers
         [CustomAction]
         public static ActionResult ForgetOlderVersions(Session session)
         {
+            return ForgetOlderVersions(session.Adapter());
+        }
+        public static ActionResult ForgetOlderVersions(SessionAdapter session)
+        {
             try
             {
                 return ProductCustomActions.ForgetOlderVersions(session);
@@ -108,6 +116,10 @@ namespace CprBrokerWixInstallers
 
         [CustomAction]
         public static ActionResult AppSearch_DB(Session session)
+        {
+            return AppSearch_DB(session.Adapter());
+        }
+        public static ActionResult AppSearch_DB(SessionAdapter session)
         {
             try
             {
@@ -123,6 +135,10 @@ namespace CprBrokerWixInstallers
         [CustomAction]
         public static ActionResult PreDatabaseDialog(Session session)
         {
+            return PreDatabaseDialog(session.Adapter());
+        }
+        public static ActionResult PreDatabaseDialog(SessionAdapter session)
+        {
             try
             {
                 return DatabaseCustomAction.PreDatabaseDialog(session);
@@ -136,6 +152,10 @@ namespace CprBrokerWixInstallers
 
         [CustomAction]
         public static ActionResult AfterDatabaseDialog(Session session)
+        {
+            return AfterDatabaseDialog(session.Adapter());
+        }
+        public static ActionResult AfterDatabaseDialog(SessionAdapter session)
         {
             try
             {
@@ -151,6 +171,10 @@ namespace CprBrokerWixInstallers
         [CustomAction]
         public static ActionResult AfterInstallInitialize_DB(Session session)
         {
+            return AfterInstallInitialize_DB(session.Adapter());
+        }
+        public static ActionResult AfterInstallInitialize_DB(SessionAdapter session)
+        {
             try
             {
                 return DatabaseCustomAction.AfterInstallInitialize_DB(session);
@@ -164,6 +188,10 @@ namespace CprBrokerWixInstallers
 
         [CustomAction]
         public static ActionResult DeployDatabase(Session session)
+        {
+            return DeployDatabase(session.Adapter());
+        }
+        public static ActionResult DeployDatabase(SessionAdapter session)
         {
             try
             {
@@ -198,6 +226,10 @@ namespace CprBrokerWixInstallers
         [CustomAction]
         public static ActionResult RemoveDatabase(Session session)
         {
+            return RemoveDatabase(session.Adapter());
+        }
+        public static ActionResult RemoveDatabase(SessionAdapter session)
+        {
             try
             {
                 return DatabaseCustomAction.RemoveDatabase(session, true);
@@ -212,6 +244,10 @@ namespace CprBrokerWixInstallers
         [CustomAction]
         public static ActionResult RollbackDatabase(Session session)
         {
+            return RollbackDatabase(session.Adapter());
+        }
+        public static ActionResult RollbackDatabase(SessionAdapter session)
+        {
             try
             {
                 return DatabaseCustomAction.RemoveDatabase(session, false);
@@ -225,6 +261,10 @@ namespace CprBrokerWixInstallers
 
         [CustomAction]
         public static ActionResult PatchDatabase(Session session)
+        {
+            return PatchDatabase(session.Adapter());
+        }
+        public static ActionResult PatchDatabase(SessionAdapter session)
         {
             try
             {
@@ -333,6 +373,10 @@ namespace CprBrokerWixInstallers
         [CustomAction]
         public static ActionResult PopulateWebsites(Session session)
         {
+            return PopulateWebsites(session.Adapter());
+        }
+        public static ActionResult PopulateWebsites(SessionAdapter session)
+        {
             try
             {
                 return WebsiteCustomAction.PopulateWebsites(session);
@@ -348,6 +392,10 @@ namespace CprBrokerWixInstallers
         [CustomAction]
         public static ActionResult AppSearch_WEB(Session session)
         {
+            return AppSearch_WEB(session.Adapter());
+        }
+        public static ActionResult AppSearch_WEB(SessionAdapter session)
+        {
             try
             {
                 return WebsiteCustomAction.AppSearch_WEB(session);
@@ -361,6 +409,10 @@ namespace CprBrokerWixInstallers
 
         [CustomAction]
         public static ActionResult PreWebDialog(Session session)
+        {
+            return PreWebDialog(session.Adapter());
+        }
+        public static ActionResult PreWebDialog(SessionAdapter session)
         {
             try
             {
@@ -376,6 +428,10 @@ namespace CprBrokerWixInstallers
         [CustomAction]
         public static ActionResult AfterWebDialog(Session session)
         {
+            return AfterWebDialog(session.Adapter());
+        }
+        public static ActionResult AfterWebDialog(SessionAdapter session)
+        {
             try
             {
                 return WebsiteCustomAction.AfterWebDialog(session);
@@ -389,6 +445,10 @@ namespace CprBrokerWixInstallers
 
         [CustomAction]
         public static ActionResult AfterInstallInitialize_WEB(Session session)
+        {
+            return AfterInstallInitialize_WEB(session.Adapter());
+        }
+        public static ActionResult AfterInstallInitialize_WEB(SessionAdapter session)
         {
             try
             {
@@ -413,6 +473,10 @@ namespace CprBrokerWixInstallers
 
         [CustomAction]
         public static ActionResult CreateWebsite(Session session)
+        {
+            return CreateWebsite(session.Adapter());
+        }
+        public static ActionResult CreateWebsite(SessionAdapter session)
         {
             try
             {
@@ -503,6 +567,10 @@ namespace CprBrokerWixInstallers
         [CustomAction]
         public static ActionResult RollbackWebsite(Session session)
         {
+            return RollbackWebsite(session.Adapter());
+        }
+        public static ActionResult RollbackWebsite(SessionAdapter session)
+        {
             try
             {
                 return WebsiteCustomAction.RollbackWebsite(session);
@@ -517,6 +585,10 @@ namespace CprBrokerWixInstallers
         [CustomAction]
         public static ActionResult RemoveWebsite(Session session)
         {
+            return RemoveWebsite(session.Adapter());
+        }
+        public static ActionResult RemoveWebsite(SessionAdapter session)
+        {
             try
             {
                 return WebsiteCustomAction.RemoveWebsite(session);
@@ -530,6 +602,10 @@ namespace CprBrokerWixInstallers
 
         [CustomAction]
         public static ActionResult PatchWebsite(Session session)
+        {
+            return PatchWebsite(session.Adapter());
+        }
+        public static ActionResult PatchWebsite(SessionAdapter session)
         {
             try
             {

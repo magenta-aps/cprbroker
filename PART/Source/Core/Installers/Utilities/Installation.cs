@@ -172,7 +172,7 @@ namespace CprBroker.Installers
             return new WindowHandleWrapper(installer.Context.Parameters["productName"]);
         }
 
-        public static WindowHandleWrapper InstallerWindowWrapper(this Microsoft.Deployment.WindowsInstaller.Session session)
+        public static WindowHandleWrapper InstallerWindowWrapper(this SessionAdapter session)
         {
             var title = session.GetPropertyValue(PropertyNames.ProductName);
             var ret = new WindowHandleWrapper(title + " Setup");
@@ -183,37 +183,37 @@ namespace CprBroker.Installers
             return ret;
         }
 
-        public static bool IsInDeferredMode(this Microsoft.Deployment.WindowsInstaller.Session session)
+        public static bool IsInDeferredMode(this SessionAdapter session)
         {
             return session.GetMode(Microsoft.Deployment.WindowsInstaller.InstallRunMode.Scheduled) || session.GetMode(Microsoft.Deployment.WindowsInstaller.InstallRunMode.Rollback) || session.GetMode(Microsoft.Deployment.WindowsInstaller.InstallRunMode.Commit);
         }
 
-        public static bool IsRemoving(this Microsoft.Deployment.WindowsInstaller.Session session)
+        public static bool IsRemoving(this SessionAdapter session)
         {
             return !string.IsNullOrEmpty(session.GetPropertyValue(PropertyNames.Remove));
         }
 
-        public static bool IsPatching(this Microsoft.Deployment.WindowsInstaller.Session session)
+        public static bool IsPatching(this SessionAdapter session)
         {
             return !string.IsNullOrEmpty(session.GetPropertyValue(PropertyNames.Patch));
         }
 
-        public static bool IsOlderVersionDetected(this Microsoft.Deployment.WindowsInstaller.Session session)
+        public static bool IsOlderVersionDetected(this SessionAdapter session)
         {
             return !string.IsNullOrEmpty(session.GetPropertyValue(PropertyNames.OlderVersionDetected));
         }
 
-        public static string GetPropertyValue(this Microsoft.Deployment.WindowsInstaller.Session session, string propName)
+        public static string GetPropertyValue(this SessionAdapter session, string propName)
         {
             return GetPropertyValue(session, propName, "");
         }
 
-        public static string GetPropertyValue(this Microsoft.Deployment.WindowsInstaller.Session session, string propName, string featureName)
+        public static string GetPropertyValue(this SessionAdapter session, string propName, string featureName)
         {
             return GetPropertyValue(session, propName, featureName, false);
         }
 
-        public static string GetPropertyValue(this Microsoft.Deployment.WindowsInstaller.Session session, string propName, string featureName, bool tryWithoutFeature)
+        public static string GetPropertyValue(this SessionAdapter session, string propName, string featureName, bool tryWithoutFeature)
         {
             string featurePropName = propName;
             if (
@@ -244,17 +244,17 @@ namespace CprBroker.Installers
 
         }
 
-        public static bool GetBooleanPropertyValue(this Microsoft.Deployment.WindowsInstaller.Session session, string propName)
+        public static bool GetBooleanPropertyValue(this SessionAdapter session, string propName)
         {
             return GetBooleanPropertyValue(session, propName, "");
         }
 
-        public static bool GetBooleanPropertyValue(this Microsoft.Deployment.WindowsInstaller.Session session, string propName, string featureName)
+        public static bool GetBooleanPropertyValue(this SessionAdapter session, string propName, string featureName)
         {
             return GetBooleanPropertyValue(session, propName, featureName, false);
         }
 
-        public static bool GetBooleanPropertyValue(this Microsoft.Deployment.WindowsInstaller.Session session, string propName, string featureName, bool tryWithoutFeature)
+        public static bool GetBooleanPropertyValue(this SessionAdapter session, string propName, string featureName, bool tryWithoutFeature)
         {
             var stringValue = GetPropertyValue(session, propName, featureName, tryWithoutFeature);
             bool ret;
@@ -262,7 +262,7 @@ namespace CprBroker.Installers
             return ret;
         }
 
-        public static void SetPropertyValue(this Microsoft.Deployment.WindowsInstaller.Session session, string propName, string propValue)
+        public static void SetPropertyValue(this SessionAdapter session, string propName, string propValue)
         {
             if (session.IsInDeferredMode())
             {
@@ -274,12 +274,12 @@ namespace CprBroker.Installers
             }
         }
 
-        public static string GetInstallDirProperty(this Microsoft.Deployment.WindowsInstaller.Session session)
+        public static string GetInstallDirProperty(this SessionAdapter session)
         {
             return CprBroker.Utilities.Strings.EnsureDirectoryEndSlash(session.GetPropertyValue(PropertyNames.InstallDir));
         }
 
-        public static void ShowErrorMessage(this Microsoft.Deployment.WindowsInstaller.Session session, Exception ex)
+        public static void ShowErrorMessage(this SessionAdapter session, Exception ex)
         {
             Microsoft.Deployment.WindowsInstaller.Record record = new Microsoft.Deployment.WindowsInstaller.Record();
             record.FormatString = ex.ToString();
@@ -288,12 +288,17 @@ namespace CprBroker.Installers
                 record);
         }
 
-        public static InstallUILevel UiLevel(this Microsoft.Deployment.WindowsInstaller.Session session)
+        public static InstallUILevel UiLevel(this SessionAdapter session)
         {
             return (InstallUILevel)int.Parse(session.GetPropertyValue("UILevel"));
         }
 
-        public static Version GetDetectedOlderVersion(this Microsoft.Deployment.WindowsInstaller.Session session)
+        public static SessionAdapter Adapter(this Microsoft.Deployment.WindowsInstaller.Session session)
+        {
+            return new SessionAdapter() { InnerSession = session };
+        }
+
+        public static Version GetDetectedOlderVersion(this SessionAdapter session)
         {
             var olderVersionProductCodeProp = session.GetPropertyValue(PropertyNames.OlderVersionDetected);
             if (!string.IsNullOrEmpty(olderVersionProductCodeProp))

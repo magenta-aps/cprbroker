@@ -52,15 +52,15 @@ namespace CprBroker.Installers
 {
     public abstract partial class WebInstallationInfo
     {
-        public static WebInstallationInfo CreateFromCurrentDetails(Session session)
+        public static WebInstallationInfo CreateFromCurrentDetails(SessionAdapter session)
         {
             return CreateFromCurrentDetails(session, "");
         }
-        public static WebInstallationInfo CreateFromCurrentDetails(Session session, string featureName)
+        public static WebInstallationInfo CreateFromCurrentDetails(SessionAdapter session, string featureName)
         {
             return CreateFromCurrentDetails(session, featureName, false);
         }
-        public static WebInstallationInfo CreateFromCurrentDetails(Session session, string featureName, bool tryWithoutFeature)
+        public static WebInstallationInfo CreateFromCurrentDetails(SessionAdapter session, string featureName, bool tryWithoutFeature)
         {
             if (!string.IsNullOrEmpty(featureName))
             {
@@ -89,7 +89,7 @@ namespace CprBroker.Installers
             }
         }
 
-        public void CopyToCurrentDetails(Session session)
+        public void CopyToCurrentDetails(SessionAdapter session)
         {
             session.SetPropertyValue(FeaturePropertyName, this.FeatureName);
 
@@ -113,12 +113,12 @@ namespace CprBroker.Installers
             }
         }
 
-        public static string[] GetWebFeatureNames(Session session)
+        public static string[] GetWebFeatureNames(SessionAdapter session)
         {
             return session.GetPropertyValue(AllFeaturesPropertyName).Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
         }
 
-        public static string[] GetSuggestedWebNames(Session session)
+        public static string[] GetSuggestedWebNames(SessionAdapter session)
         {
             return session.GetPropertyValue(SuggestedWebNamesPropertyName).Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
         }
@@ -128,7 +128,7 @@ namespace CprBroker.Installers
         public static readonly string AllInfoPropertyName = "WEB_ALL";
         public static readonly string SuggestedWebNamesPropertyName = "WEB_SuggestedWebNames";
 
-        private static WebInstallationInfo[] DeserializeAllFeatures(Session session)
+        private static WebInstallationInfo[] DeserializeAllFeatures(SessionAdapter session)
         {
             var allPropVal = session.GetPropertyValue(AllInfoPropertyName);
             if (allPropVal == "-")
@@ -139,13 +139,13 @@ namespace CprBroker.Installers
             return allInfo;
         }
 
-        private static void SerializeAllFeatures(Session session, WebInstallationInfo[] allInfo)
+        private static void SerializeAllFeatures(SessionAdapter session, WebInstallationInfo[] allInfo)
         {
             var allPropVal = CprBroker.Utilities.Strings.SerializeObject(allInfo);
             session.SetPropertyValue(AllInfoPropertyName, allPropVal);
         }
 
-        public static void AddFeatureDetails(Session session, WebInstallationInfo webInstallationInfo)
+        public static void AddFeatureDetails(SessionAdapter session, WebInstallationInfo webInstallationInfo)
         {
             var allInfo = DeserializeAllFeatures(session);
             var index = Array.FindIndex<WebInstallationInfo>(allInfo, inf => inf.FeatureName == webInstallationInfo.FeatureName);
@@ -162,7 +162,7 @@ namespace CprBroker.Installers
             SerializeAllFeatures(session, allInfo);
         }
 
-        public static WebInstallationInfo CreateFromFeature(Session session, string featureName)
+        public static WebInstallationInfo CreateFromFeature(SessionAdapter session, string featureName)
         {
             var allPropValue = session.GetPropertyValue(AllInfoPropertyName);
             var allInfo = DeserializeAllFeatures(session);
@@ -174,7 +174,7 @@ namespace CprBroker.Installers
             return ret;
         }
 
-        public static CustomActionData GetCustomActionData(Session session)
+        public static CustomActionData GetCustomActionData(SessionAdapter session)
         {
             var commponProps = BaseSetupInfo.GetCustomActionData(session);
 
@@ -190,7 +190,7 @@ namespace CprBroker.Installers
             return commponProps;
         }
 
-        public static void SetSuggestedPropertyValues(Session session, string featureName)
+        public static void SetSuggestedPropertyValues(SessionAdapter session, string featureName)
         {
             bool createAsWebSite = session.GetBooleanPropertyValue(WebInstallationInfo.Constants.CreateWebsite);
             string[] propertyNames = createAsWebSite ?

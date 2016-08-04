@@ -54,8 +54,7 @@ namespace CprBroker.Installers
 {
     public class ProductCustomActions
     {
-        [CustomAction]
-        public static ActionResult CalculateExecutionElevated(Session session)
+        public static ActionResult CalculateExecutionElevated(SessionAdapter session)
         {
             session.SetPropertyValue(
                 "ExecutionElevated",
@@ -65,8 +64,7 @@ namespace CprBroker.Installers
             return ActionResult.Success;
         }
 
-        [CustomAction]
-        public static ActionResult SetNetworkServiceUserName(Session session)
+        public static ActionResult SetNetworkServiceUserName(SessionAdapter session)
         {
             string networkServiceSID = "S-1-5-20";
             session.SetPropertyValue(
@@ -77,23 +75,20 @@ namespace CprBroker.Installers
             return ActionResult.Success;
         }
 
-        [CustomAction]
-        public static ActionResult ReEvaluateLaunchConditions(Session session)
+        public static ActionResult ReEvaluateLaunchConditions(SessionAdapter session)
         {
             session.DoAction("LaunchConditions");
             return ActionResult.Success;
         }
 
-        [CustomAction]
-        public static ActionResult AfterInstallInitialize_Product(Session session)
+        public static ActionResult AfterInstallInitialize_Product(SessionAdapter session)
         {
             var props = BaseSetupInfo.GetCustomActionData(session).ToString();
             session["ForgetOlderVersions"] = props;
             return ActionResult.Success;
         }
 
-        [CustomAction]
-        public static ActionResult ForgetOlderVersions(Session session)
+        public static ActionResult ForgetOlderVersions(SessionAdapter session)
         {
             string olderVersionDetected = session.GetPropertyValue(PropertyNames.OlderVersionDetected);
             string path = session.GetInstallDirProperty() + "MsiZap.exe";

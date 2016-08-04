@@ -71,12 +71,12 @@ namespace CprBroker.Installers
         public const string RegistrySubRoot = "Database";
         public const string ComponentName = "CMP_DatabaseRegistry";
 
-        public static void AddRegistryEntries(Session session, string featureName)
+        public static void AddRegistryEntries(SessionAdapter session, string featureName)
         {
             BaseSetupInfo.AddRegistryEntries(session, RegistrySubRoot, PropertyToRegistryMappings, featureName, ComponentName);
         }
 
-        public static void CopyRegistryToProperties(Session session, string featureName)
+        public static void CopyRegistryToProperties(SessionAdapter session, string featureName)
         {
             BaseSetupInfo.CopyRegistryToProperties(session, RegistrySubRoot, PropertyToRegistryMappings, featureName);
         }
