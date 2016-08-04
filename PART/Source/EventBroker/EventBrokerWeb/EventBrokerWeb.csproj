@@ -58,6 +58,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Core\Output\CprBroker.Utilities.dll</HintPath>
     </Reference>
+    <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.Practices.EnterpriseLibrary.Logging, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Dll\Microsoft.Practices.EnterpriseLibrary.Logging.dll</HintPath>
@@ -128,6 +132,7 @@
     <Content Include="Config\applicationSettings.config" />
     <Content Include="Config\loggingConfiguration.config" />
     <Content Include="Config\log4net.config" />
+    <Content Include="packages.config" />
     <None Include="Templates\Notification.wsdl" />
   </ItemGroup>
   <ItemGroup>

@@ -132,6 +132,12 @@
         </File>
       </Component>
 
+      <Component Id="CMP_EVENT_bin_log4net.dll" Directory="EVENT_bin">
+        <File Id="FILE_EVENT_bin_log4net.dll" Source="$(var.EventSitePath)bin\log4net.dll" KeyPath="yes">
+          <CopyFile Id="FILE_EVENT_bin_Backend_log4net.dll" DestinationDirectory="EVENT_Backend"/>
+        </File>
+      </Component>
+
       <Component Id="CMP_Event_WinSCPNet_Dll" Directory="EVENT_bin">
         <File Id="FILE_Event_WinSCPNet_Dll" Source="$(var.SitePath)bin\WinSCPnet.dll" KeyPath="yes">
           <CopyFile Id="FILE_Event_bin_backend_WinSCPNet_Dll" DestinationDirectory="EVENT_Backend"/>
@@ -152,6 +158,9 @@
       <Component Id="CMP_EVENT_bin_CprBroker.EventBroker.Backend.exe.config" Directory="EVENT_Backend">
         <File Id="FILE_EVENT_bin_CprBroker.EventBroker.Backend.exe.config" Source="$(var.EventOutputPath)CprBroker.EventBroker.Backend.exe.config" KeyPath="yes"/>
       </Component>
+      <Component Id="CMP_EVENT_backend_log4net.config" Directory="EVENT_Backend">
+        <File Id="FILE_EVENT_backend_log4net.config" Source="$(var.EventSitePath)..\Backend\log4net.config" KeyPath="yes"/>
+      </Component>
       <Component Id="CMP_EVENT_CprBroker.EventBroker.Backend.InstallLog" Directory="EVENT_Backend" Guid="{9A5D03F5-45C3-4913-841D-6FD56D402CE4}">
         <RemoveFile Id="FILE_EVENT_CprBroker.EventBroker.Backend.InstallLog" Name="CprBroker.EventBroker.Backend.InstallLog" On="uninstall"/>
       </Component>
@@ -167,6 +176,9 @@
       </Component>
       <Component Id="CMP_EVENT_Config_loggingConfiguration.config" Directory="EVENT_Config">
         <File Id="FILE_EVENT_Config_loggingConfiguration.config" Source="$(var.EventSitePath)Config\loggingConfiguration.config" KeyPath="yes"/>
+      </Component>
+      <Component Id="CMP_EVENT_Config_log4net.config" Directory="EVENT_Config">
+        <File Id="FILE_EVENT_Config_log4net.config" Source="$(var.EventSitePath)Config\log4net.config" KeyPath="yes" />
       </Component>
     </ComponentGroup>
 
