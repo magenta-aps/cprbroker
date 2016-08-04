@@ -560,6 +560,11 @@ namespace CprBrokerWixInstallers
                     new WebPatchInfo(){
                         Version = new Version(2,2,5),
                         PatchAction = () => PatchWebsite_2_2_5(session)
+                    },
+                    new WebPatchInfo()
+                    {
+                        Version = new Version(2,2,7),
+                        PatchAction = () => PatchWebsite_2_2_7(session)
                     }
                 };
 
@@ -576,8 +581,9 @@ namespace CprBrokerWixInstallers
                             EventBrokerCustomActions.MigrateBackendToDotNet40(session);
                             var eventWebInstallationInfo = WebInstallationInfo.CreateFromFeature(session, "EVENT");
                             WebsiteCustomAction.RunRegIIS(string.Format("-s {0}", eventWebInstallationInfo.TargetWmiSubPath), new Version(4, 0));
+                            // TODO: remove config section group definition 'system.web.extensions'
                         }
-                    }
+                    },
                 };
 
                 return WebsiteCustomAction.PatchWebsite(session, featurePatchInfos);

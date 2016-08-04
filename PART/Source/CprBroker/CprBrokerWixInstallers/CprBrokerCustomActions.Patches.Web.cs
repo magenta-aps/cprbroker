@@ -64,7 +64,7 @@ namespace CprBrokerWixInstallers
         {
             var types = new Type[]
             {
-                typeof(CprBroker.Providers.CPRDirect.CPRDirectClientDataProvider), 
+                typeof(CprBroker.Providers.CPRDirect.CPRDirectClientDataProvider),
                 typeof(CprBroker.Providers.CPRDirect.CPRDirectExtractDataProvider)
             };
             var webInstallationInfo = WebInstallationInfo.CreateFromFeature(session, "CPR");
@@ -276,6 +276,28 @@ namespace CprBrokerWixInstallers
                 "//configuration/system.webServer/handlers",
                 "handlers",
                 templatePath, configFilePath, CprBroker.Installers.Installation.MergeOption.Overwrite);
+        }
+
+        private static void PatchWebsite_2_2_7(Session session)
+        {
+            var cprWebInfo = WebInstallationInfo.CreateFromFeature(session, "CPR");
+            var eventWebInfo = WebInstallationInfo.CreateFromFeature(session, "EVENT");
+
+            // Log4net settings file path
+            var configs = new KeyValuePair<string, string>[]{
+                new  KeyValuePair<string, string>(cprWebInfo.GetWebConfigFilePath(@"Config\applicationSettings.config"),@"Config\log4net.config"),
+                new  KeyValuePair<string, string>(eventWebInfo.GetWebConfigFilePath(@"Config\applicationSettings.config"),@"Config\log4net.config"),
+                new  KeyValuePair<string, string>(EventBrokerCustomActions.GetServiceExeConfigFullFileName(session),"log4net.config")
+            };
+
+            foreach (var kvp in configs)
+            {
+                CprBroker.Installers.Installation.SetApplicationSettingInConfigFile(
+                    configFileName: kvp.Key,
+                    settingsType: typeof(CprBroker.Config.Properties.Settings),
+                    settingName: "Log4NetConfig",
+                    value: kvp.Value);
+            }
         }
     }
 }
