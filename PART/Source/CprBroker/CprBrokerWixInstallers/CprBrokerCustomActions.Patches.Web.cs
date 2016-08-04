@@ -278,16 +278,16 @@ namespace CprBrokerWixInstallers
                 templatePath, configFilePath, CprBroker.Installers.Installation.MergeOption.Overwrite);
         }
 
-        private static void PatchWebsite_2_2_7(SessionAdapter session)
+        public static void PatchWebsite_2_2_7(SessionAdapter session)
         {
             var cprWebInfo = WebInstallationInfo.CreateFromFeature(session, "CPR");
             var eventWebInfo = WebInstallationInfo.CreateFromFeature(session, "EVENT");
 
             // Log4net settings file path
             var configs = new KeyValuePair<string, string>[]{
-                new  KeyValuePair<string, string>(cprWebInfo.GetWebConfigFilePath(@"Config\applicationSettings.config"),@"Config\log4net.config"),
-                new  KeyValuePair<string, string>(eventWebInfo.GetWebConfigFilePath(@"Config\applicationSettings.config"),@"Config\log4net.config"),
-                new  KeyValuePair<string, string>(EventBrokerCustomActions.GetServiceExeConfigFullFileName(session),"log4net.config")
+                new  KeyValuePair<string, string>(cprWebInfo.GetWebConfigFilePath(EventBrokerCustomActions.PathConstants.CprBrokerWebsiteDirectoryRelativePath), @"Config\log4net.config"),
+                new  KeyValuePair<string, string>(eventWebInfo.GetWebConfigFilePath(EventBrokerCustomActions.PathConstants.EventBrokerWebsiteDirectoryRelativePath), @"Config\log4net.config"),
+                new  KeyValuePair<string, string>(EventBrokerCustomActions.GetServiceExeConfigFullFileName(session), "log4net.config")
             };
 
             foreach (var kvp in configs)

@@ -12,38 +12,38 @@ namespace CprBroker.Installers
 
         public Session InnerSession { get; set; }
 
-        public string this[string property]
+        public virtual string this[string property]
         {
             get { return InnerSession[property]; }
             set { InnerSession[property] = value; }
         }
 
-        public bool GetMode(InstallRunMode mode)
+        public virtual bool GetMode(InstallRunMode mode)
         {
             return InnerSession.GetMode(mode);
         }
 
-        public void DoAction(string action)
+        public virtual void DoAction(string action)
         {
             InnerSession.DoAction(action);
         }
 
-        public Database Database
+        public virtual Database Database
         {
             get { return InnerSession.Database; }
         }
 
-        public CustomActionData CustomActionData
+        public virtual CustomActionData CustomActionData
         {
             get { return InnerSession.CustomActionData; }
         }
 
-        public MessageResult Message(InstallMessage messageType, Record record)
+        public virtual MessageResult Message(InstallMessage messageType, Record record)
         {
             return InnerSession.Message(messageType, record);
         }
 
-        public void Log(string msg)
+        public virtual void Log(string msg)
         {
             InnerSession.Log(msg);
         }
