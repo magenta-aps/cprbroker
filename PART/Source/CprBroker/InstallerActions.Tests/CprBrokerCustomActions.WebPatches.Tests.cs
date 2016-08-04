@@ -12,6 +12,7 @@ namespace CprBroker.Tests.InstallerActions
 {
     namespace CprBrokerCustomActionTests
     {
+		[TestFixture]
         public class PatchWebsite_2_2_7
         {
             [Test]
