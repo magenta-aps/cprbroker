@@ -132,10 +132,10 @@ namespace CprBroker.Installers
         public static string RunRegIISCommand(ref string args, Version frameworkVersion)
         {
             string fileName;
-            if (
-                false && // TODO: Enable usage of dism.exe instead on aspnet_regiis.exe
-                Environment.OSVersion.Version >= new Version(6, 1))
+            if (Environment.OSVersion.Version >= new Version(10, 0))
             {
+                return "";
+                // TODO: See why dism.exe fails as a process on WIndows 10
                 fileName = Strings.EnsureDirectoryEndSlash(Environment.SystemDirectory) + "dism.exe";
                 args = "/online /enable-feature /featurename:"
                     + (frameworkVersion.Major == 4 ?
@@ -158,7 +158,9 @@ namespace CprBroker.Installers
         public static void RunRegIIS(string args, Version frameworkVersion)
         {
             string fileName = RunRegIISCommand(ref args, frameworkVersion);
-            Installation.RunCommand(fileName, args);
+
+            if (!string.IsNullOrEmpty(fileName))
+                Installation.RunCommand(fileName, args);
         }
 
 
