@@ -132,7 +132,9 @@ namespace CprBroker.Installers
         public static string RunRegIISCommand(ref string args, Version frameworkVersion)
         {
             string fileName;
-            if (Environment.OSVersion.Version >= new Version(10, 0))
+            if (Environment.OSVersion.Version >= new Version(10, 0) // Windows 10 + 
+                && string.Format("{0}", args).ToLower().Trim().StartsWith("-s") // only for -s command
+                )
             {
                 return "";
                 // TODO: See why dism.exe fails as a process on WIndows 10
