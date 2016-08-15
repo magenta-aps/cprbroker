@@ -454,6 +454,6 @@
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>
-    <PostBuildEvent>copy $(TargetFileName) ..\..\Output\ /y</PostBuildEvent>
+    <PostBuildEvent>copy $(TargetFileName) $(SolutionDir)Output\ /y</PostBuildEvent>
   </PropertyGroup>
 </Project>

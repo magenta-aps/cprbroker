@@ -119,7 +119,7 @@
     <PreBuildEvent>"$(ProjectDir)..\..\Dll\msxsl.exe" "$(ProjectDir)Objects.xml" "$(SolutionDir)..\Core\Schemas\Wrappers\ClassTransform.xslt" -o "$(ProjectDir)Objects.cs" namespace="$(TargetName)" using="CprBroker.Providers.DPR"</PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PostBuildEvent>copy $(TargetFileName) ..\..\..\Output\ /y</PostBuildEvent>
+    <PostBuildEvent>copy $(TargetFileName) $(SolutionDir)Output\ /y</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

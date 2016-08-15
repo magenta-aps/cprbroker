@@ -219,7 +219,7 @@
 "$(ProjectDir)..\..\Dll\msxsl.exe" "$(ProjectDir)Lookup\GeoInformation.xml" "$(SolutionDir)..\Core\Schemas\Wrappers\ClassTransform.xslt" -o "$(ProjectDir)Lookup\GeoInformation.designer.cs" namespace="$(TargetName)"</PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PostBuildEvent>copy $(TargetFileName) ..\..\..\Output\ /y</PostBuildEvent>
+    <PostBuildEvent>copy $(TargetFileName) $(SolutionDir)Output\ /y</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

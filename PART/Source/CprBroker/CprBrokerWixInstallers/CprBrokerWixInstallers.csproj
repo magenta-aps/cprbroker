@@ -195,8 +195,8 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(WixCATargetsPath)" />
   <PropertyGroup>
-    <PostBuildEvent>copy $(TargetFileName) ..\..\..\Output\ /y
-copy $(TargetName).CA.dll ..\..\..\Output\ /y
+    <PostBuildEvent>copy $(TargetFileName) $(SolutionDir)Output\ /y
+copy $(TargetName).CA.dll $(SolutionDir)Output\ /y
 </PostBuildEvent>
   </PropertyGroup>
 </Project>

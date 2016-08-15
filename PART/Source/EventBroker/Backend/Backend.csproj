@@ -171,7 +171,7 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>copy $(TargetFileName) ..\..\..\Output\ /y
-copy $(TargetFileName).config ..\..\..\Output\ /y</PostBuildEvent>
+    <PostBuildEvent>copy $(TargetFileName) $(SolutionDir)Output\ /y
+copy $(TargetFileName).config $(SolutionDir)Output\ /y</PostBuildEvent>
   </PropertyGroup>
 </Project>
