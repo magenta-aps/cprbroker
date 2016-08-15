@@ -129,17 +129,40 @@ namespace CprBroker.Installers
             Installation.RunCommand(fileName, args);
         }
 
+        public static string RunRegIISCommand(ref string args, Version frameworkVersion)
+        {
+            string fileName;
+            if (Environment.OSVersion.Version >= new Version(10, 0) // Windows 10 + 
+                && string.Format("{0}", args).ToLower().Trim().StartsWith("-s") // only for -s command
+                )
+            {
+                return "";
+                // TODO: See why dism.exe fails as a process on WIndows 10
+                fileName = Strings.EnsureDirectoryEndSlash(Environment.SystemDirectory) + "dism.exe";
+                args = "/online /enable-feature /featurename:"
+                    + (frameworkVersion.Major == 4 ?
+                        "IIS-ASPNET45"
+                        : "IIS-ASPNET");
+            }
+            else
+            {
+                fileName = Installation.GetNetFrameworkDirectory(frameworkVersion) + "aspnet_regiis.exe";
+                // use aspnet_regiis for 64 bit machines whenever possible
+                string fileName64 = fileName.Replace("Framework", "Framework64");
+                if (File.Exists(fileName64))
+                {
+                    fileName = fileName64;
+                };
+            }
+            return fileName;
+        }
+
         public static void RunRegIIS(string args, Version frameworkVersion)
         {
-            string fileName = Installation.GetNetFrameworkDirectory(frameworkVersion) + "aspnet_regiis.exe";
-            // use aspnet_regiis for 64 bit machines whenever possible
-            string fileName64 = fileName.Replace("Framework", "Framework64");
-            if (File.Exists(fileName64))
-            {
-                fileName = fileName64;
-            };
+            string fileName = RunRegIISCommand(ref args, frameworkVersion);
 
-            Installation.RunCommand(fileName, args);
+            if (!string.IsNullOrEmpty(fileName))
+                Installation.RunCommand(fileName, args);
         }
 
 
@@ -155,7 +178,7 @@ namespace CprBroker.Installers
             }
             // TODO: Limit to only administrators ans the users that run the website (app pool, backend service user, etc)
             string[] users = new string[]
-            {                
+            {
                 "AUTHENTICATED USERS"
             };
             foreach (string user in users)

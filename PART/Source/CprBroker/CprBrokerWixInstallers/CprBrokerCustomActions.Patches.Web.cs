@@ -60,7 +60,7 @@ namespace CprBrokerWixInstallers
 {
     public partial class CprBrokerCustomActions
     {
-        public static void PatchWebsite_1_3_0(Session session)
+        public static void PatchWebsite_1_3_0(SessionAdapter session)
         {
             var types = new Type[]
             {
@@ -74,7 +74,7 @@ namespace CprBrokerWixInstallers
             CprBroker.Installers.Installation.AddKnownDataProviderTypes(types, configFilePath);
         }
 
-        private static void PatchWebsite_2_1_1(Session session)
+        private static void PatchWebsite_2_1_1(SessionAdapter session)
         {
             // This patch adds /PersonMasterService12 to the address of existing person master data providers for versions prior to 2.1.1
             try
@@ -120,7 +120,7 @@ namespace CprBrokerWixInstallers
             }
         }
 
-        private static void PatchWebsite_2_2_2(Session session)
+        private static void PatchWebsite_2_2_2(SessionAdapter session)
         {
             var types = new Type[]
             {
@@ -138,7 +138,7 @@ namespace CprBrokerWixInstallers
             CprBroker.Installers.Installation.AddKnownDataProviderTypes(types, configFilePath);
         }
 
-        public static void ResetDataProviderSectionDefinitions(Session session)
+        public static void ResetDataProviderSectionDefinitions(SessionAdapter session)
         {
             var webInstallationInfo = WebInstallationInfo.CreateFromFeature(session, "CPR");
             var eventWebInstallationInfo = WebInstallationInfo.CreateFromFeature(session, "EVENT");
@@ -149,7 +149,7 @@ namespace CprBrokerWixInstallers
             CprBroker.Installers.Installation.ResetDataProviderSectionDefinitions(EventBrokerCustomActions.GetServiceExeConfigFullFileName(session));
         }
 
-        private static void PatchWebsite_2_2_3(Session session)
+        private static void PatchWebsite_2_2_3(SessionAdapter session)
         {
             ResetDataProviderSectionDefinitions(session);
 
@@ -182,7 +182,7 @@ namespace CprBrokerWixInstallers
             }
         }
 
-        private static void PatchWebsite_2_2_4(Session session)
+        private static void PatchWebsite_2_2_4(SessionAdapter session)
         {
             var cprWebInstallationInfo = WebInstallationInfo.CreateFromFeature(session, "CPR");
             var cprConfigFilePath = cprWebInstallationInfo.GetWebConfigFilePath(EventBrokerCustomActions.PathConstants.CprBrokerWebsiteDirectoryRelativePath);
@@ -194,7 +194,7 @@ namespace CprBrokerWixInstallers
             CprBroker.Installers.Installation.AddKnownDataProviderTypes(types, cprConfigFilePath);
         }
 
-        private static void PatchWebsite_2_2_5(Session session)
+        private static void PatchWebsite_2_2_5(SessionAdapter session)
         {
             var cprWebInstallationInfo = WebInstallationInfo.CreateFromFeature(session, "CPR");
             var cprConfigFilePath = cprWebInstallationInfo.GetWebConfigFilePath(EventBrokerCustomActions.PathConstants.CprBrokerWebsiteDirectoryRelativePath);
@@ -278,16 +278,16 @@ namespace CprBrokerWixInstallers
                 templatePath, configFilePath, CprBroker.Installers.Installation.MergeOption.Overwrite);
         }
 
-        private static void PatchWebsite_2_2_7(Session session)
+        public static void PatchWebsite_2_2_7(SessionAdapter session)
         {
             var cprWebInfo = WebInstallationInfo.CreateFromFeature(session, "CPR");
             var eventWebInfo = WebInstallationInfo.CreateFromFeature(session, "EVENT");
 
             // Log4net settings file path
             var configs = new KeyValuePair<string, string>[]{
-                new  KeyValuePair<string, string>(cprWebInfo.GetWebConfigFilePath(@"Config\applicationSettings.config"),@"Config\log4net.config"),
-                new  KeyValuePair<string, string>(eventWebInfo.GetWebConfigFilePath(@"Config\applicationSettings.config"),@"Config\log4net.config"),
-                new  KeyValuePair<string, string>(EventBrokerCustomActions.GetServiceExeConfigFullFileName(session),"log4net.config")
+                new  KeyValuePair<string, string>(cprWebInfo.GetWebConfigFilePath(EventBrokerCustomActions.PathConstants.CprBrokerWebsiteDirectoryRelativePath), @"Config\log4net.config"),
+                new  KeyValuePair<string, string>(eventWebInfo.GetWebConfigFilePath(EventBrokerCustomActions.PathConstants.EventBrokerWebsiteDirectoryRelativePath), @"Config\log4net.config"),
+                new  KeyValuePair<string, string>(EventBrokerCustomActions.GetServiceExeConfigFullFileName(session), "log4net.config")
             };
 
             foreach (var kvp in configs)

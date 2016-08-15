@@ -107,7 +107,7 @@ namespace CprBroker.Installers
             return ret;
         }
 
-        public void CopyToCurrentDetails(Session session)
+        public void CopyToCurrentDetails(SessionAdapter session)
         {
             session.SetPropertyValue(FeaturePropertyName, this.FeatureName);
 
@@ -139,12 +139,12 @@ namespace CprBroker.Installers
             }
         }
 
-        public static string[] GetDatabaseFeatureNames(Session session)
+        public static string[] GetDatabaseFeatureNames(SessionAdapter session)
         {
             return session.GetPropertyValue(AllFeaturesPropertyName).Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
         }
 
-        public static string[] GetSuggestedDatabaseNames(Session session)
+        public static string[] GetSuggestedDatabaseNames(SessionAdapter session)
         {
             return session.GetPropertyValue(SuggestedDatabaseNamesPropertyName).Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
         }
@@ -154,7 +154,7 @@ namespace CprBroker.Installers
         public static readonly string AllInfoPropertyName = "DB_ALL";
         public static readonly string SuggestedDatabaseNamesPropertyName = "DB_SuggestedDatabaseNames";
 
-        private static DatabaseSetupInfo[] DeserializeAllFeatures(Session session)
+        private static DatabaseSetupInfo[] DeserializeAllFeatures(SessionAdapter session)
         {
             var allPropVal = session.GetPropertyValue(AllInfoPropertyName);
             if (allPropVal == "-")
@@ -165,13 +165,13 @@ namespace CprBroker.Installers
             return allInfo;
         }
 
-        private static void SerializeAllFeatures(Session session, DatabaseSetupInfo[] allInfo)
+        private static void SerializeAllFeatures(SessionAdapter session, DatabaseSetupInfo[] allInfo)
         {
             var allPropVal = CprBroker.Utilities.Strings.SerializeObject(allInfo);
             session.SetPropertyValue(AllInfoPropertyName, allPropVal);
         }
 
-        public static void AddFeatureDetails(Session session, DatabaseSetupInfo databaseSetupInfo)
+        public static void AddFeatureDetails(SessionAdapter session, DatabaseSetupInfo databaseSetupInfo)
         {
             var allInfo = DeserializeAllFeatures(session);
             var index = Array.FindIndex<DatabaseSetupInfo>(allInfo, inf => inf.FeatureName == databaseSetupInfo.FeatureName);
@@ -188,17 +188,17 @@ namespace CprBroker.Installers
             SerializeAllFeatures(session, allInfo);
         }
 
-        public static DatabaseSetupInfo CreateFromCurrentDetails(Session session)
+        public static DatabaseSetupInfo CreateFromCurrentDetails(SessionAdapter session)
         {
             return CreateFromCurrentDetails(session, "");
         }
 
-        public static DatabaseSetupInfo CreateFromCurrentDetails(Session session, string featureName)
+        public static DatabaseSetupInfo CreateFromCurrentDetails(SessionAdapter session, string featureName)
         {
             return CreateFromCurrentDetails(session, featureName, false);
         }
 
-        public static DatabaseSetupInfo CreateFromCurrentDetails(Session session, string featureName, bool tryWithoutFeature)
+        public static DatabaseSetupInfo CreateFromCurrentDetails(SessionAdapter session, string featureName, bool tryWithoutFeature)
         {
             DatabaseSetupInfo ret = new DatabaseSetupInfo();
 
@@ -246,14 +246,14 @@ namespace CprBroker.Installers
             return ret;
         }
 
-        public static DatabaseSetupInfo CreateFromFeature(Session session, string featureName)
+        public static DatabaseSetupInfo CreateFromFeature(SessionAdapter session, string featureName)
         {
             var allPropValue = session.GetPropertyValue(AllInfoPropertyName);
             var allInfo = DeserializeAllFeatures(session);
             return allInfo.Where(inf => inf.FeatureName == featureName).FirstOrDefault();
         }
 
-        public static CustomActionData GetCustomActionData(Session session)
+        public static CustomActionData GetCustomActionData(SessionAdapter session)
         {
             var commponProps = BaseSetupInfo.GetCustomActionData(session);
 
@@ -266,7 +266,7 @@ namespace CprBroker.Installers
             return commponProps;
         }
 
-        public static void SetSuggestedPropertyValues(Session session, string featureName)
+        public static void SetSuggestedPropertyValues(SessionAdapter session, string featureName)
         {
             BaseSetupInfo.SetSuggestedPropertyValues(
                 session,

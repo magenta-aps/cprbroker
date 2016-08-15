@@ -56,7 +56,7 @@ namespace CprBroker.Installers
 {
     public partial class WebsiteCustomAction
     {
-        public static ActionResult AppSearch_WEB(Session session)
+        public static ActionResult AppSearch_WEB(SessionAdapter session)
         {
             RunWebAction(
                 session,
@@ -84,7 +84,7 @@ namespace CprBroker.Installers
         }
 
         [CustomAction]
-        public static ActionResult PopulateWebsites(Session session)
+        public static ActionResult PopulateWebsites(SessionAdapter session)
         {
             bool multiWebSiteAllowed = GetIisMajorVersion() > 5;
 
@@ -134,7 +134,7 @@ namespace CprBroker.Installers
             return ActionResult.Success;
         }
 
-        public static ActionResult PreWebDialog(Session session)
+        public static ActionResult PreWebDialog(SessionAdapter session)
         {
             var featureName = session.GetPropertyValue(WebInstallationInfo.FeaturePropertyName);
             var webInstallationInfo = WebInstallationInfo.CreateFromFeature(session, featureName);
@@ -152,14 +152,14 @@ namespace CprBroker.Installers
             return ActionResult.Success;
         }
 
-        public static ActionResult AfterWebDialog(Session session)
+        public static ActionResult AfterWebDialog(SessionAdapter session)
         {
             WebInstallationInfo webInstallationInfo = WebInstallationInfo.CreateFromCurrentDetails(session);
             ValidateWebProperties(session, webInstallationInfo);
             return ActionResult.Success;
         }
 
-        static bool ValidateWebProperties(Session session, WebInstallationInfo webInstallationInfo)
+        static bool ValidateWebProperties(SessionAdapter session, WebInstallationInfo webInstallationInfo)
         {
             string message;
             if (webInstallationInfo.Validate(out message))
@@ -175,7 +175,7 @@ namespace CprBroker.Installers
             }
         }
 
-        public static ActionResult AfterInstallInitialize_WEB(Session session, string[] extraCustomActionNames)
+        public static ActionResult AfterInstallInitialize_WEB(SessionAdapter session, string[] extraCustomActionNames)
         {
             RunWebAction(
                 session,
@@ -198,7 +198,7 @@ namespace CprBroker.Installers
             return ActionResult.Success;
         }
 
-        static void RunWebAction(Session session, Action<string> func)
+        static void RunWebAction(SessionAdapter session, Action<string> func)
         {
             foreach (var featureName in WebInstallationInfo.GetWebFeatureNames(session))
             {
@@ -206,7 +206,7 @@ namespace CprBroker.Installers
             }
         }
 
-        public static ActionResult DeployWebsite(Session session, Dictionary<string, WebInstallationOptions> allOptions)
+        public static ActionResult DeployWebsite(SessionAdapter session, Dictionary<string, WebInstallationOptions> allOptions)
         {
             RunWebAction(session,
                 featureName =>
@@ -344,13 +344,13 @@ namespace CprBroker.Installers
         }
 
         [CustomAction]
-        public static ActionResult RollbackWebsite(Session session)
+        public static ActionResult RollbackWebsite(SessionAdapter session)
         {
             return RemoveWebsite(session);
         }
 
         [CustomAction]
-        public static ActionResult RemoveWebsite(Session session)
+        public static ActionResult RemoveWebsite(SessionAdapter session)
         {
             RunWebAction(
                 session,
@@ -381,7 +381,7 @@ namespace CprBroker.Installers
         }
 
         [CustomAction]
-        public static ActionResult PatchWebsite(Session session, Dictionary<string, WebPatchInfo[]> featurePatchInfos)
+        public static ActionResult PatchWebsite(SessionAdapter session, Dictionary<string, WebPatchInfo[]> featurePatchInfos)
         {
             var version = session.GetDetectedOlderVersion();
             RunWebAction(

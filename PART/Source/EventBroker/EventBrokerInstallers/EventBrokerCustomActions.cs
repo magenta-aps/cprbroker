@@ -59,22 +59,22 @@ namespace CprBroker.Installers.EventBrokerInstallers
 {
     public static partial class EventBrokerCustomActions
     {
-        private static string GetServiceExeFullFileName(Session session)
+        private static string GetServiceExeFullFileName(SessionAdapter session)
         {
             return string.Format("{0}{1}bin\\Backend\\CprBroker.EventBroker.Backend.exe", session.GetInstallDirProperty(), PathConstants.EventBrokerWebsiteDirectoryRelativePath);
         }
 
-        private static string GetOldServiceExeFullFileName(Session session)
+        private static string GetOldServiceExeFullFileName(SessionAdapter session)
         {
             return string.Format("{0}{1}bin\\CprBroker.EventBroker.Backend.exe", session.GetInstallDirProperty(), PathConstants.EventBrokerWebsiteDirectoryRelativePath);
         }
 
-        public static string GetServiceExeConfigFullFileName(Session session)
+        public static string GetServiceExeConfigFullFileName(SessionAdapter session)
         {
             return GetServiceExeFullFileName(session) + ".config";
         }
 
-        private static string GetOldServiceExeConfigFullFileName(Session session)
+        private static string GetOldServiceExeConfigFullFileName(SessionAdapter session)
         {
             return GetOldServiceExeFullFileName(session) + ".config";
         }
@@ -101,6 +101,10 @@ namespace CprBroker.Installers.EventBrokerInstallers
         [CustomAction]
         public static ActionResult InstallBackendService(Session session)
         {
+            return InstallBackendService(session.Adapter());
+        }
+        public static ActionResult InstallBackendService(SessionAdapter session)
+        {
             try
             {
                 Installation.SetConnectionStringInConfigFile(GetServiceExeConfigFullFileName(session), "CprBroker.Config.Properties.Settings.CprBrokerConnectionString", DatabaseSetupInfo.CreateFromFeature(session, "CPR").CreateConnectionString(false, true));
@@ -120,6 +124,10 @@ namespace CprBroker.Installers.EventBrokerInstallers
         [CustomAction]
         public static ActionResult RollbackBackendService(Session session)
         {
+            return RollbackBackendService(session.Adapter());
+        }
+        public static ActionResult RollbackBackendService(SessionAdapter session)
+        {
             try
             {
                 return UnInstallBackendService(session);
@@ -133,6 +141,10 @@ namespace CprBroker.Installers.EventBrokerInstallers
 
         [CustomAction]
         public static ActionResult UnInstallBackendService(Session session)
+        {
+            return UnInstallBackendService(session.Adapter());
+        }
+        public static ActionResult UnInstallBackendService(SessionAdapter session)
         {
             try
             {
@@ -149,6 +161,10 @@ namespace CprBroker.Installers.EventBrokerInstallers
 
         [CustomAction]
         public static ActionResult SetCprBrokerUrl(Session session)
+        {
+            return SetCprBrokerUrl(session.Adapter());
+        }
+        public static ActionResult SetCprBrokerUrl(SessionAdapter session)
         {
             try
             {
@@ -192,6 +208,10 @@ namespace CprBroker.Installers.EventBrokerInstallers
         [CustomAction]
         public static ActionResult CloneDataProviderSectionsToBackendService(Session session)
         {
+            return CloneDataProviderSectionsToBackendService(session.Adapter());
+        }
+        public static ActionResult CloneDataProviderSectionsToBackendService(SessionAdapter session)
+        {
             try
             {
                 try { StopService(ServiceName); }
@@ -218,6 +238,10 @@ namespace CprBroker.Installers.EventBrokerInstallers
         [CustomAction]
         public static ActionResult CloneCprBrokerConfigToEventBroker(Session session)
         {
+            return CloneCprBrokerConfigToEventBroker(session.Adapter());
+        }
+        public static ActionResult CloneCprBrokerConfigToEventBroker(SessionAdapter session)
+        {
             try
             {
                 WebInstallationInfo cprBrokerWebInstallationInfo = WebInstallationInfo.CreateFromFeature(session, "CPR");
@@ -240,6 +264,10 @@ namespace CprBroker.Installers.EventBrokerInstallers
         }
 
         public static void MoveBackendServiceToNewLocation(Session session)
+        {
+            MoveBackendServiceToNewLocation(session.Adapter());
+        }
+        public static void MoveBackendServiceToNewLocation(SessionAdapter session)
         {
             var currentExePath = GetExistingServiceExePath();
             var newExePath = GetServiceExeFullFileName(session);
@@ -276,6 +304,10 @@ namespace CprBroker.Installers.EventBrokerInstallers
         [CustomAction]
         public static ActionResult InitTasksConfiguration(Session session)
         {
+            return InitTasksConfiguration(session.Adapter());
+        }
+        public static ActionResult InitTasksConfiguration(SessionAdapter session)
+        {
             // Create temp config file
             string sourceFileName = GetServiceExeConfigFullFileName(session) + ".template";
             File.WriteAllText(sourceFileName, Properties.Resources.Backend_App_Config);
@@ -302,6 +334,10 @@ namespace CprBroker.Installers.EventBrokerInstallers
         }
 
         public static void MigrateBackendToDotNet40(Session session)
+        {
+            MigrateBackendToDotNet40(session.Adapter());
+        }
+        public static void MigrateBackendToDotNet40(SessionAdapter session)
         {
             var path = GetServiceExeFullFileName(session);
 

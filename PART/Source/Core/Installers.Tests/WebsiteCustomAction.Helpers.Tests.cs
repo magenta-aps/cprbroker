@@ -50,30 +50,46 @@ using CprBroker.Installers;
 
 namespace CprBroker.Tests.Installers
 {
-    [TestFixture]
-    public class WebsiteCustomActionHelpersTests
+    namespace WebsiteCustomActionHelpersTests
     {
-        string[] ValidUrlPatterns = new string[] { "http://PersonMaster:80" };
-        string[] RandomUrls
+        [TestFixture]
+        public class AddUrlToLocalIntranet
         {
-            get
+            string[] ValidUrlPatterns = new string[] { "http://PersonMaster:80" };
+            string[] RandomUrls
             {
-                List<string> ret = new List<string>();
-                for (int i = 0; i < 5; i++)
+                get
                 {
-                    ret.Add(string.Format("http://ss{0}/asde", Guid.NewGuid().ToString().Substring(0, 10)));
+                    List<string> ret = new List<string>();
+                    for (int i = 0; i < 5; i++)
+                    {
+                        ret.Add(string.Format("http://ss{0}/asde", Guid.NewGuid().ToString().Substring(0, 10)));
+                    }
+                    return ret.ToArray();
                 }
-                return ret.ToArray();
+            }
+
+            [Test]
+            public void AddUrlToLocalIntranet_Valid_Passes(
+                [ValueSource("RandomUrls")] string url)
+            {
+                WebsiteCustomAction.AddUrlToLocalIntranet(url);
             }
         }
 
-        [Test]
-        public void AddUrlToLocalIntranet_Valid_Passes(
-            [ValueSource("RandomUrls")] string url)
+        [TestFixture]
+        public class RunRegIISCommand
         {
-            WebsiteCustomAction.AddUrlToLocalIntranet(url);
+            [Test]
+            public void RunRegIISCommand_Normal_Normal()
+            {
+                System.Diagnostics.Debugger.Launch();
+                var args = "abcd";
+                var fileName = WebsiteCustomAction.RunRegIISCommand(ref args, new Version(4, 0));
+                Assert.AreEqual("dism.exe", fileName);
+                Installation.RunCommand(fileName, args);
+                Assert.IsNotNullOrEmpty(args);
+            }
         }
-
-
     }
 }
