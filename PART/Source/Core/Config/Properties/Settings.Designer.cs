@@ -125,5 +125,14 @@ namespace CprBroker.Config.Properties {
                 return ((string)(this["Log4NetConfig"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Log4NetEnabled {
+            get {
+                return ((bool)(this["Log4NetEnabled"]));
+            }
+        }
     }
 }

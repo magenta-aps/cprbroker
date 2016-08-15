@@ -44,5 +44,8 @@
     <Setting Name="Log4NetConfig" Type="System.String" Scope="Application">
       <Value Profile="(Default)">log4net.config</Value>
     </Setting>
+    <Setting Name="Log4NetEnabled" Type="System.Boolean" Scope="Application">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

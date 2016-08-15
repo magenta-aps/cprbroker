@@ -133,8 +133,10 @@ namespace CprBroker.Engine.Local
 
         public static void AddNewLog(TraceEventType logType, string methodName, string text, string objectType, string xml)
         {
-            //AddNewLog_EntLib(logType, methodName, text, objectType, xml);
-            AddNewLog_Log4net(logType, methodName, text, objectType, xml);
+            if (ConfigManager.Current.Settings.Log4NetEnabled)
+                AddNewLog_Log4net(logType, methodName, text, objectType, xml);
+            else
+                AddNewLog_EntLib(logType, methodName, text, objectType, xml);
         }
 
         private static readonly ILog log = LogManager.GetLogger(typeof(object));
