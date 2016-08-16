@@ -46,7 +46,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using NUnit.Framework;
-using CprBrokerWixInstallers;
+using CprBroker.CustomActions;
 using Microsoft.Deployment.WindowsInstaller;
 using Microsoft.Deployment.WindowsInstaller.Linq;
 using System.Data.SqlClient;
@@ -64,18 +64,18 @@ namespace InstallerActions.Tests
             var createDatabaseObjectsSql = new Dictionary<string, string>();
 
             createDatabaseObjectsSql["CPR"] =
-                CprBrokerWixInstallers.Properties.ResourcesExtensions.AllCprBrokerDatabaseObjectsSql;
+                CprBroker.CustomActions.Properties.ResourcesExtensions.AllCprBrokerDatabaseObjectsSql;
 
 
             // Prepare lookups
             var lookupDataArray = new Dictionary<string, KeyValuePair<string, string>[]>();
 
-            lookupDataArray["CPR"] = CprBrokerWixInstallers.Properties.ResourcesExtensions.Lookups;
+            lookupDataArray["CPR"] = CprBroker.CustomActions.Properties.ResourcesExtensions.Lookups;
 
             // Custom methods
             var customMethods = new Dictionary<string, Action<SqlConnection>>();
             customMethods["CPR"] =
-                conn => CprBroker.Providers.CPRDirect.Authority.ImportText(CprBrokerWixInstallers.Properties.Resources.Authority_4357, conn);
+                conn => CprBroker.Providers.CPRDirect.Authority.ImportText(CprBroker.CustomActions.Properties.Resources.Authority_4357, conn);
 
             var setupInfo = new CprBroker.Installers.DatabaseSetupInfo()
             {

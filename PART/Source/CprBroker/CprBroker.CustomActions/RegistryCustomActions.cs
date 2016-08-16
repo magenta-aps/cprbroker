@@ -51,7 +51,7 @@ using Microsoft.Deployment.WindowsInstaller.Linq;
 
 using CprBroker.Installers;
 
-namespace CprBrokerWixInstallers
+namespace CprBroker.CustomActions
 {
     public class RegistryCustomActions
     {

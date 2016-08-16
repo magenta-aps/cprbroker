@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using System.IO;
+using CprBroker.CustomActions;
 
 namespace CprBroker.Tests.CustomActions
 {
@@ -19,7 +20,7 @@ namespace CprBroker.Tests.CustomActions
                 var createdPath = "created.xml";
                 File.WriteAllText(createdPath, Properties.Resources.OldWebConfig);
 
-                CprBrokerWixInstallers.CprBrokerCustomActions.AddMvcElements(createdPath);
+                CprBrokerCustomActions.AddMvcElements(createdPath);
 
                 var created = File.ReadAllText(createdPath);
                 Assert.AreEqual(Properties.Resources.NewWebConfig, created);

@@ -56,7 +56,7 @@ using System.Xml;
 using System.Xml.XPath;
 using System.IO;
 
-namespace CprBrokerWixInstallers
+namespace CprBroker.CustomActions
 {
     public partial class CprBrokerCustomActions
     {

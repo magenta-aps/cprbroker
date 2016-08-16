@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CprBrokerWixInstallers;
+using CprBroker.CustomActions;
 using CprBroker.Installers;
 using Microsoft.Deployment.WindowsInstaller;
 using NUnit.Framework;

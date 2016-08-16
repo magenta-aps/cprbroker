@@ -56,7 +56,7 @@ using CprBroker.Installers.EventBrokerInstallers;
 using System.Data.SqlClient;
 using CprBroker.Utilities.Config;
 
-namespace CprBrokerWixInstallers
+namespace CprBroker.CustomActions
 {
     public partial class CprBrokerCustomActions
     {

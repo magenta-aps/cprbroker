@@ -50,7 +50,7 @@ using CprBroker.Data.DataProviders;
 using CprBroker.Data.Part;
 using CprBroker.Data.Queues;
 
-namespace CprBrokerWixInstallers.Properties
+namespace CprBroker.CustomActions.Properties
 {
     public static class ResourcesExtensions
     {
