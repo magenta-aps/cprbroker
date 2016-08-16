@@ -17,23 +17,46 @@ namespace CprBroker.Tests.WixInstaller
     {
         static readonly string SolutionDir = new DirectoryInfo(@"..\..\..\").FullName;
 
-        [Test]
-        public void CustomActions_MethodAvailable()
+        public class CustomActionAdapter
         {
-            var path = SolutionDir + @"WixInstaller\bin\Debug\en-US\CprBroker.msi";
-            using (var database = new Database(path))
+            public CustomAction_ CustomAction;
+            public override string ToString()
             {
-                foreach (CustomAction_ ca in database.AsQueryable().CustomActions)
+                return string.Format("{0}.{1}", CustomAction.Source, CustomAction.Target);
+            }
+        }
+
+        private CustomActionAdapter[] _CustomActions;
+        public CustomActionAdapter[] CustomActions
+        {
+            get
+            {
+                if (_CustomActions == null)
                 {
-                    if ((ca.Type & CustomActionTypes.Dll) > 0
-                        && ca.Source.Contains("InstallersDll"))
+                    var path = SolutionDir + @"WixInstaller\bin\Debug\en-US\CprBroker.msi";
+                    using (var database = new Database(path))
                     {
-                        Console.WriteLine("{0}: {1}.{2}", ca.Type.ToString().PadLeft(45), ca.Source, ca.Target);
-                        var exists = Exists(ca);
-                        Assert.True(exists);
+                        _CustomActions = database.AsQueryable()
+                            .CustomActions
+                            .ToArray()
+                            .Where(ca => (ca.Type & CustomActionTypes.Dll) > 0
+                                && ca.Source.Contains("InstallersDll"))
+                            .Select(ca => new CustomActionAdapter() { CustomAction = ca })
+                            .ToArray();
                     }
                 }
+                return _CustomActions;
             }
+        }
+
+        [Test]
+        public void CustomActions_MethodAvailable([ValueSource("CustomActions")]CustomActionAdapter adpt)
+        {
+            var ca = adpt.CustomAction;
+
+            Console.WriteLine("{0}: {1}.{2}", ca.Type.ToString().PadLeft(45), ca.Source, ca.Target);
+            var exists = Exists(ca);
+            Assert.True(exists);
         }
 
         public bool Exists(CustomAction_ ca)
