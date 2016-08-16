@@ -24,7 +24,7 @@ Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "WixInstaller", "InstallCprB
 		{4964BBE5-F111-454F-86C1-766960A72396} = {4964BBE5-F111-454F-86C1-766960A72396}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CprBroker.CustomActions", "CprBrokerWixInstallers\CprBroker.CustomActions.csproj", "{EBE4DA5E-1E87-4071-B8A3-EC6096B35B31}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CprBroker.CustomActions", "CprBroker.CustomActions\CprBroker.CustomActions.csproj", "{EBE4DA5E-1E87-4071-B8A3-EC6096B35B31}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "E_M", "E_M\E_M.csproj", "{24E1E816-D9CD-47B8-96B6-619EAF3379C6}"
 EndProject

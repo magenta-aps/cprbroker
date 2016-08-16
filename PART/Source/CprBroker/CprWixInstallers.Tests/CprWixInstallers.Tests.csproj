@@ -62,7 +62,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CprBrokerWixInstallers\CprBroker.CustomActions.csproj">
+    <ProjectReference Include="..\CprBroker.CustomActions\CprBroker.CustomActions.csproj">
       <Project>{ebe4da5e-1e87-4071-b8a3-ec6096b35b31}</Project>
       <Name>CprBroker.CustomActions</Name>
     </ProjectReference>
