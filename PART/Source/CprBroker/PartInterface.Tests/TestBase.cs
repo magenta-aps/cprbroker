@@ -84,8 +84,8 @@ namespace CprBroker.Tests.PartInterface
         public virtual void CreateDatabases()
         {
             CprDatabase = CreateDatabase("CprBrrokerTest_",
-                CprBrokerWixInstallers.Properties.ResourcesExtensions.AllCprBrokerDatabaseObjectsSql,
-                CprBrokerWixInstallers.Properties.ResourcesExtensions.Lookups
+                CprBroker.CustomActions.Properties.ResourcesExtensions.AllCprBrokerDatabaseObjectsSql,
+                CprBroker.CustomActions.Properties.ResourcesExtensions.Lookups
                 );
 
             EventDatabase = CreateDatabase("EventBrokerTest_",

@@ -48,6 +48,7 @@ using System.Text;
 using NUnit.Framework;
 using CprBroker.Providers.CPRDirect;
 using CprBroker.Schemas.Part;
+using CprBroker.PartInterface;
 
 namespace CprBroker.Tests.CPRDirect.Objects
 {

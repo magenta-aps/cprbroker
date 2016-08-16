@@ -47,6 +47,7 @@ using System.Linq;
 using System.Text;
 using NUnit.Framework;
 using CprBroker.Schemas.Part;
+using CprBroker.PartInterface;
 
 namespace CprBroker.Tests.PartInterface
 {

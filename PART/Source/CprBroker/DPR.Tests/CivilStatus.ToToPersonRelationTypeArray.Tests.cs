@@ -49,6 +49,7 @@ using NUnit.Framework;
 using CprBroker.Schemas;
 using CprBroker.Schemas.Part;
 using CprBroker.Providers.DPR;
+using CprBroker.PartInterface;
 
 namespace CprBroker.Tests.DPR.CivilStatusTests
 {

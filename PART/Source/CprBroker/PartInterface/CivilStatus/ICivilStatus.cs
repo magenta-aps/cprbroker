@@ -46,8 +46,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using CprBroker.Schemas.Util;
+using CprBroker.Schemas.Part;
 
-namespace CprBroker.Schemas.Part
+namespace CprBroker.PartInterface
 {
     /// <summary>
     /// Common interface for CurrentCivilStatus and HistoricalCivilStatus

@@ -49,6 +49,7 @@ using System.Text;
 using CprBroker.Schemas.Part;
 using CprBroker.Utilities;
 using System.Xml;
+using CprBroker.PartInterface;
 
 namespace CprBroker.Providers.DPR
 {

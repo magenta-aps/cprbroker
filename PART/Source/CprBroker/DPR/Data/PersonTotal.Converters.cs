@@ -66,9 +66,9 @@ namespace CprBroker.Providers.DPR
             {
                 switch (this.MaritalStatus.ToString().ToUpper()[0])
                 {
-                    case Schemas.Part.MaritalStatus.Unmarried:
+                    case PartInterface.MaritalStatus.Unmarried:
                         return CivilStatusKodeType.Ugift;
-                    case Schemas.Part.MaritalStatus.Married:
+                    case PartInterface.MaritalStatus.Married:
                         if (latestSeparation != null && !latestSeparation.EndDate.HasValue)
                         {
                             return CivilStatusKodeType.Separeret;
@@ -77,11 +77,11 @@ namespace CprBroker.Providers.DPR
                         {
                             return CivilStatusKodeType.Gift;
                         }
-                    case Schemas.Part.MaritalStatus.Divorced:
+                    case PartInterface.MaritalStatus.Divorced:
                         return CivilStatusKodeType.Skilt;
-                    case Schemas.Part.MaritalStatus.Widow:
+                    case PartInterface.MaritalStatus.Widow:
                         return CivilStatusKodeType.Enke;
-                    case Schemas.Part.MaritalStatus.RegisteredPartnership:
+                    case PartInterface.MaritalStatus.RegisteredPartnership:
                         if (latestSeparation != null && !latestSeparation.EndDate.HasValue)
                         {
                             return CivilStatusKodeType.Separeret;
@@ -90,12 +90,12 @@ namespace CprBroker.Providers.DPR
                         {
                             return CivilStatusKodeType.RegistreretPartner;
                         }
-                    case Schemas.Part.MaritalStatus.AbolitionOfRegisteredPartnership:
+                    case PartInterface.MaritalStatus.AbolitionOfRegisteredPartnership:
                         return CivilStatusKodeType.OphaevetPartnerskab;
-                    case Schemas.Part.MaritalStatus.LongestLivingPartner:
+                    case PartInterface.MaritalStatus.LongestLivingPartner:
                         return CivilStatusKodeType.Laengstlevende;
                     // TODO : Get value from latest marital status before this record. Also, match with other data sources like DPR
-                    case Schemas.Part.MaritalStatus.Deceased:
+                    case PartInterface.MaritalStatus.Deceased:
                         return CivilStatusKodeType.Ugift;
                 }
             }

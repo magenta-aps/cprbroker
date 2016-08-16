@@ -47,8 +47,9 @@ using System.Linq;
 using System.Text;
 using CprBroker.Schemas.Util;
 using CprBroker.Utilities;
+using CprBroker.Schemas.Part;
 
-namespace CprBroker.Schemas.Part
+namespace CprBroker.PartInterface
 {
     /// <summary>
     /// Contains common functions for civil status
@@ -163,7 +164,7 @@ namespace CprBroker.Schemas.Part
                     else if (dbCivilStatus.CivilStatusCode == deadStatus)
                     {
                         // TODO: Rely on person data to get gender instead of CPR number
-                        bool isSameSex = Util.Enums.PersonNumberToGender(dbCivilStatusWrapper._CivilStatus.PNR) == Util.Enums.PersonNumberToGender(dbCivilStatusWrapper.ToSpousePnr());
+                        bool isSameSex = Enums.PersonNumberToGender(dbCivilStatusWrapper._CivilStatus.PNR) == Enums.PersonNumberToGender(dbCivilStatusWrapper.ToSpousePnr());
                         if (isSameSex == deadAsSameSex)
                         {
                             ret.Add(dbCivilStatusWrapper.ToPersonRelationType(cpr2uuidFunc, true));
