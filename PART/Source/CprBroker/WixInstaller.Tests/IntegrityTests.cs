@@ -20,7 +20,6 @@ namespace CprBroker.Tests.WixInstaller
         [Test]
         public void CustomActions_MethodAvailable()
         {
-            System.Diagnostics.Debugger.Launch();
             var path = SolutionDir + @"WixInstaller\bin\Debug\en-US\CprBroker.msi";
             using (var database = new Database(path))
             {
@@ -35,15 +34,10 @@ namespace CprBroker.Tests.WixInstaller
                     }
                 }
             }
-
         }
 
         public bool Exists(CustomAction_ ca)
         {
-            var asm0 = Assembly.LoadFile(@"C:\MagentaWorkspace\broker.github\PART\Source\EventBroker\Output\CprBroker.Installers.dll");
-            asm0 = Assembly.LoadFrom("CprBroker.Installers.dll");
-
-
             var path = ca.Source == "InstallersDll" ? SolutionDir + @"Output\CprBroker.CustomActions.dll" :
                 ca.Source.EndsWith("InstallersDll") ?
                 SolutionDir + @"..\EventBroker\Output\CprBroker.Installers.EventBrokerInstallers.dll" :
@@ -56,7 +50,7 @@ namespace CprBroker.Tests.WixInstaller
 
             if (path.Contains("Event"))
             {
-                var asm2 = Assembly.LoadFrom(asm.GetReferencedAssemblies()[2].Name + ".dll");
+                var asm0 = Assembly.LoadFrom("CprBroker.Installers.dll");
                 var methods0 = asm0.GetTypes().SelectMany(t => t.GetMethods()).ToArray();
             }
             var methods = asm.GetTypes().SelectMany(t => t.GetMethods()).ToArray();
