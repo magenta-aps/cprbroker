@@ -50,7 +50,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CprServices", "CprServices\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CprServices.Tests", "CprServices.Tests\CprServices.Tests.csproj", "{E77D5B58-56A9-4A19-B25F-AE160547E364}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CprBroker.CustomActions.Tests", "InstallerActions.Tests\CprBroker.CustomActions.Tests.csproj", "{25EEFC62-8AD8-490D-840D-31AD03094C29}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CprBroker.CustomActions.Tests", "CprBroker.CustomActions.Tests\CprBroker.CustomActions.Tests.csproj", "{25EEFC62-8AD8-490D-840D-31AD03094C29}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBR", "DBR\DBR.csproj", "{F6E48545-473F-4133-90F7-B93A4612F50F}"
 EndProject
