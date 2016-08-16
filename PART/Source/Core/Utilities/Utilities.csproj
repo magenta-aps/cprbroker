@@ -96,7 +96,7 @@
     <Compile Include="Config\TypesCollection.cs" />
     <Compile Include="ConsoleApps\CommandArgument.cs" />
     <Compile Include="ConsoleApps\CommandlineParser.cs" />
-    <Compile Include="Config.cs" />
+    <Compile Include="Config\ConfigUtils.cs" />
     <Compile Include="ConsoleApps\ConsoleEnvironment.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="DataLinq.cs" />
