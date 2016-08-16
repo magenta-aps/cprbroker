@@ -141,6 +141,8 @@
   <Import Project="$(WixCATargetsPath)" />
   <PropertyGroup>
     <PostBuildEvent>copy $(TargetFileName) $(SolutionDir)Output\ /y
-copy $(TargetName).CA.dll $(SolutionDir)Output\ /y</PostBuildEvent>
+copy $(TargetName).CA.dll $(SolutionDir)Output\ /y
+
+copy $(TargetFileName) $(SolutionDir)..\CprBroker\Output\ /y</PostBuildEvent>
   </PropertyGroup>
 </Project>

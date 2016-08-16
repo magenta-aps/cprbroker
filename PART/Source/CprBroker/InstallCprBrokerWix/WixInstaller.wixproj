@@ -10,6 +10,7 @@
     <OutputType>Package</OutputType>
     <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' AND '$(MSBuildExtensionsPath32)' != '' ">$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets</WixTargetsPath>
     <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' ">$(MSBuildExtensionsPath)\Microsoft\WiX\v3.x\Wix.targets</WixTargetsPath>
+    <Name>WixInstaller</Name>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <OutputPath>bin\$(Configuration)\</OutputPath>
@@ -82,16 +83,6 @@
     <Content Include="License.rtf" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CprBrokerWixInstallers\CprBrokerWixInstallers.csproj">
-      <Name>CprBrokerWixInstallers</Name>
-      <Project>{ebe4da5e-1e87-4071-b8a3-ec6096b35b31}</Project>
-      <Private>True</Private>
-      <DoNotHarvest>True</DoNotHarvest>
-      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
-      <RefTargetDir>INSTALLLOCATION</RefTargetDir>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="Bitmaps\" />
     <Folder Include="CprBroker" />
     <Folder Include="CprBroker\Resources" />
@@ -106,6 +97,16 @@
       <HintPath>..\..\Core\Output\WixCommon.wixlib</HintPath>
       <Name>WixCommon</Name>
     </WixLibrary>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CprBrokerWixInstallers\CprBroker.CustomActions.csproj">
+      <Name>CprBroker.CustomActions</Name>
+      <Project>{ebe4da5e-1e87-4071-b8a3-ec6096b35b31}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" />
   <PropertyGroup>

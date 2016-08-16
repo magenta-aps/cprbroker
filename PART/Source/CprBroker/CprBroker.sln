@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web", "Web\Web.csproj", "{4
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonMaster", "PersonMaster\PersonMaster.csproj", "{51186183-BEEA-4B6D-8865-B7070EFCA126}"
 EndProject
-Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "InstallCprBrokerWix", "InstallCprBrokerWix\InstallCprBrokerWix.wixproj", "{D51844A7-91FC-405B-B25C-497AE9856548}"
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "WixInstaller", "InstallCprBrokerWix\WixInstaller.wixproj", "{D51844A7-91FC-405B-B25C-497AE9856548}"
 	ProjectSection(ProjectDependencies) = postProject
 		{24E1E816-D9CD-47B8-96B6-619EAF3379C6} = {24E1E816-D9CD-47B8-96B6-619EAF3379C6}
 		{74212D20-BB98-401F-A5F7-03669B2CD07A} = {74212D20-BB98-401F-A5F7-03669B2CD07A}
@@ -24,7 +24,7 @@ Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "InstallCprBrokerWix", "Inst
 		{4964BBE5-F111-454F-86C1-766960A72396} = {4964BBE5-F111-454F-86C1-766960A72396}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CprBrokerWixInstallers", "CprBrokerWixInstallers\CprBrokerWixInstallers.csproj", "{EBE4DA5E-1E87-4071-B8A3-EC6096B35B31}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CprBroker.CustomActions", "CprBrokerWixInstallers\CprBroker.CustomActions.csproj", "{EBE4DA5E-1E87-4071-B8A3-EC6096B35B31}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "E_M", "E_M\E_M.csproj", "{24E1E816-D9CD-47B8-96B6-619EAF3379C6}"
 EndProject
@@ -50,7 +50,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CprServices", "CprServices\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CprServices.Tests", "CprServices.Tests\CprServices.Tests.csproj", "{E77D5B58-56A9-4A19-B25F-AE160547E364}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InstallerActions.Tests", "InstallerActions.Tests\InstallerActions.Tests.csproj", "{25EEFC62-8AD8-490D-840D-31AD03094C29}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CprBroker.CustomActions.Tests", "InstallerActions.Tests\CprBroker.CustomActions.Tests.csproj", "{25EEFC62-8AD8-490D-840D-31AD03094C29}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBR", "DBR\DBR.csproj", "{F6E48545-473F-4133-90F7-B93A4612F50F}"
 EndProject

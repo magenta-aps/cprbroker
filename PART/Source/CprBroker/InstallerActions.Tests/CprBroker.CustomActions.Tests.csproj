@@ -70,9 +70,9 @@
     <Compile Include="SessionAdapterStub.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CprBrokerWixInstallers\CprBrokerWixInstallers.csproj">
+    <ProjectReference Include="..\CprBrokerWixInstallers\CprBroker.CustomActions.csproj">
       <Project>{EBE4DA5E-1E87-4071-B8A3-EC6096B35B31}</Project>
-      <Name>CprBrokerWixInstallers</Name>
+      <Name>CprBroker.CustomActions</Name>
     </ProjectReference>
     <ProjectReference Include="..\CPRDirect\CPRDirect.csproj">
       <Project>{EDDB494D-782D-4D45-8599-633057B9B203}</Project>
