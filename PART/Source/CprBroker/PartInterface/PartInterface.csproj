@@ -91,7 +91,7 @@
     <Compile Include="Data\HealthInformation.cs" />
     <Compile Include="Data\LifecycleStatus.cs" />
     <Compile Include="Data\LifeStatusType.cs" />
-    <Compile Include="Data\PartDataContext.Child1.designer.cs">
+    <Compile Include="Data\PartDataContext.Child.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>PartDataContext.Child.dbml</DependentUpon>
@@ -170,7 +170,7 @@
     </None>
     <None Include="Data\PartDataContext.Child.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>PartDataContext.Child1.designer.cs</LastGenOutput>
+      <LastGenOutput>PartDataContext.Child.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </None>
     <None Include="Data\PartDataContext.dbml">
