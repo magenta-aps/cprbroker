@@ -74,7 +74,10 @@ namespace CprBroker.CustomActions.Properties
                     Resources.TrimAddressString,
                     Resources.InitializePersonSearchCache,
                     Resources.PersonRegistration,
-                    Resources.PersonRegistration_PopulateSearchCache
+                    Resources.PersonRegistration_PopulateSearchCache,
+                    Resources.Activity,
+                    Resources.OperationType,
+                    Resources.Operation
                 };
 
                 return string.Join(

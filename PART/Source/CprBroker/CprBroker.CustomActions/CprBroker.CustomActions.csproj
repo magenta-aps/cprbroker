@@ -133,6 +133,9 @@
     <None Include="Resources\CreatePartDatabaseObjects.sql" />
     <None Include="Resources\LifecycleStatus.csv" />
     <None Include="Resources\LogType.csv" />
+    <Content Include="Resources\Activity.sql" />
+    <Content Include="Resources\Operation.sql" />
+    <Content Include="Resources\OperationType.sql" />
     <Content Include="Resources\PatchDatabase_2_2_6.sql" />
     <None Include="Resources\Queue.csv" />
   </ItemGroup>
