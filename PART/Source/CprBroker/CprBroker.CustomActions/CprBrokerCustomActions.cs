@@ -340,6 +340,18 @@ namespace CprBroker.CustomActions
                             }
                         ),
                         PatchAction = null
+                    },
+                    new DatabasePatchInfo(){
+                        Version = new Version(2,2,8),
+                        SqlScript = string.Join(
+                            lineSep,
+                            new string[]{
+                                Properties.Resources.Activity,
+                                Properties.Resources.OperationType,
+                                Properties.Resources.Operation
+                            }
+                        ),
+                        PatchAction = null
                     }
                 };
 
