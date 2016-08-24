@@ -46,4 +46,31 @@
       <Column Name="Success" Type="System.Boolean" DbType="Bit NULL" CanBeNull="true" />
     </Type>
   </Table>
+  <Table Name="dbo.Activity" Member="Activities">
+    <Type Name="Activity">
+      <Column Name="ActivityId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="StartTS" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="UserToken" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+      <Column Name="UserId" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+      <Column Name="MethodName" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+      <Association Name="Activity_Operation" Member="Operations" ThisKey="ActivityId" OtherKey="ActivityId" Type="Operation" />
+    </Type>
+  </Table>
+  <Table Name="dbo.OperationType" Member="OperationTypes">
+    <Type Name="OperationType">
+      <Column Name="OperationTypeId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+      <Association Name="OperationType_Operation" Member="Operations" ThisKey="OperationTypeId" OtherKey="OperationTypeId" Type="Operation" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Operation" Member="Operations">
+    <Type Name="Operation">
+      <Column Name="OperationId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ActivityId" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="OperationTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="OperationKey" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+      <Association Name="Activity_Operation" Member="Activity" ThisKey="ActivityId" OtherKey="ActivityId" Type="Activity" IsForeignKey="true" />
+      <Association Name="OperationType_Operation" Member="OperationType" ThisKey="OperationTypeId" OtherKey="OperationTypeId" Type="OperationType" IsForeignKey="true" />
+    </Type>
+  </Table>
 </Database>
