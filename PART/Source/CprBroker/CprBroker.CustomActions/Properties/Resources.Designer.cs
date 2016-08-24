@@ -399,6 +399,16 @@ namespace CprBroker.CustomActions.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to OperationTypeId;Name
+        ///1;Read.
+        /// </summary>
+        public static string OperationType_Csv {
+            get {
+                return ResourceManager.GetString("OperationType_Csv", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to /*
         ///	This file patches the CPR broker database to version 1.3
         ///	Creates tables Extract, ExtractItem and Authority

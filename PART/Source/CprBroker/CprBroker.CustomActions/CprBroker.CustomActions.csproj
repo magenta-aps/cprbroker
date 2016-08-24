@@ -137,6 +137,7 @@
     <Content Include="Resources\Operation.sql" />
     <Content Include="Resources\OperationType.sql" />
     <Content Include="Resources\PatchDatabase_2_2_6.sql" />
+    <None Include="Resources\OperationType.csv" />
     <None Include="Resources\Queue.csv" />
   </ItemGroup>
   <ItemGroup>

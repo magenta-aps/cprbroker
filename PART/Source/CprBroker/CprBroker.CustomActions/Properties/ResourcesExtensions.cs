@@ -97,6 +97,7 @@ namespace CprBroker.CustomActions.Properties
                 cprLookups.Add(new KeyValuePair<string, string>(CprBroker.Utilities.DataLinq.GetTableName<LogType>(), Properties.Resources.LogType));
                 cprLookups.Add(new KeyValuePair<string, string>(CprBroker.Utilities.DataLinq.GetTableName<BudgetInterval>(), Properties.Resources.BudgetInterval_Csv));
                 cprLookups.Add(new KeyValuePair<string, string>(CprBroker.Utilities.DataLinq.GetTableName<DbQueue>(), Properties.Resources.Queue_Csv));
+                cprLookups.Add(new KeyValuePair<string, string>(CprBroker.Utilities.DataLinq.GetTableName<OperationType>(), Properties.Resources.OperationType_Csv));
 
                 return cprLookups.ToArray();
             }

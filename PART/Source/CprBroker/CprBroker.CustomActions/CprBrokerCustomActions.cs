@@ -351,7 +351,7 @@ namespace CprBroker.CustomActions
                                 Properties.Resources.Operation
                             }
                         ),
-                        PatchAction = null
+                        PatchAction = conn=> DatabaseCustomAction.InsertLookup<CprBroker.Data.Applications.OperationType>(Properties.Resources.OperationType_Csv, conn)
                     }
                 };
 
