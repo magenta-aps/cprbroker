@@ -49,6 +49,7 @@ using CprBroker.Utilities;
 using CprBroker.Schemas.Part;
 using CprBroker.Data.DataProviders;
 using CprBroker.Utilities.Config;
+using CprBroker.Data.Applications;
 
 namespace CprBroker.Engine
 {
@@ -85,7 +86,7 @@ namespace CprBroker.Engine
         }
         public Action InitializationMethod = () => { };
 
-        public virtual SubMethodRunState[] CreateSubMethodRunStates(out bool missingDataProvidersExist)
+        public SubMethodRunState[] CreateSubMethodRunStates(out bool missingDataProvidersExist)
         {
             DataProvidersConfigurationSection section = ConfigManager.Current.DataProvidersSection;
             DataProvider[] dbProviders = new DataProviderFactory().ReadDatabaseDataProviders();
@@ -102,6 +103,13 @@ namespace CprBroker.Engine
             missingDataProvidersExist = subMethodRunStates.Where(mi => mi.SubMethodInfo.FailIfNoDataProvider && mi.DataProviders.FirstOrDefault() == null).FirstOrDefault() != null;
 
             return subMethodRunStates;
+        }
+
+        public virtual OperationType.Types MainOperationType { get; } = OperationType.Types.Generic;
+
+        public virtual void RegisterSubMethodOperations(BrokerContext brokerContext)
+        {
+            brokerContext.RegisterOperation(MainOperationType, SubMethodInfos.Select(sm => sm.InputToString()).ToArray());
         }
 
         public virtual TItem Aggregate(object[] results)

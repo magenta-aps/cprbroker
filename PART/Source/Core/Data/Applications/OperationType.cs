@@ -10,7 +10,8 @@ namespace CprBroker.Data.Applications
     {
         public enum Types
         {
-            Read = 1
+            Generic = 1,
+            Read = 2
         }
     }
 }

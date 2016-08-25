@@ -133,6 +133,8 @@ namespace CprBroker.Engine
             bool missingDataProvidersExist;
             subMethodRunStates = facade.CreateSubMethodRunStates(out missingDataProvidersExist);
 
+            facade.RegisterSubMethodOperations(BrokerContext.Current);
+
             if (missingDataProvidersExist)
             {
                 Local.Admin.AddNewLog(TraceEventType.Warning, BrokerContext.Current.WebMethodMessageName, TextMessages.NoDataProvidersFound, null, null);
@@ -283,7 +285,7 @@ namespace CprBroker.Engine
 
 
         public TOutput GetBatchMethodOutput<TInterface, TOutput, TSingleInputItem, TSingleOutputItem>(BatchFacadeMethodInfo<TInterface, TOutput, TSingleInputItem, TSingleOutputItem> facade)
-            where TInterface : class,IDataProvider
+            where TInterface : class, IDataProvider
             where TOutput : class, IBasicOutput<TSingleOutputItem[]>, new()
         {
             try
