@@ -103,6 +103,7 @@
     </Compile>
     <Compile Include="Applications\DataProviderCall.cs" />
     <Compile Include="Applications\LogEntry.cs" />
+    <Compile Include="Applications\OperationType.cs" />
     <Compile Include="DataProviders\BudgetInterval.cs" />
     <Compile Include="DataProviders\DataProvidersDataContext.designer.cs">
       <AutoGen>True</AutoGen>

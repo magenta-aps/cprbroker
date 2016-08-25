@@ -64,6 +64,7 @@ namespace CprBroker.Engine
         { }
 
         public Guid ActivityId { get; private set; }
+        public DateTime StartTS { get; set; } = DateTime.Now;
         public string ApplicationToken { get; private set; }
         public string UserToken { get; private set; }
         public string UserName { get; private set; }
@@ -131,7 +132,7 @@ namespace CprBroker.Engine
                     {
                         StackFrame stackFrame = new StackFrame(i);
                         method = stackFrame.GetMethod();
-                        if (method ==null || method.IsDefined(typeof(WebMethodAttribute), false) && method.DeclaringType.IsSubclassOf(typeof(System.Web.Services.WebService)))
+                        if (method == null || method.IsDefined(typeof(WebMethodAttribute), false) && method.DeclaringType.IsSubclassOf(typeof(System.Web.Services.WebService)))
                         {
                             break;
                         }
@@ -148,11 +149,38 @@ namespace CprBroker.Engine
                             );
                         if (!isAuthorized)
                         {
-                            Console.Write("not authoriced exception" + Current.WebMethodMessageName);
+                            Console.Write("Not authorized exception" + Current.WebMethodMessageName);
                             throw new System.Security.Authentication.AuthenticationException();
                         }
                     }
                 }
+                var activity = new Activity()
+                {
+                    ActivityId = Current.ActivityId,
+                    MethodName = Current.WebMethodMessageName,
+                    StartTS = Current.StartTS,
+                    ApplicationId = Current.ApplicationId,
+                    UserId = Current.UserName,
+                    UserToken = Current.UserToken
+                };
+                dataContext.Activities.InsertOnSubmit(activity);
+                dataContext.SubmitChanges();
+            }
+        }
+
+        public void RegisterOperation(OperationType.Types type, string[] keys)
+        {
+            using (var dataContext = new ApplicationDataContext())
+            {
+                dataContext.Operations.InsertAllOnSubmit(keys.Select(k => new Operation()
+                {
+                    ActivityId = ActivityId,
+                    OperationId = Guid.NewGuid(),
+                    OperationKey = k,
+                    OperationTypeId = (int)type
+                }));
+
+                dataContext.SubmitChanges();
             }
         }
     }

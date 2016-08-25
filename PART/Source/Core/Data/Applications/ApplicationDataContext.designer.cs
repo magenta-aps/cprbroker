@@ -42,15 +42,15 @@ namespace CprBroker.Data.Applications
     partial void InsertDataProviderCall(DataProviderCall instance);
     partial void UpdateDataProviderCall(DataProviderCall instance);
     partial void DeleteDataProviderCall(DataProviderCall instance);
-    partial void InsertActivity(Activity instance);
-    partial void UpdateActivity(Activity instance);
-    partial void DeleteActivity(Activity instance);
     partial void InsertOperationType(OperationType instance);
     partial void UpdateOperationType(OperationType instance);
     partial void DeleteOperationType(OperationType instance);
     partial void InsertOperation(Operation instance);
     partial void UpdateOperation(Operation instance);
     partial void DeleteOperation(Operation instance);
+    partial void InsertActivity(Activity instance);
+    partial void UpdateActivity(Activity instance);
+    partial void DeleteActivity(Activity instance);
     #endregion
 		
 		public ApplicationDataContext(string connection) : 
@@ -109,14 +109,6 @@ namespace CprBroker.Data.Applications
 			}
 		}
 		
-		public System.Data.Linq.Table<Activity> Activities
-		{
-			get
-			{
-				return this.GetTable<Activity>();
-			}
-		}
-		
 		public System.Data.Linq.Table<OperationType> OperationTypes
 		{
 			get
@@ -130,6 +122,14 @@ namespace CprBroker.Data.Applications
 			get
 			{
 				return this.GetTable<Operation>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Activity> Activities
+		{
+			get
+			{
+				return this.GetTable<Activity>();
 			}
 		}
 	}
@@ -268,6 +268,8 @@ namespace CprBroker.Data.Applications
 		
 		private EntitySet<LogEntry> _LogEntries;
 		
+		private EntitySet<Activity> _Activities;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -289,6 +291,7 @@ namespace CprBroker.Data.Applications
 		public Application()
 		{
 			this._LogEntries = new EntitySet<LogEntry>(new Action<LogEntry>(this.attach_LogEntries), new Action<LogEntry>(this.detach_LogEntries));
+			this._Activities = new EntitySet<Activity>(new Action<Activity>(this.attach_Activities), new Action<Activity>(this.detach_Activities));
 			OnCreated();
 		}
 		
@@ -425,6 +428,19 @@ namespace CprBroker.Data.Applications
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Application_Activity", Storage="_Activities", ThisKey="ApplicationId", OtherKey="ApplicationId")]
+		public EntitySet<Activity> Activities
+		{
+			get
+			{
+				return this._Activities;
+			}
+			set
+			{
+				this._Activities.Assign(value);
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -452,6 +468,18 @@ namespace CprBroker.Data.Applications
 		}
 		
 		private void detach_LogEntries(LogEntry entity)
+		{
+			this.SendPropertyChanging();
+			entity.Application = null;
+		}
+		
+		private void attach_Activities(Activity entity)
+		{
+			this.SendPropertyChanging();
+			entity.Application = this;
+		}
+		
+		private void detach_Activities(Activity entity)
 		{
 			this.SendPropertyChanging();
 			entity.Application = null;
@@ -1072,192 +1100,6 @@ namespace CprBroker.Data.Applications
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Activity")]
-	public partial class Activity : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private System.Guid _ActivityId;
-		
-		private System.Nullable<System.DateTime> _StartTS;
-		
-		private string _UserToken;
-		
-		private string _UserId;
-		
-		private string _MethodName;
-		
-		private EntitySet<Operation> _Operations;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnActivityIdChanging(System.Guid value);
-    partial void OnActivityIdChanged();
-    partial void OnStartTSChanging(System.Nullable<System.DateTime> value);
-    partial void OnStartTSChanged();
-    partial void OnUserTokenChanging(string value);
-    partial void OnUserTokenChanged();
-    partial void OnUserIdChanging(string value);
-    partial void OnUserIdChanged();
-    partial void OnMethodNameChanging(string value);
-    partial void OnMethodNameChanged();
-    #endregion
-		
-		public Activity()
-		{
-			this._Operations = new EntitySet<Operation>(new Action<Operation>(this.attach_Operations), new Action<Operation>(this.detach_Operations));
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ActivityId", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
-		public System.Guid ActivityId
-		{
-			get
-			{
-				return this._ActivityId;
-			}
-			set
-			{
-				if ((this._ActivityId != value))
-				{
-					this.OnActivityIdChanging(value);
-					this.SendPropertyChanging();
-					this._ActivityId = value;
-					this.SendPropertyChanged("ActivityId");
-					this.OnActivityIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StartTS", DbType="DateTime")]
-		public System.Nullable<System.DateTime> StartTS
-		{
-			get
-			{
-				return this._StartTS;
-			}
-			set
-			{
-				if ((this._StartTS != value))
-				{
-					this.OnStartTSChanging(value);
-					this.SendPropertyChanging();
-					this._StartTS = value;
-					this.SendPropertyChanged("StartTS");
-					this.OnStartTSChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserToken", DbType="VarChar(250)")]
-		public string UserToken
-		{
-			get
-			{
-				return this._UserToken;
-			}
-			set
-			{
-				if ((this._UserToken != value))
-				{
-					this.OnUserTokenChanging(value);
-					this.SendPropertyChanging();
-					this._UserToken = value;
-					this.SendPropertyChanged("UserToken");
-					this.OnUserTokenChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserId", DbType="VarChar(250)")]
-		public string UserId
-		{
-			get
-			{
-				return this._UserId;
-			}
-			set
-			{
-				if ((this._UserId != value))
-				{
-					this.OnUserIdChanging(value);
-					this.SendPropertyChanging();
-					this._UserId = value;
-					this.SendPropertyChanged("UserId");
-					this.OnUserIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MethodName", DbType="VarChar(250)")]
-		public string MethodName
-		{
-			get
-			{
-				return this._MethodName;
-			}
-			set
-			{
-				if ((this._MethodName != value))
-				{
-					this.OnMethodNameChanging(value);
-					this.SendPropertyChanging();
-					this._MethodName = value;
-					this.SendPropertyChanged("MethodName");
-					this.OnMethodNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Activity_Operation", Storage="_Operations", ThisKey="ActivityId", OtherKey="ActivityId")]
-		public EntitySet<Operation> Operations
-		{
-			get
-			{
-				return this._Operations;
-			}
-			set
-			{
-				this._Operations.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_Operations(Operation entity)
-		{
-			this.SendPropertyChanging();
-			entity.Activity = this;
-		}
-		
-		private void detach_Operations(Operation entity)
-		{
-			this.SendPropertyChanging();
-			entity.Activity = null;
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.OperationType")]
 	public partial class OperationType : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -1386,9 +1228,9 @@ namespace CprBroker.Data.Applications
 		
 		private string _OperationKey;
 		
-		private EntityRef<Activity> _Activity;
-		
 		private EntityRef<OperationType> _OperationType;
+		
+		private EntityRef<Activity> _Activity;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -1406,8 +1248,8 @@ namespace CprBroker.Data.Applications
 		
 		public Operation()
 		{
-			this._Activity = default(EntityRef<Activity>);
 			this._OperationType = default(EntityRef<OperationType>);
+			this._Activity = default(EntityRef<Activity>);
 			OnCreated();
 		}
 		
@@ -1499,40 +1341,6 @@ namespace CprBroker.Data.Applications
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Activity_Operation", Storage="_Activity", ThisKey="ActivityId", OtherKey="ActivityId", IsForeignKey=true)]
-		public Activity Activity
-		{
-			get
-			{
-				return this._Activity.Entity;
-			}
-			set
-			{
-				Activity previousValue = this._Activity.Entity;
-				if (((previousValue != value) 
-							|| (this._Activity.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Activity.Entity = null;
-						previousValue.Operations.Remove(this);
-					}
-					this._Activity.Entity = value;
-					if ((value != null))
-					{
-						value.Operations.Add(this);
-						this._ActivityId = value.ActivityId;
-					}
-					else
-					{
-						this._ActivityId = default(Nullable<System.Guid>);
-					}
-					this.SendPropertyChanged("Activity");
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="OperationType_Operation", Storage="_OperationType", ThisKey="OperationTypeId", OtherKey="OperationTypeId", IsForeignKey=true)]
 		public OperationType OperationType
 		{
@@ -1567,6 +1375,40 @@ namespace CprBroker.Data.Applications
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Activity_Operation", Storage="_Activity", ThisKey="ActivityId", OtherKey="ActivityId", IsForeignKey=true)]
+		public Activity Activity
+		{
+			get
+			{
+				return this._Activity.Entity;
+			}
+			set
+			{
+				Activity previousValue = this._Activity.Entity;
+				if (((previousValue != value) 
+							|| (this._Activity.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Activity.Entity = null;
+						previousValue.Operations.Remove(this);
+					}
+					this._Activity.Entity = value;
+					if ((value != null))
+					{
+						value.Operations.Add(this);
+						this._ActivityId = value.ActivityId;
+					}
+					else
+					{
+						this._ActivityId = default(Nullable<System.Guid>);
+					}
+					this.SendPropertyChanged("Activity");
+				}
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -1585,6 +1427,257 @@ namespace CprBroker.Data.Applications
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Activity")]
+	public partial class Activity : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private System.Guid _ActivityId;
+		
+		private System.Nullable<System.Guid> _ApplicationId;
+		
+		private System.Nullable<System.DateTime> _StartTS;
+		
+		private string _UserToken;
+		
+		private string _UserId;
+		
+		private string _MethodName;
+		
+		private EntitySet<Operation> _Operations;
+		
+		private EntityRef<Application> _Application;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnActivityIdChanging(System.Guid value);
+    partial void OnActivityIdChanged();
+    partial void OnApplicationIdChanging(System.Nullable<System.Guid> value);
+    partial void OnApplicationIdChanged();
+    partial void OnStartTSChanging(System.Nullable<System.DateTime> value);
+    partial void OnStartTSChanged();
+    partial void OnUserTokenChanging(string value);
+    partial void OnUserTokenChanged();
+    partial void OnUserIdChanging(string value);
+    partial void OnUserIdChanged();
+    partial void OnMethodNameChanging(string value);
+    partial void OnMethodNameChanged();
+    #endregion
+		
+		public Activity()
+		{
+			this._Operations = new EntitySet<Operation>(new Action<Operation>(this.attach_Operations), new Action<Operation>(this.detach_Operations));
+			this._Application = default(EntityRef<Application>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ActivityId", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+		public System.Guid ActivityId
+		{
+			get
+			{
+				return this._ActivityId;
+			}
+			set
+			{
+				if ((this._ActivityId != value))
+				{
+					this.OnActivityIdChanging(value);
+					this.SendPropertyChanging();
+					this._ActivityId = value;
+					this.SendPropertyChanged("ActivityId");
+					this.OnActivityIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ApplicationId", DbType="UniqueIdentifier")]
+		public System.Nullable<System.Guid> ApplicationId
+		{
+			get
+			{
+				return this._ApplicationId;
+			}
+			set
+			{
+				if ((this._ApplicationId != value))
+				{
+					if (this._Application.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnApplicationIdChanging(value);
+					this.SendPropertyChanging();
+					this._ApplicationId = value;
+					this.SendPropertyChanged("ApplicationId");
+					this.OnApplicationIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StartTS", DbType="DateTime")]
+		public System.Nullable<System.DateTime> StartTS
+		{
+			get
+			{
+				return this._StartTS;
+			}
+			set
+			{
+				if ((this._StartTS != value))
+				{
+					this.OnStartTSChanging(value);
+					this.SendPropertyChanging();
+					this._StartTS = value;
+					this.SendPropertyChanged("StartTS");
+					this.OnStartTSChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserToken", DbType="VarChar(250)")]
+		public string UserToken
+		{
+			get
+			{
+				return this._UserToken;
+			}
+			set
+			{
+				if ((this._UserToken != value))
+				{
+					this.OnUserTokenChanging(value);
+					this.SendPropertyChanging();
+					this._UserToken = value;
+					this.SendPropertyChanged("UserToken");
+					this.OnUserTokenChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserId", DbType="VarChar(250)")]
+		public string UserId
+		{
+			get
+			{
+				return this._UserId;
+			}
+			set
+			{
+				if ((this._UserId != value))
+				{
+					this.OnUserIdChanging(value);
+					this.SendPropertyChanging();
+					this._UserId = value;
+					this.SendPropertyChanged("UserId");
+					this.OnUserIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MethodName", DbType="VarChar(250)")]
+		public string MethodName
+		{
+			get
+			{
+				return this._MethodName;
+			}
+			set
+			{
+				if ((this._MethodName != value))
+				{
+					this.OnMethodNameChanging(value);
+					this.SendPropertyChanging();
+					this._MethodName = value;
+					this.SendPropertyChanged("MethodName");
+					this.OnMethodNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Activity_Operation", Storage="_Operations", ThisKey="ActivityId", OtherKey="ActivityId")]
+		public EntitySet<Operation> Operations
+		{
+			get
+			{
+				return this._Operations;
+			}
+			set
+			{
+				this._Operations.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Application_Activity", Storage="_Application", ThisKey="ApplicationId", OtherKey="ApplicationId", IsForeignKey=true)]
+		public Application Application
+		{
+			get
+			{
+				return this._Application.Entity;
+			}
+			set
+			{
+				Application previousValue = this._Application.Entity;
+				if (((previousValue != value) 
+							|| (this._Application.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Application.Entity = null;
+						previousValue.Activities.Remove(this);
+					}
+					this._Application.Entity = value;
+					if ((value != null))
+					{
+						value.Activities.Add(this);
+						this._ApplicationId = value.ApplicationId;
+					}
+					else
+					{
+						this._ApplicationId = default(Nullable<System.Guid>);
+					}
+					this.SendPropertyChanged("Application");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Operations(Operation entity)
+		{
+			this.SendPropertyChanging();
+			entity.Activity = this;
+		}
+		
+		private void detach_Operations(Operation entity)
+		{
+			this.SendPropertyChanging();
+			entity.Activity = null;
 		}
 	}
 }
