@@ -97,9 +97,9 @@ namespace CprBroker.Engine
         /// <param name="userName">Current user name</param>
         /// <param name="failInNoApp">Whether to throw an exception if no approved application is found to match the token</param>
         /// 
-        public static void Initialize(string appToken, string userToken)
+        public static void Initialize(string appToken, string userToken, bool forceNew = false)
         {
-            if (Current != null)
+            if (Current != null && !forceNew)
             {
                 return;
             }
@@ -168,7 +168,7 @@ namespace CprBroker.Engine
             }
         }
 
-        public void RegisterOperation(OperationType.Types type, string[] keys)
+        public void RegisterOperation(OperationType.Types type, params string[] keys)
         {
             using (var dataContext = new ApplicationDataContext())
             {

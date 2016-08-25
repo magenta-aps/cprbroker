@@ -66,6 +66,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BrokerContextTests.cs" />
     <Compile Include="DataProviderFactoryTests.CreateDataProvider.Tests.cs" />
     <Compile Include="DataProviderFactoryTests.cs" />
     <Compile Include="FacadeMethodInfoTests.cs" />
