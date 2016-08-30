@@ -71,8 +71,10 @@ namespace CprBroker.Engine
         public abstract string PossibleErrorReason();
     }
 
-    public class SubMethodInfo<TInterface, TOutput> : SubMethodInfo where TInterface : class, IDataProvider
+    public class SubMethodInfo<TInput, TInterface, TOutput> : SubMethodInfo where TInterface : class, IDataProvider
     {
+        public TInput Input;
+
         public Func<TInterface, TOutput> Method;
 
         public Action<TOutput> UpdateMethod;
@@ -173,4 +175,7 @@ namespace CprBroker.Engine
         }
     }
 
+    public class SubMethodInfo<TInterface, TOutput> : SubMethodInfo<object, TInterface, TOutput> 
+        where TInterface : class, IDataProvider
+    { }
 }

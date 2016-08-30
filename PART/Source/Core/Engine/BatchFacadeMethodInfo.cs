@@ -53,12 +53,12 @@ namespace CprBroker.Engine
         }
     }
 
-    public class BatchSubMethodInfo<TInterface, TSingleInputItem, TSingleOutputItem> : SubMethodInfo<TInterface, TSingleOutputItem[]>
+    public class BatchSubMethodInfo<TInterface, TSingleInputItem, TSingleOutputItem> : SubMethodInfo<TSingleInputItem[], TInterface, TSingleOutputItem[]>
         where TInterface : class, IDataProvider
     {
         public class Status
         {
-            public TSingleInputItem Input;
+            public int InputIndex;
             public TSingleOutputItem Output;
             public string PossibleErrorReason = Schemas.Part.StandardReturType.DataProviderFailedText;
         }
@@ -73,7 +73,15 @@ namespace CprBroker.Engine
 
         public BatchSubMethodInfo(TSingleInputItem[] inp)
         {
-            States = inp.Select(s => new Status() { Input = s, Output = default(TSingleOutputItem) }).ToArray();
+            Input = inp;
+
+            States = Enumerable.Range(0, this.Input.Length)
+                .Select(i => new Status()
+                {
+                    InputIndex = i,
+                    Output = default(TSingleOutputItem)
+                })
+                .ToArray();
 
             this.LocalDataProviderOption = SourceUsageOrder.LocalThenExternal;
             this.FailOnDefaultOutput = true;
@@ -98,7 +106,7 @@ namespace CprBroker.Engine
                 }
 
                 var currentInput = currentStates
-                    .Select(kvp => kvp.Input).ToArray();
+                    .Select(kvp => this.Input[kvp.InputIndex]).ToArray();
 
                 try
                 {
@@ -118,7 +126,7 @@ namespace CprBroker.Engine
                     if (prov is IExternalDataProvider)
                     {
                         InvokeUpdateMethod(
-                            currentSucceededStates.Select(s => s.Input).ToArray(),
+                            currentSucceededStates.Select(s => this.Input[s.InputIndex]).ToArray(),
                             currentSucceededStates.Select(s => s.Output).ToArray()
                             );
                     }
@@ -148,7 +156,7 @@ namespace CprBroker.Engine
                     .ToDictionary(
                         g => g.Key,
                         g => g.ToArray()
-                            .Select(s => string.Format("{0}", s.Input))
+                            .Select(s => string.Format("{0}", this.Input[s.InputIndex]))
                     );
                 ret.StandardRetur = StandardReturType.PartialSuccess(failuresAndReasons);
             }
