@@ -166,7 +166,7 @@ namespace CprBroker.Engine
 
         public override string InputToString()
         {
-            return this.ToString();
+            return Input.ToString();
         }
 
         public override string PossibleErrorReason()
@@ -175,7 +175,7 @@ namespace CprBroker.Engine
         }
     }
 
-    public class SubMethodInfo<TInterface, TOutput> : SubMethodInfo<object, TInterface, TOutput> 
+    public class SubMethodInfo<TInterface, TOutput> : SubMethodInfo<object, TInterface, TOutput>
         where TInterface : class, IDataProvider
     { }
 }
