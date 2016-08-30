@@ -48,6 +48,7 @@ using System.Text;
 using CprBroker.Schemas;
 using CprBroker.Schemas.Part;
 using CprBroker.Utilities;
+using CprBroker.Data.Applications;
 
 namespace CprBroker.Engine.Part
 {
@@ -87,10 +88,26 @@ namespace CprBroker.Engine.Part
 
         public override void Initialize()
         {
-            SubMethodInfos = new SubMethodInfo[] 
+            SubMethodInfos = new SubMethodInfo[]
             {
                 new ReadSubMethodInfo(Input, LocalAction)
             };
+        }
+
+        public override OperationType.Types? MainOperationType
+        {
+            get
+            {
+                return OperationType.Types.Read;
+            }
+        }
+
+        public override string[] InputOperationKeys
+        {
+            get
+            {
+                return new string[] { Input.UUID };
+            }
         }
 
         public override LaesResultatType Aggregate(object[] results)

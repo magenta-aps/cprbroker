@@ -105,11 +105,26 @@ namespace CprBroker.Engine
             return subMethodRunStates;
         }
 
-        public virtual OperationType.Types MainOperationType { get; } = OperationType.Types.Generic;
+        public virtual OperationType.Types? MainOperationType { get; } = null;
 
-        public virtual void RegisterSubMethodOperations(BrokerContext brokerContext)
+        public virtual string[] InputOperationKeys
         {
-            brokerContext.RegisterOperation(MainOperationType, SubMethodInfos.Select(sm => sm.InputToString()).ToArray());
+            get
+            {
+                return SubMethodInfos.Select(sm => sm.InputToString()).ToArray();
+            }
+        }
+
+        public void RegisterSubMethodOperations(BrokerContext brokerContext)
+        {
+            if (MainOperationType.HasValue)
+            {
+                var keys = this.InputOperationKeys;
+                if (keys == null || keys.Length == 0)
+                    keys = new string[] { String.Empty };
+
+                brokerContext.RegisterOperation(MainOperationType.Value, keys);
+            }
         }
 
         public virtual TItem Aggregate(object[] results)

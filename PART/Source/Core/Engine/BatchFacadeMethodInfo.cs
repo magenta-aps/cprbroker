@@ -32,6 +32,15 @@ namespace CprBroker.Engine
             return null;
         }
 
+        public override string[] InputOperationKeys
+        {
+            get
+            {
+                return input.Select(i => i.ToString())
+                    .ToArray();
+            }
+        }
+
         public override bool IsValidResult(TSingleOutputItem[] output)
         {
             return base.IsValidResult(output);
@@ -94,7 +103,7 @@ namespace CprBroker.Engine
                 try
                 {
                     var currentOutput = Run(prov, currentInput);
-                    
+
                     var currentSucceededStates = new List<Status>();
                     if (IsConsistentOutput(currentInput, currentOutput))
                     {

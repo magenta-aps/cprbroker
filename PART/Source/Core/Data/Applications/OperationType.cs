@@ -11,7 +11,15 @@ namespace CprBroker.Data.Applications
         public enum Types
         {
             Generic = 1,
-            Read = 2
+            Read = 2,
+            Search = 3,
+            GetUuid = 4,
+            ReadPeriod = 5,
+            PutSubscription = 6,
+            Subscribe = 8,
+            Unsubscribe = 9,
+            ListSubscriptions = 10
+
         }
     }
 }

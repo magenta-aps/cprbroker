@@ -49,6 +49,7 @@ using System.Text;
 using CprBroker.Schemas;
 using CprBroker.Schemas.Part;
 using CprBroker.Data.Part;
+using CprBroker.Data.Applications;
 
 namespace CprBroker.Engine.Part
 {
@@ -116,6 +117,24 @@ namespace CprBroker.Engine.Part
                 })
                 .ToArray();
         }
+
+        public override OperationType.Types? MainOperationType
+        {
+            get
+            {
+                return OperationType.Types.PutSubscription;
+            }
+        }
+
+
+        public override string[] InputOperationKeys
+        {
+            get
+            {
+                return PersonUuids.Select(id => id.ToString()).ToArray();
+            }
+        }
+
     }
 
 

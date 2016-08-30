@@ -48,6 +48,7 @@ using System.Text;
 using CprBroker.Schemas;
 using CprBroker.Schemas.Part;
 using CprBroker.Utilities;
+using CprBroker.Data.Applications;
 
 namespace CprBroker.Engine.Part
 {
@@ -90,6 +91,14 @@ namespace CprBroker.Engine.Part
         protected override BatchSubMethodInfo<IPartPersonMappingDataProvider, string, string> CreateMainSubMethod()
         {
             return new GetUuidArraySubMethodInfo(input);
+        }
+
+        public override OperationType.Types? MainOperationType
+        {
+            get
+            {
+                return OperationType.Types.GetUuid;
+            }
         }
 
         public override string[] Aggregate(object[] results)

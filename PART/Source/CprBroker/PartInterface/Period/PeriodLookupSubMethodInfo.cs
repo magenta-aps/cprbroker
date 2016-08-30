@@ -67,5 +67,10 @@ namespace CprBroker.Engine.Period
             }
             return null;
         }
+
+        public override string InputToString()
+        {
+            return PersonIdentifier.UUID.ToString();
+        }
     }
 }
