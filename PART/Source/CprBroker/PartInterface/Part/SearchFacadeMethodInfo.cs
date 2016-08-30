@@ -53,7 +53,7 @@ namespace CprBroker.Engine.Part
     /// <summary>
     /// Facade method for Search
     /// </summary>
-    public class SearchFacadeMethodInfo : FacadeMethodInfo<SoegOutputType, string[]>
+    public class SearchFacadeMethodInfo : FacadeMethodInfo<SearchSubMethodInfo, SoegOutputType, string[]>
     {
         SoegInputType1 Input;
 
@@ -68,7 +68,7 @@ namespace CprBroker.Engine.Part
 
         public override void Initialize()
         {
-            this.SubMethodInfos = new SubMethodInfo[] { new SearchSubMethodInfo(Input) };
+            this.SubMethodInfos = new SearchSubMethodInfo[] { new SearchSubMethodInfo(Input) };
         }
 
         public override StandardReturType ValidateInput()

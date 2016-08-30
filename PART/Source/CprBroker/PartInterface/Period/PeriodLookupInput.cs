@@ -102,7 +102,7 @@ namespace CprBroker.Engine.Period
             return StandardReturType.OK();
         }
 
-        public SubMethodInfo[] ToSubMethodInfos()
+        public PeriodLookupSubMethodInfo[] ToSubMethodInfos()
         {
             var personIdentifiers = PersonMapping.GetPersonIdentifiers(UUIDs.Select(uuid => new Guid(uuid)).ToArray());
 

@@ -75,7 +75,7 @@ namespace CprBroker.Tests.PartInterface
 
             public override void Initialize()
             {
-                this.SubMethodInfos = new SubMethodInfo[] { new ReadSubMethodInfoStub(Input.UUID) };
+                this.SubMethodInfos = new ReadSubMethodInfo[] { new ReadSubMethodInfoStub(Input.UUID) };
             }
         }
 
@@ -167,13 +167,13 @@ namespace CprBroker.Tests.PartInterface
 
         ListOutputType1 GetListMethodOutput(string[] uuids)
         {
-            return new RequestProcessor().GetMethodOutput<ListOutputType1, LaesResultatType[]>(
+            return new RequestProcessor().GetMethodOutput<ReadSubMethodInfo,ListOutputType1, LaesResultatType[]>(
                     new ListFacadeMethodInfoStub(uuids));
         }
 
         LaesOutputType GetReadMethodOutput(string uuid)
         {
-            return new RequestProcessor().GetMethodOutput<LaesOutputType, LaesResultatType>(
+            return new RequestProcessor().GetMethodOutput<ReadSubMethodInfo, LaesOutputType, LaesResultatType>(
                     new ReadFacadeMethodInfoStub(uuid));
         }
 

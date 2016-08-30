@@ -46,7 +46,7 @@ namespace CprBroker.Engine
             return base.IsValidResult(output);
         }
 
-        public TOutput Run(SubMethodRunState[] subMethodRunStates)
+        public TOutput Run(SubMethodRunState<SubMethodInfo>[] subMethodRunStates)
         {
             var mainsubMethodRunState = subMethodRunStates[0];
             return MainSubMethod.Run<TOutput>(mainsubMethodRunState.DataProviders.Select(p => p as TInterface));

@@ -54,7 +54,7 @@ namespace CprBroker.Engine.Part
     /// <summary>
     /// Facade method for List
     /// </summary>
-    public class ListFacadeMethodInfo : FacadeMethodInfo<ListOutputType1, LaesResultatType[]>
+    public class ListFacadeMethodInfo : FacadeMethodInfo<ReadSubMethodInfo, ListOutputType1, LaesResultatType[]>
     {
         public ListInputType input;
         public SourceUsageOrder sourceUsageOrder = SourceUsageOrder.LocalThenExternal;
@@ -97,7 +97,7 @@ namespace CprBroker.Engine.Part
 
         public override void Initialize()
         {
-            SubMethodInfos = Array.ConvertAll<string, SubMethodInfo>
+            SubMethodInfos = Array.ConvertAll<string, ReadSubMethodInfo>
             (
                 input.UUID.ToArray(),
                 (pUUID) => new ReadSubMethodInfo(

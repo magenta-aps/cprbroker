@@ -58,8 +58,10 @@ namespace CprBroker.Engine
     /// A web method maps to a facade method
     /// </summary>
     /// <typeparam name="TOutput">Type of object returned from the web method call. It must implement IBasicOutput (contains StandardRetur)</typeparam>
-    /// <typeparam name="TItem">Type of the inner item of the result</typeparam>
-    public class FacadeMethodInfo<TOutput, TItem> where TOutput : class, IBasicOutput<TItem>, new()
+    /// <typeparam name="TMainOutputItem">Type of the inner item of the result</typeparam>
+    public class FacadeMethodInfo<TSubMethodInfo, TOutput, TMainOutputItem>
+        where TOutput : class, IBasicOutput<TMainOutputItem>, new()
+        where TSubMethodInfo : SubMethodInfo
     {
         public AggregationFailOption AggregationFailOption = AggregationFailOption.FailOnAny;
 
@@ -86,13 +88,13 @@ namespace CprBroker.Engine
         }
         public Action InitializationMethod = () => { };
 
-        public SubMethodRunState[] CreateSubMethodRunStates(out bool missingDataProvidersExist)
+        public SubMethodRunState<TSubMethodInfo>[] CreateSubMethodRunStates(out bool missingDataProvidersExist)
         {
             DataProvidersConfigurationSection section = ConfigManager.Current.DataProvidersSection;
             DataProvider[] dbProviders = new DataProviderFactory().ReadDatabaseDataProviders();
 
             var subMethodRunStates = this.SubMethodInfos
-                .Select(mi => new SubMethodRunState()
+                .Select(mi => new SubMethodRunState<TSubMethodInfo>()
                 {
                     SubMethodInfo = mi,
                     DataProviders = mi.GetDataProviderList(section, dbProviders)
@@ -127,32 +129,42 @@ namespace CprBroker.Engine
             }
         }
 
-        public virtual TItem Aggregate(object[] results)
+        public virtual TMainOutputItem Aggregate(object[] results)
         {
             if (results != null && results.Length == 1)
             {
-                return (TItem)(object)results[0];
+                return (TMainOutputItem)(object)results[0];
             }
             else
             {
-                return default(TItem);
+                return default(TMainOutputItem);
             }
         }
 
-        public virtual void SetMainItem(TOutput output, TItem mainItem)
+        public virtual void SetMainItem(TOutput output, TMainOutputItem mainItem)
         {
             output.SetMainItem(mainItem);
         }
 
-        public virtual bool IsValidResult(TItem output)
+        public virtual bool IsValidResult(TMainOutputItem output)
         {
-            return !object.Equals(output, default(TItem));
+            return !object.Equals(output, default(TMainOutputItem));
         }
 
         public string ApplicationToken;
         public string UserToken;
 
-        public SubMethodInfo[] SubMethodInfos = new SubMethodInfo[0];
+        public TSubMethodInfo[] SubMethodInfos = new TSubMethodInfo[0];
+    }
+
+    public class FacadeMethodInfo<TOutput, TMainOutputItem> : FacadeMethodInfo<SubMethodInfo, TOutput, TMainOutputItem>
+        where TOutput : class, IBasicOutput<TMainOutputItem>, new()
+    {
+        public FacadeMethodInfo()
+        { }
+
+        public FacadeMethodInfo(string appToken, string userToken) : base(appToken, userToken)
+        { }
     }
 
     // TODO: Delete this enumeration because only FailOnAll is used

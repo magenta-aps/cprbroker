@@ -49,13 +49,18 @@ using System.Threading;
 
 namespace CprBroker.Engine
 {
-    public class SubMethodRunState
+    public class SubMethodRunState<TSubMethodInfo>
+        where TSubMethodInfo : SubMethodInfo
     {
-        public SubMethodInfo SubMethodInfo;
+        public TSubMethodInfo SubMethodInfo;
         public IEnumerable<IDataProvider> DataProviders;
         public object Result = null;
         public ParameterizedThreadStart ThreadStart;
         public Thread Thread;
         public bool Succeeded = false;
     }
+
+    public class SubMethodRunState : SubMethodRunState<SubMethodInfo>
+    { }
+
 }

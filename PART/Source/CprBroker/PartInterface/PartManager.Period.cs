@@ -134,7 +134,7 @@ namespace CprBroker.PartInterface
                     SourceUsageOrder = sourceUsageOrder
                 }
             };
-            LaesOutputType result = GetMethodOutput<LaesOutputType, LaesResultatType>(facade);
+            LaesOutputType result = GetMethodOutput<PeriodLookupSubMethodInfo, LaesOutputType, LaesResultatType>(facade);
             if (IsValidateResult(result.LaesResultat))
                 result.StandardRetur = StandardReturType.OK();
             else
@@ -156,7 +156,7 @@ namespace CprBroker.PartInterface
                     SourceUsageOrder = sourceUsageOrder
                 }
             };
-            LaesOutputType result = GetMethodOutput<LaesOutputType, LaesResultatType>(facade);
+            LaesOutputType result = GetMethodOutput<PeriodLookupSubMethodInfo, LaesOutputType, LaesResultatType>(facade);
             if (IsValidateResult(result.LaesResultat))
                 result.StandardRetur = StandardReturType.OK();
             else
@@ -178,7 +178,7 @@ namespace CprBroker.PartInterface
                     SourceUsageOrder = sourceUsageOrder
                 }
             };
-            ListOutputType1 result = GetMethodOutput<ListOutputType1, LaesResultatType[]>(facade);
+            ListOutputType1 result = GetMethodOutput<PeriodLookupSubMethodInfo, ListOutputType1, LaesResultatType[]>(facade);
             String[] emptyRecords = ValidateResults(result.LaesResultat);
             if (emptyRecords.Length == 0)
                 result.StandardRetur = StandardReturType.OK();
@@ -203,7 +203,7 @@ namespace CprBroker.PartInterface
                     SourceUsageOrder = sourceUsageOrder
                 }
             };
-            ListOutputType1 result = GetMethodOutput<ListOutputType1, LaesResultatType[]>(facade);
+            ListOutputType1 result = GetMethodOutput<PeriodLookupSubMethodInfo, ListOutputType1, LaesResultatType[]>(facade);
             string[] emptyRecords = ValidateResults(result.LaesResultat);
             CprBroker.Engine.Local.Admin.LogFormattedSuccess("# of empty records: {0}", emptyRecords.Length);
             if (emptyRecords.Length == 0)

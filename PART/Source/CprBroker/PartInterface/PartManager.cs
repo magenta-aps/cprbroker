@@ -60,7 +60,7 @@ namespace CprBroker.PartInterface
         public LaesOutputType Read(string userToken, string appToken, LaesInputType input, SourceUsageOrder localAction, out QualityLevel? qualityLevel)
         {
             ReadFacadeMethodInfo facadeMethod = new ReadFacadeMethodInfo(input, localAction, appToken, userToken);
-            var ret = GetMethodOutput<LaesOutputType, LaesResultatType>(facadeMethod);
+            var ret = GetMethodOutput<ReadSubMethodInfo, LaesOutputType, LaesResultatType>(facadeMethod);
             qualityLevel = facadeMethod.QualityLevel;
             return ret;
         }
@@ -69,7 +69,7 @@ namespace CprBroker.PartInterface
         {
             ListOutputType1 ret = null;
 
-            ret = GetMethodOutput<ListOutputType1, LaesResultatType[]>(
+            ret = GetMethodOutput<ReadSubMethodInfo, ListOutputType1, LaesResultatType[]>(
                 new ListFacadeMethodInfo(input, localAction, appToken, userToken)
                 );
 
@@ -81,7 +81,7 @@ namespace CprBroker.PartInterface
         public SoegOutputType Search(string userToken, string appToken, SoegInputType1 searchCriteria, out QualityLevel? qualityLevel)
         {
             SearchFacadeMethodInfo facadeMethod = new SearchFacadeMethodInfo(searchCriteria, appToken, userToken);
-            var ret = GetMethodOutput<SoegOutputType, string[]>(facadeMethod);
+            var ret = GetMethodOutput<SearchSubMethodInfo, SoegOutputType, string[]>(facadeMethod);
             //TODO: Move into Search method of data provider
             qualityLevel = QualityLevel.LocalCache;
             return ret;
@@ -90,7 +90,7 @@ namespace CprBroker.PartInterface
         public SoegListOutputType SearchList(string userToken, string appToken, SoegInputType1 searchCriteria, SourceUsageOrder sourceUsageOrder)
         {
             SearchListFacadeMethodInfo facadeMethod = new SearchListFacadeMethodInfo(searchCriteria, sourceUsageOrder, appToken, userToken);
-            var ret = GetMethodOutput<SoegListOutputType, LaesResultatType[]>(facadeMethod);
+            var ret = GetMethodOutput<SearchListSubMethodInfo, SoegListOutputType, LaesResultatType[]>(facadeMethod);
             return ret;
         }
 

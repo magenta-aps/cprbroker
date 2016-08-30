@@ -55,7 +55,7 @@ namespace CprBroker.Engine.Part
     /// <summary>
     /// Facade method for Read and RefreshRead
     /// </summary>
-    public class ReadFacadeMethodInfo : FacadeMethodInfo<LaesOutputType, LaesResultatType>
+    public class ReadFacadeMethodInfo : FacadeMethodInfo<ReadSubMethodInfo, LaesOutputType, LaesResultatType>
     {
         protected LaesInputType Input = null;
         SourceUsageOrder LocalAction;
@@ -88,7 +88,7 @@ namespace CprBroker.Engine.Part
 
         public override void Initialize()
         {
-            SubMethodInfos = new SubMethodInfo[]
+            SubMethodInfos = new ReadSubMethodInfo[]
             {
                 new ReadSubMethodInfo(Input, LocalAction)
             };

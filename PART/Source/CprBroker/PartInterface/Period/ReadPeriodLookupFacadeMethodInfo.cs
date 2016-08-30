@@ -53,7 +53,7 @@ using CprBroker.Data.Part;
 namespace CprBroker.Engine.Period
 {
 
-    public class ReadPeriodLookupFacadeMethodInfo : FacadeMethodInfo<LaesOutputType, LaesResultatType>
+    public class ReadPeriodLookupFacadeMethodInfo : FacadeMethodInfo<PeriodLookupSubMethodInfo, LaesOutputType, LaesResultatType>
     {
         public PeriodLookupInput Input;
 

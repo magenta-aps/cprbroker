@@ -54,7 +54,7 @@ namespace CprBroker.Engine.Part
     /// <summary>
     /// Facade method for Search
     /// </summary>
-    public class SearchListFacadeMethodInfo : FacadeMethodInfo<SoegListOutputType, LaesResultatType[]>
+    public class SearchListFacadeMethodInfo : FacadeMethodInfo<SearchListSubMethodInfo, SoegListOutputType, LaesResultatType[]>
     {
         SoegInputType1 Input;
         SourceUsageOrder SourceUsageOrder;
@@ -71,7 +71,7 @@ namespace CprBroker.Engine.Part
 
         public override void Initialize()
         {
-            this.SubMethodInfos = new SubMethodInfo[] { new SearchListSubMethodInfo(Input, SourceUsageOrder) };
+            this.SubMethodInfos = new SearchListSubMethodInfo[] { new SearchListSubMethodInfo(Input, SourceUsageOrder) };
         }
 
         public override StandardReturType ValidateInput()

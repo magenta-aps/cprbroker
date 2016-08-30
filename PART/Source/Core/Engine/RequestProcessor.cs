@@ -63,33 +63,35 @@ namespace CprBroker.Engine
         public RequestProcessor()
         { }
 
-        public BasicOutputType<TItem> GetMethodOutput<TItem>(GenericFacadeMethodInfo<TItem> facade)
+        public BasicOutputType<TOutputMainItem> GetMethodOutput<TOutputMainItem>(GenericFacadeMethodInfo<TOutputMainItem> facade)
         {
-            return GetMethodOutput<BasicOutputType<TItem>, TItem>(facade);
+            return GetMethodOutput<SubMethodInfo, BasicOutputType<TOutputMainItem>, TOutputMainItem>(facade);
         }
 
-        public TOutput GetMethodOutput<TOutput, TItem>(FacadeMethodInfo<TOutput, TItem> facade) where TOutput : class, IBasicOutput<TItem>, new()
+        public TOutput GetMethodOutput<TSubMethod, TOutput, TOutputMainItem>(FacadeMethodInfo<TSubMethod, TOutput, TOutputMainItem> facade)
+            where TOutput : class, IBasicOutput<TOutputMainItem>, new()
+            where TSubMethod : SubMethodInfo
         {
             try
             {
                 StandardReturType standardRetur;
-                SubMethodRunState[] subMethodRunStates;
+                SubMethodRunState<TSubMethod>[] subMethodRunStates;
 
-                standardRetur = Validate<TOutput, TItem>(facade);
+                standardRetur = Validate<TSubMethod, TOutput, TOutputMainItem>(facade);
                 if (!StandardReturType.IsSucceeded(standardRetur))
                 {
                     return new TOutput() { StandardRetur = standardRetur };
                 }
 
 
-                standardRetur = Initialize<TOutput, TItem>(facade, out subMethodRunStates);
+                standardRetur = Initialize<TSubMethod, TOutput, TOutputMainItem>(facade, out subMethodRunStates);
                 if (!StandardReturType.IsSucceeded(standardRetur))
                 {
                     return new TOutput() { StandardRetur = standardRetur };
                 }
 
-                RunThreads<TOutput, TItem>(facade, subMethodRunStates);
-                return AggregateResults<TOutput, TItem>(facade, subMethodRunStates);
+                RunThreads<TSubMethod, TOutput, TOutputMainItem>(facade, subMethodRunStates);
+                return AggregateResults<TSubMethod, TOutput, TOutputMainItem>(facade, subMethodRunStates);
             }
             catch (Exception ex)
             {
@@ -98,7 +100,9 @@ namespace CprBroker.Engine
             }
         }
 
-        public StandardReturType Validate<TOutput, TItem>(FacadeMethodInfo<TOutput, TItem> facade) where TOutput : class, IBasicOutput<TItem>, new()
+        public StandardReturType Validate<TSubMethod, TOutput, TOutputMainItem>(FacadeMethodInfo<TSubMethod, TOutput, TOutputMainItem> facade)
+            where TOutput : class, IBasicOutput<TOutputMainItem>, new()
+            where TSubMethod : SubMethodInfo
         {
             // Initialize context
             try
@@ -124,7 +128,12 @@ namespace CprBroker.Engine
             return StandardReturType.OK();
         }
 
-        public StandardReturType Initialize<TOutput, TItem>(FacadeMethodInfo<TOutput, TItem> facade, out SubMethodRunState[] subMethodRunStates) where TOutput : class, IBasicOutput<TItem>, new()
+        public StandardReturType Initialize<TSubMethod, TOutput, TMainOutputItem>(
+            FacadeMethodInfo<TSubMethod, TOutput, TMainOutputItem> facade,
+            out SubMethodRunState<TSubMethod>[] subMethodRunStates
+        )
+            where TOutput : class, IBasicOutput<TMainOutputItem>, new()
+            where TSubMethod : SubMethodInfo
         {
             // Initialize facade method
             facade.Initialize();
@@ -143,7 +152,9 @@ namespace CprBroker.Engine
             return StandardReturType.OK();
         }
 
-        public void RunThreads<TOutput, TItem>(FacadeMethodInfo<TOutput, TItem> facade, SubMethodRunState[] subMethodRunStates) where TOutput : class, IBasicOutput<TItem>, new()
+        public void RunThreads<TSubMethod, TOutput, TOutputMainItem>(FacadeMethodInfo<TSubMethod, TOutput, TOutputMainItem> facade, SubMethodRunState<TSubMethod>[] subMethodRunStates)
+            where TOutput : class, IBasicOutput<TOutputMainItem>, new()
+            where TSubMethod : SubMethodInfo
         {
             #region Creation of sub results in threads
             // Catch the current broker context in a local variable
@@ -159,7 +170,7 @@ namespace CprBroker.Engine
                     // Copy the broker context to this new thread
                     BrokerContext.Current = currentBrokerContext;
                     System.Web.HttpContext.Current = currentHttpContext;
-                    SubMethodRunState subMethodInfo = subMethodRunStates[(int)o];
+                    var subMethodInfo = subMethodRunStates[(int)o];
                     // Loop over clearData providers until one succeeds
                     foreach (IDataProvider prov in subMethodInfo.DataProviders)
                     {
@@ -235,7 +246,9 @@ namespace CprBroker.Engine
             #endregion
         }
 
-        public TOutput AggregateResults<TOutput, TItem>(FacadeMethodInfo<TOutput, TItem> facade, SubMethodRunState[] subMethodRunStates) where TOutput : class, IBasicOutput<TItem>, new()
+        public TOutput AggregateResults<TSubMethod, TOutput, TMainOutputItem>(FacadeMethodInfo<TSubMethod, TOutput, TMainOutputItem> facade, SubMethodRunState<TSubMethod>[] subMethodRunStates)
+            where TOutput : class, IBasicOutput<TMainOutputItem>, new()
+            where TSubMethod : SubMethodInfo
         {
             #region Final aggregation
 
@@ -291,15 +304,15 @@ namespace CprBroker.Engine
             try
             {
                 StandardReturType standardRetur;
-                SubMethodRunState[] subMethodRunStates;
+                SubMethodRunState<SubMethodInfo>[] subMethodRunStates;
 
-                standardRetur = Validate<TOutput, TSingleOutputItem[]>(facade);
+                standardRetur = Validate<SubMethodInfo, TOutput, TSingleOutputItem[]>(facade);
                 if (!StandardReturType.IsSucceeded(standardRetur))
                 {
                     return new TOutput() { StandardRetur = standardRetur };
                 }
 
-                standardRetur = Initialize<TOutput, TSingleOutputItem[]>(facade, out subMethodRunStates);
+                standardRetur = Initialize<SubMethodInfo, TOutput, TSingleOutputItem[]>(facade, out subMethodRunStates);
                 if (!StandardReturType.IsSucceeded(standardRetur))
                 {
                     return new TOutput() { StandardRetur = standardRetur };
