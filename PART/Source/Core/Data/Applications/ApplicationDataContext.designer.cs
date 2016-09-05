@@ -1224,7 +1224,7 @@ namespace CprBroker.Data.Applications
 		
 		private System.Nullable<System.Guid> _ActivityId;
 		
-		private System.Nullable<int> _OperationTypeId;
+		private int _OperationTypeId;
 		
 		private string _OperationKey;
 		
@@ -1240,7 +1240,7 @@ namespace CprBroker.Data.Applications
     partial void OnOperationIdChanged();
     partial void OnActivityIdChanging(System.Nullable<System.Guid> value);
     partial void OnActivityIdChanged();
-    partial void OnOperationTypeIdChanging(System.Nullable<int> value);
+    partial void OnOperationTypeIdChanging(int value);
     partial void OnOperationTypeIdChanged();
     partial void OnOperationKeyChanging(string value);
     partial void OnOperationKeyChanged();
@@ -1298,7 +1298,7 @@ namespace CprBroker.Data.Applications
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OperationTypeId", DbType="Int")]
-		public System.Nullable<int> OperationTypeId
+		public int OperationTypeId
 		{
 			get
 			{
@@ -1368,7 +1368,7 @@ namespace CprBroker.Data.Applications
 					}
 					else
 					{
-						this._OperationTypeId = default(Nullable<int>);
+						this._OperationTypeId = default(int);
 					}
 					this.SendPropertyChanged("OperationType");
 				}
@@ -1438,9 +1438,9 @@ namespace CprBroker.Data.Applications
 		
 		private System.Guid _ActivityId;
 		
-		private System.Nullable<System.Guid> _ApplicationId;
+		private System.Guid _ApplicationId;
 		
-		private System.Nullable<System.DateTime> _StartTS;
+		private System.DateTime _StartTS;
 		
 		private string _UserToken;
 		
@@ -1458,9 +1458,9 @@ namespace CprBroker.Data.Applications
     partial void OnCreated();
     partial void OnActivityIdChanging(System.Guid value);
     partial void OnActivityIdChanged();
-    partial void OnApplicationIdChanging(System.Nullable<System.Guid> value);
+    partial void OnApplicationIdChanging(System.Guid value);
     partial void OnApplicationIdChanged();
-    partial void OnStartTSChanging(System.Nullable<System.DateTime> value);
+    partial void OnStartTSChanging(System.DateTime value);
     partial void OnStartTSChanged();
     partial void OnUserTokenChanging(string value);
     partial void OnUserTokenChanged();
@@ -1498,7 +1498,7 @@ namespace CprBroker.Data.Applications
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ApplicationId", DbType="UniqueIdentifier")]
-		public System.Nullable<System.Guid> ApplicationId
+		public System.Guid ApplicationId
 		{
 			get
 			{
@@ -1522,7 +1522,7 @@ namespace CprBroker.Data.Applications
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StartTS", DbType="DateTime")]
-		public System.Nullable<System.DateTime> StartTS
+		public System.DateTime StartTS
 		{
 			get
 			{
@@ -1641,7 +1641,7 @@ namespace CprBroker.Data.Applications
 					}
 					else
 					{
-						this._ApplicationId = default(Nullable<System.Guid>);
+						this._ApplicationId = default(System.Guid);
 					}
 					this.SendPropertyChanged("Application");
 				}

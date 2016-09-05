@@ -2,9 +2,9 @@
 BEGIN
 	CREATE TABLE Operation(
 		OperationId UNIQUEIDENTIFIER,
-		ActivityId UNIQUEIDENTIFIER,
-		OperationTypeId INT,
-		OperationKey VARCHAR(250),
+		ActivityId UNIQUEIDENTIFIER NOT NULL,
+		OperationTypeId INT NOT NULL,
+		OperationKey VARCHAR(250) NOT NULL,
 		CONSTRAINT PK_Operation PRIMARY KEY NONCLUSTERED (OperationId),
 		CONSTRAINT FK_Operation_OperationType FOREIGN KEY (OperationTypeId) REFERENCES OperationType (OperationTypeId),
 		CONSTRAINT FK_Operation_Activity      FOREIGN KEY (ActivityId)      REFERENCES Activity (ActivityId)
