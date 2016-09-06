@@ -218,7 +218,8 @@ namespace CprBroker.Utilities.ConsoleApps
             }
             if (actions.Length == 1 || MaxThreads == 1)
             {
-                actions[0]();
+                foreach (var action in actions)
+                    action();
             }
             else
             {

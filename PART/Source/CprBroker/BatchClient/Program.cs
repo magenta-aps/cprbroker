@@ -55,9 +55,6 @@ namespace BatchClient
     {
         public static void Main(params string[] args)
         {
-            CprBroker.Engine.BrokerContext.Initialize(CprBroker.Utilities.Constants.BaseApplicationToken.ToString(),"bembem");
-            CprBroker.Engine.Local.Admin.LogException(new Exception("My ksdklsdj Exception !!"));
-            return;
             ConsoleEnvironment env = ConsoleEnvironment.Create(args);
             env.Run();
         }
