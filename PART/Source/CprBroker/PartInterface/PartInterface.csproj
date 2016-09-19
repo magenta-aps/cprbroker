@@ -145,12 +145,6 @@
     <Compile Include="Period\ReadPeriodLookupFacadeMethodInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Strings.cs" />
-    <Compile Include="Tracking\ITrackingDataProvider.cs" />
-    <Compile Include="Tracking\PersonTrack.cs" />
-    <Compile Include="Tracking\ReadInstance.cs" />
-    <Compile Include="Tracking\TrackingDataProvider.cs" />
-    <Compile Include="Tracking\TrackingExtensions.cs" />
-    <Compile Include="Tracking\TrackingRequestProcessor.cs" />
     <Compile Include="UpdateDatabase.Part.cs" />
     <Compile Include="UpdateRules\AddressingNameMatchRule.cs" />
     <Compile Include="UpdateRules\CityNameMatchRule.cs" />
@@ -167,6 +161,7 @@
   <ItemGroup>
     <Folder Include="Facades\" />
     <Folder Include="Schemas\" />
+    <Folder Include="Tracking\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Data\Events\DataChangeEventDataContext.dbml">

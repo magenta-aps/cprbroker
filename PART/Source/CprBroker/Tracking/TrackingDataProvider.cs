@@ -35,6 +35,5 @@ namespace CprBroker.PartInterface.Tracking
                 .Select(kvp => kvp.Item1.ToPersonTrack(kvp.Item2))
                 .ToArray();
         }
-        
     }
 }
