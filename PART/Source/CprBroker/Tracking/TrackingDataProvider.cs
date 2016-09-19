@@ -1,4 +1,6 @@
 ﻿using CprBroker.Data.Applications;
+using CprBroker.EventBroker.Data;
+using CprBroker.Schemas;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,6 +35,29 @@ namespace CprBroker.PartInterface.Tracking
                     fromDate,
                     toDate)
                 .Select(kvp => kvp.Item1.ToPersonTrack(kvp.Item2))
+                .ToArray();
+        }
+
+        public PersonTrack[] GetSubscribers(Guid[] personUuids)
+        {
+            // Cache for application table
+            var applications = new Dictionary<Guid, Application>();
+            using (var dataContext = new ApplicationDataContext())
+            {
+                applications = dataContext.Applications.ToDictionary(a => a.ApplicationId);
+                foreach (var app in applications)
+                    app.Value.Token = null;
+            }
+            Func<Guid, ApplicationType> converter = id =>
+            {
+                if (applications.ContainsKey(id))
+                    return applications[id].ToXmlType();
+                else
+                    return null as ApplicationType;
+            };
+
+            var subscriptions = Subscription.GetSubscriptions(personUuids);
+            return subscriptions.Select(s => s.Item1.ToPersonSubscribers(s.Item2, converter))
                 .ToArray();
         }
     }

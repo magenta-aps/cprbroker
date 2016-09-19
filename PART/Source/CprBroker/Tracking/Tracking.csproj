@@ -37,11 +37,19 @@
     <Reference Include="CprBroker.Engine">
       <HintPath>..\..\Core\Output\CprBroker.Engine.dll</HintPath>
     </Reference>
+    <Reference Include="CprBroker.EventBroker">
+      <HintPath>..\..\EventBroker\Output\CprBroker.EventBroker.dll</HintPath>
+    </Reference>
+    <Reference Include="CprBroker.Schemas, Version=2.2.6.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Core\Output\CprBroker.Schemas.dll</HintPath>
+    </Reference>
     <Reference Include="CprBroker.Utilities">
       <HintPath>..\..\Core\Output\CprBroker.Utilities.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />

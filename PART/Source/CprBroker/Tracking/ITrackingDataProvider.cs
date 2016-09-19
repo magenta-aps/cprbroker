@@ -10,5 +10,6 @@ namespace CprBroker.PartInterface.Tracking
     public interface ITrackingDataProvider : IDataProvider
     {
         PersonTrack[] GetTrack(Guid[] personUuids, DateTime? fromDate, DateTime? toDate);
+        PersonTrack[] GetSubscribers(Guid[] personUuids);
     }
 }

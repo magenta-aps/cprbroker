@@ -1,4 +1,6 @@
 ﻿using CprBroker.Data.Applications;
+using CprBroker.EventBroker.Data;
+using CprBroker.Schemas;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,6 +31,19 @@ namespace CprBroker.PartInterface.Tracking
                 ApplicationId = op.Activity.ApplicationId,
                 ReadTime = op.Activity.StartTS
             };
+        }
+
+        public static PersonTrack ToPersonSubscribers(this Guid uuid, SubscriptionPerson[] subscriptionPersons, Func<Guid, ApplicationType> converter)
+        {
+            var ret = new PersonTrack()
+            {
+                UUID = uuid,
+                Subscribers = subscriptionPersons.Select(sp => converter(sp.Subscription.ApplicationId)).ToArray(),
+                ReadOperations = null,
+                LastRead = null
+            };
+            ret.LastRead = ret.ReadOperations.FirstOrDefault()?.ReadTime;
+            return ret;
         }
     }
 }

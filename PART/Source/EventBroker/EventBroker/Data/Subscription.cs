@@ -49,6 +49,7 @@ using CprBroker.Schemas;
 using CprBroker.Schemas.Part;
 using CprBroker.Utilities;
 using CprBroker.Data.Part;
+using System.Data.Linq;
 
 namespace CprBroker.EventBroker.Data
 {
@@ -172,12 +173,12 @@ namespace CprBroker.EventBroker.Data
                 }
 
                 var subscriptionPersons = matchingPersons.Select(mp => new SubscriptionPerson()
-                    {
-                        Created = DateTime.Now,
-                        PersonUuid = mp.UUID,
-                        Removed = null,
-                        SubscriptionPersonId = Guid.NewGuid()
-                    });
+                {
+                    Created = DateTime.Now,
+                    PersonUuid = mp.UUID,
+                    Removed = null,
+                    SubscriptionPersonId = Guid.NewGuid()
+                });
                 this.SubscriptionPersons.AddRange(subscriptionPersons);
                 return subscriptionPersons.Count();
             }
@@ -223,5 +224,34 @@ namespace CprBroker.EventBroker.Data
             this.SubscriptionCriteriaMatches.AddRange(matches);
         }
 
+        public static Tuple<Guid, SubscriptionPerson[]>[] GetSubscriptions(Guid[] personUuids)
+        {
+            using (var dataContext = new EventBrokerDataContext())
+            {
+                var options = new DataLoadOptions();
+                options.LoadWith((SubscriptionPerson sp) => sp.Subscription);
+                dataContext.LoadOptions = options;
+
+                var all = dataContext.SubscriptionPersons.Where(
+                    sp => personUuids.Contains(sp.PersonUuid.Value)
+                    && sp.Removed == null
+                    && sp.Subscription.Deactivated == null
+                    )
+                    .GroupBy(o => o.PersonUuid)
+                    .ToDictionary(o => o.Key.Value, o => o.ToArray());
+
+                return personUuids.Select(uuid =>
+                    {
+                        var subs = new SubscriptionPerson[0];
+                        if (all.ContainsKey(uuid))
+                        {
+                            subs = all[uuid];
+                        }
+                        return new Tuple<Guid, SubscriptionPerson[]>(uuid, subs);
+                    }
+                )
+                .ToArray();
+            }
+        }
     }
 }
