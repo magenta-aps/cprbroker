@@ -15,14 +15,13 @@ namespace CprBroker.PartInterface.Tracking
         {
             return null;
         }
-
-
     }
 
     public interface ITrackingDataProvider : IDataProvider
     {
         PersonTrack[] GetTrack(Guid[] personUuids, DateTime? fromDate, DateTime? toDate);
     }
+
     public class TRackingDataProvider : ITrackingDataProvider
     {
         #region IDataProvider members
@@ -43,7 +42,7 @@ namespace CprBroker.PartInterface.Tracking
                     new OperationType.Types[] { OperationType.Types.Read, OperationType.Types.ReadPeriod },
                     fromDate,
                     toDate)
-                .Select(kvp => kvp.Key.ToPersonTrack(kvp.Value))
+                .Select(kvp => kvp.Item1.ToPersonTrack(kvp.Item2))
                 .ToArray();
         }
 
@@ -61,6 +60,8 @@ namespace CprBroker.PartInterface.Tracking
             {
                 UUID = new Guid(uuid),
                 ReadOperations = operations.Select(op => op.ToReadInstance()).ToArray(),
+                Subscribers = null,
+                LastRead = null
             };
             ret.LastRead = ret.ReadOperations.FirstOrDefault()?.ReadTime;
             return ret;

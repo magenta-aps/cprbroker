@@ -9,7 +9,7 @@ namespace CprBroker.Data.Applications
 {
     partial class Operation
     {
-        public static KeyValuePair<string, Operation[]>[] Get(string[] keys, OperationType.Types[] types, DateTime? fromDate, DateTime? toDate)
+        public static Tuple<string, Operation[]>[] Get(string[] keys, OperationType.Types[] types, DateTime? fromDate, DateTime? toDate)
         {
             // Input corrections
             if (fromDate == null)
@@ -44,8 +44,10 @@ namespace CprBroker.Data.Applications
                         var grp = ops.SingleOrDefault(op => keys[i].Equals(op.Key));
                         var keyObjects = (grp == null) ?
                             new Operation[] { } :
-                            grp.ToArray();
-                        return new KeyValuePair<string, Operation[]>(keys[i], keyObjects);
+                            grp
+                                .OrderByDescending(op => op.Activity.StartTS)
+                                .ToArray();
+                        return new Tuple<string, Operation[]>(keys[i], keyObjects);
                     })
                     .ToArray();
             }
