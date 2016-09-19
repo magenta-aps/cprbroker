@@ -159,7 +159,7 @@ namespace CprBroker.Engine
                     ActivityId = Current.ActivityId,
                     MethodName = Current.WebMethodMessageName,
                     StartTS = Current.StartTS,
-                    ApplicationId = Current.ApplicationId,
+                    ApplicationId = Current.ApplicationId.Value,
                     UserId = Current.UserName,
                     UserToken = Current.UserToken
                 };
