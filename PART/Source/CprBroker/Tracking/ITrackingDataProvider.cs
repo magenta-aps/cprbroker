@@ -11,5 +11,6 @@ namespace CprBroker.PartInterface.Tracking
     {
         PersonTrack[] GetTrack(Guid[] personUuids, DateTime? fromDate, DateTime? toDate);
         PersonTrack[] GetSubscribers(Guid[] personUuids);
+        Guid[] EnumeratePersons(int startIndex = 0, int maxCount = 200);
     }
 }

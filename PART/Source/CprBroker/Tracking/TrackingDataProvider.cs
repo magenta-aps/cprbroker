@@ -1,6 +1,8 @@
 ﻿using CprBroker.Data.Applications;
+using CprBroker.Data.Part;
 using CprBroker.EventBroker.Data;
 using CprBroker.Schemas;
+using CprBroker.Utilities.Config;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -59,6 +61,20 @@ namespace CprBroker.PartInterface.Tracking
             var subscriptions = Subscription.GetSubscriptions(personUuids);
             return subscriptions.Select(s => s.Item1.ToPersonSubscribers(s.Item2, converter))
                 .ToArray();
+        }
+
+        public Guid[] EnumeratePersons(int startIndex = 0, int maxCount = 200)
+        {
+            using (var partContext = new PartDataContext())
+            {
+                return partContext.PersonRegistrations
+                    .OrderBy(pr => pr.UUID)
+                    .Select(pr => pr.UUID)
+                    .Distinct()
+                    .Skip(startIndex)
+                    .Take(maxCount)
+                    .ToArray();
+            }
         }
     }
 }
