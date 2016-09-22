@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CprBroker.Utilities
 {
-    public static class Extensions
+    public static partial class Extensions
     {
         public static string ToDecimalString(this decimal val)
         {

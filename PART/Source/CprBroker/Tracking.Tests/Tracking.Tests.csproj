@@ -39,10 +39,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Core\Output\CprBroker.Engine.dll</HintPath>
     </Reference>
-    <Reference Include="CprBroker.Providers.CPRDirect, Version=2.2.6.1, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Output\CprBroker.Providers.CPRDirect.dll</HintPath>
-    </Reference>
     <Reference Include="CprBroker.Schemas, Version=2.2.6.1, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Core\Output\CprBroker.Schemas.dll</HintPath>
@@ -73,6 +69,10 @@
     <Compile Include="Utilities.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CPRDirect\CPRDirect.csproj">
+      <Project>{eddb494d-782d-4d45-8599-633057b9b203}</Project>
+      <Name>CPRDirect</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PartInterface.Tests\PartInterface.Tests.csproj">
       <Project>{06ccc703-83f2-44b9-b67a-f7f3a0071e2d}</Project>
       <Name>PartInterface.Tests</Name>

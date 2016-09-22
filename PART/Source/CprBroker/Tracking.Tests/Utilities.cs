@@ -5,7 +5,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CprBroker.Providers.CPRDirect;
+using CprBroker.Utilities;
 using CprBroker.Data.Applications;
 using CprBroker.Engine;
 
@@ -23,7 +23,7 @@ namespace CprBroker.Tests.Tracking
                 var persons = newUuids.Select(id => new Person()
                 {
                     UUID = id,
-                    UserInterfaceKeyText = CprBroker.Tests.PartInterface.Utilities.RandomCprNumber(),
+                    UserInterfaceKeyText = PartInterface.Utilities.RandomCprNumber(),
                 });
                 var personRegistrations = newUuids.Select(id => new PersonRegistration()
                 {
@@ -45,7 +45,7 @@ namespace CprBroker.Tests.Tracking
             var uuidStr = uuids.Select(id => id.ToString()).ToArray();
             foreach (var op in ops)
             {
-                CprBroker.Engine.BrokerContext.Current.RegisterOperation(op, uuidStr);
+                BrokerContext.Current.RegisterOperation(op, uuidStr);
             }
         }
 

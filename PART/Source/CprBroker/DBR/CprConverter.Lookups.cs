@@ -49,7 +49,7 @@ using System.Text;
 using System.IO;
 using System.Data.SqlClient;
 using System.Data.Linq.Mapping;
-using CprBroker.Providers.DPR;
+using CprBroker.Utilities;
 using CprBroker.Providers.CPRDirect;
 using CprBroker.DBR.Extensions;
 

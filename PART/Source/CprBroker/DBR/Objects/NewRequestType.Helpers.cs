@@ -51,7 +51,7 @@ using CprBroker.Data.DataProviders;
 using CprBroker.Providers.CPRDirect;
 using CprBroker.Providers.DPR;
 using CprBroker.Utilities.Config;
-using CprBroker.PartInterface;
+using CprBroker.Utilities;
 using CprBroker.Schemas;
 using CprBroker.Schemas.Wrappers;
 

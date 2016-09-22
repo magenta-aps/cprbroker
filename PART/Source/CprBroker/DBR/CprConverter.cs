@@ -51,7 +51,7 @@ using System.Transactions;
 using System.Data.SqlClient;
 using CprBroker.Providers.DPR;
 using CprBroker.Providers.CPRDirect;
-using CprBroker.Engine.Local;
+using CprBroker.Utilities;
 using CprBroker.DBR.Extensions;
 
 namespace CprBroker.DBR

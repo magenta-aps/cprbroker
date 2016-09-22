@@ -51,9 +51,9 @@ using System.Data;
 using System.Data.Linq;
 using System.Data.Linq.Mapping;
 
-namespace CprBroker.Providers.CPRDirect
+namespace CprBroker.Utilities
 {
-    public static class Extensions
+    public static partial class Extensions
     {
         public static void BulkInsertAll<T>(this SqlConnection conn, IEnumerable<T> entities, SqlTransaction trans = null)
         {
