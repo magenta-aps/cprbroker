@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace CprBroker.PartInterface.Tracking
 {
-    public class TRackingDataProvider : ITrackingDataProvider
+    public class TrackingDataProvider : ITrackingDataProvider
     {
         #region IDataProvider members
         public Version Version

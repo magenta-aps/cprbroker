@@ -7,8 +7,8 @@
     <ProjectGuid>{119AC305-96EE-4A08-9FCF-060A826EE82C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Tracking.Tests</RootNamespace>
-    <AssemblyName>Tracking.Tests</AssemblyName>
+    <RootNamespace>CprBroker.Tests.Tracking</RootNamespace>
+    <AssemblyName>CprBroker.Tests.Tracking</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -31,12 +31,25 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CprBroker.Providers.CPRDirect, Version=2.2.6.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Output\CprBroker.Providers.CPRDirect.dll</HintPath>
+    </Reference>
+    <Reference Include="CprBroker.Schemas, Version=2.2.6.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Core\Output\CprBroker.Schemas.dll</HintPath>
+    </Reference>
+    <Reference Include="CprBroker.Utilities, Version=2.2.6.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Core\Output\CprBroker.Utilities.dll</HintPath>
+    </Reference>
     <Reference Include="nunit.framework, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -46,11 +59,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TrackingDataProvicerTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PartInterface.Tests\PartInterface.Tests.csproj">
       <Project>{06ccc703-83f2-44b9-b67a-f7f3a0071e2d}</Project>
       <Name>PartInterface.Tests</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PartInterface\PartInterface.csproj">
+      <Project>{da42d8bb-24d3-4416-a0bd-b98857f249ad}</Project>
+      <Name>PartInterface</Name>
     </ProjectReference>
     <ProjectReference Include="..\Tracking\Tracking.csproj">
       <Project>{0a0ed81d-1f70-444b-a61f-837955728598}</Project>
