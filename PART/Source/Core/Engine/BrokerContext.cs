@@ -51,6 +51,7 @@ using System.Web.Services;
 using CprBroker.Data.Applications;
 using CprBroker.Engine.Exceptions;
 using CprBroker.Utilities;
+using System.Data.SqlClient;
 
 namespace CprBroker.Engine
 {
@@ -170,17 +171,18 @@ namespace CprBroker.Engine
 
         public void RegisterOperation(OperationType.Types type, params string[] keys)
         {
-            using (var dataContext = new ApplicationDataContext())
+            var operations = keys.Select(k => new Operation()
             {
-                dataContext.Operations.InsertAllOnSubmit(keys.Select(k => new Operation()
-                {
-                    ActivityId = ActivityId,
-                    OperationId = Guid.NewGuid(),
-                    OperationKey = k,
-                    OperationTypeId = (int)type
-                }));
+                ActivityId = ActivityId,
+                OperationId = Guid.NewGuid(),
+                OperationKey = k,
+                OperationTypeId = (int)type
+            });
 
-                dataContext.SubmitChanges();
+            using (var conn = new SqlConnection(Utilities.Config.ConfigManager.Current.Settings.CprBrokerConnectionString))
+            {
+                conn.Open();
+                conn.BulkInsertAll(operations);
             }
         }
     }
