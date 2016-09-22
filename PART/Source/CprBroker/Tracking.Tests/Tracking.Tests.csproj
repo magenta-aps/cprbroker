@@ -31,6 +31,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CprBroker.Data, Version=2.2.6.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Core\Output\CprBroker.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="CprBroker.Engine, Version=2.2.6.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Core\Output\CprBroker.Engine.dll</HintPath>
+    </Reference>
     <Reference Include="CprBroker.Providers.CPRDirect, Version=2.2.6.1, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Output\CprBroker.Providers.CPRDirect.dll</HintPath>
@@ -59,7 +67,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TrackingDataProvicerTests.cs" />
+    <Compile Include="TrackingDataProvicerTests.GetSubscribers.cs" />
+    <Compile Include="TrackingDataProvicerTests.GetTrack.cs" />
+    <Compile Include="TrackingDataProvicerTests.EnumeratePersons.cs" />
+    <Compile Include="Utilities.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PartInterface.Tests\PartInterface.Tests.csproj">

@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using NUnit.Framework;
 using CprBroker.PartInterface.Tracking;
 using CprBroker.Data.Part;
-using CprBroker.Providers.CPRDirect;
 using System.Data.SqlClient;
 
 namespace CprBroker.Tests.Tracking
@@ -26,39 +25,15 @@ namespace CprBroker.Tests.Tracking
                 var uuids = prov.EnumeratePersons(startIndex, maxCount);
                 Assert.IsEmpty(uuids);
             }
-
         }
 
         [TestFixture]
         public class EnumeratePersons_PersonsAvailable : PartInterface.TestBase
         {
-            Guid[] newUuids;
             [SetUp]
             public void InsertPersons()
             {
-                int insertedPersons = 1000;
-
-                using (var conn = new SqlConnection(CprDatabase.ConnectionString))
-                {
-                    newUuids = Enumerable.Range(0, insertedPersons).Select(i => Guid.NewGuid()).ToArray();
-                    var persons = newUuids.Select(id => new Person()
-                    {
-                        UUID = id,
-                        UserInterfaceKeyText = CprBroker.Tests.PartInterface.Utilities.RandomCprNumber(),
-                    });
-                    var personRegistrations = newUuids.Select(id => new PersonRegistration()
-                    {
-                        UUID = id,
-                        PersonRegistrationId = Guid.NewGuid(),
-                        BrokerUpdateDate = DateTime.Now,
-                        RegistrationDate = DateTime.Now,
-                        LifecycleStatusId = (int)CprBroker.Schemas.Part.LivscyklusKodeType.Rettet
-                    });
-
-                    conn.Open();
-                    conn.BulkInsertAll(persons);
-                    conn.BulkInsertAll(personRegistrations);
-                }
+                Utilities.InsertPersons(CprDatabase.ConnectionString, 1000);
                 // Database warm-up
                 var prov = new TrackingDataProvider();
                 var uuids = prov.EnumeratePersons(1, 1);
@@ -89,7 +64,7 @@ namespace CprBroker.Tests.Tracking
             }
 
             [Test]
-            [Sequential]
+            [Combinatorial]
             public void EnumeratePersons_PersonsAvailable_CorrectUuids(
                 [Values(1, 10, 100)] int startIndex,
                 [Values(1, 10, 100)] int maxCount
@@ -97,7 +72,7 @@ namespace CprBroker.Tests.Tracking
             {
                 var prov = new TrackingDataProvider();
                 var uuids = prov.EnumeratePersons(startIndex, maxCount);
-                var expectedUuids = newUuids
+                var expectedUuids = Utilities.newUuids
                     .Select(id => id.ToString().Split('-'))
                     .OrderBy(id => id[4])
                     .ThenBy(id => id[3])
@@ -110,5 +85,6 @@ namespace CprBroker.Tests.Tracking
                 }
             }
         }
+        
     }
 }
