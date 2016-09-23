@@ -13,5 +13,14 @@ namespace CprBroker.PartInterface.Tracking
         public ApplicationType[] Subscribers { get; set; }
         public ReadInstance[] ReadOperations { get; set; }
         public DateTime? LastRead { get; set; }
-    }    
+
+        public bool IsEmpty()
+        {
+            return
+                (Subscribers == null || Subscribers.Length == 0)
+                && (ReadOperations == null || ReadOperations.Length == 0)
+                && LastRead == null
+                ;
+        }
+    }
 }

@@ -63,6 +63,19 @@ namespace CprBroker.PartInterface.Tracking
                 .ToArray();
         }
 
+        public PersonTrack[] GetStatus(Guid[] personUuids, DateTime? fromDate, DateTime? toDate)
+        {
+            return GetTrack(personUuids, fromDate, toDate)
+                .Zip(
+                    GetSubscribers(personUuids),
+                    (track, subscriptions) =>
+                    {
+                        track.Subscribers = subscriptions.Subscribers;
+                        return track;
+                    })
+                .ToArray();
+        }
+
         public Guid[] EnumeratePersons(int startIndex = 0, int maxCount = 200)
         {
             using (var partContext = new PartDataContext())
@@ -76,5 +89,11 @@ namespace CprBroker.PartInterface.Tracking
                     .ToArray();
             }
         }
+
+        public void RemovePerson(Guid personUuid)
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }

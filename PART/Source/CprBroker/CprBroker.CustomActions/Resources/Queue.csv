@@ -3,3 +3,4 @@
 101;CprBroker.Providers.CPRDirect.PartConversionQueue, CprBroker.Providers.CPRDirect;100;100
 200;CprBroker.Providers.CPRDirect.DbrBaseQueue, CprBroker.Providers.CPRDirect;100;100
 300;CprBroker.Providers.DPR.Queues.DprUpdateQueue, CprBroker.Providers.DPR;100;100
+400;CprBroker.PartInterface.Tracking.CleanupQueue, CprBroker.PartInterface.Tracking;10;1
