@@ -53,7 +53,7 @@ using System.Data.Linq.Mapping;
 
 namespace CprBroker.Utilities
 {
-    public static partial class Extensions
+    public static class DataLinqExtensions
     {
         public static void BulkInsertAll<T>(this SqlConnection conn, IEnumerable<T> entities, SqlTransaction trans = null)
         {
