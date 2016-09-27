@@ -98,6 +98,26 @@ namespace CprBroker.Providers.CPRDirect
             }
         }
 
+        public bool RemoveSubscription(PersonIdentifier personIdentifier)
+        {
+            //if (DisableSubscriptions)
+            //    return false;
+
+            if (IPartPerCallDataProviderHelper.CanCallOnline(personIdentifier.CprNumber))
+            {
+                IndividualRequestType request = new IndividualRequestType(
+                    subscriptionType: SubscriptionType.DeleteSubscription,
+                    dataType: DataType.NoData,
+                    pnr: decimal.Parse(personIdentifier.CprNumber));
+                IndividualResponseType response = this.GetResponse(request);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         #endregion
 
         #region IDataProvider members
@@ -132,7 +152,7 @@ namespace CprBroker.Providers.CPRDirect
         {
             get
             {
-                return new DataProviderConfigPropertyInfo[] { 
+                return new DataProviderConfigPropertyInfo[] {
                     new DataProviderConfigPropertyInfo(){ Name=Constants.PropertyNames.Address, Type= DataProviderConfigPropertyInfoTypes.String, Required=true, Confidential=false},
                     new DataProviderConfigPropertyInfo(){ Name=Constants.PropertyNames.Port, Type= DataProviderConfigPropertyInfoTypes.Integer, Required=true, Confidential=false},
                     new DataProviderConfigPropertyInfo(){ Name=Constants.PropertyNames.DisableSubscriptions, Type= DataProviderConfigPropertyInfoTypes.Boolean, Required=true, Confidential=false}

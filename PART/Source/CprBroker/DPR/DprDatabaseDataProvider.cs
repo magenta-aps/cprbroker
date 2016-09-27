@@ -122,6 +122,31 @@ namespace CprBroker.Providers.DPR
             }
         }
 
+        public bool RemoveSubscription(PersonIdentifier personIdentifier)
+        {
+            if (!this.DisableDiversion)
+            {
+                if (IPartPerCallDataProviderHelper.CanCallOnline(personIdentifier.CprNumber))
+                {
+                    using (DPRDataContext dataContext = new DPRDataContext(ConnectionString))
+                    {
+                        CallDiversion(InquiryType.DeleteAutomaticDataUpdateFromCpr, DetailType.MasterData, personIdentifier.CprNumber);
+                        return true;
+                    }
+                }
+                else
+                {
+                    Engine.Local.Admin.AddNewLog(System.Diagnostics.TraceEventType.Information, "PutSubscription", string.Format("Invalid PNR: {0}", personIdentifier.CprNumber), null, null);
+                    return false;
+                }
+            }
+            else
+            {
+                Engine.Local.Admin.AddNewLog(System.Diagnostics.TraceEventType.Information, "PutSubscription", string.Format("DPR Diversion is disabled: {0}", personIdentifier.CprNumber), null, null);
+                return false;
+            }
+        }
+
         public virtual IEnumerable<Queues.T_DPRUpdateStaging> GetChanges(int batchSize, TimeSpan delay)
         {
             var timeThreshold = DateTime.Now - delay;

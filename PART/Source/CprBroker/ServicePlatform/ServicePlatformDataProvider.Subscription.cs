@@ -88,7 +88,6 @@ namespace CprBroker.Providers.ServicePlatform
                             default:
                                 throw new Exception(String.Format("Error placing subscription for UUID <{0}>, service platform returns unexpected code <{1}>.", personIdentifier.UUID, returnCode));
                         }
-                        //Admin.LogSuccess(String.Format("Placed service platform subscription on UUID [%s], returned value [%s] ",personIdentifier.UUID, returnCode)); //TODO: Remove this log line
                         callContext.Succeed();
                         return true;
                     }
@@ -96,7 +95,51 @@ namespace CprBroker.Providers.ServicePlatform
                     {
                         throw new Exception(String.Format("Null value returned by service api call AddPNRSubscription, when trying to place subscription for UUID: <{0}>", personIdentifier.UUID));
                     }
+                }
+                catch (Exception ex)
+                {
+                    Admin.LogException(ex);
+                    callContext.Fail();
+                    return false;
+                }
+            }
+        }
 
+        public bool RemoveSubscription(PersonIdentifier personIdentifier)
+        {
+            var service = CreateService<CprSubscriptionService.CprSubscriptionWebServicePortType, CprSubscriptionService.CprSubscriptionWebServicePortTypeClient>(ServiceInfo.CPRSubscription);
+
+            using (var callContext = this.BeginCall("RemovePNRSubscription", personIdentifier.CprNumber))
+            {
+                try
+                {
+                    var request = new CprSubscriptionService.RemovePNRSubscriptionType
+                    {
+                        InvocationContext = GetInvocationContext<CprSubscriptionService.InvocationContextType>(ServiceInfo.CPRSubscription.UUID),
+                        PNR = personIdentifier.CprNumber
+                    };
+
+                    var resultWrp = service.RemovePNRSubscription(request);
+                    if (resultWrp != null)
+                    {
+                        ReturnCodePNR returnCode = (ReturnCodePNR)Enum.Parse(typeof(ReturnCodePNR), resultWrp.Result); //will throw an overflow exception in case of unknown value.
+                        switch (returnCode)
+                        {
+                            case ReturnCodePNR.REMOVED:
+                                //success
+                                break;
+                            case ReturnCodePNR.NON_EXISTING_PNR:
+                                throw new Exception(String.Format("Error removing subscription for UUID <{0}>, service platform returns NON_EXISTING_PNR.", personIdentifier.UUID));
+                            default:
+                                throw new Exception(String.Format("Error removing subscription for UUID <{0}>, service platform returns unexpected code <{1}>.", personIdentifier.UUID, returnCode));
+                        }
+                        callContext.Succeed();
+                        return true;
+                    }
+                    else
+                    {
+                        throw new Exception(String.Format("Null value returned by service api call RemovePNRSubscription, when trying to place subscription for UUID: <{0}>", personIdentifier.UUID));
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -111,7 +154,7 @@ namespace CprBroker.Providers.ServicePlatform
         {
             get
             {
-                return new string[] { 
+                return new string[] {
                     Constants.SubscriptionFields.MunicipalityCode,
                     Constants.SubscriptionFields.ChangeCode,
                     Constants.SubscriptionFields.PNR,
@@ -145,8 +188,8 @@ namespace CprBroker.Providers.ServicePlatform
                         case Constants.SubscriptionFields.ChangeCode:
                             return isNull(filters.ChangeCode);
 
-                        //case Constants.SubscriptionFields.AgeRange:
-                        //    return filters.AgeRange;
+                            //case Constants.SubscriptionFields.AgeRange:
+                            //    return filters.AgeRange;
                     }
                 }
             }
@@ -198,8 +241,8 @@ namespace CprBroker.Providers.ServicePlatform
                                 }).Result;
                             break;
 
-                        //case Constants.SubscriptionFields.AgeRange:
-                        //    return filters.AgeRange;
+                            //case Constants.SubscriptionFields.AgeRange:
+                            //    return filters.AgeRange;
                     }
                     if (!string.IsNullOrEmpty(ret))
                     {
@@ -257,8 +300,8 @@ namespace CprBroker.Providers.ServicePlatform
                                 }).Result;
                             break;
 
-                        //case Constants.SubscriptionFields.AgeRange:
-                        //    return filters.AgeRange;
+                            //case Constants.SubscriptionFields.AgeRange:
+                            //    return filters.AgeRange;
                     }
                     if (!string.IsNullOrEmpty(ret))
                     {
