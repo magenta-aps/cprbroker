@@ -56,5 +56,12 @@ namespace CprBroker.Providers.CPRDirect
             this.DataType = (decimal)dataType;
             this.PNR = pnr;
         }
+
+        public IndividualRequestType(SubscriptionType subscriptionType, DataType dataType, decimal pnr)
+        {
+            this.SubscriptionType = (decimal)subscriptionType;
+            this.DataType = (decimal)dataType;
+            this.PNR = pnr;
+        }
     }
 }
