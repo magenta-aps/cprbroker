@@ -220,5 +220,15 @@ namespace CprBroker.Schemas.Wrappers
             return this.GetType().Name;
         }
 
+        public virtual Tuple<string, int, int>[] PropertyDefinitions
+        {
+            get { return new Tuple<string, int, int>[] { }; }
+        }
+
+        public string ContentsWithSeparator(string separator = ";")
+        {
+            return string.Join(separator, PropertyDefinitions.Select(p => GetString(p.Item2, p.Item3)));
+        }
+
     }
 }
