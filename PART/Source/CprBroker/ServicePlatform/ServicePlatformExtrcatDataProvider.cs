@@ -48,10 +48,11 @@ using System.Text;
 using CprBroker.Engine;
 using CprBroker.Engine.Local;
 using CprBroker.Providers.CprServices;
+using CprBroker.Providers.CPRDirect;
 
 namespace CprBroker.Providers.ServicePlatform
 {
-    public partial class ServicePlatformExtractDataProvider : IExternalDataProvider, CprBroker.PartInterface.IExtractDataProvider, IPartPeriodDataProvider, IPartReadDataProvider, ILocalProxyDataProvider
+    public partial class ServicePlatformExtractDataProvider : IExternalDataProvider, CprBroker.PartInterface.IExtractDataProvider, IPartPeriodDataProvider, IPartReadDataProvider, ILocalProxyDataProvider, ICprDirectPersonDataProvider
     {
         #region IDataProvider members
 
@@ -222,6 +223,12 @@ namespace CprBroker.Providers.ServicePlatform
             return prov.Read(uuid, input, cpr2uuidFunc, out ql);
         }
 
+        #region ICprDirectPersonDataProvider members
 
+        public IndividualResponseType GetPerson(string cprNumber)
+        {
+            return ExtractManager.GetPerson(cprNumber);
+        }
+        #endregion
     }
 }
