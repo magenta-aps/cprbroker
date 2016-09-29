@@ -56,7 +56,7 @@ using System.Text.RegularExpressions;
 
 namespace CprBroker.Providers.CPRDirect
 {
-    public partial class CPRDirectExtractDataProvider : IPartReadDataProvider, IExternalDataProvider, CprBroker.PartInterface.IExtractDataProvider
+    public partial class CPRDirectExtractDataProvider
     {
 
         public string GetFtpUrl()
