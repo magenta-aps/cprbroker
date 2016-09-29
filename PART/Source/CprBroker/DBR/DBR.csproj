@@ -92,7 +92,7 @@
       <DependentUpon>Objects.xml</DependentUpon>
     </Compile>
     <Compile Include="Objects\ClassicResponseBasicDataType.cs" />
-    <Compile Include="Objects\NewResponseBasicDataType.cs" />
+    <Compile Include="Objects\NewResponseData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
