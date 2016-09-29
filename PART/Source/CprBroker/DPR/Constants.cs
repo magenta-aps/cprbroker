@@ -84,6 +84,24 @@ namespace CprBroker.Providers.DPR
         ExtendedData = 1 // Put to DPR database
     }
 
+    public class ResponseType
+    {
+        /// <summary>
+        /// Ingen
+        /// </summary>
+        public const char None = 'I';
+
+        /// <summary>
+        /// Stam
+        /// </summary>
+        public const char Basic = 'S';
+
+        /// <summary>
+        /// Udvidede
+        /// </summary>
+        public const char Enriched = 'U';
+    }
+
     public class EvenOdd
     {
         public const char Even = 'L';

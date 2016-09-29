@@ -41,6 +41,7 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
+using CprBroker.Providers.DPR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -52,6 +53,35 @@ namespace CprBroker.DBR
     {
         public override DiversionResponse Process(string dprConnectionString)
         {
+            switch(this.Type)
+            {
+                case InquiryType.DataNotUpdatedAutomatically:
+                    break;
+                case InquiryType.DataUpdatedAutomaticallyFromCpr:
+                    break;
+                case InquiryType.DeleteAutomaticDataUpdateFromCpr:
+                    break;
+                default:
+                    break;
+            }
+
+            switch(LargeData) // Irrelevant
+            {
+                default:
+                    break;
+            }
+
+            switch(this.ReponseData)
+            {
+                case ResponseType.None:
+                    break;
+                case ResponseType.Basic:
+                    break;
+                case ResponseType.Enriched:
+                    break;
+                default:
+                    break;
+            }
             // TODO: handle the new request format
             throw new NotImplementedException();
         }
