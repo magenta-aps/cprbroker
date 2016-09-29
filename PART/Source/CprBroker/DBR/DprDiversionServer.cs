@@ -56,6 +56,12 @@ namespace CprBroker.DBR
     {
         public DbrQueue DbrQueue;
 
+        public DprDiversionServer()
+        {
+            this.InputMessageSize = 40;
+            this.MaxWait = TimeSpan.FromMilliseconds(500);
+        }
+
         public override byte[] ProcessMessage(byte[] message)
         {
             try

@@ -57,21 +57,21 @@ namespace CprBroker.Engine
 
                     Local.Admin.LogFormattedSuccess("TcpServer <{0}>: client connected", this.ToString());
 
-                    int index = 0;
+                    int totalReadBytes = 0;
 
                     DateTime startTime = DateTime.Now;
 
                     byte[] messageBytes = new byte[InputMessageSize];
                     var stream = tcpClient.GetStream();
 
-                    while (index < messageBytes.Length && DateTime.Now - startTime < MaxWait)
+                    while (totalReadBytes < messageBytes.Length && DateTime.Now - startTime < MaxWait)
                     {
-                        int readBytes = stream.Read(messageBytes, index, InputMessageSize - index);
-                        index += readBytes;
+                        int readBytes = stream.Read(messageBytes, totalReadBytes, InputMessageSize - totalReadBytes);
+                        totalReadBytes += readBytes;
                     }
 
                     Local.Admin.LogFormattedSuccess("TcpServer <{0}>: processing message <{1}>", this.ToString(), Encoding.ASCII.GetString(messageBytes));
-                    var responseBytes = ProcessMessage(messageBytes);
+                    var responseBytes = ProcessMessage(messageBytes.Take(totalReadBytes).ToArray());
                     stream.Write(responseBytes, 0, responseBytes.Length);
                 }
                 catch (Exception ex)
