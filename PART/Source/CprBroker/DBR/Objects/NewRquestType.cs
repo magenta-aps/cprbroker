@@ -42,18 +42,30 @@
  * ***** END LICENSE BLOCK ***** */
 
 using CprBroker.Providers.DPR;
+using CprBroker.Providers.CPRDirect;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using CprBroker.PartInterface;
 
 namespace CprBroker.DBR
 {
     public partial class NewRquestType
     {
-        public override DiversionResponse Process(string dprConnectionString)
+        public override DiversionResponseType Process(string dprConnectionString)
         {
-            switch(this.Type)
+            var dataProviders = new ICprDirectPersonDataProvider[0].AsEnumerable();
+
+            if (Convert.ToBoolean(ForceDiversion))
+                dataProviders = LoadDataProviders<CPRDirectClientDataProvider>().Select(p => p as ICprDirectPersonDataProvider);
+            else
+                dataProviders = LoadDataProviders<ICprDirectPersonDataProvider>();
+
+            ICprDirectPersonDataProvider usedProvider;
+            var person = this.GetPerson(dataProviders, out usedProvider);
+
+            switch (this.Type)
             {
                 case InquiryType.DataNotUpdatedAutomatically:
                     break;
@@ -64,26 +76,56 @@ namespace CprBroker.DBR
                 default:
                     break;
             }
+            // Regardless of the data source, make sure there is a subscription to keep getting changes in CPR Broker
+            if (!CanPutSubscription(usedProvider))
+            {
+                // We have to create a subscription elsewhere
+                var subscriptionResult = this.PutSubscription();
+                if (!subscriptionResult)
+                {
+                    throw new NotImplementedException();
+                }
+            }
 
-            switch(LargeData) // Irrelevant
+            // Update the the broker's database, only the source itself is not an extract
+            if (!(usedProvider is IExtractDataProvider))
+                this.SaveAsExtract(person);
+
+            // Update the DPR database
+            this.UpdateDprDatabase(dprConnectionString, person);
+
+            switch (LargeData) // Irrelevant
             {
                 default:
                     break;
             }
 
-            switch(this.ReponseData)
+            var ret = new NewResponseType() {
+                ErrorNumber = "00",
+                LargeData = this.LargeData,
+                Type = this.Type
+            };
+
+            switch (this.ReponseData)
             {
                 case ResponseType.None:
+                    ret.Data = new NewResponseNoDataType(person);
                     break;
+
                 case ResponseType.Basic:
+                    ret.Data = new NewResponseBasicDataType(person);
                     break;
+
                 case ResponseType.Enriched:
+                    ret.Data = new NewResponseFullDataType(person);
                     break;
+
                 default:
                     break;
             }
             // TODO: handle the new request format
             throw new NotImplementedException();
         }
+
     }
 }

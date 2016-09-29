@@ -7,7 +7,21 @@ using System.Threading.Tasks;
 
 namespace CprBroker.DBR
 {
-    public partial class NewResponseBasicDataType
+    public interface INewResponseData
+    {
+
+    }
+
+    public partial class NewResponseNoDataType : INewResponseData
+    {
+        public NewResponseNoDataType(IndividualResponseType resp)
+        {
+            this.PNR = resp.PersonInformation.PNR;
+            this.Ok = "OK";
+        }
+    }
+
+    public partial class NewResponseBasicDataType : INewResponseData
     {
         public NewResponseBasicDataType()
         { }
@@ -15,5 +29,14 @@ namespace CprBroker.DBR
         public NewResponseBasicDataType(IndividualResponseType resp)
             : base(resp)
         { }
+    }
+
+    public partial class NewResponseFullDataType : INewResponseData
+    {
+        public NewResponseFullDataType(IndividualResponseType resp)
+        {
+            // TODO: Implement this
+            throw new NotImplementedException();
+        }
     }
 }

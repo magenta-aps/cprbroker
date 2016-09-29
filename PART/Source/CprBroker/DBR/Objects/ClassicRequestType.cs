@@ -59,11 +59,11 @@ namespace CprBroker.DBR
 {
     public partial class ClassicRequestType
     {
-        public override DiversionResponse Process(string dprConnectionString)
+        public override DiversionResponseType Process(string dprConnectionString)
         {
             ValidateOperationMode();
 
-            CPRDirectClientDataProvider usedProvider = null;
+            ICprDirectPersonDataProvider usedProvider = null;
             var individualResponse = GetPerson(out usedProvider);
             if (individualResponse == null)
             {
@@ -72,7 +72,7 @@ namespace CprBroker.DBR
             }
 
             // Put a subscription if needed
-            if (usedProvider.DisableSubscriptions)
+            if (!CanPutSubscription(usedProvider))
             {
                 // We have to create a subscription elsewhere
                 var subscriptionResult = this.PutSubscription();
@@ -110,10 +110,15 @@ namespace CprBroker.DBR
             }
         }
 
-        public virtual IndividualResponseType GetPerson(out CPRDirectClientDataProvider usedProvider)
+        public virtual IndividualResponseType GetPerson(out ICprDirectPersonDataProvider usedProvider)
         {
             var cprDirectProviders = LoadDataProviders<CPRDirectClientDataProvider>();
-            foreach (var prov in cprDirectProviders)
+            return GetPerson(cprDirectProviders, out usedProvider);
+        }
+
+        public virtual IndividualResponseType GetPerson(IEnumerable<ICprDirectPersonDataProvider> dataProviders, out ICprDirectPersonDataProvider usedProvider)
+        {
+            foreach (var prov in dataProviders)
             {
                 var resp = prov.GetPerson(this.PNR);
                 if (resp != null)
@@ -124,6 +129,13 @@ namespace CprBroker.DBR
             }
             usedProvider = null;
             return null;
+        }
+
+        public bool CanPutSubscription(ICprDirectPersonDataProvider usedProvider)
+        {
+            return
+                (usedProvider is IPutSubscriptionDataProvider && !(usedProvider is IPutSubscriptionDataProvider2)) // Always puts a subscription with no way to disable it
+                || (usedProvider is IPutSubscriptionDataProvider2 && !(usedProvider as IPutSubscriptionDataProvider2).DisableSubscriptions); // Can disable subscriptions, but they are NOT disabled
         }
 
         public virtual bool PutSubscription()

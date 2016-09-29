@@ -8,10 +8,13 @@
     <Attribute format="Alpha"   position="3" length="10" name="PNR"/>
   </Object>
 
-  <Object name="ClassicResponse" base="DiversionResponse" length="236">
+  <Object name="DiversionResponse">
     <Attribute format="Numeric" position="1" length="1" name="Type" enumType="InquiryType"/>
     <Attribute format="Numeric" position="2" length="1" name="LargeData" enumType="DetailType"/>
     <Attribute format="Alpha"   position="3" length="2" name="ErrorNumber" danishName="FEJLNR"/>
+  </Object>
+    
+  <Object name="ClassicResponse" base="DiversionResponseType" length="236">
     <Attribute format="Alpha"   position="5" length="10" name="PNR"/>
     <Attribute format="Alpha"   position="15" length="222"  name="Data"/>
   </Object>
@@ -39,8 +42,22 @@
     <Attribute format="Alpha"   position="21" length="20" name="UserID" description="End user's user ID or possibly. fagsystemet system user ID."/>
   </Object>
 
+  <Object name="NewResponse" base="DiversionResponseType">
+    
+  </Object>
+
+  <Object name="NewResponseNoData" length="14">
+    <Attribute format="Alpha"   position="1"   length="10" name="PNR"/>
+    <Attribute format="Alpha"   position="13"   length="2" name="Ok"/>
+  </Object>
+  
   <Object name="NewResponseBasicData" base="ClassicResponseBasicDataType" length="222">
     <!-- No more attributes here-->
   </Object>
+
+  <Object name="NewResponseFullData">
+    
+  </Object>
+
 
 </Layer>

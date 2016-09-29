@@ -50,7 +50,7 @@ using CprBroker.Schemas.Wrappers;
 
 namespace CprBroker.DBR
 {
-    public abstract class DiversionResponse : Wrapper
+    public abstract partial class DiversionResponseType : Wrapper
     {
         public byte[] ToBytes()
         {

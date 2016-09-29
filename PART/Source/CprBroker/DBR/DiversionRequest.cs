@@ -72,7 +72,7 @@ namespace CprBroker.DBR
             return ret;
         }
 
-        public abstract DiversionResponse Process(string dprConnectionString);
+        public abstract DiversionResponseType Process(string dprConnectionString);
     }
 
 }
