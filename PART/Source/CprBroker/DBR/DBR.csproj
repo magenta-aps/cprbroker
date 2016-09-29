@@ -90,6 +90,8 @@
     <Compile Include="Objects.cs">
       <DependentUpon>Objects.xml</DependentUpon>
     </Compile>
+    <Compile Include="Objects\ClassicResponseBasicDataType.cs" />
+    <Compile Include="Objects\NewResponseBasicDataType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -107,7 +109,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Objects.xml" />
+    <Content Include="Objects.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Resources\CreateDbrTables.sql" />
   </ItemGroup>
   <ItemGroup>

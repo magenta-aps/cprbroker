@@ -80,12 +80,16 @@ namespace CprBroker.Providers.CPRDirect
             return VirkningType.Create(this.StartDate, this.EndDate);
         }
 
-        public static bool HasProtection(IList<ProtectionType> protectionRecords, DateTime effectDate, ProtectionCategoryCodes category)
+        public static ProtectionType FindProtection(IList<ProtectionType> protectionRecords, DateTime effectDate, ProtectionCategoryCodes category)
         {
             return protectionRecords
                 .Where(p => p.HasProtection(effectDate, category))
-                .FirstOrDefault()
-                != null;
+                .FirstOrDefault();
+        }
+
+        public static bool HasProtection(IList<ProtectionType> protectionRecords, DateTime effectDate, ProtectionCategoryCodes category)
+        {
+            return FindProtection(protectionRecords, effectDate, category) != null;
         }
 
         public static VirkningType[] ToVirkningTypeArray(IList<ProtectionType> protectionRecords, DateTime effectDate, params ProtectionCategoryCodes[] categories)

@@ -39,7 +39,7 @@
   <xs:complexType name="ObjectElementType">
     <xs:complexContent>
       <xs:extension base="BaseElementType">
-        <xs:choice minOccurs="1" maxOccurs="unbounded">
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
           <xs:element name="Object" type="ChildObjectType"></xs:element>
           <xs:element name="Attribute" type="AttributeElementType"></xs:element>
         </xs:choice>
