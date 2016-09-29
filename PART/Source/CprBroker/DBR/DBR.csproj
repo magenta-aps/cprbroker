@@ -60,7 +60,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ClassicRequestType.cs" />
+    <Compile Include="Objects\ClassicRequestType.cs" />
     <Compile Include="DprDiversionManager.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -86,8 +86,8 @@
     <Compile Include="Extensions\CprConverterExtensions.Disappearance.cs" />
     <Compile Include="Extensions\CprConverterExtensions.Protection.cs" />
     <Compile Include="Extensions\CprConverterExtensions.ParentalAuthority.cs" />
-    <Compile Include="NewRquestType.cs" />
-    <Compile Include="Objects.cs">
+    <Compile Include="Objects\NewRquestType.cs" />
+    <Compile Include="Objects\Objects.cs">
       <DependentUpon>Objects.xml</DependentUpon>
     </Compile>
     <Compile Include="Objects\ClassicResponseBasicDataType.cs" />
@@ -109,7 +109,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Objects.xml">
+    <Content Include="Objects\Objects.xml">
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Resources\CreateDbrTables.sql" />
@@ -120,7 +120,7 @@
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>"$(ProjectDir)..\..\Dll\msxsl.exe" "$(ProjectDir)Objects.xml" "$(SolutionDir)..\Core\Schemas\Wrappers\ClassTransform.xslt" -o "$(ProjectDir)Objects.cs" namespace="$(TargetName)" using="CprBroker.Providers.DPR"</PreBuildEvent>
+    <PreBuildEvent>"$(ProjectDir)..\..\Dll\msxsl.exe" "$(ProjectDir)Objects\Objects.xml" "$(SolutionDir)..\Core\Schemas\Wrappers\ClassTransform.xslt" -o "$(ProjectDir)Objects\Objects.cs" namespace="$(TargetName)" using="CprBroker.Providers.DPR"</PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PostBuildEvent>copy $(TargetFileName) $(SolutionDir)Output\ /y</PostBuildEvent>
