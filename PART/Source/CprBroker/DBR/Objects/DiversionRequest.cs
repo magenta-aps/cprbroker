@@ -47,6 +47,7 @@ using System.Linq;
 using System.Text;
 using CprBroker.Providers.DPR;
 using CprBroker.Schemas.Wrappers;
+using System.Text.RegularExpressions;
 
 namespace CprBroker.DBR
 {
@@ -60,13 +61,18 @@ namespace CprBroker.DBR
         public static DiversionRequest Parse(string str)
         {
             DiversionRequest ret = null;
-            if (str.Length == 12)
+
+            if (Regex.Match(str, @"\A[013][01][0-9]{10}MMXIII[01][ISU].{0,20}").Success)
+            {
+                ret = new NewRquestType() { Contents = str };
+            }
+            else if (Regex.Match(str, @"\A[013][01][0-9]{10}").Success)
             {
                 ret = new ClassicRequestType() { Contents = str };
             }
-            else if (str.Length == 40)
+            else
             {
-                ret = new NewRquestType() { Contents = str };
+                ret = new ErrorRequestType(str);
             }
 
             return ret;
