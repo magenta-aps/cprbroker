@@ -73,9 +73,9 @@
     <Compile Include="CprConverter.cs" />
     <Compile Include="Extensions\CprConverterExtensions.cs" />
     <Compile Include="DbrQueue.cs" />
-    <Compile Include="DiversionResponse.cs" />
+    <Compile Include="Objects\DiversionResponse.cs" />
     <Compile Include="DprDiversionServer.cs" />
-    <Compile Include="DiversionRequest.cs" />
+    <Compile Include="Objects\DiversionRequest.cs" />
     <Compile Include="Extensions\CprConverterExtensions.PersonTotal.cs" />
     <Compile Include="Extensions\CprConverterExtensions.Person.cs" />
     <Compile Include="Extensions\CprConverterExtensions.Guardianship.cs" />
