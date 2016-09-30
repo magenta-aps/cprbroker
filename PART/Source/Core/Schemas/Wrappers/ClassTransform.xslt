@@ -157,6 +157,10 @@ ___________Attribute template _____________________________
         <xsl:value-of select="@position"/>
         <xsl:call-template name="lengthTemplate"/>
 <xsl:text>); }
+            set { this.SetDecimal(value, </xsl:text>
+<xsl:value-of select="@position"/>
+<xsl:call-template name="lengthTemplate"/>
+<xsl:text>); }
         }
 
 </xsl:text>
