@@ -30,13 +30,4 @@ namespace CprBroker.DBR
             : base(resp)
         { }
     }
-
-    public partial class NewResponseFullDataType : INewResponseData
-    {
-        public NewResponseFullDataType(IndividualResponseType resp)
-        {
-            // TODO: Implement this
-            throw new NotImplementedException();
-        }
-    }
 }

@@ -87,6 +87,7 @@
     <Compile Include="Extensions\CprConverterExtensions.Protection.cs" />
     <Compile Include="Extensions\CprConverterExtensions.ParentalAuthority.cs" />
     <Compile Include="Objects\ErrorRequestType.cs" />
+    <Compile Include="Objects\NewResponseData.FullData.cs" />
     <Compile Include="Objects\NewResponseType.cs" />
     <Compile Include="Objects\NewRquestType.cs" />
     <Compile Include="Objects\Objects.cs">
