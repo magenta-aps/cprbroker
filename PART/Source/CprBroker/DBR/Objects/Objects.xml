@@ -55,9 +55,188 @@
     <!-- No more attributes here-->
   </Object>
 
-  <Object name="NewResponseFullData">
-    
+  <Object name="NewResponseFullData" base="DiversionResponseType" length="3224">
+    <Attribute format="Alpha"   position="5"    length="11"  name="PNR"                      danishName="PNR"                      description="" />
+    <Attribute format="Numeric" position="16"   length="13"  name="AJFDTO_NAVNE"             danishName="AJFDTO_NAVNE"             description="" dateFormat="yyyyMMddHHmm" />
+    <Attribute format="Numeric" position="29"   length="5"   name="MYNKOD_NAVNE"             danishName="MYNKOD_NAVNE"             description="" />
+    <Attribute format="Numeric" position="34"   length="3"   name="STATUS"                   danishName="STATUS"                   description="" />
+    <Attribute format="Numeric" position="37"   length="13"  name="STATUSHAENSTART"          danishName="STATUSHAENSTART"          description="" dateFormat="yyyyMMddHHmm" />
+    <Attribute format="Alpha"   position="50"   length="1"   name="FORNVNMARK"               danishName="FORNVNMARK"               description="" />
+    <Attribute format="Alpha"   position="51"   length="1"   name="EFTERNVNMARK"             danishName="EFTERNVNMARK"             description="" />
+    <Attribute format="Numeric" position="52"   length="13"  name="NVNHAENSTART"             danishName="NVNHAENSTART"             description="" dateFormat="yyyyMMddHHmm" />
+    <Attribute format="Numeric" position="65"   length="13"  name="ADRNVNHAENSTART"          danishName="ADRNVNHAENSTART"          description="" dateFormat="yyyyMMddHHmm" />
+    <Attribute format="Alpha"   position="78"   length="3"   name="INDRAP"                   danishName="INDRAP"                   description="" />
+    <Attribute format="Numeric" position="81"   length="13"  name="MYNTXTAJFDTO"             danishName="MYNTXTAJFDTO"             description="" dateFormat="yyyyMMddHHmm" />
+    <Attribute format="Alpha"   position="94"   length="50"  name="FORNVN"                   danishName="FORNVN"                   description="" />
+    <Attribute format="Alpha"   position="144"  length="40"  name="EFTERNVN"                 danishName="EFTERNVN"                 description="" />
+    <Attribute format="Alpha"   position="184"  length="50"  name="SFORNVN"                  danishName="SFORNVN"                  description="" />
+    <Attribute format="Alpha"   position="234"  length="40"  name="SEFTERNVN"                danishName="SEFTERNVN"                description="" />
+    <Attribute format="Alpha"   position="274"  length="34"  name="ADRNVN"                   danishName="ADRNVN"                   description="" />
+    <Attribute format="Alpha"   position="308"  length="20"  name="MYNTXT_NAVNE"             danishName="MYNTXT_NAVNE"             description="" />
+    <Attribute format="Numeric" position="328"  length="13"  name="AJFDTO_PERSON"            danishName="AJFDTO_PERSON"            description="" dateFormat="yyyyMMddHHmm" />
+    <Attribute format="Numeric" position="341"  length="9"   name="FOEDDTO"                  danishName="FOEDDTO"                  description="" />
+    <Attribute format="Alpha"   position="350"  length="1"   name="KOEN"                     danishName="KOEN"                     description="" />
+    <Attribute format="Numeric" position="351"  length="5"   name="FOEDMYNKOD"               danishName="FOEDMYNKOD"               description="" />
+    <Attribute format="Numeric" position="356"  length="13"  name="FOEDMYNHAENSTART"         danishName="FOEDMYNHAENSTART"         description="" dateFormat="yyyyMMddHHmm" />
+    <Attribute format="Numeric" position="369"  length="13"  name="FOEDMYNAJFDTO"            danishName="FOEDMYNAJFDTO"            description="" dateFormat="yyyyMMddHHmm" />
+    <Attribute format="Alpha"   position="382"  length="1"   name="FKIRK"                    danishName="FKIRK"                    description="" />
+    <Attribute format="Numeric" position="383"  length="13"  name="FKIRKAJFDTO"              danishName="FKIRKAJFDTO"              description="" dateFormat="yyyyMMddHHmm" />
+    <Attribute format="Numeric" position="396"  length="5"   name="FKIRKMYNKOD"              danishName="FKIRKMYNKOD"              description="" />
+    <Attribute format="Numeric" position="401"  length="13"  name="FKIRKHAENSTART"           danishName="FKIRKHAENSTART"           description="" dateFormat="yyyyMMddHHmm" />
+    <Attribute format="Numeric" position="414"  length="5"   name="UMYNMYNKOD"               danishName="UMYNMYNKOD"               description="" />
+    <Attribute format="Numeric" position="419"  length="13"  name="UMYNAJFDTO"               danishName="UMYNAJFDTO"               description="" dateFormat="yyyyMMddHHmm" />
+    <Attribute format="Numeric" position="432"  length="13"  name="UMYNMYNHAENSTART"         danishName="UMYNMYNHAENSTART"         description="" dateFormat="yyyyMMddHHmm" />
+    <Attribute format="Numeric" position="445"  length="13"  name="PNRMRKHAENSTART"          danishName="PNRMRKHAENSTART"          description="" dateFormat="yyyyMMddHHmm" />
+    <Attribute format="Numeric" position="458"  length="13"  name="PNRHAENSTART"             danishName="PNRHAENSTART"             description="" dateFormat="yyyyMMddHHmm" />
+    <Attribute format="Numeric" position="471"  length="13"  name="AJFDTO_PNRGAELD"          danishName="AJFDTO_PNRGAELD"          description="" dateFormat="yyyyMMddHHmm" />
+    <Attribute format="Numeric" position="484"  length="11"  name="PNRGAELD"                 danishName="PNRGAELD"                 description="" />
+    <Attribute format="Numeric" position="495"  length="13"  name="PNRHAENSLUT"              danishName="PNRHAENSLUT"              description="" dateFormat="yyyyMMddHHmm" />
+    <Attribute format="Numeric" position="508"  length="13"  name="STILLINGDTO"              danishName="STILLINGDTO"              description="" dateFormat="yyyyMMddHHmm" />
+    <Attribute format="Numeric" position="521"  length="13"  name="FOEDTXTAJFDTO"            danishName="FOEDTXTAJFDTO"            description="" dateFormat="yyyyMMddHHmm" />
+    <Attribute format="Numeric" position="534"  length="5"   name="KUNDENR"                  danishName="KUNDENR"                  description="" />
+    <Attribute format="Numeric" position="539"  length="13"  name="AJFDTO_MORFAR"            danishName="AJFDTO_MORFAR"            description="" dateFormat="yyyyMMddHHmm" />
+    <Attribute format="Numeric" position="552"  length="11"  name="PNRMOR"                   danishName="PNRMOR"                   description="" />
+    <Attribute format="Numeric" position="563"  length="9"   name="MORFOEDDTO"               danishName="MORFOEDDTO"               description="" />
+    <Attribute format="Alpha"   position="572"  length="3"   name="MORDOK"                   danishName="MORDOK"                   description="" />
+    <Attribute format="Numeric" position="575"  length="11"  name="PNRFAR"                   danishName="PNRFAR"                   description="" />
+    <Attribute format="Numeric" position="586"  length="9"   name="FARFOEDDTO"               danishName="FARFOEDDTO"               description="" />
+    <Attribute format="Alpha"   position="595"  length="3"   name="FARDOK"                   danishName="FARDOK"                   description="" />
+    <Attribute format="Numeric" position="598"  length="13"  name="FARSKABHAENSTART"         danishName="FARSKABHAENSTART"         description="" dateFormat="yyyyMMddHHmm" />
+    <Attribute format="Numeric" position="611"  length="5"   name="FARSKABMYNKOD"            danishName="FARSKABMYNKOD"            description="" />
+    <Attribute format="Alpha"   position="616"  length="34"  name="MORNVN"                   danishName="MORNVN"                   description="" />
+    <Attribute format="Alpha"   position="650"  length="34"  name="FARNVN"                   danishName="FARNVN"                   description="" />
+    <Attribute format="Alpha"   position="684"  length="20"  name="FOEDMYNTXT"               danishName="FOEDMYNTXT"               description="" />
+    <Attribute format="Alpha"   position="704"  length="34"  name="STILLING"                 danishName="STILLING"                 description="" />
+    <Attribute format="Alpha"   position="738"  length="10"  name="UMYNSLETDATE"             danishName="UMYNSLETDATE"             description="" />
+    <Attribute format="Numeric" position="748"  length="4"   name="UMYNRELTYP"               danishName="UMYNRELTYP"               description="" />
+    <Attribute format="Alpha"   position="752"  length="20"  name="AKTKOMNVN"                danishName="AKTKOMNVN"                description="" />
+    <Attribute format="Alpha"   position="772"  length="1"   name="NVNADRBESKMRK"            danishName="NVNADRBESKMRK"            description="" />
+    <Attribute format="Alpha"   position="773"  length="1"   name="LOKBESKMRK"               danishName="LOKBESKMRK"               description="" />
+    <Attribute format="Alpha"   position="774"  length="20"  name="FOEDREGSTED"              danishName="FOEDREGSTED"              description="" />
+    <Attribute format="Alpha"   position="794"  length="11"  name="MOR"                      danishName="MOR"                      description="" />
+    <Attribute format="Alpha"   position="805"  length="1"   name="MORMRK"                   danishName="MORMRK"                   description="" />
+    <Attribute format="Alpha"   position="806"  length="11"  name="FAR"                      danishName="FAR"                      description="" />
+    <Attribute format="Alpha"   position="817"  length="1"   name="FARMRK"                   danishName="FARMRK"                   description="" />
+    <Attribute format="Alpha"   position="818"  length="1"   name="UDRINDRMRK"               danishName="UDRINDRMRK"               description="" />
+    <Attribute format="Alpha"   position="819"  length="1"   name="FORSVINDMRK"              danishName="FORSVINDMRK"              description="" />
+    <Attribute format="Alpha"   position="820"  length="11"  name="AEGTE"                    danishName="AEGTE"                    description="" />
+    <Attribute format="Alpha"   position="831"  length="1"   name="AEGTEMRK"                 danishName="AEGTEMRK"                 description="" />
+    <Attribute format="Alpha"   position="832"  length="20"  name="POSTDISTTXT"              danishName="POSTDISTTXT"              description="" />
+    <Attribute format="Alpha"   position="852"  length="1"   name="BARNMRK"                  danishName="BARNMRK"                  description="" />
+    <Attribute format="Alpha"   position="853"  length="1"   name="SUPLADRMRK"               danishName="SUPLADRMRK"               description="" />
+    <Attribute format="Alpha"   position="854"  length="1"   name="TIDLPNRMRK"               danishName="TIDLPNRMRK"               description="" />
+    <Attribute format="Alpha"   position="855"  length="20"  name="FARSKABMYNNVN"            danishName="FARSKABMYNNVN"            description="" />
+    <Attribute format="Alpha"   position="875"  length="20"  name="CIVMYN"                   danishName="CIVMYN"                   description="" />
+    <Attribute format="Alpha"   position="895"  length="20"  name="STATSBORGER"              danishName="STATSBORGER"              description="" />
+    <Attribute format="Alpha"   position="915"  length="20"  name="TIDLKOMNVN"               danishName="TIDLKOMNVN"               description="" />
+    <Attribute format="Alpha"   position="935"  length="34"  name="STANDARDADR"              danishName="STANDARDADR"              description="" />
+    <Attribute format="Alpha"   position="969"  length="1"   name="KONTAKTADRMRK"            danishName="KONTAKTADRMRK"            description="" />
+    <Attribute format="Numeric" position="970"  length="13"  name="AJFDTO_STAT"              danishName="AJFDTO_STAT"              description="" dateFormat="yyyyMMddHHmm" />
+    <Attribute format="Numeric" position="983"  length="5"   name="MYNKOD_STAT"              danishName="MYNKOD_STAT"              description="" />
+    <Attribute format="Numeric" position="988"  length="13"  name="HAENSTART_STAT"           danishName="HAENSTART_STAT"           description="" dateFormat="yyyyMMddHHmm" />
+    <Attribute format="Numeric" position="1001" length="13"  name="AJFDTO_CIV"               danishName="AJFDTO_CIV"               description="" dateFormat="yyyyMMddHHmm" />
+    <Attribute format="Alpha"   position="1014" length="1"   name="CIVST"                    danishName="CIVST"                    description="" />
+    <Attribute format="Numeric" position="1015" length="5"   name="MYNKOD_CIV"               danishName="MYNKOD_CIV"               description="" />
+    <Attribute format="Numeric" position="1020" length="11"  name="AEGTEPNR"                 danishName="AEGTEPNR"                 description="" />
+    <Attribute format="Numeric" position="1031" length="9"   name="AEGTEFOEDDTO"             danishName="AEGTEFOEDDTO"             description="" />
+    <Attribute format="Alpha"   position="1040" length="3"   name="AEGTEDOK"                 danishName="AEGTEDOK"                 description="" />
+    <Attribute format="Numeric" position="1043" length="13"  name="HAENSTART_CIV"            danishName="HAENSTART_CIV"            description="" dateFormat="yyyyMMddHHmm" />
+    <Attribute format="Numeric" position="1056" length="13"  name="MYNTXTAJFDTO_CIV"         danishName="MYNTXTAJFDTO_CIV"         description="" dateFormat="yyyyMMddHHmm" />
+    <Attribute format="Alpha"   position="1069" length="20"  name="MYNTXT_CIV"               danishName="MYNTXT_CIV"               description="" />
+    <Attribute format="Alpha"   position="1089" length="34"  name="AEGTENVN"                 danishName="AEGTENVN"                 description="" />
+    <Attribute format="Numeric" position="1123" length="13"  name="AJFDTO_PERSONBOLIG"       danishName="AJFDTO_PERSONBOLIG"       description="" dateFormat="yyyyMMddHHmm" />
+    <Attribute format="Numeric" position="1136" length="5"   name="KOMKOD"                   danishName="KOMKOD"                   description="" />
+    <Attribute format="Numeric" position="1141" length="5"   name="VEJKOD"                   danishName="VEJKOD"                   description="" />
+    <Attribute format="Alpha"   position="1146" length="4"   name="HUSNR"                    danishName="HUSNR"                    description="" />
+    <Attribute format="Alpha"   position="1150" length="2"   name="ETAGE"                    danishName="ETAGE"                    description="" />
+    <Attribute format="Alpha"   position="1152" length="4"   name="SIDEDOER"                 danishName="SIDEDOER"                 description="" />
+    <Attribute format="Alpha"   position="1156" length="4"   name="BNR"                      danishName="BNR"                      description="" />
+    <Attribute format="Numeric" position="1160" length="5"   name="POSTNR"                   danishName="POSTNR"                   description="" />
+    <Attribute format="Alpha"   position="1165" length="20"  name="KOMNVN"                   danishName="KOMNVN"                   description="" />
+    <Attribute format="Alpha"   position="1185" length="20"  name="VEJADRNVN"                danishName="VEJADRNVN"                description="" />
+    <Attribute format="Numeric" position="1205" length="13"  name="TILFLYDTO"                danishName="TILFLYDTO"                description="" dateFormat="yyyyMMddHHmm" />
+    <Attribute format="Alpha"   position="1218" length="1"   name="TILFLYDTOMRK"             danishName="TILFLYDTOMRK"             description="" />
+    <Attribute format="Numeric" position="1219" length="5"   name="FRAFLYKOMKOD"             danishName="FRAFLYKOMKOD"             description="" />
+    <Attribute format="Numeric" position="1224" length="13"  name="FRAFLYKOMDTO"             danishName="FRAFLYKOMDTO"             description="" dateFormat="yyyyMMddHHmm" />
+    <Attribute format="Numeric" position="1237" length="13"  name="TILFLYKOMDTO"             danishName="TILFLYKOMDTO"             description="" dateFormat="yyyyMMddHHmm" />
+    <Attribute format="Numeric" position="1250" length="13"  name="SUPLADRHAENSTART"         danishName="SUPLADRHAENSTART"         description="" dateFormat="yyyyMMddHHmm" />
+    <Attribute format="Alpha"   position="1263" length="34"  name="CONVN"                    danishName="CONVN"                    description="" />
+    <Attribute format="Alpha"   position="1297" length="34"  name="BYNVN"                    danishName="BYNVN"                    description="" />
+    <Attribute format="Alpha"   position="1331" length="34"  name="LOKALITET"                danishName="LOKALITET"                description="" />
+    <Attribute format="Alpha"   position="1365" length="34"  name="SUPLADR1"                 danishName="SUPLADR1"                 description="" />
+    <Attribute format="Alpha"   position="1399" length="34"  name="SUPLADR2"                 danishName="SUPLADR2"                 description="" />
+    <Attribute format="Alpha"   position="1433" length="34"  name="SUPLADR3"                 danishName="SUPLADR3"                 description="" />
+    <Attribute format="Alpha"   position="1467" length="34"  name="SUPLADR4"                 danishName="SUPLADR4"                 description="" />
+    <Attribute format="Alpha"   position="1501" length="34"  name="SUPLADR5"                 danishName="SUPLADR5"                 description="" />
+    <Attribute format="Numeric" position="1535" length="13"  name="AJFDTO_FORSVIND"          danishName="AJFDTO_FORSVIND"          description="" dateFormat="yyyyMMddHHmm" />
+    <Attribute format="Numeric" position="1548" length="13"  name="FORSVINDDTO"              danishName="FORSVINDDTO"              description="" dateFormat="yyyyMMddHHmm" />
+    <Attribute format="Numeric" position="1561" length="13"  name="AJFDTO_UDRINDR"           danishName="AJFDTO_UDRINDR"           description="" dateFormat="yyyyMMddHHmm" />
+    <Attribute format="Numeric" position="1574" length="5"   name="UDRMYNKOD"                danishName="UDRMYNKOD"                description="" />
+    <Attribute format="Numeric" position="1579" length="13"  name="UDRDTO"                   danishName="UDRDTO"                   description="" dateFormat="yyyyMMddHHmm" />
+    <Attribute format="Numeric" position="1592" length="13"  name="UDRAJFDTO"                danishName="UDRAJFDTO"                description="" dateFormat="yyyyMMddHHmm" />
+    <Attribute format="Numeric" position="1605" length="13"  name="UDLANDADRDTO"             danishName="UDLANDADRDTO"             description="" dateFormat="yyyyMMddHHmm" />
+    <Attribute format="Numeric" position="1618" length="13"  name="VALGRETDTO"               danishName="VALGRETDTO"               description="" dateFormat="yyyyMMddHHmm" />
+    <Attribute format="Alpha"   position="1631" length="34"  name="UDLANDSADR1"              danishName="UDLANDSADR1"              description="" />
+    <Attribute format="Alpha"   position="1665" length="34"  name="UDLANDSADR2"              danishName="UDLANDSADR2"              description="" />
+    <Attribute format="Alpha"   position="1699" length="34"  name="UDLANDSADR3"              danishName="UDLANDSADR3"              description="" />
+    <Attribute format="Alpha"   position="1733" length="34"  name="UDLANDSADR4"              danishName="UDLANDSADR4"              description="" />
+    <Attribute format="Alpha"   position="1767" length="34"  name="UDLANDSADR5"              danishName="UDLANDSADR5"              description="" />
+    <Attribute format="Numeric" position="1801" length="13"  name="AJFDTO_KONTAKTADR"        danishName="AJFDTO_KONTAKTADR"        description="" dateFormat="yyyyMMddHHmm" />
+    <Attribute format="Numeric" position="1814" length="5"   name="KONTAKTADR_KOMKOD"        danishName="KONTAKTADR_KOMKOD"        description="" />
+    <Attribute format="Numeric" position="1819" length="13"  name="KONTAKTADRSTART"          danishName="KONTAKTADRSTART"          description="" dateFormat="yyyyMMddHHmm" />
+    <Attribute format="Alpha"   position="1832" length="34"  name="KONTAKTADR1"              danishName="KONTAKTADR1"              description="" />
+    <Attribute format="Alpha"   position="1866" length="34"  name="KONTAKTADR2"              danishName="KONTAKTADR2"              description="" />
+    <Attribute format="Alpha"   position="1900" length="34"  name="KONTAKTADR3"              danishName="KONTAKTADR3"              description="" />
+    <Attribute format="Alpha"   position="1934" length="34"  name="KONTAKTADR4"              danishName="KONTAKTADR4"              description="" />
+    <Attribute format="Alpha"   position="1968" length="34"  name="KONTAKTADR5"              danishName="KONTAKTADR5"              description="" />
+    <Attribute format="Numeric" position="2002" length="13"  name="AJFDTO_RELPNR_1"          danishName="AJFDTO_RELPNR_1"          description="" dateFormat="yyyyMMddHHmm" />
+    <Attribute format="Numeric" position="2015" length="11"  name="RELPNR_1"                 danishName="RELPNR_1"                 description="" />
+    <Attribute format="Numeric" position="2026" length="4"   name="RELTYP_1"                 danishName="RELTYP_1"                 description="" />
+    <Attribute format="Alpha"   position="2030" length="10"  name="STARTDATE_1"              danishName="STARTDATE_1"              description="" dateFormat="yyyy-MM-dd" />
+    <Attribute format="Alpha"   position="2040" length="10"  name="SLETDATE_1"               danishName="SLETDATE_1"               description="" />
+    <Attribute format="Numeric" position="2050" length="5"   name="MYNKOD_5_1"               danishName="MYNKOD_5_1"               description="" />
+    <Attribute format="Numeric" position="2055" length="13"  name="AJFDTO_RELPNR_5"          danishName="AJFDTO_RELPNR_5"          description="" dateFormat="yyyyMMddHHmm" />
+    <Attribute format="Numeric" position="2068" length="11"  name="RELPNR_5"                 danishName="RELPNR_5"                 description="" />
+    <Attribute format="Numeric" position="2079" length="4"   name="RELTYP_5"                 danishName="RELTYP_5"                 description="" />
+    <Attribute format="Alpha"   position="2083" length="10"  name="STARTDATE_5"              danishName="STARTDATE_5"              description="" dateFormat="yyyy-MM-dd" />
+    <Attribute format="Alpha"   position="2093" length="10"  name="SLETDATE_5"               danishName="SLETDATE_5"               description="" />
+    <Attribute format="Numeric" position="2103" length="5"   name="MYNKOD_5_5"               danishName="MYNKOD_5_5"               description="" />
+    <Attribute format="Numeric" position="2108" length="13"  name="AJFDTO_RELPNR_6"          danishName="AJFDTO_RELPNR_6"          description="" dateFormat="yyyyMMddHHmm" />
+    <Attribute format="Numeric" position="2121" length="11"  name="RELPNR_6"                 danishName="RELPNR_6"                 description="" />
+    <Attribute format="Numeric" position="2132" length="4"   name="RELTYP_6"                 danishName="RELTYP_6"                 description="" />
+    <Attribute format="Alpha"   position="2136" length="10"  name="STARTDATE_6"              danishName="STARTDATE_6"              description="" dateFormat="yyyy-MM-dd" />
+    <Attribute format="Alpha"   position="2146" length="10"  name="SLETDATE_6"               danishName="SLETDATE_6"               description="" />
+    <Attribute format="Numeric" position="2156" length="5"   name="MYNKOD_5_6"               danishName="MYNKOD_5_6"               description="" />
+    <Attribute format="Numeric" position="2161" length="13"  name="AJFDTO_RELTXT"            danishName="AJFDTO_RELTXT"            description="" dateFormat="yyyyMMddHHmm" />
+    <Attribute format="Alpha"   position="2174" length="34"  name="RELADRSAT"                danishName="RELADRSAT"                description="" />
+    <Attribute format="Numeric" position="2208" length="4"   name="RELTYP_TXT"               danishName="RELTYP_TXT"               description="" />
+    <Attribute format="Alpha"   position="2212" length="34"  name="RELTXT1"                  danishName="RELTXT1"                  description="" />
+    <Attribute format="Alpha"   position="2246" length="34"  name="RELTXT2"                  danishName="RELTXT2"                  description="" />
+    <Attribute format="Alpha"   position="2280" length="34"  name="RELTXT3"                  danishName="RELTXT3"                  description="" />
+    <Attribute format="Alpha"   position="2314" length="34"  name="RELTXT4"                  danishName="RELTXT4"                  description="" />
+    <Attribute format="Alpha"   position="2348" length="34"  name="RELTXT5"                  danishName="RELTXT5"                  description="" />
+    <Attribute format="Alpha"   position="2382" length="10"  name="STARTDATE_TXT"            danishName="STARTDATE_TXT"            description="" dateFormat="yyyy-MM-dd" />
+    <Attribute format="Alpha"   position="2392" length="10"  name="SLETDATE_TXT"             danishName="SLETDATE_TXT"             description="" />
+    <Attribute format="Numeric" position="2402" length="5"   name="MYNKOD_5_TXT"             danishName="MYNKOD_5_TXT"             description="" />
+    <Attribute format="Numeric" position="2407" length="13"  name="AJFDTO_SEP"               danishName="AJFDTO_SEP"               description="" dateFormat="yyyyMMddHHmm" />
+    <Attribute format="Numeric" position="2420" length="26"  name="SEP_HENVIS_TS"            danishName="SEP_HENVIS_TS"            description="" />
+    <Attribute format="Numeric" position="2446" length="5"   name="START_MYNKOD_SEP"         danishName="START_MYNKOD_SEP"         description="" />
+    <Attribute format="Alpha"   position="2451" length="10"  name="STARTDATE"                danishName="STARTDATE"                description="" dateFormat="yyyy-MM-dd" />
+    <Attribute format="Alpha"   position="2461" length="1"   name="STARTDATE_UMRK"           danishName="STARTDATE_UMRK"           description="" />
+    <Attribute format="Numeric" position="2462" length="4"   name="RELTYP_FORALD_35"         danishName="RELTYP_FORALD_35"         description="" />
+    <Attribute format="Numeric" position="2466" length="13"  name="AJFDTO_FORALD_35"         danishName="AJFDTO_FORALD_35"         description="" dateFormat="yyyyMMddHHmm" />
+    <Attribute format="Numeric" position="2479" length="5"   name="STARTMYNKOD_FORALD_35"    danishName="STARTMYNKOD_FORALD_35"    description="" />
+    <Attribute format="Alpha"   position="2484" length="10"  name="STARTDATE_FORALD_35"      danishName="STARTDATE_FORALD_35"      description="" dateFormat="yyyy-MM-dd" />
+    <Attribute format="Alpha"   position="2494" length="1"   name="STARTDATE_FORALD_UMRK_35" danishName="STARTDATE_FORALD_UMRK_35" description="" />
+    <Attribute format="Alpha"   position="2495" length="10"  name="SLETDATE_FORALD_35"       danishName="SLETDATE_FORALD_35"       description="" dateFormat="yyyy-MM-dd" />
+    <Attribute format="Numeric" position="2505" length="4"   name="RELTYP_FORALD_46"         danishName="RELTYP_FORALD_46"         description="" />
+    <Attribute format="Numeric" position="2509" length="13"  name="AJFDTO_FORALD_46"         danishName="AJFDTO_FORALD_46"         description="" dateFormat="yyyyMMddHHmm" />
+    <Attribute format="Numeric" position="2522" length="5"   name="STARTMYNKOD_FORALD_46"    danishName="STARTMYNKOD_FORALD_46"    description="" />
+    <Attribute format="Alpha"   position="2527" length="10"  name="STARTDATE_FORALD_46"      danishName="STARTDATE_FORALD_46"      description="" dateFormat="yyyy-MM-dd" />
+    <Attribute format="Alpha"   position="2537" length="1"   name="STARTDATE_FORALD_UMRK_46" danishName="STARTDATE_FORALD_UMRK_46" description="" />
+    <Attribute format="Alpha"   position="2538" length="10"  name="SLETDATE_FORALD_46"       danishName="SLETDATE_FORALD_46"       description="" dateFormat="yyyy-MM-dd" />
+    <Attribute format="Numeric" position="2548" length="2"   name="ANTAL_BOERN"              danishName="ANTAL_BOERN"              description="" />
+    <Attribute format="Alpha"   position="2550" length="675" name="PNR_BORN"                 danishName="PNR_BORN"                 description="" />
   </Object>
-
 
 </Layer>
