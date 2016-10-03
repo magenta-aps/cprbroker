@@ -119,7 +119,7 @@ namespace CprBroker.Tests.DBR
                 req.Type = Providers.DPR.InquiryType.DataUpdatedAutomaticallyFromCpr;
                 req.PNR = pnr;
                 req.LargeData = Providers.DPR.DetailType.ExtendedData;
-                CPRDirectClientDataProvider prov = new CPRDirectClientDataProvider() { ConfigurationProperties = new Dictionary<string, string>(), DisableSubscriptions = false };
+                ICprDirectPersonDataProvider prov = new CPRDirectClientDataProvider() { ConfigurationProperties = new Dictionary<string, string>(), DisableSubscriptions = false };
                 mock.Setup(r => r.GetPerson(out prov)).Returns(
                     CprBroker.Tests.CPRDirect.Persons.Person.GetPerson(pnr)
                     );

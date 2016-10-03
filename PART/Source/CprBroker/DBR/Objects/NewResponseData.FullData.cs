@@ -60,7 +60,7 @@ namespace CprBroker.DBR
                 FKIRKHAENSTARTDecimal = decimalOf(person.ChurchDate),
                 UMYNMYNKOD = decimalOf(person.UnderGuardianshipAuthorityCode),
                 UMYNAJFDTODecimal = decimalOf(person.GuardianshipUpdateDate),
-                UMYNMYNHAENSTARTDecimal = null, // TODO: fill this field
+                UMYNMYNHAENSTARTDecimal = default(decimal), // TODO: fill this field
                 PNRMRKHAENSTARTDecimal = decimalOf(personTotal.PnrMarkingDate),
                 PNRHAENSTARTDecimal = person.PnrDate,
                 AJFDTO_PNRGAELDDecimal = decimalOf(person.CurrentPnrUpdateDate),
