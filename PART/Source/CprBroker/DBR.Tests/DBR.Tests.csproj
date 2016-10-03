@@ -111,6 +111,7 @@
     <Compile Include="DprDiversionManagerTests.cs" />
     <Compile Include="DprDiversionServerTests.cs" />
     <Compile Include="DprDiversionTcpTests.cs" />
+    <Compile Include="Objects\DiversionResquestTests.cs" />
     <Compile Include="PerPerson\CprConverterExtensionTests_GoesIntoDatabase.cs" />
     <Compile Include="PerPerson\CprConverterTests.cs" />
     <Compile Include="PerPerson\PersonBaseTest.cs" />

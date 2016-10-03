@@ -53,6 +53,11 @@ namespace CprBroker.DBR
 {
     public partial class NewRquestType
     {
+        public NewRquestType(string contents) : base(contents)
+        {
+            Contents = contents.PadRight(this.Length);
+        }
+
         public override DiversionResponseType Process(string dprConnectionString)
         {
             var dataProviders = new ICprDirectPersonDataProvider[0].AsEnumerable();
@@ -100,7 +105,8 @@ namespace CprBroker.DBR
                     break;
             }
 
-            var ret = new NewResponseType() {
+            var ret = new NewResponseType()
+            {
                 ErrorNumber = "00",
                 LargeData = this.LargeData,
                 Type = this.Type

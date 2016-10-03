@@ -60,19 +60,26 @@ namespace CprBroker.DBR
 
         public static DiversionRequest Parse(string str)
         {
+            str = string.Format("{0}", str).Trim();
             DiversionRequest ret = null;
 
-            if (Regex.Match(str, @"\A[013][01][0-9]{10}MMXIII[01][ISU].{0,20}").Success)
+            var errorRequest = new ErrorRequestType(str);
+            var errorResult = errorRequest.Process("", true);
+
+            if (errorResult == null)
             {
-                ret = new NewRquestType() { Contents = str };
+                if (Regex.Match(str, @"\A[013][01][0-9]{10}MMXIII[01][ISU].{0,20}").Success)
+                {
+                    ret = new NewRquestType(str);
+                }
+                else if (Regex.Match(str, @"\A[013][01][0-9]{10}").Success)
+                {
+                    ret = new ClassicRequestType(str);
+                }
             }
-            else if (Regex.Match(str, @"\A[013][01][0-9]{10}").Success)
+            if (ret == null)
             {
-                ret = new ClassicRequestType() { Contents = str };
-            }
-            else
-            {
-                ret = new ErrorRequestType(str);
+                ret = errorRequest;
             }
 
             return ret;

@@ -10,21 +10,35 @@ namespace CprBroker.DBR
     public class ErrorRequestType : NewRquestType
     {
         public ErrorRequestType(string contents)
+            : base(contents)
         {
 
         }
 
         public override DiversionResponseType Process(string dprConnectionString)
         {
-            DiversionResponseType ret = null;
+            return Process(dprConnectionString, false);
+        }
 
-            if (Contents.Length < 12)
+        public DiversionResponseType Process(string dprConnectionString, bool nullOnUnknownError)
+        {
+            var myContents = Contents.Trim();
+
+            DiversionResponseType ret = null;
+            Func<string, ClassicResponseType> classicResponseFromContents = (string s) =>
             {
-                ret = new ClassicResponseType() { Contents = "00999999999999Fejl i kaldet - Færre end 12 tegn." };
+                var r = new ClassicResponseType();
+                r.Contents = s.PadRight(r.Length);
+                return r;
+            };
+
+            if (myContents.Length < 12)
+            {
+                ret = classicResponseFromContents("00999999999999Fejl i kaldet - Færre end 12 tegn.");
             }
-            else if (!Regex.Match(Contents, @"\A[0-9]{12}").Success)
+            else if (!Regex.Match(myContents, @"\A[0-9]{12}").Success)
             {
-                ret = new ClassicResponseType() { Contents = "Fejl i kaldet - første 12 tegn ikke numeriske." };
+                ret = classicResponseFromContents("Fejl i kaldet - første 12 tegn ikke numeriske.");
             }
             else if (!PartInterface.Strings.IsValidPersonNumber(this.PNR))
             {
@@ -38,7 +52,7 @@ namespace CprBroker.DBR
                 };
 
             }
-            else if (!Regex.Match(this.Contents, @"\A[013]").Success)
+            else if (!Regex.Match(myContents, @"\A[013]").Success)
             {
                 ret = new ClassicResponseType()
                 {
@@ -49,14 +63,13 @@ namespace CprBroker.DBR
                     Data = " ABON_TYPE ukendt"
                 };
             }
-            else if (!Regex.Match(this.Contents, @"\A[013][01]").Success)
+            else if (!Regex.Match(myContents, @"\A[013][01]").Success)
             {
-                ret = new ClassicResponseType() { Contents = "Tom Codepath i sSvarGammelType. Stordata = " + (int)this.LargeData };
+                ret = classicResponseFromContents("Tom Codepath i sSvarGammelType. Stordata = " + (int)this.LargeData);
             }
-            else
+            else if (!nullOnUnknownError)
             {
-                // This case should not be reached
-                // Other input validation errors
+                // This case should not be reached if the request has no errors
                 return new ClassicResponseType()
                 {
                     Type = this.Type,

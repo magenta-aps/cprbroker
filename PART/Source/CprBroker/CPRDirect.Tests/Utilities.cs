@@ -86,11 +86,7 @@ namespace CprBroker.Tests.CPRDirect
 
         public static decimal RandomCprNumber()
         {
-            var day = Random.Next(1, 29).ToString("00");
-            var month = Random.Next(1, 13).ToString("00");
-            var year = Random.Next(1, 100).ToString("00");
-            var part1 = Random.Next(1000, 9999).ToString();
-            return decimal.Parse(day + month + year + part1);
+            return decimal.Parse(CprBroker.Tests.PartInterface.Utilities.RandomCprNumber());
         }
 
         public static decimal[] RandomCprNumbers(int count)
@@ -132,8 +128,8 @@ namespace CprBroker.Tests.CPRDirect
         {
             var all = IndividualResponseType.ParseBatch(Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE);
             PNRs = all.Select(p => p.PersonInformation.PNR).OrderBy(p => p).ToArray();
-            
-            
+
+
             var lines = new List<LineWrapper>(LineWrapper.ParseBatch(Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE));
 
             StartLine = lines.First();
@@ -143,13 +139,13 @@ namespace CprBroker.Tests.CPRDirect
 
             var groups = lines.GroupBy(l => l.PNR).ToArray();
 
-            PersonLineWrappers = groups.ToDictionary(g=>g.Key,g=>g.ToArray());
+            PersonLineWrappers = groups.ToDictionary(g => g.Key, g => g.ToArray());
 
             var extract = new Extract() { ExtractId = Guid.NewGuid(), ExtractDate = DateTime.Now, StartRecord = StartLine.Contents, EndRecord = EndLine.Contents, Filename = "", ImportDate = DateTime.Now, Ready = true, ProcessedLines = lines.Count };
             var allItems = new List<ExtractItem>();
             PersonExtractItems = groups.ToDictionary(
-                g => g.Key, 
-                g => 
+                g => g.Key,
+                g =>
                     {
                         var items = g.ToArray()
                             .Select(l => l.ToExtractItem(extract.ExtractId, Constants.DataObjectMap, Constants.RelationshipMap, Constants.MultiRelationshipMap))

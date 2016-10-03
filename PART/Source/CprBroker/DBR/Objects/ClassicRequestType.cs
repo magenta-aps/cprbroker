@@ -59,6 +59,14 @@ namespace CprBroker.DBR
 {
     public partial class ClassicRequestType
     {
+        public ClassicRequestType()
+        { }
+
+        public ClassicRequestType(string contents)
+        {
+            Contents = contents.PadRight(Length).Substring(0, Length);
+        }
+
         public override DiversionResponseType Process(string dprConnectionString)
         {
             ValidateOperationMode();
