@@ -17,7 +17,7 @@ namespace CprBroker.DBR
         public NewResponseNoDataType(IndividualResponseType resp)
         {
             this.PNR = resp.PersonInformation.PNR;
-            this.Ok = "OK";
+            this.OkOrError = "OK";
         }
     }
 

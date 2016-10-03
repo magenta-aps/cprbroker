@@ -35,7 +35,7 @@
     <Attribute format="Numeric" position="221" length="2"  name="Status"/>
   </Object>
 
-  <Object name="NewRquest" length="40" base="ClassicRequestType">
+  <Object name="NewRequest" length="40" base="ClassicRequestType">
     <Attribute format="Alpha"   position="13" length="6" name="NewType" description="Always contains 'MMXIII', IE. Roman numeral for 2013, where the new solution came into operation"/>
     <Attribute format="Numeric" position="19" length="1" name="ForceDiversion" description="Calls to the DPR forwarding enforced on to CPR Directly in all cases regardless of the application's lookup-check for invalid markup, PNR or uncertainty '1 0' call."/>
     <Attribute format="Alpha"   position="20" length="1" name="ReponseData"/>
@@ -46,9 +46,9 @@
     
   </Object>
 
-  <Object name="NewResponseNoData" length="14">
+  <Object name="NewResponseNoData" length="60">
     <Attribute format="Alpha"   position="1"   length="10" name="PNR"/>
-    <Attribute format="Alpha"   position="13"   length="2" name="Ok"/>
+    <Attribute format="Alpha"   position="13"   length="50" name="OkOrError"/>
   </Object>
   
   <Object name="NewResponseBasicData" base="ClassicResponseBasicDataType" length="222">
