@@ -51,9 +51,9 @@ using CprBroker.PartInterface;
 
 namespace CprBroker.DBR
 {
-    public partial class NewRquestType
+    public partial class NewRequestType
     {
-        public NewRquestType(string contents) : base(contents)
+        public NewRequestType(string contents) : base(contents)
         {
             Contents = contents.PadRight(this.Length);
         }

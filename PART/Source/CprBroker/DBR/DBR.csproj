@@ -89,7 +89,7 @@
     <Compile Include="Objects\ErrorRequestType.cs" />
     <Compile Include="Objects\NewResponseData.FullData.cs" />
     <Compile Include="Objects\NewResponseType.cs" />
-    <Compile Include="Objects\NewRquestType.cs" />
+    <Compile Include="Objects\NewRequestType.cs" />
     <Compile Include="Objects\Objects.cs">
       <DependentUpon>Objects.xml</DependentUpon>
     </Compile>

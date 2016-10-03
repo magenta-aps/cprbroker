@@ -52,7 +52,7 @@ namespace CprBroker.Tests.DBR
             {
                 string input = "" + type + largeData + pnr + "MMXIII" + force + responseData;
                 var ret = DiversionRequest.Parse(input);
-                Assert.AreEqual(nameof(NewRquestType), ret.GetType().Name);
+                Assert.AreEqual(nameof(NewRequestType), ret.GetType().Name);
             }
         }
     }

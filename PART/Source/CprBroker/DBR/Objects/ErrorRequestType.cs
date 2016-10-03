@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CprBroker.DBR
 {
-    public class ErrorRequestType : NewRquestType
+    public class ErrorRequestType : NewRequestType
     {
         public ErrorRequestType(string contents)
             : base(contents)

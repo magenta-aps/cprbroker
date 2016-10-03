@@ -70,7 +70,7 @@ namespace CprBroker.DBR
             {
                 if (Regex.Match(str, @"\A[013][01][0-9]{10}MMXIII[01][ISU].{0,20}").Success)
                 {
-                    ret = new NewRquestType(str);
+                    ret = new NewRequestType(str);
                 }
                 else if (Regex.Match(str, @"\A[013][01][0-9]{10}").Success)
                 {
