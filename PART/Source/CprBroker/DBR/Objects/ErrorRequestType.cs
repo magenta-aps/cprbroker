@@ -55,7 +55,16 @@ namespace CprBroker.DBR
             }
             else
             {
-                // Other input validation errors 
+                // This case should not be reached
+                // Other input validation errors
+                return new ClassicResponseType()
+                {
+                    Type = this.Type,
+                    LargeData = this.LargeData,
+                    PNR = this.PNR,
+                    ErrorNumber = "31",
+                    Data = "Kommunikationsfejl"
+                };
             }
 
             return ret;
