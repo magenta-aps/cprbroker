@@ -95,6 +95,7 @@
     </Compile>
     <Compile Include="Objects\ClassicResponseBasicDataType.cs" />
     <Compile Include="Objects\NewResponseData.cs" />
+    <Compile Include="PersonInfoExtended.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
