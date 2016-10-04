@@ -12,6 +12,7 @@
   <xsl:template match="/d:Layer">
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using CprBroker.Schemas.Wrappers;
     <xsl:if test="$using != ''">
       using <xsl:value-of select="$using"/>;
@@ -225,7 +226,15 @@ _____________________________ Object template _____________________________
         public override int Length
         {
             get { return </xsl:text>
+<xsl:choose>
+<xsl:when test="@length">
     <xsl:value-of select="sum(@length)"/>
+</xsl:when>
+<xsl:otherwise>
+  <xsl:text>base.Length</xsl:text>
+</xsl:otherwise>
+</xsl:choose>
+    
 <xsl:text>; }
         }
         #endregion
@@ -239,10 +248,12 @@ _____________________________ Object template _____________________________
         {
             get 
             {
-                return new Tuple&lt;string, int, int&gt;[]{
+                var ret = base.PropertyDefinitions.ToList();
+                ret.AddRange(new Tuple&lt;string, int, int&gt;[]{
 </xsl:text>
     <xsl:apply-templates select="d:Attribute" mode="def"/>
-<xsl:text>                };
+<xsl:text>                });
+                return ret.ToArray();
             }
         }
 </xsl:text>

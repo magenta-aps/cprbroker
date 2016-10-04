@@ -81,7 +81,7 @@ namespace CprBroker.Schemas.Wrappers
             }
         }
 
-        public abstract int Length { get; }
+        public virtual int Length { get; }
 
         private string this[int pos, int? length]
         {
@@ -227,7 +227,9 @@ namespace CprBroker.Schemas.Wrappers
 
         public string ContentsWithSeparator(string separator = ";")
         {
-            return string.Join(separator, PropertyDefinitions.Select(p => GetString(p.Item2, p.Item3)));
+            var propDefs = PropertyDefinitions.Select(p => GetString(p.Item2, p.Item3).Trim()).ToList();
+            propDefs.Add(""); // Dummy value to force a separator at the end
+            return string.Join(separator, propDefs);
         }
 
     }
