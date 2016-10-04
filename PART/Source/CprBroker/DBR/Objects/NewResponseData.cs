@@ -14,6 +14,11 @@ namespace CprBroker.DBR
 
     public partial class NewResponseNoDataType : INewResponseData
     {
+        public NewResponseNoDataType()
+        {
+
+        }
+
         public NewResponseNoDataType(IndividualResponseType resp)
         {
             this.PNR = resp.PersonInformation.PNR;

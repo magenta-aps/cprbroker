@@ -60,77 +60,113 @@ namespace CprBroker.DBR
 
         public override DiversionResponseType Process(string dprConnectionString)
         {
-            var dataProviders = new ICprDirectPersonDataProvider[0].AsEnumerable();
-
-            if (Convert.ToBoolean(ForceDiversion))
-                dataProviders = LoadDataProviders<CPRDirectClientDataProvider>().Select(p => p as ICprDirectPersonDataProvider);
-            else
-                dataProviders = LoadDataProviders<ICprDirectPersonDataProvider>();
-
-            ICprDirectPersonDataProvider usedProvider;
-            var person = this.GetPerson(dataProviders, out usedProvider);
-
-            switch (this.Type)
+            NewResponseType ret;
+            try
             {
-                case InquiryType.DataNotUpdatedAutomatically:
-                    break;
-                case InquiryType.DataUpdatedAutomaticallyFromCpr:
-                    break;
-                case InquiryType.DeleteAutomaticDataUpdateFromCpr:
-                    break;
-                default:
-                    break;
-            }
-            // Regardless of the data source, make sure there is a subscription to keep getting changes in CPR Broker
-            if (!CanPutSubscription(usedProvider))
-            {
-                // We have to create a subscription elsewhere
-                var subscriptionResult = this.PutSubscription();
-                if (!subscriptionResult)
+                var dataProviders = new ICprDirectPersonDataProvider[0].AsEnumerable();
+
+                if (Convert.ToBoolean(ForceDiversion))
+                    dataProviders = LoadDataProviders<CPRDirectClientDataProvider>().Select(p => p as ICprDirectPersonDataProvider);
+                else
+                    dataProviders = LoadDataProviders<ICprDirectPersonDataProvider>();
+
+                ICprDirectPersonDataProvider usedProvider;
+                var person = this.GetPerson(dataProviders, out usedProvider);
+                if (person == null)
                 {
-                    throw new NotImplementedException();
+                    return ToErrorResponse(5);
+                }
+
+                switch (this.Type)
+                {
+                    case InquiryType.DataNotUpdatedAutomatically:
+                        break;
+                    case InquiryType.DataUpdatedAutomaticallyFromCpr:
+                        break;
+                    case InquiryType.DeleteAutomaticDataUpdateFromCpr:
+                        break;
+                    default:
+                        break;
+                }
+                // Regardless of the data source, make sure there is a subscription to keep getting changes in CPR Broker
+                if (!CanPutSubscription(usedProvider))
+                {
+                    // We have to create a subscription elsewhere
+                    var subscriptionResult = this.PutSubscription();
+                    if (!subscriptionResult)
+                    {
+                        return ToErrorResponse(5);
+                    }
+                }
+
+                try
+                {
+                    // Update the the broker's database, only the source itself is not an extract
+                    if (!(usedProvider is IExtractDataProvider))
+                        this.SaveAsExtract(person);
+
+                    // Update the DPR database
+                    this.UpdateDprDatabase(dprConnectionString, person);
+                }
+                catch (Exception e)
+                {
+                    Engine.Local.Admin.LogException(e);
+                    return ToErrorResponse(20);
+                }
+
+                switch (LargeData) // Irrelevant
+                {
+                    default:
+                        break;
+                }
+
+                ret = new NewResponseType()
+                {
+                    ErrorNumber = "00",
+                    LargeData = this.LargeData,
+                    Type = this.Type
+                };
+
+                switch (this.ReponseData)
+                {
+                    case ResponseType.None:
+                        ret.Data = new NewResponseNoDataType(person);
+                        break;
+
+                    case ResponseType.Basic:
+                        ret.Data = new NewResponseBasicDataType(person);
+                        break;
+
+                    case ResponseType.Enriched:
+                        ret.Data = new NewResponseFullDataType(person, null);
+                        break;
+
+                    default:
+                        break;
                 }
             }
-
-            // Update the the broker's database, only the source itself is not an extract
-            if (!(usedProvider is IExtractDataProvider))
-                this.SaveAsExtract(person);
-
-            // Update the DPR database
-            this.UpdateDprDatabase(dprConnectionString, person);
-
-            switch (LargeData) // Irrelevant
+            catch (Exception e)
             {
-                default:
-                    break;
+                Engine.Local.Admin.LogException(e);
+                ret = ToErrorResponse(9);
             }
+            return ret;
+        }
 
-            var ret = new NewResponseType()
+        public NewResponseType ToErrorResponse(int code)
+        {
+            var codeString = code.ToString().PadLeft(2, '0');
+            return new NewResponseType()
             {
-                ErrorNumber = "00",
+                Type = this.Type,
                 LargeData = this.LargeData,
-                Type = this.Type
+                ErrorNumber = codeString,
+                Data = new NewResponseNoDataType()
+                {
+                    PNR = this.PNR,
+                    OkOrError = DiversionErrorCodes.ErrorCodes_Dk()[codeString]
+                }
             };
-
-            switch (this.ReponseData)
-            {
-                case ResponseType.None:
-                    ret.Data = new NewResponseNoDataType(person);
-                    break;
-
-                case ResponseType.Basic:
-                    ret.Data = new NewResponseBasicDataType(person);
-                    break;
-
-                case ResponseType.Enriched:
-                    ret.Data = new NewResponseFullDataType(person, null);
-                    break;
-
-                default:
-                    break;
-            }
-            // TODO: handle the new request format
-            throw new NotImplementedException();
         }
 
     }
