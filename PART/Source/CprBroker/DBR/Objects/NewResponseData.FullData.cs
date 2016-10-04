@@ -2,6 +2,7 @@
 using CprBroker.Providers.DPR;
 using System;
 using System.Linq;
+using CprBroker.Utilities;
 
 namespace CprBroker.DBR
 {
@@ -30,7 +31,7 @@ namespace CprBroker.DBR
                 Contents = new string(' ', this.Length),
 
                 // Data fields
-                PNR = personName.PNR.ToString(),
+                PNR = personName.PNR.ToPnrDecimalString(),
                 AJFDTO_NAVNEDecimal = personName.CprUpdateDate,
                 MYNKOD_NAVNE = decimalOf(personName.NameAuthorityCode),
                 STATUS = personTotal.Status,
@@ -77,14 +78,14 @@ namespace CprBroker.DBR
                 KUNDENR = decimalOf(person.CustomerNumber),
                 AJFDTO_MORFARDecimal = decimalOf(person.KinshipUpdateDate),
                 PNRMOR = person.MotherPnr,
-                MOR = person.MotherPnr.ToString(),
+                MOR = person.MotherPnr.ToPnrDecimalString(),
                 MORFOEDDTO = decimalOf(person.MotherBirthdate),
                 MORDOK = person.MotherDocumentation,
                 MORMRK = charOf(personTotal.MotherMarker),
                 PNRFAR = person.FatherPnr,
                 FARFOEDDTO = decimalOf(person.FatherBirthdate),
                 FARDOK = person.FatherDocumentation,
-                FAR = person.FatherPnr.ToString(),
+                FAR = person.FatherPnr.ToPnrDecimalString(),
                 FARMRK = charOf(personTotal.FatherMarker),
                 FARSKABMYNNVN = personTotal.PaternityAuthorityName,
                 FARSKABHAENSTART = null,
@@ -122,9 +123,9 @@ namespace CprBroker.DBR
                 FORSVINDDTO = null,
                 FORSVINDDTODecimal = disappearance.DisappearanceDate,
                 FOEDREGSTED = personTotal.BirthPlaceOfRegistration,
-                
-                
-                
+
+
+
 
             };
 
