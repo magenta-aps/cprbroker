@@ -25,7 +25,12 @@ namespace CprBroker.Tests.DBR.DiversionComparison
             return true;
         }
 
-        public override void UpdateDprDatabase(string dprConnectionString, IndividualResponseType response = null)
+        public override IList<object> GetDatabaseInserts(string dprConnectionString, IndividualResponseType response)
+        {
+            return base.GetDatabaseInserts(dprConnectionString, response);
+        }
+
+        public override void UpdateDprDatabase(string dprConnectionString, IList<object> objectsToInsert)
         {
             // Do nothing
         }

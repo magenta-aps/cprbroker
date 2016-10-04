@@ -106,7 +106,8 @@ namespace CprBroker.DBR
                         this.SaveAsExtract(person);
 
                     // Update the DPR database
-                    this.UpdateDprDatabase(dprConnectionString, person);
+                    var objectsToInsert = this.GetDatabaseInserts(dprConnectionString, person);
+                    this.UpdateDprDatabase(dprConnectionString, objectsToInsert);
                 }
                 catch (Exception e)
                 {
@@ -138,6 +139,7 @@ namespace CprBroker.DBR
                         break;
 
                     case ResponseType.Enriched:
+
                         ret.Data = new NewResponseFullDataType(person, null);
                         break;
 

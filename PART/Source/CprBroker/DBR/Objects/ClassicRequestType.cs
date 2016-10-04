@@ -94,7 +94,8 @@ namespace CprBroker.DBR
             this.SaveAsExtract(individualResponse);
 
             // Update the DPR database
-            this.UpdateDprDatabase(dprConnectionString);
+            var objectsToInsert = this.GetDatabaseInserts(dprConnectionString, individualResponse);
+            this.UpdateDprDatabase(dprConnectionString, objectsToInsert);
 
             // Return  the result
             var ret = new ClassicResponseType()
@@ -160,24 +161,32 @@ namespace CprBroker.DBR
             response.SaveAsExtract(true);
         }
 
-        public virtual void UpdateDprDatabase(string dprConnectionString, IndividualResponseType response = null)
+        public virtual IList<object> GetDatabaseInserts(string dprConnectionString, IndividualResponseType response)
+        {
+            if (response == null)
+            {
+                response = ExtractManager.GetPerson(this.PNR);
+            }
+
+            using (var dataContext = new DPRDataContext(dprConnectionString))
+            {
+                CprConverter.AppendPerson(response, dataContext, CprBroker.Providers.DPR.DataRetrievalTypes.CprDirectWithSubscription);
+                return dataContext.GetChangeSet().Inserts;
+            }
+        }
+
+        public virtual void UpdateDprDatabase(string dprConnectionString, IList<object> objectsToInsert)
         {
             using (var conn = new SqlConnection(dprConnectionString))
             {
                 using (var dataContext = new DPRDataContext(conn))
                 {
-                    if (response == null)
-                    {
-                        response = ExtractManager.GetPerson(this.PNR);
-                    }
-                    CprConverter.AppendPerson(response, dataContext, CprBroker.Providers.DPR.DataRetrievalTypes.CprDirectWithSubscription);
-
                     conn.Open();
                     using (var trans = conn.BeginTransaction())
                     {
                         dataContext.Transaction = trans;
                         CprConverter.DeletePersonRecords(this.PNR, dataContext);
-                        conn.BulkInsertChanges(dataContext.GetChangeSet().Inserts, trans);
+                        conn.BulkInsertChanges(objectsToInsert, trans);
                         trans.Commit();
                     }
                 }
