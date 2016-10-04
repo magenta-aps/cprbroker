@@ -99,6 +99,8 @@
     <Compile Include="ClassicRequestTypeTestsBase.cs" />
     <Compile Include="ClassicRequestTypeTests.Process.cs" />
     <Compile Include="Comparison\ComparisonTest.cs" />
+    <Compile Include="DiversionComparison\ClassicRequestTypeStub.cs" />
+    <Compile Include="DiversionComparison\DiversionComparisonTest.cs" />
     <Compile Include="Comparison\GeoLookupComparisonTest.Concrete.cs" />
     <Compile Include="Comparison\GeoLookupComparisonTest.cs">
       <SubType>Code</SubType>
@@ -108,6 +110,7 @@
     <Compile Include="Comparison\PersonComparisonTest.Concrete.cs" />
     <Compile Include="Comparison\PersonComparisonTest.cs" />
     <Compile Include="DbrTestBase.cs" />
+    <Compile Include="DiversionComparison\NewRequestTypeStub.cs" />
     <Compile Include="DprDiversionManagerTests.cs" />
     <Compile Include="DprDiversionServerTests.cs" />
     <Compile Include="DprDiversionTcpTests.cs" />

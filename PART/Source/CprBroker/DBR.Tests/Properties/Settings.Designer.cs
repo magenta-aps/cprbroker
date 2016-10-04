@@ -70,5 +70,32 @@ namespace CprBroker.Tests.DBR.Properties {
                 return ((string)(this["ImitatedDprConnectionString"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string RealDprDiversionAddress {
+            get {
+                return ((string)(this["RealDprDiversionAddress"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int RealDprDiversionPort {
+            get {
+                return ((int)(this["RealDprDiversionPort"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Cache\\")]
+        public string DprDiversionCacheDirectory {
+            get {
+                return ((string)(this["DprDiversionCacheDirectory"]));
+            }
+        }
     }
 }
