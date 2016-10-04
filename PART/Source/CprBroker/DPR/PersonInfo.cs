@@ -62,7 +62,6 @@ namespace CprBroker.Providers.DPR
 
         public PersonName PersonName { get; set; }
         public PersonTotal PersonTotal { get; set; }
-        public Person Person { get; set; }
         public Nationality Nationality { get; set; }
         public PersonAddress Address { get; set; }
         public Departure Departure { get; set; }
@@ -83,7 +82,6 @@ namespace CprBroker.Providers.DPR
         /// </summary>
         public static readonly Expression<Func<DPRDataContext, IQueryable<PersonInfo>>> PersonInfoExpression = (DPRDataContext dataContext) =>
             from personTotal in dataContext.PersonTotals
-            join person in dataContext.Persons on personTotal.PNR equals person.PNR
             join pNationality in dataContext.Nationalities on personTotal.PNR equals pNationality.PNR into personNationalities
             join pAddr in dataContext.PersonAddresses on personTotal.PNR equals pAddr.PNR into personAddresses
             join pName in dataContext.PersonNames on personTotal.PNR equals pName.PNR into personNames
@@ -108,7 +106,6 @@ namespace CprBroker.Providers.DPR
             select new PersonInfo()
             {
                 PersonTotal = personTotal,
-                Person = person,
                 Nationality = personNationality,
                 Address = personAddress,
                 PersonName = personName,
