@@ -9,7 +9,7 @@ namespace CprBroker.DBR
 {
     public interface INewResponseData
     {
-
+        string ContentsWithSeparator(string separator = ";");
     }
 
     public partial class NewResponseNoDataType : INewResponseData

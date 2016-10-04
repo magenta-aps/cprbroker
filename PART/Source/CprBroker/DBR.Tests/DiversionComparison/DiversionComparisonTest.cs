@@ -75,5 +75,13 @@ namespace CprBroker.Tests.DBR.DiversionComparison
                 return ret;
             }
         }
+
+        public string GetEmulatedResponse(string request)
+        {
+            var req = ParseRequest(request);
+            var resp = req.Process(Settings.Default.ImitatedDprConnectionString);
+            return resp.ToString();
+        }
+
     }
 }

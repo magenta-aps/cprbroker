@@ -54,7 +54,12 @@ namespace CprBroker.DBR
     {
         public byte[] ToBytes()
         {
-            return Constants.DiversionEncoding.GetBytes(this.Contents);
+            return Constants.DiversionEncoding.GetBytes(this.ToString());
+        }
+
+        public override string ToString()
+        {
+            return this.Contents;
         }
     }
 }

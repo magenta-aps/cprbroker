@@ -10,6 +10,12 @@ namespace CprBroker.DBR
     public partial class NewResponseType
     {
         public INewResponseData Data { get; set; }
+
+        public override string ToString()
+        {
+            return this.ContentsWithSeparator()
+                + this.Data.ContentsWithSeparator();
+        }
     }
-    
+
 }
