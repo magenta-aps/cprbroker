@@ -106,7 +106,7 @@ namespace CprBroker.DBR.Extensions
             if (historicalCivilStatus.SpouseBirthdate.HasValue)
                 cs.SpouseBirthdate = CprBroker.Utilities.Dates.DateToDecimal(historicalCivilStatus.SpouseBirthdate.Value, 8);
 
-            cs.SpouseDocumentation = null; //This is the current status
+            cs.SpouseDocumentation = (cs.SpouseBirthdate.HasValue) ? "JA" : " "; //This is the current status
 
             cs.MaritalStatusDate = historicalCivilStatus.CivilStatusStartDateDecimal;
             cs.MaritalEndDate = historicalCivilStatus.CivilStatusEndDateDecimal;
