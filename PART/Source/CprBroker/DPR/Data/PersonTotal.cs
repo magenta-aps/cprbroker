@@ -75,8 +75,14 @@ namespace CprBroker.Providers.DPR
 
         public PersonInfo ToPersonInfo()
         {
+            return ToPersonInfo<PersonInfo>();
+        }
+
+        public T ToPersonInfo<T>()
+            where T : PersonInfo, new()
+        {
             var relationTypes = new decimal[] { 3, 4, 5, 6 };
-            return new PersonInfo()
+            return new T()
             {
                 // Main object
                 PersonTotal = this,
@@ -102,7 +108,7 @@ namespace CprBroker.Providers.DPR
                 // Get All Children
                 Children = this.Children.ToArray(),
                 ChildrenInCustodyRelations = this.ChildrenInCustody_Relations.Where(r => relationTypes.Contains(r.RelationType)).ToArray(),
-                
+
                 // Parental authority
                 ParentalAuthority = this.ParentalAuthorities.ToArray(),
                 CustodyHolderRelations = this.ParentalAuthorityHolders_Relations.Where(p => relationTypes.Contains(p.RelationType)).ToArray(),
