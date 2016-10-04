@@ -14,11 +14,11 @@ namespace CprBroker.DBR
         public NewResponseFullDataType()
         { }
 
-        public NewResponseFullDataType(IndividualResponseType resp)
+        public NewResponseFullDataType(IndividualResponseType resp, PersonInfo personInfo)
         {
-            PersonName personName = null;
-            PersonTotal7 personTotal = null;
-            Person person = null;
+            PersonName personName = personInfo.PersonName;
+            PersonTotal personTotal = personInfo.PersonTotal;
+            Person person = personInfo.Person;
 
             Func<decimal?, decimal> decimalOf = (d) => d.HasValue ? d.Value : 0m;
             Func<char?, char> uncertaintyCharOf = (c) => c.HasValue ? c.Value : ' ';

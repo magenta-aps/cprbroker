@@ -123,7 +123,7 @@ namespace CprBroker.DBR
                     break;
 
                 case ResponseType.Enriched:
-                    ret.Data = new NewResponseFullDataType(person);
+                    ret.Data = new NewResponseFullDataType(person, null);
                     break;
 
                 default:

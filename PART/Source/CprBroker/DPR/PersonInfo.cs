@@ -62,6 +62,7 @@ namespace CprBroker.Providers.DPR
 
         public PersonName PersonName { get; set; }
         public PersonTotal PersonTotal { get; set; }
+        public Person Person { get; set; }
         public Nationality Nationality { get; set; }
         public PersonAddress Address { get; set; }
         public Departure Departure { get; set; }
@@ -82,6 +83,7 @@ namespace CprBroker.Providers.DPR
         /// </summary>
         public static readonly Expression<Func<DPRDataContext, IQueryable<PersonInfo>>> PersonInfoExpression = (DPRDataContext dataContext) =>
             from personTotal in dataContext.PersonTotals
+            join person in dataContext.Persons on personTotal.PNR equals person.PNR
             join pNationality in dataContext.Nationalities on personTotal.PNR equals pNationality.PNR into personNationalities
             join pAddr in dataContext.PersonAddresses on personTotal.PNR equals pAddr.PNR into personAddresses
             join pName in dataContext.PersonNames on personTotal.PNR equals pName.PNR into personNames
@@ -94,18 +96,19 @@ namespace CprBroker.Providers.DPR
             from personSeparation in personSeparations.OrderByDescending(sep => sep.StartDate).DefaultIfEmpty()
 
             where
-                // Active nationality only
+            // Active nationality only
             (personNationality == null || (personNationality.CorrectionMarker == null && personNationality.NationalityEndDate == null))
-                // Active name only
+            // Active name only
             && (personName == null || (personName.CorrectionMarker == null && personName.NameTerminationDate == null))
-                // Active address only
+            // Active address only
             && (personAddress == null || personAddress.CorrectionMarker == null)
-                // Active separation only
+            // Active separation only
             && (personSeparation == null || personSeparation.CorrectionMarker == null)
 
             select new PersonInfo()
             {
                 PersonTotal = personTotal,
+                Person = person,
                 Nationality = personNationality,
                 Address = personAddress,
                 PersonName = personName,
