@@ -20,7 +20,7 @@ namespace CprBroker.DBR
             this.CareOfName = resp.ClearWrittenAddress.CareOfName;
             this.StreetName = resp.ClearWrittenAddress.StreetAddressingName;
             this.HouseNumber = resp.ClearWrittenAddress.HouseNumber;
-            this.Floor = resp.ClearWrittenAddress.HouseNumber;
+            this.Floor = resp.ClearWrittenAddress.Floor;
             this.Door = resp.ClearWrittenAddress.Door;
             this.BNR = resp.ClearWrittenAddress.BuildingNumber;
             this.PostCode = resp.ClearWrittenAddress.PostCode;
