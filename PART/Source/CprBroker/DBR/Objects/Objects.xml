@@ -42,7 +42,7 @@
     <Attribute format="Alpha"   position="21" length="20" name="UserID" description="End user's user ID or possibly. fagsystemet system user ID."/>
   </Object>
 
-  <Object name="NewResponse" base="DiversionResponseType">
+  <Object name="NewResponse" base="DiversionResponseType" length="4">
     
   </Object>
 
