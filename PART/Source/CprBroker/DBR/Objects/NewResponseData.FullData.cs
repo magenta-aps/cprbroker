@@ -19,6 +19,11 @@ namespace CprBroker.DBR
             CivilStatus civilStatus = null;
             PersonAddress personAddress = personInfo.Address;
             Disappearance disappearance = personInfo.Disappearance;
+            ParentalAuthority parentalAuthority = null;
+            GuardianAndParentalAuthorityRelation guardianAndParentalAuthorityRelation = null;
+            GuardianAddress guardianAddress = null;
+            Separation separation = null;
+            Departure depature = null;
 
             Func<decimal?, decimal> decimalOf = (d) => d.HasValue ? d.Value : 0m;
             Func<char?, char> uncertaintyCharOf = (c) => c.HasValue ? c.Value : ' ';
@@ -32,6 +37,7 @@ namespace CprBroker.DBR
 
                 // Data fields
                 PNR = personName.PNR.ToPnrDecimalString(),
+                AJFDTO_NAVNE = null,
                 AJFDTO_NAVNEDecimal = personName.CprUpdateDate,
                 MYNKOD_NAVNE = decimalOf(personName.NameAuthorityCode),
                 STATUS = personTotal.Status,
@@ -49,6 +55,7 @@ namespace CprBroker.DBR
                 SFORNVN = personName.FirstName.ToUpper(),
                 SEFTERNVN = personName.LastName.ToUpper(),
                 MYNTXT_NAVNE = personName.NameAuthorityText,
+                AJFDTO_PERSON = null,
                 AJFDTO_PERSONDecimal = person.CprUpdateDate,
                 FOEDDTO = personTotal.DateOfBirth,
                 KOEN = charOf(personTotal.Sex),
@@ -70,12 +77,14 @@ namespace CprBroker.DBR
                 UMYNMYNHAENSTARTDecimal = resp.Disempowerment.DisempowermentStartDateDecimal,
                 PNRMRKHAENSTARTDecimal = decimalOf(personTotal.PnrMarkingDate),
                 PNRHAENSTARTDecimal = person.PnrDate,
+                AJFDTO_PNRGAELD = null,
                 AJFDTO_PNRGAELDDecimal = decimalOf(person.CurrentPnrUpdateDate),
                 PNRGAELD = decimalOf(person.CurrentPnr),
                 PNRHAENSLUTDecimal = decimalOf(person.PnrDeletionDate),
                 STILLINGDTODecimal = decimalOf(person.JobDate),
                 FOEDTXTAJFDTODecimal = decimalOf(person.BirthplaceTextUpdateDate),
                 KUNDENR = decimalOf(person.CustomerNumber),
+                AJFDTO_MORFAR = null,
                 AJFDTO_MORFARDecimal = decimalOf(person.KinshipUpdateDate),
                 PNRMOR = person.MotherPnr,
                 MOR = person.MotherPnr.ToPnrDecimalString(),
@@ -123,6 +132,35 @@ namespace CprBroker.DBR
                 FORSVINDDTO = null,
                 FORSVINDDTODecimal = disappearance.DisappearanceDate,
                 FOEDREGSTED = personTotal.BirthPlaceOfRegistration,
+                AJFDTO_CIV = null,
+                AJFDTO_CIVDecimal = civilStatus.CprUpdateDate,
+                AJFDTO_FORALD_35 = null,
+                AJFDTO_FORALD_35Decimal = parentalAuthority.CprUpdateDate,
+                AJFDTO_FORALD_46 = null,
+                AJFDTO_FORALD_46Decimal = parentalAuthority.CprUpdateDate, // TODO: Investigate the difference between 35 and 46
+                AJFDTO_FORSVIND = null,
+                AJFDTO_FORSVINDDecimal = disappearance.CprUpdateDate,
+                AJFDTO_KONTAKTADR = null,
+                AJFDTO_KONTAKTADRDecimal = personTotal.ContactAddress.CprUpdateDate,
+                AJFDTO_PERSONBOLIG = null,
+                AJFDTO_PERSONBOLIGDecimal = personAddress.CprUpdateDate, // Is this one correct?
+                AJFDTO_RELPNR_1 = null,
+                AJFDTO_RELPNR_1Decimal = guardianAndParentalAuthorityRelation.CprUpdateDate,
+                AJFDTO_RELPNR_5 = null,
+                AJFDTO_RELPNR_5Decimal = guardianAndParentalAuthorityRelation.CprUpdateDate, // TODO: Investigate difference
+                AJFDTO_RELPNR_6 = null,
+                AJFDTO_RELPNR_6Decimal = guardianAndParentalAuthorityRelation.CprUpdateDate,
+                AJFDTO_RELTXT = null,
+                AJFDTO_RELTXTDecimal = guardianAddress.CprUpdateDate,
+                AJFDTO_SEP = null,
+                AJFDTO_SEPDecimal = separation.CprUpdateDate,
+                AJFDTO_STATDecimal = 0m,
+                AJFDTO_STAT = resp.CurrentCitizenship.Registration.RegistrationDate,
+                AJFDTO_UDRINDR = null,
+                AJFDTO_UDRINDRDecimal = depature.CprUpdateDate,
+                
+                
+
 
 
 
