@@ -147,7 +147,7 @@ namespace CprBroker.Tests.DBR.DiversionComparison
         [Test]
         public void RealRequest_Old12Char(
             [Values("1")]string type,
-            [Values("0", "1")]string largeData,
+            [Values("0")]string largeData,
             [ValueSource(nameof(CprNumbers5))]string pnr)
         {
             var request = type + largeData + pnr;
@@ -165,7 +165,7 @@ namespace CprBroker.Tests.DBR.DiversionComparison
                 + largeData
                 + pnr
                 + "MMXIII"
-                + "0"
+                + "0" // Do not force diversion
                 + responseData
                 + "" // no user
                 ;
@@ -175,7 +175,7 @@ namespace CprBroker.Tests.DBR.DiversionComparison
         [Test]
         public void RealRequest_New40Char_Ingen(
             [Values('1')]char type,
-            [Values('0', '1')]char largeData,
+            [Values('0')]char largeData,
             [ValueSource(nameof(CprNumbers5))]string pnr)
         {
             CompareNewRequest(type, largeData, pnr, 'I');
@@ -184,7 +184,7 @@ namespace CprBroker.Tests.DBR.DiversionComparison
         [Test]
         public void RealRequest_New40Char_Stam(
             [Values('1')]char type,
-            [Values('0', '1')]char largeData,
+            [Values('0')]char largeData,
             [ValueSource(nameof(CprNumbers10))]string pnr)
         {
             CompareNewRequest(type, largeData, pnr, 'S');
@@ -193,8 +193,8 @@ namespace CprBroker.Tests.DBR.DiversionComparison
         [Test]
         public void RealRequest_New40Char_Udvidet(
             [Values('1')]char type,
-            [Values('0', '1')]char largeData,
-            [ValueSource(nameof(CprNumbers100))]string pnr)
+            [Values('0')]char largeData,
+            [ValueSource(nameof(CprNumbers10))]string pnr)
         {
             CompareNewRequest(type, largeData, pnr, 'U');
         }
