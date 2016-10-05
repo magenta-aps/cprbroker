@@ -34,11 +34,21 @@ namespace CprBroker.DBR
 
             if (myContents.Length < 12)
             {
-                ret = classicResponseFromContents("00999999999999Fejl i kaldet - Færre end 12 tegn.");
+                ret = classicResponseFromContents(
+                    string.Join("", myContents.Take(2))
+                    + "99"
+                    + string.Join("", myContents.Skip(2))
+                    + "Fejl i kaldet - færre end 12 tegn"
+                    );
             }
             else if (!Regex.Match(myContents, @"\A[0-9]{12}").Success)
             {
-                ret = classicResponseFromContents("Fejl i kaldet - første 12 tegn ikke numeriske.");
+                ret = classicResponseFromContents(
+                    string.Join("", myContents.Take(2))
+                    + "99"
+                    + string.Join("", myContents.Skip(2))
+                    + "Fejl i kaldet - første 12 tegn ikke numeriske."
+                    );
             }
             else if (!PartInterface.Strings.IsValidPersonNumber(this.PNR))
             {

@@ -46,9 +46,9 @@
     
   </Object>
 
-  <Object name="NewResponseNoData" length="60">
+  <Object name="NewResponseNoData" length="110">
     <Attribute format="Alpha"   position="1"   length="10" name="PNR"/>
-    <Attribute format="Alpha"   position="13"   length="50" name="OkOrError"/>
+    <Attribute format="Alpha"   position="11"   length="100" name="OkOrError"/>
   </Object>
   
   <Object name="NewResponseBasicData" base="ClassicResponseBasicDataType" length="222">
