@@ -185,7 +185,7 @@ namespace CprBroker.Schemas.Wrappers
         {
             if (value.HasValue)
             {
-                this[pos, length] = value.Value.ToString(format);
+                this[pos, length] = value.Value.ToString(format).PadRight(length);
             }
             else
             {
