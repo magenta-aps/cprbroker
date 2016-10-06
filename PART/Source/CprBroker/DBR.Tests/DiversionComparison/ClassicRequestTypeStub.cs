@@ -14,6 +14,11 @@ namespace CprBroker.Tests.DBR.DiversionComparison
         {
         }
 
+        public override IEnumerable<T> LoadDataProviders<T>()
+        {
+            return new T[0];
+        }
+
         public override IndividualResponseType GetPerson(IEnumerable<ICprDirectPersonDataProvider> dataProviders, out ICprDirectPersonDataProvider usedProvider)
         {
             usedProvider = new CPRDirectExtractDataProvider();

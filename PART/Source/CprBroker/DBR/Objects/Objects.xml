@@ -42,13 +42,13 @@
     <Attribute format="Alpha"   position="21" length="20" name="UserID" description="End user's user ID or possibly. fagsystemet system user ID."/>
   </Object>
 
-  <Object name="NewResponse" base="DiversionResponseType">
+  <Object name="NewResponse" base="DiversionResponseType" length="4">
     
   </Object>
 
-  <Object name="NewResponseNoData" length="60">
+  <Object name="NewResponseNoData" length="110">
     <Attribute format="Alpha"   position="1"   length="10" name="PNR"/>
-    <Attribute format="Alpha"   position="13"   length="50" name="OkOrError"/>
+    <Attribute format="Alpha"   position="11"   length="100" name="OkOrError"/>
   </Object>
   
   <Object name="NewResponseBasicData" base="ClassicResponseBasicDataType" length="222">

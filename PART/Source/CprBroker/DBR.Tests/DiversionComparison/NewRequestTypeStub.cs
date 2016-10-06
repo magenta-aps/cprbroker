@@ -14,24 +14,33 @@ namespace CprBroker.Tests.DBR.DiversionComparison
         {
         }
 
+        public override IEnumerable<T> LoadDataProviders<T>()
+        {
+            return new T[0];
+        }
+
         public override IndividualResponseType GetPerson(IEnumerable<ICprDirectPersonDataProvider> dataProviders, out ICprDirectPersonDataProvider usedProvider)
         {
+            Console.WriteLine("GetPerson");
             usedProvider = new CPRDirectExtractDataProvider();
             return ExtractManager.GetPerson(this.PNR);
         }
 
         public override bool PutSubscription()
         {
+            Console.WriteLine("PutSubscription");
             return true;
         }
 
         public override IList<object> GetDatabaseInserts(string dprConnectionString, IndividualResponseType response)
         {
+            Console.WriteLine("GetDatabaseInserts");
             return base.GetDatabaseInserts(dprConnectionString, response);
         }
 
         public override void UpdateDprDatabase(string dprConnectionString, IList<object> objectsToInsert)
         {
+            Console.WriteLine("UpdateDatabase");
             // Do nothing
         }
     }

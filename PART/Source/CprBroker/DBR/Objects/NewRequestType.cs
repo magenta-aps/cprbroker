@@ -123,9 +123,9 @@ namespace CprBroker.DBR
 
                 ret = new NewResponseType()
                 {
-                    ErrorNumber = "00",
+                    Type = this.Type,
                     LargeData = this.LargeData,
-                    Type = this.Type
+                    ErrorNumber = "00",
                 };
 
                 switch (this.ReponseData)
