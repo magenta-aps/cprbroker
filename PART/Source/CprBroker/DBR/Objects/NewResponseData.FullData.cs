@@ -23,8 +23,8 @@ namespace CprBroker.DBR
             GuardianAndParentalAuthorityRelation guardianAndParentalAuthorityRelation = null;
             GuardianAddress guardianAddress = null;
             Separation separation = null;
-            Departure depature = null;
-
+            Departure depature = null;            
+           
             Func<decimal?, decimal> decimalOf = (d) => d.HasValue ? d.Value : 0m;
             Func<char?, char> uncertaintyCharOf = (c) => c.HasValue ? c.Value : ' ';
             Func<char?, char> charOf = c => c.HasValue ? c.Value : ' ';
@@ -41,10 +41,13 @@ namespace CprBroker.DBR
                 AJFDTO_NAVNEDecimal = personName.CprUpdateDate,
                 MYNKOD_NAVNE = decimalOf(personName.NameAuthorityCode),
                 STATUS = personTotal.Status,
+                STATUSHAENSTART = null,
                 STATUSHAENSTARTDecimal = decimalOf(personTotal.StatusDate),
                 FORNVNMARK = uncertaintyCharOf(personName.FirstNameMarker),
                 EFTERNVNMARK = uncertaintyCharOf(personName.SurnameMarker),
+                NVNHAENSTARTDecimal = decimalOf(personName.NameStartDate),
                 NVNHAENSTART = resp.CurrentNameInformation.NameStartDate,
+                NVNADRBESKMRK = charOf(personTotal.AddressProtectionMarker),
                 ADRNVN = personName.AddressingName,
                 ADRNVNHAENSTART = null,
                 ADRNVNHAENSTARTDecimal = decimalOf(personName.AddressingNameDate),
@@ -73,13 +76,18 @@ namespace CprBroker.DBR
                 FKIRKHAENSTART = null,
                 FKIRKHAENSTARTDecimal = decimalOf(person.ChurchDate),
                 UMYNMYNKOD = decimalOf(person.UnderGuardianshipAuthorityCode),
+                UMYNAJFDTO = null,
                 UMYNAJFDTODecimal = decimalOf(person.GuardianshipUpdateDate),
-                UMYNMYNHAENSTARTDecimal = resp.Disempowerment.DisempowermentStartDateDecimal,
+                UMYNMYNHAENSTART = null,
+                UMYNMYNHAENSTARTDecimal = decimalOf(person.UnderGuardianshipDate), //resp.Disempowerment.DisempowermentStartDateDecimal,
+                PNRMRKHAENSTART = null,
                 PNRMRKHAENSTARTDecimal = decimalOf(personTotal.PnrMarkingDate),
+                PNRHAENSTART = null,
                 PNRHAENSTARTDecimal = person.PnrDate,
                 AJFDTO_PNRGAELD = null,
                 AJFDTO_PNRGAELDDecimal = decimalOf(person.CurrentPnrUpdateDate),
                 PNRGAELD = decimalOf(person.CurrentPnr),
+                PNRHAENSLUT = null,
                 PNRHAENSLUTDecimal = decimalOf(person.PnrDeletionDate),
                 STILLINGDTODecimal = decimalOf(person.JobDate),
                 FOEDTXTAJFDTODecimal = decimalOf(person.BirthplaceTextUpdateDate),
@@ -128,6 +136,7 @@ namespace CprBroker.DBR
                 POSTDISTTXT = personTotal.PostDistrictName,
                 VEJADRNVN = personAddress.StreetAddressingName,
                 VEJKOD = personAddress.StreetCode,
+                SIDEDOER = personTotal.Door,
                 FORSVINDMRK = charOf(personTotal.DisappearedMarker),
                 FORSVINDDTO = null,
                 FORSVINDDTODecimal = disappearance.DisappearanceDate,
@@ -145,30 +154,131 @@ namespace CprBroker.DBR
                 AJFDTO_PERSONBOLIG = null,
                 AJFDTO_PERSONBOLIGDecimal = personAddress.CprUpdateDate, // Is this one correct?
                 AJFDTO_RELPNR_1 = null,
-                AJFDTO_RELPNR_1Decimal = guardianAndParentalAuthorityRelation.CprUpdateDate,
+                AJFDTO_RELPNR_1Decimal = (guardianAddress == null) ? guardianAndParentalAuthorityRelation.CprUpdateDate : 0m,
                 AJFDTO_RELPNR_5 = null,
-                AJFDTO_RELPNR_5Decimal = guardianAndParentalAuthorityRelation.CprUpdateDate, // TODO: Investigate difference
+                AJFDTO_RELPNR_5Decimal = parentalAuthority.CprUpdateDate, 
                 AJFDTO_RELPNR_6 = null,
-                AJFDTO_RELPNR_6Decimal = guardianAndParentalAuthorityRelation.CprUpdateDate,
+                AJFDTO_RELPNR_6Decimal = parentalAuthority.CprUpdateDate,
                 AJFDTO_RELTXT = null,
-                AJFDTO_RELTXTDecimal = guardianAddress.CprUpdateDate,
+                AJFDTO_RELTXTDecimal = (guardianAddress == null) ? 0m : guardianAddress.CprUpdateDate,
                 AJFDTO_SEP = null,
                 AJFDTO_SEPDecimal = separation.CprUpdateDate,
                 AJFDTO_STATDecimal = 0m,
                 AJFDTO_STAT = resp.CurrentCitizenship.Registration.RegistrationDate,
                 AJFDTO_UDRINDR = null,
                 AJFDTO_UDRINDRDecimal = depature.CprUpdateDate,
+                KONTAKTADR1 = personTotal.ContactAddress.ContactAddressLine1,
+                KONTAKTADR2 = personTotal.ContactAddress.ContactAddressLine2,
+                KONTAKTADR3 = personTotal.ContactAddress.ContactAddressLine3,
+                KONTAKTADR4 = personTotal.ContactAddress.ContactAddressLine4,
+                KONTAKTADR5 = personTotal.ContactAddress.ContactAddressLine5,
+                FRAFLYKOMDTO = null,
+                FRAFLYKOMDTODecimal = decimalOf(personTotal.MunicipalityLeavingDate),
+                FRAFLYKOMKOD = decimalOf(personAddress.LeavingFromMunicipalityCode),
+                KONTAKTADRMRK = charOf(personTotal.ContactAddressMarker),
+                KONTAKTADR_KOMKOD = personTotal.ContactAddress.MunicipalityCode,
+                KONTAKTADRSTART = null,
+                KONTAKTADRSTARTDecimal = personTotal.ContactAddress.AddressDate,
+                LOKALITET = personTotal.Location,
+                LOKBESKMRK = charOf(personTotal.DirectoryProtectionMarker),                
+                MYNKOD_CIV = decimalOf(civilStatus.MaritalStatusAuthorityCode),
+                MYNTXT_CIV = civilStatus.MaritalStatusAuthorityText,
+                MYNTXTAJFDTO = null,
+                MYNTXTAJFDTO_CIV = null,
+                MYNTXTAJFDTO_CIVDecimal = decimalOf(civilStatus.AuthorityTextUpdateDate),           
+                // if guardian address is present we know the guardian has no pnr.     
+                RELPNR_1 = (guardianAddress == null) ? guardianAndParentalAuthorityRelation.PNR : 0m,
+                RELTYP_1 = (guardianAddress == null) ? guardianAndParentalAuthorityRelation.RelationType : 0m,
+                MYNKOD_5_1 = (guardianAddress == null) ? guardianAndParentalAuthorityRelation.AuthorityCode : ' ',
+                STARTDATE_1Decimal = 0m,
+                STARTDATE_1 = (guardianAddress == null) ? guardianAndParentalAuthorityRelation.StartDate : (DateTime?)null,
+                SLETDATE_1 = (guardianAddress == null) ? guardianAndParentalAuthorityRelation.EndDate : (DateTime?)null,
+                RELTXT1 = (guardianAddress == null) ? " " : guardianAddress.AddressLine1,
+                RELTXT2 = (guardianAddress == null) ? " " : guardianAddress.AddressLine2,
+                RELTXT3 = (guardianAddress == null) ? " " : guardianAddress.AddressLine3,
+                RELTXT4 = (guardianAddress == null) ? " " : guardianAddress.AddressLine4,
+                RELTXT5 = (guardianAddress == null) ? " " : guardianAddress.AddressLine5,
+                RELPNR_5 = parentalAuthority.PersonTotal.PNR,
+                RELTYP_5 = parentalAuthority.RelationType,
+                MYNKOD_5_5 = parentalAuthority.CustodyStartAuthorityCode,
+                STARTDATE_5Decimal = 0m,
+                STARTDATE_5 = parentalAuthority.StartDate,
+                SLETDATE_5 = parentalAuthority.EndDate,                
+                RELPNR_6 = parentalAuthority.PersonTotal.PNR,
+                RELTYP_6 = parentalAuthority.RelationType,
+                STARTDATE_6Decimal = 0m,
+                STARTDATE_6 = parentalAuthority.StartDate,
+                SLETDATE_6 = parentalAuthority.EndDate,
+                MYNKOD_5_6 = parentalAuthority.CustodyStartAuthorityCode,
+                RELADRSAT = (guardianAddress == null) ? " " : guardianAddress.Address,                
+                // STARTDATE-TXT
+                //SLETDATE_TXT = 
+                // TODO: RELTYP_TXT = 
+                RELTYP_FORALD_35 = (parentalAuthority.RelationType == 3 || parentalAuthority.RelationType == 5) ? parentalAuthority.RelationType : 0m,
+                STARTDATE_FORALD_UMRK_35 = (parentalAuthority.RelationType == 3 || parentalAuthority.RelationType == 5) ? charOf(parentalAuthority.StartDateMarker) : ' ',
+                STARTDATE_FORALD_35Decimal = 0m,
+                STARTDATE_FORALD_35 = (parentalAuthority.RelationType == 3 || parentalAuthority.RelationType == 5) ? parentalAuthority.StartDate : (DateTime?)null,
+                STARTMYNKOD_FORALD_35 = (parentalAuthority.RelationType == 3 || parentalAuthority.RelationType == 5) ? parentalAuthority.CustodyStartAuthorityCode : 0m,
+                SLETDATE_FORALD_35Decimal = 0m,
+                SLETDATE_FORALD_35 = (parentalAuthority.RelationType == 3 || parentalAuthority.RelationType == 5) ? parentalAuthority.EndDate : (DateTime?)null,
+                RELTYP_FORALD_46 = (parentalAuthority.RelationType == 4 || parentalAuthority.RelationType == 6) ? parentalAuthority.RelationType : 0m,
+                STARTDATE_FORALD_UMRK_46 = (parentalAuthority.RelationType == 4 || parentalAuthority.RelationType == 6) ? charOf(parentalAuthority.StartDateMarker) : ' ',
+                STARTDATE_FORALD_46Decimal = 0m,
+                STARTDATE_FORALD_46 = (parentalAuthority.RelationType == 4 || parentalAuthority.RelationType == 6) ? parentalAuthority.StartDate : (DateTime?)null,
+                STARTMYNKOD_FORALD_46 = (parentalAuthority.RelationType == 4 || parentalAuthority.RelationType == 6) ? parentalAuthority.CustodyStartAuthorityCode : 0m,
+                SLETDATE_FORALD_46Decimal = 0m,
+                SLETDATE_FORALD_46 = (parentalAuthority.RelationType == 4 || parentalAuthority.RelationType == 6) ? parentalAuthority.EndDate : (DateTime?)null,
+                STARTDATE_UMRK = charOf(separation.StartDateMarker),
+                STARTDATEDecimal = 0m,
+                STARTDATE = separation.StartDate,
+                SEP_HENVIS_TS = separation.SeparationReferalTimestamp,
+                STATSBORGER = personTotal.NationalityRight,
+                STILLING = person.Job,
+                STILLINGDTO = decimalOf(person.JobDate),
+                STANDARDADR = personTotal.StandardAddress,
+                START_MYNKOD_SEP = separation.StartAuthorityCode,
+                UDLANDADRDTO = null,
+                UDLANDADRDTODecimal = decimalOf(depature.ForeignAddressDate),
+                UDLANDSADR1 = depature.ForeignAddressLine1,
+                UDLANDSADR2 = depature.ForeignAddressLine2,
+                UDLANDSADR3 = depature.ForeignAddressLine3,
+                UDLANDSADR4 = depature.ForeignAddressLine4,
+                UDLANDSADR5 = depature.ForeignAddressLine5,
+                UDRAJFDTO = null, 
+                UDRAJFDTODecimal = depature.CprUpdateDate,
+                UDRDTO = null,
+                UDRDTODecimal = decimalOf(depature.ExitDate),
+                UDRMYNKOD = decimalOf(depature.EntryCountryCode),
+                UDRINDRMRK = charOf(personTotal.ExitEntryMarker),
+                UMYNRELTYP = decimalOf(person.UnderGuardianshipRelationType),
+                UMYNSLETDATE = person.UnderGuardianshipDeleteDate,
+                SUPLADR1 = personAddress.AdditionalAddressLine1,
+                SUPLADR2 = personAddress.AdditionalAddressLine2,
+                SUPLADR3 = personAddress.AdditionalAddressLine3,
+                SUPLADR4 = personAddress.AdditionalAddressLine4,
+                SUPLADR5 = personAddress.AdditionalAddressLine5,
+                SUPLADRHAENSTART = null,
+                SUPLADRHAENSTARTDecimal = personAddress.AddressStartDate,
+                SUPLADRMRK = charOf(personAddress.AddressStartDateMarker),
+                VALGRETDTO = null,
+                VALGRETDTODecimal = decimalOf(personTotal.VotingDate),
+                TIDLKOMNVN = personTotal.PreviousMunicipalityName,
+                TIDLPNRMRK = charOf(personTotal.FormerPersonalMarker),
+                TILFLYDTO = null,
+                TILFLYDTODecimal = personTotal.AddressDate,
+                TILFLYDTOMRK = charOf(personTotal.AddressDateMarker),
+                TILFLYKOMDTO = null,
+                TILFLYKOMDTODecimal = decimalOf(personTotal.MunicipalityArrivalDate),
                 
-                
-
-
-
-
-
             };
 
             // Copy the contents
             this.Contents = ret.Contents;
+        }
+
+        public string ContentsWithSeparator(string separator = ";")
+        {
+            throw new NotImplementedException();
         }
     }
 }
