@@ -80,7 +80,7 @@ namespace CprBroker.DBR.Extensions
             if (disappearance.RetrievalDate.HasValue)
                 d.RetrievalDate = CprBroker.Utilities.Dates.DateToDecimal(disappearance.RetrievalDate.Value, 12);
 
-            d.CorrectionMarker = disappearance.CorrectionMarker.ToString();
+            d.CorrectionMarker = disappearance.CorrectionMarker.NullIfEmpty();
             return d;
         }
 
