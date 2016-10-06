@@ -55,7 +55,7 @@ namespace CprBroker.DBR.Extensions
     public partial class CprConverterExtensions
     {
 
-        public static PersonTotal7 ToPersonTotal(this IndividualResponseType resp, DPRDataContext dataContext, char dataRetrievalType = CprBroker.Providers.DPR.DataRetrievalTypes.Extract)
+        public static PersonTotal7 ToPersonTotal(this IndividualResponseType resp, DPRDataContext dataContext, char dataRetrievalType = CprBroker.Providers.DPR.DataRetrievalTypes.Extract, char? updatingProgram = null)
         {
             /*
              * TODO: implement INDLAESDTO             * 
@@ -301,7 +301,7 @@ namespace CprBroker.DBR.Extensions
 
                 if (// If it is a valid address
                     prevAddress.HouseNumber.Trim() != ""
-                    // Alternatively, Street.GetAddressingName(dataContext.Connection.ConnectionString, historicalAddress.MunicipalityCode, historicalAddress.StreetCode) != null)
+                // Alternatively, Street.GetAddressingName(dataContext.Connection.ConnectionString, historicalAddress.MunicipalityCode, historicalAddress.StreetCode) != null)
                 )
                 {
                     var prevAdrStr = string.Format("{0} {1}",
@@ -367,7 +367,7 @@ namespace CprBroker.DBR.Extensions
                 null as char? : '1';
 
             pt.DprLoadDate = DateTime.Now;
-            pt.ApplicationCode = null; // DPR Specific
+            pt.ApplicationCode = updatingProgram;
             pt.DataRetrievalType = dataRetrievalType; // TODO: Use other types for deleted subscriptions and loaded from CPR direct)
 
             return pt;

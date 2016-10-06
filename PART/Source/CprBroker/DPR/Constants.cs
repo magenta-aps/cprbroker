@@ -111,9 +111,16 @@ namespace CprBroker.Providers.DPR
     public class DataRetrievalTypes
     {
         public const char Extract = '*'; // also 'U' or null
+        public const char Extract2 = 'U'; // alternative
         public const char CprDirectWithoutSubscription = 'I';
         public const char CprDirectWithSubscription = 'D';
         public const char CprDirectWithDeletedSubscription = 'R';
+    }
+
+    public class UpdatingProgram
+    {
+        public const char DprUpdate = 'A';
+        public const char DprDiversion = 'V';
     }
 
     public class DiversionErrorCodes
