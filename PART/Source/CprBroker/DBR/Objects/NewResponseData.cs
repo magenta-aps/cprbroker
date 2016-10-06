@@ -31,8 +31,8 @@ namespace CprBroker.DBR
         public NewResponseBasicDataType()
         { }
 
-        public NewResponseBasicDataType(IndividualResponseType resp)
-            : base(resp)
+        public NewResponseBasicDataType(IndividualResponseType resp, PersonInfoExtended personInfo, string dprConnectionString)
+            : base(resp, personInfo, dprConnectionString)
         { }
     }
 }
