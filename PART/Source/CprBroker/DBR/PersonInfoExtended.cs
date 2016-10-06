@@ -11,6 +11,7 @@ namespace CprBroker.DBR
     public class PersonInfoExtended : PersonInfo
     {
         public Person Person { get; set; }
+        public CivilStatus CurrentCivilStatus { get; set; }
         public Disappearance Disappearance { get; set; }
 
         private static T[] Get<T>(IList<object> objects)
@@ -58,10 +59,10 @@ namespace CprBroker.DBR
 
                 // Parental authority
                 ParentalAuthority = Get<ParentalAuthority>(objects).ToArray(),
-                CustodyHolderRelations = null, //this.ParentalAuthorityHolders_Relations.Where(p => relationTypes.Contains(p.RelationType)).ToArray(),
+                CustodyHolderRelations = Get<Relation>(objects).Where(r => new decimal[] { 3, 4, 5, 6 }.Contains(r.RelationType)).ToArray(), //this.ParentalAuthorityHolders_Relations.Where(p => relationTypes.Contains(p.RelationType)).ToArray(),
 
                 Person = Get<Person>(objects).First(),
-
+                CurrentCivilStatus = Get<CivilStatus>(objects).FirstOrDefault(d => isActive(d)),
                 Disappearance = Get<Disappearance>(objects).FirstOrDefault(d => isActive(d))
             };
         }

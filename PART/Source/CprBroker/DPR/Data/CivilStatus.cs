@@ -9,7 +9,7 @@ using CprBroker.PartInterface;
 
 namespace CprBroker.Providers.DPR
 {
-    public partial class CivilStatus : ICivilStatus
+    public partial class CivilStatus : ICivilStatus, IHasNullableCorrectionMarker
     {
         public bool IsValid()
         {
