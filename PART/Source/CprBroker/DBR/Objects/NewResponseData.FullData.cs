@@ -156,7 +156,7 @@ namespace CprBroker.DBR
                 AJFDTO_RELPNR_1 = null,
                 AJFDTO_RELPNR_1Decimal = (guardianAddress == null) ? guardianAndParentalAuthorityRelation.CprUpdateDate : 0m,
                 AJFDTO_RELPNR_5 = null,
-                AJFDTO_RELPNR_5Decimal = parentalAuthority.CprUpdateDate, 
+                AJFDTO_RELPNR_5Decimal = parentalAuthority.CprUpdateDate,
                 AJFDTO_RELPNR_6 = null,
                 AJFDTO_RELPNR_6Decimal = parentalAuthority.CprUpdateDate,
                 AJFDTO_RELTXT = null,
@@ -180,12 +180,12 @@ namespace CprBroker.DBR
                 KONTAKTADRSTART = null,
                 KONTAKTADRSTARTDecimal = personTotal.ContactAddress.AddressDate,
                 LOKALITET = personTotal.Location,
-                LOKBESKMRK = charOf(personTotal.DirectoryProtectionMarker),                
+                LOKBESKMRK = charOf(personTotal.DirectoryProtectionMarker),
                 MYNKOD_CIV = decimalOf(civilStatus.MaritalStatusAuthorityCode),
                 MYNTXT_CIV = civilStatus.MaritalStatusAuthorityText,
                 MYNTXTAJFDTO = null,
                 MYNTXTAJFDTO_CIV = null,
-                MYNTXTAJFDTO_CIVDecimal = decimalOf(civilStatus.AuthorityTextUpdateDate),           
+                MYNTXTAJFDTO_CIVDecimal = decimalOf(civilStatus.AuthorityTextUpdateDate),
                 // if guardian address is present we know the guardian has no pnr.     
                 RELPNR_1 = (guardianAddress == null) ? guardianAndParentalAuthorityRelation.PNR : 0m,
                 RELTYP_1 = (guardianAddress == null) ? guardianAndParentalAuthorityRelation.RelationType : 0m,
@@ -203,17 +203,19 @@ namespace CprBroker.DBR
                 MYNKOD_5_5 = parentalAuthority.CustodyStartAuthorityCode,
                 STARTDATE_5Decimal = 0m,
                 STARTDATE_5 = parentalAuthority.StartDate,
-                SLETDATE_5 = parentalAuthority.EndDate,                
+                SLETDATE_5 = parentalAuthority.EndDate,
                 RELPNR_6 = parentalAuthority.PersonTotal.PNR,
                 RELTYP_6 = parentalAuthority.RelationType,
                 STARTDATE_6Decimal = 0m,
                 STARTDATE_6 = parentalAuthority.StartDate,
                 SLETDATE_6 = parentalAuthority.EndDate,
                 MYNKOD_5_6 = parentalAuthority.CustodyStartAuthorityCode,
-                RELADRSAT = (guardianAddress == null) ? " " : guardianAddress.Address,                
+                MYNKOD_5_TXT = parentalAuthority.CustodyStartAuthorityCode,
+                RELADRSAT = (guardianAddress == null) ? " " : guardianAddress.Address,
                 // STARTDATE-TXT
                 //SLETDATE_TXT = 
-                // TODO: RELTYP_TXT = 
+                // RELTYP_TXT = 
+                
                 RELTYP_FORALD_35 = (parentalAuthority.RelationType == 3 || parentalAuthority.RelationType == 5) ? parentalAuthority.RelationType : 0m,
                 STARTDATE_FORALD_UMRK_35 = (parentalAuthority.RelationType == 3 || parentalAuthority.RelationType == 5) ? charOf(parentalAuthority.StartDateMarker) : ' ',
                 STARTDATE_FORALD_35Decimal = 0m,
