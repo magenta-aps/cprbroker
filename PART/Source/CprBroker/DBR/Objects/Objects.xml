@@ -26,8 +26,9 @@
     <Attribute format="Alpha"   position="101" length="34" name="CareOfName" description="De første 4 karakterer er: C/O og en blank"/>
     <Attribute format="Alpha"   position="135" length="40" name="StreetName"/>
     <Attribute format="Alpha"   position="175" length="4"  name="HouseNumber" description="husnummer 3 karakterer, og husbogstav, 1 karakter."/>
-    <Attribute format="Alpha"   position="179" length="2"  name="Floor"/>
-    <Attribute format="Alpha"   position="181" length="4"  name="Door"/>
+    <!-- For a strange reason, real DPR response puts Door before Floor-->
+    <Attribute format="Alpha"   position="179" length="4"  name="Door"/>
+    <Attribute format="Alpha"   position="183" length="2"  name="Floor"/>
     <Attribute format="Alpha"   position="185" length="4"  name="BNR"/>
     <Attribute format="Numeric" position="189" length="4"  name="PostCode"/>
     <Attribute format="Alpha"   position="193" length="20" name="PostDistrict"/>
