@@ -151,7 +151,7 @@ namespace CprBroker.DBR
 
             // Addresses
             var personAddresses = new List<PersonAddress>();
-            
+
             foreach (var adr in person.HistoricalAddress.OrderBy(a => a.RelocationDate.Value))
             {
                 personAddresses.Add(adr.ToDpr(dataContext));
@@ -159,7 +159,7 @@ namespace CprBroker.DBR
 
             var currentAddress = person.GetFolkeregisterAdresseSource(false) as CurrentAddressWrapper;
             if (currentAddress != null)
-                personAddresses.Add(currentAddress.ToDpr(dataContext));
+                personAddresses.Add(currentAddress.ToDpr(dataContext, person.PersonInformation));
 
             CprConverterExtensions.ClearPreviousAddressData(personAddresses.ToArray());
             dataContext.PersonAddresses.InsertAllOnSubmit(personAddresses);

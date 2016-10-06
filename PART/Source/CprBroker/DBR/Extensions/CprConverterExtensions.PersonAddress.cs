@@ -53,7 +53,7 @@ namespace CprBroker.DBR.Extensions
 {
     public static partial class CprConverterExtensions
     {
-        public static PersonAddress ToDpr(this CurrentAddressWrapper currentAddress, DPRDataContext dataContext)
+        public static PersonAddress ToDpr(this CurrentAddressWrapper currentAddress, DPRDataContext dataContext, PersonInformationType personInformation)
         {
             PersonAddress pa = new PersonAddress();
             pa.PNR = Decimal.Parse(currentAddress.CurrentAddressInformation.PNR);
@@ -107,7 +107,10 @@ namespace CprBroker.DBR.Extensions
             if (!char.IsWhiteSpace(currentAddress.CurrentAddressInformation.RelocationDateUncertainty))
                 pa.AddressStartDateMarker = currentAddress.CurrentAddressInformation.RelocationDateUncertainty;
 
-            pa.AddressEndDate = null; // This is the current date
+            if (personInformation.Status == 90 && personInformation.StatusStartDate.HasValue)
+                pa.AddressEndDate = personInformation.StatusStartDateDecimal;
+            else
+                pa.AddressEndDate = null; // This is the current date
 
             pa.LeavingFromMunicipalityCode = null; // To be set later
             pa.LeavingFromMunicipalityDate = null; // To be set later
