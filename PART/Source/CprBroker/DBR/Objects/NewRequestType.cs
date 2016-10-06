@@ -98,7 +98,7 @@ namespace CprBroker.DBR
                         return ToErrorResponse(5);
                     }
                 }
-
+                IList<object> objectsToInsert;
                 try
                 {
                     // Update the the broker's database, only the source itself is not an extract
@@ -106,7 +106,7 @@ namespace CprBroker.DBR
                         this.SaveAsExtract(person);
 
                     // Update the DPR database
-                    var objectsToInsert = this.GetDatabaseInserts(dprConnectionString, person);
+                    objectsToInsert = this.GetDatabaseInserts(dprConnectionString, person);
                     this.UpdateDprDatabase(dprConnectionString, objectsToInsert);
                 }
                 catch (Exception e)
@@ -135,12 +135,11 @@ namespace CprBroker.DBR
                         break;
 
                     case ResponseType.Basic:
-                        ret.Data = new NewResponseBasicDataType(person);
+                        ret.Data = new NewResponseBasicDataType(person, PersonInfoExtended.FromObjects(objectsToInsert), dprConnectionString);
                         break;
 
                     case ResponseType.Enriched:
-
-                        ret.Data = new NewResponseFullDataType(person, null);
+                        ret.Data = new NewResponseFullDataType(person, PersonInfoExtended.FromObjects(objectsToInsert));
                         break;
 
                     default:
