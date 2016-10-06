@@ -49,7 +49,7 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Providers.DPR
 {
-    public partial class Departure : IAddressSource
+    public partial class Departure : IAddressSource, IHasNullableCorrectionMarker
     {
         public AdresseType ToAdresseType()
         {

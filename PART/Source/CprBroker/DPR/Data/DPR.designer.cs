@@ -4472,7 +4472,7 @@ namespace CprBroker.Providers.DPR
 		
 		private System.Nullable<decimal> _EntryUpdateDate;
 		
-		private string _CorrectionMarker;
+		private System.Nullable<char> _CorrectionMarker;
 		
 		private string _ForeignAddressLine1;
 		
@@ -4510,7 +4510,7 @@ namespace CprBroker.Providers.DPR
     partial void OnEntryDateChanged();
     partial void OnEntryUpdateDateChanging(System.Nullable<decimal> value);
     partial void OnEntryUpdateDateChanged();
-    partial void OnCorrectionMarkerChanging(string value);
+    partial void OnCorrectionMarkerChanging(System.Nullable<char> value);
     partial void OnCorrectionMarkerChanged();
     partial void OnForeignAddressLine1Changing(string value);
     partial void OnForeignAddressLine1Changed();
@@ -4735,7 +4735,7 @@ namespace CprBroker.Providers.DPR
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="ANNKOR", Storage="_CorrectionMarker", DbType="VarChar(1)", IsPrimaryKey=true)]
-		public string CorrectionMarker
+		public System.Nullable<char> CorrectionMarker
 		{
 			get
 			{
@@ -5643,7 +5643,7 @@ namespace CprBroker.Providers.DPR
 		
 		private System.Nullable<decimal> _RetrievalDate;
 		
-		private string _CorrectionMarker;
+		private System.Nullable<char> _CorrectionMarker;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -5657,7 +5657,7 @@ namespace CprBroker.Providers.DPR
     partial void OnDisappearanceDateChanged();
     partial void OnRetrievalDateChanging(System.Nullable<decimal> value);
     partial void OnRetrievalDateChanged();
-    partial void OnCorrectionMarkerChanging(string value);
+    partial void OnCorrectionMarkerChanging(System.Nullable<char> value);
     partial void OnCorrectionMarkerChanged();
     #endregion
 		
@@ -5747,7 +5747,7 @@ namespace CprBroker.Providers.DPR
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="ANNKOR", Storage="_CorrectionMarker", DbType="VarChar(1)")]
-		public string CorrectionMarker
+		public System.Nullable<char> CorrectionMarker
 		{
 			get
 			{

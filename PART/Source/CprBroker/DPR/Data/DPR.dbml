@@ -196,7 +196,7 @@
       <Column Name="INDMYKOD" Member="EntryCountryCode" Type="System.Decimal" DbType="Decimal(5,0)" CanBeNull="true" />
       <Column Name="INDRDTO" Member="EntryDate" Type="System.Decimal" DbType="Decimal(13,0)" CanBeNull="true" />
       <Column Name="INDAJDTO" Member="EntryUpdateDate" Type="System.Decimal" DbType="Decimal(13,0)" CanBeNull="true" />
-      <Column Name="ANNKOR" Member="CorrectionMarker" Type="System.String" DbType="VarChar(1)" IsPrimaryKey="true" CanBeNull="true" />
+      <Column Name="ANNKOR" Member="CorrectionMarker" Type="System.Char" DbType="VarChar(1)" IsPrimaryKey="true" CanBeNull="true" />
       <Column Name="UADR1" Member="ForeignAddressLine1" Type="System.String" DbType="VarChar(34)" CanBeNull="true" />
       <Column Name="UADR2" Member="ForeignAddressLine2" Type="System.String" DbType="VarChar(34)" CanBeNull="true" />
       <Column Name="UADR3" Member="ForeignAddressLine3" Type="System.String" DbType="VarChar(34)" CanBeNull="true" />
@@ -247,7 +247,7 @@
       <Column Name="AJFDTO" Member="CprUpdateDate" Type="System.Decimal" DbType="Decimal(13,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="FORSVDTO" Member="DisappearanceDate" Type="System.Decimal" DbType="Decimal(13,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="GENFDTO" Member="RetrievalDate" Type="System.Decimal" DbType="Decimal(13,0)" CanBeNull="true" />
-      <Column Name="ANNKOR" Member="CorrectionMarker" Type="System.String" DbType="VarChar(1)" CanBeNull="true" />
+      <Column Name="ANNKOR" Member="CorrectionMarker" Type="System.Char" DbType="VarChar(1)" CanBeNull="true" />
     </Type>
   </Table>
   <Table Name="dbo.DTNOTAT" Member="Notes">

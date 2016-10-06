@@ -82,6 +82,7 @@
     <Compile Include="Data\City.cs" />
     <Compile Include="Data\CivilStatus.cs" />
     <Compile Include="Data\Departure.cs" />
+    <Compile Include="Data\Disappearance.cs" />
     <Compile Include="Data\Relation.cs" />
     <Compile Include="Data\ParentalAuthority.cs" />
     <Compile Include="Data\DPRDataContext.cs" />
@@ -96,6 +97,7 @@
     <Compile Include="Data\PersonAddress.cs" />
     <Compile Include="Data\PersonTotal7.cs" />
     <Compile Include="Data\PostDistrict.cs" />
+    <Compile Include="Data\Separation.cs" />
     <Compile Include="Data\Street.cs" />
     <Compile Include="Lookup\HouseLookupHelper.cs" />
     <Compile Include="Lookup\HouseNumber.cs" />

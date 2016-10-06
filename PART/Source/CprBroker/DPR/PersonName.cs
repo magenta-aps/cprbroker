@@ -49,11 +49,48 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Providers.DPR
 {
-    public partial class PersonName
+    public partial class PersonName : IHasNullableCorrectionMarker
     {
         public NavnStrukturType ToNavnStrukturType()
         {
             return NavnStrukturType.Create(new string[] { this.FirstName, this.LastName }, this.AddressingName);
         }
+
+        public IRegistrationInfo Registration
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public DataTypeTags Tag
+        {
+            get
+            {
+                return DataTypeTags.Name;
+            }
+        }
+
+        public DateTime? ToStartTS()
+        {
+            return Utilities.DateFromDecimal(this.NameStartDate);
+        }
+
+        public bool ToStartTSCertainty()
+        {
+            return true;
+        }
+
+        public DateTime? ToEndTS()
+        {
+            return Utilities.DateFromDecimal(this.NameTerminationDate);
+        }
+
+        public bool ToEndTSCertainty()
+        {
+            return true;
+        }
+
     }
 }
