@@ -111,8 +111,20 @@ namespace CprBroker.Tests.DBR.DiversionComparison
             var minPnr = decimal.Parse("0103000000");
             using (var context = new DPRDataContext(Settings.Default.RealDprConnectionString))
             {
-                return context.PersonTotals.Where(t => t.PNR > minPnr).OrderBy(t => t.PNR).Take(count)
-                    .Select(t => t.PNR)
+                return context.ExecuteQuery<decimal>(""
+                    + "SELECT PNR FROM DTTOTAL "
+                    + "WHERE PNR > {0} "
+                    + "AND (INDLAESDTO IS NULL OR INDLAESDTO < {1}) "
+                    + "AND (HENTTYP IS NULL OR HENTTYP IN ({2},{3})) "
+                    + "AND (INDLAESPGM IS NULL OR INDLAESPGM = {4}) "
+                    + "ORDER BY PNR"
+                    ,
+                    minPnr,
+                    new DateTime(2016, 10, 1),
+                    DataRetrievalTypes.Extract, DataRetrievalTypes.Extract2,
+                    UpdatingProgram.DprUpdate
+                    )
+                    .Take(count)
                     .ToArray()
                     .Select(p => p.ToPnrDecimalString())
                     .ToArray();
