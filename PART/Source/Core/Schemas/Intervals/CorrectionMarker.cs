@@ -53,6 +53,11 @@ namespace CprBroker.Schemas.Part
         char CorrectionMarker { get; }
     }
 
+    public interface IHasNullableCorrectionMarker : ITimedType
+    {
+        char? CorrectionMarker { get; }
+    }
+
     public static class CorrectionMarker
     {
         public const char Edit_Overwritten = 'K';
@@ -80,7 +85,7 @@ namespace CprBroker.Schemas.Part
             dataObjects = dataObjects.Except(undoRecords).ToList();
 
             var editAndTechnicalChange = new char[] { Edit_Overwritten, TechnicalChange };
-            
+
             // Filter out records that have been overwritten, and also delete the record with the marker
             var editRecords = dataObjects.Where(o => o is IHasCorrectionMarker && editAndTechnicalChange.Contains((o as IHasCorrectionMarker).CorrectionMarker)).ToArray();
 
@@ -101,6 +106,11 @@ namespace CprBroker.Schemas.Part
         public static bool IsOk(this IHasCorrectionMarker obj)
         {
             return obj.CorrectionMarker.Equals(CorrectionMarker.OK);
+        }
+
+        public static bool IsOk(this IHasNullableCorrectionMarker obj)
+        {
+            return !obj.CorrectionMarker.HasValue || obj.CorrectionMarker.Equals(CorrectionMarker.OK);
         }
     }
 }
