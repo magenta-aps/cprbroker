@@ -183,7 +183,7 @@ namespace CprBroker.Tests.DBR.PerPerson
             if (adr != null)
                 using (var dataContext = new DPRDataContext(DbrDatabase.ConnectionString))
                 {
-                    dataContext.PersonAddresses.InsertOnSubmit(adr.ToDpr(null));
+                    dataContext.PersonAddresses.InsertOnSubmit(adr.ToDpr(null, pers.PersonInformation));
                     dataContext.SubmitChanges();
                 }
         }

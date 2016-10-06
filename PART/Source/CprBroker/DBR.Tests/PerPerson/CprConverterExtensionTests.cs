@@ -125,7 +125,7 @@ namespace CprBroker.Tests.DBR.PerPerson
             var pers = Persons[pnr];
             var adr = pers.GetFolkeregisterAdresseSource(false) as CprBroker.Providers.CPRDirect.CurrentAddressWrapper;
             if (adr != null)
-                adr.ToDpr(null);
+                adr.ToDpr(null, pers.PersonInformation);
         }
 
         [Test]
