@@ -14,6 +14,11 @@ namespace CprBroker.Tests.DBR.DiversionComparison
         {
         }
 
+        protected override void ValidateOperationMode()
+        {
+            // Do nothing
+        }
+
         public override IEnumerable<T> LoadDataProviders<T>()
         {
             return new T[0];

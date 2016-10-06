@@ -110,7 +110,7 @@ namespace CprBroker.DBR
             return ret;
         }
 
-        private void ValidateOperationMode()
+        protected virtual void ValidateOperationMode()
         {
             if (this.LargeData != Providers.DPR.DetailType.ExtendedData || this.Type != Providers.DPR.InquiryType.DataUpdatedAutomaticallyFromCpr)
             {
