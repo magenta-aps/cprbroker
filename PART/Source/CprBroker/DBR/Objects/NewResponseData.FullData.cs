@@ -119,15 +119,15 @@ namespace CprBroker.DBR
                 FARSKABMYNKOD = decimalOf(person.PaternityAuthorityCode),
                 MORNVN = person.MotherName,
                 FARNVN = person.FatherName,
-                AEGTEFOEDDTO = decimalOf(resp.CurrentCivilStatus.SpouseBirthDateDecimal),
+                AEGTEFOEDDTO = decimalOf(civilStatus?.SpouseBirthdate),
                 AEGTEDOK = civilStatus.SpouseDocumentation,
                 AEGTEPNR = decimalOf(civilStatus.SpousePNR),
-                AEGTENVN = resp.CurrentCivilStatus.SpouseName,
-                AEGTEMRK = resp.CurrentCivilStatus.SpouseNameMarker,
-                AEGTE = resp.CurrentCivilStatus.SpousePNR,
-                HAENSTART_CIVDecimal = resp.CurrentCivilStatus.CivilStatusStartDateDecimal,
-                HAENSTART_CIV = resp.CurrentCivilStatus.CivilStatusStartDate,
-                BNR = resp.CurrentAddressInformation.BuildingNumber,
+                AEGTENVN = civilStatus.SpouseName,
+                AEGTEMRK = charOf(personTotal.SpouseMarker),
+                AEGTE = personTotal.SpousePersonalOrBirthdate,
+                HAENSTART_CIV = null,
+                HAENSTART_CIVDecimal = decimalOf(civilStatus.MaritalStatusDate),
+                BNR = personAddress.GreenlandConstructionNumber,
                 ANTAL_BOERN = personTotal.Children.Count(),
                 BARNMRK = charOf(personTotal.ChildMarker),
                 AKTKOMNVN = personTotal.CurrentMunicipalityName,
@@ -139,8 +139,8 @@ namespace CprBroker.DBR
                 HUSNR = personTotal.HouseNumber,
                 KOMKOD = personTotal.MunicipalityCode,
                 KOMNVN = personTotal.CurrentMunicipalityName,
-                HAENSTART_STAT = resp.CurrentCitizenship.CitizenshipStartDate,
-                HAENSTART_STATDecimal = resp.CurrentCitizenship.CitizenshipStartDateDecimal,
+                HAENSTART_STAT = null,
+                HAENSTART_STATDecimal = personInfo.Nationality.NationalityStartDate,
                 POSTNR = personTotal.PostCode,
                 POSTDISTTXT = personTotal.PostDistrictName,
                 VEJADRNVN = personAddress.StreetAddressingName,
@@ -224,7 +224,13 @@ namespace CprBroker.DBR
                 // STARTDATE-TXT
                 //SLETDATE_TXT = 
                 // RELTYP_TXT = 
-
+                // MYNKOD_STAT 
+                // PNR_BORN 
+                //SLETDATE_1Decimal
+                //SLETDATE_5Decimal
+                //SLETDATE_6Decimal
+                //STARTDATE_TXTDecimal
+                //UMYNSLETDATEDecimal
                 RELTYP_FORALD_35 = decimalOf(parentalAuthority35?.RelationType),//(parentalAuthority.RelationType == 3 || parentalAuthority.RelationType == 5) ? parentalAuthority.RelationType : 0m,
                 STARTDATE_FORALD_UMRK_35 = charOf(parentalAuthority35?.StartDateMarker),
                 STARTDATE_FORALD_35Decimal = 0m,
