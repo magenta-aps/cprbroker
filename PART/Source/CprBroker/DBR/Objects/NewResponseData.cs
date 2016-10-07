@@ -9,6 +9,7 @@ namespace CprBroker.DBR
 {
     public interface INewResponseData
     {
+        string Contents { get; set; }
         string ContentsWithSeparator(string separator = ";");
     }
 
