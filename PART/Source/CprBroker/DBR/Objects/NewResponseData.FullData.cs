@@ -29,8 +29,8 @@ namespace CprBroker.DBR
             Relation relation5 = personInfo.CustodyHolderRelations.FirstOrDefault(r => r.RelationType == 5);
             Relation relation6 = personInfo.CustodyHolderRelations.FirstOrDefault(r => r.RelationType == 6);
 
-            GuardianAndParentalAuthorityRelation guardianAndParentalAuthorityRelation = null;
-            GuardianAddress guardianAddress = null;
+            GuardianAndParentalAuthorityRelation guardianAndParentalAuthorityRelation = personInfo.GuardianAndParentalRelation;
+            GuardianAddress guardianAddress = personInfo.GuardianNoPNR;
             Separation separation = personInfo.Separation;
             Departure depature = personInfo.Departure;
 
@@ -38,7 +38,6 @@ namespace CprBroker.DBR
             Func<char?, char> uncertaintyCharOf = (c) => c.HasValue ? c.Value : ' ';
             Func<char?, char> charOf = c => c.HasValue ? c.Value : ' ';
 
-            // TODO: Implement this
             var ret = new NewResponseFullDataType()
             {
                 // Init Contents with an empty string
@@ -88,7 +87,7 @@ namespace CprBroker.DBR
                 UMYNAJFDTO = null,
                 UMYNAJFDTODecimal = decimalOf(person.GuardianshipUpdateDate),
                 UMYNMYNHAENSTART = null,
-                UMYNMYNHAENSTARTDecimal = decimalOf(person.UnderGuardianshipDate), //resp.Disempowerment.DisempowermentStartDateDecimal,
+                UMYNMYNHAENSTARTDecimal = decimalOf(person.UnderGuardianshipDate), 
                 PNRMRKHAENSTART = null,
                 PNRMRKHAENSTARTDecimal = decimalOf(personTotal.PnrMarkingDate),
                 PNRHAENSTART = null,
@@ -226,20 +225,20 @@ namespace CprBroker.DBR
                 //SLETDATE_TXT = 
                 // RELTYP_TXT = 
 
-                RELTYP_FORALD_35 = (parentalAuthority.RelationType == 3 || parentalAuthority.RelationType == 5) ? parentalAuthority.RelationType : 0m,
-                STARTDATE_FORALD_UMRK_35 = (parentalAuthority.RelationType == 3 || parentalAuthority.RelationType == 5) ? charOf(parentalAuthority.StartDateMarker) : ' ',
+                RELTYP_FORALD_35 = decimalOf(parentalAuthority35?.RelationType),//(parentalAuthority.RelationType == 3 || parentalAuthority.RelationType == 5) ? parentalAuthority.RelationType : 0m,
+                STARTDATE_FORALD_UMRK_35 = charOf(parentalAuthority35?.StartDateMarker),
                 STARTDATE_FORALD_35Decimal = 0m,
-                STARTDATE_FORALD_35 = (parentalAuthority.RelationType == 3 || parentalAuthority.RelationType == 5) ? parentalAuthority.StartDate : (DateTime?)null,
-                STARTMYNKOD_FORALD_35 = (parentalAuthority.RelationType == 3 || parentalAuthority.RelationType == 5) ? parentalAuthority.CustodyStartAuthorityCode : 0m,
+                STARTDATE_FORALD_35 = parentalAuthority35?.StartDate,
+                STARTMYNKOD_FORALD_35 = decimalOf(parentalAuthority35?.CustodyStartAuthorityCode),
                 SLETDATE_FORALD_35Decimal = 0m,
-                SLETDATE_FORALD_35 = (parentalAuthority.RelationType == 3 || parentalAuthority.RelationType == 5) ? parentalAuthority.EndDate : (DateTime?)null,
-                RELTYP_FORALD_46 = (parentalAuthority.RelationType == 4 || parentalAuthority.RelationType == 6) ? parentalAuthority.RelationType : 0m,
-                STARTDATE_FORALD_UMRK_46 = (parentalAuthority.RelationType == 4 || parentalAuthority.RelationType == 6) ? charOf(parentalAuthority.StartDateMarker) : ' ',
+                SLETDATE_FORALD_35 = parentalAuthority35?.EndDate,
+                RELTYP_FORALD_46 = decimalOf(parentalAuthority46?.RelationType),
+                STARTDATE_FORALD_UMRK_46 = charOf(parentalAuthority46?.StartDateMarker),
                 STARTDATE_FORALD_46Decimal = 0m,
-                STARTDATE_FORALD_46 = (parentalAuthority.RelationType == 4 || parentalAuthority.RelationType == 6) ? parentalAuthority.StartDate : (DateTime?)null,
-                STARTMYNKOD_FORALD_46 = (parentalAuthority.RelationType == 4 || parentalAuthority.RelationType == 6) ? parentalAuthority.CustodyStartAuthorityCode : 0m,
+                STARTDATE_FORALD_46 = parentalAuthority46?.StartDate,
+                STARTMYNKOD_FORALD_46 = decimalOf(parentalAuthority46?.CustodyStartAuthorityCode),
                 SLETDATE_FORALD_46Decimal = 0m,
-                SLETDATE_FORALD_46 = (parentalAuthority.RelationType == 4 || parentalAuthority.RelationType == 6) ? parentalAuthority.EndDate : (DateTime?)null,
+                SLETDATE_FORALD_46 = parentalAuthority46?.EndDate,
                 STARTDATE_UMRK = charOf(separation.StartDateMarker),
                 STARTDATEDecimal = 0m,
                 STARTDATE = separation.StartDate,
@@ -285,11 +284,6 @@ namespace CprBroker.DBR
 
             // Copy the contents
             this.Contents = ret.Contents;
-        }
-
-        public string ContentsWithSeparator(string separator = ";")
-        {
-            throw new NotImplementedException();
         }
     }
 }
