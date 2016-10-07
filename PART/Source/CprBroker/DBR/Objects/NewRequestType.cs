@@ -53,7 +53,7 @@ namespace CprBroker.DBR
 {
     public partial class NewRequestType
     {
-        public NewRequestType(string contents) : base(contents)
+        public NewRequestType(string contents)
         {
             Contents = contents.PadRight(this.Length);
         }
@@ -148,6 +148,7 @@ namespace CprBroker.DBR
             }
             catch (Exception e)
             {
+                Console.WriteLine(e.ToString());
                 Engine.Local.Admin.LogException(e);
                 ret = ToErrorResponse(9);
             }

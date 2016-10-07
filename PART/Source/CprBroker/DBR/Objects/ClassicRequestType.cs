@@ -60,150 +60,36 @@ namespace CprBroker.DBR
     public partial class ClassicRequestType
     {
         public ClassicRequestType()
+            : base(new string(' ', 40))
         { }
 
         public ClassicRequestType(string contents)
+            : this()
         {
-            Contents = contents.PadRight(Length).Substring(0, Length);
+            Contents = contents.PadRight(Length).Substring(0, base.Length);
+            NewType = "MMXIII";
+            ForceDiversion = 0;
+            ReponseData = 'S';
+            UserID = "";
         }
 
         public override DiversionResponseType Process(string dprConnectionString)
         {
-            ValidateOperationMode();
-
-            ICprDirectPersonDataProvider usedProvider = null;
-            var individualResponse = GetPerson(out usedProvider);
-            if (individualResponse == null)
-            {
-                // TODO: person not found, return error
-                throw new NotImplementedException();
-            }
-
-            // Put a subscription if needed
-            if (!CanPutSubscription(usedProvider))
-            {
-                // We have to create a subscription elsewhere
-                var subscriptionResult = this.PutSubscription();
-                if (!subscriptionResult)
-                {
-                    throw new NotImplementedException();
-                }
-            }
-
-            // Update the the broker's database
-            this.SaveAsExtract(individualResponse);
-
-            // Update the DPR database
-            var objectsToInsert = this.GetDatabaseInserts(dprConnectionString, individualResponse);
-            this.UpdateDprDatabase(dprConnectionString, objectsToInsert);
-
-            // Return  the result
-            var ret = new ClassicResponseType()
+            // Run the new request
+            var response = base.Process(dprConnectionString) as NewResponseType;
+            
+            // Convert to classic response
+            return new ClassicResponseType()
             {
                 Type = this.Type,
                 LargeData = this.LargeData,
+                ErrorNumber = response.ErrorNumber,
                 PNR = this.PNR,
-                ErrorNumber = "00",
-                Data = "Basen er opdateret"
+                Data = response.ErrorNumber.Equals("00") ?
+                    LargeData == DetailType.ExtendedData ? "Basen er opdateret" : response.Data.Contents.Substring(10)
+                    : (response.Data as NewResponseNoDataType).OkOrError
             };
-
-            return ret;
-        }
-
-        protected virtual void ValidateOperationMode()
-        {
-            if (this.LargeData != Providers.DPR.DetailType.ExtendedData || this.Type != Providers.DPR.InquiryType.DataUpdatedAutomaticallyFromCpr)
-            {
-                // TODO: unimplemented mode of operation
-                throw new NotImplementedException();
-            }
-        }
-
-        public virtual IndividualResponseType GetPerson(out ICprDirectPersonDataProvider usedProvider)
-        {
-            var cprDirectProviders = LoadDataProviders<CPRDirectClientDataProvider>();
-            return GetPerson(cprDirectProviders, out usedProvider);
-        }
-
-        public virtual IndividualResponseType GetPerson(IEnumerable<ICprDirectPersonDataProvider> dataProviders, out ICprDirectPersonDataProvider usedProvider)
-        {
-            foreach (var prov in dataProviders)
-            {
-                var resp = prov.GetPerson(this.PNR);
-                if (resp != null)
-                {
-                    usedProvider = prov;
-                    return resp;
-                }
-            }
-            usedProvider = null;
-            return null;
-        }
-
-        public bool CanPutSubscription(ICprDirectPersonDataProvider usedProvider)
-        {
-            return
-                (usedProvider is IPutSubscriptionDataProvider && !(usedProvider is IPutSubscriptionDataProvider2)) // Always puts a subscription with no way to disable it
-                || (usedProvider is IPutSubscriptionDataProvider2 && !(usedProvider as IPutSubscriptionDataProvider2).DisableSubscriptions); // Can disable subscriptions, but they are NOT disabled
-        }
-
-        public virtual bool PutSubscription()
-        {
-            var subscriptionDataProviders = LoadDataProviders<IPutSubscriptionDataProvider>();
-            var pId = new PersonIdentifier() { CprNumber = this.PNR, UUID = null };
-            var putSubscriptionRet = subscriptionDataProviders
-                .FirstOrDefault(sdp => sdp.PutSubscription(pId));
-            return putSubscriptionRet != null;
-        }
-
-        public virtual void SaveAsExtract(IndividualResponseType response)
-        {
-            response.SaveAsExtract(true);
-        }
-
-        public virtual IList<object> GetDatabaseInserts(string dprConnectionString, IndividualResponseType response)
-        {
-            if (response == null)
-            {
-                response = ExtractManager.GetPerson(this.PNR);
-            }
-
-            using (var dataContext = new DPRDataContext(dprConnectionString))
-            {
-                CprConverter.AppendPerson(response, dataContext, CprBroker.Providers.DPR.DataRetrievalTypes.CprDirectWithSubscription);
-                return dataContext.GetChangeSet().Inserts;
-            }
-        }
-
-        public virtual void UpdateDprDatabase(string dprConnectionString, IList<object> objectsToInsert)
-        {
-            using (var conn = new SqlConnection(dprConnectionString))
-            {
-                using (var dataContext = new DPRDataContext(conn))
-                {
-                    conn.Open();
-                    using (var trans = conn.BeginTransaction())
-                    {
-                        dataContext.Transaction = trans;
-                        CprConverter.DeletePersonRecords(this.PNR, dataContext);
-                        conn.BulkInsertChanges(objectsToInsert, trans);
-                        trans.Commit();
-                    }
-                }
-            }
-        }
-
-        public virtual IEnumerable<T> LoadDataProviders<T>()
-            where T : class, IDataProvider
-        {
-            DataProvidersConfigurationSection section = ConfigManager.Current.DataProvidersSection;
-            var providerFactory = new DataProviderFactory();
-            DataProvider[] dbProviders = providerFactory.ReadDatabaseDataProviders();
-
-            var providers = providerFactory
-                .GetDataProviderList(section, dbProviders, typeof(T), Schemas.SourceUsageOrder.LocalThenExternal)
-                .Select(p => p as T);
-            return providers;
         }
     }
+
 }

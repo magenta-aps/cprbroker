@@ -225,7 +225,7 @@ namespace CprBroker.DBR
                 // STARTDATE-TXT
                 //SLETDATE_TXT = 
                 // RELTYP_TXT = 
-
+                /*
                 RELTYP_FORALD_35 = (parentalAuthority.RelationType == 3 || parentalAuthority.RelationType == 5) ? parentalAuthority.RelationType : 0m,
                 STARTDATE_FORALD_UMRK_35 = (parentalAuthority.RelationType == 3 || parentalAuthority.RelationType == 5) ? charOf(parentalAuthority.StartDateMarker) : ' ',
                 STARTDATE_FORALD_35Decimal = 0m,
@@ -280,7 +280,7 @@ namespace CprBroker.DBR
                 TILFLYDTOMRK = charOf(personTotal.AddressDateMarker),
                 TILFLYKOMDTO = null,
                 TILFLYKOMDTODecimal = decimalOf(personTotal.MunicipalityArrivalDate),
-
+                */
             };
 
             // Copy the contents

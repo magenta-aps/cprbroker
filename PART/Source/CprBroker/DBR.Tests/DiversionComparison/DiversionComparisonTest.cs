@@ -75,13 +75,13 @@ namespace CprBroker.Tests.DBR.DiversionComparison
             {
                 //ret = ret;
             }
-            else if (ret is NewRequestType)
-            {
-                ret = new NewRequestTypeStub(ret.Contents);
-            }
             else if (ret is ClassicRequestType)
             {
                 ret = new ClassicRequestTypeStub(ret.Contents);
+            }
+            else if (ret is NewRequestType)
+            {
+                ret = new NewRequestTypeStub(ret.Contents);
             }
             else
             {
