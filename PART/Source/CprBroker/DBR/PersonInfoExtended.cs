@@ -15,6 +15,7 @@ namespace CprBroker.DBR
         public Disappearance Disappearance { get; set; }
         public GuardianAndParentalAuthorityRelation GuardianAndParentalRelation { get; set; }
         public GuardianAddress GuardianNoPNR { get; set; }
+        public ContactAddress ContactAddress { get; set; }
 
         private static T[] Get<T>(IList<object> objects)
             where T : class
@@ -67,7 +68,8 @@ namespace CprBroker.DBR
 
                 Person = Get<Person>(objects).First(),
                 CurrentCivilStatus = Get<CivilStatus>(objects).FirstOrDefault(d => isActive(d)),
-                Disappearance = Get<Disappearance>(objects).FirstOrDefault(d => isActive(d))
+                Disappearance = Get<Disappearance>(objects).FirstOrDefault(d => isActive(d)),
+                ContactAddress = Get<ContactAddress>(objects).FirstOrDefault()
             };
         }
     }
