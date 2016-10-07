@@ -98,10 +98,13 @@ namespace CprBroker.Tests.DBR.DiversionComparison
             return resp.ToString();
         }
 
-        public void Compare(string request)
+        public void Compare(string request, Func<string, string> preprocessor = null)
         {
-            var realResponse = GetRealResponse(request).Trim();
-            var emulatedResponse = GetEmulatedResponse(request, Settings.Default.ImitatedDprConnectionString).Trim();
+            if (preprocessor == null)
+                preprocessor = (s) => s;
+
+            var realResponse = preprocessor(GetRealResponse(request).Trim());
+            var emulatedResponse = preprocessor(GetEmulatedResponse(request, Settings.Default.ImitatedDprConnectionString).Trim());
             Assert.AreEqual(realResponse, emulatedResponse);
         }
 
@@ -170,7 +173,8 @@ namespace CprBroker.Tests.DBR.DiversionComparison
             char type,
             char largeData,
             string pnr,
-            char responseData)
+            char responseData,
+            Func<string, string> preprocessor = null)
         {
             var request = ""
                 + type
@@ -181,7 +185,7 @@ namespace CprBroker.Tests.DBR.DiversionComparison
                 + responseData
                 + "" // no user
                 ;
-            Compare(request);
+            Compare(request, preprocessor);
         }
 
         [Test]
@@ -208,7 +212,23 @@ namespace CprBroker.Tests.DBR.DiversionComparison
             [Values('0')]char largeData,
             [ValueSource(nameof(CprNumbers10))]string pnr)
         {
-            CompareNewRequest(type, largeData, pnr, 'U');
+            CompareNewRequest(type, largeData, pnr, 'U', (s) =>
+            {
+                var values = s.Substring(7).Split(';');
+                var newValues = new NewResponseFullDataType()
+                    .PropertyDefinitions
+                    .Zip(values, (p, v) => new { Prop = p, Value = v })
+                    .Select(p =>
+                        string.Format("{0}={1}",
+                            p.Prop.Item1,
+                            p.Prop.Item1.ToUpper().Contains("AJF") ? "" : p.Value
+                        )
+                    )
+                    .ToArray();
+                ;
+
+                return s.Substring(0, 7) + string.Join("u;", newValues);
+            });
         }
 
     }
