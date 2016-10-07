@@ -227,7 +227,10 @@ namespace CprBroker.Schemas.Wrappers
 
         public string ContentsWithSeparator(string separator = ";")
         {
-            var propDefs = PropertyDefinitions.Select(p => GetString(p.Item2, p.Item3).Trim()).ToList();
+            var propDefs = PropertyDefinitions
+                .Select(p => GetString(p.Item2, p.Item3).Trim()) // Remove spaces
+                .Select(p => (p.Length > 2 && p.Trim('0') == "") ? "" : p) // If all zeros, set to empty string
+                .ToList();
             propDefs.Add(""); // Dummy value to force a separator at the end
             return string.Join(separator, propDefs);
         }
