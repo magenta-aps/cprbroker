@@ -70,6 +70,8 @@ namespace CprBroker.Providers.DPR
         public Child[] Children { get; set; }
         public Relation[] ChildrenInCustodyRelations { get; set; }
         public Relation[] CustodyHolderRelations { get; set; }
+        public GuardianAndParentalAuthorityRelation GuardianAndParentalRelation { get; set; }
+        public GuardianAddress GuardianNoPNR { get; set; }
         public ParentalAuthority[] ParentalAuthority { get; set; }
 
         public List<ICivilStatus> CivilStatesAsInterface

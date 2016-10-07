@@ -60,6 +60,8 @@ namespace CprBroker.DBR
                 // Parental authority
                 ParentalAuthority = Get<ParentalAuthority>(objects).ToArray(),
                 CustodyHolderRelations = Get<Relation>(objects).Where(r => new decimal[] { 3, 4, 5, 6 }.Contains(r.RelationType)).ToArray(), //this.ParentalAuthorityHolders_Relations.Where(p => relationTypes.Contains(p.RelationType)).ToArray(),
+                GuardianNoPNR = Get<GuardianAddress>(objects).Where(r => new decimal[] { 2 }.Contains(r.RelationType)).FirstOrDefault(),
+                GuardianAndParentalRelation = Get<GuardianAndParentalAuthorityRelation>(objects).Where(r => new decimal[] { 1 }.Contains(r.RelationType)).FirstOrDefault(),                
 
                 Person = Get<Person>(objects).First(),
                 CurrentCivilStatus = Get<CivilStatus>(objects).FirstOrDefault(d => isActive(d)),
