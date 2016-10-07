@@ -3,7 +3,7 @@
 <Layer xmlns="http://itst.dk/CPRDirect">
 
   <Object name="ClassicRequest" base="NewRequestType">
-    
+
   </Object>
 
   <Object name="DiversionResponse">
@@ -11,7 +11,7 @@
     <Attribute format="Numeric" position="2" length="1" name="LargeData" enumType="DetailType"/>
     <Attribute format="Alpha"   position="3" length="2" name="ErrorNumber" danishName="FEJLNR"/>
   </Object>
-    
+
   <Object name="ClassicResponse" base="DiversionResponseType" length="236">
     <Attribute format="Alpha"   position="5" length="10" name="PNR"/>
     <Attribute format="Alpha"   position="15" length="222"  name="Data"/>
@@ -30,7 +30,10 @@
     <Attribute format="Alpha"   position="185" length="4"  name="BNR"/>
     <Attribute format="Numeric" position="189" length="4"  name="PostCode"/>
     <Attribute format="Alpha"   position="193" length="20" name="PostDistrict"/>
-    <Attribute format="Alpha"   position="213" length="8"  name="AddressProtectionDate" dateFormat="ddMMyyyy" description="Day, month, century, year"/>
+
+    <!--dateFormat="ddMMyyyy"-->
+    <Attribute format="Alpha"   position="213" length="8"  name="AddressProtectionDate" description="Day, month, century, year"/>
+
     <Attribute format="Numeric" position="221" length="2"  name="Status"/>
   </Object>
 
@@ -38,7 +41,7 @@
     <Attribute format="Numeric" position="1" length="1" name="Type" enumType="InquiryType"/>
     <Attribute format="Numeric" position="2" length="1" name="LargeData" enumType="DetailType"/>
     <Attribute format="Alpha"   position="3" length="10" name="PNR"/>
-    
+
     <Attribute format="Alpha"   position="13" length="6" name="NewType" description="Always contains 'MMXIII', IE. Roman numeral for 2013, where the new solution came into operation"/>
     <Attribute format="Numeric" position="19" length="1" name="ForceDiversion" description="Calls to the DPR forwarding enforced on to CPR Directly in all cases regardless of the application's lookup-check for invalid markup, PNR or uncertainty '1 0' call."/>
     <Attribute format="Alpha"   position="20" length="1" name="ReponseData"/>
@@ -46,14 +49,14 @@
   </Object>
 
   <Object name="NewResponse" base="DiversionResponseType" length="4">
-    
+
   </Object>
 
   <Object name="NewResponseNoData" length="110">
     <Attribute format="Alpha"   position="1"   length="10" name="PNR"/>
     <Attribute format="Alpha"   position="11"   length="100" name="OkOrError"/>
   </Object>
-  
+
   <Object name="NewResponseBasicData" base="ClassicResponseBasicDataType" length="222">
     <!-- No more attributes here-->
   </Object>

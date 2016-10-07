@@ -33,8 +33,10 @@ namespace CprBroker.DBR
                     personInfo.Address.MunicipalityCode,
                     personInfo.Address.StreetCode,
                     personInfo.Address.HouseNumber);
-            }            
-            this.AddressProtectionDate = ProtectionType.FindProtection(resp.Protection, DateTime.Now, ProtectionType.ProtectionCategoryCodes.NameAndAddress)?.StartDate;
+            }
+            var addressProtectionDate = ProtectionType.FindProtection(resp.Protection, DateTime.Now, ProtectionType.ProtectionCategoryCodes.NameAndAddress)?.StartDate;
+            this.AddressProtectionDate = addressProtectionDate.HasValue ? addressProtectionDate.Value.ToString("ddMMyyyy") : "00000000";
+
             this.Status = personInfo.PersonTotal.Status;
         }
     }
