@@ -65,7 +65,7 @@
     <Attribute format="Alpha"   position="5"    length="11"  name="PNR"                      danishName="PNR"                      description="" />
     <Attribute format="Numeric" position="16"   length="13"  name="AJFDTO_NAVNE"             danishName="AJFDTO_NAVNE"             description="" dateFormat="yyyyMMddHHmm" />
     <Attribute format="Numeric" position="29"   length="5"   name="MYNKOD_NAVNE"             danishName="MYNKOD_NAVNE"             description="" />
-    <Attribute format="Numeric" position="34"   length="3"   name="STATUS"                   danishName="STATUS"                   description="" />
+    <Attribute format="Alpha"   position="34"   length="3"   name="STATUS"                   danishName="STATUS"                   description="" />
     <Attribute format="Numeric" position="37"   length="13"  name="STATUSHAENSTART"          danishName="STATUSHAENSTART"          description="" dateFormat="yyyyMMddHHmm" />
     <Attribute format="Alpha"   position="50"   length="1"   name="FORNVNMARK"               danishName="FORNVNMARK"               description="" />
     <Attribute format="Alpha"   position="51"   length="1"   name="EFTERNVNMARK"             danishName="EFTERNVNMARK"             description="" />

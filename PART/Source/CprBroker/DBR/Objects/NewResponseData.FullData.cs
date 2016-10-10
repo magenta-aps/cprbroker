@@ -44,11 +44,11 @@ namespace CprBroker.DBR
             Contents = new string(' ', this.Length);
 
             // Data fields
-            PNR = personTotal.PNR.ToPnrDecimalString();
+            PNR = personTotal.PNR.ToPnrDecimalString().TrimStart('0');
             AJFDTO_NAVNE = null;
             AJFDTO_NAVNEDecimal = decimalOf(personName?.CprUpdateDate);
-            MYNKOD_NAVNE = decimalOf(personName?.NameAuthorityCode);            
-            STATUS = personTotal.Status;
+            MYNKOD_NAVNE = decimalOf(personName?.NameAuthorityCode);
+            STATUS = personTotal.Status.ToDecimalString();
             STATUSHAENSTART = null;
             STATUSHAENSTARTDecimal = decimalOf(personTotal.StatusDate);
             FORNVNMARK = uncertaintyCharOf(personName?.FirstNameMarker);
@@ -104,14 +104,14 @@ namespace CprBroker.DBR
             AJFDTO_MORFAR = null;
             AJFDTO_MORFARDecimal = decimalOf(person.KinshipUpdateDate);
             PNRMOR = person.MotherPnr;
-            MOR = person.MotherPnr.ToPnrDecimalString();
+            MOR = person.MotherPnr.ToPnrDecimalString(true);
             MORFOEDDTO = decimalOf(person.MotherBirthdate);
             MORDOK = person.MotherDocumentation;
             MORMRK = charOf(personTotal.MotherMarker);
             PNRFAR = person.FatherPnr;
             FARFOEDDTO = decimalOf(person.FatherBirthdate);
             FARDOK = person.FatherDocumentation;
-            FAR = person.FatherPnr.ToPnrDecimalString();
+            FAR = person.FatherPnr.ToPnrDecimalString(true);
             FARMRK = charOf(personTotal.FatherMarker);
             FARSKABMYNNVN = personTotal.PaternityAuthorityName;
             FARSKABHAENSTART = null;
@@ -123,7 +123,7 @@ namespace CprBroker.DBR
             AEGTEDOK = civilStatus?.SpouseDocumentation;
             AEGTEPNR = decimalOf(civilStatus?.SpousePNR);
             AEGTENVN = civilStatus?.SpouseName;
-            AEGTEMRK = charOf(personTotal.SpouseMarker);
+            AEGTEMRK = charOf(personTotal.SpouseMarker);            
             AEGTE = personTotal.SpousePersonalOrBirthdate;
             HAENSTART_CIV = null;
             HAENSTART_CIVDecimal = decimalOf(civilStatus?.MaritalStatusDate);
@@ -274,7 +274,7 @@ namespace CprBroker.DBR
             SUPLADR4 = personAddress?.AdditionalAddressLine4;
             SUPLADR5 = personAddress?.AdditionalAddressLine5;
             SUPLADRHAENSTART = null;
-            SUPLADRHAENSTARTDecimal = decimalOf(personAddress?.AddressStartDate);
+            SUPLADRHAENSTARTDecimal = decimalOf(personAddress?.AdditionalAddressDate);
             SUPLADRMRK = charOf(personAddress?.AddressStartDateMarker);
             VALGRETDTO = null;
             VALGRETDTODecimal = decimalOf(personTotal.VotingDate);

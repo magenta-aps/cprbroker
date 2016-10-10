@@ -102,9 +102,9 @@ namespace CprBroker.Tests.DBR.DiversionComparison
         {
             if (preprocessor == null)
             {
-                preprocessor = (s) => s;                
+                preprocessor = (s) => s;
             }
-            
+
 
             var realResponse = preprocessor(GetRealResponse(request).Trim());
             var emulatedResponse = preprocessor(GetEmulatedResponse(request, Settings.Default.ImitatedDprConnectionString).Trim());
@@ -218,23 +218,38 @@ namespace CprBroker.Tests.DBR.DiversionComparison
             CompareNewRequest(type, largeData, pnr, 'U', (s) =>
             {
                 var values = s.Substring(7).Split(';');
-                
+
                 var newValues = new NewResponseFullDataType()
                     .PropertyDefinitions
                     .Zip(values, (p, v) => new { Prop = p, Value = v })
                     .Select(p =>
-                        string.Format("{0}={1}",
-                            p.Prop.Item1,
-                            p.Prop.Item1.ToUpper().Contains("AJF") || 
-                            p.Prop.Item1.ToUpper().Contains("MYNKOD") || 
+                    {
+                        var value = p.Value;
+                        value = value.TrimStart('0');
+
+                        if (
+                            p.Prop.Item1.ToUpper().Contains("AJF") ||
+                            p.Prop.Item1.ToUpper().Contains("MYNKOD") ||
                             p.Value.Equals("0") || //STATUSHAENSTART is null in the database but emulated data has 0 as value.
                             p.Prop.Item1.ToUpper().Contains("ADRNVN") ||
                             p.Prop.Item1.ToUpper().Contains("INDRAP") ||
                             p.Prop.Item1.ToUpper().Contains("FOEDMYNHAENSTART") ||
                             p.Prop.Item1.ToUpper().Contains("KUNDENR") ||
-                            p.Prop.Item1.ToUpper().Contains("FARSKABHAENSTART")
-                            ? "" : p.Value.TrimStart('0')
-                        )                        
+                            p.Prop.Item1.ToUpper().Contains("FARSKABHAENSTART") ||
+                            p.Prop.Item1.ToUpper().Contains("AEGTEMRK") ||
+                            p.Prop.Item1.ToUpper().Contains("FARSKABMYNNVN") ||
+                            p.Prop.Item1.ToUpper().Contains("TIDLKOMNVN") || 
+                            p.Prop.Item1.ToUpper().Contains("dummy 1293810") 
+                            )
+                        {
+                            value = "";
+                        }
+                        
+
+                        return string.Format("{0}={1}",
+                            p.Prop.Item1,
+                            value);
+                    }
                     ).ToArray();
                 ;
 
