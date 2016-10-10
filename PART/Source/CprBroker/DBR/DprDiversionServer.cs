@@ -74,8 +74,7 @@ namespace CprBroker.DBR
                 }
                 else
                 {
-                    // Invalid request.
-                    // TODO: Handle invalid request
+                    // Invalid request. This should never be reached                    
                     return new byte[0];
                 }
             }

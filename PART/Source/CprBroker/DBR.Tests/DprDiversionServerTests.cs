@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,7 +13,7 @@ namespace CprBroker.Tests.DBR
     namespace DprDiversionServerTests
     {
         [TestFixture]
-        public class ProcessMessage : ClassicRequestTypeTests.ClassicRequestTypeTestsBase
+        public class ProcessMessage
         {
             class DprDiversionServerStub : DprDiversionServer
             {
@@ -25,12 +26,13 @@ namespace CprBroker.Tests.DBR
                 }
             }
             [Test]
-            public void ProcessMessage_Empty_Empty()
+            public void ProcessMessage_Empty_99xxxx()
             {
                 var server = new DprDiversionServerStub();
                 var msg = new byte[0];
                 var ret = server.ProcessMessage(msg);
-                Assert.IsEmpty(ret);
+                var retString = CprBroker.Providers.DPR.Constants.DiversionEncoding.GetString(ret);
+                Assert.AreEqual("99", retString.Substring(0, 2));
             }
 
             [Test]
