@@ -233,7 +233,7 @@ namespace CprBroker.Tests.DBR.DiversionComparison
                             p.Prop.Item1.ToUpper().Contains("FOEDMYNHAENSTART") ||
                             p.Prop.Item1.ToUpper().Contains("KUNDENR") ||
                             p.Prop.Item1.ToUpper().Contains("FARSKABHAENSTART")
-                            ? "" : p.Value                          
+                            ? "" : p.Value.TrimStart('0')
                         )                        
                     ).ToArray();
                 ;
