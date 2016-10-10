@@ -47,7 +47,7 @@ namespace CprBroker.DBR
             PNR = personTotal.PNR.ToPnrDecimalString();
             AJFDTO_NAVNE = null;
             AJFDTO_NAVNEDecimal = decimalOf(personName?.CprUpdateDate);
-            MYNKOD_NAVNE = decimalOf(personName?.NameAuthorityCode);
+            MYNKOD_NAVNE = decimalOf(personName?.NameAuthorityCode);            
             STATUS = personTotal.Status;
             STATUSHAENSTART = null;
             STATUSHAENSTARTDecimal = decimalOf(personTotal.StatusDate);
