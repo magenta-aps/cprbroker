@@ -188,11 +188,19 @@ namespace CprBroker.DBR.Extensions
                 }
             };
 
+            Func<string, char> parentPnrMarkerGetter = (string parentPnr) => 
+            {
+                if (string.IsNullOrEmpty(parentPnr) || parentPnr.Equals("0000000000"))
+                    return '*';
+                else
+                    return ' ';
+            };
+
 
             pt.MotherPersonalOrBirthDate = parentPnrOrBirthdateGetter(resp.ParentsInformation.MotherPNR, resp.ParentsInformation.MotherBirthDate);
-            pt.MotherMarker = null; //DPR SPECIFIC
+            pt.MotherMarker = parentPnrMarkerGetter(resp.ParentsInformation.MotherPNR);
             pt.FatherPersonalOrBirthdate = parentPnrOrBirthdateGetter(resp.ParentsInformation.FatherPNR, resp.ParentsInformation.FatherBirthDate);
-            pt.FatherMarker = null; //DPR SPECIFIC
+            pt.FatherMarker = parentPnrMarkerGetter(resp.ParentsInformation.FatherPNR); 
 
             if (
                 resp.CurrentDepartureData != null
