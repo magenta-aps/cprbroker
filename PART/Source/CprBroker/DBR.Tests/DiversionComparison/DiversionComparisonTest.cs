@@ -230,18 +230,18 @@ namespace CprBroker.Tests.DBR.DiversionComparison
                         value = value.TrimStart('0');
 
                         if (
-                            p.Prop.Item1.ToUpper().Contains("AJF") ||
-                            p.Prop.Item1.ToUpper().Contains("MYNKOD") ||
-                            p.Value.Equals("0") || //STATUSHAENSTART is null in the database but emulated data has 0 as value.
-                            p.Prop.Item1.ToUpper().Contains("ADRNVN") ||
-                            p.Prop.Item1.ToUpper().Contains("INDRAP") ||
-                            p.Prop.Item1.ToUpper().Contains("FOEDMYNHAENSTART") ||
-                            p.Prop.Item1.ToUpper().Contains("KUNDENR") ||
-                            p.Prop.Item1.ToUpper().Contains("FARSKABHAENSTART") ||
-                            p.Prop.Item1.ToUpper().Contains("AEGTEMRK") ||
-                            p.Prop.Item1.ToUpper().Contains("FARSKABMYNNVN") ||
-                            p.Prop.Item1.ToUpper().Contains("TIDLKOMNVN") ||
-                            p.Prop.Item1.ToUpper().Contains("dummy 1293810")
+                            name.Contains("AJF") ||
+                            name.Contains("MYNKOD") ||
+                            value.Equals("0") || //STATUSHAENSTART is null in the database but emulated data has 0 as value.
+                            name.Contains("ADRNVN") ||
+                            name.Contains("INDRAP") ||
+                            name.Contains("FOEDMYNHAENSTART") ||
+                            name.Contains("KUNDENR") ||
+                            name.Contains("FARSKABHAENSTART") ||
+                            name.Contains("AEGTEMRK") ||
+                            name.Contains("FARSKABMYNNVN") ||
+                            name.Contains("TIDLKOMNVN") ||
+                            name.Contains("dummy 1293810")
                             )
                         {
                             value = "";
