@@ -206,7 +206,7 @@ namespace CprBroker.Tests.DBR.DiversionComparison
             [Values('0')]char largeData,
             [ValueSource(nameof(CprNumbers10))]string pnr)
         {
-            CompareNewRequest(type, largeData, pnr, 'S');
+            CompareNewRequest(type, largeData, pnr, 'S', Preprocess);
         }
 
         [Test]
@@ -215,52 +215,55 @@ namespace CprBroker.Tests.DBR.DiversionComparison
             [Values('0')]char largeData,
             [ValueSource(nameof(CprNumbers10))]string pnr)
         {
-            CompareNewRequest(type, largeData, pnr, 'U', (s) =>
-            {
-                var values = s.Substring(7).Split(';');
+            CompareNewRequest(type, largeData, pnr, 'U', Preprocess);
+        }
 
-                var valuesAndProps = new NewResponseFullDataType()
-                    .PropertyDefinitions
-                    .Zip(values, (p, v) => new { Prop = p, Value = v });
+        public string Preprocess(string s)
+        {
+            var values = s.Substring(7).Split(';');
 
-                var status = valuesAndProps.Single(p => p.Prop.Item1 == "STATUS").Value;
+            var valuesAndProps = new NewResponseFullDataType()
+                .PropertyDefinitions
+                .Zip(values, (p, v) => new { Prop = p, Value = v });
 
-                var newValues = valuesAndProps
-                    .Select(p =>
+            var status = valuesAndProps.Single(p => p.Prop.Item1 == "STATUS").Value;
+
+            var newValues = valuesAndProps
+                .Select(p =>
+                {
+                    var name = p.Prop.Item1.ToUpper();
+                    var value = p.Value;
+
+                    value = value.TrimStart('0');
+
+                    if (
+                        name.Contains("AJF") ||
+                        name.Contains("MYNKOD") ||
+                        value.Equals("0") || //STATUSHAENSTART is null in the database but emulated data has 0 as value.
+                        name.Contains("ADRNVN") ||
+                        name.Contains("INDRAP") ||
+                        name.Contains("FOEDMYNHAENSTART") ||
+                        name.Contains("KUNDENR") ||
+                        name.Contains("FARSKABHAENSTART") ||
+                        name.Contains("AEGTEMRK") ||
+                        name.Contains("FARSKABMYNNVN") ||
+                        name.Contains("TIDLKOMNVN") ||
+                        name.Contains("CIVMYN") ||
+                        name.Contains("STILLINGDTO") ||
+                        name.Contains("dummy 1293810")
+                        )
                     {
-                        var name = p.Prop.Item1.ToUpper();
-                        var value = p.Value;
+                        value = "";
+                    }
 
-                        value = value.TrimStart('0');
+                    if (name.Contains("START") && value.Length >= 12 && value.EndsWith("99"))
+                    {
+                        value = value.Substring(0, value.Length - 2) + "00";
+                    }
 
-                        if (
-                            name.Contains("AJF") ||
-                            name.Contains("MYNKOD") ||
-                            value.Equals("0") || //STATUSHAENSTART is null in the database but emulated data has 0 as value.
-                            name.Contains("ADRNVN") ||
-                            name.Contains("INDRAP") ||
-                            name.Contains("FOEDMYNHAENSTART") ||
-                            name.Contains("KUNDENR") ||
-                            name.Contains("FARSKABHAENSTART") ||
-                            name.Contains("AEGTEMRK") ||
-                            name.Contains("FARSKABMYNNVN") ||
-                            name.Contains("TIDLKOMNVN") ||
-                            name.Contains("CIVMYN") ||
-                            name.Contains("STILLINGDTO") ||                            
-                            name.Contains("dummy 1293810")
-                            )
-                        {
-                            value = "";
-                        }
-
-                        if (name.Contains("START") && value.Length >= 12 && value.EndsWith("99"))
-                        {
-                            value = value.Substring(0, value.Length - 2) + "00";
-                        }
-
-                        if (status == "90")
-                        {
-                            var excluded90 = new string[] {
+                    if (status == "90")
+                    {
+                        var excluded90 = new string[] {
                                 "POSTDISTTXT",
                                 "POSTNR",
                                 "BYNVN",
@@ -277,25 +280,19 @@ namespace CprBroker.Tests.DBR.DiversionComparison
                                 "TILFLYDTOMRK",
                                 "TILFLYKOMDTO"
 
-                            };
-                            if (excluded90.Contains(name))
-                            {
-                                value = "";
-                            }
+                        };
+                        if (excluded90.Contains(name))
+                        {
+                            value = "";
                         }
-
-
-
-                        return string.Format("{0}={1}",
-                            p.Prop.Item1,
-                            value);
                     }
-                    ).ToArray();
-                ;
 
-                return s.Substring(0, 7) + string.Join("u;", newValues);
-            });
+                    return string.Format("{0}={1}",
+                        p.Prop.Item1,
+                        value);
+                });
+
+            return s.Substring(0, 7) + string.Join("u;", newValues);
         }
-        
     }
 }
