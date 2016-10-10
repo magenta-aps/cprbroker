@@ -219,9 +219,13 @@ namespace CprBroker.Tests.DBR.DiversionComparison
             {
                 var values = s.Substring(7).Split(';');
 
-                var newValues = new NewResponseFullDataType()
+                var valuesAndProps = new NewResponseFullDataType()
                     .PropertyDefinitions
-                    .Zip(values, (p, v) => new { Prop = p, Value = v })
+                    .Zip(values, (p, v) => new { Prop = p, Value = v });
+
+                var status = valuesAndProps.Single(p => p.Prop.Item1 == "STATUS").Value;
+
+                var newValues = valuesAndProps
                     .Select(p =>
                     {
                         var name = p.Prop.Item1.ToUpper();
@@ -241,6 +245,8 @@ namespace CprBroker.Tests.DBR.DiversionComparison
                             name.Contains("AEGTEMRK") ||
                             name.Contains("FARSKABMYNNVN") ||
                             name.Contains("TIDLKOMNVN") ||
+                            name.Contains("CIVMYN") ||
+                            name.Contains("STILLINGDTO") ||                            
                             name.Contains("dummy 1293810")
                             )
                         {
@@ -250,6 +256,32 @@ namespace CprBroker.Tests.DBR.DiversionComparison
                         if (name.Contains("START") && value.Length >= 12 && value.EndsWith("99"))
                         {
                             value = value.Substring(0, value.Length - 2) + "00";
+                        }
+
+                        if (status == "90")
+                        {
+                            var excluded90 = new string[] {
+                                "POSTDISTTXT",
+                                "POSTNR",
+                                "BYNVN",
+                                "STANDARDADR",
+                                "KOMKOD",
+                                "KOMNVN",
+                                "VEJKOD",
+                                "KOMKOD",
+                                "VEJADRNVN",
+                                "HUSNR",
+                                "ETAGE",
+                                "SIDEDOER",
+                                "TILFLYDTO",
+                                "TILFLYDTOMRK",
+                                "TILFLYKOMDTO"
+
+                            };
+                            if (excluded90.Contains(name))
+                            {
+                                value = "";
+                            }
                         }
 
 
@@ -264,6 +296,6 @@ namespace CprBroker.Tests.DBR.DiversionComparison
                 return s.Substring(0, 7) + string.Join("u;", newValues);
             });
         }
-
+        
     }
 }

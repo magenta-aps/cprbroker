@@ -275,7 +275,7 @@ namespace CprBroker.DBR
             SUPLADR5 = personAddress?.AdditionalAddressLine5;
             SUPLADRHAENSTART = null;
             SUPLADRHAENSTARTDecimal = decimalOf(personAddress?.AdditionalAddressDate);
-            SUPLADRMRK = charOf(personAddress?.AddressStartDateMarker);
+            SUPLADRMRK = charOf(personTotal.SupplementaryAddressMarker);
             VALGRETDTO = null;
             VALGRETDTODecimal = decimalOf(personTotal.VotingDate);
             TIDLKOMNVN = personTotal.PreviousMunicipalityName;
