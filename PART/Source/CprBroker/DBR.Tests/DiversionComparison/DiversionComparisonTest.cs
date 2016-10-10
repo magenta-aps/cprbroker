@@ -224,7 +224,9 @@ namespace CprBroker.Tests.DBR.DiversionComparison
                     .Zip(values, (p, v) => new { Prop = p, Value = v })
                     .Select(p =>
                     {
+                        var name = p.Prop.Item1.ToUpper();
                         var value = p.Value;
+
                         value = value.TrimStart('0');
 
                         if (
@@ -238,13 +240,19 @@ namespace CprBroker.Tests.DBR.DiversionComparison
                             p.Prop.Item1.ToUpper().Contains("FARSKABHAENSTART") ||
                             p.Prop.Item1.ToUpper().Contains("AEGTEMRK") ||
                             p.Prop.Item1.ToUpper().Contains("FARSKABMYNNVN") ||
-                            p.Prop.Item1.ToUpper().Contains("TIDLKOMNVN") || 
-                            p.Prop.Item1.ToUpper().Contains("dummy 1293810") 
+                            p.Prop.Item1.ToUpper().Contains("TIDLKOMNVN") ||
+                            p.Prop.Item1.ToUpper().Contains("dummy 1293810")
                             )
                         {
                             value = "";
                         }
-                        
+
+                        if (name.Contains("START") && value.Length >= 12 && value.EndsWith("99"))
+                        {
+                            value = value.Substring(0, value.Length - 2) + "00";
+                        }
+
+
 
                         return string.Format("{0}={1}",
                             p.Prop.Item1,
