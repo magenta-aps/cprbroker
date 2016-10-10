@@ -14,7 +14,9 @@ namespace CprBroker.DBR
         public override string ToString()
         {
             return this.ContentsWithSeparator()
-                + this.Data.ContentsWithSeparator();
+                + this.Data.ContentsWithSeparator(
+                    trimLeftZeros: this.Data.TrimLeftZeros
+                    );
         }
     }
 
