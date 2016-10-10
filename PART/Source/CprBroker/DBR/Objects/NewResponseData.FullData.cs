@@ -286,5 +286,10 @@ namespace CprBroker.DBR
             TILFLYKOMDTO = null;
             TILFLYKOMDTODecimal = decimalOf(personTotal.MunicipalityArrivalDate);
         }
+
+        public bool TrimLeftZeros
+        {
+            get { return true; }
+        }
     }
 }

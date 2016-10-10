@@ -10,7 +10,8 @@ namespace CprBroker.DBR
     public interface INewResponseData
     {
         string Contents { get; set; }
-        string ContentsWithSeparator(string separator = ";");
+        string ContentsWithSeparator(string separator = ";", bool trimLeftZeros = false);
+        bool TrimLeftZeros { get; }
     }
 
     public partial class NewResponseNoDataType : INewResponseData
@@ -25,6 +26,12 @@ namespace CprBroker.DBR
             this.PNR = resp.PersonInformation.PNR;
             this.OkOrError = "OK";
         }
+
+        public bool TrimLeftZeros
+        {
+            get { return false; }
+        }
+
     }
 
     public partial class NewResponseBasicDataType : INewResponseData
@@ -35,5 +42,10 @@ namespace CprBroker.DBR
         public NewResponseBasicDataType(IndividualResponseType resp, PersonInfoExtended personInfo, string dprConnectionString)
             : base(resp, personInfo, dprConnectionString)
         { }
+
+        public bool TrimLeftZeros
+        {
+            get { return false; }
+        }
     }
 }
