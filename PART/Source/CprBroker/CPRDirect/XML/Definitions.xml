@@ -431,7 +431,7 @@
       <Attribute name="FatherPNR" danishName="PNRMOR" format="Alpha" length="10" position="14" description="Mother CPR Number"/>
     </Object>
 
-    <Object name="ChildWithClearWrittenAddress" base="_RelativeClearWrittenAddressType" danishName="P12180-033" length="269" description="Child with clear written address" minOccurs="0" maxOccurs="1" recordTypeCode="033">
+    <Object name="ChildWithClearWrittenAddress" base="_RelativeClearWrittenAddressType" danishName="P12180-033" length="269" description="Child with clear written address" minOccurs="0" maxOccurs="25" recordTypeCode="033">
       <Attribute name="MotherPNR" danishName="PNRMOR" format="Alpha" length="10" position="14" description="Mother CPR Number"/>
     </Object>
 
