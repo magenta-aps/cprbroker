@@ -227,10 +227,10 @@ namespace CprBroker.Tests.DBR.DiversionComparison
                 .PropertyDefinitions
                 .Zip(values, (p, v) => new { Prop = p.Item1.ToUpper(), Pos = p.Item2, Len = p.Item3, Value = v });
 
-            var status = valuesAndProps.SingleOrDefault(p => p.Prop == "STATUS")?.Value ;
+            var status = valuesAndProps.SingleOrDefault(p => p.Prop == "STATUS")?.Value;
             if (status == null)
                 Console.WriteLine(s);
-            
+
 
             var newValues = valuesAndProps
                 .Select(p =>
@@ -250,10 +250,19 @@ namespace CprBroker.Tests.DBR.DiversionComparison
                         name.Contains("KUNDENR") ||
                         name.Contains("FARSKABHAENSTART") ||
                         name.Contains("AEGTEMRK") ||
+                        name.Contains("AEGTEDOK") ||
                         name.Contains("FARSKABMYNNVN") ||
                         name.Contains("TIDLKOMNVN") ||
                         name.Contains("CIVMYN") ||
                         name.Contains("STILLINGDTO") ||
+                        name.Contains("MORDOK") ||
+                        name.Contains("FARDOK") ||
+                        name.Contains("MORMRK") ||
+                        name.Contains("FARMRK") ||
+                        name.Contains("UDLANDADRDTO") ||
+                        name.Contains("PNRMRKHAENSTART") ||
+                        name.Contains("KONTAKTADR_KOMKOD") ||
+                        name.Contains("STARTDATE_FORALD_46") || name.Contains("STARTDATE_FORALD_35") || // real DPR returns yyyy-MM-dd HH:mm:ss or dd-MM-yyyy randomly                        
                         name.Contains("dummy 1293810")
                         )
                     {
@@ -273,7 +282,7 @@ namespace CprBroker.Tests.DBR.DiversionComparison
                                 "BYNVN",
                                 "STANDARDADR",
                                 "KOMKOD",
-                                "KOMNVN",
+                                "KOMNVN","AKTKOMNVN",
                                 "VEJKOD",
                                 "KOMKOD",
                                 "VEJADRNVN", "STREETNAME",
@@ -281,9 +290,12 @@ namespace CprBroker.Tests.DBR.DiversionComparison
                                 "ETAGE", "FLOOR",
                                 "SIDEDOER","DOOR",
                                 "CONVN","CAREOFNAME",
+                                "LOKALITET",
                                 "TILFLYDTO",
                                 "TILFLYDTOMRK",
-                                "TILFLYKOMDTO"
+                                "TILFLYKOMDTO",
+                                "FRAFLYKOMDTO",
+                                "FRAFLYKOMKOD"
 
                         };
                         if (excluded90.Contains(name))

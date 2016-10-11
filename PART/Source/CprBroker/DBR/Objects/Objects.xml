@@ -234,13 +234,13 @@
     <Attribute format="Numeric" position="2462" length="4"   name="RELTYP_FORALD_35"         danishName="RELTYP_FORALD_35"         description="" />
     <Attribute format="Numeric" position="2466" length="13"  name="AJFDTO_FORALD_35"         danishName="AJFDTO_FORALD_35"         description="" dateFormat="yyyyMMddHHmm" />
     <Attribute format="Numeric" position="2479" length="5"   name="STARTMYNKOD_FORALD_35"    danishName="STARTMYNKOD_FORALD_35"    description="" />
-    <Attribute format="Alpha"   position="2484" length="19"  name="STARTDATE_FORALD_35"      danishName="STARTDATE_FORALD_35"      description="" dateFormat="dd-MM-yyyy HH:mm:ss" />
+    <Attribute format="Alpha"   position="2484" length="10"  name="STARTDATE_FORALD_35"      danishName="STARTDATE_FORALD_35"      description="" dateFormat="yyyy-MM-dd" />
     <Attribute format="Alpha"   position="2503" length="1"   name="STARTDATE_FORALD_UMRK_35" danishName="STARTDATE_FORALD_UMRK_35" description="" />
     <Attribute format="Alpha"   position="2504" length="10"  name="SLETDATE_FORALD_35"       danishName="SLETDATE_FORALD_35"       description="" dateFormat="yyyy-MM-dd" />
     <Attribute format="Numeric" position="2514" length="4"   name="RELTYP_FORALD_46"         danishName="RELTYP_FORALD_46"         description="" />
     <Attribute format="Numeric" position="2518" length="13"  name="AJFDTO_FORALD_46"         danishName="AJFDTO_FORALD_46"         description="" dateFormat="yyyyMMddHHmm" />
     <Attribute format="Numeric" position="2531" length="5"   name="STARTMYNKOD_FORALD_46"    danishName="STARTMYNKOD_FORALD_46"    description="" />
-    <Attribute format="Alpha"   position="2536" length="19"  name="STARTDATE_FORALD_46"      danishName="STARTDATE_FORALD_46"      description="" dateFormat="dd-MM-yyyy HH:mm:ss" />
+    <Attribute format="Alpha"   position="2536" length="10"  name="STARTDATE_FORALD_46"      danishName="STARTDATE_FORALD_46"      description="" dateFormat="yyyy-MM-dd" />
     <Attribute format="Alpha"   position="2555" length="1"   name="STARTDATE_FORALD_UMRK_46" danishName="STARTDATE_FORALD_UMRK_46" description="" />
     <Attribute format="Alpha"   position="2556" length="10"  name="SLETDATE_FORALD_46"       danishName="SLETDATE_FORALD_46"       description="" dateFormat="yyyy-MM-dd" />
     <Attribute format="Numeric" position="2566" length="2"   name="ANTAL_BOERN"              danishName="ANTAL_BOERN"              description="" />
