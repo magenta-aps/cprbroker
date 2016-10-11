@@ -205,7 +205,7 @@ namespace CprBroker.Tests.DBR.DiversionComparison
         public void RealRequest_New40Char_Stam(
             [Values('1')]char type,
             [Values('0')]char largeData,
-            [ValueSource(nameof(CprNumbers10))]string pnr)
+            [ValueSource(nameof(CprNumbers100))]string pnr)
         {
             CompareNewRequest(type, largeData, pnr, 'S', Preprocess<NewResponseBasicDataType>);
         }
@@ -214,7 +214,7 @@ namespace CprBroker.Tests.DBR.DiversionComparison
         public void RealRequest_New40Char_Udvidet(
             [Values('1')]char type,
             [Values('0')]char largeData,
-            [ValueSource(nameof(CprNumbers10))]string pnr)
+            [ValueSource(nameof(CprNumbers100))]string pnr)
         {
             CompareNewRequest(type, largeData, pnr, 'U', Preprocess<NewResponseFullDataType>);
         }
@@ -227,7 +227,10 @@ namespace CprBroker.Tests.DBR.DiversionComparison
                 .PropertyDefinitions
                 .Zip(values, (p, v) => new { Prop = p.Item1.ToUpper(), Pos = p.Item2, Len = p.Item3, Value = v });
 
-            var status = valuesAndProps.SingleOrDefault(p => p.Prop == "STATUS").Value;
+            var status = valuesAndProps.SingleOrDefault(p => p.Prop == "STATUS")?.Value ;
+            if (status == null)
+                Console.WriteLine(s);
+            
 
             var newValues = valuesAndProps
                 .Select(p =>
@@ -262,7 +265,7 @@ namespace CprBroker.Tests.DBR.DiversionComparison
                         value = value.Substring(0, value.Length - 2) + "00";
                     }
 
-                    if (status == "90")
+                    if (status == "90" || status == "80")
                     {
                         var excluded90 = new string[] {
                                 "POSTDISTTXT", "POSTDISTRICT",
