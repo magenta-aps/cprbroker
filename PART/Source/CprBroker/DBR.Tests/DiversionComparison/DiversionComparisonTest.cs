@@ -214,7 +214,7 @@ namespace CprBroker.Tests.DBR.DiversionComparison
         public void RealRequest_New40Char_Udvidet(
             [Values('1')]char type,
             [Values('0')]char largeData,
-            [ValueSource(nameof(CprNumbers100))]string pnr)
+            [ValueSource(nameof(CprNumbers400))]string pnr)
         {
             CompareNewRequest(type, largeData, pnr, 'U', Preprocess<NewResponseFullDataType>);
         }
@@ -230,7 +230,52 @@ namespace CprBroker.Tests.DBR.DiversionComparison
             var status = valuesAndProps.SingleOrDefault(p => p.Prop == "STATUS")?.Value;
             if (status == null)
                 Console.WriteLine(s);
+            var excludedProps = new string[] {
+                "AJF",
+                "MYNKOD",
+                "ADRNVN",
+                "INDRAP",
+                "FOEDMYNHAENSTART",
+                "KUNDENR",
+                "FARSKABHAENSTART",
+                "AEGTEMRK",
+                "AEGTEDOK",
+                "FARSKABMYNNVN",
+                "TIDLKOMNVN",
+                "CIVMYN",
+                "STILLINGDTO",
+                "MORDOK",
+                "FARDOK",
+                "MORMRK",
+                "FARMRK",
+                "UDLANDADRDTO",
+                "PNRMRKHAENSTART",
+                "KONTAKTADR_KOMKOD",
+                "STARTDATE_FORALD_46", "STARTDATE_FORALD_35", // real DPR returns yyyy-MM-dd HH:mm:ss or dd-MM-yyyy randomly                        
+                "dummy 1293810"
+            };
 
+            var excluded90 = new string[] {
+                "POSTDISTTXT", "POSTDISTRICT",
+                "POSTNR", "POSTCODE",
+                "BYNVN",
+                "STANDARDADR",
+                "KOMKOD",
+                "KOMNVN","AKTKOMNVN",
+                "VEJKOD",
+                "KOMKOD",
+                "VEJADRNVN", "STREETNAME",
+                "HUSNR", "HOUSENUMBER",
+                "ETAGE", "FLOOR",
+                "SIDEDOER","DOOR",
+                "CONVN","CAREOFNAME",
+                "LOKALITET",
+                "TILFLYDTO",
+                "TILFLYDTOMRK",
+                "TILFLYKOMDTO",
+                "FRAFLYKOMDTO",
+                "FRAFLYKOMKOD"
+            };
 
             var newValues = valuesAndProps
                 .Select(p =>
@@ -239,65 +284,24 @@ namespace CprBroker.Tests.DBR.DiversionComparison
                     var value = p.Value;
 
                     value = value.TrimStart('0');
+                    if (value.Equals("0")) //STATUSHAENSTART is null in the database but emulated data has 0 as value.
+                        value = "";
 
-                    if (
-                        name.Contains("AJF") ||
-                        name.Contains("MYNKOD") ||
-                        value.Equals("0") || //STATUSHAENSTART is null in the database but emulated data has 0 as value.
-                        name.Contains("ADRNVN") ||
-                        name.Contains("INDRAP") ||
-                        name.Contains("FOEDMYNHAENSTART") ||
-                        name.Contains("KUNDENR") ||
-                        name.Contains("FARSKABHAENSTART") ||
-                        name.Contains("AEGTEMRK") ||
-                        name.Contains("AEGTEDOK") ||
-                        name.Contains("FARSKABMYNNVN") ||
-                        name.Contains("TIDLKOMNVN") ||
-                        name.Contains("CIVMYN") ||
-                        name.Contains("STILLINGDTO") ||
-                        name.Contains("MORDOK") ||
-                        name.Contains("FARDOK") ||
-                        name.Contains("MORMRK") ||
-                        name.Contains("FARMRK") ||
-                        name.Contains("UDLANDADRDTO") ||
-                        name.Contains("PNRMRKHAENSTART") ||
-                        name.Contains("KONTAKTADR_KOMKOD") ||
-                        name.Contains("STARTDATE_FORALD_46") || name.Contains("STARTDATE_FORALD_35") || // real DPR returns yyyy-MM-dd HH:mm:ss or dd-MM-yyyy randomly                        
-                        name.Contains("dummy 1293810")
-                        )
+                    if (excludedProps.FirstOrDefault(pName => name.Contains(pName)) != null)
                     {
                         value = "";
                     }
 
-                    if (name.Contains("START") && value.Length >= 12 && value.EndsWith("99"))
+                    if (
+                        (name.Contains("START") || name.Contains("DTO"))
+                        && value.Length >= 12 && value.EndsWith("99")
+                    )
                     {
                         value = value.Substring(0, value.Length - 2) + "00";
                     }
 
                     if (status == "90" || status == "80")
                     {
-                        var excluded90 = new string[] {
-                                "POSTDISTTXT", "POSTDISTRICT",
-                                "POSTNR", "POSTCODE",
-                                "BYNVN",
-                                "STANDARDADR",
-                                "KOMKOD",
-                                "KOMNVN","AKTKOMNVN",
-                                "VEJKOD",
-                                "KOMKOD",
-                                "VEJADRNVN", "STREETNAME",
-                                "HUSNR", "HOUSENUMBER",
-                                "ETAGE", "FLOOR",
-                                "SIDEDOER","DOOR",
-                                "CONVN","CAREOFNAME",
-                                "LOKALITET",
-                                "TILFLYDTO",
-                                "TILFLYDTOMRK",
-                                "TILFLYKOMDTO",
-                                "FRAFLYKOMDTO",
-                                "FRAFLYKOMKOD"
-
-                        };
                         if (excluded90.Contains(name))
                         {
                             value = "";
