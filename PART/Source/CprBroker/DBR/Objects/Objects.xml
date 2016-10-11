@@ -17,7 +17,7 @@
     <Attribute format="Alpha"   position="15" length="222"  name="Data"/>
   </Object>
 
-  <Object name="ClassicResponseBasicData" length="222">
+  <Object name="ResponseBasicDataBase">
     <Attribute format="Alpha"   position="1"   length="10" name="PNR"/>
     <Attribute format="Alpha"   position="11"  length="40" name="LastName" danishName="EFTERNVN"/>
     <Attribute format="Alpha"   position="51"  length="50" name="FirstAndMiddleNames" danishName="FORNVN"/>
@@ -30,10 +30,11 @@
     <Attribute format="Alpha"   position="185" length="4"  name="BNR"/>
     <Attribute format="Numeric" position="189" length="4"  name="PostCode"/>
     <Attribute format="Alpha"   position="193" length="20" name="PostDistrict"/>
+  </Object>
 
+  <Object name="ClassicResponseBasicData" length="222" base="ResponseBasicDataBaseType">
     <!--dateFormat="ddMMyyyy"-->
     <Attribute format="Alpha"   position="213" length="8"  name="AddressProtectionDate" description="Day, month, century, year"/>
-
     <Attribute format="Numeric" position="221" length="2"  name="Status"/>
   </Object>
 
@@ -57,8 +58,9 @@
     <Attribute format="Alpha"   position="11"   length="100" name="OkOrError"/>
   </Object>
 
-  <Object name="NewResponseBasicData" base="ClassicResponseBasicDataType" length="222">
-    <!-- No more attributes here-->
+  <Object name="NewResponseBasicData" base="ResponseBasicDataBaseType" length="215">
+    <Attribute format="Alpha"   position="213" length="1"  name="AddressProtectionMarker" description=""/>
+    <Attribute format="Numeric" position="214" length="2"  name="Status"/>
   </Object>
 
   <Object name="NewResponseFullData" length="3233">

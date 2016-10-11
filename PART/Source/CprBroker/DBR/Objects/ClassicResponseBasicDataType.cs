@@ -14,26 +14,8 @@ namespace CprBroker.DBR
         { }
 
         public ClassicResponseBasicDataType(IndividualResponseType resp, PersonInfoExtended personInfo, string dprConnectionString)
+            :base(resp,personInfo,dprConnectionString)
         {
-            this.PNR = personInfo.PersonTotal.PNR.ToPnrDecimalString();
-            this.LastName = personInfo.PersonName.LastName;
-            this.FirstAndMiddleNames = personInfo.PersonName.FirstName;
-            this.CareOfName = personInfo.Address?.CareOfName;
-            this.StreetName = personInfo.Address?.StreetAddressingName;
-            this.HouseNumber = personInfo.Address?.HouseNumber;
-            this.Floor = personInfo.Address?.Floor;
-            this.Door = personInfo.Address?.DoorNumber;
-            this.BNR = personInfo.Address?.GreenlandConstructionNumber;
-
-            if ((personInfo.Address?.PostCode).HasValue)
-            {
-                this.PostCode = personInfo.Address.PostCode;
-                this.PostDistrict = Providers.DPR.PostDistrict.GetPostText(
-                    dprConnectionString,
-                    personInfo.Address.MunicipalityCode,
-                    personInfo.Address.StreetCode,
-                    personInfo.Address.HouseNumber);
-            }
             var addressProtectionDate = ProtectionType.FindProtection(resp.Protection, DateTime.Now, ProtectionType.ProtectionCategoryCodes.NameAndAddress)?.StartDate;
             this.AddressProtectionDate = addressProtectionDate.HasValue ? addressProtectionDate.Value.ToString("ddMMyyyy") : "00000000";
 

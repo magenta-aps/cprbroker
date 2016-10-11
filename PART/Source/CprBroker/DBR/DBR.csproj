@@ -61,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Objects\ClassicRequestType.cs" />
+    <Compile Include="Objects\ResponseBasicDataBase.cs" />
     <Compile Include="Objects\NewRequestType.Helpers.cs" />
     <Compile Include="DprDiversionManager.cs">
       <SubType>Component</SubType>
