@@ -13,13 +13,12 @@ namespace CprBroker.DBR
         public ClassicResponseBasicDataType()
         { }
 
-        public ClassicResponseBasicDataType(IndividualResponseType resp, PersonInfoExtended personInfo, string dprConnectionString)
-            :base(resp,personInfo,dprConnectionString)
+        public ClassicResponseBasicDataType(NewResponseBasicDataType resp)
         {
-            var addressProtectionDate = ProtectionType.FindProtection(resp.Protection, DateTime.Now, ProtectionType.ProtectionCategoryCodes.NameAndAddress)?.StartDate;
-            this.AddressProtectionDate = addressProtectionDate.HasValue ? addressProtectionDate.Value.ToString("ddMMyyyy") : "00000000";
+            Contents = new string(resp.Contents.Take(this.Length).ToArray()).PadRight(this.Length);
 
-            this.Status = personInfo.PersonTotal.Status;
+            this.AddressProtectionDate = resp.AddressProtectionDate.HasValue ? resp.AddressProtectionDate.Value.ToString("ddMMyyyy") : "00000000";
+            this.Status = resp.Status;
         }
     }
 }

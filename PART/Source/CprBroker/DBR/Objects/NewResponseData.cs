@@ -44,9 +44,14 @@ namespace CprBroker.DBR
         {
             var addressProtection = ProtectionType.FindProtection(resp.Protection, DateTime.Now, ProtectionType.ProtectionCategoryCodes.NameAndAddress);
             this.AddressProtectionMarker = addressProtection == null ? ' ' : '1';
-
+            this.AddressProtectionDate = addressProtection?.StartDate;
             this.Status = personInfo.PersonTotal.Status;
         }
+
+        /// <summary>
+        /// To be used in the constructor or ClassicResponseBasicDataType
+        /// </summary>
+        public DateTime? AddressProtectionDate { get; private set; }
 
         public bool TrimLeftZeros
         {
