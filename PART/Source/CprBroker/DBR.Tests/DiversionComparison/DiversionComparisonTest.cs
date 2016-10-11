@@ -280,6 +280,7 @@ namespace CprBroker.Tests.DBR.DiversionComparison
                                 "HUSNR", "HOUSENUMBER",
                                 "ETAGE", "FLOOR",
                                 "SIDEDOER","DOOR",
+                                "CONVN","CAREOFNAME",
                                 "TILFLYDTO",
                                 "TILFLYDTOMRK",
                                 "TILFLYKOMDTO"
