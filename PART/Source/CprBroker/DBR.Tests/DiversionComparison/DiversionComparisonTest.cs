@@ -1,6 +1,7 @@
 ﻿using CprBroker.DBR;
 using CprBroker.Providers.CPRDirect;
 using CprBroker.Providers.DPR;
+using CprBroker.Schemas.Wrappers;
 using CprBroker.Tests.DBR.Properties;
 using CprBroker.Utilities;
 using Moq;
@@ -206,7 +207,7 @@ namespace CprBroker.Tests.DBR.DiversionComparison
             [Values('0')]char largeData,
             [ValueSource(nameof(CprNumbers10))]string pnr)
         {
-            CompareNewRequest(type, largeData, pnr, 'S', Preprocess);
+            CompareNewRequest(type, largeData, pnr, 'S', Preprocess<NewResponseBasicDataType>);
         }
 
         [Test]
@@ -215,23 +216,23 @@ namespace CprBroker.Tests.DBR.DiversionComparison
             [Values('0')]char largeData,
             [ValueSource(nameof(CprNumbers10))]string pnr)
         {
-            CompareNewRequest(type, largeData, pnr, 'U', Preprocess);
+            CompareNewRequest(type, largeData, pnr, 'U', Preprocess<NewResponseFullDataType>);
         }
 
-        public string Preprocess(string s)
+        public string Preprocess<T>(string s) where T : Wrapper, new()
         {
             var values = s.Substring(7).Split(';');
 
-            var valuesAndProps = new NewResponseFullDataType()
+            var valuesAndProps = new T()
                 .PropertyDefinitions
-                .Zip(values, (p, v) => new { Prop = p, Value = v });
+                .Zip(values, (p, v) => new { Prop = p.Item1.ToUpper(), Pos = p.Item2, Len = p.Item3, Value = v });
 
-            var status = valuesAndProps.Single(p => p.Prop.Item1 == "STATUS").Value;
+            var status = valuesAndProps.SingleOrDefault(p => p.Prop == "STATUS").Value;
 
             var newValues = valuesAndProps
                 .Select(p =>
                 {
-                    var name = p.Prop.Item1.ToUpper();
+                    var name = p.Prop;
                     var value = p.Value;
 
                     value = value.TrimStart('0');
@@ -264,18 +265,18 @@ namespace CprBroker.Tests.DBR.DiversionComparison
                     if (status == "90")
                     {
                         var excluded90 = new string[] {
-                                "POSTDISTTXT",
-                                "POSTNR",
+                                "POSTDISTTXT", "POSTDISTRICT",
+                                "POSTNR", "POSTCODE",
                                 "BYNVN",
                                 "STANDARDADR",
                                 "KOMKOD",
                                 "KOMNVN",
                                 "VEJKOD",
                                 "KOMKOD",
-                                "VEJADRNVN",
-                                "HUSNR",
-                                "ETAGE",
-                                "SIDEDOER",
+                                "VEJADRNVN", "STREETNAME",
+                                "HUSNR", "HOUSENUMBER",
+                                "ETAGE", "FLOOR",
+                                "SIDEDOER","DOOR",
                                 "TILFLYDTO",
                                 "TILFLYDTOMRK",
                                 "TILFLYKOMDTO"
@@ -288,7 +289,7 @@ namespace CprBroker.Tests.DBR.DiversionComparison
                     }
 
                     return string.Format("{0}={1}",
-                        p.Prop.Item1,
+                        p.Prop,
                         value);
                 });
 
