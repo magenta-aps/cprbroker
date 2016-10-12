@@ -244,11 +244,11 @@ _____________________________ Object template _____________________________
 <xsl:apply-templates select="d:Attribute" />
 <xsl:text>
         #endregion
-        public override Tuple&lt;string, int, int&gt;[] PropertyDefinitions
+        public override Tuple&lt;string, int, int&gt;[] DefaultPropertyDefinitions
         {
             get 
             {
-                var ret = base.PropertyDefinitions.ToList();
+                var ret = base.DefaultPropertyDefinitions.ToList();
                 ret.AddRange(new Tuple&lt;string, int, int&gt;[]{
 </xsl:text>
     <xsl:apply-templates select="d:Attribute" mode="def"/>

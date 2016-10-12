@@ -220,9 +220,14 @@ namespace CprBroker.Schemas.Wrappers
             return this.GetType().Name;
         }
 
-        public virtual Tuple<string, int, int>[] PropertyDefinitions
+        public virtual Tuple<string, int, int>[] DefaultPropertyDefinitions
         {
             get { return new Tuple<string, int, int>[] { }; }
+        }
+
+        public virtual Tuple<string, int, int>[] PropertyDefinitions
+        {
+            get { return this.DefaultPropertyDefinitions; }
         }
 
         public string ContentsWithSeparator(string separator = ";", bool trimLeftZeros = false)
