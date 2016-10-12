@@ -262,6 +262,7 @@ namespace CprBroker.Tests.DBR.DiversionComparison
                 "UDRINDRMRK", // Sometimes not set because departures are older than 20 years (so not included in the initial dataset)
                 "FRAFLYKOMKOD", // Sometimes not set because departures are older than 20 years (so not included in the initial dataset)
                 "TILFLYDTOMRK",
+
                 "dummy 1293810"
             };
 
