@@ -245,6 +245,13 @@
     <Attribute format="Alpha"   position="2556" length="10"  name="SLETDATE_FORALD_46"       danishName="SLETDATE_FORALD_46"       description="" dateFormat="yyyy-MM-dd" />
     <Attribute format="Numeric" position="2566" length="2"   name="ANTAL_BOERN"              danishName="ANTAL_BOERN"              description="" />
     <Attribute format="Alpha"   position="2568" length="675" name="PNR_BORN"                 danishName="PNR_BORN"                 description="" />
+
+    <Object name="NewResponseFullChild" length="27" minOccurs="0" maxOccurs="25">
+      <Attribute format="Numeric" position="1"   length="13"  name="AJFDTO" danishName="AJFDTO" description="" dateFormat="yyyyMMddHHmm" />
+      <Attribute format="Alpha"   position="14"  length="11"  name="PNR"/>
+      <Attribute format="Alpha"   position="25"  length="3"   name="DOK" danishName="DOK" description="" />
+    </Object>
+
   </Object>
 
 </Layer>
