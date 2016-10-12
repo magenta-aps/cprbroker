@@ -322,7 +322,11 @@ namespace CprBroker.Tests.DBR.DiversionComparison
                         value = value.Substring(0, value.Length - 2) + "00";
                     }
 
-                    if (status == "90" || status == "80")
+                    if (
+                        status == "90" || status == "80"
+                        || status == "20"
+                        || status == "70"
+                    )
                     {
                         if (excluded90.Contains(name))
                         {
