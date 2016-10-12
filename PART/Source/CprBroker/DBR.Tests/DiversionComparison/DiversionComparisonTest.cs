@@ -120,17 +120,21 @@ namespace CprBroker.Tests.DBR.DiversionComparison
             using (var context = new DPRDataContext(Settings.Default.RealDprConnectionString))
             {
                 return context.ExecuteQuery<decimal>(""
-                    + "SELECT PNR FROM DTTOTAL "
-                    + "WHERE PNR > {0} "
+                    + "SELECT t.PNR FROM DTTOTAL t "
+                    + "INNER JOIN DTPERS p ON p.PNR=t.PNR "
+                    + "WHERE t.PNR > {0} "
                     + "AND (INDLAESDTO IS NULL OR INDLAESDTO < {1}) "
                     + "AND (HENTTYP IS NULL OR HENTTYP IN ({2},{3})) "
                     + "AND (INDLAESPGM IS NULL OR INDLAESPGM = {4}) "
-                    + "ORDER BY PNR"
+                    + "AND PERAJDTO > {5} "
+                    + "ORDER BY t.PNR "
                     ,
                     minPnr,
                     new DateTime(2016, 10, 1),
                     DataRetrievalTypes.Extract, DataRetrievalTypes.Extract2,
-                    UpdatingProgram.DprUpdate
+                    UpdatingProgram.DprUpdate,
+                     199701010000 // 1 Jan 1997
+                     
                     )
                     .Take(count)
                     .ToArray()
