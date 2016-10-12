@@ -104,14 +104,14 @@ namespace CprBroker.DBR
             AJFDTO_MORFAR = null;
             AJFDTO_MORFARDecimal = decimalOf(person.KinshipUpdateDate);
             PNRMOR = person.MotherPnr;
-            MOR = personTotal.MotherPersonalOrBirthDate;
+            MOR = personTotal.MotherPersonalOrBirthDate.PadLeft(11, '0');
             MORFOEDDTO = decimalOf(person.MotherBirthdate);
             MORDOK = person.MotherDocumentation;
             MORMRK = charOf(personTotal.MotherMarker);
             PNRFAR = person.FatherPnr;
             FARFOEDDTO = decimalOf(person.FatherBirthdate);
             FARDOK = person.FatherDocumentation;
-            FAR = personTotal.FatherPersonalOrBirthdate;
+            FAR = personTotal.FatherPersonalOrBirthdate.PadLeft(11, '0');
             FARMRK = charOf(personTotal.FatherMarker);
             FARSKABMYNNVN = personTotal.PaternityAuthorityName;
             FARSKABHAENSTART = null;
@@ -128,7 +128,7 @@ namespace CprBroker.DBR
             HAENSTART_CIV = null;
             HAENSTART_CIVDecimal = decimalOf(civilStatus?.MaritalStatusDate);
             BNR = personAddress?.GreenlandConstructionNumber;
-            ANTAL_BOERN = children.Count();
+
             BARNMRK = charOf(personTotal.ChildMarker);
             AKTKOMNVN = personTotal.CurrentMunicipalityName;
             BYNVN = personTotal.CityName;
@@ -225,7 +225,6 @@ namespace CprBroker.DBR
             //SLETDATE_TXT = 
             // RELTYP_TXT = 
             // MYNKOD_STAT 
-            // PNR_BORN 
             //SLETDATE_1Decimal
             //SLETDATE_5Decimal
             //SLETDATE_6Decimal
@@ -285,11 +284,28 @@ namespace CprBroker.DBR
             TILFLYDTOMRK = charOf(personTotal.AddressDateMarker);
             TILFLYKOMDTO = null;
             TILFLYKOMDTODecimal = decimalOf(personTotal.MunicipalityArrivalDate);
+
+            ANTAL_BOERN = children.Count();
+            NewResponseFullChild = children.Select(c =>
+                new NewResponseFullChildType()
+                {
+                    AJFDTO = null,
+                    //AJFDTODecimal = person.CprUpdateDate,
+                    PNR = c.ChildPNR.Value.ToPnrDecimalString(),
+                    DOK = c.MotherOrFatherDocumentation
+                })
+                .ToList();
+            PNR_BORN = string.Join(
+                    "",
+                    this.NewResponseFullChild.Select(c => c.ContentsWithSeparator(trimLeftZeros: true)).ToArray()
+                    );
         }
 
-        public bool TrimLeftZeros
+        public override string ToString()
         {
-            get { return true; }
+            var ret = ContentsWithSeparator(trimLeftZeros: true);
+            return ret.Substring(0, ret.Length - 1);// Trim last semi colon
         }
+
     }
 }

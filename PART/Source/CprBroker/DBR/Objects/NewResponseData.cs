@@ -11,7 +11,6 @@ namespace CprBroker.DBR
     {
         string Contents { get; set; }
         string ContentsWithSeparator(string separator = ";", bool trimLeftZeros = false);
-        bool TrimLeftZeros { get; }
     }
 
     public partial class NewResponseNoDataType : INewResponseData
@@ -27,9 +26,9 @@ namespace CprBroker.DBR
             this.OkOrError = "OK";
         }
 
-        public bool TrimLeftZeros
+        public override string ToString()
         {
-            get { return false; }
+            return ContentsWithSeparator(trimLeftZeros: false);
         }
 
     }
@@ -53,9 +52,9 @@ namespace CprBroker.DBR
         /// </summary>
         public DateTime? AddressProtectionDate { get; private set; }
 
-        public bool TrimLeftZeros
+        public override string ToString()
         {
-            get { return false; }
+            return ContentsWithSeparator(trimLeftZeros: false);
         }
     }
 }

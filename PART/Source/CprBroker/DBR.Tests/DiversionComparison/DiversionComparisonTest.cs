@@ -222,15 +222,17 @@ namespace CprBroker.Tests.DBR.DiversionComparison
 
         public string Preprocess<T>(string s) where T : Wrapper, new()
         {
-            var values = s.Substring(7).Split(';');
+            var propertyDefinitions = new T().PropertyDefinitions;
 
-            var valuesAndProps = new T()
-                .PropertyDefinitions
+            var values = s.Substring(7).Split(new char[] { ';' }, propertyDefinitions.Length);
+
+            var valuesAndProps = propertyDefinitions
                 .Zip(values, (p, v) => new { Prop = p.Item1.ToUpper(), Pos = p.Item2, Len = p.Item3, Value = v });
 
             var status = valuesAndProps.SingleOrDefault(p => p.Prop == "STATUS")?.Value;
             if (status == null)
                 Console.WriteLine(s);
+
             var excludedProps = new string[] {
                 "AJF",
                 "MYNKOD",
@@ -284,8 +286,9 @@ namespace CprBroker.Tests.DBR.DiversionComparison
                     var name = p.Prop;
                     var value = p.Value;
 
-                    if (Regex.Match(value, @"\A0[0-9]*\Z").Success)
-                        value = value.TrimStart('0');
+                    //if (Regex.Match(value, @"\A0[0-9]*\Z").Success)
+                    value = value.TrimStart('0');
+
                     if (value.Equals("0")) //STATUSHAENSTART is null in the database but emulated data has 0 as value.
                         value = "";
 
@@ -310,12 +313,23 @@ namespace CprBroker.Tests.DBR.DiversionComparison
                         }
                     }
 
+                    if (name == "PNR_BORN")
+                    {
+                        var childValues = value.Split(';');
+                        for (int iDok = 2; iDok < childValues.Length; iDok += 3)
+                        {
+                            childValues[iDok] = "";
+                        }
+                        value = string.Join(";", childValues);
+                    }
+
                     return string.Format("{0}={1}",
                         p.Prop,
                         value);
-                });
+                }).ToArray();
 
-            return s.Substring(0, 7) + string.Join("u;", newValues);
+            var sRet = s.Substring(0, 7) + string.Join(";", newValues);
+            return sRet;
         }
     }
 }

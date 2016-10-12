@@ -126,7 +126,7 @@
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>"$(ProjectDir)..\..\Dll\msxsl.exe" "$(ProjectDir)Objects\Objects.xml" "$(SolutionDir)..\Core\Schemas\Wrappers\ClassTransform.xslt" -o "$(ProjectDir)Objects\Objects.cs" namespace="$(TargetName)" using="CprBroker.Providers.DPR"</PreBuildEvent>
+    <PreBuildEvent>"$(ProjectDir)..\..\Dll\msxsl.exe" "$(ProjectDir)Objects\Objects.xml" "$(SolutionDir)..\Core\Schemas\Wrappers\ClassTransform.xslt" -o "$(ProjectDir)Objects\Objects.cs" namespace="$(TargetName)" using="CprBroker.Providers.DPR;using CprBroker.Providers.CPRDirect"</PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PostBuildEvent>copy $(TargetFileName) $(SolutionDir)Output\ /y</PostBuildEvent>
