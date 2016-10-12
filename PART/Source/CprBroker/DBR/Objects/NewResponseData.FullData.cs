@@ -3,6 +3,7 @@ using CprBroker.Providers.DPR;
 using System;
 using System.Linq;
 using CprBroker.Utilities;
+using System.Text.RegularExpressions;
 
 namespace CprBroker.DBR
 {
@@ -125,6 +126,8 @@ namespace CprBroker.DBR
             AEGTENVN = civilStatus?.SpouseName;
             AEGTEMRK = charOf(personTotal.SpouseMarker);
             AEGTE = personTotal.SpousePersonalOrBirthdate;
+            if (AEGTE.Count(c => c == '-') == 2) // If a birth date
+                AEGTE = AEGTE.Replace('-', ' ');
             HAENSTART_CIV = null;
             HAENSTART_CIVDecimal = decimalOf(civilStatus?.MaritalStatusDate);
             BNR = personAddress?.GreenlandConstructionNumber;
@@ -244,9 +247,9 @@ namespace CprBroker.DBR
             STARTMYNKOD_FORALD_46 = decimalOf(parentalAuthority46?.CustodyStartAuthorityCode);
             SLETDATE_FORALD_46Decimal = 0m;
             SLETDATE_FORALD_46 = parentalAuthority46?.EndDate;
-            STARTDATE_UMRK = charOf(separation?.StartDateMarker);
-            STARTDATEDecimal = 0m;
-            STARTDATE = separation?.StartDate;
+            STARTDATE_SEP_UMRK = charOf(separation?.StartDateMarker);
+            STARTDATE_SEPDecimal = 0m;
+            STARTDATE_SEP = separation?.StartDate;
             SEP_HENVIS_TS = separation?.SeparationReferalTimestamp;
             STATSBORGER = personTotal.NationalityRight;
             STILLING = person.Job;

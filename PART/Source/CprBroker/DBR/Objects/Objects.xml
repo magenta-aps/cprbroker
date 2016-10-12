@@ -229,8 +229,8 @@
     <Attribute format="Numeric" position="2407" length="13"  name="AJFDTO_SEP"               danishName="AJFDTO_SEP"               description="" dateFormat="yyyyMMddHHmm" />
     <Attribute format="Alpha"   position="2420" length="26"  name="SEP_HENVIS_TS"            danishName="SEP_HENVIS_TS"            description="" />
     <Attribute format="Numeric" position="2446" length="5"   name="START_MYNKOD_SEP"         danishName="START_MYNKOD_SEP"         description="" />
-    <Attribute format="Alpha"   position="2451" length="10"  name="STARTDATE"                danishName="STARTDATE"                description="" dateFormat="yyyy-MM-dd" />
-    <Attribute format="Alpha"   position="2461" length="1"   name="STARTDATE_UMRK"           danishName="STARTDATE_UMRK"           description="" />
+    <Attribute format="Alpha"   position="2451" length="10"  name="STARTDATE_SEP"            danishName="STARTDATE"                description="" dateFormat="yyyy-MM-dd" />
+    <Attribute format="Alpha"   position="2461" length="1"   name="STARTDATE_SEP_UMRK"       danishName="STARTDATE_UMRK"           description="" />
     <Attribute format="Numeric" position="2462" length="4"   name="RELTYP_FORALD_35"         danishName="RELTYP_FORALD_35"         description="" />
     <Attribute format="Numeric" position="2466" length="13"  name="AJFDTO_FORALD_35"         danishName="AJFDTO_FORALD_35"         description="" dateFormat="yyyyMMddHHmm" />
     <Attribute format="Numeric" position="2479" length="5"   name="STARTMYNKOD_FORALD_35"    danishName="STARTMYNKOD_FORALD_35"    description="" />
