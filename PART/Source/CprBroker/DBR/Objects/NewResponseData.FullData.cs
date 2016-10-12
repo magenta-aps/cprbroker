@@ -145,7 +145,7 @@ namespace CprBroker.DBR
             HAENSTART_STAT = null;
             HAENSTART_STATDecimal = decimalOf(personInfo.Nationality?.NationalityStartDate);
             POSTNR = personTotal.PostCode;
-            POSTDISTTXT = personTotal.PostDistrictName;
+            POSTDISTTXT = personTotal.PostDistrictName != "Ukendt" ? personTotal.PostDistrictName : "";
             VEJADRNVN = personAddress?.StreetAddressingName;
             VEJKOD = decimalOf(personAddress?.StreetCode);
             SIDEDOER = personTotal.Door;
@@ -289,7 +289,9 @@ namespace CprBroker.DBR
             TILFLYKOMDTODecimal = decimalOf(personTotal.MunicipalityArrivalDate);
 
             ANTAL_BOERN = children.Count();
-            NewResponseFullChild = children.Select(c =>
+            NewResponseFullChild = children
+                .OrderBy(c=> PartInterface.Strings.PersonNumberToDate(c.ChildPNR.Value.ToPnrDecimalString()))
+                .Select(c =>
                 new NewResponseFullChildType()
                 {
                     AJFDTO = null,

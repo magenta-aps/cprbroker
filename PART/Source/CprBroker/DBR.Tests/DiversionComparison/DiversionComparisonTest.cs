@@ -262,7 +262,7 @@ namespace CprBroker.Tests.DBR.DiversionComparison
                 "UDRINDRMRK", // Sometimes not set because departures are older than 20 years (so not included in the initial dataset)
                 "FRAFLYKOMKOD", // Sometimes not set because departures are older than 20 years (so not included in the initial dataset)
                 "TILFLYDTOMRK",
-
+                "MYNTXT_CIV",
                 "dummy 1293810"
             };
 
@@ -281,7 +281,7 @@ namespace CprBroker.Tests.DBR.DiversionComparison
                 "SIDEDOER","DOOR",
                 "CONVN","CAREOFNAME",
                 "LOKALITET",
-                "TILFLYDTO",                
+                "TILFLYDTO",
                 "TILFLYKOMDTO",
                 "FRAFLYKOMDTO",
                 "FRAFLYKOMKOD"
@@ -330,9 +330,13 @@ namespace CprBroker.Tests.DBR.DiversionComparison
                     if (name == "PNR_BORN")
                     {
                         var childValues = value.Split(';');
-                        for (int iDok = 2; iDok < childValues.Length; iDok += 3)
+                        for (int iDok = 0; iDok < childValues.Length; iDok++)
                         {
-                            childValues[iDok] = "";
+                            if (
+                                iDok % 3 == 0 // AJFDTO
+                                || iDok % 3 == 2 // DOK
+                            )
+                                childValues[iDok] = "";
                         }
                         value = string.Join(";", childValues);
                     }
