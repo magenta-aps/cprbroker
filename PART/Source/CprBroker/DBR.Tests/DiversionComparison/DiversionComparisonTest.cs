@@ -134,7 +134,7 @@ namespace CprBroker.Tests.DBR.DiversionComparison
                     DataRetrievalTypes.Extract, DataRetrievalTypes.Extract2,
                     UpdatingProgram.DprUpdate,
                      199701010000 // 1 Jan 1997
-                     
+
                     )
                     .Take(count)
                     .ToArray()
@@ -258,7 +258,10 @@ namespace CprBroker.Tests.DBR.DiversionComparison
                 "UDLANDADRDTO",
                 "PNRMRKHAENSTART",
                 "KONTAKTADR_KOMKOD",
-                "STARTDATE_FORALD_46", "STARTDATE_FORALD_35", // real DPR returns yyyy-MM-dd HH:mm:ss or dd-MM-yyyy randomly                        
+                "STARTDATE_FORALD_46", "STARTDATE_FORALD_35", // real DPR returns yyyy-MM-dd HH:mm:ss or dd-MM-yyyy randomly
+                "UDRINDRMRK", // Sometimes not set because departures are older than 20 years (so not included in the initial dataset)
+                "FRAFLYKOMKOD", // Sometimes not set because departures are older than 20 years (so not included in the initial dataset)
+                "TILFLYDTOMRK",
                 "dummy 1293810"
             };
 
@@ -277,8 +280,7 @@ namespace CprBroker.Tests.DBR.DiversionComparison
                 "SIDEDOER","DOOR",
                 "CONVN","CAREOFNAME",
                 "LOKALITET",
-                "TILFLYDTO",
-                "TILFLYDTOMRK",
+                "TILFLYDTO",                
                 "TILFLYKOMDTO",
                 "FRAFLYKOMDTO",
                 "FRAFLYKOMKOD"
@@ -289,6 +291,13 @@ namespace CprBroker.Tests.DBR.DiversionComparison
                 {
                     var name = p.Prop;
                     var value = p.Value;
+
+                    if (Regex.Match(value, @"\A[0-9]{12}\Z").Success) // 12-digit date
+                        value = value.Substring(0, 8).PadRight(12, '0');// Set hour and minute to 0
+
+
+                    if (Regex.Match(value, @"\d{4}-\d{2}-\d{2}-\d{2}\.\d{2}.\d{2}\.\d{6}").Success)
+                        value = value.Substring(0, 17) + "00.000000";
 
                     //if (Regex.Match(value, @"\A0[0-9]*\Z").Success)
                     value = value.TrimStart('0');
