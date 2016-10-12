@@ -12,6 +12,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Sockets;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace CprBroker.Tests.DBR.DiversionComparison
@@ -283,7 +284,8 @@ namespace CprBroker.Tests.DBR.DiversionComparison
                     var name = p.Prop;
                     var value = p.Value;
 
-                    value = value.TrimStart('0');
+                    if (Regex.Match(value, @"\A0[0-9]*\Z").Success)
+                        value = value.TrimStart('0');
                     if (value.Equals("0")) //STATUSHAENSTART is null in the database but emulated data has 0 as value.
                         value = "";
 
