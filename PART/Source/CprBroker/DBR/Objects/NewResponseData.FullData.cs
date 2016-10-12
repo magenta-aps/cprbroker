@@ -104,14 +104,14 @@ namespace CprBroker.DBR
             AJFDTO_MORFAR = null;
             AJFDTO_MORFARDecimal = decimalOf(person.KinshipUpdateDate);
             PNRMOR = person.MotherPnr;
-            MOR = person.MotherPnr.ToPnrDecimalString(true);
+            MOR = personTotal.MotherPersonalOrBirthDate;
             MORFOEDDTO = decimalOf(person.MotherBirthdate);
             MORDOK = person.MotherDocumentation;
             MORMRK = charOf(personTotal.MotherMarker);
             PNRFAR = person.FatherPnr;
             FARFOEDDTO = decimalOf(person.FatherBirthdate);
             FARDOK = person.FatherDocumentation;
-            FAR = person.FatherPnr.ToPnrDecimalString(true);
+            FAR = personTotal.FatherPersonalOrBirthdate;
             FARMRK = charOf(personTotal.FatherMarker);
             FARSKABMYNNVN = personTotal.PaternityAuthorityName;
             FARSKABHAENSTART = null;
@@ -123,7 +123,7 @@ namespace CprBroker.DBR
             AEGTEDOK = civilStatus?.SpouseDocumentation;
             AEGTEPNR = decimalOf(civilStatus?.SpousePNR);
             AEGTENVN = civilStatus?.SpouseName;
-            AEGTEMRK = charOf(personTotal.SpouseMarker);            
+            AEGTEMRK = charOf(personTotal.SpouseMarker);
             AEGTE = personTotal.SpousePersonalOrBirthdate;
             HAENSTART_CIV = null;
             HAENSTART_CIVDecimal = decimalOf(civilStatus?.MaritalStatusDate);
