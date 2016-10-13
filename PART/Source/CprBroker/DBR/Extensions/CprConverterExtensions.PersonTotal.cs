@@ -188,7 +188,7 @@ namespace CprBroker.DBR.Extensions
                 }
             };
 
-            Func<string, char> parentPnrMarkerGetter = (string parentPnr) => 
+            Func<string, char> parentPnrMarkerGetter = (string parentPnr) =>
             {
                 if (string.IsNullOrEmpty(parentPnr) || parentPnr.Equals("0000000000"))
                     return '*';
@@ -200,7 +200,7 @@ namespace CprBroker.DBR.Extensions
             pt.MotherPersonalOrBirthDate = parentPnrOrBirthdateGetter(resp.ParentsInformation.MotherPNR, resp.ParentsInformation.MotherBirthDate);
             pt.MotherMarker = parentPnrMarkerGetter(resp.ParentsInformation.MotherPNR);
             pt.FatherPersonalOrBirthdate = parentPnrOrBirthdateGetter(resp.ParentsInformation.FatherPNR, resp.ParentsInformation.FatherBirthDate);
-            pt.FatherMarker = parentPnrMarkerGetter(resp.ParentsInformation.FatherPNR); 
+            pt.FatherMarker = parentPnrMarkerGetter(resp.ParentsInformation.FatherPNR);
 
             if (
                 resp.CurrentDepartureData != null
@@ -271,7 +271,7 @@ namespace CprBroker.DBR.Extensions
             pt.MunicipalRelationMarker = resp.MunicipalConditions.Count() > 0 ? '1' : null as char?;
 
             pt.NationalMemoMarker = resp.Notes.Count() > 0 ? '1' : null as char?;
-            pt.FormerPersonalMarker = null; //DPR SPECIFIC
+            pt.FormerPersonalMarker = resp.HistoricalPNR.Count > 0 ? '1' : null as char?;
             pt.PaternityAuthorityName = null; //TODO: Retrieve this from the CPR Service field far_mynkod
             pt.MaritalAuthorityName = null; //TODO: Retrieve this from the CPR Service field mynkod
             if (!string.IsNullOrEmpty(resp.PersonInformation.Job))

@@ -257,6 +257,7 @@ namespace CprBroker.Tests.DBR.DiversionComparison
                 "FARMRK",
                 "UDLANDADRDTO",
                 "PNRMRKHAENSTART",
+                "TIDLPNRMRK", // Fails sometimes because HistoricalPNR's can be older than the 20-year limit for extracts, so they do not appear in the emulated database
                 "KONTAKTADR_KOMKOD",
                 "STARTDATE_FORALD_46", "STARTDATE_FORALD_35", // real DPR returns yyyy-MM-dd HH:mm:ss or dd-MM-yyyy randomly
                 "UDRINDRMRK", // Sometimes not set because departures are older than 20 years (so not included in the initial dataset)

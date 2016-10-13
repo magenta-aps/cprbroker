@@ -35,8 +35,8 @@ namespace CprBroker.Tests.DBR.Comparison.Person
                     "CareOfName", // Some real DPR records have a value that comes from an address that is marked as 'A' (Undo). 
                     "DataRetrievalType", // Always 'D' (from CPR extract with subscription) in DBR emulation
 
-                    // Review 2.3
-                    "FormerPersonalMarker", // Requires lookup in another person and not available in CPR Extracts
+                    // Oct 2016
+                    "FormerPersonalMarker", // Fails sometimes because HistoricalPNR's can be older than the 20-year limit for extracts, so they do not appear in the emulated database
 
                     // Review 2.4
                     "ExitEntryMarker", // Some people have Departure records in real DPR with no matching records in CPR Extracts
