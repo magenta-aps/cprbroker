@@ -232,11 +232,9 @@ namespace CprBroker.Tests.DBR.DiversionComparison
 
             var valuesAndProps = propertyDefinitions
                 .Zip(values, (p, v) => new { Prop = p.Item1.ToUpper(), Pos = p.Item2, Len = p.Item3, Value = v });
-
-            var status = valuesAndProps.SingleOrDefault(p => p.Prop == "STATUS")?.Value;
-            if (status == null)
-                Console.WriteLine(s);
-
+            
+            var status = decimal.Parse(valuesAndProps.SingleOrDefault(p => p.Prop == "STATUS")?.Value.TrimEnd(';'));
+            
             var excludedProps = new string[] {
                 "AJF",
                 "MYNKOD",
@@ -324,9 +322,9 @@ namespace CprBroker.Tests.DBR.DiversionComparison
                     }
 
                     if (
-                        status == "90" || status == "80"
-                        || status == "20"
-                        || status == "70"
+                        status == 90 || status == 80
+                        || status == 20
+                        || status == 70
                     )
                     {
                         if (excluded90.Contains(name))
