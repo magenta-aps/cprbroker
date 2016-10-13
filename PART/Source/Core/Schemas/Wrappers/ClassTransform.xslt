@@ -253,7 +253,7 @@ _____________________________ Object template _____________________________
 </xsl:text>
     <xsl:apply-templates select="d:Attribute" mode="def"/>
 <xsl:text>                });
-                return ret.ToArray();
+                return ret.OrderBy(pd => pd.Item2).ToArray();
             }
         }
 </xsl:text>

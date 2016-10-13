@@ -24,15 +24,15 @@
     <Attribute format="Alpha"   position="101" length="34" name="CareOfName" description="De første 4 karakterer er: C/O og en blank"/>
     <Attribute format="Alpha"   position="135" length="40" name="StreetName"/>
     <Attribute format="Alpha"   position="175" length="4"  name="HouseNumber" description="husnummer 3 karakterer, og husbogstav, 1 karakter."/>
-    <!-- For a strange reason, real DPR response puts Door before Floor-->
-    <Attribute format="Alpha"   position="179" length="4"  name="Door"/>
-    <Attribute format="Alpha"   position="183" length="2"  name="Floor"/>
+    <!-- DOOR & Floor here-->
     <Attribute format="Alpha"   position="185" length="4"  name="BNR"/>
     <Attribute format="Numeric" position="189" length="4"  name="PostCode"/>
     <Attribute format="Alpha"   position="193" length="20" name="PostDistrict"/>
   </Object>
 
   <Object name="ClassicResponseBasicData" length="222" base="ResponseBasicDataBaseType">
+    <Attribute format="Alpha"   position="179" length="2"  name="Floor"/>
+    <Attribute format="Alpha"   position="181" length="4"  name="Door"/>
     <!--dateFormat="ddMMyyyy"-->
     <Attribute format="Alpha"   position="213" length="8"  name="AddressProtectionDate" description="Day, month, century, year"/>
     <Attribute format="Numeric" position="221" length="2"  name="Status"/>
@@ -59,6 +59,10 @@
   </Object>
 
   <Object name="NewResponseBasicData" base="ResponseBasicDataBaseType" length="215">
+    <!-- For a strange reason, real DPR response puts Door before Floor-->
+    <Attribute format="Alpha"   position="179" length="4"  name="Door"/>
+    <Attribute format="Alpha"   position="183" length="2"  name="Floor"/>
+
     <Attribute format="Alpha"   position="213" length="1"  name="AddressProtectionMarker" description=""/>
     <Attribute format="Numeric" position="214" length="2"  name="Status"/>
   </Object>

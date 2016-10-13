@@ -17,6 +17,9 @@ namespace CprBroker.DBR
         {
             Contents = new string(resp.Contents.Take(this.Length).ToArray()).PadRight(this.Length);
 
+            this.Floor = resp.Floor;
+            this.Door = resp.Door.Trim().PadLeft(4);
+
             this.AddressProtectionDate = resp.AddressProtectionDate.HasValue ? resp.AddressProtectionDate.Value.ToString("ddMMyyyy") : "00000000";
             this.Status = resp.Status;
         }

@@ -21,8 +21,6 @@ namespace CprBroker.DBR
             this.CareOfName = personInfo.Address?.CareOfName;
             this.StreetName = personInfo.Address?.StreetAddressingName;
             this.HouseNumber = personInfo.Address?.HouseNumber;
-            this.Floor = personInfo.Address?.Floor;
-            this.Door = personInfo.Address?.DoorNumber;
             this.BNR = personInfo.Address?.GreenlandConstructionNumber;
 
             if ((personInfo.Address?.PostCode).HasValue)
