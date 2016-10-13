@@ -91,5 +91,21 @@ namespace CprBroker.Tests.Installers
                 Assert.IsNotNullOrEmpty(args);
             }
         }
+
+        [TestFixture]
+        public class RunRegIIS
+        {
+            [Test]
+            public void RunRegIIS_dist_Succeeds()
+            {
+                var frameworkVersion = new Version(4, 6, 1);
+                var fileName = CprBroker.Utilities.Strings.EnsureDirectoryEndSlash(Environment.SystemDirectory) + "dism.exe";
+                var args = "/online /enable-feature /featurename:"
+                    + (frameworkVersion.Major == 4 ?
+                        "IIS-ASPNET45"
+                        : "IIS-ASPNET");
+                Installation.RunCommand(fileName, args);
+            }
+        }
     }
 }

@@ -119,10 +119,12 @@ namespace CprBroker.Engine.Queues
         public override void RunOneBatch()
         {
             var items = GetNext(Impl.BatchSize);
+            CprBroker.Engine.Local.Admin.LogFormattedSuccess("Queue <{0}><{1}>, Processing <{2}> items", GetType().Name, Impl.QueueId, items.Length);
             if (items.FirstOrDefault() != null)
             {
                 RunItems(items);
             }
+            CprBroker.Engine.Local.Admin.LogFormattedSuccess("Queue <{0}><{1}>, batch completed", GetType().Name, Impl.QueueId);
         }
 
         private void RunItems(TQueueItem[] items)
