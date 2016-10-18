@@ -55,7 +55,7 @@ namespace CprBroker.DBR.Extensions
 {
     public partial class CprConverterExtensions
     {
-        public static Person ToPerson(this IndividualResponseType person)
+        public static Person ToPerson(this IndividualResponseType person, DPRDataContext dataContext)
         {
             Person p = new Person();
             p.PNR = decimal.Parse(person.PersonInformation.PNR);
@@ -77,7 +77,7 @@ namespace CprBroker.DBR.Extensions
              */
             p.ChristianMark = person.ChurchInformation.ChurchRelationship.ToString();
             p.ChurchRelationUpdateDate = 0;// CprBroker.Utilities.Dates.DateToDecimal(person.ChurchInformation.Registration.RegistrationDate, 12);
-            p.ChurchAuthorityCode = 0; // ChurchAdministrationDistrict.GetAuthorityCode(dataContext.Connection.ConnectionString, person.ClearWrittenAddress.MunicipalityCode, person.ClearWrittenAddress.StreetCode, person.ClearWrittenAddress.HouseNumber);//TODO: Can be retrieved from CPR Services: fkirkmynkod
+            p.ChurchAuthorityCode = ChurchAdministrationDistrict.GetAuthorityCode(dataContext.Connection.ConnectionString, person.ClearWrittenAddress.MunicipalityCode, person.ClearWrittenAddress.StreetCode, person.ClearWrittenAddress.HouseNumber); //TODO: Can be alse retrieved from CPR Services: fkirkmynkod
             p.ChurchDate = CprBroker.Utilities.Dates.DateToDecimal(person.ChurchInformation.StartDate.Value, 12);
             /*
              * Guardianship related

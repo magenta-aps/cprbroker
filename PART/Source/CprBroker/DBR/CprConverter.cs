@@ -113,7 +113,7 @@ namespace CprBroker.DBR
         {
             dataContext.PersonTotal7s.InsertOnSubmit(person.ToPersonTotal(dataContext, dataRetrievalType, updatingProgram));
 
-            dataContext.Persons.InsertOnSubmit(person.ToPerson());
+            dataContext.Persons.InsertOnSubmit(person.ToPerson(dataContext));
 
             dataContext.Childs.InsertAllOnSubmit(person.Child.Select(c => c.ToDpr()));
 
