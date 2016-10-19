@@ -66,8 +66,16 @@ namespace CprBroker.Engine
 
                     while (totalReadBytes < messageBytes.Length && DateTime.Now - startTime < MaxWait)
                     {
-                        int readBytes = stream.Read(messageBytes, totalReadBytes, InputMessageSize - totalReadBytes);
-                        totalReadBytes += readBytes;
+                        if (stream.DataAvailable)
+                        {
+                            int readBytes = stream.Read(messageBytes, totalReadBytes, 1);// InputMessageSize - totalReadBytes
+                            totalReadBytes += readBytes;
+                        }
+                        else
+                        {
+                            // Let some time pass
+                            System.Threading.Thread.Sleep(10);
+                        }
                     }
 
                     Local.Admin.LogFormattedSuccess("TcpServer <{0}>: processing message <{1}>", this.ToString(), Encoding.ASCII.GetString(messageBytes));
