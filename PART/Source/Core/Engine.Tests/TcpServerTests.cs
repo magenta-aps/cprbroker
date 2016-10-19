@@ -70,7 +70,8 @@ namespace CprBroker.Tests.Engine
             [Test]
             public void Run_OneConnection_OK()
             {
-                using (var server = new TcpServerStub() { Port = NewPort() })
+                BrokerContext.Initialize(CprBroker.Utilities.Constants.BaseApplicationToken.ToString(), "");
+                using (var server = new TcpServerStub() { Port = NewPort(), Address = "127.0.0.1" })
                 {
                     server.Start();
                     var client = new Client(server);
