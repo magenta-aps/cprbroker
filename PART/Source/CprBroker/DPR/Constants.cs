@@ -68,7 +68,7 @@ namespace CprBroker.Providers.DPR
         public const string DenmarkKmdCode = "5100";
 
         public const string DiversionOperationName = "Diversion";
-        public static readonly Encoding DiversionEncoding = Encoding.UTF7;
+        public static readonly Encoding DiversionEncoding = Encoding.GetEncoding(1252);
     }
 
     public enum InquiryType
