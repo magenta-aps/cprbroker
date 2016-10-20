@@ -83,7 +83,6 @@ namespace CprBroker.Tests.Installers
             [Test]
             public void RunRegIISCommand_Normal_Normal()
             {
-                System.Diagnostics.Debugger.Launch();
                 var args = "abcd";
                 var fileName = WebsiteCustomAction.RunRegIISCommand(ref args, new Version(4, 0));
                 Assert.AreEqual("dism.exe", fileName);
