@@ -41,6 +41,7 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -91,7 +92,7 @@ namespace CprBroker.Utilities
             return ex;
         }
 
-        public static bool ExceptionTreeContainsText(Exception ex,string text)
+        public static bool ExceptionTreeContainsText(Exception ex, string text)
         {
             if (ex.Message.Contains(text))
             {
@@ -106,5 +107,15 @@ namespace CprBroker.Utilities
                 return ExceptionTreeContainsText(ex.InnerException, text);
             }
         }
+
+        public static Version CurrentWindowsVersion
+        {
+            get
+            {
+                RegistryKey rk = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows NT\CurrentVersion");
+                return new Version((int)rk.GetValue("CurrentMajorVersionNumber"), (int)rk.GetValue("CurrentMinorVersionNumber"));
+            }
+        }
+
     }
 }
