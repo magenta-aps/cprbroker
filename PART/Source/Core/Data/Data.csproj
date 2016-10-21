@@ -159,6 +159,7 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="Applications\Init\Application.csv" />
+    <None Include="Applications\Init\LogType.csv" />
     <None Include="Queues\QueueDataContext.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>QueueDataContext.designer.cs</LastGenOutput>
@@ -206,6 +207,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Applications\Init\Application.sql" />
+    <Content Include="Applications\Init\LogType.sql" />
     <Content Include="Applications\Readme.txt" />
     <Content Include="DataProviders\Readme.txt" />
     <Content Include="Readme.txt" />

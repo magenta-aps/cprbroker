@@ -70,6 +70,7 @@ namespace CprBroker.Data.Applications
             {
                 return new string[] {
                     Properties.Resources.Application,
+                    Properties.Resources.LogType,
                 };
 
             }
@@ -80,8 +81,9 @@ namespace CprBroker.Data.Applications
             get
             {
                 return new KeyValuePair<string, string>[] {
-                    new KeyValuePair<string, string>(CprBroker.Utilities.DataLinq.GetTableName<Application>(), Properties.Resources.Application),
-            };
+                    new KeyValuePair<string, string>(CprBroker.Utilities.DataLinq.GetTableName<Application>(), Properties.Resources.Application_Csv),
+                    new KeyValuePair<string, string>(CprBroker.Utilities.DataLinq.GetTableName<LogType>(), Properties.Resources.LogType_Csv),
+                };
             }
         }
     }

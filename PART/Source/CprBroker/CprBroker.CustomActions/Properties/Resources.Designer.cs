@@ -292,26 +292,6 @@ namespace CprBroker.CustomActions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to LogTypeId;Name
-        ///1;Critical
-        ///2;Error
-        ///4;Warning
-        ///8;Information
-        ///16;Verbose
-        ///256;Start
-        ///512;Stop
-        ///1024;Suspend
-        ///2048;Resume
-        ///4096;Transfer
-        ///.
-        /// </summary>
-        public static string LogType {
-            get {
-                return ResourceManager.GetString("LogType", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
         ///&lt;configuration&gt;
         ///
