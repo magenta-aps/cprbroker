@@ -21,6 +21,7 @@ namespace CprBroker.Providers.CPRDirect
             {
                 return new string[]{
                     Properties.Resources.Extract_Sql,
+                    Properties.Resources.ExtractPersonStaging_Sql,
                 };
             }
         }

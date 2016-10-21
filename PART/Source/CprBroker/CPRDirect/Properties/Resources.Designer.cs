@@ -78,5 +78,25 @@ namespace CprBroker.Providers.CPRDirect.Properties {
                 return ResourceManager.GetString("Extract_Sql", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /****** Object:  Table [dbo].[ExtractPersonStaging]    Script Date: 11/21/2013 10:16:51 ******/
+        ///SET ANSI_NULLS ON
+        ///GO
+        ///SET QUOTED_IDENTIFIER ON
+        ///GO
+        ///IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N&apos;[dbo].[ExtractPersonStaging]&apos;) AND type in (N&apos;U&apos;))
+        ///BEGIN
+        ///CREATE TABLE [dbo].[ExtractPersonStaging](
+        ///	[ExtractPersonStagingId] [uniqueidentifier] NOT NULL,
+        ///	[ExtractId] [uniqueidentifier] NOT NULL,
+        ///	[PNR] [varchar](10) NOT NULL,
+        /// CONSTRAINT [PK_ExtractPersonStaging] PRIMARY KEY CLUSTER [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string ExtractPersonStaging_Sql {
+            get {
+                return ResourceManager.GetString("ExtractPersonStaging_Sql", resourceCulture);
+            }
+        }
     }
 }
