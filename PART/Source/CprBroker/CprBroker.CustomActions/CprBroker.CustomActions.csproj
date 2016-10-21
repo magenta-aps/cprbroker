@@ -130,7 +130,6 @@
     <Content Include="CustomAction.config" />
     <None Include="Resources\CreatePartDatabaseObjects.sql" />
     <None Include="Resources\LifecycleStatus.csv" />
-    <None Include="Resources\LogType.csv" />
     <Content Include="Resources\PatchDatabase_2_2_6.sql" />
     <None Include="Resources\Queue.csv" />
   </ItemGroup>
@@ -138,7 +137,6 @@
     <Content Include="Resources\Authority.sql" />
     <Content Include="Resources\Country.sql" />
     <Content Include="Resources\DataChangeEvent.sql" />
-    <Content Include="Resources\Extract.sql" />
     <Content Include="Resources\InitializePersonSearchCache.sql" />
     <Content Include="Resources\MvcWebConfig.xml" />
     <Content Include="Resources\PatchDatabase_2_2_2.sql" />

@@ -66,6 +66,11 @@
     <Compile Include="Lookup\LookupDataContext.cs">
       <DependentUpon>LookupDataContext.dbml</DependentUpon>
     </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Queues\ExtractQueueItem.cs" />
     <Compile Include="Queues\DbrBaseQueue.cs" />
     <Compile Include="Extract\ExtractPersonStaging.cs" />
@@ -170,6 +175,7 @@
     <Compile Include="XML\EgenskabInterval.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Extract\Init\Extract.sql" />
     <Content Include="Lookup\Authority.xml" />
     <Content Include="Lookup\GeoInformation.xml" />
     <Content Include="XML\CodeGeneration.txt" />
@@ -211,6 +217,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>"$(ProjectDir)..\..\Dll\msxsl.exe" "$(ProjectDir)XML\Definitions.xml" "$(SolutionDir)..\Core\Schemas\Wrappers\ClassTransform.xslt" -o "$(ProjectDir)XML\Definitions.cs" namespace="$(TargetName)"

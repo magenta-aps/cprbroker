@@ -162,25 +162,6 @@ namespace CprBroker.CustomActions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N&apos;[dbo].[Extract]&apos;) AND type in (N&apos;U&apos;))
-        ///BEGIN
-        ///    CREATE TABLE [dbo].[Extract](
-        ///	    [ExtractId] [uniqueidentifier] NOT NULL 
-        ///            CONSTRAINT [PK_Extract] PRIMARY KEY CLUSTERED (	[ExtractId] ASC)
-        ///            CONSTRAINT [DF_Extract_ExtractId] DEFAULT NEWID(),
-        ///	    [Filename] [nvarchar](max) NOT NULL,
-        ///	    [ExtractDate] [datetime] NOT NULL,
-        ///	    [ImportDate] [datetime] NOT NULL,
-        ///	    [StartRecord] [nvarchar](max) NOT NULL,
-        ///	 [rest of string was truncated]&quot;;.
-        /// </summary>
-        public static string Extract {
-            get {
-                return ResourceManager.GetString("Extract", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to /* 
         ///  ===========================================================================
         ///    Procedure:   InitializePersonSearchCache
