@@ -48,26 +48,53 @@ using System.Text;
 using System.IO;
 using System.Diagnostics;
 using CprBroker.Utilities.Config;
+using System.Data.SqlClient;
 
 namespace CprBroker.Data.Part
 {
     /// <summary>
     /// Represents the data context for all PART preson tables
     /// </summary>
-    public partial class PartDataContext
+    public partial class PartDataContext : IDataContextCreationInfo
     {
         public PartDataContext()
             : base(ConfigManager.Current.Settings.CprBrokerConnectionString)
         {
             OnCreated();
-            /*if (!Directory.Exists(@"C:\Log"))
-            {
-                Directory.CreateDirectory(@"C:\Log");
-            }
-            var sw = new System.IO.StreamWriter(string.Format(@"C:\Log\{0} - {1}.log", DateTime.Now.ToString("yyyy-MM-dd HH-mm"), this.GetHashCode()));
-            sw.AutoFlush = true;
-            sw.Write(new System.Diagnostics.StackTrace().ToString());
-            Log = sw;*/
         }
+
+        #region IDataContextCreationInfo members
+        public string[] DDL
+        {
+            get
+            {
+                return new string[] {
+                    PartInterface.Properties.Resources.ActorRef_Sql,
+                    PartInterface.Properties.Resources.LifecycleStatus_Sql,
+                    PartInterface.Properties.Resources.PersonMapping_Sql,
+                    PartInterface.Properties.Resources.Person_Sql,
+                    PartInterface.Properties.Resources.PersonRegistration_Sql,
+                };
+            }
+        }
+
+        public KeyValuePair<string, string>[] Lookups
+        {
+            get
+            {
+                return new KeyValuePair<string, string>[] {
+                    new KeyValuePair<string, string>(CprBroker.Utilities.DataLinq.GetTableName<LifecycleStatus>(), PartInterface.Properties.Resources.LifecycleStatus_Csv)
+                };
+            }
+        }
+
+        public Action<SqlConnection>[] CustomInitializers
+        {
+            get
+            {
+                return new Action<SqlConnection>[] { };
+            }
+        }
+        #endregion
     }
 }

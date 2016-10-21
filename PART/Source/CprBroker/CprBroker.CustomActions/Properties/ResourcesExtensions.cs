@@ -69,7 +69,7 @@ namespace CprBroker.CustomActions.Properties
                 cprDDL.AddRange(new QueueDataContext().DDL);
                 cprDDL.AddRange(new ExtractDataContext().DDL);
                 cprDDL.AddRange(new LookupDataContext().DDL);
-
+                cprDDL.AddRange(new PartDataContext().DDL);
                 cprDDL.AddRange(new PartSearchDataContext().DDL);
 
                 // DDL defined explicitly
@@ -78,7 +78,6 @@ namespace CprBroker.CustomActions.Properties
                     Resources.DataChangeEvent,
                     Resources.CreatePartDatabaseObjects,
                     Resources.TrimAddressString,
-                    Resources.PersonRegistration,
                 });
 
                 return string.Join(
@@ -99,11 +98,10 @@ namespace CprBroker.CustomActions.Properties
                 cprLookups.AddRange(new QueueDataContext().Lookups);
                 cprLookups.AddRange(new ExtractDataContext().Lookups);
                 cprLookups.AddRange(new LookupDataContext().Lookups);
-
+                cprLookups.AddRange(new PartDataContext().Lookups);
                 cprLookups.AddRange(new PartSearchDataContext().Lookups);
 
                 // Lookups defined explicitly
-                cprLookups.Add(new KeyValuePair<string, string>(CprBroker.Utilities.DataLinq.GetTableName<LifecycleStatus>(), Properties.Resources.LifecycleStatus));
                 cprLookups.Add(new KeyValuePair<string, string>(CprBroker.Utilities.DataLinq.GetTableName<DbQueue>(), Properties.Resources.Queue_Csv));
 
                 return cprLookups.ToArray();
@@ -122,7 +120,7 @@ namespace CprBroker.CustomActions.Properties
                 cprLookups.AddRange(new QueueDataContext().CustomInitializers);
                 cprLookups.AddRange(new ExtractDataContext().CustomInitializers);
                 cprLookups.AddRange(new LookupDataContext().CustomInitializers);
-
+                cprLookups.AddRange(new PartDataContext().CustomInitializers);
                 cprLookups.AddRange(new PartSearchDataContext().CustomInitializers);
 
                 return (conn)=> {

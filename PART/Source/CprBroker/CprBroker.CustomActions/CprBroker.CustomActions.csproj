@@ -129,7 +129,6 @@
   <ItemGroup>
     <Content Include="CustomAction.config" />
     <None Include="Resources\CreatePartDatabaseObjects.sql" />
-    <None Include="Resources\LifecycleStatus.csv" />
     <Content Include="Resources\PatchDatabase_2_2_6.sql" />
     <None Include="Resources\Queue.csv" />
   </ItemGroup>
@@ -139,7 +138,6 @@
     <Content Include="Resources\MvcWebConfig.xml" />
     <Content Include="Resources\PatchDatabase_2_2_2.sql" />
     <Content Include="Resources\PatchDatabase_DbrTest.sql" />
-    <Content Include="Resources\PersonRegistration.sql" />
     <None Include="Resources\PatchDatabase_2_2_3.sql" />
     <Content Include="Resources\Script generation.txt" />
     <Content Include="Resources\TrimAddressString.sql" />

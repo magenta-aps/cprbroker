@@ -84,22 +84,7 @@ namespace CprBroker.CustomActions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 
-        ////****** Object:  Table [dbo].[ActorRef]    Script Date: 11/21/2013 10:16:51 ******/
-        ///SET ANSI_NULLS ON
-        ///GO
-        ///SET QUOTED_IDENTIFIER ON
-        ///GO
-        ///IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N&apos;[dbo].[ActorRef]&apos;) AND type in (N&apos;U&apos;))
-        ///BEGIN
-        ///CREATE TABLE [dbo].[ActorRef](
-        ///	[ActorRefId] [uniqueidentifier] NOT NULL,
-        ///	[Type] [int] NOT NULL,
-        ///	[Value] [varchar](50) NULL,
-        /// CONSTRAINT [PK_ActorRef] PRIMARY KEY CLUSTERED 
-        ///(
-        ///	[ActorRefId] ASC
-        ///)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  =  [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to .
         /// </summary>
         public static string CreatePartDatabaseObjects {
             get {
@@ -125,21 +110,6 @@ namespace CprBroker.CustomActions.Properties {
         public static string DataChangeEvent {
             get {
                 return ResourceManager.GetString("DataChangeEvent", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to LifecycleStatusId;LifecycleStatusName
-        ///0;Created
-        ///1;Imported
-        ///2;Deactivated
-        ///3;Deleted
-        ///4;Updated
-        ///.
-        /// </summary>
-        public static string LifecycleStatus {
-            get {
-                return ResourceManager.GetString("LifecycleStatus", resourceCulture);
             }
         }
         
@@ -358,27 +328,6 @@ namespace CprBroker.CustomActions.Properties {
         public static string PatchDatabase_DbrTest {
             get {
                 return ResourceManager.GetString("PatchDatabase_DbrTest", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to /*
-        ///    =========================
-        ///    Table: PersonRegistration
-        ///    =========================
-        ///*/
-        ///IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N&apos;[dbo].[PersonRegistration]&apos;) AND type in (N&apos;U&apos;))
-        ///BEGIN
-        ///    CREATE TABLE [dbo].[PersonRegistration](
-        ///        [PersonRegistrationId] [uniqueidentifier] NOT NULL,
-        ///        [UUID] [uniqueidentifier] NOT NULL,
-        ///        [ActorRefId] [uniqueidentifier] NULL,
-        ///        [RegistrationDate] [datetime] NOT NULL,
-        ///        [BrokerUpdateDate] [datetim [rest of string was truncated]&quot;;.
-        /// </summary>
-        public static string PersonRegistration {
-            get {
-                return ResourceManager.GetString("PersonRegistration", resourceCulture);
             }
         }
         
