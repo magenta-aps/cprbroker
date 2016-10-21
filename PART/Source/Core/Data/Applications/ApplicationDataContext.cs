@@ -72,6 +72,7 @@ namespace CprBroker.Data.Applications
                     Properties.Resources.Application,
                     Properties.Resources.LogType,
                     Properties.Resources.LogEntry,
+                    Properties.Resources.DataProviderCall,
                 };
 
             }

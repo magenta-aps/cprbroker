@@ -141,7 +141,6 @@
     <Content Include="Resources\Country.sql" />
     <Content Include="Resources\DataChangeEvent.sql" />
     <Content Include="Resources\DataProvider.sql" />
-    <Content Include="Resources\DataProviderCall.sql" />
     <Content Include="Resources\Extract.sql" />
     <Content Include="Resources\InitializePersonSearchCache.sql" />
     <Content Include="Resources\MvcWebConfig.xml" />

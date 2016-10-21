@@ -72,7 +72,6 @@ namespace CprBroker.CustomActions.Properties
                     Resources.Authority,
                     Resources.Country,
                     Resources.DataProvider,
-                    Resources.DataProviderCall,
                     Resources.BudgetInterval,
                     Resources.DataChangeEvent,
                     Resources.CreatePartDatabaseObjects,

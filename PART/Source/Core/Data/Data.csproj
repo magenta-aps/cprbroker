@@ -207,6 +207,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Applications\Init\Application.sql" />
+    <Content Include="Applications\Init\DataProviderCall.sql" />
     <Content Include="Applications\Init\LogEntry.sql" />
     <Content Include="Applications\Init\LogType.sql" />
     <Content Include="Applications\Readme.txt" />
