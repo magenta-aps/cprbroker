@@ -56,23 +56,16 @@ namespace CprBroker.Data.Applications
             : this(Utilities.Config.ConfigManager.Current.Settings.CprBrokerConnectionString)
         { }
 
-        public Action<SqlConnection> CustomInitializer
-        {
-            get
-            {
-                return null;
-            }
-        }
-
+        #region IDataContextCreationInfo members
         public string[] DDL
         {
             get
             {
                 return new string[] {
-                    Properties.Resources.Application,
-                    Properties.Resources.LogType,
-                    Properties.Resources.LogEntry,
-                    Properties.Resources.DataProviderCall,
+                    Properties.Resources.Application_Sql,
+                    Properties.Resources.LogType_Sql,
+                    Properties.Resources.LogEntry_Sql,
+                    Properties.Resources.DataProviderCall_Sql,
                 };
 
             }
@@ -88,5 +81,14 @@ namespace CprBroker.Data.Applications
                 };
             }
         }
+
+        public Action<SqlConnection> CustomInitializer
+        {
+            get
+            {
+                return null;
+            }
+        }
+        #endregion
     }
 }

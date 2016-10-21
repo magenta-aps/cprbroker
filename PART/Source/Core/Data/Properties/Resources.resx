@@ -118,22 +118,22 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="Application" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Applications\Init\Application.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
   <data name="Application_Csv" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Applications\Init\Application.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
   </data>
-  <data name="DataProviderCall" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="Application_Sql" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Applications\Init\Application.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="DataProviderCall_Sql" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Applications\Init\DataProviderCall.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
-  <data name="LogEntry" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="LogEntry_Sql" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Applications\Init\LogEntry.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="LogType" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Applications\Init\LogType.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="LogType_Csv" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Applications\Init\LogType.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
+  <data name="LogType_Sql" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Applications\Init\LogType.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
 </root>

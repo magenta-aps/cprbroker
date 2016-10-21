@@ -61,6 +61,18 @@ namespace CprBroker.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ApplicationId;Name;Token;RegistrationDate;IsApproved;ApprovedDate
+        ///{3E9890FF-0038-42A4-987A-99B63E8BC865};Base Application;07059250-E448-4040-B695-9C03F9E59E38;2009-06-25;True;
+        ///{C98F9BE7-2DDE-404a-BAB5-5A7B1BBC3063};Event Broker;FCD568A0-8F18-4b6f-8691-C09239F158F3;2011-01-01;True;
+        ///{4A78A5C8-B39B-41B9-9707-5782DAA56E2A};CPR Business Application Demo;5f8b7af5-422e-46bb-9273-5e244dc37505;2011-01-01;True;.
+        /// </summary>
+        internal static string Application_Csv {
+            get {
+                return ResourceManager.GetString("Application_Csv", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to /****** Object:  Table [dbo].[Application]    Script Date: 11/21/2013 10:16:51 ******/
         ///SET ANSI_NULLS ON
         ///GO
@@ -76,21 +88,9 @@ namespace CprBroker.Data.Properties {
         ///	[IsApproved] [bit] NOT NULL,
         ///	[ApprovedDate] [datetime] [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string Application {
+        internal static string Application_Sql {
             get {
-                return ResourceManager.GetString("Application", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to ApplicationId;Name;Token;RegistrationDate;IsApproved;ApprovedDate
-        ///{3E9890FF-0038-42A4-987A-99B63E8BC865};Base Application;07059250-E448-4040-B695-9C03F9E59E38;2009-06-25;True;
-        ///{C98F9BE7-2DDE-404a-BAB5-5A7B1BBC3063};Event Broker;FCD568A0-8F18-4b6f-8691-C09239F158F3;2011-01-01;True;
-        ///{4A78A5C8-B39B-41B9-9707-5782DAA56E2A};CPR Business Application Demo;5f8b7af5-422e-46bb-9273-5e244dc37505;2011-01-01;True;.
-        /// </summary>
-        internal static string Application_Csv {
-            get {
-                return ResourceManager.GetString("Application_Csv", resourceCulture);
+                return ResourceManager.GetString("Application_Sql", resourceCulture);
             }
         }
         
@@ -105,9 +105,9 @@ namespace CprBroker.Data.Properties {
         ///	    [CallTime] [datetime] NOT NULL
         ///            CONSTRA [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string DataProviderCall {
+        internal static string DataProviderCall_Sql {
             get {
-                return ResourceManager.GetString("DataProviderCall", resourceCulture);
+                return ResourceManager.GetString("DataProviderCall_Sql", resourceCulture);
             }
         }
         
@@ -128,31 +128,9 @@ namespace CprBroker.Data.Properties {
         ///	[MethodName] [varchar](250) NULL,
         ///	[Te [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string LogEntry {
+        internal static string LogEntry_Sql {
             get {
-                return ResourceManager.GetString("LogEntry", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to /****** Object:  Table [dbo].[LogType]    Script Date: 11/21/2013 10:16:51 ******/
-        ///SET ANSI_NULLS ON
-        ///GO
-        ///SET QUOTED_IDENTIFIER ON
-        ///GO
-        ///IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N&apos;[dbo].[LogType]&apos;) AND type in (N&apos;U&apos;))
-        ///BEGIN
-        ///CREATE TABLE [dbo].[LogType](
-        ///	[LogTypeId] [int] NOT NULL,
-        ///	[Name] [varchar](50) NOT NULL,
-        /// CONSTRAINT [PK_LogType] PRIMARY KEY CLUSTERED 
-        ///(
-        ///	[LogTypeId] ASC
-        ///)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string LogType {
-            get {
-                return ResourceManager.GetString("LogType", resourceCulture);
+                return ResourceManager.GetString("LogEntry_Sql", resourceCulture);
             }
         }
         
@@ -173,6 +151,28 @@ namespace CprBroker.Data.Properties {
         internal static string LogType_Csv {
             get {
                 return ResourceManager.GetString("LogType_Csv", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /****** Object:  Table [dbo].[LogType]    Script Date: 11/21/2013 10:16:51 ******/
+        ///SET ANSI_NULLS ON
+        ///GO
+        ///SET QUOTED_IDENTIFIER ON
+        ///GO
+        ///IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N&apos;[dbo].[LogType]&apos;) AND type in (N&apos;U&apos;))
+        ///BEGIN
+        ///CREATE TABLE [dbo].[LogType](
+        ///	[LogTypeId] [int] NOT NULL,
+        ///	[Name] [varchar](50) NOT NULL,
+        /// CONSTRAINT [PK_LogType] PRIMARY KEY CLUSTERED 
+        ///(
+        ///	[LogTypeId] ASC
+        ///)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string LogType_Sql {
+            get {
+                return ResourceManager.GetString("LogType_Sql", resourceCulture);
             }
         }
     }
