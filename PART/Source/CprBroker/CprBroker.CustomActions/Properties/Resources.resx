@@ -127,9 +127,6 @@
   <data name="PatchDatabase_1_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\PatchDatabase_1_3.sql;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
-  <data name="Authority_4357" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Authority_4357.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
   <data name="PatchDatabase_1_3_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\PatchDatabase_1_3_2.sql;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
@@ -171,9 +168,6 @@
   </data>
   <data name="DataChangeEvent" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\DataChangeEvent.sql;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="Authority" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Authority.sql;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="Country" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Country.sql;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>

@@ -181,6 +181,8 @@
     <Content Include="Extract\Init\ExtractPersonStaging.sql" />
     <Content Include="Lookup\Authority.xml" />
     <Content Include="Lookup\GeoInformation.xml" />
+    <None Include="Lookup\Init\Authority.sql" />
+    <None Include="Lookup\Init\Authority_4357.txt" />
     <Content Include="XML\CodeGeneration.txt" />
     <Content Include="XML\Definitions.sql" />
     <Content Include="XML\ViewTransform.xslt" />
@@ -222,7 +224,7 @@
   <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>

@@ -22,7 +22,7 @@ namespace CprBroker.Providers.CPRDirect.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace CprBroker.Providers.CPRDirect.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("CprBroker.Providers.CPRDirect.Properties.Resources", typeof(Resources).Assembly);
@@ -51,12 +51,45 @@ namespace CprBroker.Providers.CPRDirect.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 00037071620120702
+        ///001000000019910923120000000000199109231200000000000000Ukendt Myndighed                                                                                                                                                                                      Ukendt Myndighed                                                                                                                                                     000
+        ///001000139020110819105772269735201107010000000000000000Cpr-Kontoret      [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string Authority_4357 {
+            get {
+                return ResourceManager.GetString("Authority_4357", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 
+        ////****** Object:  Table [dbo].[Authority]    Script Date: 11/21/2013 10:16:51 ******/
+        ///SET ANSI_NULLS ON
+        ///GO
+        ///SET QUOTED_IDENTIFIER ON
+        ///GO
+        ///IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N&apos;[dbo].[Authority]&apos;) AND type in (N&apos;U&apos;))
+        ///BEGIN
+        ///CREATE TABLE [dbo].[Authority](
+        ///	[AuthorityCode] [varchar](4) NOT NULL
+        ///		CONSTRAINT [PK_Authority] PRIMARY KEY CLUSTERED (	[AuthorityCode] ASC),
+        ///	[AuthorityType] [varchar](2) NOT NULL,
+        ///	[AuthorityGroup] [char](10) NOT NULL,
+        ///	[UpdateTime] [datetime [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string Authority_Sql {
+            get {
+                return ResourceManager.GetString("Authority_Sql", resourceCulture);
             }
         }
         
@@ -73,7 +106,7 @@ namespace CprBroker.Providers.CPRDirect.Properties {
         ///	    [StartRecord] [nvarchar](max) NOT NULL,
         ///	 [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string Extract_Sql {
+        public static string Extract_Sql {
             get {
                 return ResourceManager.GetString("Extract_Sql", resourceCulture);
             }
@@ -96,7 +129,7 @@ namespace CprBroker.Providers.CPRDirect.Properties {
         ///	[ExtractErrorId] ASC
         ///)W [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string ExtractError_Sql {
+        public static string ExtractError_Sql {
             get {
                 return ResourceManager.GetString("ExtractError_Sql", resourceCulture);
             }
@@ -118,7 +151,7 @@ namespace CprBroker.Providers.CPRDirect.Properties {
         ///	[RelationPNR2] [varchar](10) NULL,
         ///	[DataTypeCode] [var [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string ExtractItem_Sql {
+        public static string ExtractItem_Sql {
             get {
                 return ResourceManager.GetString("ExtractItem_Sql", resourceCulture);
             }
@@ -138,7 +171,7 @@ namespace CprBroker.Providers.CPRDirect.Properties {
         ///	[PNR] [varchar](10) NOT NULL,
         /// CONSTRAINT [PK_ExtractPersonStaging] PRIMARY KEY CLUSTER [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string ExtractPersonStaging_Sql {
+        public static string ExtractPersonStaging_Sql {
             get {
                 return ResourceManager.GetString("ExtractPersonStaging_Sql", resourceCulture);
             }

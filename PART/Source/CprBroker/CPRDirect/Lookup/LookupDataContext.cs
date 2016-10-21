@@ -47,13 +47,45 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using CprBroker.Utilities.Config;
+using CprBroker.Data;
+using System.Data.SqlClient;
 
 namespace CprBroker.Providers.CPRDirect
 {
-    public partial class LookupDataContext
+    public partial class LookupDataContext : IDataContextCreationInfo
     {
         public LookupDataContext()
             : this(ConfigManager.Current.Settings.CprBrokerConnectionString)
         { }
+
+        #region IDataContextCreationInfo members
+        public string[] DDL
+        {
+            get
+            {
+                return new string[] {
+                    Properties.Resources.Authority_Sql,
+                };
+            }
+        }
+
+        public KeyValuePair<string, string>[] Lookups
+        {
+            get
+            {
+                return new KeyValuePair<string, string>[] { };
+            }
+        }
+
+        public Action<SqlConnection>[] CustomInitializers
+        {
+            get
+            {
+                return new Action<SqlConnection>[] {
+                    (conn)=> Authority.ImportText(Properties.Resources.Authority_4357, conn),
+                };
+            }
+        }
+        #endregion
     }
 }

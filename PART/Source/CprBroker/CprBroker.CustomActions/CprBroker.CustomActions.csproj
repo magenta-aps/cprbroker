@@ -134,7 +134,6 @@
     <None Include="Resources\Queue.csv" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\Authority.sql" />
     <Content Include="Resources\Country.sql" />
     <Content Include="Resources\DataChangeEvent.sql" />
     <Content Include="Resources\InitializePersonSearchCache.sql" />
@@ -153,7 +152,6 @@
     <Content Include="Resources\PatchDatabase_2_1.sql" />
     <Content Include="Resources\PatchDatabase_2_2.sql" />
     <Content Include="Resources\PatchDatabase_2_2_1.sql" />
-    <None Include="Resources\Authority_4357.txt" />
     <Content Include="Resources\PatchDatabase_1_3.sql" />
   </ItemGroup>
   <ItemGroup>

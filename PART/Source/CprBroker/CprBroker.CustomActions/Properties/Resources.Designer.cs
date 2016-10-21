@@ -62,39 +62,6 @@ namespace CprBroker.CustomActions.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to 
-        ////****** Object:  Table [dbo].[Authority]    Script Date: 11/21/2013 10:16:51 ******/
-        ///SET ANSI_NULLS ON
-        ///GO
-        ///SET QUOTED_IDENTIFIER ON
-        ///GO
-        ///IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N&apos;[dbo].[Authority]&apos;) AND type in (N&apos;U&apos;))
-        ///BEGIN
-        ///CREATE TABLE [dbo].[Authority](
-        ///	[AuthorityCode] [varchar](4) NOT NULL
-        ///		CONSTRAINT [PK_Authority] PRIMARY KEY CLUSTERED (	[AuthorityCode] ASC),
-        ///	[AuthorityType] [varchar](2) NOT NULL,
-        ///	[AuthorityGroup] [char](10) NOT NULL,
-        ///	[UpdateTime] [datetime [rest of string was truncated]&quot;;.
-        /// </summary>
-        public static string Authority {
-            get {
-                return ResourceManager.GetString("Authority", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to 00037071620120702
-        ///001000000019910923120000000000199109231200000000000000Ukendt Myndighed                                                                                                                                                                                      Ukendt Myndighed                                                                                                                                                     000
-        ///001000139020110819105772269735201107010000000000000000Cpr-Kontoret      [rest of string was truncated]&quot;;.
-        /// </summary>
-        public static string Authority_4357 {
-            get {
-                return ResourceManager.GetString("Authority_4357", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to 
         ////****** Object:  Table [dbo].[Country]    Script Date: 11/21/2013 10:16:51 ******/
         ///SET ANSI_NULLS ON
         ///GO

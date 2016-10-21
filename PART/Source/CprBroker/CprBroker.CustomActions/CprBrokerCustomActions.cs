@@ -211,8 +211,7 @@ namespace CprBroker.CustomActions
 
                 // Custom methods
                 var customMethods = new Dictionary<string, Action<SqlConnection>>();
-                customMethods["CPR"] =
-                    conn => CprBroker.Providers.CPRDirect.Authority.ImportText(Properties.Resources.Authority_4357, conn);
+                customMethods["CPR"] = Properties.ResourcesExtensions.CustomMethods;
 
                 return DatabaseCustomAction.DeployDatabase(session, createDatabaseObjectsSql, lookupDataArray, customMethods);
             }
@@ -274,7 +273,7 @@ namespace CprBroker.CustomActions
                     new DatabasePatchInfo(){
                         Version = new Version(1,3),
                         SqlScript = Properties.Resources.PatchDatabase_1_3,
-                        PatchAction = conn => CprBroker.Providers.CPRDirect.Authority.ImportText(Properties.Resources.Authority_4357, conn)
+                        PatchAction = conn => CprBroker.Providers.CPRDirect.Authority.ImportText(Providers.CPRDirect.Properties.Resources.Authority_4357, conn)
                     },
                     new DatabasePatchInfo(){
                         Version = new Version(1,3,2),
@@ -312,7 +311,7 @@ namespace CprBroker.CustomActions
                         PatchAction = conn=>
                             {
                                 DatabaseCustomAction.InsertLookup<CprBroker.Data.Queues.DbQueue>(Properties.Resources.Queue_Csv, conn);
-                                CprBroker.Providers.CPRDirect.Authority.ImportText(Properties.Resources.Authority_4357, conn);
+                                CprBroker.Providers.CPRDirect.Authority.ImportText(Providers.CPRDirect.Properties.Resources.Authority_4357, conn);
                             }
                     },
                     new DatabasePatchInfo(){
