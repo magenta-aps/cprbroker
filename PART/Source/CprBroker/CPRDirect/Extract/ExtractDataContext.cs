@@ -23,6 +23,7 @@ namespace CprBroker.Providers.CPRDirect
                     Properties.Resources.Extract_Sql,
                     Properties.Resources.ExtractPersonStaging_Sql,
                     Properties.Resources.ExtractItem_Sql,
+                    Properties.Resources.ExtractError_Sql,
                 };
             }
         }

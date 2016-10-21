@@ -80,6 +80,29 @@ namespace CprBroker.Providers.CPRDirect.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to /****** Object:  Table [dbo].[ExtractError]    Script Date: 11/21/2013 10:16:51 ******/
+        ///SET ANSI_NULLS ON
+        ///GO
+        ///SET QUOTED_IDENTIFIER ON
+        ///GO
+        ///IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N&apos;[dbo].[ExtractError]&apos;) AND type in (N&apos;U&apos;))
+        ///BEGIN
+        ///CREATE TABLE [dbo].[ExtractError](
+        ///	[ExtractErrorId] [uniqueidentifier] NOT NULL,
+        ///	[ExtractId] [uniqueidentifier] NOT NULL,
+        ///	[Contents] [nvarchar](157) NOT NULL,
+        /// CONSTRAINT [PK_ExtractError] PRIMARY KEY CLUSTERED 
+        ///(
+        ///	[ExtractErrorId] ASC
+        ///)W [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string ExtractError_Sql {
+            get {
+                return ResourceManager.GetString("ExtractError_Sql", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to /****** Object:  Table [dbo].[ExtractItem]    Script Date: 11/21/2013 10:16:51 ******/
         ///SET ANSI_NULLS ON
         ///GO
