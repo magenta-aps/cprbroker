@@ -61,18 +61,6 @@ namespace CprBroker.CustomActions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ApplicationId;Name;Token;RegistrationDate;IsApproved;ApprovedDate
-        ///{3E9890FF-0038-42A4-987A-99B63E8BC865};Base Application;07059250-E448-4040-B695-9C03F9E59E38;2009-06-25;True;
-        ///{C98F9BE7-2DDE-404a-BAB5-5A7B1BBC3063};Event Broker;FCD568A0-8F18-4b6f-8691-C09239F158F3;2011-01-01;True;
-        ///{4A78A5C8-B39B-41B9-9707-5782DAA56E2A};CPR Business Application Demo;5f8b7af5-422e-46bb-9273-5e244dc37505;2011-01-01;True;.
-        /// </summary>
-        public static string Application {
-            get {
-                return ResourceManager.GetString("Application", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to 
         ////****** Object:  Table [dbo].[Authority]    Script Date: 11/21/2013 10:16:51 ******/
         ///SET ANSI_NULLS ON
@@ -165,20 +153,21 @@ namespace CprBroker.CustomActions.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to 
-        ////****** Object:  Table [dbo].[Application]    Script Date: 11/21/2013 10:16:51 ******/
+        ////****** Object:  Table [dbo].[ActorRef]    Script Date: 11/21/2013 10:16:51 ******/
         ///SET ANSI_NULLS ON
         ///GO
         ///SET QUOTED_IDENTIFIER ON
         ///GO
-        ///IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N&apos;[dbo].[Application]&apos;) AND type in (N&apos;U&apos;))
+        ///IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N&apos;[dbo].[ActorRef]&apos;) AND type in (N&apos;U&apos;))
         ///BEGIN
-        ///CREATE TABLE [dbo].[Application](
-        ///	[ApplicationId] [uniqueidentifier] NOT NULL,
-        ///	[Name] [nvarchar](100) NOT NULL,
-        ///	[Token] [varchar](50) NOT NULL,
-        ///	[RegistrationDate] [datetime] NOT NULL,
-        ///	[IsApproved] [bit] NOT NULL,
-        ///	[ApprovedDate] [datetim [rest of string was truncated]&quot;;.
+        ///CREATE TABLE [dbo].[ActorRef](
+        ///	[ActorRefId] [uniqueidentifier] NOT NULL,
+        ///	[Type] [int] NOT NULL,
+        ///	[Value] [varchar](50) NULL,
+        /// CONSTRAINT [PK_ActorRef] PRIMARY KEY CLUSTERED 
+        ///(
+        ///	[ActorRefId] ASC
+        ///)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  =  [rest of string was truncated]&quot;;.
         /// </summary>
         public static string CreatePartDatabaseObjects {
             get {

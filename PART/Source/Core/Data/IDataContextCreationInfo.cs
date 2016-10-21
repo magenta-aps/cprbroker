@@ -9,8 +9,18 @@ namespace CprBroker.Data
 {
     public interface IDataContextCreationInfo
     {
-        string DDL { get; }
+        string[] DDL { get; }
         KeyValuePair<string, string>[] Lookups { get; }
         Action<SqlConnection> CustomInitializer { get; }
+    }
+
+    public static class IDataContextCreationInfoExtensions
+    {
+        public static string JoinDdl(this IDataContextCreationInfo dataContextInfo, params string[] ddlArray)
+        {
+            return string.Join(
+                Environment.NewLine + "GO" + Environment.NewLine,
+                ddlArray);
+        }
     }
 }

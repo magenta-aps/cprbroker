@@ -128,7 +128,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="CustomAction.config" />
-    <None Include="Resources\Application.csv" />
     <None Include="Resources\BudgetInterval.csv" />
     <None Include="Resources\CreatePartDatabaseObjects.sql" />
     <None Include="Resources\LifecycleStatus.csv" />

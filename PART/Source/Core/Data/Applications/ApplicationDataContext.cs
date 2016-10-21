@@ -41,16 +41,48 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
+using System;
+using System.Collections.Generic;
+using System.Data.SqlClient;
+
 namespace CprBroker.Data.Applications
 {
     /// <summary>
     /// Represents the data context for applications
     /// </summary>
-    partial class ApplicationDataContext
+    partial class ApplicationDataContext : IDataContextCreationInfo
     {
         public ApplicationDataContext()
             : this(Utilities.Config.ConfigManager.Current.Settings.CprBrokerConnectionString)
         { }
 
+        public Action<SqlConnection> CustomInitializer
+        {
+            get
+            {
+                return null;
+            }
+        }
+
+        public string[] DDL
+        {
+            get
+            {
+                return new string[] {
+                    Properties.Resources.Application,
+                };
+
+            }
+        }
+
+        public KeyValuePair<string, string>[] Lookups
+        {
+            get
+            {
+                return new KeyValuePair<string, string>[] {
+                    new KeyValuePair<string, string>(CprBroker.Utilities.DataLinq.GetTableName<Application>(), Properties.Resources.Application),
+            };
+            }
+        }
     }
 }

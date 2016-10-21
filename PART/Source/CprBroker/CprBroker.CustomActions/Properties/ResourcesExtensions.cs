@@ -58,9 +58,15 @@ namespace CprBroker.CustomActions.Properties
         {
             get
             {
-                var arr = new string[] { 
+                var cprDDL = new List<string>();
+
+                // DDL defined on data contexts
+                cprDDL.AddRange(new ApplicationDataContext().DDL);
+
+                // DDL defined explicitly
+                cprDDL.AddRange(new string[] {
                     Resources.Semaphore,
-                    Resources.Extract,                    
+                    Resources.Extract,
                     Resources.Queue,
                     Resources.QueueItem,
                     Resources.Authority,
@@ -75,11 +81,11 @@ namespace CprBroker.CustomActions.Properties
                     Resources.InitializePersonSearchCache,
                     Resources.PersonRegistration,
                     Resources.PersonRegistration_PopulateSearchCache
-                };
+                });
 
                 return string.Join(
                         Environment.NewLine + "GO" + Environment.NewLine,
-                        arr);
+                        cprDDL);
             }
         }
 
@@ -89,7 +95,10 @@ namespace CprBroker.CustomActions.Properties
             {
                 List<KeyValuePair<string, string>> cprLookups = new List<KeyValuePair<string, string>>();
 
-                cprLookups.Add(new KeyValuePair<string, string>(CprBroker.Utilities.DataLinq.GetTableName<Application>(), Properties.Resources.Application));
+                // Lookups defined on data contexts
+                cprLookups.AddRange(new ApplicationDataContext().Lookups);
+
+                // Lookups defined explicitly
                 cprLookups.Add(new KeyValuePair<string, string>(CprBroker.Utilities.DataLinq.GetTableName<LifecycleStatus>(), Properties.Resources.LifecycleStatus));
                 cprLookups.Add(new KeyValuePair<string, string>(CprBroker.Utilities.DataLinq.GetTableName<LogType>(), Properties.Resources.LogType));
                 cprLookups.Add(new KeyValuePair<string, string>(CprBroker.Utilities.DataLinq.GetTableName<BudgetInterval>(), Properties.Resources.BudgetInterval_Csv));
