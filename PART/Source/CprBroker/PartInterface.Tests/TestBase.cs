@@ -66,7 +66,7 @@ namespace CprBroker.Tests.PartInterface
         {
             public string DbName;
             public string ConnectionString;
-            public string MasterConnectionString;
+            public string MasterConnectionString { get; } = "Data Source=localhost\\sqlexpress; integrated security=sspi;";
             public KeyValuePair<string, string>[] Lookups;
         }
 
@@ -180,7 +180,6 @@ namespace CprBroker.Tests.PartInterface
             Databases.Add(db);
 
             db.DbName = prefix + CprBroker.Utilities.Strings.NewRandomString(7);
-            db.MasterConnectionString = "Data Source=localhost\\sqlexpress; integrated security=sspi;";
             db.ConnectionString = string.Format("Data Source=localhost\\sqlexpress; integrated security=sspi; initial catalog={0}", db.DbName);
             db.Lookups = lookups;
 
