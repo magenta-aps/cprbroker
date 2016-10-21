@@ -71,6 +71,7 @@ namespace CprBroker.Data.Applications
                 return new string[] {
                     Properties.Resources.Application,
                     Properties.Resources.LogType,
+                    Properties.Resources.LogEntry,
                 };
 
             }
