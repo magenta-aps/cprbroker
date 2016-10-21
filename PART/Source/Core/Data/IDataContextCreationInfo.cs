@@ -11,7 +11,7 @@ namespace CprBroker.Data
     {
         string[] DDL { get; }
         KeyValuePair<string, string>[] Lookups { get; }
-        Action<SqlConnection> CustomInitializer { get; }
+        Action<SqlConnection>[] CustomInitializers { get; }
     }
 
     public static class IDataContextCreationInfoExtensions

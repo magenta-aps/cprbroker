@@ -33,11 +33,11 @@ namespace CprBroker.Data.Queues
             }
         }
 
-        public Action<SqlConnection> CustomInitializer
+        public Action<SqlConnection>[] CustomInitializers
         {
             get
             {
-                return null;
+                return new Action<SqlConnection>[] { };
             }
         }
         #endregion
