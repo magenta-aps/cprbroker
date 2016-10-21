@@ -49,6 +49,7 @@ using CprBroker.Data.Applications;
 using CprBroker.Data.DataProviders;
 using CprBroker.Data.Part;
 using CprBroker.Data.Queues;
+using CprBroker.Providers.CPRDirect;
 
 namespace CprBroker.CustomActions.Properties
 {
@@ -62,6 +63,9 @@ namespace CprBroker.CustomActions.Properties
 
                 // DDL defined on data contexts
                 cprDDL.AddRange(new ApplicationDataContext().DDL);
+                cprDDL.AddRange(new DataProvidersDataContext().DDL);
+                cprDDL.AddRange(new QueueDataContext().DDL);
+                cprDDL.AddRange(new ExtractDataContext().DDL);
 
                 // DDL defined explicitly
                 cprDDL.AddRange(new string[] {
@@ -90,6 +94,9 @@ namespace CprBroker.CustomActions.Properties
 
                 // Lookups defined on data contexts
                 cprLookups.AddRange(new ApplicationDataContext().Lookups);
+                cprLookups.AddRange(new DataProvidersDataContext().Lookups);
+                cprLookups.AddRange(new QueueDataContext().Lookups);
+                cprLookups.AddRange(new ExtractDataContext().Lookups);
 
                 // Lookups defined explicitly
                 cprLookups.Add(new KeyValuePair<string, string>(CprBroker.Utilities.DataLinq.GetTableName<LifecycleStatus>(), Properties.Resources.LifecycleStatus));
