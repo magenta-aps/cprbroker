@@ -145,9 +145,6 @@
   <data name="PatchDatabase_2_2_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\PatchDatabase_2_2_1.sql;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
-  <data name="BudgetInterval_Csv" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\BudgetInterval.csv;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
   <data name="PatchDatabase_2_2_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\PatchDatabase_2_2_2.sql;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
@@ -183,12 +180,6 @@
   </data>
   <data name="Semaphore" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Semaphore.sql;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="BudgetInterval" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\BudgetInterval.sql;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="DataProvider" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\DataProvider.sql;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="DataChangeEvent" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\DataChangeEvent.sql;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>

@@ -71,8 +71,6 @@ namespace CprBroker.CustomActions.Properties
                     Resources.QueueItem,
                     Resources.Authority,
                     Resources.Country,
-                    Resources.DataProvider,
-                    Resources.BudgetInterval,
                     Resources.DataChangeEvent,
                     Resources.CreatePartDatabaseObjects,
                     Resources.PersonSearchCache,
@@ -99,7 +97,6 @@ namespace CprBroker.CustomActions.Properties
 
                 // Lookups defined explicitly
                 cprLookups.Add(new KeyValuePair<string, string>(CprBroker.Utilities.DataLinq.GetTableName<LifecycleStatus>(), Properties.Resources.LifecycleStatus));
-                cprLookups.Add(new KeyValuePair<string, string>(CprBroker.Utilities.DataLinq.GetTableName<BudgetInterval>(), Properties.Resources.BudgetInterval_Csv));
                 cprLookups.Add(new KeyValuePair<string, string>(CprBroker.Utilities.DataLinq.GetTableName<DbQueue>(), Properties.Resources.Queue_Csv));
 
                 return cprLookups.ToArray();

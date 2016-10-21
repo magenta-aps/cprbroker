@@ -128,7 +128,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="CustomAction.config" />
-    <None Include="Resources\BudgetInterval.csv" />
     <None Include="Resources\CreatePartDatabaseObjects.sql" />
     <None Include="Resources\LifecycleStatus.csv" />
     <None Include="Resources\LogType.csv" />
@@ -137,10 +136,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\Authority.sql" />
-    <Content Include="Resources\BudgetInterval.sql" />
     <Content Include="Resources\Country.sql" />
     <Content Include="Resources\DataChangeEvent.sql" />
-    <Content Include="Resources\DataProvider.sql" />
     <Content Include="Resources\Extract.sql" />
     <Content Include="Resources\InitializePersonSearchCache.sql" />
     <Content Include="Resources\MvcWebConfig.xml" />

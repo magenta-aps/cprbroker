@@ -94,41 +94,6 @@ namespace CprBroker.CustomActions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N&apos;[dbo].[BudgetInterval]&apos;) AND type in (N&apos;U&apos;))
-        ///BEGIN
-        ///    CREATE TABLE [dbo].[BudgetInterval](
-        ///	    [IntervalMilliseconds] [bigint] NOT NULL
-        ///            CONSTRAINT [PK_BudgetInterval] PRIMARY KEY CLUSTERED ([IntervalMilliseconds] ASC),
-        ///	    [Name] [varchar](50) NOT NULL,
-        ///	    [CallThreshold] [int] NULL,
-        ///	    [CostThreshold] [decimal](18, 4) NULL,
-        ///	    [LastChecked] [datetime] NULL
-        ///    ) ON [PRIMARY]
-        ///END
-        ///
-        ///GO
-        ///.
-        /// </summary>
-        public static string BudgetInterval {
-            get {
-                return ResourceManager.GetString("BudgetInterval", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to IntervalMilliseconds;Name;CallThreshold;CostThreshold;LastChecked
-        ///3600000;Hour;;;
-        ///86400000;Day;;;
-        ///604800000;Week;;;
-        ///2592000000;Month;;;.
-        /// </summary>
-        public static string BudgetInterval_Csv {
-            get {
-                return ResourceManager.GetString("BudgetInterval_Csv", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to 
         ////****** Object:  Table [dbo].[Country]    Script Date: 11/21/2013 10:16:51 ******/
         ///SET ANSI_NULLS ON
@@ -193,28 +158,6 @@ namespace CprBroker.CustomActions.Properties {
         public static string DataChangeEvent {
             get {
                 return ResourceManager.GetString("DataChangeEvent", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N&apos;[dbo].[DataProvider]&apos;) AND type in (N&apos;U&apos;))
-        ///BEGIN
-        ///    CREATE TABLE [dbo].[DataProvider](
-        ///	    [DataProviderId] [uniqueidentifier] NOT NULL
-        ///            CONSTRAINT [PK_DataProvider] PRIMARY KEY CLUSTERED ([DataProviderId] ASC),
-        ///	    [TypeName] [varchar](250) NOT NULL,
-        ///	    [Ordinal] [int] NOT NULL,
-        ///	    [Data] [image] NULL,
-        ///	    [IsExternal] [bit] NOT NULL,
-        ///	    [IsEnabled] [bit] NOT NULL
-        ///    ) ON [PRIMARY] 
-        ///END
-        ///GO
-        ///.
-        /// </summary>
-        public static string DataProvider {
-            get {
-                return ResourceManager.GetString("DataProvider", resourceCulture);
             }
         }
         

@@ -43,6 +43,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 
@@ -51,12 +52,44 @@ namespace CprBroker.Data.DataProviders
     /// <summary>
     /// Represents the data context for data providers
     /// </summary>
-    public partial class DataProvidersDataContext
+    public partial class DataProvidersDataContext : IDataContextCreationInfo
     {
         public DataProvidersDataContext()
             : base(CprBroker.Utilities.Config.ConfigManager.Current.Settings.CprBrokerConnectionString)
         {
             OnCreated();
         }
+
+        #region IDataContextCreationInfo members
+        public string[] DDL
+        {
+            get
+            {
+                return new string[] {
+                    Properties.Resources.DataProvider_Sql,
+                    Properties.Resources.BudgetInterval_Sql,
+                };
+            }
+        }
+
+        public KeyValuePair<string, string>[] Lookups
+        {
+            get
+            {
+                return new KeyValuePair<string, string>[] {
+                    new KeyValuePair<string, string>(CprBroker.Utilities.DataLinq.GetTableName<BudgetInterval>(), Properties.Resources.BudgetInterval_Csv)
+                };
+            }
+        }
+
+        public Action<SqlConnection> CustomInitializer
+        {
+            get
+            {
+                return null;
+            }
+        }
+        #endregion
+
     }
 }

@@ -22,7 +22,7 @@ namespace CprBroker.Data.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace CprBroker.Data.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("CprBroker.Data.Properties.Resources", typeof(Resources).Assembly);
@@ -51,7 +51,7 @@ namespace CprBroker.Data.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -66,7 +66,7 @@ namespace CprBroker.Data.Properties {
         ///{C98F9BE7-2DDE-404a-BAB5-5A7B1BBC3063};Event Broker;FCD568A0-8F18-4b6f-8691-C09239F158F3;2011-01-01;True;
         ///{4A78A5C8-B39B-41B9-9707-5782DAA56E2A};CPR Business Application Demo;5f8b7af5-422e-46bb-9273-5e244dc37505;2011-01-01;True;.
         /// </summary>
-        internal static string Application_Csv {
+        public static string Application_Csv {
             get {
                 return ResourceManager.GetString("Application_Csv", resourceCulture);
             }
@@ -88,9 +88,66 @@ namespace CprBroker.Data.Properties {
         ///	[IsApproved] [bit] NOT NULL,
         ///	[ApprovedDate] [datetime] [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string Application_Sql {
+        public static string Application_Sql {
             get {
                 return ResourceManager.GetString("Application_Sql", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IntervalMilliseconds;Name;CallThreshold;CostThreshold;LastChecked
+        ///3600000;Hour;;;
+        ///86400000;Day;;;
+        ///604800000;Week;;;
+        ///2592000000;Month;;;.
+        /// </summary>
+        public static string BudgetInterval_Csv {
+            get {
+                return ResourceManager.GetString("BudgetInterval_Csv", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N&apos;[dbo].[BudgetInterval]&apos;) AND type in (N&apos;U&apos;))
+        ///BEGIN
+        ///    CREATE TABLE [dbo].[BudgetInterval](
+        ///	    [IntervalMilliseconds] [bigint] NOT NULL
+        ///            CONSTRAINT [PK_BudgetInterval] PRIMARY KEY CLUSTERED ([IntervalMilliseconds] ASC),
+        ///	    [Name] [varchar](50) NOT NULL,
+        ///	    [CallThreshold] [int] NULL,
+        ///	    [CostThreshold] [decimal](18, 4) NULL,
+        ///	    [LastChecked] [datetime] NULL
+        ///    ) ON [PRIMARY]
+        ///END
+        ///
+        ///GO
+        ///.
+        /// </summary>
+        public static string BudgetInterval_Sql {
+            get {
+                return ResourceManager.GetString("BudgetInterval_Sql", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N&apos;[dbo].[DataProvider]&apos;) AND type in (N&apos;U&apos;))
+        ///BEGIN
+        ///    CREATE TABLE [dbo].[DataProvider](
+        ///	    [DataProviderId] [uniqueidentifier] NOT NULL
+        ///            CONSTRAINT [PK_DataProvider] PRIMARY KEY CLUSTERED ([DataProviderId] ASC),
+        ///	    [TypeName] [varchar](250) NOT NULL,
+        ///	    [Ordinal] [int] NOT NULL,
+        ///	    [Data] [image] NULL,
+        ///	    [IsExternal] [bit] NOT NULL,
+        ///	    [IsEnabled] [bit] NOT NULL
+        ///    ) ON [PRIMARY] 
+        ///END
+        ///GO
+        ///.
+        /// </summary>
+        public static string DataProvider_Sql {
+            get {
+                return ResourceManager.GetString("DataProvider_Sql", resourceCulture);
             }
         }
         
@@ -105,7 +162,7 @@ namespace CprBroker.Data.Properties {
         ///	    [CallTime] [datetime] NOT NULL
         ///            CONSTRA [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string DataProviderCall_Sql {
+        public static string DataProviderCall_Sql {
             get {
                 return ResourceManager.GetString("DataProviderCall_Sql", resourceCulture);
             }
@@ -128,7 +185,7 @@ namespace CprBroker.Data.Properties {
         ///	[MethodName] [varchar](250) NULL,
         ///	[Te [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string LogEntry_Sql {
+        public static string LogEntry_Sql {
             get {
                 return ResourceManager.GetString("LogEntry_Sql", resourceCulture);
             }
@@ -148,7 +205,7 @@ namespace CprBroker.Data.Properties {
         ///4096;Transfer
         ///.
         /// </summary>
-        internal static string LogType_Csv {
+        public static string LogType_Csv {
             get {
                 return ResourceManager.GetString("LogType_Csv", resourceCulture);
             }
@@ -170,7 +227,7 @@ namespace CprBroker.Data.Properties {
         ///	[LogTypeId] ASC
         ///)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string LogType_Sql {
+        public static string LogType_Sql {
             get {
                 return ResourceManager.GetString("LogType_Sql", resourceCulture);
             }

@@ -124,8 +124,17 @@
   <data name="Application_Sql" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Applications\Init\Application.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
+  <data name="BudgetInterval_Csv" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\DataProviders\Init\BudgetInterval.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="BudgetInterval_Sql" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\DataProviders\Init\BudgetInterval.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
   <data name="DataProviderCall_Sql" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Applications\Init\DataProviderCall.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="DataProvider_Sql" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\DataProviders\Init\DataProvider.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="LogEntry_Sql" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Applications\Init\LogEntry.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>

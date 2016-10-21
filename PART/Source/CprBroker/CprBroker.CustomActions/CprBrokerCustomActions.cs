@@ -304,7 +304,7 @@ namespace CprBroker.CustomActions
                     new DatabasePatchInfo(){
                         Version = new Version(2,2,2),
                         SqlScript = Properties.Resources.PatchDatabase_2_2_2,
-                        PatchAction = conn=> DatabaseCustomAction.InsertLookup<CprBroker.Data.DataProviders.BudgetInterval>(Properties.Resources.BudgetInterval_Csv, conn)
+                        PatchAction = conn=> DatabaseCustomAction.InsertLookup<CprBroker.Data.DataProviders.BudgetInterval>(CprBroker.Data.Properties.Resources.BudgetInterval_Csv, conn)
                     },
                     new DatabasePatchInfo(){
                         Version = new Version(2,2,3),

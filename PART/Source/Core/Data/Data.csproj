@@ -160,6 +160,7 @@
     <None Include="app.config" />
     <None Include="Applications\Init\Application.csv" />
     <None Include="Applications\Init\LogType.csv" />
+    <None Include="DataProviders\Init\BudgetInterval.csv" />
     <None Include="Queues\QueueDataContext.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>QueueDataContext.designer.cs</LastGenOutput>
@@ -211,6 +212,8 @@
     <Content Include="Applications\Init\LogEntry.sql" />
     <Content Include="Applications\Init\LogType.sql" />
     <Content Include="Applications\Readme.txt" />
+    <None Include="DataProviders\Init\DataProvider.sql" />
+    <Content Include="DataProviders\Init\BudgetInterval.sql" />
     <Content Include="DataProviders\Readme.txt" />
     <Content Include="Readme.txt" />
   </ItemGroup>
@@ -243,10 +246,11 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
