@@ -176,6 +176,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Extract\Init\Extract.sql" />
+    <Content Include="Extract\Init\ExtractItem.sql" />
     <Content Include="Extract\Init\ExtractPersonStaging.sql" />
     <Content Include="Lookup\Authority.xml" />
     <Content Include="Lookup\GeoInformation.xml" />
