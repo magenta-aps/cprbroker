@@ -169,17 +169,8 @@
   <data name="TrimAddressString" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\TrimAddressString.sql;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
-  <data name="Queue" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Queue.sql;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
-  <data name="QueueItem" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\QueueItem.sql;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
   <data name="Queue_Csv" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Queue.csv;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="Semaphore" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Semaphore.sql;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="DataChangeEvent" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\DataChangeEvent.sql;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>

@@ -500,26 +500,6 @@ namespace CprBroker.CustomActions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N&apos;[dbo].[Queue]&apos;) AND type in (N&apos;U&apos;))
-        ///BEGIN
-        ///    CREATE TABLE [dbo].[Queue](
-        ///	    [QueueId] [uniqueidentifier] NOT NULL
-        ///            CONSTRAINT [PK_Queue] PRIMARY KEY CLUSTERED ([QueueId] ASC)
-        ///            CONSTRAINT [DF_Queue_QueueId] DEFAULT NEWID(),
-        ///	    [TypeId] [int] NULL,
-        ///	    [TypeName] [varchar](250) NOT NULL,
-        ///	    [BatchSize] [int] NOT NULL,
-        ///	    [MaxRetry] [int] NOT NULL,
-        ///	    [EncryptedData] [varbinary](max) NULL
-        ///    ) O [rest of string was truncated]&quot;;.
-        /// </summary>
-        public static string Queue {
-            get {
-                return ResourceManager.GetString("Queue", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to TypeId;TypeName;BatchSize;MaxRetry
         ///100;CprBroker.Providers.CPRDirect.ExtractStagingQueue, CprBroker.Providers.CPRDirect;1000;100
         ///101;CprBroker.Providers.CPRDirect.PartConversionQueue, CprBroker.Providers.CPRDirect;100;100
@@ -530,40 +510,6 @@ namespace CprBroker.CustomActions.Properties {
         public static string Queue_Csv {
             get {
                 return ResourceManager.GetString("Queue_Csv", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N&apos;[dbo].[QueueItem]&apos;) AND type in (N&apos;U&apos;))
-        ///BEGIN
-        ///    CREATE TABLE [dbo].[QueueItem](
-        ///	    [QueueItemId]   int IDENTITY(1,1)   NOT NULL CONSTRAINT [PK_QueueItem]              PRIMARY KEY CLUSTERED ([QueueItemId] ASC),
-        ///	    [QueueId]       uniqueidentifier    NOT NULL CONSTRAINT [FK_QueueItem_Queue]        FOREIGN KEY ([QueueId]) REFERENCES [dbo].[Queue] ([QueueId]) ON UPDATE CASCADE ON DELETE CASCADE,
-        ///	    [ItemKey]       varchar(50)    [rest of string was truncated]&quot;;.
-        /// </summary>
-        public static string QueueItem {
-            get {
-                return ResourceManager.GetString("QueueItem", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N&apos;[dbo].[Semaphore]&apos;) AND type in (N&apos;U&apos;))
-        ///BEGIN    
-        ///    CREATE TABLE [dbo].[Semaphore](
-        ///	    [SemaphoreId] [uniqueidentifier] NOT NULL 
-        ///            CONSTRAINT [PK_Semaphore] PRIMARY KEY CLUSTERED ([SemaphoreId] ASC)
-        ///            CONSTRAINT [DF_Semaphore_SemaphoreId]  DEFAULT (newid()),
-        ///	    [CreatedDate] [datetime] NOT NULL,
-        ///		[WaitCount] INT DEFAULT 1 NULL,
-        ///	    [SignaledDate] [datetime] NULL,
-        ///    ) ON [PRIMARY]
-        ///END
-        ///GO.
-        /// </summary>
-        public static string Semaphore {
-            get {
-                return ResourceManager.GetString("Semaphore", resourceCulture);
             }
         }
         

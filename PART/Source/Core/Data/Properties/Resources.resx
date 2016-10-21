@@ -145,4 +145,13 @@
   <data name="LogType_Sql" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Applications\Init\LogType.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
+  <data name="QueueItem_Sql" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Queues\Init\QueueItem.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="Queue_Sql" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Queues\Init\Queue.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="Semaphore_Sql" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Queues\Init\Semaphore.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
 </root>

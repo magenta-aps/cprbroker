@@ -215,6 +215,9 @@
     <None Include="DataProviders\Init\DataProvider.sql" />
     <Content Include="DataProviders\Init\BudgetInterval.sql" />
     <Content Include="DataProviders\Readme.txt" />
+    <Content Include="Queues\Init\Queue.sql" />
+    <Content Include="Queues\Init\QueueItem.sql" />
+    <Content Include="Queues\Init\Semaphore.sql" />
     <Content Include="Readme.txt" />
   </ItemGroup>
   <ItemGroup>

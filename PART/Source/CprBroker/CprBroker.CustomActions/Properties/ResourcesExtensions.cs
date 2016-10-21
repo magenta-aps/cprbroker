@@ -65,10 +65,7 @@ namespace CprBroker.CustomActions.Properties
 
                 // DDL defined explicitly
                 cprDDL.AddRange(new string[] {
-                    Resources.Semaphore,
                     Resources.Extract,
-                    Resources.Queue,
-                    Resources.QueueItem,
                     Resources.Authority,
                     Resources.Country,
                     Resources.DataChangeEvent,
