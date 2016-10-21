@@ -325,9 +325,9 @@ namespace CprBroker.CustomActions
                             lineSep,
                             new string[]{
                                 Properties.Resources.PatchDatabase_2_2_3,
-                                Properties.Resources.PersonSearchCache,
+                                Providers.Local.Search.Properties.Resources.PersonSearchCache_Sql,
                                 Properties.Resources.TrimAddressString,
-                                Properties.Resources.InitializePersonSearchCache}),
+                                Providers.Local.Search.Properties.Resources.InitializePersonSearchCache_Sql}),
                         PatchAction = null
                     },
                     new DatabasePatchInfo(){

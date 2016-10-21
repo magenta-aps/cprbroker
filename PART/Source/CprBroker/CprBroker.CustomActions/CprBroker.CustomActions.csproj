@@ -136,13 +136,10 @@
   <ItemGroup>
     <Content Include="Resources\Country.sql" />
     <Content Include="Resources\DataChangeEvent.sql" />
-    <Content Include="Resources\InitializePersonSearchCache.sql" />
     <Content Include="Resources\MvcWebConfig.xml" />
     <Content Include="Resources\PatchDatabase_2_2_2.sql" />
     <Content Include="Resources\PatchDatabase_DbrTest.sql" />
     <Content Include="Resources\PersonRegistration.sql" />
-    <Content Include="Resources\PersonRegistration_PopulateSearchCache.sql" />
-    <Content Include="Resources\PersonSearchCache.sql" />
     <None Include="Resources\PatchDatabase_2_2_3.sql" />
     <Content Include="Resources\Script generation.txt" />
     <Content Include="Resources\TrimAddressString.sql" />

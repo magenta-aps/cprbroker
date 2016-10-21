@@ -51,6 +51,7 @@ using CprBroker.Data.Part;
 using CprBroker.Data.Queues;
 using CprBroker.Providers.CPRDirect;
 using System.Data.SqlClient;
+using CprBroker.Providers.Local.Search;
 
 namespace CprBroker.CustomActions.Properties
 {
@@ -69,16 +70,15 @@ namespace CprBroker.CustomActions.Properties
                 cprDDL.AddRange(new ExtractDataContext().DDL);
                 cprDDL.AddRange(new LookupDataContext().DDL);
 
+                cprDDL.AddRange(new PartSearchDataContext().DDL);
+
                 // DDL defined explicitly
                 cprDDL.AddRange(new string[] {
                     Resources.Country,
                     Resources.DataChangeEvent,
                     Resources.CreatePartDatabaseObjects,
-                    Resources.PersonSearchCache,
                     Resources.TrimAddressString,
-                    Resources.InitializePersonSearchCache,
                     Resources.PersonRegistration,
-                    Resources.PersonRegistration_PopulateSearchCache
                 });
 
                 return string.Join(
@@ -100,6 +100,8 @@ namespace CprBroker.CustomActions.Properties
                 cprLookups.AddRange(new ExtractDataContext().Lookups);
                 cprLookups.AddRange(new LookupDataContext().Lookups);
 
+                cprLookups.AddRange(new PartSearchDataContext().Lookups);
+
                 // Lookups defined explicitly
                 cprLookups.Add(new KeyValuePair<string, string>(CprBroker.Utilities.DataLinq.GetTableName<LifecycleStatus>(), Properties.Resources.LifecycleStatus));
                 cprLookups.Add(new KeyValuePair<string, string>(CprBroker.Utilities.DataLinq.GetTableName<DbQueue>(), Properties.Resources.Queue_Csv));
@@ -120,6 +122,8 @@ namespace CprBroker.CustomActions.Properties
                 cprLookups.AddRange(new QueueDataContext().CustomInitializers);
                 cprLookups.AddRange(new ExtractDataContext().CustomInitializers);
                 cprLookups.AddRange(new LookupDataContext().CustomInitializers);
+
+                cprLookups.AddRange(new PartSearchDataContext().CustomInitializers);
 
                 return (conn)=> {
                     foreach(var method in cprLookups)

@@ -129,28 +129,6 @@ namespace CprBroker.CustomActions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to /* 
-        ///  ===========================================================================
-        ///    Procedure:   InitializePersonSearchCache
-        ///    Author:		 Beemen Beshara
-        ///    Create date: 24-Jan-2014
-        ///    Description: Initializes the cashed version of persons&apos; searchable fields
-        /// ============================================================================
-        ///*/
-        ///
-        ///IF EXISTS (SELECT * FROM sys.procedures WHERE name = &apos;InitializePersonSearchCache&apos;)
-        ///    DROP PROCEDURE dbo.InitializePersonSearchCache
-        ///GO
-        ///
-        ///CREATE PROCEDUR [rest of string was truncated]&quot;;.
-        /// </summary>
-        public static string InitializePersonSearchCache {
-            get {
-                return ResourceManager.GetString("InitializePersonSearchCache", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to LifecycleStatusId;LifecycleStatusName
         ///0;Created
         ///1;Imported
@@ -401,49 +379,6 @@ namespace CprBroker.CustomActions.Properties {
         public static string PersonRegistration {
             get {
                 return ResourceManager.GetString("PersonRegistration", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to -- =============================================
-        ///-- Author:		Beemen Beshara
-        ///-- Description:	Trigger for changes in PersonRegistration, 
-        ///--  refreshes the cached serach table by calling InitializePersonSearchCache for 
-        ///--  each record being inserted or updated
-        ///-- =============================================
-        ///
-        ///IF EXISTS (SELECT * FROM sys.triggers where name=&apos;PersonRegistration_PopulateSearchCache&apos;)
-        ///BEGIN
-        ///	DROP TRIGGER dbo.PersonRegistration_PopulateSearchCache
-        ///END
-        ///GO
-        ///
-        ///CREATE TRIGGER dbo.PersonRe [rest of string was truncated]&quot;;.
-        /// </summary>
-        public static string PersonRegistration_PopulateSearchCache {
-            get {
-                return ResourceManager.GetString("PersonRegistration_PopulateSearchCache", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to -- ========================================================
-        ///-- Table  : PersonSearchCache
-        ///-- ========================================================
-        ///IF NOT EXISTS (SELECT * FROM sys.tables WHERE Name = &apos;PersonSearchCache&apos;)
-        ///BEGIN
-        ///    CREATE TABLE [dbo].[PersonSearchCache](
-        ///	    -- Root fields
-        ///        [PersonRegistrationId] [uniqueidentifier] NULL,
-        ///	    [UUID] [uniqueidentifier] NOT NULL,		
-        ///        LivscyklusKode NVARCHAR(MAX),
-        ///            
-        ///        -- Egenskab fields
-        ///        AddressingName NVARCH [rest of string was truncated]&quot;;.
-        /// </summary>
-        public static string PersonSearchCache {
-            get {
-                return ResourceManager.GetString("PersonSearchCache", resourceCulture);
             }
         }
         
