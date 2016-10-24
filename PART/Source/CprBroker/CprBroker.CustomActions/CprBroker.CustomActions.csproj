@@ -134,7 +134,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\Country.sql" />
-    <Content Include="Resources\DataChangeEvent.sql" />
     <Content Include="Resources\MvcWebConfig.xml" />
     <Content Include="Resources\PatchDatabase_2_2_2.sql" />
     <Content Include="Resources\PatchDatabase_DbrTest.sql" />

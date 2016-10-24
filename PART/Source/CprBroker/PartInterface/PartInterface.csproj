@@ -159,6 +159,7 @@
     <Compile Include="UpdateRules\SpecielVejkodeIndikatorMatchRule.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Data\Events\Init\DataChangeEvent.sql" />
     <Content Include="Data\Events\Readme.txt" />
     <Content Include="Data\Init\ActorRef.sql" />
     <Content Include="Data\Init\LifecycleStatus.sql" />

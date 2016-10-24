@@ -93,27 +93,6 @@ namespace CprBroker.CustomActions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to /****** Object:  Table [dbo].[DataChangeEvent]    Script Date: 11/21/2013 10:16:51 ******/
-        ///SET ANSI_NULLS ON
-        ///GO
-        ///SET QUOTED_IDENTIFIER ON
-        ///GO
-        ///IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N&apos;[dbo].[DataChangeEvent]&apos;) AND type in (N&apos;U&apos;))
-        ///BEGIN
-        ///CREATE TABLE [dbo].[DataChangeEvent](
-        ///	[DataChangeEventId] [uniqueidentifier] NOT NULL
-        ///		DEFAULT NEWID()
-        ///		CONSTRAINT [PK_DataChangeEvent] PRIMARY KEY CLUSTERED (	[DataChangeEventId] ASC),
-        ///	[PersonUuid] [uniqueidentifier] NOT NULL,
-        ///	[Per [rest of string was truncated]&quot;;.
-        /// </summary>
-        public static string DataChangeEvent {
-            get {
-                return ResourceManager.GetString("DataChangeEvent", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
         ///&lt;configuration&gt;
         ///

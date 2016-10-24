@@ -52,6 +52,7 @@ using CprBroker.Data.Queues;
 using CprBroker.Providers.CPRDirect;
 using System.Data.SqlClient;
 using CprBroker.Providers.Local.Search;
+using CprBroker.Data.Events;
 
 namespace CprBroker.CustomActions.Properties
 {
@@ -71,11 +72,11 @@ namespace CprBroker.CustomActions.Properties
                 cprDDL.AddRange(new LookupDataContext().DDL);
                 cprDDL.AddRange(new PartDataContext().DDL);
                 cprDDL.AddRange(new PartSearchDataContext().DDL);
+                cprDDL.AddRange(new DataChangeEventDataContext().DDL);
 
                 // DDL defined explicitly
                 cprDDL.AddRange(new string[] {
                     Resources.Country,
-                    Resources.DataChangeEvent,
                     Resources.CreatePartDatabaseObjects,
                     Resources.TrimAddressString,
                 });
@@ -100,6 +101,7 @@ namespace CprBroker.CustomActions.Properties
                 cprLookups.AddRange(new LookupDataContext().Lookups);
                 cprLookups.AddRange(new PartDataContext().Lookups);
                 cprLookups.AddRange(new PartSearchDataContext().Lookups);
+                cprLookups.AddRange(new DataChangeEventDataContext().Lookups);
 
                 // Lookups defined explicitly
                 cprLookups.Add(new KeyValuePair<string, string>(CprBroker.Utilities.DataLinq.GetTableName<DbQueue>(), Properties.Resources.Queue_Csv));
@@ -122,6 +124,7 @@ namespace CprBroker.CustomActions.Properties
                 cprLookups.AddRange(new LookupDataContext().CustomInitializers);
                 cprLookups.AddRange(new PartDataContext().CustomInitializers);
                 cprLookups.AddRange(new PartSearchDataContext().CustomInitializers);
+                cprLookups.AddRange(new DataChangeEventDataContext().CustomInitializers);
 
                 return (conn)=> {
                     foreach(var method in cprLookups)

@@ -43,6 +43,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using CprBroker.Utilities.Config;
@@ -53,12 +54,40 @@ namespace CprBroker.Data.Events
     /// Represents the data context for DataChangeEvent table
     /// Everytime a new record is added to PersonRegistration, a new record is added to this table to tell the system that a change has occured
     /// </summary>
-    public partial class DataChangeEventDataContext
+    public partial class DataChangeEventDataContext: IDataContextCreationInfo
     {
         public DataChangeEventDataContext()
             : base(ConfigManager.Current.Settings.CprBrokerConnectionString)
         {
             OnCreated();
         }
+
+        #region IDataContextCreationInfo members
+        public string[] DDL
+        {
+            get
+            {
+                return new string[] {
+                    CprBroker.PartInterface.Properties.Resources.DataChangeEvent_Sql,
+                };
+            }
+        }
+
+        public KeyValuePair<string, string>[] Lookups
+        {
+            get
+            {
+                return new KeyValuePair<string, string>[] { };
+            }
+        }
+
+        public Action<SqlConnection>[] CustomInitializers
+        {
+            get
+            {
+                return new Action<SqlConnection>[] { };
+            }
+        }
+        #endregion
     }
 }
