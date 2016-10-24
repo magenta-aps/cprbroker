@@ -77,7 +77,6 @@ namespace CprBroker.CustomActions.Properties
                 // DDL defined explicitly
                 cprDDL.AddRange(new string[] {
                     Resources.Country,
-                    Resources.CreatePartDatabaseObjects,
                     Resources.TrimAddressString,
                 });
 

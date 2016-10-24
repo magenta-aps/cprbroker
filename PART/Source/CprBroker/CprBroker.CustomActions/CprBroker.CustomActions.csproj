@@ -128,7 +128,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="CustomAction.config" />
-    <None Include="Resources\CreatePartDatabaseObjects.sql" />
     <Content Include="Resources\PatchDatabase_2_2_6.sql" />
     <None Include="Resources\Queue.csv" />
   </ItemGroup>
