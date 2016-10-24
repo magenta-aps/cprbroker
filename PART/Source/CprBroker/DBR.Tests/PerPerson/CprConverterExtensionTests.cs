@@ -23,7 +23,7 @@ namespace CprBroker.Tests.DBR.PerPerson
         [Test]
         public void Person_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), "CprNumbers")]string pnr)
         {
-            Persons[pnr].ToPerson();
+            Persons[pnr].ToPerson(null); // TODO: pass a real object here
         }
 
         [Test]

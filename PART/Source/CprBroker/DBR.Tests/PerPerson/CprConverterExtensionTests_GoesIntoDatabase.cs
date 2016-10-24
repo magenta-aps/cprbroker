@@ -29,7 +29,7 @@ namespace CprBroker.Tests.DBR.PerPerson
         {
             using (var dataContext = new DPRDataContext(DbrDatabase.ConnectionString))
             {
-                dataContext.Persons.InsertOnSubmit(PersonBaseTest.Persons[pnr].ToPerson());
+                dataContext.Persons.InsertOnSubmit(PersonBaseTest.Persons[pnr].ToPerson(dataContext));
                 dataContext.SubmitChanges();
             }
         }
