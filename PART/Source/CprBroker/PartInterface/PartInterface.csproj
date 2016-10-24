@@ -162,6 +162,7 @@
     <Content Include="Data\Events\Init\DataChangeEvent.sql" />
     <Content Include="Data\Events\Readme.txt" />
     <Content Include="Data\Init\ActorRef.sql" />
+    <Content Include="Data\Init\CreatePartDatabaseObjects.ChildObjects.sql" />
     <Content Include="Data\Init\LifecycleStatus.sql" />
     <Content Include="Data\Init\Person.sql" />
     <Content Include="Data\Init\PersonMapping.sql" />
