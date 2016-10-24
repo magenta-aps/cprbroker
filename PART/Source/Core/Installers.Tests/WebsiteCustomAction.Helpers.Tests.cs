@@ -47,6 +47,7 @@ using System.Linq;
 using System.Text;
 using NUnit.Framework;
 using CprBroker.Installers;
+using CprBroker.Utilities;
 
 namespace CprBroker.Tests.Installers
 {
@@ -83,12 +84,19 @@ namespace CprBroker.Tests.Installers
             [Test]
             public void RunRegIISCommand_Normal_Normal()
             {
-                var args = "abcd";
+                var args = "-s abcd";
                 var fileName = WebsiteCustomAction.RunRegIISCommand(ref args, new Version(4, 0));
-                Assert.AreEqual("dism.exe", fileName);
-                Installation.RunCommand(fileName, args);
-                Assert.IsNotNullOrEmpty(args);
+                if (Misc.CurrentWindowsVersion >= new Version(10, 0))
+                {
+                    Assert.IsNullOrEmpty(fileName);
+                }
+                else {
+                    Assert.AreEqual("dism.exe", fileName);
+                    Installation.RunCommand(fileName, args);
+                    Assert.IsNotNullOrEmpty(args);
+                }
             }
+
         }
 
         [TestFixture]
@@ -97,13 +105,16 @@ namespace CprBroker.Tests.Installers
             [Test]
             public void RunRegIIS_dist_Succeeds()
             {
-                var frameworkVersion = new Version(4, 6, 1);
-                var fileName = CprBroker.Utilities.Strings.EnsureDirectoryEndSlash(Environment.SystemDirectory) + "dism.exe";
-                var args = "/online /enable-feature /featurename:"
-                    + (frameworkVersion.Major == 4 ?
-                        "IIS-ASPNET45"
-                        : "IIS-ASPNET");
-                Installation.RunCommand(fileName, args);
+                if (Misc.CurrentWindowsVersion < new Version(10, 0))
+                {
+                    var frameworkVersion = new Version(4, 6, 1);
+                    var fileName = CprBroker.Utilities.Strings.EnsureDirectoryEndSlash(Environment.SystemDirectory) + "dism.exe";
+                    var args = "/online /enable-feature /featurename:"
+                        + (frameworkVersion.Major == 4 ?
+                            "IIS-ASPNET45"
+                            : "IIS-ASPNET");
+                    Installation.RunCommand(fileName, args);
+                }
             }
         }
     }
