@@ -20,6 +20,18 @@ namespace CprBroker.Tests.DBR.ComparisonResults
             return string.Format("*** Property <{0}>, Column <{1}>, Match <{2}>\r\n", this.PropertyName, this.SourceName, this.IsMatch);
         }
 
+        public PropertyComparisonResult()
+        {
+        }
+
+        public PropertyComparisonResult(string name, string comment)
+        {
+            PropertyName = name;
+            SourceName = null;
+            IsMatch = false;
+            Remarks = comment;
+        }
+
         public static PropertyComparisonResult FromLinqProperty(PropertyInfo prop, bool isMatch)
         {
             return new PropertyComparisonResult()

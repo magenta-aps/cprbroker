@@ -4,6 +4,7 @@ using NUnit.Framework;
 using System.Reflection;
 using CprBroker.Utilities;
 using System.Text.RegularExpressions;
+using CprBroker.Tests.DBR.ComparisonResults;
 
 namespace CprBroker.Tests.DBR.Comparison
 {
@@ -30,11 +31,19 @@ namespace CprBroker.Tests.DBR.Comparison
         where TDataContext : System.Data.Linq.DataContext
     {
 
-        public virtual string[] ExcludedProperties
+        public virtual PropertyComparisonResult[] ExcludedPropertiesInformation
         {
             get
             {
-                return new string[] { };
+                return new PropertyComparisonResult[] { };
+            }
+        }
+
+        public virtual string[] ExcludedPropertyNames
+        {
+            get
+            {
+                return ExcludedPropertiesInformation.Select(p => p.PropertyName).ToArray();
             }
         }
 
@@ -42,7 +51,7 @@ namespace CprBroker.Tests.DBR.Comparison
         {
             get
             {
-                return new string[] { 
+                return new string[] {
                     "CprUpdateDate",
                     "PNR"
                 };
@@ -67,7 +76,7 @@ namespace CprBroker.Tests.DBR.Comparison
         {
             var t = typeof(TObject);
             return DataLinq.GetColumnProperties(t)
-                .Where(p => !this.ExcludedProperties.Contains(p.Name) && !this.CommonExcludedProperties.Contains(p.Name))
+                .Where(p => !this.ExcludedPropertyNames.Contains(p.Name) && !this.CommonExcludedProperties.Contains(p.Name))
                 .OrderBy(p => p.Name)
                 .ToArray();
         }
