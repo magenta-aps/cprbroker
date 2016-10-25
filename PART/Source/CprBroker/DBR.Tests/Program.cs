@@ -14,7 +14,7 @@ namespace CprBroker.Tests.DBR
                 + cmp.GenerateReport(typeof(Comparison.Person.PersonComparisonTest<>))
                 //+ cmp.GenerateReport(typeof(Comparison.Geo.GeoLookupComparisonTest<>))
                 ;
-
+            
             Console.WriteLine(report);
         }
     }
