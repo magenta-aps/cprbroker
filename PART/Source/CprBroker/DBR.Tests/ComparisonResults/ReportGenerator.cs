@@ -4,66 +4,8 @@ using System.Linq;
 using System.Text;
 using CprBroker.Utilities;
 
-namespace CprBroker.Tests.DBR.Comparison
+namespace CprBroker.Tests.DBR.ComparisonResults
 {
-    public class TypeComparisonResult
-    {
-        public string ClassName { get; set; }
-        public string SourceName { get; set; }
-        public string Remarks { get; set; }
-        public List<PropertyComparisonResult> Properties { get; } = new List<PropertyComparisonResult>();
-
-        public List<PropertyComparisonResult> Included { get { return Properties.Where(f => f.IsMatch).ToList(); } }
-        public List<PropertyComparisonResult> Excluded { get { return Properties.Where(f => !f.IsMatch).ToList(); } }
-
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-
-            sb.Append(String.Format("* Type <{0}>, table <{1}>\r\n", ClassName, SourceName));
-            sb.Append("** Matching\r\n");
-
-            if (Included.Count > 0)
-            {
-                foreach (var prop in Included)
-                {
-                    sb.Append(prop.ToString());
-                }
-            }
-            else
-            {
-                sb.Append("** (None)\r\n");
-            }
-
-            sb.Append("** Non matching\r\n");
-            if (Excluded.Count > 0)
-            {
-                foreach (var prop in Excluded)
-                {
-                    sb.Append(prop.ToString());
-                }
-            }
-            else
-            {
-                sb.Append("*** (None)\r\n");
-            }
-            return sb.ToString();
-        }
-    }
-
-    public class PropertyComparisonResult
-    {
-        public string PropertyName { get; set; }
-        public string SourceName { get; set; }
-        public bool IsMatch { get; set; }
-        public string Remarks { get; set; }
-
-        public override string ToString()
-        {
-            return string.Format("*** Property <{0}>, Column <{1}>, Match <{2}>\r\n", this.PropertyName, this.SourceName, this.IsMatch);
-        }
-    }
-
     public class ReportGenerator
     {
         public string GenerateReport(Type comparisonType)
@@ -77,7 +19,7 @@ namespace CprBroker.Tests.DBR.Comparison
             var typeInfo = GetExclusionInformation(types);
             return string.Format(
                 "h3. Fields \r\n\r\n"
-                + string.Join("\r\n", typeInfo.Select(ti=>ti.ToString()))
+                + string.Join("\r\n", typeInfo.Select(ti => ti.ToString()))
                 + "\r\n"
                 + "h3. Ignored count \r\n\r\n"
                 + GenerateConutExclusionReport(types)
