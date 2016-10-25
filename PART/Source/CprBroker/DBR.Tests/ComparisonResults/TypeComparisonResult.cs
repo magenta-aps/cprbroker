@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CprBroker.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -48,6 +49,34 @@ namespace CprBroker.Tests.DBR.ComparisonResults
                 sb.Append("*** (None)\r\n");
             }
             return sb.ToString();
+        }
+
+        public static TypeComparisonResult FromComparisonClass(Type t)
+        {
+            var dprType = t.BaseType.GetGenericArguments().FirstOrDefault();
+            var cmpObj = Reflection.CreateInstance(t);
+
+            if (DataLinq.IsTable(dprType))
+            {
+                var typeMatch = new TypeComparisonResult() { ClassName = dprType.Name, SourceName = Utilities.DataLinq.GetTableName(dprType) };
+
+                var allProperties = DataLinq.GetColumnProperties(dprType);
+                var excludedPropertyNames = t.InvokeMember("ExcludedProperties", System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.GetProperty, null, cmpObj, null) as string[];
+
+                var fieldMatches =
+                    from prop in allProperties
+                    join exPropName in excludedPropertyNames on prop.Name equals exPropName into outer
+                    from exPorpName2 in outer.DefaultIfEmpty()
+                    select PropertyComparisonResult.FromLinqProperty(prop, exPorpName2 == null);
+
+                typeMatch.Properties.AddRange(fieldMatches);
+
+                return typeMatch;
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }

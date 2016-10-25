@@ -1,6 +1,8 @@
-﻿using System;
+﻿using CprBroker.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,6 +18,17 @@ namespace CprBroker.Tests.DBR.ComparisonResults
         public override string ToString()
         {
             return string.Format("*** Property <{0}>, Column <{1}>, Match <{2}>\r\n", this.PropertyName, this.SourceName, this.IsMatch);
+        }
+
+        public static PropertyComparisonResult FromLinqProperty(PropertyInfo prop, bool isMatch)
+        {
+            return new PropertyComparisonResult()
+            {
+                PropertyName = prop.Name,
+                SourceName = DataLinq.GetColumnName(prop),
+                IsMatch = isMatch,
+                Remarks = null,
+            };
         }
     }
 }

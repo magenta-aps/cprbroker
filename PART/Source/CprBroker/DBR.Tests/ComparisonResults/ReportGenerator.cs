@@ -29,35 +29,11 @@ namespace CprBroker.Tests.DBR.ComparisonResults
         public List<TypeComparisonResult> GetExclusionInformation(Type[] types)
         {
             var ret = new List<TypeComparisonResult>();
-
             foreach (var t in types)
             {
-                var dprType = t.BaseType.GetGenericArguments().FirstOrDefault();
-
-                if (DataLinq.IsTable(dprType))
-                {
-                    var typeMatch = new TypeComparisonResult() { ClassName = dprType.Name, SourceName = Utilities.DataLinq.GetTableName(dprType) };
-                    ret.Add(typeMatch);
-
-                    var cmpObj = Reflection.CreateInstance(t);
-
-                    var allProperties = DataLinq.GetColumnProperties(dprType);
-                    var excludedPropertyNames = t.InvokeMember("ExcludedProperties", System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.GetProperty, null, cmpObj, null) as string[];
-
-                    var fieldMatches =
-                        from prop in allProperties
-                        join exPropName in excludedPropertyNames on prop.Name equals exPropName into outer
-                        from exPorpName2 in outer.DefaultIfEmpty()
-                        select new PropertyComparisonResult()
-                        {
-                            PropertyName = prop.Name,
-                            SourceName = DataLinq.GetColumnName(prop),
-                            IsMatch = exPorpName2 == null,
-                            Remarks = null,
-                        };
-
-                    typeMatch.Properties.AddRange(fieldMatches);
-                }
+                var cmp = TypeComparisonResult.FromComparisonClass(t);
+                if (cmp != null)
+                    ret.Add(cmp);
             }
             return ret;
         }
