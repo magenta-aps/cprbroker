@@ -102,6 +102,7 @@
   <ItemGroup>
     <Compile Include="ClassicRequestTypeTestsBase.cs" />
     <Compile Include="ClassicRequestTypeTests.Process.cs" />
+    <Compile Include="ComparisonResults\IComparisonType.cs" />
     <Compile Include="ComparisonResults\PropertyComparisonResult.cs" />
     <Compile Include="ComparisonResults\TypeComparisonResult.cs" />
     <Compile Include="Comparison\ComparisonTest.cs" />

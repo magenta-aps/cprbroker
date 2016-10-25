@@ -53,19 +53,19 @@ namespace CprBroker.Tests.DBR.ComparisonResults
 
         public static TypeComparisonResult FromComparisonClass(Type t)
         {
-            var dprType = t.BaseType.GetGenericArguments().FirstOrDefault();
-            var cmpObj = Reflection.CreateInstance(t);
+            var cmpObj = Reflection.CreateInstance(t) as IComparisonType;
+            var tableType = cmpObj.TargetType;
 
-            if (DataLinq.IsTable(dprType))
+            if (DataLinq.IsTable(tableType))
             {
-                var typeMatch = new TypeComparisonResult() { ClassName = dprType.Name, SourceName = Utilities.DataLinq.GetTableName(dprType) };
+                var typeMatch = new TypeComparisonResult() { ClassName = tableType.Name, SourceName = Utilities.DataLinq.GetTableName(tableType) };
 
-                var allProperties = DataLinq.GetColumnProperties(dprType);
-                var excludedPropertyNames = t.InvokeMember("ExcludedProperties", System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.GetProperty, null, cmpObj, null) as string[];
+                var allProperties = DataLinq.GetColumnProperties(tableType);
+                var excludedProperties = cmpObj.ExcludedPropertiesInformation;
 
                 var fieldMatches =
                     from prop in allProperties
-                    join exPropName in excludedPropertyNames on prop.Name equals exPropName into outer
+                    join exProp in excludedProperties on prop.Name equals exProp.PropertyName into outer
                     from exPorpName2 in outer.DefaultIfEmpty()
                     select PropertyComparisonResult.FromLinqProperty(prop, exPorpName2 == null);
 

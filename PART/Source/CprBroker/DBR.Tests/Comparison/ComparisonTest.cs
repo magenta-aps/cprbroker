@@ -27,7 +27,7 @@ namespace CprBroker.Tests.DBR.Comparison
     }
 
     [Category("Comnparison")]
-    public abstract class ComparisonTest<TObject, TDataContext> : ComparisonTestBase
+    public abstract class ComparisonTest<TObject, TDataContext> : ComparisonTestBase, IComparisonType
         where TDataContext : System.Data.Linq.DataContext
     {
 
@@ -36,6 +36,14 @@ namespace CprBroker.Tests.DBR.Comparison
             get
             {
                 return new PropertyComparisonResult[] { };
+            }
+        }
+
+        public Type TargetType
+        {
+            get
+            {
+                return typeof(TObject);
             }
         }
 
