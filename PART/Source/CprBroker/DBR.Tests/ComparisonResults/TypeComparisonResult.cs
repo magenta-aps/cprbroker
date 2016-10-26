@@ -16,8 +16,9 @@ namespace CprBroker.Tests.DBR.ComparisonResults
 
         public List<PropertyComparisonResult> Properties { get; } = new List<PropertyComparisonResult>();
 
-        public List<PropertyComparisonResult> Included { get { return Properties.Where(f => f.IsMatch).ToList(); } }
-        public List<PropertyComparisonResult> Excluded { get { return Properties.Where(f => !f.IsMatch).ToList(); } }
+        public List<PropertyComparisonResult> Included { get { return Properties.Where(f => !f.IsExcluded && !f.IsExcluded90).ToList(); } }
+        public List<PropertyComparisonResult> Excluded { get { return Properties.Where(f => f.IsExcluded).ToList(); } }
+        public List<PropertyComparisonResult> Excluded90 { get { return Properties.Where(f => f.IsExcluded90).ToList(); } }
 
         public override string ToString()
         {
@@ -56,6 +57,20 @@ namespace CprBroker.Tests.DBR.ComparisonResults
             {
                 sb.Append("*** (None)\r\n");
             }
+
+            sb.Append("** Non matching for dead people\r\n");
+            if (Excluded90.Count > 0)
+            {
+                foreach (var prop in Excluded90)
+                {
+                    sb.Append(prop.ToString());
+                }
+            }
+            else
+            {
+                sb.Append("*** (None)\r\n");
+            }
+
             return sb.ToString();
         }
 
@@ -76,12 +91,15 @@ namespace CprBroker.Tests.DBR.ComparisonResults
 
                 var allProperties = cmpObj.DataProperties();
                 var excludedProperties = cmpObj.ExcludedPropertiesInformation;
+                var excludedProperties90 = cmpObj.ExcludedPropertiesInformation90;
 
                 var fieldMatches =
                     from prop in allProperties
-                    join exProp in excludedProperties on prop.Name equals exProp.PropertyName into outer
-                    from exPorpName2 in outer.DefaultIfEmpty()
-                    select PropertyComparisonResult.FromLinqProperty(prop, exPorpName2 == null);
+                    join exProp in excludedProperties on prop.Name equals exProp.PropertyName into exProps
+                    join exProp90 in excludedProperties90 on prop.Name equals exProp90.PropertyName into exProps90
+                    from exPorpName2 in exProps.DefaultIfEmpty()
+                    from exPorpName90 in exProps90.DefaultIfEmpty()
+                    select PropertyComparisonResult.FromLinqProperty(prop, exPorpName2 != null, exPorpName90 != null);
 
                 typeMatch.Properties.AddRange(fieldMatches);
 

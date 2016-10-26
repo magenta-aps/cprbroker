@@ -12,7 +12,8 @@ namespace CprBroker.Tests.DBR.ComparisonResults
     {
         public string PropertyName { get; set; }
         public string SourceName { get; set; }
-        public bool IsMatch { get; set; }
+        public bool IsExcluded { get; set; }
+        public bool IsExcluded90 { get; set; }
         public string Remarks { get; set; }
 
         public override string ToString()
@@ -20,7 +21,7 @@ namespace CprBroker.Tests.DBR.ComparisonResults
             return string.Format("*** {0}{1}{2}",
                 string.Format("Property <{0}>, ", this.PropertyName),
                 this.SourceName != null ? string.Format("Column <{0}>, ", this.SourceName) : null,
-                string.Format("Match <{0}>\r\n", this.IsMatch)
+                string.Format("Excluded <{0}>\r\n", this.IsExcluded)
                 );
         }
 
@@ -32,17 +33,18 @@ namespace CprBroker.Tests.DBR.ComparisonResults
         {
             PropertyName = name;
             SourceName = null;
-            IsMatch = false;
+            IsExcluded = true;
             Remarks = comment;
         }
 
-        public static PropertyComparisonResult FromLinqProperty(PropertyInfo prop, bool isMatch)
+        public static PropertyComparisonResult FromLinqProperty(PropertyInfo prop, bool isExcluded,bool isExcluded90 )
         {
             return new PropertyComparisonResult()
             {
                 PropertyName = prop.Name,
                 SourceName = DataLinq.GetColumnName(prop),
-                IsMatch = isMatch,
+                IsExcluded = isExcluded,
+                IsExcluded90 = isExcluded90,
                 Remarks = null,
             };
         }
