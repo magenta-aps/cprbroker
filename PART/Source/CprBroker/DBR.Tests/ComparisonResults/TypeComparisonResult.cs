@@ -59,33 +59,28 @@ namespace CprBroker.Tests.DBR.ComparisonResults
             var cmpObj = Reflection.CreateInstance(t) as IComparisonType;
             var tableType = cmpObj.TargetType;
 
-            //if (DataLinq.IsTable(tableType))
-            {
-                var typeMatch = new TypeComparisonResult() { ClassName = tableType.Name, SourceName = cmpObj.SourceName };
 
-                var ignoreCountProp = t.GetProperty("IgnoreCount");
-                typeMatch.IgnoreCount = ignoreCountProp == null ?
-                    null
-                    :
-                    (bool?)ignoreCountProp.GetValue(cmpObj);
+            var typeMatch = new TypeComparisonResult() { ClassName = tableType.Name, SourceName = cmpObj.SourceName };
 
-                var allProperties = cmpObj.DataProperties();
-                var excludedProperties = cmpObj.ExcludedPropertiesInformation;
+            var ignoreCountProp = t.GetProperty("IgnoreCount");
+            typeMatch.IgnoreCount = ignoreCountProp == null ?
+                null
+                :
+                (bool?)ignoreCountProp.GetValue(cmpObj);
 
-                var fieldMatches =
-                    from prop in allProperties
-                    join exProp in excludedProperties on prop.Name equals exProp.PropertyName into exProps
-                    from exPorpName2 in exProps.DefaultIfEmpty()
-                    select PropertyComparisonResult.FromLinqProperty(prop, exPorpName2 != null, exPorpName2?.ExclusionReason);
+            var allProperties = cmpObj.DataProperties();
+            var excludedProperties = cmpObj.ExcludedPropertiesInformation;
 
-                typeMatch.Properties.AddRange(fieldMatches);
+            var fieldMatches = allProperties
+                .Select(prop =>
+                {
+                    var exProp = excludedProperties.FirstOrDefault(ex => prop.Name.Contains(ex.PropertyName));
+                    return PropertyComparisonResult.FromLinqProperty(prop, exProp != null, exProp?.ExclusionReason);
+                });
 
-                return typeMatch;
-            }
-            //else
-            {
-                return null;
-            }
+            typeMatch.Properties.AddRange(fieldMatches);
+
+            return typeMatch;
         }
     }
 }
