@@ -189,7 +189,37 @@ namespace CprBroker.Tests.DBR.DiversionComparison
         {
             get
             {
-                return new PropertyComparisonResult[] { };
+                return new PropertyComparisonResult[] {
+                    new PropertyComparisonResult("AJF",""),
+                    new PropertyComparisonResult("MYNKOD",""),
+                    new PropertyComparisonResult("ADRNVN",""),
+                    new PropertyComparisonResult("INDRAP",""),
+                    new PropertyComparisonResult("FOEDMYNHAENSTART",""),
+                    new PropertyComparisonResult("KUNDENR",""),
+                    new PropertyComparisonResult("FARSKABHAENSTART",""),
+                    new PropertyComparisonResult("AEGTEMRK",""),
+                    new PropertyComparisonResult("AEGTEDOK",""),
+                    new PropertyComparisonResult("FARSKABMYNNVN",""),
+                    new PropertyComparisonResult("TIDLKOMNVN",""),
+                    new PropertyComparisonResult("CIVMYN",""),
+                    new PropertyComparisonResult("STILLINGDTO",""),
+                    new PropertyComparisonResult("MORDOK",""),
+                    new PropertyComparisonResult("FARDOK",""),
+                    new PropertyComparisonResult("MORMRK",""),
+                    new PropertyComparisonResult("FARMRK",""),
+                    new PropertyComparisonResult("UDLANDADRDTO",""),
+                    new PropertyComparisonResult("PNRMRKHAENSTART",""),
+                    new PropertyComparisonResult("TIDLPNRMRK", "Fails sometimes because HistoricalPNR's can be older than the 20-year limit for extracts, so they do not appear in the emulated database"),
+                    new PropertyComparisonResult("KONTAKTADR_KOMKOD",""),
+                    new PropertyComparisonResult("STARTDATE_FORALD_46", "real DPR returns yyyy-MM-dd HH:mm:ss or dd-MM-yyyy randomly"),
+                    new PropertyComparisonResult("STARTDATE_FORALD_35", "real DPR returns yyyy-MM-dd HH:mm:ss or dd-MM-yyyy randomly"),
+                    new PropertyComparisonResult("UDRINDRMRK", "Sometimes not set because departures are older than 20 years (so not included in the initial dataset)"),
+                    new PropertyComparisonResult("FRAFLYKOMKOD", "Sometimes not set because departures are older than 20 years (so not included in the initial dataset)"),
+                    new PropertyComparisonResult("TILFLYDTOMRK",""),
+                    new PropertyComparisonResult("MYNTXT_CIV",""),
+                    new PropertyComparisonResult("PNR_BORN", "Tested - excluded because ordering of children from DPR is inconsistent and causes test failure"),
+                    new PropertyComparisonResult("dummy 1293810","")
+                };
             }
         }
 
@@ -231,36 +261,7 @@ namespace CprBroker.Tests.DBR.DiversionComparison
 
             var status = decimal.Parse(valuesAndProps.SingleOrDefault(p => p.Prop == "STATUS")?.Value.TrimEnd(';'));
 
-            var excludedProps = new string[] {
-                "AJF",
-                "MYNKOD",
-                "ADRNVN",
-                "INDRAP",
-                "FOEDMYNHAENSTART",
-                "KUNDENR",
-                "FARSKABHAENSTART",
-                "AEGTEMRK",
-                "AEGTEDOK",
-                "FARSKABMYNNVN",
-                "TIDLKOMNVN",
-                "CIVMYN",
-                "STILLINGDTO",
-                "MORDOK",
-                "FARDOK",
-                "MORMRK",
-                "FARMRK",
-                "UDLANDADRDTO",
-                "PNRMRKHAENSTART",
-                "TIDLPNRMRK", // Fails sometimes because HistoricalPNR's can be older than the 20-year limit for extracts, so they do not appear in the emulated database
-                "KONTAKTADR_KOMKOD",
-                "STARTDATE_FORALD_46", "STARTDATE_FORALD_35", // real DPR returns yyyy-MM-dd HH:mm:ss or dd-MM-yyyy randomly
-                "UDRINDRMRK", // Sometimes not set because departures are older than 20 years (so not included in the initial dataset)
-                "FRAFLYKOMKOD", // Sometimes not set because departures are older than 20 years (so not included in the initial dataset)
-                "TILFLYDTOMRK",
-                "MYNTXT_CIV",
-                "PNR_BORN", // Tested - excluded because ordering of children from DPR is inconsistent and causes test failure
-                "dummy 1293810"
-            };
+            var excludedProps = ExcludedPropertiesInformation.Select(p=>p.PropertyName).ToArray();
 
             var excluded90 = new string[] {
                 "POSTDISTTXT", "POSTDISTRICT",
