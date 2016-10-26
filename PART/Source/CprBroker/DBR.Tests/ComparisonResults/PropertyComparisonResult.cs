@@ -21,7 +21,6 @@ namespace CprBroker.Tests.DBR.ComparisonResults
         public string PropertyName { get; set; }
         public string SourceName { get; set; }
         public bool IsExcluded { get; set; }
-        public bool IsExcluded90 { get; set; }
         public string Remarks { get; set; }
         public ExclusionReason? ExclusionReason { get; set; }
 
@@ -57,6 +56,21 @@ namespace CprBroker.Tests.DBR.ComparisonResults
                 ExclusionReason = reason,
                 Remarks = null,
             };
+        }
+
+        public static IEnumerable<PropertyComparisonResult> Included(IEnumerable<PropertyComparisonResult> source)
+        {
+            return source.Where(f => !f.IsExcluded);
+        }
+
+        public static IEnumerable<PropertyComparisonResult> ExcludedAlways(IEnumerable<PropertyComparisonResult> source)
+        {
+            return source.Where(f => f.IsExcluded && f.ExclusionReason != ComparisonResults.ExclusionReason.Dead).ToList();
+        }
+
+        public static PropertyComparisonResult[] Excluded90(IEnumerable<PropertyComparisonResult> source)
+        {
+            return source.Where(s => s.IsExcluded && s.ExclusionReason == ComparisonResults.ExclusionReason.Dead).ToArray();
         }
     }
 }

@@ -16,6 +16,7 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using CprBroker.Tests.DBR.ComparisonResults;
 
 namespace CprBroker.Tests.DBR.DiversionComparison
 {
@@ -219,42 +220,35 @@ namespace CprBroker.Tests.DBR.DiversionComparison
                     new PropertyComparisonResult("TILFLYDTOMRK",""),
                     new PropertyComparisonResult("MYNTXT_CIV",""),
                     new PropertyComparisonResult("PNR_BORN", "Tested - excluded because ordering of children from DPR is inconsistent and causes test failure"),
-                    new PropertyComparisonResult("dummy 1293810","")
-                };
-            }
-        }
+                    new PropertyComparisonResult("dummy 1293810",""),
 
-        public virtual PropertyComparisonResult[] ExcludedPropertiesInformation90
-        {
-            get
-            {
-                return new PropertyComparisonResult[] {
-                    new PropertyComparisonResult("POSTDISTTXT", ""),
-                    new PropertyComparisonResult("POSTDISTRICT",""),
-                    new PropertyComparisonResult("POSTNR",""),
-                    new PropertyComparisonResult("POSTCODE",""),
-                    new PropertyComparisonResult("BYNVN",""),
-                    new PropertyComparisonResult("STANDARDADR",""),
-                    new PropertyComparisonResult("KOMKOD",""),
-                    new PropertyComparisonResult("KOMNVN",""),
-                    new PropertyComparisonResult("AKTKOMNVN",""),
-                    new PropertyComparisonResult("VEJKOD",""),
-                    new PropertyComparisonResult("KOMKOD",""),
-                    new PropertyComparisonResult("VEJADRNVN",""),
-                    new PropertyComparisonResult("STREETNAME",""),
-                    new PropertyComparisonResult("HUSNR",""),
-                    new PropertyComparisonResult("HOUSENUMBER",""),
-                    new PropertyComparisonResult("ETAGE",""),
-                    new PropertyComparisonResult("FLOOR",""),
-                    new PropertyComparisonResult("SIDEDOER",""),
-                    new PropertyComparisonResult("DOOR",""),
-                    new PropertyComparisonResult("CONVN",""),
-                    new PropertyComparisonResult("CAREOFNAME",""),
-                    new PropertyComparisonResult("LOKALITET",""),
-                    new PropertyComparisonResult("TILFLYDTO",""),
-                    new PropertyComparisonResult("TILFLYKOMDTO",""),
-                    new PropertyComparisonResult("FRAFLYKOMDTO",""),
-                    new PropertyComparisonResult("FRAFLYKOMKOD",""),
+
+                    new PropertyComparisonResult("POSTDISTTXT", "", ExclusionReason.Dead),
+                    new PropertyComparisonResult("POSTDISTRICT","", ExclusionReason.Dead),
+                    new PropertyComparisonResult("POSTNR","", ExclusionReason.Dead),
+                    new PropertyComparisonResult("POSTCODE","", ExclusionReason.Dead),
+                    new PropertyComparisonResult("BYNVN","", ExclusionReason.Dead),
+                    new PropertyComparisonResult("STANDARDADR","", ExclusionReason.Dead),
+                    new PropertyComparisonResult("KOMKOD","", ExclusionReason.Dead),
+                    new PropertyComparisonResult("KOMNVN","", ExclusionReason.Dead),
+                    new PropertyComparisonResult("AKTKOMNVN","", ExclusionReason.Dead),
+                    new PropertyComparisonResult("VEJKOD","", ExclusionReason.Dead),
+                    new PropertyComparisonResult("KOMKOD","", ExclusionReason.Dead),
+                    new PropertyComparisonResult("VEJADRNVN","", ExclusionReason.Dead),
+                    new PropertyComparisonResult("STREETNAME","", ExclusionReason.Dead),
+                    new PropertyComparisonResult("HUSNR","", ExclusionReason.Dead),
+                    new PropertyComparisonResult("HOUSENUMBER","", ExclusionReason.Dead),
+                    new PropertyComparisonResult("ETAGE","", ExclusionReason.Dead),
+                    new PropertyComparisonResult("FLOOR","", ExclusionReason.Dead),
+                    new PropertyComparisonResult("SIDEDOER","", ExclusionReason.Dead),
+                    new PropertyComparisonResult("DOOR","", ExclusionReason.Dead),
+                    new PropertyComparisonResult("CONVN","", ExclusionReason.Dead),
+                    new PropertyComparisonResult("CAREOFNAME","", ExclusionReason.Dead),
+                    new PropertyComparisonResult("LOKALITET","", ExclusionReason.Dead),
+                    new PropertyComparisonResult("TILFLYDTO","", ExclusionReason.Dead),
+                    new PropertyComparisonResult("TILFLYKOMDTO","", ExclusionReason.Dead),
+                    new PropertyComparisonResult("FRAFLYKOMDTO","", ExclusionReason.Dead),
+                    new PropertyComparisonResult("FRAFLYKOMKOD","", ExclusionReason.Dead),
                 };
             }
         }
@@ -308,9 +302,9 @@ namespace CprBroker.Tests.DBR.DiversionComparison
 
             var status = decimal.Parse(valuesAndProps.SingleOrDefault(p => p.Prop == "STATUS")?.Value.TrimEnd(';'));
 
-            var excludedProps = ExcludedPropertiesInformation.Select(p => p.PropertyName).ToArray();
+            var excludedProps = PropertyComparisonResult.ExcludedAlways(ExcludedPropertiesInformation).Select(p => p.PropertyName).ToArray();
 
-            var excluded90 = ExcludedPropertiesInformation90.Select(p => p.PropertyName).ToArray();
+            var excluded90 = PropertyComparisonResult.Excluded90(ExcludedPropertiesInformation).Select(p => p.PropertyName).ToArray();
 
             var newValues = valuesAndProps
                 .Select(p =>

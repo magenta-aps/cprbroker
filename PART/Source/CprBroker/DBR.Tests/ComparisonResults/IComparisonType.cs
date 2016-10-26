@@ -9,18 +9,9 @@ namespace CprBroker.Tests.DBR.ComparisonResults
 {
     public interface IComparisonType
     {
-        PropertyComparisonResult[] ExcludedPropertiesInformation { get; }        
+        PropertyComparisonResult[] ExcludedPropertiesInformation { get; }
         Type TargetType { get; }
         PropertyInfo[] DataProperties();
         string SourceName { get; }
-    }
-
-    public static class IComparisonTypeExtensions
-    {
-        public static PropertyComparisonResult[] ExcludedPropertiesInformation90 (this IComparisonType cmp)
-        {
-            return cmp.ExcludedPropertiesInformation.Where(p => p.ExclusionReason == ExclusionReason.Dead).ToArray();
-        }
-
-    }
+    }    
 }
