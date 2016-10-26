@@ -223,6 +223,41 @@ namespace CprBroker.Tests.DBR.DiversionComparison
             }
         }
 
+        public virtual PropertyComparisonResult[] ExcludedPropertiesInformation90
+        {
+            get
+            {
+                return new PropertyComparisonResult[] {
+                    new PropertyComparisonResult("POSTDISTTXT", ""),
+                    new PropertyComparisonResult("POSTDISTRICT",""),
+                    new PropertyComparisonResult("POSTNR",""),
+                    new PropertyComparisonResult("POSTCODE",""),
+                    new PropertyComparisonResult("BYNVN",""),
+                    new PropertyComparisonResult("STANDARDADR",""),
+                    new PropertyComparisonResult("KOMKOD",""),
+                    new PropertyComparisonResult("KOMNVN",""),
+                    new PropertyComparisonResult("AKTKOMNVN",""),
+                    new PropertyComparisonResult("VEJKOD",""),
+                    new PropertyComparisonResult("KOMKOD",""),
+                    new PropertyComparisonResult("VEJADRNVN",""),
+                    new PropertyComparisonResult("STREETNAME",""),
+                    new PropertyComparisonResult("HUSNR",""),
+                    new PropertyComparisonResult("HOUSENUMBER",""),
+                    new PropertyComparisonResult("ETAGE",""),
+                    new PropertyComparisonResult("FLOOR",""),
+                    new PropertyComparisonResult("SIDEDOER",""),
+                    new PropertyComparisonResult("DOOR",""),
+                    new PropertyComparisonResult("CONVN",""),
+                    new PropertyComparisonResult("CAREOFNAME",""),
+                    new PropertyComparisonResult("LOKALITET",""),
+                    new PropertyComparisonResult("TILFLYDTO",""),
+                    new PropertyComparisonResult("TILFLYKOMDTO",""),
+                    new PropertyComparisonResult("FRAFLYKOMDTO",""),
+                    new PropertyComparisonResult("FRAFLYKOMKOD",""),
+                };
+            }
+        }
+
         public virtual Type TargetType
         {
             get
@@ -261,28 +296,9 @@ namespace CprBroker.Tests.DBR.DiversionComparison
 
             var status = decimal.Parse(valuesAndProps.SingleOrDefault(p => p.Prop == "STATUS")?.Value.TrimEnd(';'));
 
-            var excludedProps = ExcludedPropertiesInformation.Select(p=>p.PropertyName).ToArray();
+            var excludedProps = ExcludedPropertiesInformation.Select(p => p.PropertyName).ToArray();
 
-            var excluded90 = new string[] {
-                "POSTDISTTXT", "POSTDISTRICT",
-                "POSTNR", "POSTCODE",
-                "BYNVN",
-                "STANDARDADR",
-                "KOMKOD",
-                "KOMNVN","AKTKOMNVN",
-                "VEJKOD",
-                "KOMKOD",
-                "VEJADRNVN", "STREETNAME",
-                "HUSNR", "HOUSENUMBER",
-                "ETAGE", "FLOOR",
-                "SIDEDOER","DOOR",
-                "CONVN","CAREOFNAME",
-                "LOKALITET",
-                "TILFLYDTO",
-                "TILFLYKOMDTO",
-                "FRAFLYKOMDTO",
-                "FRAFLYKOMKOD"
-            };
+            var excluded90 = ExcludedPropertiesInformation90.Select(p => p.PropertyName).ToArray();
 
             var newValues = valuesAndProps
                 .Select(p =>

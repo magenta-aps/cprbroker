@@ -39,6 +39,14 @@ namespace CprBroker.Tests.DBR.Comparison
             }
         }
 
+        public virtual PropertyComparisonResult[] ExcludedPropertiesInformation90
+        {
+            get
+            {
+                return new PropertyComparisonResult[] { };
+            }
+        }
+
         public Type TargetType
         {
             get

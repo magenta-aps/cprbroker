@@ -9,6 +9,7 @@ namespace CprBroker.Tests.DBR.ComparisonResults
     interface IComparisonType
     {
         PropertyComparisonResult[] ExcludedPropertiesInformation { get; }
+        PropertyComparisonResult[] ExcludedPropertiesInformation90 { get; }
         Type TargetType { get; }
     }
 }
