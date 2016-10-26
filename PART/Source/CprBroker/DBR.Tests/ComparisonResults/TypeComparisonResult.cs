@@ -29,23 +29,26 @@ namespace CprBroker.Tests.DBR.ComparisonResults
 
             Action<string, IEnumerable<PropertyComparisonResult>> append = (title, props) =>
             {
-                sb.Append(title);
                 if (props.Count() > 0)
                 {
+                    sb.Append(title);
                     foreach (var prop in props)
                     {
-                        sb.Append(prop.ToString());
+                        sb.Append(prop.ToString("*** "));
                     }
-                }
-                else
-                {
-                    sb.Append("*** (None)\r\n");
                 }
             };
 
-            append("** Matching\r\n", PropertyComparisonResult.Included(Properties));
-            append("** Non matching\r\n", PropertyComparisonResult.ExcludedAlways(Properties));
-            append("** Non matching for dead people\r\n", PropertyComparisonResult.Excluded90(Properties));
+            append("** Exact match\r\n", PropertyComparisonResult.Included(Properties));
+
+            append("** Matching values with inconsistent format from DPR\r\n", PropertyComparisonResult.OfReason(Properties, ExclusionReason.InconsistentFormatting));
+            append("** Matching values with random alternation between (null) and '0' in real DPR\r\n", PropertyComparisonResult.OfReason(Properties, ExclusionReason.NullOrZero));
+            append("** Non matching by nature (e.g. timestamps)\r\n", PropertyComparisonResult.OfReason(Properties, ExclusionReason.LocalUpdateRelated));
+            append("** Data is not provided by the source\r\n", PropertyComparisonResult.OfReason(Properties, ExclusionReason.UnavailableAtSource));
+            append("** Data can differ if the reason is too old\r\n", PropertyComparisonResult.OfReason(Properties, ExclusionReason.InsufficientHistory));
+            append("** Non matching for dead people\r\n", PropertyComparisonResult.OfReason(Properties, ExclusionReason.Dead));
+            append("** Other reasons\r\n", PropertyComparisonResult.OfReason(Properties, ExclusionReason.Unknown, null));
+
 
             return sb.ToString();
         }
@@ -70,7 +73,7 @@ namespace CprBroker.Tests.DBR.ComparisonResults
 
                 var fieldMatches =
                     from prop in allProperties
-                    join exProp in excludedProperties on prop.Name equals exProp.PropertyName into exProps                    
+                    join exProp in excludedProperties on prop.Name equals exProp.PropertyName into exProps
                     from exPorpName2 in exProps.DefaultIfEmpty()
                     select PropertyComparisonResult.FromLinqProperty(prop, exPorpName2 != null, exPorpName2?.ExclusionReason);
 

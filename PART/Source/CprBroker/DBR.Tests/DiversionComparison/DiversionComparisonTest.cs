@@ -304,7 +304,7 @@ namespace CprBroker.Tests.DBR.DiversionComparison
 
             var excludedProps = PropertyComparisonResult.ExcludedAlways(ExcludedPropertiesInformation).Select(p => p.PropertyName).ToArray();
 
-            var excluded90 = PropertyComparisonResult.Excluded90(ExcludedPropertiesInformation).Select(p => p.PropertyName).ToArray();
+            var excluded90 = PropertyComparisonResult.OfReason(ExcludedPropertiesInformation, ExclusionReason.Dead).Select(p => p.PropertyName).ToArray();
 
             var newValues = valuesAndProps
                 .Select(p =>

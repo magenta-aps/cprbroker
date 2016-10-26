@@ -59,7 +59,7 @@ namespace CprBroker.Tests.DBR.ComparisonResults
 
         public override string ToString()
         {
-            return ToString("*** ");
+            return ToString(null);
         }
 
         public string ToString(string prefix)
@@ -107,14 +107,20 @@ namespace CprBroker.Tests.DBR.ComparisonResults
             return source.Where(f => f.IsExcluded && f.ExclusionReason != ComparisonResults.ExclusionReason.Dead).ToList();
         }
 
-        public static IEnumerable<PropertyComparisonResult> Excluded90(IEnumerable<PropertyComparisonResult> source)
+        public static IEnumerable<PropertyComparisonResult> OfReason(IEnumerable<PropertyComparisonResult> source, params ExclusionReason?[] reasons)
         {
-            return OfReason(source, ComparisonResults.ExclusionReason.Dead);
+            if (reasons == null)
+                reasons = new ComparisonResults.ExclusionReason?[] { };
+
+            return source.Where(s => s.IsExcluded && reasons.Contains(s.ExclusionReason));
         }
 
-        public static IEnumerable<PropertyComparisonResult> OfReason(IEnumerable<PropertyComparisonResult> source, ExclusionReason reason)
+        public static IEnumerable<PropertyComparisonResult> ExceptReason(IEnumerable<PropertyComparisonResult> source, params ExclusionReason?[] reasons)
         {
-            return source.Where(s => s.IsExcluded && s.ExclusionReason == reason);
+            if (reasons == null)
+                reasons = new ComparisonResults.ExclusionReason?[] { };
+
+            return source.Where(s => s.IsExcluded && !reasons.Contains(s.ExclusionReason));
         }
     }
 }

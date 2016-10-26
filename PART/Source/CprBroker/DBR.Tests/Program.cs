@@ -12,6 +12,7 @@ namespace CprBroker.Tests.DBR
             var cmp = new ComparisonResults.ReportGenerator();
             var report = cmp.GenerateReport();
             
+
             Console.WriteLine(report);
         }
     }
