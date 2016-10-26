@@ -29,7 +29,7 @@ namespace CprBroker.Tests.DBR.ComparisonResults
         /// The field can have a different value if there is not enough historical data
         /// Example: departure marker that is based on a departure that is older than 20 years
         /// </summary>
-        InsufficientHistory, 
+        InsufficientHistory,
 
         /// <summary>
         /// DPR sometimes puts a null instead of zero without a clear rule
@@ -59,7 +59,13 @@ namespace CprBroker.Tests.DBR.ComparisonResults
 
         public override string ToString()
         {
-            return string.Format("*** {0}{1}{2}",
+            return ToString("*** ");
+        }
+
+        public string ToString(string prefix)
+        {
+            return string.Format("{0}{1}{2}{3}",
+                prefix,
                 string.Format("Property <{0}>, ", this.PropertyName),
                 this.SourceName != null ? string.Format("Column <{0}>, ", this.SourceName) : null,
                 string.Format("Excluded <{0}>\r\n", this.IsExcluded)
