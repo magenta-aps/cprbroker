@@ -35,7 +35,13 @@ namespace CprBroker.Tests.DBR.ComparisonResults
         /// DPR sometimes puts a null instead of zero without a clear rule
         /// This is not an error
         /// </summary>
-        NullOrZero, 
+        NullOrZero,
+
+        /// <summary>
+        /// Matching values, but DPR uses different formatting randomly for the same values
+        /// This is not an error
+        /// </summary>
+        InconsistentFormatting,
 
         /// <summary>
         /// Unknown
@@ -95,9 +101,14 @@ namespace CprBroker.Tests.DBR.ComparisonResults
             return source.Where(f => f.IsExcluded && f.ExclusionReason != ComparisonResults.ExclusionReason.Dead).ToList();
         }
 
-        public static PropertyComparisonResult[] Excluded90(IEnumerable<PropertyComparisonResult> source)
+        public static IEnumerable<PropertyComparisonResult> Excluded90(IEnumerable<PropertyComparisonResult> source)
         {
-            return source.Where(s => s.IsExcluded && s.ExclusionReason == ComparisonResults.ExclusionReason.Dead).ToArray();
+            return OfReason(source, ComparisonResults.ExclusionReason.Dead);
+        }
+
+        public static IEnumerable<PropertyComparisonResult> OfReason(IEnumerable<PropertyComparisonResult> source, ExclusionReason reason)
+        {
+            return source.Where(s => s.IsExcluded && s.ExclusionReason == reason);
         }
     }
 }
