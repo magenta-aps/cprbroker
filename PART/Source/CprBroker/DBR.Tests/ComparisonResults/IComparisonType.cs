@@ -7,12 +7,20 @@ using System.Threading.Tasks;
 
 namespace CprBroker.Tests.DBR.ComparisonResults
 {
-    interface IComparisonType
+    public interface IComparisonType
     {
-        PropertyComparisonResult[] ExcludedPropertiesInformation { get; }
-        PropertyComparisonResult[] ExcludedPropertiesInformation90 { get; }
+        PropertyComparisonResult[] ExcludedPropertiesInformation { get; }        
         Type TargetType { get; }
         PropertyInfo[] DataProperties();
         string SourceName { get; }
+    }
+
+    public static class IComparisonTypeExtensions
+    {
+        public static PropertyComparisonResult[] ExcludedPropertiesInformation90 (this IComparisonType cmp)
+        {
+            return cmp.ExcludedPropertiesInformation.Where(p => p.ExclusionReason == ExclusionReason.Dead).ToArray();
+        }
+
     }
 }

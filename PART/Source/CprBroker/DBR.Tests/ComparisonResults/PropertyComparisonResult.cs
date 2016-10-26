@@ -8,6 +8,14 @@ using System.Threading.Tasks;
 
 namespace CprBroker.Tests.DBR.ComparisonResults
 {
+    public enum ExclusionReason
+    {
+        Dead,
+        Irrelevant,
+        Unavailable,
+        Unknown
+    }
+
     public class PropertyComparisonResult
     {
         public string PropertyName { get; set; }
@@ -15,6 +23,7 @@ namespace CprBroker.Tests.DBR.ComparisonResults
         public bool IsExcluded { get; set; }
         public bool IsExcluded90 { get; set; }
         public string Remarks { get; set; }
+        public ExclusionReason? ExclusionReason { get; set; }
 
         public override string ToString()
         {
@@ -29,22 +38,23 @@ namespace CprBroker.Tests.DBR.ComparisonResults
         {
         }
 
-        public PropertyComparisonResult(string name, string comment)
+        public PropertyComparisonResult(string name, string comment, ExclusionReason? reason = null)
         {
             PropertyName = name;
             SourceName = null;
             IsExcluded = true;
             Remarks = comment;
+            ExclusionReason = reason;
         }
 
-        public static PropertyComparisonResult FromLinqProperty(PropertyInfo prop, bool isExcluded,bool isExcluded90 )
+        public static PropertyComparisonResult FromLinqProperty(PropertyInfo prop, bool isExcluded, ExclusionReason? reason = null)
         {
             return new PropertyComparisonResult()
             {
                 PropertyName = prop.Name,
                 SourceName = DataLinq.GetColumnName(prop),
                 IsExcluded = isExcluded,
-                IsExcluded90 = isExcluded90,
+                ExclusionReason = reason,
                 Remarks = null,
             };
         }

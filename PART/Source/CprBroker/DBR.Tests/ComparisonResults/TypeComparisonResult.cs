@@ -31,45 +31,25 @@ namespace CprBroker.Tests.DBR.ComparisonResults
                 sb.AppendFormat("** Ignore row count <{0}>\r\n", IgnoreCount);
             }
 
-            sb.Append("** Matching\r\n");
-
-            if (Included.Count > 0)
+            Action<string, List<PropertyComparisonResult>> append = (title, props) =>
             {
-                foreach (var prop in Included)
+                sb.Append(title);
+                if (props.Count > 0)
                 {
-                    sb.Append(prop.ToString());
+                    foreach (var prop in props)
+                    {
+                        sb.Append(prop.ToString());
+                    }
                 }
-            }
-            else
-            {
-                sb.Append("*** (None)\r\n");
-            }
-
-            sb.Append("** Non matching\r\n");
-            if (Excluded.Count > 0)
-            {
-                foreach (var prop in Excluded)
+                else
                 {
-                    sb.Append(prop.ToString());
+                    sb.Append("*** (None)\r\n");
                 }
-            }
-            else
-            {
-                sb.Append("*** (None)\r\n");
-            }
+            };
 
-            sb.Append("** Non matching for dead people\r\n");
-            if (Excluded90.Count > 0)
-            {
-                foreach (var prop in Excluded90)
-                {
-                    sb.Append(prop.ToString());
-                }
-            }
-            else
-            {
-                sb.Append("*** (None)\r\n");
-            }
+            append("** Matching\r\n", Included);
+            append("** Non matching\r\n", Excluded);
+            append("** Non matching for dead people\r\n", Excluded90);
 
             return sb.ToString();
         }
@@ -91,7 +71,7 @@ namespace CprBroker.Tests.DBR.ComparisonResults
 
                 var allProperties = cmpObj.DataProperties();
                 var excludedProperties = cmpObj.ExcludedPropertiesInformation;
-                var excludedProperties90 = cmpObj.ExcludedPropertiesInformation90;
+                var excludedProperties90 = cmpObj.ExcludedPropertiesInformation90();
 
                 var fieldMatches =
                     from prop in allProperties
@@ -99,7 +79,7 @@ namespace CprBroker.Tests.DBR.ComparisonResults
                     join exProp90 in excludedProperties90 on prop.Name equals exProp90.PropertyName into exProps90
                     from exPorpName2 in exProps.DefaultIfEmpty()
                     from exPorpName90 in exProps90.DefaultIfEmpty()
-                    select PropertyComparisonResult.FromLinqProperty(prop, exPorpName2 != null, exPorpName90 != null);
+                    select PropertyComparisonResult.FromLinqProperty(prop, exPorpName2 != null, exPorpName2?.ExclusionReason);
 
                 typeMatch.Properties.AddRange(fieldMatches);
 
