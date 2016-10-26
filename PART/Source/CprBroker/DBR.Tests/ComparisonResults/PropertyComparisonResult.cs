@@ -11,8 +11,9 @@ namespace CprBroker.Tests.DBR.ComparisonResults
     public enum ExclusionReason
     {
         Dead,
-        Irrelevant,
-        Unavailable,
+        LocalUpdateRelated,
+        UnavailableAtSource,
+        InsufficientHistory,
         Unknown
     }
 
