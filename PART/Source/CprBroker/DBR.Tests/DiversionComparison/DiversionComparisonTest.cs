@@ -192,7 +192,7 @@ namespace CprBroker.Tests.DBR.DiversionComparison
             get
             {
                 return new PropertyComparisonResult[] {
-                    new PropertyComparisonResult("AJF",""),
+                    new PropertyComparisonResult("AJF","", ExclusionReason.LocalUpdateRelated),
                     new PropertyComparisonResult("MYNKOD",""),
                     new PropertyComparisonResult("ADRNVN",""),
                     new PropertyComparisonResult("INDRAP",""),
@@ -210,17 +210,16 @@ namespace CprBroker.Tests.DBR.DiversionComparison
                     new PropertyComparisonResult("MORMRK",""),
                     new PropertyComparisonResult("FARMRK",""),
                     new PropertyComparisonResult("UDLANDADRDTO",""),
-                    new PropertyComparisonResult("PNRMRKHAENSTART",""),
+                    new PropertyComparisonResult("PNRMRKHAENSTART","", ExclusionReason.LocalUpdateRelated),
                     new PropertyComparisonResult("TIDLPNRMRK", "Fails sometimes because HistoricalPNR's can be older than the 20-year limit for extracts, so they do not appear in the emulated database"),
                     new PropertyComparisonResult("KONTAKTADR_KOMKOD",""),
                     new PropertyComparisonResult("STARTDATE_FORALD_46", "real DPR returns yyyy-MM-dd HH:mm:ss or dd-MM-yyyy randomly"),
                     new PropertyComparisonResult("STARTDATE_FORALD_35", "real DPR returns yyyy-MM-dd HH:mm:ss or dd-MM-yyyy randomly"),
-                    new PropertyComparisonResult("UDRINDRMRK", "Sometimes not set because departures are older than 20 years (so not included in the initial dataset)"),
-                    new PropertyComparisonResult("FRAFLYKOMKOD", "Sometimes not set because departures are older than 20 years (so not included in the initial dataset)"),
+                    new PropertyComparisonResult("UDRINDRMRK", "Sometimes not set because departures are older than 20 years (so not included in the initial dataset)", ExclusionReason.InsufficientHistory),
+                    new PropertyComparisonResult("FRAFLYKOMKOD", "Sometimes not set because departures are older than 20 years (so not included in the initial dataset)", ExclusionReason.InsufficientHistory),
                     new PropertyComparisonResult("TILFLYDTOMRK",""),
                     new PropertyComparisonResult("MYNTXT_CIV",""),
-                    new PropertyComparisonResult("PNR_BORN", "Tested - excluded because ordering of children from DPR is inconsistent and causes test failure"),
-                    new PropertyComparisonResult("dummy 1293810",""),
+                    new PropertyComparisonResult("PNR_BORN", "Tested - excluded because ordering of children from DPR is inconsistent and causes test failure", ExclusionReason.LocalUpdateRelated),
 
 
                     new PropertyComparisonResult("POSTDISTTXT", "", ExclusionReason.Dead),

@@ -10,10 +10,36 @@ namespace CprBroker.Tests.DBR.ComparisonResults
 {
     public enum ExclusionReason
     {
+        /// <summary>
+        /// Data in DPR is inconsistent if a person is inactive (Status = 20, 70, 80 or 90)
+        /// </summary>
         Dead,
+
+        /// <summary>
+        /// Field is an update timestamp, must be different between the two systems
+        /// </summary>
         LocalUpdateRelated,
+
+        /// <summary>
+        /// Field is not available in the source data
+        /// </summary>
         UnavailableAtSource,
-        InsufficientHistory,
+
+        /// <summary>
+        /// The field can have a different value if there is not enough historical data
+        /// Example: departure marker that is based on a departure that is older than 20 years
+        /// </summary>
+        InsufficientHistory, 
+
+        /// <summary>
+        /// DPR sometimes puts a null instead of zero without a clear rule
+        /// This is not an error
+        /// </summary>
+        NullOrZero, 
+
+        /// <summary>
+        /// Unknown
+        /// </summary>
         Unknown
     }
 
