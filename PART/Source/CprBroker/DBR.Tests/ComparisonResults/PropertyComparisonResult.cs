@@ -26,6 +26,11 @@ namespace CprBroker.Tests.DBR.ComparisonResults
         UnavailableAtSource,
 
         /// <summary>
+        /// Field is in diversion response, its source DPR column is not a 100% match
+        /// </summary>
+        CopiedFromNonMatching,
+
+        /// <summary>
         /// The field can have a different value if there is not enough historical data
         /// Example: departure marker that is based on a departure that is older than 20 years
         /// </summary>

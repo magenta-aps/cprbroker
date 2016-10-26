@@ -46,6 +46,7 @@ namespace CprBroker.Tests.DBR.ComparisonResults
             append("** Non matching by nature (e.g. timestamps)\r\n", PropertyComparisonResult.OfReason(Properties, ExclusionReason.LocalUpdateRelated));
             append("** Data is not provided by the source\r\n", PropertyComparisonResult.OfReason(Properties, ExclusionReason.UnavailableAtSource));
             append("** Data can differ if the reason is too old\r\n", PropertyComparisonResult.OfReason(Properties, ExclusionReason.InsufficientHistory));
+            append("** Difference in valuse returned from DPR viderstilling due to a non-match in the source DPR column\r\n", PropertyComparisonResult.OfReason(Properties, ExclusionReason.CopiedFromNonMatching));
             append("** Non matching for dead people\r\n", PropertyComparisonResult.OfReason(Properties, ExclusionReason.Dead));
             append("** Other reasons\r\n", PropertyComparisonResult.OfReason(Properties, ExclusionReason.Unknown, null));
 
