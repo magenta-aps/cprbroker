@@ -2,6 +2,7 @@
 using CprBroker.Providers.CPRDirect;
 using CprBroker.Providers.DPR;
 using CprBroker.Schemas.Wrappers;
+using CprBroker.Tests.DBR.ComparisonResults;
 using CprBroker.Tests.DBR.Properties;
 using CprBroker.Utilities;
 using Moq;
@@ -17,7 +18,6 @@ using System.Threading.Tasks;
 
 namespace CprBroker.Tests.DBR.DiversionComparison
 {
-    [TestFixture]
     public class DiversionComparisonTest
     {
         static DiversionComparisonTest()
@@ -149,7 +149,11 @@ namespace CprBroker.Tests.DBR.DiversionComparison
         public string[] CprNumbers100 { get { return GetCprNumbers(100); } }
         public string[] CprNumbers400 { get { return GetCprNumbers(400); } }
         #endregion
+    }
 
+    [TestFixture]
+    public class ClassicRequestComparisonTest : DiversionComparisonTest
+    {
         [Test]
         public void InvalidRequest_Old12Char(
             [Values("44", "46", "")]string start,
@@ -177,6 +181,25 @@ namespace CprBroker.Tests.DBR.DiversionComparison
             var request = type + largeData + pnr;
             Compare(request);
         }
+    }
+
+    public class NewRequestComparisonTest : DiversionComparisonTest, IComparisonType
+    {
+        public virtual PropertyComparisonResult[] ExcludedPropertiesInformation
+        {
+            get
+            {
+                return new PropertyComparisonResult[] { };
+            }
+        }
+
+        public virtual Type TargetType
+        {
+            get
+            {
+                return null;
+            }
+        }
 
         public void CompareNewRequest(
             char type,
@@ -197,33 +220,6 @@ namespace CprBroker.Tests.DBR.DiversionComparison
             Compare(request, preprocessor);
         }
 
-        [Test]
-        public void RealRequest_New40Char_Ingen(
-            [Values('1')]char type,
-            [Values('0')]char largeData,
-            [ValueSource(nameof(CprNumbers5))]string pnr)
-        {
-            CompareNewRequest(type, largeData, pnr, 'I');
-        }
-
-        [Test]
-        public void RealRequest_New40Char_Stam(
-            [Values('1')]char type,
-            [Values('0')]char largeData,
-            [ValueSource(nameof(CprNumbers100))]string pnr)
-        {
-            CompareNewRequest(type, largeData, pnr, 'S', Preprocess<NewResponseBasicDataType>);
-        }
-
-        [Test]
-        public void RealRequest_New40Char_Udvidet(
-            [Values('1')]char type,
-            [Values('0')]char largeData,
-            [ValueSource(nameof(CprNumbers400))]string pnr)
-        {
-            CompareNewRequest(type, largeData, pnr, 'U', Preprocess<NewResponseFullDataType>);
-        }
-
         public string Preprocess<T>(string s) where T : Wrapper, new()
         {
             var propertyDefinitions = new T().PropertyDefinitions;
@@ -232,9 +228,9 @@ namespace CprBroker.Tests.DBR.DiversionComparison
 
             var valuesAndProps = propertyDefinitions
                 .Zip(values, (p, v) => new { Prop = p.Item1.ToUpper(), Pos = p.Item2, Len = p.Item3, Value = v });
-            
+
             var status = decimal.Parse(valuesAndProps.SingleOrDefault(p => p.Prop == "STATUS")?.Value.TrimEnd(';'));
-            
+
             var excludedProps = new string[] {
                 "AJF",
                 "MYNKOD",
@@ -354,6 +350,69 @@ namespace CprBroker.Tests.DBR.DiversionComparison
 
             var sRet = s.Substring(0, 7) + string.Join(";", newValues);
             return sRet;
+        }
+    }
+
+    [TestFixture]
+    public class NewRequestComparisonTest_Ingen : NewRequestComparisonTest
+    {
+        public override Type TargetType
+        {
+            get
+            {
+                return typeof(NewResponseNoDataType);
+            }
+        }
+
+        [Test]
+        public void RealRequest_New40Char_Ingen(
+            [Values('1')]char type,
+            [Values('0')]char largeData,
+            [ValueSource(nameof(CprNumbers5))]string pnr)
+        {
+            CompareNewRequest(type, largeData, pnr, 'I');
+        }
+    }
+
+    [TestFixture]
+    public class NewRequestComparisonTest_Stam : NewRequestComparisonTest
+    {
+        public override Type TargetType
+        {
+            get
+            {
+                return typeof(NewResponseBasicDataType);
+            }
+        }
+
+        [Test]
+        public void RealRequest_New40Char_Stam(
+            [Values('1')]char type,
+            [Values('0')]char largeData,
+            [ValueSource(nameof(CprNumbers100))]string pnr)
+        {
+            CompareNewRequest(type, largeData, pnr, 'S', Preprocess<NewResponseBasicDataType>);
+        }
+    }
+
+    [TestFixture]
+    public class NewRequestComparisonTest_Udvidet : NewRequestComparisonTest
+    {
+        public override Type TargetType
+        {
+            get
+            {
+                return typeof(NewResponseFullDataType);
+            }
+        }
+
+        [Test]
+        public void RealRequest_New40Char_Udvidet(
+            [Values('1')]char type,
+            [Values('0')]char largeData,
+            [ValueSource(nameof(CprNumbers400))]string pnr)
+        {
+            CompareNewRequest(type, largeData, pnr, 'U', Preprocess<NewResponseFullDataType>);
         }
     }
 }
