@@ -64,9 +64,9 @@ namespace CprBroker.Tests.DBR.ComparisonResults
             var cmpObj = Reflection.CreateInstance(t) as IComparisonType;
             var tableType = cmpObj.TargetType;
 
-            if (DataLinq.IsTable(tableType))
+            //if (DataLinq.IsTable(tableType))
             {
-                var typeMatch = new TypeComparisonResult() { ClassName = tableType.Name, SourceName = Utilities.DataLinq.GetTableName(tableType) };
+                var typeMatch = new TypeComparisonResult() { ClassName = tableType.Name, SourceName = cmpObj.SourceName };
 
                 var ignoreCountProp = t.GetProperty("IgnoreCount");
                 typeMatch.IgnoreCount = ignoreCountProp == null ?
@@ -74,7 +74,7 @@ namespace CprBroker.Tests.DBR.ComparisonResults
                     :
                     (bool?)ignoreCountProp.GetValue(cmpObj);
 
-                var allProperties = DataLinq.GetColumnProperties(tableType);
+                var allProperties = cmpObj.DataProperties();
                 var excludedProperties = cmpObj.ExcludedPropertiesInformation;
 
                 var fieldMatches =
@@ -87,7 +87,7 @@ namespace CprBroker.Tests.DBR.ComparisonResults
 
                 return typeMatch;
             }
-            else
+            //else
             {
                 return null;
             }

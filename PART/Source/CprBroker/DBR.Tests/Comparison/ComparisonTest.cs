@@ -55,6 +55,19 @@ namespace CprBroker.Tests.DBR.Comparison
             }
         }
 
+        public virtual PropertyInfo[] DataProperties()
+        {
+            return DataLinq.GetColumnProperties(typeof(TObject));
+        }
+
+        public string SourceName
+        {
+            get
+            {
+                return Utilities.DataLinq.GetTableName(typeof(TObject));
+            }
+        }
+
         public virtual string[] ExcludedPropertyNames
         {
             get

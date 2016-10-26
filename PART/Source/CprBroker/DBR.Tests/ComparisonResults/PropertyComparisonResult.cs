@@ -17,7 +17,11 @@ namespace CprBroker.Tests.DBR.ComparisonResults
 
         public override string ToString()
         {
-            return string.Format("*** Property <{0}>, Column <{1}>, Match <{2}>\r\n", this.PropertyName, this.SourceName, this.IsMatch);
+            return string.Format("*** {0}{1}{2}",
+                string.Format("Property <{0}>, ", this.PropertyName),
+                this.SourceName != null ? string.Format("Column <{0}>, ", this.SourceName) : null,
+                string.Format("Match <{0}>\r\n", this.IsMatch)
+                );
         }
 
         public PropertyComparisonResult()

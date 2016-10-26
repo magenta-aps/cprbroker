@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Sockets;
+using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -183,7 +184,7 @@ namespace CprBroker.Tests.DBR.DiversionComparison
         }
     }
 
-    public class NewRequestComparisonTest : DiversionComparisonTest, IComparisonType
+    public abstract class NewRequestComparisonTest : DiversionComparisonTest, IComparisonType
     {
         public virtual PropertyComparisonResult[] ExcludedPropertiesInformation
         {
@@ -264,6 +265,17 @@ namespace CprBroker.Tests.DBR.DiversionComparison
             {
                 return null;
             }
+        }
+
+        public virtual PropertyInfo[] DataProperties()
+        {
+            var o = Reflection.CreateInstance(TargetType) as Wrapper;
+            return o.PropertyDefinitions.Select(p => TargetType.GetProperty(p.Item1)).ToArray();
+        }
+
+        public string SourceName
+        {
+            get { return TargetType.Name; }
         }
 
         public void CompareNewRequest(

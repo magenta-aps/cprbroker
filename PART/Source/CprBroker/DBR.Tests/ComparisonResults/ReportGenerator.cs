@@ -12,13 +12,21 @@ namespace CprBroker.Tests.DBR.ComparisonResults
         {
             get
             {
-                var baseComparisonType = typeof(Comparison.Person.PersonComparisonTest<>);
-                var types = baseComparisonType
+                var baseDbComparisonType = typeof(Comparison.Person.PersonComparisonTest<>);
+                var dbTypes = baseDbComparisonType
                     .Assembly
                     .GetTypes()
-                    .Where(t => Reflection.IsTypeDerivedFromGenericType(t, baseComparisonType) && !t.IsGenericType)
+                    .Where(t => Reflection.IsTypeDerivedFromGenericType(t, baseDbComparisonType) && !t.IsGenericType && t.BaseType.GetGenericArguments()[0]!= typeof(object))
                     .ToArray();
-                return types;
+
+                var baseDiversionComparisonType = typeof(DiversionComparison.DiversionComparisonTest);
+                var diversionTypes = baseDiversionComparisonType
+                    .Assembly
+                    .GetTypes()
+                    .Where(t => baseDiversionComparisonType.IsAssignableFrom(t) && typeof(IComparisonType).IsAssignableFrom(t) && !t.IsAbstract)
+                    .ToArray();
+
+                return dbTypes.Union(diversionTypes).ToArray();
             }
         }
 
