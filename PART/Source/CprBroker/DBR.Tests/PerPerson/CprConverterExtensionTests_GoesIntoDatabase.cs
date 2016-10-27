@@ -14,7 +14,7 @@ namespace CprBroker.Tests.DBR.PerPerson
     public class CprConverterExtensionTests_GoesIntoDatabase : DbrTestBase
     {
         [Test]
-        public void PersonTotal_Passes([ValueSource(typeof(PersonBaseTest), "CprNumbers")]string pnr)
+        public void PersonTotal_Passes([ValueSource(typeof(PersonBaseTest), nameof(PersonBaseTest.CprNumbers))]string pnr)
         {
             var pers = PersonBaseTest.Persons[pnr];
             using (var dataContext = new DPRDataContext(DbrDatabase.ConnectionString))
@@ -25,7 +25,7 @@ namespace CprBroker.Tests.DBR.PerPerson
         }
 
         [Test]
-        public void Person_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), "CprNumbers")]string pnr)
+        public void Person_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), nameof(PersonBaseTest.CprNumbers))]string pnr)
         {
             using (var dataContext = new DPRDataContext(DbrDatabase.ConnectionString))
             {
@@ -35,7 +35,7 @@ namespace CprBroker.Tests.DBR.PerPerson
         }
 
         [Test]
-        public void Child_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), "CprNumbers")]string pnr)
+        public void Child_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), nameof(PersonBaseTest.CprNumbers))]string pnr)
         {
             var pers = PersonBaseTest.Persons[pnr];
             using (var dataContext = new DPRDataContext(DbrDatabase.ConnectionString))
@@ -47,7 +47,7 @@ namespace CprBroker.Tests.DBR.PerPerson
         }
 
         [Test]
-        public void CurrentName_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), "CprNumbers")]string pnr)
+        public void CurrentName_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), nameof(PersonBaseTest.CprNumbers))]string pnr)
         {
             var pers = PersonBaseTest.Persons[pnr];
             using (var dataContext = new DPRDataContext(DbrDatabase.ConnectionString))
@@ -58,7 +58,7 @@ namespace CprBroker.Tests.DBR.PerPerson
         }
 
         [Test]
-        public void HistoricalName_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), "CprNumbers")]string pnr)
+        public void HistoricalName_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), nameof(PersonBaseTest.CprNumbers))]string pnr)
         {
             var pers = PersonBaseTest.Persons[pnr];
             using (var dataContext = new DPRDataContext(DbrDatabase.ConnectionString))
@@ -70,7 +70,7 @@ namespace CprBroker.Tests.DBR.PerPerson
         }
 
         [Test]
-        public void CurrentCivilStatus_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), "CprNumbers")]string pnr)
+        public void CurrentCivilStatus_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), nameof(PersonBaseTest.CprNumbers))]string pnr)
         {
             var pers = PersonBaseTest.Persons[pnr];
             using (var dataContext = new DPRDataContext(DbrDatabase.ConnectionString))
@@ -81,7 +81,7 @@ namespace CprBroker.Tests.DBR.PerPerson
         }
 
         [Test]
-        public void HistoricalCivilStatus_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), "CprNumbers")]string pnr)
+        public void HistoricalCivilStatus_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), nameof(PersonBaseTest.CprNumbers))]string pnr)
         {
             var pers = PersonBaseTest.Persons[pnr];
             using (var dataContext = new DPRDataContext(DbrDatabase.ConnectionString))
@@ -93,7 +93,7 @@ namespace CprBroker.Tests.DBR.PerPerson
         }
 
         [Test]
-        public void CurrentSeparation_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), "CprNumbers")]string pnr)
+        public void CurrentSeparation_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), nameof(PersonBaseTest.CprNumbers))]string pnr)
         {
             var pers = PersonBaseTest.Persons[pnr];
             if (pers.CurrentSeparation != null)
@@ -105,7 +105,7 @@ namespace CprBroker.Tests.DBR.PerPerson
         }
 
         [Test]
-        public void HistoricalSeparation_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), "CprNumbers")]string pnr)
+        public void HistoricalSeparation_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), nameof(PersonBaseTest.CprNumbers))]string pnr)
         {
             var pers = PersonBaseTest.Persons[pnr];
             using (var dataContext = new DPRDataContext(DbrDatabase.ConnectionString))
@@ -117,7 +117,7 @@ namespace CprBroker.Tests.DBR.PerPerson
         }
 
         [Test]
-        public void CurrentCitizenship_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), "CprNumbers")]string pnr)
+        public void CurrentCitizenship_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), nameof(PersonBaseTest.CprNumbers))]string pnr)
         {
             var pers = PersonBaseTest.Persons[pnr];
             using (var dataContext = new DPRDataContext(DbrDatabase.ConnectionString))
@@ -128,7 +128,7 @@ namespace CprBroker.Tests.DBR.PerPerson
         }
 
         [Test]
-        public void HistoricalCitizenship_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), "CprNumbers")]string pnr)
+        public void HistoricalCitizenship_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), nameof(PersonBaseTest.CprNumbers))]string pnr)
         {
             var pers = PersonBaseTest.Persons[pnr];
             using (var dataContext = new DPRDataContext(DbrDatabase.ConnectionString))
@@ -140,7 +140,7 @@ namespace CprBroker.Tests.DBR.PerPerson
         }
 
         [Test]
-        public void CurrentDeparture_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), "CprNumbers")]string pnr)
+        public void CurrentDeparture_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), nameof(PersonBaseTest.CprNumbers))]string pnr)
         {
             var pers = PersonBaseTest.Persons[pnr];
             if (pers.CurrentDepartureData != null)
@@ -152,7 +152,7 @@ namespace CprBroker.Tests.DBR.PerPerson
         }
 
         [Test]
-        public void HistoricalDeparture_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), "CprNumbers")]string pnr)
+        public void HistoricalDeparture_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), nameof(PersonBaseTest.CprNumbers))]string pnr)
         {
             var pers = PersonBaseTest.Persons[pnr];
             using (var dataContext = new DPRDataContext(DbrDatabase.ConnectionString))
@@ -164,7 +164,7 @@ namespace CprBroker.Tests.DBR.PerPerson
         }
 
         [Test]
-        public void ContactAddress_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), "CprNumbers")]string pnr)
+        public void ContactAddress_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), nameof(PersonBaseTest.CprNumbers))]string pnr)
         {
             var pers = PersonBaseTest.Persons[pnr];
             if (pers.ContactAddress != null)
@@ -176,7 +176,7 @@ namespace CprBroker.Tests.DBR.PerPerson
         }
 
         [Test]
-        public void FolkeregisterAddress_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), "CprNumbers")]string pnr)
+        public void FolkeregisterAddress_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), nameof(PersonBaseTest.CprNumbers))]string pnr)
         {
             var pers = PersonBaseTest.Persons[pnr];
             var adr = pers.GetFolkeregisterAdresseSource(false) as CprBroker.Providers.CPRDirect.CurrentAddressWrapper;
@@ -189,7 +189,7 @@ namespace CprBroker.Tests.DBR.PerPerson
         }
 
         [Test]
-        public void HistoricalAddress_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), "CprNumbers")]string pnr)
+        public void HistoricalAddress_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), nameof(PersonBaseTest.CprNumbers))]string pnr)
         {
             var pers = PersonBaseTest.Persons[pnr];
             using (var dataContext = new DPRDataContext(DbrDatabase.ConnectionString))
@@ -201,7 +201,7 @@ namespace CprBroker.Tests.DBR.PerPerson
         }
 
         [Test]
-        public void Protection_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), "CprNumbers")]string pnr)
+        public void Protection_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), nameof(PersonBaseTest.CprNumbers))]string pnr)
         {
             var pers = PersonBaseTest.Persons[pnr];
             using (var dataContext = new DPRDataContext(DbrDatabase.ConnectionString))
@@ -213,7 +213,7 @@ namespace CprBroker.Tests.DBR.PerPerson
         }
 
         [Test]
-        public void CurrentDisappearance_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), "CprNumbers")]string pnr)
+        public void CurrentDisappearance_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), nameof(PersonBaseTest.CprNumbers))]string pnr)
         {
             var pers = PersonBaseTest.Persons[pnr];
             if (pers.CurrentDisappearanceInformation != null)
@@ -225,7 +225,7 @@ namespace CprBroker.Tests.DBR.PerPerson
         }
 
         [Test]
-        public void HistoricalDisappearance_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), "CprNumbers")]string pnr)
+        public void HistoricalDisappearance_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), nameof(PersonBaseTest.CprNumbers))]string pnr)
         {
             var pers = PersonBaseTest.Persons[pnr];
             using (var dataContext = new DPRDataContext(DbrDatabase.ConnectionString))
@@ -237,7 +237,7 @@ namespace CprBroker.Tests.DBR.PerPerson
         }
 
         [Test]
-        public void Events_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), "CprNumbers")]string pnr)
+        public void Events_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), nameof(PersonBaseTest.CprNumbers))]string pnr)
         {
             var pers = PersonBaseTest.Persons[pnr];
             using (var dataContext = new DPRDataContext(DbrDatabase.ConnectionString))
@@ -249,7 +249,7 @@ namespace CprBroker.Tests.DBR.PerPerson
         }
 
         [Test]
-        public void Notes_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), "CprNumbers")]string pnr)
+        public void Notes_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), nameof(PersonBaseTest.CprNumbers))]string pnr)
         {
             var pers = PersonBaseTest.Persons[pnr];
             using (var dataContext = new DPRDataContext(DbrDatabase.ConnectionString))
@@ -261,7 +261,7 @@ namespace CprBroker.Tests.DBR.PerPerson
         }
 
         [Test]
-        public void MunicipalConditions_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), "CprNumbers")]string pnr)
+        public void MunicipalConditions_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), nameof(PersonBaseTest.CprNumbers))]string pnr)
         {
             var pers = PersonBaseTest.Persons[pnr];
             using (var dataContext = new DPRDataContext(DbrDatabase.ConnectionString))
@@ -273,7 +273,7 @@ namespace CprBroker.Tests.DBR.PerPerson
         }
 
         [Test]
-        public void ParentalAuthority_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), "CprNumbers")]string pnr)
+        public void ParentalAuthority_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), nameof(PersonBaseTest.CprNumbers))]string pnr)
         {
             var pers = PersonBaseTest.Persons[pnr];
             using (var dataContext = new DPRDataContext(DbrDatabase.ConnectionString))
@@ -285,7 +285,7 @@ namespace CprBroker.Tests.DBR.PerPerson
         }
 
         [Test]
-        public void Disempowerment_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), "CprNumbers")]string pnr)
+        public void Disempowerment_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), nameof(PersonBaseTest.CprNumbers))]string pnr)
         {
             var pers = PersonBaseTest.Persons[pnr];
             using (var dataContext = new DPRDataContext(DbrDatabase.ConnectionString))
@@ -297,7 +297,7 @@ namespace CprBroker.Tests.DBR.PerPerson
         }
 
         [Test]
-        public void Disempowerment_ToDprAddress_Passes([ValueSource(typeof(PersonBaseTest), "CprNumbers")]string pnr)
+        public void Disempowerment_ToDprAddress_Passes([ValueSource(typeof(PersonBaseTest), nameof(PersonBaseTest.CprNumbers))]string pnr)
         {
             var pers = PersonBaseTest.Persons[pnr];
             using (var dataContext = new DPRDataContext(DbrDatabase.ConnectionString))

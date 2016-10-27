@@ -14,20 +14,20 @@ namespace CprBroker.Tests.DBR.PerPerson
     public class CprConverterExtensionTests : PersonBaseTest
     {
         [Test]
-        public void PersonTotal_Passes([ValueSource(typeof(PersonBaseTest), "CprNumbers")]string pnr)
+        public void PersonTotal_Passes([ValueSource(typeof(PersonBaseTest), nameof(CprNumbers))]string pnr)
         {
             var pers = Persons[pnr];
             pers.ToPersonTotal(null);
         }
 
         [Test]
-        public void Person_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), "CprNumbers")]string pnr)
+        public void Person_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), nameof(CprNumbers))]string pnr)
         {
             Persons[pnr].ToPerson(null); // TODO: pass a real object here
         }
 
         [Test]
-        public void Child_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), "CprNumbers")]string pnr)
+        public void Child_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), nameof(CprNumbers))]string pnr)
         {
             var pers = Persons[pnr];
             foreach (var ch in pers.Child)
@@ -35,14 +35,14 @@ namespace CprBroker.Tests.DBR.PerPerson
         }
 
         [Test]
-        public void CurrentName_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), "CprNumbers")]string pnr)
+        public void CurrentName_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), nameof(CprNumbers))]string pnr)
         {
             var pers = Persons[pnr];
             pers.CurrentNameInformation.ToDpr(pers.PersonInformation);
         }
 
         [Test]
-        public void HistoricalName_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), "CprNumbers")]string pnr)
+        public void HistoricalName_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), nameof(CprNumbers))]string pnr)
         {
             var pers = Persons[pnr];
             foreach (var n in pers.HistoricalName)
@@ -50,14 +50,14 @@ namespace CprBroker.Tests.DBR.PerPerson
         }
 
         [Test]
-        public void CurrentCivilStatus_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), "CprNumbers")]string pnr)
+        public void CurrentCivilStatus_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), nameof(CprNumbers))]string pnr)
         {
             var pers = Persons[pnr];
             pers.CurrentCivilStatus.ToDpr();
         }
 
         [Test]
-        public void HistoricalCivilStatus_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), "CprNumbers")]string pnr)
+        public void HistoricalCivilStatus_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), nameof(CprNumbers))]string pnr)
         {
             var pers = Persons[pnr];
             foreach (var c in pers.HistoricalCivilStatus)
@@ -65,7 +65,7 @@ namespace CprBroker.Tests.DBR.PerPerson
         }
 
         [Test]
-        public void CurrentSeparation_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), "CprNumbers")]string pnr)
+        public void CurrentSeparation_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), nameof(CprNumbers))]string pnr)
         {
             var pers = Persons[pnr];
             if (pers.CurrentSeparation != null)
@@ -73,7 +73,7 @@ namespace CprBroker.Tests.DBR.PerPerson
         }
 
         [Test]
-        public void HistoricalSeparation_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), "CprNumbers")]string pnr)
+        public void HistoricalSeparation_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), nameof(CprNumbers))]string pnr)
         {
             var pers = Persons[pnr];
             foreach (var s in pers.HistoricalSeparation)
@@ -81,14 +81,14 @@ namespace CprBroker.Tests.DBR.PerPerson
         }
 
         [Test]
-        public void CurrentCitizenship_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), "CprNumbers")]string pnr)
+        public void CurrentCitizenship_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), nameof(CprNumbers))]string pnr)
         {
             var pers = Persons[pnr];
             pers.CurrentCitizenship.ToDpr();
         }
 
         [Test]
-        public void HistoricalCitizenship_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), "CprNumbers")]string pnr)
+        public void HistoricalCitizenship_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), nameof(CprNumbers))]string pnr)
         {
             var pers = Persons[pnr];
             foreach (var c in pers.HistoricalCitizenship)
@@ -96,7 +96,7 @@ namespace CprBroker.Tests.DBR.PerPerson
         }
 
         [Test]
-        public void CurrentDeparture_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), "CprNumbers")]string pnr)
+        public void CurrentDeparture_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), nameof(CprNumbers))]string pnr)
         {
             var pers = Persons[pnr];
             if (pers.CurrentDepartureData != null)
@@ -104,7 +104,7 @@ namespace CprBroker.Tests.DBR.PerPerson
         }
 
         [Test]
-        public void HistoricalDeparture_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), "CprNumbers")]string pnr)
+        public void HistoricalDeparture_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), nameof(CprNumbers))]string pnr)
         {
             var pers = Persons[pnr];
             foreach (var d in pers.HistoricalDeparture)
@@ -112,7 +112,7 @@ namespace CprBroker.Tests.DBR.PerPerson
         }
 
         [Test]
-        public void ContactAddress_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), "CprNumbers")]string pnr)
+        public void ContactAddress_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), nameof(CprNumbers))]string pnr)
         {
             var pers = Persons[pnr];
             if (pers.ContactAddress != null)
@@ -120,7 +120,7 @@ namespace CprBroker.Tests.DBR.PerPerson
         }
 
         [Test]
-        public void FolkeregisterAddress_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), "CprNumbers")]string pnr)
+        public void FolkeregisterAddress_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), nameof(CprNumbers))]string pnr)
         {
             var pers = Persons[pnr];
             var adr = pers.GetFolkeregisterAdresseSource(false) as CprBroker.Providers.CPRDirect.CurrentAddressWrapper;
@@ -129,7 +129,7 @@ namespace CprBroker.Tests.DBR.PerPerson
         }
 
         [Test]
-        public void HistoricalAddress_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), "CprNumbers")]string pnr)
+        public void HistoricalAddress_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), nameof(CprNumbers))]string pnr)
         {
             var pers = Persons[pnr];
             foreach (var a in pers.HistoricalAddress)
@@ -137,7 +137,7 @@ namespace CprBroker.Tests.DBR.PerPerson
         }
 
         [Test]
-        public void Protection_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), "CprNumbers")]string pnr)
+        public void Protection_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), nameof(CprNumbers))]string pnr)
         {
             var pers = Persons[pnr];
             foreach (var p in pers.Protection)
@@ -145,7 +145,7 @@ namespace CprBroker.Tests.DBR.PerPerson
         }
 
         [Test]
-        public void CirrentDisappearance_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), "CprNumbers")]string pnr)
+        public void CirrentDisappearance_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), nameof(CprNumbers))]string pnr)
         {
             var pers = Persons[pnr];
             if (pers.CurrentDisappearanceInformation != null)
@@ -153,7 +153,7 @@ namespace CprBroker.Tests.DBR.PerPerson
         }
 
         [Test]
-        public void HistoricalDisappearance_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), "CprNumbers")]string pnr)
+        public void HistoricalDisappearance_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), nameof(CprNumbers))]string pnr)
         {
             var pers = Persons[pnr];
             foreach (var d in pers.HistoricalDisappearance)
@@ -161,7 +161,7 @@ namespace CprBroker.Tests.DBR.PerPerson
         }
 
         [Test]
-        public void Events_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), "CprNumbers")]string pnr)
+        public void Events_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), nameof(CprNumbers))]string pnr)
         {
             var pers = Persons[pnr];
             foreach (var e in pers.Events)
@@ -169,7 +169,7 @@ namespace CprBroker.Tests.DBR.PerPerson
         }
 
         [Test]
-        public void Notes_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), "CprNumbers")]string pnr)
+        public void Notes_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), nameof(CprNumbers))]string pnr)
         {
             var pers = Persons[pnr];
             foreach (var n in pers.Notes)
@@ -177,7 +177,7 @@ namespace CprBroker.Tests.DBR.PerPerson
         }
 
         [Test]
-        public void MunicipalConditions_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), "CprNumbers")]string pnr)
+        public void MunicipalConditions_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), nameof(CprNumbers))]string pnr)
         {
             var pers = Persons[pnr];
             foreach (var m in pers.MunicipalConditions)
@@ -185,7 +185,7 @@ namespace CprBroker.Tests.DBR.PerPerson
         }
 
         [Test]
-        public void ParentalAuthority_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), "CprNumbers")]string pnr)
+        public void ParentalAuthority_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), nameof(CprNumbers))]string pnr)
         {
             var pers = Persons[pnr];
             foreach (var p in pers.ParentalAuthority)
@@ -193,7 +193,7 @@ namespace CprBroker.Tests.DBR.PerPerson
         }
 
         [Test]
-        public void Disempowerment_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), "CprNumbers")]string pnr)
+        public void Disempowerment_ToDpr_Passes([ValueSource(typeof(PersonBaseTest), nameof(CprNumbers))]string pnr)
         {
             var pers = Persons[pnr];
             if (pers.Disempowerment != null)
@@ -201,7 +201,7 @@ namespace CprBroker.Tests.DBR.PerPerson
         }
 
         [Test]
-        public void Disempowerment_ToDprAddress_Passes([ValueSource(typeof(PersonBaseTest), "CprNumbers")]string pnr)
+        public void Disempowerment_ToDprAddress_Passes([ValueSource(typeof(PersonBaseTest), nameof(CprNumbers))]string pnr)
         {
             var pers = Persons[pnr];
             if (pers.Disempowerment != null)
