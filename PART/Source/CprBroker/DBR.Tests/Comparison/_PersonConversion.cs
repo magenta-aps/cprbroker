@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 namespace CprBroker.Tests.DBR.Comparison.Person
 {
     [TestFixture]
+    [Ignore]
     public class _PersonConversion : PersonComparisonTest<object>
     {
         public void ConvertObject(string pnr)
