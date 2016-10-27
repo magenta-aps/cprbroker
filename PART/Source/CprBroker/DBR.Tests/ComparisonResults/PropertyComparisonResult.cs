@@ -8,8 +8,13 @@ using System.Threading.Tasks;
 
 namespace CprBroker.Tests.DBR.ComparisonResults
 {
-    public enum ExclusionReason
+    public enum ExclusionStatus
     {
+        /// <summary>
+        /// OK Status - not excluded
+        /// </summary>
+        OK,
+
         /// <summary>
         /// Data in DPR is inconsistent if a person is inactive (Status = 20, 70, 80 or 90)
         /// </summary>
@@ -58,9 +63,9 @@ namespace CprBroker.Tests.DBR.ComparisonResults
     {
         public string PropertyName { get; set; }
         public string SourceName { get; set; }
-        public bool IsExcluded { get; set; }
+        public bool IsExcluded { get { return ExclusionStatus == ExclusionStatus.OK; } }
         public string Remarks { get; set; }
-        public ExclusionReason? ExclusionReason { get; set; }
+        public ExclusionStatus ExclusionStatus { get; set; } = ExclusionStatus.OK;
 
         public override string ToString()
         {
@@ -81,23 +86,21 @@ namespace CprBroker.Tests.DBR.ComparisonResults
         {
         }
 
-        public PropertyComparisonResult(string name, string comment, ExclusionReason? reason = null)
+        public PropertyComparisonResult(string name, string comment, ExclusionStatus reason = ExclusionStatus.Unknown)
         {
             PropertyName = name;
             SourceName = null;
-            IsExcluded = true;
             Remarks = comment;
-            ExclusionReason = reason;
+            ExclusionStatus = reason;
         }
 
-        public static PropertyComparisonResult FromLinqProperty(PropertyInfo prop, bool isExcluded, ExclusionReason? reason = null)
+        public static PropertyComparisonResult FromLinqProperty(PropertyInfo prop, ExclusionStatus reason = ExclusionStatus.Unknown)
         {
             return new PropertyComparisonResult()
             {
                 PropertyName = prop.Name,
                 SourceName = DataLinq.GetColumnName(prop),
-                IsExcluded = isExcluded,
-                ExclusionReason = reason,
+                ExclusionStatus = reason,
                 Remarks = null,
             };
         }
@@ -109,23 +112,23 @@ namespace CprBroker.Tests.DBR.ComparisonResults
 
         public static IEnumerable<PropertyComparisonResult> ExcludedAlways(IEnumerable<PropertyComparisonResult> source)
         {
-            return source.Where(f => f.IsExcluded && f.ExclusionReason != ComparisonResults.ExclusionReason.Dead).ToList();
+            return source.Where(f => f.IsExcluded && f.ExclusionStatus != ComparisonResults.ExclusionStatus.Dead).ToList();
         }
 
-        public static IEnumerable<PropertyComparisonResult> OfReason(IEnumerable<PropertyComparisonResult> source, params ExclusionReason?[] reasons)
+        public static IEnumerable<PropertyComparisonResult> OfStatus(IEnumerable<PropertyComparisonResult> source, params ExclusionStatus[] reasons)
         {
             if (reasons == null)
-                reasons = new ComparisonResults.ExclusionReason?[] { };
+                reasons = new ExclusionStatus[] { };
 
-            return source.Where(s => s.IsExcluded && reasons.Contains(s.ExclusionReason));
+            return source.Where(s => reasons.Contains(s.ExclusionStatus));
         }
 
-        public static IEnumerable<PropertyComparisonResult> ExceptReason(IEnumerable<PropertyComparisonResult> source, params ExclusionReason?[] reasons)
+        public static IEnumerable<PropertyComparisonResult> ExceptStatus(IEnumerable<PropertyComparisonResult> source, params ExclusionStatus[] reasons)
         {
             if (reasons == null)
-                reasons = new ComparisonResults.ExclusionReason?[] { };
+                reasons = new ExclusionStatus[] { };
 
-            return source.Where(s => s.IsExcluded && !reasons.Contains(s.ExclusionReason));
+            return source.Where(s => !reasons.Contains(s.ExclusionStatus));
         }
     }
 }

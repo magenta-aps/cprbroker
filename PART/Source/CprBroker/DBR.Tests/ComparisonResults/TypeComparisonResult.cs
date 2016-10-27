@@ -37,7 +37,7 @@ namespace CprBroker.Tests.DBR.ComparisonResults
                 .Select(prop =>
                 {
                     var exProp = excludedProperties.FirstOrDefault(ex => prop.Name.Contains(ex.PropertyName));
-                    return PropertyComparisonResult.FromLinqProperty(prop, exProp != null, exProp?.ExclusionReason);
+                    return PropertyComparisonResult.FromLinqProperty(prop, exProp == null ? ExclusionStatus.OK : exProp.ExclusionStatus);
                 });
 
             typeMatch.Properties.AddRange(fieldMatches);
@@ -56,11 +56,12 @@ namespace CprBroker.Tests.DBR.ComparisonResults
                 sb.AppendFormat("** Ignore row count <{0}>\r\n", IgnoreCount);
             }
 
-            Action<string, IEnumerable<PropertyComparisonResult>> append = (title, props) =>
+            Action<string, ExclusionStatus> append = (title, reason) =>
             {
+                var props = PropertyComparisonResult.OfStatus(Properties, reason);
                 if (props.Count() > 0)
                 {
-                    sb.Append(title);
+                    sb.AppendFormat("** ({0}) {1}", ReasonPercentage(reason).ToString("P0"), title);
                     foreach (var prop in props)
                     {
                         sb.Append(prop.ToString("*** "));
@@ -68,20 +69,37 @@ namespace CprBroker.Tests.DBR.ComparisonResults
                 }
             };
 
-            append("** Exact match\r\n", PropertyComparisonResult.Included(Properties));
+            append("Exact match\r\n", ExclusionStatus.OK);
 
-            append("** Matching values with inconsistent format from DPR\r\n", PropertyComparisonResult.OfReason(Properties, ExclusionReason.InconsistentFormatting));
-            append("** Matching values with random alternation between (null) and '0' in real DPR\r\n", PropertyComparisonResult.OfReason(Properties, ExclusionReason.NullOrZero));
-            append("** Non matching by nature (e.g. timestamps)\r\n", PropertyComparisonResult.OfReason(Properties, ExclusionReason.LocalUpdateRelated));
-            append("** Data is not provided by the source\r\n", PropertyComparisonResult.OfReason(Properties, ExclusionReason.UnavailableAtSource));
-            append("** Data can differ if the reason is too old\r\n", PropertyComparisonResult.OfReason(Properties, ExclusionReason.InsufficientHistory));
-            append("** Difference in valuse returned from DPR viderstilling due to a non-match in the source DPR column\r\n", PropertyComparisonResult.OfReason(Properties, ExclusionReason.CopiedFromNonMatching));
-            append("** Non matching for dead people\r\n", PropertyComparisonResult.OfReason(Properties, ExclusionReason.Dead));
-            append("** Other reasons\r\n", PropertyComparisonResult.OfReason(Properties, ExclusionReason.Unknown, null));
+            append("Matching values with inconsistent format from DPR\r\n", ExclusionStatus.InconsistentFormatting);
+            append("Matching values with random alternation between (null) and '0' in real DPR\r\n", ExclusionStatus.NullOrZero);
+            append("Non matching by nature (e.g. timestamps)\r\n", ExclusionStatus.LocalUpdateRelated);
+            append("Data is not provided by the source\r\n", ExclusionStatus.UnavailableAtSource);
+            append("Data can differ if the reason is too old\r\n", ExclusionStatus.InsufficientHistory);
+            append("Difference in valuse returned from DPR viderstilling due to a non-match in the source DPR column\r\n", ExclusionStatus.CopiedFromNonMatching);
+            append("Non matching for dead people\r\n", ExclusionStatus.Dead);
+            append("Other reasons\r\n", ExclusionStatus.Unknown);
 
 
             return sb.ToString();
         }
-        
+
+        public decimal ReasonPercentage(ExclusionStatus reason)
+        {
+            return ((decimal)PropertyComparisonResult.OfStatus(Properties, reason).Count()) / Properties.Count;
+        }
+
+        public Dictionary<ExclusionStatus, decimal> ReasonPercentages
+        {
+            get
+            {
+                var reasons = Enum.GetValues(typeof(ExclusionStatus)).Cast<ExclusionStatus>().ToList();
+
+                return reasons.ToDictionary(
+                    r => r,
+                    r => ReasonPercentage(r)
+                    );
+            }
+        }
     }
 }
