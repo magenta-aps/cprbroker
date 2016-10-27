@@ -29,14 +29,6 @@ namespace CprBroker.Tests.DBR.Comparison
             }
         }
 
-        public virtual PropertyComparisonResult[] ExcludedPropertiesInformation90
-        {
-            get
-            {
-                return new PropertyComparisonResult[] { };
-            }
-        }
-
         public Type TargetType
         {
             get
@@ -45,7 +37,7 @@ namespace CprBroker.Tests.DBR.Comparison
             }
         }
 
-        public virtual PropertyInfo[] DataProperties()
+        public PropertyInfo[] DataProperties()
         {
             return DataLinq.GetColumnProperties(typeof(TObject));
         }
@@ -58,7 +50,7 @@ namespace CprBroker.Tests.DBR.Comparison
             }
         }
 
-        public virtual string[] ExcludedPropertyNames
+        public string[] ExcludedPropertyNames
         {
             get
             {
@@ -197,7 +189,7 @@ namespace CprBroker.Tests.DBR.Comparison
 
 
         [Test]
-        [TestCaseSource("LoadKeys")]
+        [TestCaseSource(nameof(LoadKeys))]
         public void T1_CompareCount(string pnr)
         {
             using (var realDprDataContext = CreateDataContext(Properties.Settings.Default.RealDprConnectionString))
@@ -224,8 +216,8 @@ namespace CprBroker.Tests.DBR.Comparison
 
         [Test]
         public void T2_CompareContents(
-            [ValueSource("GetProperties")]PropertyInfo property,
-            [ValueSource("LoadKeys")]string key)
+            [ValueSource(nameof(GetProperties))]PropertyInfo property,
+            [ValueSource(nameof(LoadKeys))]string key)
         {
             using (var realDprDataContext = CreateDataContext(Properties.Settings.Default.RealDprConnectionString))
             {
