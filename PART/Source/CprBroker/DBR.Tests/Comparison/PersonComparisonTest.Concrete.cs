@@ -360,6 +360,14 @@ namespace CprBroker.Tests.DBR.Comparison.Person
                 };
             }
         }
+
+        public override bool IgnoreCount
+        {
+            get
+            {
+                return true;
+            }
+        }
     }
 
     [TestFixture]
