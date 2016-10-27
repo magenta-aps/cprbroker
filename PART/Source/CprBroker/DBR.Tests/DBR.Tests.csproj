@@ -106,6 +106,7 @@
     <Compile Include="ComparisonResults\PropertyComparisonResult.cs" />
     <Compile Include="ComparisonResults\TypeComparisonResult.cs" />
     <Compile Include="Comparison\ComparisonTest.cs" />
+    <Compile Include="Comparison\_PersonConversion.cs" />
     <Compile Include="DiversionComparison\ClassicRequestTypeStub.cs" />
     <Compile Include="DiversionComparison\DiversionComparisonTest.cs" />
     <Compile Include="Comparison\GeoLookupComparisonTest.Concrete.cs" />
