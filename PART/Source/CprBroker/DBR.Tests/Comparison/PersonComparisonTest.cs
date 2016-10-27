@@ -35,7 +35,6 @@ namespace CprBroker.Tests.DBR.Comparison.Person
                 }
                 else
                 {
-                    Random r = new Random();
                     using (var w = new System.IO.StreamWriter(string.Format("c:\\logs\\Compare-{0}-{1}-{2}.log", GetType().Name, DateTime.Now.ToString("yyyyMMdd HHmmss"), r.Next())))
                     {
                         w.AutoFlush = true;
