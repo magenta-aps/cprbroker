@@ -314,7 +314,7 @@ namespace CprBroker.Tests.DBR.Comparison.Person
         public override string[] GetOrderByColumnNames()
         {
             return new string[] {
-                "TILFDTO" // Address StartDate
+                "TILFDTO DESC" // Address StartDate
             };
         }
 
