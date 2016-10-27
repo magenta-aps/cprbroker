@@ -211,8 +211,8 @@ namespace CprBroker.Tests.DBR.Comparison
             }
         }
 
-        public virtual void ConvertObject(string key)
-        { }
+        //public virtual void ConvertObject(string key)
+        //{ }
 
         [Test]
         public void T2_CompareContents(
