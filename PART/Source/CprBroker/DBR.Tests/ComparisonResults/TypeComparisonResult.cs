@@ -16,6 +16,35 @@ namespace CprBroker.Tests.DBR.ComparisonResults
 
         public List<PropertyComparisonResult> Properties { get; } = new List<PropertyComparisonResult>();
 
+        public static TypeComparisonResult FromComparisonClass(Type t)
+        {
+            var cmpObj = Reflection.CreateInstance(t) as IComparisonType;
+            var tableType = cmpObj.TargetType;
+
+
+            var typeMatch = new TypeComparisonResult() { ClassName = tableType.Name, SourceName = cmpObj.SourceName };
+
+            var ignoreCountProp = t.GetProperty("IgnoreCount");
+            typeMatch.IgnoreCount = ignoreCountProp == null ?
+                null
+                :
+                (bool?)ignoreCountProp.GetValue(cmpObj);
+
+            var allProperties = cmpObj.DataProperties();
+            var excludedProperties = cmpObj.ExcludedPropertiesInformation;
+
+            var fieldMatches = allProperties
+                .Select(prop =>
+                {
+                    var exProp = excludedProperties.FirstOrDefault(ex => prop.Name.Contains(ex.PropertyName));
+                    return PropertyComparisonResult.FromLinqProperty(prop, exProp != null, exProp?.ExclusionReason);
+                });
+
+            typeMatch.Properties.AddRange(fieldMatches);
+
+            return typeMatch;
+        }
+
         public override string ToString()
         {
             var sb = new StringBuilder();
@@ -53,34 +82,6 @@ namespace CprBroker.Tests.DBR.ComparisonResults
 
             return sb.ToString();
         }
-
-        public static TypeComparisonResult FromComparisonClass(Type t)
-        {
-            var cmpObj = Reflection.CreateInstance(t) as IComparisonType;
-            var tableType = cmpObj.TargetType;
-
-
-            var typeMatch = new TypeComparisonResult() { ClassName = tableType.Name, SourceName = cmpObj.SourceName };
-
-            var ignoreCountProp = t.GetProperty("IgnoreCount");
-            typeMatch.IgnoreCount = ignoreCountProp == null ?
-                null
-                :
-                (bool?)ignoreCountProp.GetValue(cmpObj);
-
-            var allProperties = cmpObj.DataProperties();
-            var excludedProperties = cmpObj.ExcludedPropertiesInformation;
-
-            var fieldMatches = allProperties
-                .Select(prop =>
-                {
-                    var exProp = excludedProperties.FirstOrDefault(ex => prop.Name.Contains(ex.PropertyName));
-                    return PropertyComparisonResult.FromLinqProperty(prop, exProp != null, exProp?.ExclusionReason);
-                });
-
-            typeMatch.Properties.AddRange(fieldMatches);
-
-            return typeMatch;
-        }
+        
     }
 }
