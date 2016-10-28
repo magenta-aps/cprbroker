@@ -53,6 +53,9 @@ namespace CprBroker.Tests.DBR.ComparisonResults
         /// </summary>
         InconsistentFormatting,
 
+        /// <summary>
+        /// There is no obvious rule that DPR uses to fill these values
+        /// </summary>
         InconsistentObservations,
 
         /// <summary>

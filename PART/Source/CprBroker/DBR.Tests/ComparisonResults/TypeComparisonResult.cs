@@ -76,6 +76,7 @@ namespace CprBroker.Tests.DBR.ComparisonResults
             append("Non matching by nature (e.g. timestamps)\r\n", ExclusionStatus.LocalUpdateRelated);
             append("Data is not provided by the source\r\n", ExclusionStatus.UnavailableAtSource);
             append("Data can differ if the reason is too old\r\n", ExclusionStatus.InsufficientHistory);
+            append("There is no clear rule for how DPR fills these values\r\n", ExclusionStatus.InconsistentObservations);
             append("Difference in valuse returned from DPR viderstilling due to a non-match in the source DPR column\r\n", ExclusionStatus.CopiedFromNonMatching);
             append("Non matching for dead people\r\n", ExclusionStatus.Dead);
             append("Other reasons\r\n", ExclusionStatus.Unknown);
