@@ -33,10 +33,9 @@ namespace CprBroker.Tests.DBR.ComparisonResults
         public string GenerateReport()
         {
             return ""
-                + "h3. Fields \r\n\r\n"
                 + string.Join(
                     Environment.NewLine,
-                    this.ComparisonTypes.Select(t => TypeComparisonResult.FromComparisonClass(t).ToString()))
+                    this.ComparisonTypes.Select(t => TypeComparisonResult.FromComparisonClass(t).ToString(2)))
                 ;
         }
 

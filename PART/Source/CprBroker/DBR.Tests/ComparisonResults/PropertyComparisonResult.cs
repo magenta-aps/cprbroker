@@ -84,11 +84,10 @@ namespace CprBroker.Tests.DBR.ComparisonResults
 
         public string ToString(string prefix)
         {
-            return string.Format("{0}{1}{2}{3}",
+            return string.Format("{0}{1}, {2}\r\n",
                 prefix,
-                string.Format("Property <{0}>, ", this.PropertyName),
-                this.SourceName != null ? string.Format("Column <{0}>, ", this.SourceName) : null,
-                string.Format("Excluded <{0}>\r\n", this.IsExcluded)
+                string.Format("Property <{0}>", this.PropertyName),
+                this.SourceName != null ? string.Format("Column <{0}>", this.SourceName) : null
                 );
         }
 

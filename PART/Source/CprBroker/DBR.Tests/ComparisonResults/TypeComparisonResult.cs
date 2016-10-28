@@ -47,13 +47,19 @@ namespace CprBroker.Tests.DBR.ComparisonResults
 
         public override string ToString()
         {
-            var sb = new StringBuilder();
+            return ToString(1);
+        }
 
-            sb.Append(String.Format("* Type <{0}>, table <{1}>\r\n", ClassName, SourceName));
+        public string ToString(int level)
+        {
+            var sb = new StringBuilder();
+            sb.AppendLine();
+            sb.Append(String.Format("h{0}. Type <{1}>, table <{2}>:", level, ClassName, SourceName));
+            sb.AppendLine();
 
             if (IgnoreCount.HasValue)
             {
-                sb.AppendFormat("** Ignore row count <{0}>\r\n", IgnoreCount);
+                //sb.AppendFormat("** Ignore row count <{0}>\r\n", IgnoreCount);
             }
 
             Action<string, ExclusionStatus> append = (title, reason) =>
@@ -61,33 +67,49 @@ namespace CprBroker.Tests.DBR.ComparisonResults
                 var props = PropertyComparisonResult.OfStatus(Properties, reason);
                 if (props.Count() > 0)
                 {
-                    sb.AppendFormat("** ({0}) {1}", ReasonPercentage(reason).ToString("P0"), title);
+                    sb.AppendLine();
+                    sb.AppendFormat("h{0}. {1} ({2} fields, {3})", level + 1, title, ReasonCount(reason), ReasonPercentage(reason).ToString("P0"));
+                    sb.AppendLine();
+                    sb.AppendLine();
+
                     foreach (var prop in props)
                     {
-                        sb.Append(prop.ToString("*** "));
+                        sb.Append(prop.ToString("* "));
                     }
                 }
             };
 
-            append("Exact match\r\n", ExclusionStatus.OK);
+            append("Exact match", ExclusionStatus.OK);
 
-            append("Matching values with inconsistent format from DPR\r\n", ExclusionStatus.InconsistentFormatting);
-            append("Matching values with random alternation between (null) and '0' in real DPR\r\n", ExclusionStatus.NullOrZero);
-            append("Non matching by nature (e.g. timestamps)\r\n", ExclusionStatus.LocalUpdateRelated);
-            append("Data is not provided by the source\r\n", ExclusionStatus.UnavailableAtSource);
-            append("Data can differ if the reason is too old\r\n", ExclusionStatus.InsufficientHistory);
-            append("There is no clear rule for how DPR fills these values\r\n", ExclusionStatus.InconsistentObservations);
-            append("Difference in valuse returned from DPR viderstilling due to a non-match in the source DPR column\r\n", ExclusionStatus.CopiedFromNonMatching);
-            append("Non matching for dead people\r\n", ExclusionStatus.Dead);
-            append("Other reasons\r\n", ExclusionStatus.Unknown);
+            append("Non matching by nature (e.g. timestamps)", ExclusionStatus.LocalUpdateRelated);
+
+            append("Matching values with inconsistent format from DPR", ExclusionStatus.InconsistentFormatting);
+            append("Matching values with random alternation between (null) and '0' in real DPR", ExclusionStatus.NullOrZero);
+
+            append("Marker fields whose data can differ if the reason is too old(e.g. a departure marker cause by a departure that is older than 20 years)", ExclusionStatus.InsufficientHistory);
+
+            append("Data is not provided by the source", ExclusionStatus.UnavailableAtSource);
+
+            append("These values can be retrieved only for current data, but not for historical data", ExclusionStatus.MissingInHistoricalRecords);
+            append("There is no clear rule for how DPR fills these values", ExclusionStatus.InconsistentObservations);
+
+            append("Difference in values returned from DPR viderstilling due to a non-match in the source DPR column", ExclusionStatus.CopiedFromNonMatching);
+
+            append("Non matching for dead people", ExclusionStatus.Dead);
+            append("Other reasons", ExclusionStatus.Unknown);
 
 
             return sb.ToString();
         }
 
+        public int ReasonCount(ExclusionStatus reason)
+        {
+            return PropertyComparisonResult.OfStatus(Properties, reason).Count();
+        }
+
         public decimal ReasonPercentage(ExclusionStatus reason)
         {
-            return ((decimal)PropertyComparisonResult.OfStatus(Properties, reason).Count()) / Properties.Count;
+            return ((decimal)ReasonCount(reason)) / Properties.Count;
         }
 
         public Dictionary<ExclusionStatus, decimal> ReasonPercentages
