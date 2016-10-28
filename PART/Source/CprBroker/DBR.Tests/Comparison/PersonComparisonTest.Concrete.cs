@@ -408,7 +408,16 @@ namespace CprBroker.Tests.DBR.Comparison.Person
     [TestFixture]
     public class GuardianAndParentalAuthorityRelationComparisonTests : PersonComparisonTest<GuardianAndParentalAuthorityRelation>
     {
-        // Review 2.0
+        public override PropertyComparisonResult[] ExcludedPropertiesInformation
+        {
+            get
+            {
+                return new PropertyComparisonResult[] {
+                    // Review Oct 2016
+                    new PropertyComparisonResult(nameof(GuardianAndParentalAuthorityRelation.AuthorityCode),"", ExclusionStatus.UnavailableAtSource),
+                };
+            }
+        }
     }
 
     [TestFixture]

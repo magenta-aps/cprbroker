@@ -54,7 +54,7 @@ namespace CprBroker.DBR.Extensions
 {
     public static partial class CprConverterExtensions
     {
-        public static GuardianAndParentalAuthorityRelation ToDpr(this DisempowermentType disempowerment)
+        public static GuardianAndParentalAuthorityRelation ToDpr_RelPnrPnr(this DisempowermentType disempowerment)
         {
             if (disempowerment.GuardianshipType == DisempowermentType.GuardianshipTypes.ParentOrGuardianPnrFound)
             {
@@ -72,6 +72,33 @@ namespace CprBroker.DBR.Extensions
 
                 if (disempowerment.DisempowermentEndDate.HasValue)
                     gapa.EndDate = disempowerment.DisempowermentEndDate.Value;
+
+                gapa.AuthorityCode = 0; //TODO: Can be fetched in CPR Services, mynkod
+                return gapa;
+            }
+            return null;
+        }
+
+        public static GuardianAndParentalAuthorityRelation ToDpr_RelPnrPnr(this ParentalAuthorityType parentalAuthority)
+        {
+            var custodyType = (ParentalAuthorityType.CustodyTypes)parentalAuthority.RelationshipType;
+            Console.WriteLine("{0}={1},{2}={3}", nameof(custodyType), custodyType, nameof(parentalAuthority.RelationPNR), parentalAuthority.RelationPNR);
+            if (
+                !string.IsNullOrEmpty(string.Format("{0}", parentalAuthority.RelationPNR).Trim(' ', '0'))
+                &&
+                (custodyType == ParentalAuthorityType.CustodyTypes.OtherHolder1 || custodyType == ParentalAuthorityType.CustodyTypes.OtherHolder2))
+            {
+                GuardianAndParentalAuthorityRelation gapa = new GuardianAndParentalAuthorityRelation();
+                gapa.PNR = decimal.Parse(parentalAuthority.PNR);
+                gapa.RelationPnr = decimal.Parse(parentalAuthority.RelationPNR);
+
+                gapa.RelationType = parentalAuthority.RelationshipType;
+                gapa.CprUpdateDate = CprBroker.Utilities.Dates.DateToDecimal(parentalAuthority.Registration.RegistrationDate, 12);
+
+                if (parentalAuthority.CustodyStartDate.HasValue)
+                    gapa.StartDate = parentalAuthority.CustodyStartDate.Value;
+
+                gapa.EndDate = parentalAuthority.CustodyEndDate;
 
                 gapa.AuthorityCode = 0; //TODO: Can be fetched in CPR Services, mynkod
                 return gapa;

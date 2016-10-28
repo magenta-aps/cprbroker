@@ -197,7 +197,7 @@ namespace CprBroker.Tests.DBR.PerPerson
         {
             var pers = Persons[pnr];
             if (pers.Disempowerment != null)
-                pers.Disempowerment.ToDpr();
+                pers.Disempowerment.ToDpr_RelPnrPnr();
         }
 
         [Test]

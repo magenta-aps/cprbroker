@@ -291,7 +291,7 @@ namespace CprBroker.Tests.DBR.PerPerson
             using (var dataContext = new DPRDataContext(DbrDatabase.ConnectionString))
             {
                 if (pers.Disempowerment != null)
-                    dataContext.GuardianAndParentalAuthorityRelations.InsertOnSubmit(pers.Disempowerment.ToDpr());
+                    dataContext.GuardianAndParentalAuthorityRelations.InsertOnSubmit(pers.Disempowerment.ToDpr_RelPnrPnr());
                 dataContext.SubmitChanges();
             }
         }
