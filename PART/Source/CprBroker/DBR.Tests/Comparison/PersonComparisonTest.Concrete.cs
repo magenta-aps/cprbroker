@@ -289,19 +289,19 @@ namespace CprBroker.Tests.DBR.Comparison.Person
             {
                 PropertyComparisonResult[] excluded = {
                     // Review 2.0
-                    new PropertyComparisonResult("MunicipalityArrivalDate", "Sometimes it matches start date of previous address, other times matches birthdate"),
+                    new PropertyComparisonResult(nameof(PersonAddress.MunicipalityArrivalDate), "Sometimes it matches start date of previous address, other times matches birthdate", ExclusionStatus.InconsistentObservations),
 
                     // Review 2.1
-                    new PropertyComparisonResult("LeavingFromMunicipalityCode", "Some records gets this value from address records that have a correction marker - unreliable source"),
-                    new PropertyComparisonResult("LeavingFromMunicipalityDate", "Some records have no previous address but have a value equal to MunicipalityArrivalDate, which seems inconsistent"),
-                    new PropertyComparisonResult("Location", "Not available in CPR extracts for historical addresses"),
+                    new PropertyComparisonResult(nameof(PersonAddress.LeavingFromMunicipalityCode), "Some records gets this value from address records that have a correction marker - unreliable source", ExclusionStatus.InconsistentObservations),
+                    new PropertyComparisonResult(nameof(PersonAddress.LeavingFromMunicipalityDate), "Some records have no previous address but have a value equal to MunicipalityArrivalDate, which seems inconsistent", ExclusionStatus.InconsistentObservations),
+                    new PropertyComparisonResult(nameof(PersonAddress.Location), "Not available in CPR extracts for historical addresses"),
 
                     //Review 2.2
-                    new PropertyComparisonResult("AddressStartDateMarker", "Some real DPR records have a value that has no origin in CPR Extracts"),
+                    new PropertyComparisonResult(nameof(PersonAddress.AddressStartDateMarker), "Some real DPR records have a value that has no origin in CPR Extracts", ExclusionStatus.InconsistentObservations),
 
                     // Review 2.4
-                    new PropertyComparisonResult("MunicipalityName", "Many real DPR invalid addresses have either a null or a value here - no rule was concluded"),
-                    new PropertyComparisonResult("StreetAddressingName", "Many real DPR invalid addresses have either a null or a value here - no rule was concluded"),
+                    new PropertyComparisonResult(nameof(PersonAddress.MunicipalityName), "Many real DPR invalid addresses have either a null or a value here - no rule was concluded", ExclusionStatus.InconsistentObservations),
+                    new PropertyComparisonResult(nameof(PersonAddress.StreetAddressingName), "Many real DPR invalid addresses have either a null or a value here - no rule was concluded", ExclusionStatus.InconsistentObservations),
 
                 };
                 return excluded;

@@ -53,6 +53,8 @@ namespace CprBroker.Tests.DBR.ComparisonResults
         /// </summary>
         InconsistentFormatting,
 
+        InconsistentObservations,
+
         /// <summary>
         /// Unknown
         /// </summary>
