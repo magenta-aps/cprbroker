@@ -5,6 +5,7 @@ using System.Text;
 using CprBroker.Providers.DPR;
 using NUnit.Framework;
 using CprBroker.Tests.DBR.ComparisonResults;
+using dpr = CprBroker.Providers.DPR;
 
 namespace CprBroker.Tests.DBR.Comparison.Person
 {
@@ -74,24 +75,24 @@ namespace CprBroker.Tests.DBR.Comparison.Person
             {
                 var excluded = new PropertyComparisonResult[]{
                     // Review 2.0
-                    new PropertyComparisonResult("BirthRegistrationDate", "Usually matches PersonInformation.PersonStartDate, but not always"),
-                    new PropertyComparisonResult("BirthRegistrationPlaceUpdateDate", "CPR Services 'foedmynhaenstart' ?"),
-                    new PropertyComparisonResult("ChurchAuthorityCode", "Church district lookup? Not possible so far // CPR Services 'fkirkmynkod'"),
-                    new PropertyComparisonResult("ChurchRelationUpdateDate", "Not available in CPR Extracts.", ExclusionStatus.LocalUpdateRelated),
-                    new PropertyComparisonResult("PnrDeletionDate", "Usually it is null, but is 0 a few times - excluding for now", ExclusionStatus.NullOrZero),
-                    new PropertyComparisonResult("UnderGuardianshipRelationType", "Usually it is null, but is 0 a few times - excluding for now", ExclusionStatus.NullOrZero),
-                    new PropertyComparisonResult("CustomerNumber", "This must differ from real DPR", ExclusionStatus.LocalUpdateRelated),
-                    new PropertyComparisonResult("FatherDocumentation", "CPR Services 'far_dok' ? // We do the best to match it, but it not exactly matching a real DPR."),
-                    new PropertyComparisonResult("MotherDocumentation", "CPR Services 'mor_dok' ? // We do the best to match it, but it not exactly matching a real DPR."),
-                    new PropertyComparisonResult("KinshipUpdateDate", "CPR Services 'timestamp' ? // Not available in CPR Extracts", ExclusionStatus.LocalUpdateRelated),
-                    new PropertyComparisonResult("PaternityAuthorityCode", "CPR Services 'far_mynkod' ? // Not available in CPR Extracts"),
-                    new PropertyComparisonResult("PaternityDate", "CPR Services 'farhaenstart' ? // Not available in CPR Extracts"),
-                    new PropertyComparisonResult("UnderGuardianshipAuthorityCode", "CPR Services 'mynkod-ctumyndig' ? // Not available in CPR Extracts"),
-                    new PropertyComparisonResult("BirthplaceTextUpdateDate", "CPR Services 'foedtxttimestamp' ? // Not available in CPR Extracts", ExclusionStatus.LocalUpdateRelated),
-                    new PropertyComparisonResult("JobDate", "CPR Services 'stillingsdato' ? // Not available in CPR Extracts"),
+                    new PropertyComparisonResult(nameof(dpr.Person.BirthRegistrationDate), "Usually matches PersonInformation.PersonStartDate, but not always", ExclusionStatus.UnavailableAtSource),
+                    new PropertyComparisonResult(nameof(dpr.Person.BirthRegistrationPlaceUpdateDate), "CPR Services 'foedmynhaenstart' ?", ExclusionStatus.UnavailableAtSource),
+                    new PropertyComparisonResult(nameof(dpr.Person.ChurchAuthorityCode), "Church district lookup? Not possible so far // CPR Services 'fkirkmynkod'"),
+                    new PropertyComparisonResult(nameof(dpr.Person.ChurchRelationUpdateDate), "Not available in CPR Extracts.", ExclusionStatus.LocalUpdateRelated),
+                    new PropertyComparisonResult(nameof(dpr.Person.PnrDeletionDate), "Usually it is null, but is 0 a few times - excluding for now", ExclusionStatus.NullOrZero),
+                    new PropertyComparisonResult(nameof(dpr.Person.UnderGuardianshipRelationType), "Usually it is null, but is 0 a few times - excluding for now", ExclusionStatus.NullOrZero),
+                    new PropertyComparisonResult(nameof(dpr.Person.CustomerNumber), "This must differ from real DPR", ExclusionStatus.LocalUpdateRelated),
+                    new PropertyComparisonResult(nameof(dpr.Person.FatherDocumentation), "CPR Services 'far_dok' ? // We do the best to match it, but it not exactly matching a real DPR.", ExclusionStatus.UnavailableAtSource),
+                    new PropertyComparisonResult(nameof(dpr.Person.MotherDocumentation), "CPR Services 'mor_dok' ? // We do the best to match it, but it not exactly matching a real DPR.", ExclusionStatus.UnavailableAtSource),
+                    new PropertyComparisonResult(nameof(dpr.Person.KinshipUpdateDate), "CPR Services 'timestamp' ? // Not available in CPR Extracts", ExclusionStatus.LocalUpdateRelated),
+                    new PropertyComparisonResult(nameof(dpr.Person.PaternityAuthorityCode), "CPR Services 'far_mynkod' ? // Not available in CPR Extracts", ExclusionStatus.UnavailableAtSource),
+                    new PropertyComparisonResult(nameof(dpr.Person.PaternityDate), "CPR Services 'farhaenstart' ? // Not available in CPR Extracts", ExclusionStatus.UnavailableAtSource),
+                    new PropertyComparisonResult(nameof(dpr.Person.UnderGuardianshipAuthorityCode), "CPR Services 'mynkod-ctumyndig' ? // Not available in CPR Extracts", ExclusionStatus.UnavailableAtSource),
+                    new PropertyComparisonResult(nameof(dpr.Person.BirthplaceTextUpdateDate), "CPR Services 'foedtxttimestamp' ? // Not available in CPR Extracts", ExclusionStatus.LocalUpdateRelated),
+                    new PropertyComparisonResult(nameof(dpr.Person.JobDate), "CPR Services 'stillingsdato' ? // Not available in CPR Extracts", ExclusionStatus.UnavailableAtSource),
 
                     // Review 2.4
-                    new PropertyComparisonResult("PnrMarkingDate", "CPR Services: pnrhaenstart // Not available in CPR Extracts"),
+                    new PropertyComparisonResult(nameof(dpr.Person.PnrMarkingDate), "CPR Services: pnrhaenstart // Not available in CPR Extracts", ExclusionStatus.UnavailableAtSource),
                 };
                 return excluded;
             }
