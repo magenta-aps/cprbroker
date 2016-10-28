@@ -42,6 +42,20 @@ namespace CprBroker.Tests.DBR.Comparison.Person
                     // Review 2.4
                     new PropertyComparisonResult("ExitEntryMarker", "Some people have Departure records in real DPR with no matching records in CPR Extracts", ExclusionStatus.InsufficientHistory),
                     new PropertyComparisonResult("PnrMarkingDate", "CPR Services: pnrhaenstart // Not available in CPR Extracts"),
+
+                    // Review Oct 2016
+                    new PropertyComparisonResult(nameof(PersonTotal7.MunicipalityCode),"", ExclusionStatus.Dead),
+                    new PropertyComparisonResult(nameof(PersonTotal7.StreetCode),"", ExclusionStatus.Dead),
+                    new PropertyComparisonResult(nameof(PersonTotal7.HouseNumber),"", ExclusionStatus.Dead),
+                    new PropertyComparisonResult(nameof(PersonTotal7.Floor),"", ExclusionStatus.Dead),
+                    new PropertyComparisonResult(nameof(PersonTotal7.Door),"", ExclusionStatus.Dead),
+                    new PropertyComparisonResult(nameof(PersonTotal7.PostCode),"", ExclusionStatus.Dead),
+                    new PropertyComparisonResult(nameof(PersonTotal7.PostDistrictName),"", ExclusionStatus.Dead),
+                    new PropertyComparisonResult(nameof(PersonTotal7.CityName),"", ExclusionStatus.Dead),
+
+                    new PropertyComparisonResult(nameof(PersonTotal7.StandardAddress),"", ExclusionStatus.Dead),
+                    new PropertyComparisonResult(nameof(PersonTotal7.AddressDate),"", ExclusionStatus.Dead),
+                    new PropertyComparisonResult(nameof(PersonTotal7.MunicipalityArrivalDate),"", ExclusionStatus.Dead),
                 };
                 return excluded;
             }

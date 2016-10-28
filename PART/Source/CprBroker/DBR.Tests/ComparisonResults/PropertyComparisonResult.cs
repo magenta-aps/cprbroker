@@ -63,7 +63,7 @@ namespace CprBroker.Tests.DBR.ComparisonResults
     {
         public string PropertyName { get; set; }
         public string SourceName { get; set; }
-        public bool IsExcluded { get { return ExclusionStatus == ExclusionStatus.OK; } }
+        public bool IsExcluded { get { return ExclusionStatus != ExclusionStatus.OK; } }
         public string Remarks { get; set; }
         public ExclusionStatus ExclusionStatus { get; set; } = ExclusionStatus.OK;
 

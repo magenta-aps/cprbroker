@@ -123,6 +123,22 @@ namespace CprBroker.Tests.DBR.Comparison.Person
         {
             return new DPRDataContext(connectionString);
         }
+
+        public override bool IsActiveRecord(string key, DPRDataContext fakeDprDataContext)
+        {
+            var tableName = DataLinq.GetTableName<PersonTotal7>();
+            var cacheKey = string.Format("{0}.{1}", tableName, key);
+            var status = DatabaseLoadCache.Root.GetOrLoad<DPRDataContext, PersonTotal7>(
+                fakeDprDataContext,
+                cacheKey,
+                dc => fakeDprDataContext.Fill<PersonTotal7>(
+                        string.Format("select * from {0} WHERE PNR={1}", tableName, key))
+                        .AsQueryable()
+            ).Single().Status;
+
+            var ignoredStates = new decimal[] { 20, 70, 80, 90};
+            return !ignoredStates.Contains(status);
+        }
     }
 
 }

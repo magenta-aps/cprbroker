@@ -5,6 +5,7 @@ using System.Reflection;
 using CprBroker.Utilities;
 using System.Text.RegularExpressions;
 using CprBroker.Tests.DBR.ComparisonResults;
+using CprBroker.Providers.DPR;
 
 namespace CprBroker.Tests.DBR.Comparison
 {
@@ -54,7 +55,19 @@ namespace CprBroker.Tests.DBR.Comparison
         {
             get
             {
-                return ExcludedPropertiesInformation.Select(p => p.PropertyName).ToArray();
+                return PropertyComparisonResult
+                    .ExcludedAlways(ExcludedPropertiesInformation)
+                    .Select(p => p.PropertyName).ToArray();
+            }
+        }
+
+        public string[] ExcludedPropertyNamesIfInactive
+        {
+            get
+            {
+                return PropertyComparisonResult
+                    .OfStatus(ExcludedPropertiesInformation, ExclusionStatus.Dead)
+                    .Select(p => p.PropertyName).ToArray();
             }
         }
 
@@ -213,6 +226,10 @@ namespace CprBroker.Tests.DBR.Comparison
 
         //public virtual void ConvertObject(string key)
         //{ }
+        public virtual bool IsActiveRecord(string key, TDataContext fakeDprDataContext)
+        {
+            return true;
+        }
 
         [Test]
         public void T2_CompareContents(
@@ -223,7 +240,17 @@ namespace CprBroker.Tests.DBR.Comparison
             {
                 using (var fakeDprDataContext = CreateDataContext(Properties.Settings.Default.ImitatedDprConnectionString))
                 {
-                    CompareContents(property, key, realDprDataContext, fakeDprDataContext);
+                    if (ExcludedPropertyNamesIfInactive.Contains(property.Name))
+                    {
+                        if (IsActiveRecord(key, fakeDprDataContext))
+                            CompareContents(property, key, realDprDataContext, fakeDprDataContext);
+                        else
+                            Console.WriteLine("Inactive object - Comparison skipped");
+                    }
+                    else
+                    {
+                        CompareContents(property, key, realDprDataContext, fakeDprDataContext);
+                    }   
                 }
             }
         }
