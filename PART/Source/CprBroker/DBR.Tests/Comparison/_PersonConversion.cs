@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace CprBroker.Tests.DBR.Comparison.Person
 {
     [TestFixture]
-    [Ignore]
+    [Explicit]
     public class _PersonConversion : PersonComparisonTest<object>
     {
         public void ConvertObject(string pnr)
@@ -33,7 +33,7 @@ namespace CprBroker.Tests.DBR.Comparison.Person
         }
 
         [Test]
-        [TestCaseSource("LoadKeys")]
+        [TestCaseSource(nameof(LoadKeys))]
         public void T0_Convert(string key)
         {
             ConvertObject(key);
