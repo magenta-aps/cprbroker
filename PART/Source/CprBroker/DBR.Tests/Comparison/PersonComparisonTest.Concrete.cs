@@ -151,10 +151,10 @@ namespace CprBroker.Tests.DBR.Comparison.Person
             {
                 var excluded = new PropertyComparisonResult[]{
                     // Review 2.0
-                    new PropertyComparisonResult("MaritalStatusAuthorityCode", "CPR Services 'mynkod' ?"),
-                    new PropertyComparisonResult("SpouseDocumentation", "CPR Services 'aegtedok' ?"),
-                    new PropertyComparisonResult("AuthorityTextUpdateDate", "CPR Services, myntxttimestamp", ExclusionStatus.LocalUpdateRelated),
-                    new PropertyComparisonResult("MaritalStatusAuthorityText", "CPR Services, myntxt"),
+                    new PropertyComparisonResult(nameof(CivilStatus.MaritalStatusAuthorityCode), "CPR Services 'mynkod' ?", ExclusionStatus.UnavailableAtSource),
+                    new PropertyComparisonResult(nameof(CivilStatus.SpouseDocumentation), "CPR Services 'aegtedok' ?", ExclusionStatus.UnavailableAtSource),
+                    new PropertyComparisonResult(nameof(CivilStatus.AuthorityTextUpdateDate), "CPR Services, myntxttimestamp", ExclusionStatus.LocalUpdateRelated),
+                    new PropertyComparisonResult(nameof(CivilStatus.MaritalStatusAuthorityText), "CPR Services, myntxt", ExclusionStatus.UnavailableAtSource),
                 };
                 return excluded;
             }
