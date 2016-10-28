@@ -138,6 +138,8 @@ namespace CprBroker.DBR.Extensions
 
             Func<decimal, string, char, string> parentDocumentationGetter = (parentPnr, parentName, parentNameUncertainty) =>
                 {
+                    return null;//TODO: Can be fetched in CPR Services: far_dok
+                    /*
                     if (parentPnr > 0 ||
                         (!string.IsNullOrEmpty(parentName.Trim()) && parentNameUncertainty != '=')
                         )
@@ -146,8 +148,8 @@ namespace CprBroker.DBR.Extensions
                     }
                     else
                     {
-                        return null; //TODO: Can be fetched in CPR Services: far_dok
-                    }
+                        return null; 
+                    }*/
                 };
             p.MotherDocumentation = parentDocumentationGetter(p.MotherPnr, person.ParentsInformation.MotherName, person.ParentsInformation.MotherNameUncertainty);
             p.FatherDocumentation = parentDocumentationGetter(p.FatherPnr, person.ParentsInformation.FatherName, person.ParentsInformation.FatherNameUncertainty);
