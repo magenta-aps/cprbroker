@@ -61,7 +61,12 @@ namespace CprBroker.Tests.DBR.ComparisonResults
         /// <summary>
         /// Unknown
         /// </summary>
-        Unknown
+        Unknown,
+
+        /// <summary>
+        /// This value can only be obtained in current records, but not in historical records
+        /// </summary>
+        MissingInHistoricalRecords
     }
 
     public class PropertyComparisonResult
