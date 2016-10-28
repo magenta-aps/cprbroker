@@ -123,12 +123,12 @@ namespace CprBroker.Tests.DBR.Comparison.Person
             {
                 var excluded = new PropertyComparisonResult[] {
                     // Review 2.0
-                    new PropertyComparisonResult("AddressingNameDate", "CPR Services 'adrnvnhaenstart' ? // Not available in CPR Extracts", ExclusionStatus.UnavailableAtSource),
-                    new PropertyComparisonResult("AddressingNameReportingMarker", "CPR Services 'indrap' ? // Not available in CPR Extracts", ExclusionStatus.UnavailableAtSource),
-                    new PropertyComparisonResult("NameAuthorityCode", "CPR Services 'mynkod' // Not available in CPR Extracts", ExclusionStatus.UnavailableAtSource),
+                    new PropertyComparisonResult(nameof(PersonName.AddressingNameDate), "CPR Services 'adrnvnhaenstart' ? // Not available in CPR Extracts", ExclusionStatus.UnavailableAtSource),
+                    new PropertyComparisonResult(nameof(PersonName.AddressingNameReportingMarker), "CPR Services 'indrap' ? // Not available in CPR Extracts", ExclusionStatus.UnavailableAtSource),
+                    new PropertyComparisonResult(nameof(PersonName.NameAuthorityCode), "CPR Services 'mynkod' // Not available in CPR Extracts", ExclusionStatus.UnavailableAtSource),
                     // Review 2.3
-                    new PropertyComparisonResult("NameAuthorityText", "CPR Services 'myntxt' // Not available in CPR Extracts", ExclusionStatus.UnavailableAtSource),
-                    new PropertyComparisonResult("AuthorityTextUpdateDate", "CPR Services 'myntxttimestamp' // Not available in CPR Extracts", ExclusionStatus.LocalUpdateRelated),
+                    new PropertyComparisonResult(nameof(PersonName.NameAuthorityText), "CPR Services 'myntxt' // Not available in CPR Extracts", ExclusionStatus.UnavailableAtSource),
+                    new PropertyComparisonResult(nameof(PersonName.AuthorityTextUpdateDate), "CPR Services 'myntxttimestamp' // Not available in CPR Extracts", ExclusionStatus.LocalUpdateRelated),
                 };
                 return excluded;
             }
@@ -204,8 +204,8 @@ namespace CprBroker.Tests.DBR.Comparison.Person
                 return new PropertyComparisonResult[] { 
                     // Review 2.0
                     // Review 2.3
-                    new PropertyComparisonResult("StartAuthorityCode", "CPR Services 'mynkod_start' // not available in CPR Extracts", ExclusionStatus.UnavailableAtSource),
-                    new PropertyComparisonResult("EndAuthorityCode", "CPR Services 'mynkod_slut' // not available in CPR Extracts", ExclusionStatus.UnavailableAtSource),
+                    new PropertyComparisonResult(nameof(Separation.StartAuthorityCode), "CPR Services 'mynkod_start' // not available in CPR Extracts", ExclusionStatus.UnavailableAtSource),
+                    new PropertyComparisonResult(nameof(Separation.EndAuthorityCode), "CPR Services 'mynkod_slut' // not available in CPR Extracts", ExclusionStatus.UnavailableAtSource),
                 };
             }
         }
@@ -251,9 +251,9 @@ namespace CprBroker.Tests.DBR.Comparison.Person
             {
                 PropertyComparisonResult[] excluded = {
                     // Review 2.0
-                    new PropertyComparisonResult("ExitUpdateDate", "CPR Services 'udrtimestamp' ?// The values in this columns are wrong, but not used.", ExclusionStatus.LocalUpdateRelated),
-                    new PropertyComparisonResult("ForeignAddressDate", "CPR Services 'udlandadrdto' ?// The values in this columns are wrong, but not used.", ExclusionStatus.LocalUpdateRelated),
-                    new PropertyComparisonResult("EntryUpdateDate", "CPR Services 'indrtimestamp' ?", ExclusionStatus.LocalUpdateRelated),
+                    new PropertyComparisonResult(nameof(Departure.ExitUpdateDate), "CPR Services 'udrtimestamp' ?// The values in this columns are wrong, but not used.", ExclusionStatus.LocalUpdateRelated),
+                    new PropertyComparisonResult(nameof(Departure.ForeignAddressDate), "CPR Services 'udlandadrdto' ?// The values in this columns are wrong, but not used.", ExclusionStatus.LocalUpdateRelated),
+                    new PropertyComparisonResult(nameof(Departure.EntryUpdateDate), "CPR Services 'indrtimestamp' ?", ExclusionStatus.LocalUpdateRelated),
                 };
                 return excluded;
             }
@@ -274,7 +274,7 @@ namespace CprBroker.Tests.DBR.Comparison.Person
             {
                 return new PropertyComparisonResult[]{
                     // Review 2.0
-                    new PropertyComparisonResult("MunicipalityCode", "FROM CPR services or maybe other records"),
+                    new PropertyComparisonResult(nameof(ContactAddress.MunicipalityCode), "FROM CPR services or maybe other records"),
                 };
             }
         }
@@ -351,7 +351,7 @@ namespace CprBroker.Tests.DBR.Comparison.Person
             {
                 return new[]{
                     // Review 2.0
-                    new PropertyComparisonResult("ReportingMarker", "CPR Services 'indrap' ?")
+                    new PropertyComparisonResult(nameof(Protection.ReportingMarker), "CPR Services 'indrap' ?")
                 };
             }
         }
@@ -378,7 +378,7 @@ namespace CprBroker.Tests.DBR.Comparison.Person
             {
                 return new PropertyComparisonResult[]{
                     // Review 2.0
-                    new PropertyComparisonResult("MunicipalityCode", "CPR Services 'komkod'")
+                    new PropertyComparisonResult(nameof(Note.MunicipalityCode), "CPR Services 'komkod'")
                 };
             }
         }
@@ -416,7 +416,7 @@ namespace CprBroker.Tests.DBR.Comparison.Person
             {
                 return new PropertyComparisonResult[]{
                     // Review 2.0
-                    new PropertyComparisonResult("CustodyStartAuthorityCode", "Only in CPR Services 'mynkod_start' ?"),
+                    new PropertyComparisonResult(nameof(ParentalAuthority.CustodyStartAuthorityCode), "Only in CPR Services 'mynkod_start' ?", ExclusionStatus.UnavailableAtSource),
                 };
             }
         }
