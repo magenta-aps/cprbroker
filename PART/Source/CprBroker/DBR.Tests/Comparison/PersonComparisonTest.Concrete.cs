@@ -18,30 +18,32 @@ namespace CprBroker.Tests.DBR.Comparison.Person
                 var excluded = new PropertyComparisonResult[]
                 {
                     // Review 2.0
-                    new PropertyComparisonResult( "PreviousMunicipalityName", "Usually it is name of municipality of previous address, but sometimes contains the value from the minucipality that is different from the current one!!"),
-                    new PropertyComparisonResult("SpouseMarker", "Not available in CPR Extracts"),
-                    new PropertyComparisonResult("PaternityAuthorityName", "CPR Services 'far_mynkod' // Not available in CPR Extracts"),
-                    new PropertyComparisonResult("DprLoadDate", "Irrelevant for comparison", ExclusionStatus.LocalUpdateRelated),
-                    new PropertyComparisonResult("FatherMarker", "No correlation found yet"),
-                    new PropertyComparisonResult("MotherMarker", "No correlation found yet"),
-                    new PropertyComparisonResult("ApplicationCode", "DPR Specific", ExclusionStatus.LocalUpdateRelated),
-                    new PropertyComparisonResult("MaritalAuthorityName", "CPR Services 'mynkod' ? // Not available in CPR Extracts"),
+                    new PropertyComparisonResult(nameof(PersonTotal7.PreviousMunicipalityName), "Usually it is name of municipality of previous address, but sometimes contains the value from the minucipality that is different from the current one!!", ExclusionStatus.InsufficientHistory),
+                    new PropertyComparisonResult(nameof(PersonTotal7.SpouseMarker), "Not available in CPR Extracts", ExclusionStatus.UnavailableAtSource),
+                    new PropertyComparisonResult(nameof(PersonTotal7.PaternityAuthorityName), "CPR Services 'far_mynkod' // Not available in CPR Extracts", ExclusionStatus.UnavailableAtSource),
+                    new PropertyComparisonResult(nameof(PersonTotal7.DprLoadDate), "Irrelevant for comparison", ExclusionStatus.LocalUpdateRelated),
+
+                    //new PropertyComparisonResult(nameof(PersonTotal7.FatherMarker), "No correlation found yet"),
+                    //new PropertyComparisonResult(nameof(PersonTotal7.MotherMarker), "No correlation found yet"),
+
+                    new PropertyComparisonResult(nameof(PersonTotal7.ApplicationCode), "DPR Specific", ExclusionStatus.LocalUpdateRelated),
+                    new PropertyComparisonResult(nameof(PersonTotal7.MaritalAuthorityName), "CPR Services 'mynkod' ? // Not available in CPR Extracts", ExclusionStatus.UnavailableAtSource),
                     
                     // Review 2.1
-                    new PropertyComparisonResult("PreviousAddress", "Some records are parts of municipalities without possible lookup"),
-                    new PropertyComparisonResult("CurrentMunicipalityName", "Some dead (status 90) people have a value from latest address while others do not", ExclusionStatus.Dead),
+                    new PropertyComparisonResult(nameof(PersonTotal7.PreviousAddress), "Some records are parts of municipalities without possible lookup", ExclusionStatus.InsufficientHistory),
+                    new PropertyComparisonResult(nameof(PersonTotal7.CurrentMunicipalityName), "Some dead (status 90) people have a value from latest address while others do not", ExclusionStatus.Dead),
 
                     // Review 2.2
-                    new PropertyComparisonResult("AddressDateMarker", "Like PersonAddress.AddressStartDateMarker, Some real DPR records have a value that has no origin in CPR Extracts"),
-                    new PropertyComparisonResult("CareOfName", "Some real DPR records have a value that comes from an address that is marked as 'A' (Undo)."),
-                    new PropertyComparisonResult("DataRetrievalType", "Always 'D' (from CPR extract with subscription) in DBR emulation", ExclusionStatus.LocalUpdateRelated),
+                    new PropertyComparisonResult(nameof(PersonTotal7.AddressDateMarker), "Like PersonAddress.AddressStartDateMarker, Some real DPR records have a value that has no origin in CPR Extracts", ExclusionStatus.UnavailableAtSource),
+                    new PropertyComparisonResult(nameof(PersonTotal7.CareOfName), "Some real DPR records have a value that comes from an address that is marked as 'A' (Undo)."),
+                    new PropertyComparisonResult(nameof(PersonTotal7.DataRetrievalType), "Always 'D' (from CPR extract with subscription) in DBR emulation", ExclusionStatus.LocalUpdateRelated),
 
                     // Oct 2016
-                    new PropertyComparisonResult("FormerPersonalMarker", "Fails sometimes because HistoricalPNR's can be older than the 20-year limit for extracts, so they do not appear in the emulated database", ExclusionStatus.InsufficientHistory),
+                    new PropertyComparisonResult(nameof(PersonTotal7.FormerPersonalMarker), "Fails sometimes because HistoricalPNR's can be older than the 20-year limit for extracts, so they do not appear in the emulated database", ExclusionStatus.InsufficientHistory),
 
                     // Review 2.4
-                    new PropertyComparisonResult("ExitEntryMarker", "Some people have Departure records in real DPR with no matching records in CPR Extracts", ExclusionStatus.InsufficientHistory),
-                    new PropertyComparisonResult("PnrMarkingDate", "CPR Services: pnrhaenstart // Not available in CPR Extracts"),
+                    new PropertyComparisonResult(nameof(PersonTotal7.ExitEntryMarker), "Some people have Departure records in real DPR with no matching records in CPR Extracts", ExclusionStatus.InsufficientHistory),
+                    new PropertyComparisonResult(nameof(PersonTotal7.PnrMarkingDate), "CPR Services: pnrhaenstart // Not available in CPR Extracts", ExclusionStatus.UnavailableAtSource),
 
                     // Review Oct 2016
                     new PropertyComparisonResult(nameof(PersonTotal7.MunicipalityCode),"", ExclusionStatus.Dead),
