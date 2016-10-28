@@ -274,7 +274,7 @@ namespace CprBroker.Tests.DBR.Comparison.Person
             {
                 return new PropertyComparisonResult[]{
                     // Review 2.0
-                    new PropertyComparisonResult(nameof(ContactAddress.MunicipalityCode), "FROM CPR services or maybe other records"),
+                    new PropertyComparisonResult(nameof(ContactAddress.MunicipalityCode), "FROM CPR services or maybe other records", ExclusionStatus.UnavailableAtSource),
                 };
             }
         }
@@ -351,7 +351,7 @@ namespace CprBroker.Tests.DBR.Comparison.Person
             {
                 return new[]{
                     // Review 2.0
-                    new PropertyComparisonResult(nameof(Protection.ReportingMarker), "CPR Services 'indrap' ?")
+                    new PropertyComparisonResult(nameof(Protection.ReportingMarker), "CPR Services 'indrap' ?", ExclusionStatus.UnavailableAtSource),
                 };
             }
         }
@@ -378,7 +378,7 @@ namespace CprBroker.Tests.DBR.Comparison.Person
             {
                 return new PropertyComparisonResult[]{
                     // Review 2.0
-                    new PropertyComparisonResult(nameof(Note.MunicipalityCode), "CPR Services 'komkod'")
+                    new PropertyComparisonResult(nameof(Note.MunicipalityCode), "CPR Services 'komkod'", ExclusionStatus.UnavailableAtSource),
                 };
             }
         }
