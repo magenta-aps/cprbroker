@@ -36,7 +36,7 @@ namespace CprBroker.Tests.DBR.Comparison.Person
 
                     // Review 2.2
                     new PropertyComparisonResult(nameof(PersonTotal7.AddressDateMarker), "Like PersonAddress.AddressStartDateMarker, Some real DPR records have a value that has no origin in CPR Extracts", ExclusionStatus.UnavailableAtSource),
-                    new PropertyComparisonResult(nameof(PersonTotal7.CareOfName), "Some real DPR records have a value that comes from an address that is marked as 'A' (Undo)."),
+                    new PropertyComparisonResult(nameof(PersonTotal7.CareOfName), "Some real DPR records have a value that comes from an address that is marked as 'A' (Undo).", ExclusionStatus.InconsistentObservations),
                     new PropertyComparisonResult(nameof(PersonTotal7.DataRetrievalType), "Always 'D' (from CPR extract with subscription) in DBR emulation", ExclusionStatus.LocalUpdateRelated),
 
                     // Oct 2016
@@ -77,7 +77,7 @@ namespace CprBroker.Tests.DBR.Comparison.Person
                     // Review 2.0
                     new PropertyComparisonResult(nameof(dpr.Person.BirthRegistrationDate), "Usually matches PersonInformation.PersonStartDate, but not always", ExclusionStatus.UnavailableAtSource),
                     new PropertyComparisonResult(nameof(dpr.Person.BirthRegistrationPlaceUpdateDate), "CPR Services 'foedmynhaenstart' ?", ExclusionStatus.UnavailableAtSource),
-                    new PropertyComparisonResult(nameof(dpr.Person.ChurchAuthorityCode), "Church district lookup? Not possible so far // CPR Services 'fkirkmynkod'"),
+                    new PropertyComparisonResult(nameof(dpr.Person.ChurchAuthorityCode), "Church district lookup? Not possible so far // CPR Services 'fkirkmynkod'", ExclusionStatus.UnavailableAtSource),
                     new PropertyComparisonResult(nameof(dpr.Person.ChurchRelationUpdateDate), "Not available in CPR Extracts.", ExclusionStatus.LocalUpdateRelated),
                     new PropertyComparisonResult(nameof(dpr.Person.PnrDeletionDate), "Usually it is null, but is 0 a few times - excluding for now", ExclusionStatus.NullOrZero),
                     new PropertyComparisonResult(nameof(dpr.Person.UnderGuardianshipRelationType), "Usually it is null, but is 0 a few times - excluding for now", ExclusionStatus.NullOrZero),
@@ -294,7 +294,7 @@ namespace CprBroker.Tests.DBR.Comparison.Person
                     // Review 2.1
                     new PropertyComparisonResult(nameof(PersonAddress.LeavingFromMunicipalityCode), "Some records gets this value from address records that have a correction marker - unreliable source", ExclusionStatus.InconsistentObservations),
                     new PropertyComparisonResult(nameof(PersonAddress.LeavingFromMunicipalityDate), "Some records have no previous address but have a value equal to MunicipalityArrivalDate, which seems inconsistent", ExclusionStatus.InconsistentObservations),
-                    new PropertyComparisonResult(nameof(PersonAddress.Location), "Not available in CPR extracts for historical addresses"),
+                    new PropertyComparisonResult(nameof(PersonAddress.Location), "Not available in CPR extracts for historical addresses", ExclusionStatus.MissingInHistoricalRecords),
 
                     //Review 2.2
                     new PropertyComparisonResult(nameof(PersonAddress.AddressStartDateMarker), "Some real DPR records have a value that has no origin in CPR Extracts", ExclusionStatus.InconsistentObservations),
