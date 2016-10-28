@@ -149,40 +149,21 @@ namespace CprBroker.DBR.Extensions
                         return null; //TODO: Can be fetched in CPR Services: far_dok
                     }
                 };
+            p.MotherDocumentation = parentDocumentationGetter(p.MotherPnr, person.ParentsInformation.MotherName, person.ParentsInformation.MotherNameUncertainty);
+            p.FatherDocumentation = parentDocumentationGetter(p.FatherPnr, person.ParentsInformation.FatherName, person.ParentsInformation.FatherNameUncertainty);
 
 
             p.KinshipUpdateDate = 0; //TODO: Can be fetched in CPR Services: timestamp
 
-            if (!string.IsNullOrEmpty(person.ParentsInformation.MotherPNR))
-            {
-                p.MotherPnr = decimal.Parse(person.ParentsInformation.MotherPNR);
-            }
-            else
-            {
-                p.MotherPnr = 0;
-            }
+            // Parents PNRs
+            Func<string, decimal> parentPnrGetter = (parentPnr) => string.IsNullOrEmpty(parentPnr) ? 0 : decimal.Parse(parentPnr);
+            p.MotherPnr = parentPnrGetter(person.ParentsInformation.MotherPNR);
+            p.FatherPnr = parentPnrGetter(person.ParentsInformation.FatherPNR);
 
-            if (person.ParentsInformation.MotherBirthDate != null)
-            {
-                p.MotherBirthdate = CprBroker.Utilities.Dates.DateToDecimal(person.ParentsInformation.MotherBirthDate.Value, 8);
-            }
-            else
-            {
-                p.MotherBirthdate = null;
-            }
-            p.MotherDocumentation = parentDocumentationGetter(p.MotherPnr, person.ParentsInformation.MotherName, person.ParentsInformation.MotherNameUncertainty);
-
-            p.FatherPnr = decimal.Parse(person.ParentsInformation.FatherPNR);
-            if (person.ParentsInformation.FatherBirthDate != null)
-            {
-                p.FatherBirthdate = CprBroker.Utilities.Dates.DateToDecimal(person.ParentsInformation.FatherBirthDate.Value, 8);
-            }
-            else
-            {
-                p.FatherBirthdate = null;
-            }
-
-            p.FatherDocumentation = parentDocumentationGetter(p.FatherPnr, person.ParentsInformation.FatherName, person.ParentsInformation.FatherNameUncertainty);
+            // Parent birthdates
+            Func<DateTime?, decimal?> parentBirthdateGetter = (parentBirthdate) => parentBirthdate.HasValue ? CprBroker.Utilities.Dates.DateToDecimal(parentBirthdate.Value, 8) : (decimal?)null;
+            p.MotherBirthdate = parentBirthdateGetter(person.ParentsInformation.MotherBirthDate);
+            p.FatherBirthdate = parentBirthdateGetter(person.ParentsInformation.FatherBirthDate);
 
             p.PaternityDate = null; //TODO: Can be fetched in CPR Services: farhaenstart
             p.PaternityAuthorityCode = null; //TODO: Can be fetched in CPR Services: far_mynkod
