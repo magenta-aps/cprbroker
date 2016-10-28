@@ -170,6 +170,11 @@ namespace CprBroker.Tests.DBR.Comparison.Person
                 obj.SeparationReferralTimestamp = NormalizeSeparationTimeStamp(obj.SeparationReferralTimestamp);
             }
         }
+
+        public override string[] GetOrderByColumnNames()
+        {
+            return new string[] { "HAENST DESC" };
+        }
     }
 
     [TestFixture]
