@@ -7,7 +7,7 @@ using CprBroker.Engine.Queues;
 
 namespace CprBroker.PartInterface.Tracking
 {
-    public class CleanupDetector : PeriodicTaskExecuter
+    public class CleanupDetectionEnqueuer : PeriodicTaskExecuter
     {
         public static readonly TimeSpan MaxInactivePeriod = TimeSpan.FromDays(90);
 
@@ -25,15 +25,13 @@ namespace CprBroker.PartInterface.Tracking
                 if (LogTimerEvents)
                     CprBroker.Engine.Local.Admin.LogFormattedSuccess("{0}: checking persons {1} to {2}", GetType().Name, startIndex, startIndex + BatchSize);
                 foundUuids = prov.EnumeratePersons(startIndex, BatchSize);
-                var usage = prov.GetStatus(foundUuids, minimumUsageDate, maximumUsageDate);
 
-                var queueItems = usage
-                    .Where(u => u.IsEmpty())
-                    .Select(u => new CleanupQueueItem() { PersonUuid = u.UUID })
+                var queueItems = foundUuids
+                    .Select(uuid => new CleanupQueueItem() { PersonUuid = uuid })
                     .ToArray();
 
                 if (LogTimerEvents || foundUuids.Length > 0)
-                    CprBroker.Engine.Local.Admin.LogFormattedSuccess("{0}: {1} inactive persons found <{2}>", GetType().Name, foundUuids.Length, string.Join(",", foundUuids));
+                    CprBroker.Engine.Local.Admin.LogFormattedSuccess("{0}: {1} persons enqueued for inspection <{2}>", GetType().Name, foundUuids.Length, string.Join(",", foundUuids));
 
                 cleanupQueue.Enqueue(queueItems);
                 startIndex += BatchSize;

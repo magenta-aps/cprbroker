@@ -15,7 +15,7 @@ namespace CprBroker.PartInterface.Tracking
             var prov = new TrackingDataProvider();
             var uuids = items.Select(i => i.PersonUuid).ToArray();
             var maximumUsageDate = DateTime.Now;
-            var minimumUsageDate = maximumUsageDate - CleanupDetector.MaxInactivePeriod;
+            var minimumUsageDate = maximumUsageDate - CleanupDetectionEnqueuer.MaxInactivePeriod;
             var states = prov.GetStatus(uuids, minimumUsageDate, maximumUsageDate);
             var ret = new List<CleanupQueueItem>();
 

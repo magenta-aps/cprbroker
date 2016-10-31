@@ -62,7 +62,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CleanupDetector.cs">
+    <Compile Include="CleanupDetectionEnqueuer.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="CleanupQueue.cs" />
