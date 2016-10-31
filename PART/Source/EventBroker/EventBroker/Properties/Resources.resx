@@ -118,13 +118,58 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="Backend_App_Config" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\..\Backend\App.config;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  <data name="BirthdateEventNotification_Sql" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Data\Init\BirthdateEventNotification.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
-  <data name="PatchDatabase_2_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\PatchDatabase_2_2.sql;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  <data name="BirthdateSubscription_Sql" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Data\Init\BirthdateSubscription.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
-  <data name="PatchDatabase_2_2_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\PatchDatabase_2_2_3.sql;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  <data name="ChannelType_Csv" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Data\Init\ChannelType.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="ChannelType_Sql" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Data\Init\ChannelType.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="Channel_Sql" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Data\Init\Channel.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="DataChangeEvent_Sql" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Data\Init\DataChangeEvent.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="DataSubscription_Sql" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Data\Init\DataSubscription.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="EnqueueBirthdateEventNotifications_Sql" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Data\Init\EnqueueBirthdateEventNotifications.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="EnqueueDataChangeEventNotifications_Sql" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Data\Init\EnqueueDataChangeEventNotifications.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="EventNotification_Sql" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Data\Init\EventNotification.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="IsBirthdateEvent_Sql" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Data\Init\IsBirthdateEvent.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="PersonBirthdate_Sql" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Data\Init\PersonBirthdate.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="SubscriptionCriteriaMatch_Sql" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Data\Init\SubscriptionCriteriaMatch.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="SubscriptionPerson_Sql" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Data\Init\SubscriptionPerson.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="SubscriptionType_Csv" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Data\Init\SubscriptionType.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="SubscriptionType_Sql" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Data\Init\SubscriptionType.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
+  <data name="Subscription_Sql" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Data\Init\Subscription.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="UpdatePersonLists_Sql" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Data\Init\UpdatePersonLists.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
 </root>

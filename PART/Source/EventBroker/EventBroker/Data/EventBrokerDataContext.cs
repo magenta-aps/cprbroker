@@ -41,16 +41,97 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
+using System;
+using System.Collections.Generic;
+using System.Data.SqlClient;
+using CprBroker.Data;
+using CprBroker.EventBroker.Properties;
+using System.Linq;
+
+
 namespace CprBroker.EventBroker.Data
 {
     /// <summary>
     /// Represents the data context for events
     /// </summary>
-    partial class EventBrokerDataContext
+    partial class EventBrokerDataContext : IDataContextCreationInfo
     {
-        public EventBrokerDataContext():this(CprBroker.Utilities.Config.ConfigManager.Current.Settings.EventBrokerConnectionString)
+        public EventBrokerDataContext() : this(CprBroker.Utilities.Config.ConfigManager.Current.Settings.EventBrokerConnectionString)
         {
- 
+
         }
+
+        public string[] DDL_Tables
+        {
+            get
+            {
+                return new string[] {
+                    // Copied from CPR Broker
+                    Resources.PersonBirthdate_Sql,
+                    Resources.DataChangeEvent_Sql, 
+
+                    // Subscriptions
+                    Resources.SubscriptionType_Sql,
+                    Resources.Subscription_Sql,
+                    Resources.SubscriptionPerson_Sql,
+                    Resources.DataSubscription_Sql,
+                    Resources.BirthdateSubscription_Sql,
+                    Resources.SubscriptionCriteriaMatch_Sql,
+                    
+                    // Channels
+                    Resources.ChannelType_Sql,
+                    Resources.Channel_Sql,
+                    
+                    // Notifications
+                    Resources.EventNotification_Sql,
+                    Resources.BirthdateEventNotification_Sql,
+                };
+            }
+        }
+
+        public string[] DDL_Logic
+        {
+            get
+            {
+                return new string[] {
+                    // SP's and functions
+                    Resources.EnqueueBirthdateEventNotifications_Sql,
+                    Resources.EnqueueDataChangeEventNotifications_Sql,
+                    Resources.IsBirthdateEvent_Sql,
+                    Resources.UpdatePersonLists_Sql,
+                };
+
+            }
+        }
+
+        public string[] DDL
+        {
+            get
+            {
+                return DDL_Tables
+                    .Concat(DDL_Logic)
+                    .ToArray();
+            }
+        }
+
+        public KeyValuePair<string, string>[] Lookups
+        {
+            get
+            {
+                return new KeyValuePair<string, string>[] {
+                    new KeyValuePair<string, string>(typeof(ChannelType).Name, Resources.ChannelType_Csv),
+                    new KeyValuePair<string, string>(typeof(SubscriptionType).Name, Resources.SubscriptionType_Csv),
+                };
+            }
+        }
+
+        public Action<SqlConnection>[] CustomInitializers
+        {
+            get
+            {
+                return new Action<SqlConnection>[] { };
+            }
+        }
+
     }
 }
