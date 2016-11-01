@@ -112,33 +112,33 @@ namespace CprBroker.Tests.Engine
             }
 
             [Test]
-            public void Run_ManyConnections_P1_OK([Range(1, 9, 1)] int count)
+            public void Run_ManyConnections_1_9_OK([Range(1, 9, 1)] int count)
             {
                 Run_ManyConnections_OK(count);
             }
 
             [Test]
-            public void Run_ManyConnections_P2_OK([Range(10, 90, 10)] int count)
+            public void Run_ManyConnections_10_90_OK([Range(10, 90, 10)] int count)
             {
                 Run_ManyConnections_OK(count);
             }
 
             [Test]
-            public void Run_ManyConnections_P3_OK([Range(100, 900, 100)] int count)
-            {
-                Run_ManyConnections_OK(count);
-            }
-
-            [Ignore]
-            [Test]
-            public void Run_ManyConnections_P4_OK([Range(1000, 9000, 1000)] int count)
+            public void Run_ManyConnections_100_900_OK([Range(100, 900, 100)] int count)
             {
                 Run_ManyConnections_OK(count);
             }
 
             [Ignore]
             [Test]
-            public void Run_ManyConnections_P5_OK([Range(10000, 90000, 10000)] int count)
+            public void Run_ManyConnections_1000_9000_OK([Range(1000, 9000, 1000)] int count)
+            {
+                Run_ManyConnections_OK(count);
+            }
+
+            [Ignore]
+            [Test]
+            public void Run_ManyConnections_10000_90000_OK([Range(10000, 90000, 10000)] int count)
             {
                 Run_ManyConnections_OK(count);
             }
