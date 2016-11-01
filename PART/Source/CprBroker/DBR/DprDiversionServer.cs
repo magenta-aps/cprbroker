@@ -60,6 +60,7 @@ namespace CprBroker.DBR
         {
             this.InputMessageSize = 40;
             this.MaxWait = TimeSpan.FromMilliseconds(500);
+            this.TextEncoding = CprBroker.Providers.DPR.Constants.DiversionEncoding;
         }
 
         public override byte[] ProcessMessage(byte[] message)

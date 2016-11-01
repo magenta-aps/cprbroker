@@ -19,6 +19,7 @@ namespace CprBroker.Engine
         public int InputMessageSize { get; set; } = 12;
         public int MaxThreads { get; set; } = 5;
         public TimeSpan MaxWait { get; set; } = TimeSpan.FromSeconds(1);
+        public Encoding TextEncoding { get; set; } = Encoding.ASCII;
 
         public bool Start()
         {
@@ -78,7 +79,7 @@ namespace CprBroker.Engine
                         }
                     }
 
-                    Local.Admin.LogFormattedSuccess("TcpServer <{0}>: processing message <{1}>", this.ToString(), Encoding.ASCII.GetString(messageBytes));
+                    Local.Admin.LogFormattedSuccess("TcpServer <{0}>: processing message <{1}>", this.ToString(), this.TextEncoding.GetString(messageBytes));
                     var responseBytes = ProcessMessage(messageBytes.Take(totalReadBytes).ToArray());
                     stream.Write(responseBytes, 0, responseBytes.Length);
                 }
