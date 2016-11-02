@@ -54,34 +54,35 @@ namespace CprBroker.Engine
 
                 try
                 {
-                    TcpClient tcpClient = _Listener.EndAcceptTcpClient(result);
-
-                    Local.Admin.LogFormattedSuccess("TcpServer <{0}>: client connected", this.ToString());
-
-                    int totalReadBytes = 0;
-
-                    DateTime startTime = DateTime.Now;
-
-                    byte[] messageBytes = new byte[InputMessageSize];
-                    var stream = tcpClient.GetStream();
-
-                    while (totalReadBytes < messageBytes.Length && DateTime.Now - startTime < MaxWait)
+                    using (TcpClient tcpClient = _Listener.EndAcceptTcpClient(result))
                     {
-                        if (stream.DataAvailable)
+                        Local.Admin.LogFormattedSuccess("TcpServer <{0}>: client connected", this.ToString());
+
+                        int totalReadBytes = 0;
+                        DateTime startTime = DateTime.Now;
+
+                        byte[] messageBytes = new byte[InputMessageSize];
+                        using (var stream = tcpClient.GetStream())
                         {
-                            int readBytes = stream.Read(messageBytes, totalReadBytes, 1);// InputMessageSize - totalReadBytes
-                            totalReadBytes += readBytes;
-                        }
-                        else
-                        {
-                            // Let some time pass
-                            System.Threading.Thread.Sleep(10);
+                            while (totalReadBytes < messageBytes.Length && DateTime.Now - startTime < MaxWait)
+                            {
+                                if (stream.DataAvailable)
+                                {
+                                    int readBytes = stream.Read(messageBytes, totalReadBytes, 1);// InputMessageSize - totalReadBytes
+                                    totalReadBytes += readBytes;
+                                }
+                                else
+                                {
+                                    // Let some time pass
+                                    System.Threading.Thread.Sleep(10);
+                                }
+                            }
+
+                            Local.Admin.LogFormattedSuccess("TcpServer <{0}>: processing message <{1}>", this.ToString(), this.TextEncoding.GetString(messageBytes));
+                            var responseBytes = ProcessMessage(messageBytes.Take(totalReadBytes).ToArray());
+                            stream.Write(responseBytes, 0, responseBytes.Length);
                         }
                     }
-
-                    Local.Admin.LogFormattedSuccess("TcpServer <{0}>: processing message <{1}>", this.ToString(), this.TextEncoding.GetString(messageBytes));
-                    var responseBytes = ProcessMessage(messageBytes.Take(totalReadBytes).ToArray());
-                    stream.Write(responseBytes, 0, responseBytes.Length);
                 }
                 catch (Exception ex)
                 {

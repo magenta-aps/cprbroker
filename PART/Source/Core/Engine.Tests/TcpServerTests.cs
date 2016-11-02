@@ -20,6 +20,7 @@ namespace CprBroker.Tests.Engine
                 public TcpServerStub()
                 {
                     this.InputMessageSize = Guid.NewGuid().ToString().Length;
+                    this.TextEncoding = System.Text.Encoding.GetEncoding(1252);
                 }
                 public int Calls = 0;
 
@@ -29,7 +30,7 @@ namespace CprBroker.Tests.Engine
                     return _ProcessMessage(message);
                 }
 
-                Func<byte[], byte[]> _ProcessMessage = (msg) => msg;
+                public Func<byte[], byte[]> _ProcessMessage = (msg) => msg;
 
                 
             }
@@ -141,6 +142,46 @@ namespace CprBroker.Tests.Engine
             public void Run_ManyConnections_10000_90000_OK([Range(10000, 90000, 10000)] int count)
             {
                 Run_ManyConnections_OK(count);
+            }
+
+            [Test]
+            [Ignore]
+            public void CallTwice_SecondReturnsEmpty()
+            {
+                BrokerContext.Initialize(CprBroker.Utilities.Constants.BaseApplicationToken.ToString(), "");
+                using (var server = new TcpServerStub() { Port = NewPort(), Address = "127.0.0.1",  })
+                {
+                    server.Start();
+
+                    using (var client = new TcpClient(server.Address, server.Port))
+                    {
+                        using (NetworkStream stream = client.GetStream())
+                        {
+                            var inputData = server.TextEncoding.GetBytes(Guid.NewGuid().ToString());
+
+                            var responses = new List<byte[]>();
+
+                            for (int i = 0; i < 2; i++)
+                            {
+                                Console.WriteLine("Sending request: round # {0}", i + 1);
+
+                                stream.Write(inputData, 0, inputData.Length);
+                                stream.ReadTimeout = 3000;
+
+                                var retData = new Byte[3500];
+                                var retBytes = stream.Read(retData, 0, retData.Length);
+                                retData = retData.Take(retBytes).ToArray();
+
+                                responses.Add(retData);
+
+                                var retText = Encoding.GetEncoding(1252).GetString(retData);
+                                Console.WriteLine(retText);
+                            }
+
+                            Assert.IsEmpty(responses[1]);
+                        }
+                    }
+                }
             }
         }
     }
