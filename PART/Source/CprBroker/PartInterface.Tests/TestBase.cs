@@ -267,7 +267,7 @@ namespace CprBroker.Tests.PartInterface
                 Criteria = criteria == null ? null : System.Xml.Linq.XElement.Load(new System.IO.StringReader(CprBroker.Utilities.Strings.SerializeObject(criteria))),
                 IsForAllPersons = forAll,
                 Ready = ready,
-                SubscriptionTypeId = (int)type
+                SubscriptionTypeId = (int)type                
             };
             dataContext.Subscriptions.InsertOnSubmit(sub);
             return sub;

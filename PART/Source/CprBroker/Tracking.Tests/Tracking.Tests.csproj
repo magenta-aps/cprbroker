@@ -39,6 +39,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Core\Output\CprBroker.Engine.dll</HintPath>
     </Reference>
+    <Reference Include="CprBroker.EventBroker, Version=2.2.8.0, Culture=neutral, PublicKeyToken=null" />
     <Reference Include="CprBroker.Schemas, Version=2.2.6.1, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Core\Output\CprBroker.Schemas.dll</HintPath>

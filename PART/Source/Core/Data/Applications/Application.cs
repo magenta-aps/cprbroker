@@ -64,7 +64,7 @@ namespace CprBroker.Data.Applications
             ApplicationType newApp = new ApplicationType();
             newApp.ApplicationId = ApplicationId.ToString();
             newApp.Name = Name;
-            newApp.Token = Token.ToString();
+            newApp.Token = Token;
             newApp.RegistrationDate = RegistrationDate;
             newApp.IsApproved = IsApproved;
             if (ApprovedDate.HasValue)

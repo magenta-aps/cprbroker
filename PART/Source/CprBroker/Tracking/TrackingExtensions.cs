@@ -42,7 +42,7 @@ namespace CprBroker.PartInterface.Tracking
                 ReadOperations = null,
                 LastRead = null
             };
-            ret.LastRead = ret.ReadOperations.FirstOrDefault()?.ReadTime;
+            ret.LastRead = null;
             return ret;
         }
     }
