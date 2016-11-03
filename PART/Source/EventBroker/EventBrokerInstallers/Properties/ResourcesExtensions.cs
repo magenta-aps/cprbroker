@@ -12,33 +12,9 @@ namespace CprBroker.Installers.EventBrokerInstallers.Properties
         {
             get
             {
-                var arr = new string[] { 
-                    // Copied from CPR Broker
-                    Resources.PersonBirthdate,
-                    Resources.DataChangeEvent, 
+                var arr = new List<string>();
 
-                    // Subscriptions
-                    Resources.SubscriptionType_Create,
-                    Resources.Subscription,
-                    Resources.SubscriptionPerson,
-                    Resources.DataSubscription,
-                    Resources.BirthdateSubscription,
-                    Resources.SubscriptionCriteriaMatch,
-                    
-                    // Channels
-                    Resources.ChannelType_Create,
-                    Resources.Channel,
-                    
-                    // Notifications
-                    Resources.EventNotification,
-                    Resources.BirthdateEventNotification,
-                    
-                    // SP's and functions
-                    Resources.EnqueueBirthdateEventNotifications,
-                    Resources.EnqueueDataChangeEventNotifications,
-                    Resources.IsBirthdateEvent,
-                    Resources.UpdatePersonLists
-                };
+                arr.AddRange(new EventBrokerDataContext().DDL);
 
                 return string.Join(
                     Environment.NewLine + "GO" + Environment.NewLine,
@@ -50,13 +26,7 @@ namespace CprBroker.Installers.EventBrokerInstallers.Properties
         {
             get
             {
-                var arr = new string[] { 
-                    // SP's and functions
-                    Resources.EnqueueBirthdateEventNotifications,
-                    Resources.EnqueueDataChangeEventNotifications,
-                    Resources.IsBirthdateEvent,
-                    Resources.UpdatePersonLists
-                };
+                var arr = new EventBrokerDataContext().DDL_Logic;
 
                 return string.Join(
                     Environment.NewLine + "GO" + Environment.NewLine,
@@ -70,8 +40,8 @@ namespace CprBroker.Installers.EventBrokerInstallers.Properties
             {
                 List<KeyValuePair<string, string>> eventLookups = new List<KeyValuePair<string, string>>();
 
-                eventLookups.Add(new KeyValuePair<string, string>(typeof(ChannelType).Name, CprBroker.Installers.EventBrokerInstallers.Properties.Resources.ChannelType));
-                eventLookups.Add(new KeyValuePair<string, string>(typeof(SubscriptionType).Name, CprBroker.Installers.EventBrokerInstallers.Properties.Resources.SubscriptionType));
+                eventLookups.AddRange(new EventBrokerDataContext().Lookups);
+
                 return eventLookups.ToArray();
             }
         }

@@ -111,6 +111,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DataProvidersDataContext.dbml</DependentUpon>
     </Compile>
+    <Compile Include="IDataContextCreationInfo.cs" />
     <Compile Include="IHasEncryptedAttributes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -160,6 +161,9 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="Applications\Init\OperationType.csv" />
+    <None Include="Applications\Init\Application.csv" />
+    <None Include="Applications\Init\LogType.csv" />
+    <None Include="DataProviders\Init\BudgetInterval.csv" />
     <None Include="Queues\QueueDataContext.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>QueueDataContext.designer.cs</LastGenOutput>
@@ -206,11 +210,20 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Applications\Init\Activity.sql" />
+    <Content Include="Applications\Init\Activity.sql" />
+    <Content Include="Applications\Init\Application.sql" />
+    <Content Include="Applications\Init\DataProviderCall.sql" />
+    <Content Include="Applications\Init\LogEntry.sql" />
+    <Content Include="Applications\Init\LogType.sql" />
     <Content Include="Applications\Init\Operation.sql" />
     <Content Include="Applications\Init\OperationType.sql" />
     <Content Include="Applications\Readme.txt" />
+    <None Include="DataProviders\Init\DataProvider.sql" />
+    <Content Include="DataProviders\Init\BudgetInterval.sql" />
     <Content Include="DataProviders\Readme.txt" />
+    <Content Include="Queues\Init\Queue.sql" />
+    <Content Include="Queues\Init\QueueItem.sql" />
+    <Content Include="Queues\Init\Semaphore.sql" />
     <Content Include="Readme.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -243,6 +256,7 @@
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>

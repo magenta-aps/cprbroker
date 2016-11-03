@@ -144,6 +144,11 @@
     <Compile Include="Period\PeriodLookupSubMethodInfo.cs" />
     <Compile Include="Period\ReadPeriodLookupFacadeMethodInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Strings.cs" />
     <Compile Include="UpdateDatabase.Part.cs" />
     <Compile Include="UpdateRules\AddressingNameMatchRule.cs" />
@@ -154,7 +159,14 @@
     <Compile Include="UpdateRules\SpecielVejkodeIndikatorMatchRule.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Data\Events\Init\DataChangeEvent.sql" />
     <Content Include="Data\Events\Readme.txt" />
+    <Content Include="Data\Init\ActorRef.sql" />
+    <Content Include="Data\Init\CreatePartDatabaseObjects.ChildObjects.sql" />
+    <Content Include="Data\Init\LifecycleStatus.sql" />
+    <Content Include="Data\Init\Person.sql" />
+    <Content Include="Data\Init\PersonMapping.sql" />
+    <None Include="Data\Init\PersonRegistration.sql" />
     <Content Include="Data\Readme.txt" />
     <Content Include="Events\Readme.txt" />
   </ItemGroup>
@@ -169,6 +181,7 @@
       <LastGenOutput>DataChangeEventDataContext.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </None>
+    <None Include="Data\Init\LifecycleStatus.csv" />
     <None Include="Data\PartDataContext.Child.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>PartDataContext.Child.designer.cs</LastGenOutput>
@@ -196,6 +209,12 @@
     <None Include="Data\Events\DataChangeEventDataContext.dbml.layout">
       <DependentUpon>DataChangeEventDataContext.dbml</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

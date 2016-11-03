@@ -128,42 +128,22 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="CustomAction.config" />
-    <None Include="Resources\Application.csv" />
-    <None Include="Resources\BudgetInterval.csv" />
-    <None Include="Resources\CreatePartDatabaseObjects.sql" />
-    <None Include="Resources\LifecycleStatus.csv" />
-    <None Include="Resources\LogType.csv" />
     <Content Include="Resources\PatchDatabase_2_2_6.sql" />
     <None Include="Resources\Queue.csv" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\Authority.sql" />
-    <Content Include="Resources\BudgetInterval.sql" />
     <Content Include="Resources\Country.sql" />
-    <Content Include="Resources\DataChangeEvent.sql" />
-    <Content Include="Resources\DataProvider.sql" />
-    <Content Include="Resources\DataProviderCall.sql" />
-    <Content Include="Resources\Extract.sql" />
-    <Content Include="Resources\InitializePersonSearchCache.sql" />
     <Content Include="Resources\MvcWebConfig.xml" />
     <Content Include="Resources\PatchDatabase_2_2_2.sql" />
     <Content Include="Resources\PatchDatabase_DbrTest.sql" />
-    <Content Include="Resources\PersonRegistration.sql" />
-    <Content Include="Resources\PersonRegistration_PopulateSearchCache.sql" />
-    <Content Include="Resources\PersonSearchCache.sql" />
     <None Include="Resources\PatchDatabase_2_2_3.sql" />
-    <Content Include="Resources\Queue.sql" />
-    <Content Include="Resources\QueueItem.sql" />
     <Content Include="Resources\Script generation.txt" />
     <Content Include="Resources\TrimAddressString.sql" />
-    <Content Include="Resources\Semaphore.sql" />
-    <None Include="Resources\CreatePartDatabaseObjects.ChildObjects.sql" />
     <Content Include="Resources\PatchDatabase_1_3_2.sql" />
     <Content Include="Resources\PatchDatabase_1_4.sql" />
     <Content Include="Resources\PatchDatabase_2_1.sql" />
     <Content Include="Resources\PatchDatabase_2_2.sql" />
     <Content Include="Resources\PatchDatabase_2_2_1.sql" />
-    <None Include="Resources\Authority_4357.txt" />
     <Content Include="Resources\PatchDatabase_1_3.sql" />
   </ItemGroup>
   <ItemGroup>

@@ -32,7 +32,7 @@
         <elementListCompartment Id="19b8e6dc-bc0d-4293-82e0-21459eba54b9" absoluteBounds="3.2649999999999997, 3.21, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(8.5 : 2.07139322916667); (6.36458333333333 : 2.07139322916667 : JumpStart); (6.19791666666667 : 2.07139322916667 : JumpEnd); (5 : 2.07139322916667); (5 : 2.75)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(8.5 : 2.07139322916667); (6.36458333333333 : 2.07139322916667 : JumpStart); (6.19791666666667 : 2.07139322916667 : JumpEnd); (5 : 2.07139322916667); (5 : 2.75)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/PartDataContext/ActorRef/ActorRef_PersonRegistration" />
       <nodes>
         <classShapeMoniker Id="31d8c08b-e1e2-4d01-a16c-d57b1465bea8" />

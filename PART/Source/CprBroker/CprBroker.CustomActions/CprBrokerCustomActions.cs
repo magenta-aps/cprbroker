@@ -211,8 +211,7 @@ namespace CprBroker.CustomActions
 
                 // Custom methods
                 var customMethods = new Dictionary<string, Action<SqlConnection>>();
-                customMethods["CPR"] =
-                    conn => CprBroker.Providers.CPRDirect.Authority.ImportText(Properties.Resources.Authority_4357, conn);
+                customMethods["CPR"] = Properties.ResourcesExtensions.CustomMethods;
 
                 return DatabaseCustomAction.DeployDatabase(session, createDatabaseObjectsSql, lookupDataArray, customMethods);
             }
@@ -274,7 +273,7 @@ namespace CprBroker.CustomActions
                     new DatabasePatchInfo(){
                         Version = new Version(1,3),
                         SqlScript = Properties.Resources.PatchDatabase_1_3,
-                        PatchAction = conn => CprBroker.Providers.CPRDirect.Authority.ImportText(Properties.Resources.Authority_4357, conn)
+                        PatchAction = conn => CprBroker.Providers.CPRDirect.Authority.ImportText(Providers.CPRDirect.Properties.Resources.Authority_4357, conn)
                     },
                     new DatabasePatchInfo(){
                         Version = new Version(1,3,2),
@@ -304,7 +303,7 @@ namespace CprBroker.CustomActions
                     new DatabasePatchInfo(){
                         Version = new Version(2,2,2),
                         SqlScript = Properties.Resources.PatchDatabase_2_2_2,
-                        PatchAction = conn=> DatabaseCustomAction.InsertLookup<CprBroker.Data.DataProviders.BudgetInterval>(Properties.Resources.BudgetInterval_Csv, conn)
+                        PatchAction = conn=> DatabaseCustomAction.InsertLookup<CprBroker.Data.DataProviders.BudgetInterval>(CprBroker.Data.Properties.Resources.BudgetInterval_Csv, conn)
                     },
                     new DatabasePatchInfo(){
                         Version = new Version(2,2,3),
@@ -312,7 +311,7 @@ namespace CprBroker.CustomActions
                         PatchAction = conn=>
                             {
                                 DatabaseCustomAction.InsertLookup<CprBroker.Data.Queues.DbQueue>(Properties.Resources.Queue_Csv, conn);
-                                CprBroker.Providers.CPRDirect.Authority.ImportText(Properties.Resources.Authority_4357, conn);
+                                CprBroker.Providers.CPRDirect.Authority.ImportText(Providers.CPRDirect.Properties.Resources.Authority_4357, conn);
                             }
                     },
                     new DatabasePatchInfo(){
@@ -326,9 +325,9 @@ namespace CprBroker.CustomActions
                             lineSep,
                             new string[]{
                                 Properties.Resources.PatchDatabase_2_2_3,
-                                Properties.Resources.PersonSearchCache,
+                                Providers.Local.Search.Properties.Resources.PersonSearchCache_Sql,
                                 Properties.Resources.TrimAddressString,
-                                Properties.Resources.InitializePersonSearchCache}),
+                                Providers.Local.Search.Properties.Resources.InitializePersonSearchCache_Sql}),
                         PatchAction = null
                     },
                     new DatabasePatchInfo(){

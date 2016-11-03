@@ -49,6 +49,10 @@ using CprBroker.Data.Applications;
 using CprBroker.Data.DataProviders;
 using CprBroker.Data.Part;
 using CprBroker.Data.Queues;
+using CprBroker.Providers.CPRDirect;
+using System.Data.SqlClient;
+using CprBroker.Providers.Local.Search;
+using CprBroker.Data.Events;
 
 namespace CprBroker.CustomActions.Properties
 {
@@ -58,31 +62,30 @@ namespace CprBroker.CustomActions.Properties
         {
             get
             {
-                var arr = new string[] { 
-                    Resources.Semaphore,
-                    Resources.Extract,                    
-                    Resources.Queue,
-                    Resources.QueueItem,
-                    Resources.Authority,
+                var cprDDL = new List<string>();
+
+                // DDL defined on data contexts
+                cprDDL.AddRange(new ApplicationDataContext().DDL);
+                cprDDL.AddRange(new DataProvidersDataContext().DDL);
+                cprDDL.AddRange(new QueueDataContext().DDL);
+                cprDDL.AddRange(new ExtractDataContext().DDL);
+                cprDDL.AddRange(new LookupDataContext().DDL);
+                cprDDL.AddRange(new PartDataContext().DDL);
+                cprDDL.AddRange(new PartSearchDataContext().DDL);
+                cprDDL.AddRange(new DataChangeEventDataContext().DDL);
+
+                // DDL defined explicitly
+                cprDDL.AddRange(new string[] {
                     Resources.Country,
-                    Resources.DataProvider,
-                    Resources.DataProviderCall,
-                    Resources.BudgetInterval,
-                    Resources.DataChangeEvent,
-                    Resources.CreatePartDatabaseObjects,
-                    Resources.PersonSearchCache,
                     Resources.TrimAddressString,
-                    Resources.InitializePersonSearchCache,
-                    Resources.PersonRegistration,
-                    Resources.PersonRegistration_PopulateSearchCache,
                     Data.Properties.Resources.Activity_Sql,
                     Data.Properties.Resources.OperationType_Sql,
                     Data.Properties.Resources.OperationType_Sql
-                };
+                });
 
                 return string.Join(
                         Environment.NewLine + "GO" + Environment.NewLine,
-                        arr);
+                        cprDDL);
             }
         }
 
@@ -92,14 +95,46 @@ namespace CprBroker.CustomActions.Properties
             {
                 List<KeyValuePair<string, string>> cprLookups = new List<KeyValuePair<string, string>>();
 
-                cprLookups.Add(new KeyValuePair<string, string>(CprBroker.Utilities.DataLinq.GetTableName<Application>(), Properties.Resources.Application));
-                cprLookups.Add(new KeyValuePair<string, string>(CprBroker.Utilities.DataLinq.GetTableName<LifecycleStatus>(), Properties.Resources.LifecycleStatus));
-                cprLookups.Add(new KeyValuePair<string, string>(CprBroker.Utilities.DataLinq.GetTableName<LogType>(), Properties.Resources.LogType));
-                cprLookups.Add(new KeyValuePair<string, string>(CprBroker.Utilities.DataLinq.GetTableName<BudgetInterval>(), Properties.Resources.BudgetInterval_Csv));
+                // Lookups defined on data contexts
+                cprLookups.AddRange(new ApplicationDataContext().Lookups);
+                cprLookups.AddRange(new DataProvidersDataContext().Lookups);
+                cprLookups.AddRange(new QueueDataContext().Lookups);
+                cprLookups.AddRange(new ExtractDataContext().Lookups);
+                cprLookups.AddRange(new LookupDataContext().Lookups);
+                cprLookups.AddRange(new PartDataContext().Lookups);
+                cprLookups.AddRange(new PartSearchDataContext().Lookups);
+                cprLookups.AddRange(new DataChangeEventDataContext().Lookups);
+
+                // Lookups defined explicitly
                 cprLookups.Add(new KeyValuePair<string, string>(CprBroker.Utilities.DataLinq.GetTableName<DbQueue>(), Properties.Resources.Queue_Csv));
                 cprLookups.Add(new KeyValuePair<string, string>(CprBroker.Utilities.DataLinq.GetTableName<OperationType>(), Data.Properties.Resources.OperationType_Csv));
 
                 return cprLookups.ToArray();
+            }
+        }
+
+        public static Action<SqlConnection> CustomMethods
+        {
+            get
+            {
+                var cprLookups = new List<Action<SqlConnection>>();
+
+                // Lookups defined on data contexts
+                cprLookups.AddRange(new ApplicationDataContext().CustomInitializers);
+                cprLookups.AddRange(new DataProvidersDataContext().CustomInitializers);
+                cprLookups.AddRange(new QueueDataContext().CustomInitializers);
+                cprLookups.AddRange(new ExtractDataContext().CustomInitializers);
+                cprLookups.AddRange(new LookupDataContext().CustomInitializers);
+                cprLookups.AddRange(new PartDataContext().CustomInitializers);
+                cprLookups.AddRange(new PartSearchDataContext().CustomInitializers);
+                cprLookups.AddRange(new DataChangeEventDataContext().CustomInitializers);
+
+                return (conn)=> {
+                    foreach(var method in cprLookups)
+                    {
+                        method(conn);
+    }
+                };
             }
         }
 

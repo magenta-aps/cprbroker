@@ -46,13 +46,45 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using CprBroker.Utilities.Config;
+using CprBroker.Data;
+using System.Data.SqlClient;
 
 namespace CprBroker.Providers.Local.Search
 {
-    partial class PartSearchDataContext
+    partial class PartSearchDataContext : IDataContextCreationInfo
     {
         public PartSearchDataContext()
             : this(ConfigManager.Current.Settings.CprBrokerConnectionString)
         { }
+
+        #region IDataContextCreationInfo members
+        public string[] DDL
+        {
+            get
+            {
+                return new string[] {
+                    Properties.Resources.PersonSearchCache_Sql,
+                    Properties.Resources.InitializePersonSearchCache_Sql,
+                    Properties.Resources.PersonRegistration_PopulateSearchCache_Sql,
+                };
+            }
+        }
+
+        public KeyValuePair<string, string>[] Lookups
+        {
+            get
+            {
+                return new KeyValuePair<string, string>[] { };
+            }
+        }
+
+        public Action<SqlConnection>[] CustomInitializers
+        {
+            get
+            {
+                return new Action<SqlConnection>[] { };
+            }
+        }
+        #endregion
     }
 }
