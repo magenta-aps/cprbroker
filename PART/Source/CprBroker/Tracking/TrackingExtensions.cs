@@ -38,7 +38,11 @@ namespace CprBroker.PartInterface.Tracking
             var ret = new PersonTrack()
             {
                 UUID = uuid,
-                Subscribers = subscriptionPersons.Select(sp => converter(sp.Subscription.ApplicationId)).ToArray(),
+                Subscribers = subscriptionPersons
+                    .Select(sp => sp.Subscription.ApplicationId)
+                    .Distinct()
+                    .Select(applicationId => converter(applicationId))
+                    .ToArray(),
                 ReadOperations = null,
                 LastRead = null
             };
