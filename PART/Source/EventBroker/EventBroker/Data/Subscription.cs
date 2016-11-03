@@ -234,8 +234,9 @@ namespace CprBroker.EventBroker.Data
 
                 var all = dataContext.SubscriptionPersons.Where(
                     sp => personUuids.Contains(sp.PersonUuid.Value)
-                    && sp.Removed == null
-                    && sp.Subscription.Deactivated == null
+                    && sp.Removed == null // Only persons that are still within the subscription
+                    && sp.Subscription.Criteria == null // Only non criteria subscriptions
+                    && sp.Subscription.Deactivated == null // Only active subscriptions                    
                     )
                     .GroupBy(o => o.PersonUuid)
                     .ToDictionary(o => o.Key.Value, o => o.ToArray());
