@@ -66,6 +66,9 @@ namespace CprBroker.Data.Applications
                     Properties.Resources.LogType_Sql,
                     Properties.Resources.LogEntry_Sql,
                     Properties.Resources.DataProviderCall_Sql,
+                    Properties.Resources.Activity_Sql,
+                    Properties.Resources.Operation_Sql,
+                    Properties.Resources.OperationType_Sql
                 };
 
             }
@@ -78,7 +81,8 @@ namespace CprBroker.Data.Applications
                 return new KeyValuePair<string, string>[] {
                     new KeyValuePair<string, string>(CprBroker.Utilities.DataLinq.GetTableName<Application>(), Properties.Resources.Application_Csv),
                     new KeyValuePair<string, string>(CprBroker.Utilities.DataLinq.GetTableName<LogType>(), Properties.Resources.LogType_Csv),
-                };
+                    new KeyValuePair<string, string>(CprBroker.Utilities.DataLinq.GetTableName<OperationType>(), Properties.Resources.OperationType_Csv),
+            };
             }
         }
 

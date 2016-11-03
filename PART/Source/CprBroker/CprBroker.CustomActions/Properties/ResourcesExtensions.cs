@@ -77,10 +77,7 @@ namespace CprBroker.CustomActions.Properties
                 // DDL defined explicitly
                 cprDDL.AddRange(new string[] {
                     Resources.Country,
-                    Resources.TrimAddressString,
-                    Data.Properties.Resources.Activity_Sql,
-                    Data.Properties.Resources.OperationType_Sql,
-                    Data.Properties.Resources.OperationType_Sql
+                    Resources.TrimAddressString
                 });
 
                 return string.Join(
@@ -107,7 +104,6 @@ namespace CprBroker.CustomActions.Properties
 
                 // Lookups defined explicitly
                 cprLookups.Add(new KeyValuePair<string, string>(CprBroker.Utilities.DataLinq.GetTableName<DbQueue>(), Properties.Resources.Queue_Csv));
-                cprLookups.Add(new KeyValuePair<string, string>(CprBroker.Utilities.DataLinq.GetTableName<OperationType>(), Data.Properties.Resources.OperationType_Csv));
 
                 return cprLookups.ToArray();
             }
@@ -129,11 +125,12 @@ namespace CprBroker.CustomActions.Properties
                 cprLookups.AddRange(new PartSearchDataContext().CustomInitializers);
                 cprLookups.AddRange(new DataChangeEventDataContext().CustomInitializers);
 
-                return (conn)=> {
-                    foreach(var method in cprLookups)
+                return (conn) =>
+                {
+                    foreach (var method in cprLookups)
                     {
                         method(conn);
-    }
+                    }
                 };
             }
         }
