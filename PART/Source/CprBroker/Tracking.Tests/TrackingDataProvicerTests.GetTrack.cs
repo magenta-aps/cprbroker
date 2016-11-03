@@ -15,7 +15,7 @@ namespace CprBroker.Tests.Tracking
     namespace TrackingDataProvicerTests
     {
         [TestFixture]
-        public class GetTrackTests_EmptyDatabase
+        public class GetTrackTests_EmptyDatabase : PartInterface.TestBase
         {
             [Test]
             public void GetTrackTests_EmptyDB_NonePerPerson([Values(1, 20, 15, 27, 100)]int count)

@@ -67,8 +67,8 @@ namespace CprBroker.Data.Applications
                     Properties.Resources.LogEntry_Sql,
                     Properties.Resources.DataProviderCall_Sql,
                     Properties.Resources.Activity_Sql,
-                    Properties.Resources.Operation_Sql,
-                    Properties.Resources.OperationType_Sql
+                    Properties.Resources.OperationType_Sql,
+                    Properties.Resources.Operation_Sql,                    
                 };
 
             }
