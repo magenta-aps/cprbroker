@@ -346,12 +346,12 @@ namespace CprBroker.CustomActions
                         SqlScript = string.Join(
                             lineSep,
                             new string[]{
-                                Properties.Resources.Activity,
-                                Properties.Resources.OperationType,
-                                Properties.Resources.Operation
+                                Data.Properties.Resources.Activity_Sql,
+                                Data.Properties.Resources.OperationType_Sql,
+                                Data.Properties.Resources.Operation_Sql
                             }
                         ),
-                        PatchAction = conn=> DatabaseCustomAction.InsertLookup<CprBroker.Data.Applications.OperationType>(Properties.Resources.OperationType_Csv, conn)
+                        PatchAction = conn=> DatabaseCustomAction.InsertLookup<CprBroker.Data.Applications.OperationType>(Data.Properties.Resources.OperationType_Csv, conn)
                     }
                 };
 

@@ -61,30 +61,6 @@ namespace CprBroker.CustomActions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to IF NOT EXISTS (SELECT * FROM sys.tables WHERE name=N&apos;Activity&apos;)
-        ///BEGIN
-        ///	CREATE TABLE Activity(
-        ///		ActivityId	UNIQUEIDENTIFIER	CONSTRAINT DF_Activity_ActivityId DEFAULT NEWID(),
-        ///		StartTS		DATETIME			CONSTRAINT DF_Activity_StartTS	  DEFAULT GETDATE(),
-        ///		UserToken	VARCHAR(250) NULL,
-        ///		UserId		VARCHAR(250) NULL,
-        ///		MethodName	VARCHAR(250) NULL,
-        ///
-        ///		CONSTRAINT PK_Activity PRIMARY KEY NONCLUSTERED (ActivityId),		
-        ///
-        ///	)ON [PRIMARY] 
-        ///END
-        ///GO
-        ///
-        ///IF NOT EXISTS(SELECT * FROM sys.indexes WHERE object_id = OBJECT [rest of string was truncated]&quot;;.
-        /// </summary>
-        public static string Activity {
-            get {
-                return ResourceManager.GetString("Activity", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to ApplicationId;Name;Token;RegistrationDate;IsApproved;ApprovedDate
         ///{3E9890FF-0038-42A4-987A-99B63E8BC865};Base Application;07059250-E448-4040-B695-9C03F9E59E38;2009-06-25;True;
         ///{C98F9BE7-2DDE-404a-BAB5-5A7B1BBC3063};Event Broker;FCD568A0-8F18-4b6f-8691-C09239F158F3;2011-01-01;True;
@@ -359,52 +335,6 @@ namespace CprBroker.CustomActions.Properties {
         public static string MvcWebConfig {
             get {
                 return ResourceManager.GetString("MvcWebConfig", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to IF NOT EXISTS (SELECT * FROM sys.tables WHERE name=N&apos;Operation&apos;)
-        ///BEGIN
-        ///	CREATE TABLE Operation(
-        ///		OperationId UNIQUEIDENTIFIER,
-        ///		ActivityId UNIQUEIDENTIFIER,
-        ///		OperationTypeId INT,
-        ///		OperationKey VARCHAR(250),
-        ///		CONSTRAINT PK_Operation PRIMARY KEY NONCLUSTERED (OperationId),
-        ///		CONSTRAINT FK_Operation_OperationType FOREIGN KEY (OperationTypeId) REFERENCES OperationType (OperationTypeId),
-        ///		CONSTRAINT FK_Operation_Activity      FOREIGN KEY (ActivityId)      REFERENCES Activity (ActivityId)
-        ///	)ON [PR [rest of string was truncated]&quot;;.
-        /// </summary>
-        public static string Operation {
-            get {
-                return ResourceManager.GetString("Operation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to IF NOT EXISTS (SELECT * FROM sys.tables WHERE name=N&apos;OperationType&apos;)
-        ///BEGIN
-        ///	CREATE TABLE OperationType(
-        ///		OperationTypeId INT,
-        ///		Name VARCHAR(250),
-        ///		CONSTRAINT PK_OperationType PRIMARY KEY (OperationTypeId)
-        ///	)ON [PRIMARY] 
-        ///END
-        ///GO.
-        /// </summary>
-        public static string OperationType {
-            get {
-                return ResourceManager.GetString("OperationType", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to OperationTypeId;Name
-        ///1;Read.
-        /// </summary>
-        public static string OperationType_Csv {
-            get {
-                return ResourceManager.GetString("OperationType_Csv", resourceCulture);
             }
         }
         
@@ -700,7 +630,7 @@ namespace CprBroker.CustomActions.Properties {
         ///101;CprBroker.Providers.CPRDirect.PartConversionQueue, CprBroker.Providers.CPRDirect;100;100
         ///200;CprBroker.Providers.CPRDirect.DbrBaseQueue, CprBroker.Providers.CPRDirect;100;100
         ///300;CprBroker.Providers.DPR.Queues.DprUpdateQueue, CprBroker.Providers.DPR;100;100
-        ///.
+        ///400;CprBroker.PartInterface.Tracking.CleanupQueue, CprBroker.PartInterface.Tracking;10;1.
         /// </summary>
         public static string Queue_Csv {
             get {

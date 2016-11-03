@@ -75,9 +75,9 @@ namespace CprBroker.CustomActions.Properties
                     Resources.InitializePersonSearchCache,
                     Resources.PersonRegistration,
                     Resources.PersonRegistration_PopulateSearchCache,
-                    Resources.Activity,
-                    Resources.OperationType,
-                    Resources.Operation
+                    Data.Properties.Resources.Activity_Sql,
+                    Data.Properties.Resources.OperationType_Sql,
+                    Data.Properties.Resources.OperationType_Sql
                 };
 
                 return string.Join(
@@ -97,7 +97,7 @@ namespace CprBroker.CustomActions.Properties
                 cprLookups.Add(new KeyValuePair<string, string>(CprBroker.Utilities.DataLinq.GetTableName<LogType>(), Properties.Resources.LogType));
                 cprLookups.Add(new KeyValuePair<string, string>(CprBroker.Utilities.DataLinq.GetTableName<BudgetInterval>(), Properties.Resources.BudgetInterval_Csv));
                 cprLookups.Add(new KeyValuePair<string, string>(CprBroker.Utilities.DataLinq.GetTableName<DbQueue>(), Properties.Resources.Queue_Csv));
-                cprLookups.Add(new KeyValuePair<string, string>(CprBroker.Utilities.DataLinq.GetTableName<OperationType>(), Properties.Resources.OperationType_Csv));
+                cprLookups.Add(new KeyValuePair<string, string>(CprBroker.Utilities.DataLinq.GetTableName<OperationType>(), Data.Properties.Resources.OperationType_Csv));
 
                 return cprLookups.ToArray();
             }
