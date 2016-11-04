@@ -139,5 +139,16 @@ namespace CprBroker.Providers.CPRDirect
                 .Where(g => g.Key.Ready)
                 .Select(g => ToIndividualResponseType(g, typeMap));
         }
+
+        public static void DeletePersonFromAllExtracts(string pnr)
+        {
+            using (var dataContext = new ExtractDataContext())
+            {
+                var itemsToDelete = dataContext.ExtractItems.Where(ei => ei.PNR == pnr);
+                dataContext.ExtractItems.DeleteAllOnSubmit(itemsToDelete);
+
+                dataContext.SubmitChanges();
+            }
+        }
     }
 }
