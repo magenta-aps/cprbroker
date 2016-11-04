@@ -47,17 +47,23 @@ namespace CprBroker.PartInterface.Tracking
     public class CleanupQueueItem : IQueueItem
     {
         public Guid PersonUuid { get; set; }
+        public string PNR { get; set; }
 
         public DbQueueItem Impl { get; set; }
 
         public void DeserializeFromKey(string key)
         {
-            PersonUuid = new Guid(key);
+            var arr = key.Split('|');
+            PersonUuid = new Guid(arr[0]);
+            PNR = arr[1];
         }
 
         public string SerializeToKey()
         {
-            return PersonUuid.ToString();
+            return string.Format("{0}|{1}",
+                PersonUuid,
+                string.Format("{0}", PNR).PadLeft(10, '0')
+                );
         }
     }
 }
