@@ -1,6 +1,10 @@
 ﻿using CprBroker.Data.Applications;
 using CprBroker.Data.Part;
+using CprBroker.DBR;
+using CprBroker.Engine;
 using CprBroker.EventBroker.Data;
+using CprBroker.Providers.CPRDirect;
+using CprBroker.Providers.DPR;
 using CprBroker.Schemas;
 using CprBroker.Utilities.Config;
 using System;
@@ -76,13 +80,14 @@ namespace CprBroker.PartInterface.Tracking
                 .ToArray();
         }
 
-        public Guid[] EnumeratePersons(int startIndex = 0, int maxCount = 200)
+        public PersonIdentifier[] EnumeratePersons(int startIndex = 0, int maxCount = 200)
         {
             using (var partContext = new PartDataContext())
             {
                 return partContext.PersonRegistrations
+                    .Join(partContext.PersonMappings,
+                        pr => pr.UUID, pm => pm.UUID, (pr, pm) => new PersonIdentifier() { UUID = pr.UUID, CprNumber = pm.CprNumber })
                     .OrderBy(pr => pr.UUID)
-                    .Select(pr => pr.UUID)
                     .Distinct()
                     .Skip(startIndex)
                     .Take(maxCount)
@@ -90,9 +95,36 @@ namespace CprBroker.PartInterface.Tracking
             }
         }
 
-        public void RemovePerson(Guid personUuid)
+        public void RemovePerson(PersonIdentifier personIdentifier)
         {
-            throw new NotImplementedException();
+            // Subscriptions
+            var section = ConfigManager.Current.DataProvidersSection;
+            var factory = new DataProviderFactory();
+            var dataProviders = factory.GetDataProviderList(section, new CprBroker.Data.DataProviders.DataProvider[] { }, typeof(IPutSubscriptionDataProvider), SourceUsageOrder.LocalThenExternal);
+            foreach (IPutSubscriptionDataProvider prov in dataProviders)
+            {
+                prov.RemoveSubscription(personIdentifier);
+            }
+
+            // Extracts
+            Extract.DeletePersonFromAllExtracts(personIdentifier.CprNumber);
+
+            // Person data
+            CprBroker.Data.Part.Person.Delete(personIdentifier);
+
+            // Search Cache
+            // Deleted using a trigger on PersonRegistration table
+
+
+            // DBR
+            foreach (var dbr in CprBroker.Engine.Queues.Queue.GetQueues<DbrQueue>())
+            {
+                using (var dbrDataContext = new DPRDataContext(dbr.ConnectionString))
+                {
+                    CprConverter.DeletePersonRecords(personIdentifier.CprNumber, dbrDataContext);
+                    dbrDataContext.SubmitChanges();
+                }
+            }
         }
 
     }
