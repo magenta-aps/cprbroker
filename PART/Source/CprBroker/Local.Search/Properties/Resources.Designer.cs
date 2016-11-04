@@ -85,6 +85,27 @@ namespace CprBroker.Providers.Local.Search.Properties {
         /// <summary>
         ///   Looks up a localized string similar to -- =============================================
         ///-- Author:		Beemen Beshara
+        ///-- Description:	Trigger for record deletion in PersonRegistration, 
+        ///--  Deleted the associated cache records if no other records are available
+        ///-- =======================================================================
+        ///
+        ///IF EXISTS (SELECT * FROM sys.triggers where name=&apos;PersonRegistration_DeleteSearchCache&apos;)
+        ///BEGIN
+        ///	DROP TRIGGER dbo.PersonRegistration_DeleteSearchCache
+        ///END
+        ///GO
+        ///
+        ///CREATE TRIGGER dbo.PersonRegistration_DeleteSea [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string PersonRegistration_DeleteSearchCache {
+            get {
+                return ResourceManager.GetString("PersonRegistration_DeleteSearchCache", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -- =============================================
+        ///-- Author:		Beemen Beshara
         ///-- Description:	Trigger for changes in PersonRegistration, 
         ///--  refreshes the cached serach table by calling InitializePersonSearchCache for 
         ///--  each record being inserted or updated

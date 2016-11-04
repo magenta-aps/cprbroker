@@ -121,6 +121,9 @@
   <data name="InitializePersonSearchCache_Sql" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Init\InitializePersonSearchCache.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
+  <data name="PersonRegistration_DeleteSearchCache" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Init\PersonRegistration_DeleteSearchCache.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
   <data name="PersonRegistration_PopulateSearchCache_Sql" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Init\PersonRegistration_PopulateSearchCache.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>

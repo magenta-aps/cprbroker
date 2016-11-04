@@ -66,6 +66,7 @@ namespace CprBroker.Providers.Local.Search
                     Properties.Resources.PersonSearchCache_Sql,
                     Properties.Resources.InitializePersonSearchCache_Sql,
                     Properties.Resources.PersonRegistration_PopulateSearchCache_Sql,
+                    Properties.Resources.PersonRegistration_DeleteSearchCache,
                 };
             }
         }

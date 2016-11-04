@@ -135,6 +135,7 @@
   <ItemGroup>
     <None Include="Init\InitializePersonSearchCache.sql" />
     <None Include="Init\PersonRegistration_PopulateSearchCache.sql" />
+    <Content Include="Init\PersonRegistration_DeleteSearchCache.sql" />
     <Content Include="Init\PersonSearchCache.sql" />
   </ItemGroup>
   <ItemGroup>
