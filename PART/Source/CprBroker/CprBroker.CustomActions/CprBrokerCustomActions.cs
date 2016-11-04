@@ -347,7 +347,8 @@ namespace CprBroker.CustomActions
                             new string[]{
                                 Data.Properties.Resources.Activity_Sql,
                                 Data.Properties.Resources.OperationType_Sql,
-                                Data.Properties.Resources.Operation_Sql
+                                Data.Properties.Resources.Operation_Sql,
+                                Providers.Local.Search.Properties.Resources.PersonRegistration_DeleteSearchCache,
                             }
                         ),
                         PatchAction = conn=> DatabaseCustomAction.InsertLookup<CprBroker.Data.Applications.OperationType>(Data.Properties.Resources.OperationType_Csv, conn)
