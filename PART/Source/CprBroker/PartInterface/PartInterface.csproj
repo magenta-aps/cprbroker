@@ -104,6 +104,7 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Data\Person.cs" />
     <Compile Include="Data\PersonAttribute.cs" />
     <Compile Include="Data\PersonCivilState.cs" />
     <Compile Include="Data\PersonLifeState.cs" />
