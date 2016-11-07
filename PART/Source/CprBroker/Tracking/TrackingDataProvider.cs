@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace CprBroker.PartInterface.Tracking
 {
-    public class TrackingDataProvider : ITrackingDataProvider
+    public partial class TrackingDataProvider : ITrackingDataProvider
     {
         #region IDataProvider members
         public Version Version
@@ -113,65 +113,35 @@ namespace CprBroker.PartInterface.Tracking
             var factory = new DataProviderFactory();
             var dbProviders = factory.ReadDatabaseDataProviders();
             var dataProviders = factory.GetDataProviderList(section, dbProviders, typeof(IPutSubscriptionDataProvider), SourceUsageOrder.LocalThenExternal);
-            foreach (IPutSubscriptionDataProvider prov in dataProviders)
-            {
-                tasks.Add(
-                    taskFactory
-                    .StartNew(
-                        () =>
-                        {
-                            BrokerContext.Current = brokerContext;
-                            return prov.RemoveSubscription(personIdentifier);
-                        }
-                    )
-                );
-            }
+            tasks.AddRange(
+                dataProviders
+                .Select(p =>
+                    RemoveSubscription(brokerContext, p as IPutSubscriptionDataProvider, personIdentifier)
+                )
+            );
 
             // Extracts
             tasks.Add(
-                taskFactory.StartNew(
-                    () =>
-                    {
-                        BrokerContext.Current = brokerContext;
-                        Extract.DeletePersonFromAllExtracts(personIdentifier.CprNumber);
-                        return true;
-                    }
-                )
+                DeletePersonFromAllExtracts(brokerContext, personIdentifier)
             );
 
             // Person data
             tasks.Add(
-                taskFactory.StartNew(
-                    () =>
-                    {
-                        BrokerContext.Current = brokerContext;
-                        CprBroker.Data.Part.Person.Delete(personIdentifier);
-                        return true;
-                    }
-                )
+                DeletePerson(brokerContext, personIdentifier)
             );
 
             // Search Cache
             // Deleted using a trigger on PersonRegistration table
 
             // DBR
-            foreach (var dbr in CprBroker.Engine.Queues.Queue.GetQueues<DbrQueue>())
-            {
-                using (var dbrDataContext = new DPRDataContext(dbr.ConnectionString))
-                {
-                    tasks.Add(
-                        taskFactory.StartNew(
-                            () =>
-                            {
-                                BrokerContext.Current = brokerContext;
-                                CprConverter.DeletePersonRecords(personIdentifier.CprNumber, dbrDataContext);
-                                dbrDataContext.SubmitChanges();
-                                return true;
-                            }
-                        )
-                    );
-                }
-            }
+            var dbrQueues = CprBroker.Engine.Queues.Queue.GetQueues<DbrQueue>();
+            tasks.AddRange(
+                dbrQueues
+                .Select(q =>
+                    DeletePersonFromDBR(brokerContext, q, personIdentifier)
+                )
+            );
+
             try
             {
                 // Wait for sub tasks to complete
