@@ -20,10 +20,15 @@ namespace CprBroker.Tests.Tracking
             using (var conn = new SqlConnection(connectionString))
             {
                 newUuids = Enumerable.Range(0, insertedPersons).Select(i => Guid.NewGuid()).ToArray();
-                var persons = newUuids.Select(id => new Person()
+                var personsMappings = newUuids.Select(id => new PersonMapping()
                 {
                     UUID = id,
-                    UserInterfaceKeyText = PartInterface.Utilities.RandomCprNumber(),
+                    CprNumber = PartInterface.Utilities.RandomCprNumber(),
+                });
+                var persons = personsMappings.Select(id => new Person()
+                {
+                    UUID = id.UUID,
+                    UserInterfaceKeyText = id.CprNumber,
                 });
                 var personRegistrations = newUuids.Select(id => new PersonRegistration()
                 {
@@ -35,6 +40,7 @@ namespace CprBroker.Tests.Tracking
                 });
 
                 conn.Open();
+                conn.BulkInsertAll(personsMappings);
                 conn.BulkInsertAll(persons);
                 conn.BulkInsertAll(personRegistrations);
             }
