@@ -48,6 +48,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Core\Output\CprBroker.Utilities.dll</HintPath>
     </Reference>
+    <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="nunit.framework, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
       <Private>True</Private>
@@ -71,6 +75,10 @@
     <Compile Include="Utilities.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CPRDirect.Tests\CPRDirect.Tests.csproj">
+      <Project>{f9f2357b-981f-4048-96c5-315ee3872276}</Project>
+      <Name>CPRDirect.Tests</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CPRDirect\CPRDirect.csproj">
       <Project>{eddb494d-782d-4d45-8599-633057b9b203}</Project>
       <Name>CPRDirect</Name>
