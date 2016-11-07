@@ -100,7 +100,8 @@ namespace CprBroker.PartInterface.Tracking
             // Subscriptions
             var section = ConfigManager.Current.DataProvidersSection;
             var factory = new DataProviderFactory();
-            var dataProviders = factory.GetDataProviderList(section, new CprBroker.Data.DataProviders.DataProvider[] { }, typeof(IPutSubscriptionDataProvider), SourceUsageOrder.LocalThenExternal);
+            var dbProviders = factory.ReadDatabaseDataProviders();
+            var dataProviders = factory.GetDataProviderList(section, dbProviders, typeof(IPutSubscriptionDataProvider), SourceUsageOrder.LocalThenExternal);
             foreach (IPutSubscriptionDataProvider prov in dataProviders)
             {
                 prov.RemoveSubscription(personIdentifier);
