@@ -98,7 +98,7 @@ namespace CprBroker.PartInterface.Tracking
         public bool RemovePerson(PersonIdentifier personIdentifier)
         {
             var t = RemovePersonAsync(personIdentifier);
-            t.RunSynchronously();
+            t.Wait();
             return t.Result;
         }
 

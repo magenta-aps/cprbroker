@@ -67,6 +67,7 @@
     <Compile Include="TrackingDataProvicerTests.GetSubscribers.cs" />
     <Compile Include="TrackingDataProvicerTests.GetTrack.cs" />
     <Compile Include="TrackingDataProvicerTests.EnumeratePersons.cs" />
+    <Compile Include="TrackingDataProviderTests.RemovePerson.cs" />
     <Compile Include="Utilities.cs" />
   </ItemGroup>
   <ItemGroup>
