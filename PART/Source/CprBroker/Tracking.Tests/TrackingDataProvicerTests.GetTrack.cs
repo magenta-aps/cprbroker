@@ -12,7 +12,7 @@ using CprBroker.Engine;
 
 namespace CprBroker.Tests.Tracking
 {
-    namespace TrackingDataProvicerTests
+    namespace TrackingDataProviderTests
     {
         [TestFixture]
         public class GetTrackTests_EmptyDatabase : PartInterface.TestBase

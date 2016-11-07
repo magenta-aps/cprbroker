@@ -10,7 +10,7 @@ using System.Data.SqlClient;
 
 namespace CprBroker.Tests.Tracking
 {
-    namespace TrackingDataProvicerTests
+    namespace TrackingDataProviderTests
     {
         [TestFixture]
         public class EnumeratePersons_EmptyDB : PartInterface.TestBase
