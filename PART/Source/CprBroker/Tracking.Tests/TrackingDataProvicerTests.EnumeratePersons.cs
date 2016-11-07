@@ -79,9 +79,9 @@ namespace CprBroker.Tests.Tracking
                     .Select(id => string.Join("-", id))
                     .Select(id => new Guid(id))
                     .Skip(startIndex).Take(maxCount);
-                foreach (var id in expectedUuids.Zip(uuids, (a, b) => new { a, b }))
+                foreach (var id in expectedUuids.Zip(uuids, (expected, loaded) => new { expected, loaded }))
                 {
-                    Assert.AreEqual(id.a, id.b);
+                    Assert.AreEqual(id.expected, id.loaded.UUID);
                 }
             }
         }
