@@ -95,8 +95,19 @@ namespace CprBroker.PartInterface.Tracking
             }
         }
 
-        public void RemovePerson(PersonIdentifier personIdentifier)
+        public bool RemovePerson(PersonIdentifier personIdentifier)
         {
+            var t = RemovePersonAsync(personIdentifier);
+            t.RunSynchronously();
+            return t.Result;
+        }
+
+        public async Task<bool> RemovePersonAsync(PersonIdentifier personIdentifier)
+        {
+            var tasks = new List<Task<bool>>();
+            var taskFactory = new TaskFactory();
+            var brokerContext = BrokerContext.Current;
+
             // Subscriptions
             var section = ConfigManager.Current.DataProvidersSection;
             var factory = new DataProviderFactory();
@@ -104,27 +115,79 @@ namespace CprBroker.PartInterface.Tracking
             var dataProviders = factory.GetDataProviderList(section, dbProviders, typeof(IPutSubscriptionDataProvider), SourceUsageOrder.LocalThenExternal);
             foreach (IPutSubscriptionDataProvider prov in dataProviders)
             {
-                prov.RemoveSubscription(personIdentifier);
+                tasks.Add(
+                    taskFactory
+                    .StartNew(
+                        () =>
+                        {
+                            BrokerContext.Current = brokerContext;
+                            return prov.RemoveSubscription(personIdentifier);
+                        }
+                    )
+                );
             }
 
             // Extracts
-            Extract.DeletePersonFromAllExtracts(personIdentifier.CprNumber);
+            tasks.Add(
+                taskFactory.StartNew(
+                    () =>
+                    {
+                        BrokerContext.Current = brokerContext;
+                        Extract.DeletePersonFromAllExtracts(personIdentifier.CprNumber);
+                        return true;
+                    }
+                )
+            );
 
             // Person data
-            CprBroker.Data.Part.Person.Delete(personIdentifier);
+            tasks.Add(
+                taskFactory.StartNew(
+                    () =>
+                    {
+                        BrokerContext.Current = brokerContext;
+                        CprBroker.Data.Part.Person.Delete(personIdentifier);
+                        return true;
+                    }
+                )
+            );
 
             // Search Cache
             // Deleted using a trigger on PersonRegistration table
-
 
             // DBR
             foreach (var dbr in CprBroker.Engine.Queues.Queue.GetQueues<DbrQueue>())
             {
                 using (var dbrDataContext = new DPRDataContext(dbr.ConnectionString))
                 {
-                    CprConverter.DeletePersonRecords(personIdentifier.CprNumber, dbrDataContext);
-                    dbrDataContext.SubmitChanges();
+                    tasks.Add(
+                        taskFactory.StartNew(
+                            () =>
+                            {
+                                BrokerContext.Current = brokerContext;
+                                CprConverter.DeletePersonRecords(personIdentifier.CprNumber, dbrDataContext);
+                                dbrDataContext.SubmitChanges();
+                                return true;
+                            }
+                        )
+                    );
                 }
+            }
+            try
+            {
+                // Wait for sub tasks to complete
+                return Array.TrueForAll(
+                    await Task.WhenAll(tasks.ToArray()),
+                    b => b);
+            }
+            catch (AggregateException agrEx)
+            {
+                // Log the main exception and all sub exceptions
+                Engine.Local.Admin.LogException(agrEx);
+                foreach (var ex in agrEx.InnerExceptions)
+                {
+                    Engine.Local.Admin.LogException(ex);
+                }
+                return false;
             }
         }
 
