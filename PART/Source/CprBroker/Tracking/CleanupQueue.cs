@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using CprBroker.Engine.Queues;
 using CprBroker.Data.Queues;
+using CprBroker.Schemas;
+using CprBroker.Engine;
 
 namespace CprBroker.PartInterface.Tracking
 {
@@ -17,30 +19,44 @@ namespace CprBroker.PartInterface.Tracking
             var maximumUsageDate = DateTime.Now;
             var minimumUsageDate = maximumUsageDate - CleanupDetectionEnqueuer.MaxInactivePeriod;
             var states = prov.GetStatus(uuids, minimumUsageDate, maximumUsageDate);
-            var ret = new List<CleanupQueueItem>();
+            var brokerContext = BrokerContext.Current;
 
-            foreach (var person in items.Zip(states, (queueItem, personStatus) => new { queueItem, personStatus }))
+            var tasks = items.Zip(
+                states,
+                (queueItem, personStatus) => ProcessAsync(brokerContext, prov, queueItem, personStatus)
+                );
+
+            return Task.WhenAll(tasks)
+                .Result
+                .Where(r => r != null)
+                .ToArray();
+        }
+
+        public async Task<CleanupQueueItem> ProcessAsync(BrokerContext brokerContext, TrackingDataProvider prov, CleanupQueueItem queueItem, PersonTrack personTrack)
+        {
+            BrokerContext.Current = brokerContext;
+            if (personTrack.IsEmpty())
             {
-                if (person.personStatus.IsEmpty())
+                try
                 {
                     // remove person
-                    try
-                    {
-                        prov.RemovePerson(person.queueItem.PersonUuid);
-                        ret.Add(person.queueItem);
-                    }
-                    catch (Exception ex)
-                    {
-                        CprBroker.Engine.Local.Admin.LogException(ex);
-                    }
+                    var personRemoved = await prov.RemovePersonAsync(queueItem.ToPersonIdentifier());
+                    if (personRemoved)
+                        return queueItem;
+                    else
+                        return null;
                 }
-                else
+                catch (Exception ex)
                 {
-                    // Person should not be removed - also considered a success
-                    ret.Add(person.queueItem);
+                    CprBroker.Engine.Local.Admin.LogException(ex);
+                    return null;
                 }
             }
-            return ret.ToArray();
+            else
+            {
+                // Person should not be removed - also considered a success
+                return queueItem;
+            }
         }
     }
 
@@ -64,6 +80,15 @@ namespace CprBroker.PartInterface.Tracking
                 PersonUuid,
                 string.Format("{0}", PNR).PadLeft(10, '0')
                 );
+        }
+
+        public PersonIdentifier ToPersonIdentifier()
+        {
+            return new PersonIdentifier()
+            {
+                UUID = PersonUuid,
+                CprNumber = PNR,
+            };
         }
     }
 }
