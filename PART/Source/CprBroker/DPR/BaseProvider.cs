@@ -79,6 +79,7 @@ namespace CprBroker.Providers.DPR
                     DataProviderConfigPropertyInfo.Templates.ConnectionStringKeys
                     .Union(new DataProviderConfigPropertyInfo[] { 
                         new DataProviderConfigPropertyInfo(){Type = DataProviderConfigPropertyInfoTypes.Boolean, Name="Disable Diversion", Required=false,Confidential=false},
+                        new DataProviderConfigPropertyInfo(){Type = DataProviderConfigPropertyInfoTypes.Boolean, Name="Is Sharing Subscriptions", Required=true, Confidential=false},                        
                         new DataProviderConfigPropertyInfo(){Type = DataProviderConfigPropertyInfoTypes.String, Name="Address", Required=false, Confidential=false},
                         new DataProviderConfigPropertyInfo(){Type = DataProviderConfigPropertyInfoTypes.Integer, Name="Port", Required=false, Confidential=false},
                         new DataProviderConfigPropertyInfo(){Type = DataProviderConfigPropertyInfoTypes.Integer, Name="TCP Read Timeout (ms)" , Required=true, Confidential=false},
@@ -128,6 +129,12 @@ namespace CprBroker.Providers.DPR
         {
             get { return this.GetBoolean("Disable Diversion"); }
             set { ConfigurationProperties["Disable Diversion"] = Convert.ToString(value); }
+        }
+
+        public bool IsSharingSubscriptions
+        {
+            get { return this.GetBoolean("Is Sharing Subscriptions"); }
+            set { this.ConfigurationProperties["Is Sharing Subscriptions"] = Convert.ToString(value); }
         }
 
         public bool AutoUpdate

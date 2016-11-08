@@ -118,6 +118,18 @@ namespace CprBroker.Providers.CPRDirect
             }
         }
 
+        public bool IsSharingSubscriptions
+        {
+            get
+            {
+                return DataProviderConfigPropertyInfo.GetBoolean(ConfigurationProperties, Constants.PropertyNames.IsSharingSubscriptions);
+            }
+            set
+            {
+                this.ConfigurationProperties[Constants.PropertyNames.IsSharingSubscriptions] = value.ToString();
+            }
+        }
+
         #endregion
 
         #region IDataProvider members
@@ -156,6 +168,7 @@ namespace CprBroker.Providers.CPRDirect
                     new DataProviderConfigPropertyInfo(){ Name=Constants.PropertyNames.Address, Type= DataProviderConfigPropertyInfoTypes.String, Required=true, Confidential=false},
                     new DataProviderConfigPropertyInfo(){ Name=Constants.PropertyNames.Port, Type= DataProviderConfigPropertyInfoTypes.Integer, Required=true, Confidential=false},
                     new DataProviderConfigPropertyInfo(){ Name=Constants.PropertyNames.DisableSubscriptions, Type= DataProviderConfigPropertyInfoTypes.Boolean, Required=true, Confidential=false}
+                    new DataProviderConfigPropertyInfo(){ Name=Constants.PropertyNames.IsSharingSubscriptions, Type= DataProviderConfigPropertyInfoTypes.Boolean, Required=true, Confidential=false}
                 };
             }
         }

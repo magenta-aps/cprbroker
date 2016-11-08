@@ -72,6 +72,7 @@ namespace CprBroker.Providers.ServicePlatform
             public static readonly string SftpRemotePath = "SFTP Remote Path (e.g. /IN)";
 
             public static readonly string LocalProxyUsage = "Local proxy usage";
+            public static readonly string IsSharingSubscriptions = "Is Sharing Subscriptions";
         }
 
         public class SubscriptionFields

@@ -109,6 +109,7 @@ namespace CprBroker.Providers.ServicePlatform
                     new DataProviderConfigPropertyInfo(){Name=Constants.ConfigProperties.UserUUID, Type = DataProviderConfigPropertyInfoTypes.String, Confidential = false, Required=true},
                     new DataProviderConfigPropertyInfo(){Name=Constants.ConfigProperties.CertificateSerialNumber, Type = DataProviderConfigPropertyInfoTypes.String, Confidential = false, Required=true},
                     new DataProviderConfigPropertyInfo(){Name=Constants.ConfigProperties.LocalProxyUsage, Type = DataProviderConfigPropertyInfoTypes.Enumeration, Confidential = false, Required=true, EnumType = typeof(LocalProxyUsageOptions)},
+                    new DataProviderConfigPropertyInfo(){Name=Constants.ConfigProperties.IsSharingSubscriptions, Type = DataProviderConfigPropertyInfoTypes.Boolean, Confidential = false, Required=true},
                 };
             }
         }

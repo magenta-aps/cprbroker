@@ -337,5 +337,18 @@ namespace CprBroker.Providers.ServicePlatform
                     return null;
             }
         }
+
+        public bool IsSharingSubscriptions
+        {
+            get
+            {
+                return DataProviderConfigPropertyInfo.GetBoolean(ConfigurationProperties, Constants.ConfigProperties.IsSharingSubscriptions);
+            }
+            set
+            {
+                this.ConfigurationProperties[Constants.ConfigProperties.IsSharingSubscriptions] = value.ToString();
+            }
+        }
+
     }
 }

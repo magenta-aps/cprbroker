@@ -90,6 +90,7 @@ namespace CprBroker.Engine
     {
         bool PutSubscription(PersonIdentifier personIdentifier);
         bool RemoveSubscription(PersonIdentifier personIdentifier);
+        bool IsSharingSubscriptions { get; }
     }
 
     public interface IPutSubscriptionDataProvider2 : IPutSubscriptionDataProvider
