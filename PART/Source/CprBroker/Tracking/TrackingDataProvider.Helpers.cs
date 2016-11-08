@@ -16,7 +16,10 @@ namespace CprBroker.PartInterface.Tracking
         async Task<bool> RemoveSubscription(BrokerContext brokerContext, IPutSubscriptionDataProvider prov, PersonIdentifier personIdentifier)
         {
             BrokerContext.Current = brokerContext;
-            return prov.RemoveSubscription(personIdentifier);
+            if (prov.IsSharingSubscriptions) // Shared subsciptions should not be deleted because they can cause other systems to stop getting updates
+                return true;
+            else
+                return prov.RemoveSubscription(personIdentifier);
         }
 
         async Task<bool> DeletePersonFromAllExtracts(BrokerContext brokerContext, PersonIdentifier personIdentifier)
