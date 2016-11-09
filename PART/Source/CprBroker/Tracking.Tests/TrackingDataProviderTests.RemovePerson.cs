@@ -79,6 +79,48 @@ namespace CprBroker.Tests.Tracking
                 Assert.Greater(countItems(null), 0);
             }
 
+            class DP : IPutSubscriptionDataProvider
+            {
+                public static bool _IsSharingSubscriptions { get; set; }
+                public bool IsSharingSubscriptions { get { return _IsSharingSubscriptions; } set { _IsSharingSubscriptions = value; } }
+                public Version Version { get { throw new NotImplementedException(); } }
+                public bool IsAlive() { throw new NotImplementedException(); }
+                public bool PutSubscription(PersonIdentifier personIdentifier) { throw new NotImplementedException(); }
+                public static bool RemoveSubscriptionCalled = false;
+                public bool RemoveSubscription(PersonIdentifier personIdentifier)
+                {
+                    RemoveSubscriptionCalled = true;
+                    return true;
+                }
+            }
+
+            [Test]
+            public void RemovePerson_SharedSubscription_SubscriptionNotRemoved(
+                [Values(6, 18, 35, 67, 70, 77)]int pnrIndex)
+            {
+                var pnr = CPRDirect.Utilities.PNRs[pnrIndex];
+                DP.RemoveSubscriptionCalled = false;
+                DP._IsSharingSubscriptions = true;
+                RegisterDataProviderType<DP>();
+                var pId = new PersonIdentifier() { CprNumber = pnr, UUID = Guid.NewGuid() };
+                var prov = new TrackingDataProvider();
+                prov.RemovePerson(pId);
+                Assert.False(DP.RemoveSubscriptionCalled);
+            }
+
+            [Test]
+            public void RemovePerson_UnSharedSubscription_SubscriptionRemoved(
+                [Values(6, 18, 35, 67, 70, 77)]int pnrIndex)
+            {
+                var pnr = CPRDirect.Utilities.PNRs[pnrIndex];
+                DP.RemoveSubscriptionCalled = false;
+                DP._IsSharingSubscriptions = false;
+                RegisterDataProviderType<DP>();
+                var pId = new PersonIdentifier() { CprNumber = pnr, UUID = Guid.NewGuid() };
+                var prov = new TrackingDataProvider();
+                prov.RemovePerson(pId);
+                Assert.True(DP.RemoveSubscriptionCalled);
+            }
         }
     }
 }
