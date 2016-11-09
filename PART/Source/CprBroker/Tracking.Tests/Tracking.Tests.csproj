@@ -83,6 +83,14 @@
       <Project>{eddb494d-782d-4d45-8599-633057b9b203}</Project>
       <Name>CPRDirect</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DBR\DBR.csproj">
+      <Project>{f6e48545-473f-4133-90f7-b93a4612f50f}</Project>
+      <Name>DBR</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DPR\DPR.csproj">
+      <Project>{f98e5179-88e3-404e-83be-54f0a3e7dbc0}</Project>
+      <Name>DPR</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PartInterface.Tests\PartInterface.Tests.csproj">
       <Project>{06ccc703-83f2-44b9-b67a-f7f3a0071e2d}</Project>
       <Name>PartInterface.Tests</Name>
