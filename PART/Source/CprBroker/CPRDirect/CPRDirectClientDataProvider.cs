@@ -167,7 +167,7 @@ namespace CprBroker.Providers.CPRDirect
                 return new DataProviderConfigPropertyInfo[] {
                     new DataProviderConfigPropertyInfo(){ Name=Constants.PropertyNames.Address, Type= DataProviderConfigPropertyInfoTypes.String, Required=true, Confidential=false},
                     new DataProviderConfigPropertyInfo(){ Name=Constants.PropertyNames.Port, Type= DataProviderConfigPropertyInfoTypes.Integer, Required=true, Confidential=false},
-                    new DataProviderConfigPropertyInfo(){ Name=Constants.PropertyNames.DisableSubscriptions, Type= DataProviderConfigPropertyInfoTypes.Boolean, Required=true, Confidential=false}
+                    new DataProviderConfigPropertyInfo(){ Name=Constants.PropertyNames.DisableSubscriptions, Type= DataProviderConfigPropertyInfoTypes.Boolean, Required=true, Confidential=false},
                     new DataProviderConfigPropertyInfo(){ Name=Constants.PropertyNames.IsSharingSubscriptions, Type= DataProviderConfigPropertyInfoTypes.Boolean, Required=true, Confidential=false}
                 };
             }
