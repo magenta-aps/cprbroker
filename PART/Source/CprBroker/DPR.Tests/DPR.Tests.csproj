@@ -64,6 +64,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Core\Output\CprBroker.Utilities.dll</HintPath>
     </Reference>
+    <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="nunit.framework, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
       <Private>True</Private>
@@ -94,6 +98,7 @@
     <Compile Include="DepartureTests.cs" />
     <Compile Include="DprDatabaseDataProviderTests.cs" />
     <Compile Include="DprEnqueuerTests.cs" />
+    <Compile Include="DprUpdateQueueTests.cs" />
     <Compile Include="PersonInfoTests.cs" />
     <Compile Include="PersonName.Tests.cs" />
     <Compile Include="PersonTotal.ToPersonInfo.Address.Tests.cs" />
