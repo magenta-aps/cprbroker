@@ -52,6 +52,7 @@ using System.Xml.Linq;
 using System.IO;
 using CprBroker.Utilities;
 using CprBroker.Utilities.WhereConditions;
+using CprBroker.Schemas;
 
 namespace CprBroker.Data.Part
 {
@@ -234,14 +235,14 @@ namespace CprBroker.Data.Part
         public static IEnumerable<Guid> GetUuidsByCriteria(PartDataContext dataContext, SoegObjektType soegObject, int startIndex, int maxCount)
         {
             var elements = PersonRegistration.CreateXQueryElements(soegObject);
-
+            var tableName = DataLinq.GetTableName<PersonRegistration>();
 #if Mono
-            var byCriteriaStr = WhereCondition.GetMatchingObjects<object>(dataContext, elements, "PersonRegistration", true, new string[] { "UUID" }, startIndex, maxCount, "UUID");
+            var byCriteriaStr = WhereCondition.GetMatchingObjects<object>(dataContext, elements, tableName, true, new string[] { "UUID" }, startIndex, maxCount, "UUID");
             var byCriteria = byCriteriaStr.Select(o => new Guid(o.ToString()));
 #else
-            var byCriteria = WhereCondition.GetMatchingObjects<Guid>(dataContext, elements, "PersonRegistration", true, new string[] { "UUID" }, startIndex, maxCount, "UUID");
+            var byCriteria = WhereCondition.GetMatchingObjects<Guid>(dataContext, elements, tableName, true, new string[] { "UUID" }, startIndex, maxCount, "UUID");
 #endif
-            
+
             return byCriteria;
         }
 
