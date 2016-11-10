@@ -100,22 +100,20 @@ namespace CprBroker.Tests.PartInterface
         [TestFixture]
         public class CanCallOnline
         {
-            static readonly string[] CorrectPNRs = new string[] { "2311783656", "1608593655" };
             static readonly string[] WrongPNRs = new string[] { "2311783650", "1608593667" };
 
 
             [Test]
             public void CanCallOnline_Mod11Enabled_CorrectPNR_True(
-                [ValueSource("CorrectPNRs")]string pnr)
+                [ValueSource(typeof(Utilities), nameof(Utilities.RandomCprNumbers2))]string pnr)
             {
-
                 var ret = IPartPerCallDataProviderHelper.CanCallOnline(true, pnr);
                 Assert.True(ret);
             }
 
             [Test]
             public void CanCallOnline_Mod11Enabled_WrongPNR_False(
-                [ValueSource("WrongPNRs")]string pnr)
+                [ValueSource(nameof(WrongPNRs))]string pnr)
             {
 
                 var ret = IPartPerCallDataProviderHelper.CanCallOnline(true, pnr);
@@ -124,7 +122,7 @@ namespace CprBroker.Tests.PartInterface
 
             [Test]
             public void CanCallOnline_Mod11Disabled_CorrectPNR_True(
-                [ValueSource("CorrectPNRs")]string pnr)
+                [ValueSource(typeof(Utilities), nameof(Utilities.RandomCprNumbers2))]string pnr)
             {
                 var ret = IPartPerCallDataProviderHelper.CanCallOnline(false, pnr);
                 Assert.True(ret);
@@ -132,7 +130,7 @@ namespace CprBroker.Tests.PartInterface
 
             [Test]
             public void CanCallOnline_Mod11Disabled_WrongPNR_True(
-                [ValueSource("WrongPNRs")]string pnr)
+                [ValueSource(nameof(WrongPNRs))]string pnr)
             {
                 var ret = IPartPerCallDataProviderHelper.CanCallOnline(false, pnr);
                 Assert.True(ret);

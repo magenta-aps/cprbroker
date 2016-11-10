@@ -68,6 +68,11 @@ namespace CprBroker.Tests.PartInterface
             return ret;
         }
 
+        public static string[] RandomCprNumbers2()
+        {
+            return RandomCprNumbers(2);
+        }
+
         public static string[] RandomCprNumbers(int count)
         {
             var ret = new string[count];
