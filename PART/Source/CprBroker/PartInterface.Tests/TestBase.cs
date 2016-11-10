@@ -56,6 +56,10 @@ using Microsoft.Practices.EnterpriseLibrary.Logging.Configuration;
 using CprBroker.Utilities.Config;
 using System.Configuration;
 using CprBroker.Utilities;
+using CprBroker.Engine;
+using CprBroker.Data.DataProviders;
+using CprBroker.Schemas;
+using CprBroker.Data;
 
 namespace CprBroker.Tests.PartInterface
 {
@@ -66,7 +70,7 @@ namespace CprBroker.Tests.PartInterface
         {
             public string DbName;
             public string ConnectionString { get { return string.Format("Data Source=localhost\\sqlexpress; integrated security=sspi; initial catalog={0}", DbName); } }
-            public string MasterConnectionString { get; } = "Data Source=localhost\\sqlexpress; integrated security=sspi;";            
+            public string MasterConnectionString { get; } = "Data Source=localhost\\sqlexpress; integrated security=sspi;";
             public KeyValuePair<string, string>[] Lookups;
         }
 
@@ -267,7 +271,7 @@ namespace CprBroker.Tests.PartInterface
                 Criteria = criteria == null ? null : System.Xml.Linq.XElement.Load(new System.IO.StringReader(CprBroker.Utilities.Strings.SerializeObject(criteria))),
                 IsForAllPersons = forAll,
                 Ready = ready,
-                SubscriptionTypeId = (int)type                
+                SubscriptionTypeId = (int)type
             };
             dataContext.Subscriptions.InsertOnSubmit(sub);
             return sub;
@@ -323,6 +327,29 @@ namespace CprBroker.Tests.PartInterface
             if (submit)
                 dataContext.SubmitChanges();
             return ret;
+        }
+
+        public DataProvider AddDataProvider<T>(T dataProvider)
+            where T : IDataProvider, IExternalDataProvider
+        {
+            RegisterDataProviderType<T>();
+            using (var dataContext = new Data.DataProviders.DataProvidersDataContext())
+            {
+                DataProvider dbProv = new DataProvider()
+                {
+                    DataProviderId = Guid.NewGuid(),
+                    IsExternal = true,
+                    TypeName = typeof(T).AssemblyQualifiedName,
+                    Ordinal = 10000,
+                    IsEnabled = true
+                };
+                dbProv.Attributes = new List<AttributeType>();
+                dataProvider.CopyToEncryptedStorage(dbProv);
+
+                dataContext.DataProviders.InsertOnSubmit(dbProv);
+                dataContext.SubmitChanges();
+                return dbProv;
+            }
         }
 
         public void RegisterDataProviderType<T>(bool clear = false)
