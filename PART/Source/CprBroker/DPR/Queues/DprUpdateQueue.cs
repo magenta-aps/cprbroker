@@ -48,6 +48,7 @@ using System.Text;
 using CprBroker.Engine.Part;
 using CprBroker.Utilities;
 using CprBroker.Engine.Local;
+using CprBroker.Data.Part;
 
 namespace CprBroker.Providers.DPR.Queues
 {
@@ -81,17 +82,26 @@ namespace CprBroker.Providers.DPR.Queues
                             {
                                 try // item level
                                 {
-                                    var info = PersonInfo.GetPersonInfo(dprDataContext, item.Pnr);
-                                    if (info != null)
+                                    if (PersonExists(item.Pnr))
                                     {
-                                        var oioReg = info.ToRegisteringType1(cache.GetUuid, dprDataContext);
-                                        var pId = new CprBroker.Schemas.PersonIdentifier()
+                                        var info = PersonInfo.GetPersonInfo(dprDataContext, item.Pnr);
+                                        if (info != null)
                                         {
-                                            CprNumber = item.Pnr.ToPnrDecimalString(),
-                                            UUID = cache.GetUuid(item.Pnr.ToPnrDecimalString())
-                                        };
-                                        CprBroker.Engine.Local.UpdateDatabase.UpdatePersonRegistration(pId, oioReg);
-                                        ret.Add(item);
+                                            var oioReg = info.ToRegisteringType1(cache.GetUuid, dprDataContext);
+                                            var pId = new CprBroker.Schemas.PersonIdentifier()
+                                            {
+                                                CprNumber = item.Pnr.ToPnrDecimalString(),
+                                                UUID = cache.GetUuid(item.Pnr.ToPnrDecimalString())
+                                            };
+                                            CprBroker.Engine.Local.UpdateDatabase.UpdatePersonRegistration(pId, oioReg);
+                                            ret.Add(item);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        // We consider this as a failure, so that the update can be attempted at a later point in time
+                                        // Log the decision
+                                        CprBroker.Engine.Local.Admin.LogFormattedSuccess("{0}:{1} skipping irrelevant person <{2}>", this.GetType().Name, prov.ToString(), item.Pnr.ToPnrDecimalString());
                                     }
                                 }
                                 catch (Exception ex)
@@ -108,6 +118,18 @@ namespace CprBroker.Providers.DPR.Queues
                 }
             }
             return ret.ToArray();
+        }
+
+        public virtual bool PersonExists(decimal pnr)
+        {
+            using (var partDataContext = new PartDataContext())
+            {
+                var pnrString = pnr.ToPnrDecimalString();
+                var uuid = partDataContext.PersonMappings.FirstOrDefault(pm => pm.CprNumber == pnrString)?.UUID;
+                var personExists = uuid.HasValue &&
+                    partDataContext.PersonRegistrations.FirstOrDefault(pr => pr.UUID == uuid.Value) != null;
+                return personExists;
+            }
         }
     }
 }
