@@ -56,9 +56,9 @@ namespace CprBroker.Providers.DPR
     /// <summary>
     /// Contains code for access of DPR diversion
     /// </summary>
-    public abstract class ClientDataProvider : BaseProvider
+    public partial class DprDatabaseDataProvider
     {
-        static ClientDataProvider()
+        static DprDatabaseDataProvider()
         {
             ErrorCodes = DiversionErrorCodes.ErrorCodes_En();
         }
@@ -172,7 +172,7 @@ namespace CprBroker.Providers.DPR
             }
         }
 
-        public override bool IsAlive()
+        public bool IsAlive()
         {
             var ret = IsDiversionAlive() && IsDatabaseAlive();
             if (AutoUpdate)

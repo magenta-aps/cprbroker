@@ -58,7 +58,7 @@ namespace CprBroker.Providers.DPR
     /// <summary>
     /// Implements the Read operation of Part standard
     /// </summary>
-    public partial class DprDatabaseDataProvider : ClientDataProvider, IPutSubscriptionDataProvider, IPartReadDataProvider, IChangePuller<Queues.T_DPRUpdateStaging>, IAutoUpdateDataProvider
+    public partial class DprDatabaseDataProvider
     {
 
         public RegistreringType1 Read(PersonIdentifier uuid, LaesInputType input, Func<string, Guid> cpr2uuidFunc, out QualityLevel? ql)

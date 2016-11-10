@@ -55,7 +55,10 @@ namespace CprBroker.Providers.DPR
     /// <summary>
     /// Base class for all DPR data providers
     /// </summary>
-    public abstract class BaseProvider : IExternalDataProvider, IDataProvider, IPerCallDataProvider
+    public partial class DprDatabaseDataProvider :
+        IExternalDataProvider, IDataProvider, IPerCallDataProvider,
+        IPutSubscriptionDataProvider, IPartReadDataProvider,
+        IChangePuller<Queues.T_DPRUpdateStaging>, IAutoUpdateDataProvider
     {
         /// <summary>
         /// Map for error codes that are returned fromDate DPR. Each provider fills its own list
@@ -174,11 +177,6 @@ namespace CprBroker.Providers.DPR
 
 
         #region IDataProvider Members
-
-        public virtual bool IsAlive()
-        {
-            return true;
-        }
 
         public Version Version
         {

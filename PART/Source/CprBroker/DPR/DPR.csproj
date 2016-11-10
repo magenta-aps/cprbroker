@@ -75,9 +75,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BaseProvider.cs" />
+    <Compile Include="DprDatabaseDataProvider.Base.cs" />
     <Compile Include="Constants.cs" />
-    <Compile Include="ClientDataProvider.cs" />
+    <Compile Include="DprDatabaseDataProvider.Utils.cs" />
     <Compile Include="Data\ChurchAdministrationDistrict.cs" />
     <Compile Include="Data\City.cs" />
     <Compile Include="Data\CivilStatus.cs" />
@@ -110,7 +110,7 @@
       <DependentUpon>DPR.dbml</DependentUpon>
     </Compile>
     <Compile Include="Data\PersonTotal.cs" />
-    <Compile Include="DprDatabaseDataProvider.cs" />
+    <Compile Include="DprDatabaseDataProvider.Part.cs" />
     <Compile Include="PersonName.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
