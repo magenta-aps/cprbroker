@@ -192,7 +192,8 @@ namespace CprBroker.Providers.DPR
         public string CallDiversion(InquiryType inquiryType, DetailType detailType, string cprNumber)
         {
             string message = CreateMessage(inquiryType, detailType, cprNumber);
-            return Send(message, cprNumber);
+            string operation = string.Format("{0}-{1},{2}", Constants.DiversionOperationName, inquiryType, detailType);
+            return Send(message, operation, cprNumber);
         }
 
     }

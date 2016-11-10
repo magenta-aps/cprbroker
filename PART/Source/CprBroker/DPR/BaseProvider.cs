@@ -77,9 +77,9 @@ namespace CprBroker.Providers.DPR
             {
                 return
                     DataProviderConfigPropertyInfo.Templates.ConnectionStringKeys
-                    .Union(new DataProviderConfigPropertyInfo[] { 
+                    .Union(new DataProviderConfigPropertyInfo[] {
                         new DataProviderConfigPropertyInfo(){Type = DataProviderConfigPropertyInfoTypes.Boolean, Name="Disable Diversion", Required=false,Confidential=false},
-                        new DataProviderConfigPropertyInfo(){Type = DataProviderConfigPropertyInfoTypes.Boolean, Name="Is Sharing Subscriptions", Required=true, Confidential=false},                        
+                        new DataProviderConfigPropertyInfo(){Type = DataProviderConfigPropertyInfoTypes.Boolean, Name="Is Sharing Subscriptions", Required=true, Confidential=false},
                         new DataProviderConfigPropertyInfo(){Type = DataProviderConfigPropertyInfoTypes.String, Name="Address", Required=false, Confidential=false},
                         new DataProviderConfigPropertyInfo(){Type = DataProviderConfigPropertyInfoTypes.Integer, Name="Port", Required=false, Confidential=false},
                         new DataProviderConfigPropertyInfo(){Type = DataProviderConfigPropertyInfoTypes.Integer, Name="TCP Read Timeout (ms)" , Required=true, Confidential=false},
@@ -192,11 +192,11 @@ namespace CprBroker.Providers.DPR
 
         #region Protected Members
 
-        protected string Send(string message, string cprNumber)
+        protected string Send(string message, string operation, string cprNumber)
         {
             string response;
             string error;
-            if (Send(message, cprNumber, out response, out error))
+            if (Send(message, operation, cprNumber, out response, out error))
             {
                 return response;
             }
@@ -215,12 +215,12 @@ namespace CprBroker.Providers.DPR
         /// <param name="response">Response to message</param>
         /// <param name="error">Error text (if any)</param>
         /// <returns>True if no error, false otherwise</returns>
-        protected bool Send(string message, string cprNumber, out string response, out string error)
+        protected bool Send(string message, string operation, string cprNumber, out string response, out string error)
         {
             int bytes = 0;
             error = null;
 
-            using (var callContext = this.BeginCall(Constants.DiversionOperationName, cprNumber))
+            using (var callContext = this.BeginCall(operation, cprNumber))
             {
                 try
                 {

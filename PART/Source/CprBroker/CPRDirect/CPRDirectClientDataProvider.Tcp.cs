@@ -61,7 +61,8 @@ namespace CprBroker.Providers.CPRDirect
         {
             string response;
             string error;
-            if (Send(request.PNR, request.Contents, out response, out error))
+            string operation = string.Format("{0}-{1}{2}", Constants.OnlineOperationName, request.DataType, request.SubscriptionType);
+            if (Send(operation, request.PNR, request.Contents, out response, out error))
             {
                 var ret = new IndividualResponseType() { Contents = response };
                 ret.FillFromFixedLengthString(ret.Data, Constants.DataObjectMap);
@@ -74,12 +75,12 @@ namespace CprBroker.Providers.CPRDirect
             }
         }
 
-        protected bool Send(decimal pnr, string message, out string response, out string error)
+        protected bool Send(string operation, decimal pnr, string message, out string response, out string error)
         {
             error = null;
             NetworkStream stream = null;
 
-            using (var callContext = this.BeginCall(Constants.OnlineOperationName, pnr.ToPnrDecimalString()))
+            using (var callContext = this.BeginCall(operation, pnr.ToPnrDecimalString()))
             {
                 try
                 {
