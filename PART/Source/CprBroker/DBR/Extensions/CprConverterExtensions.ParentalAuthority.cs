@@ -72,5 +72,27 @@ namespace CprBroker.DBR.Extensions
 
             return p;
         }
+
+        public static Relation ToDprRelation(this ParentalAuthorityType auth)
+        {
+            var types = new decimal[] { 5, 6 };
+            if (types.Contains(auth.RelationshipType))
+            {
+                return new Relation()
+                {
+                    PNR = decimal.Parse(auth.PNR),
+                    RelationType = auth.RelationshipType,
+                    AuthorityCode = 0,
+                    CprUpdateDate = CprBroker.Utilities.Dates.DateToDecimal(auth.Registration.RegistrationDate, 12),
+                    StartDate = auth.CustodyStartDate.Value,
+                    EndDate = auth.CustodyEndDate,
+                    RelationPNR = decimal.Parse(auth.RelationPNR)
+                };
+            }
+            else
+            {
+                return null;
+            }
+        }
     }
 }

@@ -177,6 +177,7 @@ namespace CprBroker.DBR
             dataContext.MunicipalConditions.InsertAllOnSubmit(person.MunicipalConditions.Select(c => c.ToDpr()));
 
             dataContext.ParentalAuthorities.InsertAllOnSubmit(person.ParentalAuthority.Select(p => p.ToDpr()));
+            dataContext.Relations.InsertAllOnSubmit(person.ParentalAuthority.Select(pa => pa.ToDprRelation()).Where(r => r != null));
 
             if (person.Disempowerment != null)
             {
