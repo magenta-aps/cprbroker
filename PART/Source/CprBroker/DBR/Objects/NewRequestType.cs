@@ -48,6 +48,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using CprBroker.PartInterface;
+using CprBroker.Engine;
 
 namespace CprBroker.DBR
 {
@@ -63,6 +64,10 @@ namespace CprBroker.DBR
             NewResponseType ret;
             try
             {
+                // Register an operation, if this is not a 'remove subscription' call
+                if (this.Type != InquiryType.DeleteAutomaticDataUpdateFromCpr)
+                    BrokerContext.Current.RegisterOperation(Data.Applications.OperationType.Types.DprDiversion, this.PNR);
+
                 var dataProviders = new ICprDirectPersonDataProvider[0].AsEnumerable();
 
                 if (Convert.ToBoolean(ForceDiversion))

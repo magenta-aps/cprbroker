@@ -18,8 +18,8 @@ namespace CprBroker.Data.Applications
             PutSubscription = 6,
             Subscribe = 8,
             Unsubscribe = 9,
-            ListSubscriptions = 10
-
+            ListSubscriptions = 10,
+            DprDiversion = 11
         }
     }
 }

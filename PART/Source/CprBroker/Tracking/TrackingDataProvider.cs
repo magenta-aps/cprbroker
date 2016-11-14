@@ -37,7 +37,7 @@ namespace CprBroker.PartInterface.Tracking
             return Operation
                 .Get(
                     personUuids.Select(id => id.ToString()).ToArray(),
-                    new OperationType.Types[] { OperationType.Types.Read, OperationType.Types.ReadPeriod },
+                    new OperationType.Types[] { OperationType.Types.Read, OperationType.Types.ReadPeriod, OperationType.Types.DprDiversion },
                     fromDate,
                     toDate)
                 .Select(kvp => kvp.Item1.ToPersonTrack(kvp.Item2))
