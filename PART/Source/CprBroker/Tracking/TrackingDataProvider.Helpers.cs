@@ -36,6 +36,20 @@ namespace CprBroker.PartInterface.Tracking
             return true;
         }
 
+        public async Task<bool> DeletePersonFromAllDBR(BrokerContext brokerContext, PersonIdentifier personIdentifier)
+        {
+            BrokerContext.Current = brokerContext;
+            var dbrQueues = CprBroker.Engine.Queues.Queue.GetQueues<DbrQueue>();
+            var tasks = dbrQueues
+            .Select(q =>
+                DeletePersonFromDBR(brokerContext, q, personIdentifier)
+            );
+            var ret = Array.TrueForAll(
+                    await Task.WhenAll(tasks.ToArray()),
+                    b => b);
+            return ret;
+        }
+
         public async Task<bool> DeletePersonFromDBR(BrokerContext brokerContext, DbrQueue dbr, PersonIdentifier personIdentifier)
         {
             using (var dbrDataContext = new DPRDataContext(dbr.ConnectionString))

@@ -134,13 +134,9 @@ namespace CprBroker.PartInterface.Tracking
             // Deleted using a trigger on PersonRegistration table
 
             // DBR
-            var dbrQueues = CprBroker.Engine.Queues.Queue.GetQueues<DbrQueue>();
-            tasks.AddRange(
-                dbrQueues
-                .Select(q =>
-                    DeletePersonFromDBR(brokerContext, q, personIdentifier)
-                )
-            );
+            tasks.Add(
+                this.DeletePersonFromAllDBR(brokerContext, personIdentifier)
+                );
 
             try
             {

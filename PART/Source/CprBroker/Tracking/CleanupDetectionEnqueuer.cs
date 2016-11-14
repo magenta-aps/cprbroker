@@ -11,6 +11,7 @@ namespace CprBroker.PartInterface.Tracking
     public class CleanupDetectionEnqueuer : PeriodicTaskExecuter
     {
         public static readonly TimeSpan MaxInactivePeriod = TimeSpan.FromDays(90);
+        public static readonly TimeSpan DprEmulationRemovalAllowance = TimeSpan.FromDays(7);
 
         protected override void PerformTimerAction()
         {

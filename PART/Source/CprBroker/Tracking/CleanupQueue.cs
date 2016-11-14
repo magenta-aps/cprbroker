@@ -18,12 +18,13 @@ namespace CprBroker.PartInterface.Tracking
             var uuids = items.Select(i => i.PersonUuid).ToArray();
             var maximumUsageDate = DateTime.Now;
             var minimumUsageDate = maximumUsageDate - CleanupDetectionEnqueuer.MaxInactivePeriod;
+            var minimumUsageDatePlusDprAllowance = minimumUsageDate + CleanupDetectionEnqueuer.DprEmulationRemovalAllowance;
             var states = prov.GetStatus(uuids, minimumUsageDate, maximumUsageDate);
             var brokerContext = BrokerContext.Current;
 
             var tasks = items.Zip(
                 states,
-                (queueItem, personStatus) => ProcessAsync(brokerContext, prov, queueItem, personStatus)
+                (queueItem, personStatus) => ProcessAsync(brokerContext, prov, queueItem, personStatus, minimumUsageDatePlusDprAllowance)
                 );
 
             return Task.WhenAll(tasks)
@@ -32,7 +33,7 @@ namespace CprBroker.PartInterface.Tracking
                 .ToArray();
         }
 
-        public async Task<CleanupQueueItem> ProcessAsync(BrokerContext brokerContext, TrackingDataProvider prov, CleanupQueueItem queueItem, PersonTrack personTrack)
+        public async Task<CleanupQueueItem> ProcessAsync(BrokerContext brokerContext, TrackingDataProvider prov, CleanupQueueItem queueItem, PersonTrack personTrack, DateTime dprAllowance)
         {
             BrokerContext.Current = brokerContext;
             if (personTrack.IsEmpty())
@@ -51,6 +52,15 @@ namespace CprBroker.PartInterface.Tracking
                     CprBroker.Engine.Local.Admin.LogException(ex);
                     return null;
                 }
+            }
+            else if (personTrack.IsEmptyAfter(dprAllowance))
+            {
+                // Only remove from DPR emulation
+                var dbrRemoved = await prov.DeletePersonFromAllDBR(brokerContext, queueItem.ToPersonIdentifier());
+                if (dbrRemoved)
+                    return queueItem;
+                else
+                    return null;
             }
             else
             {

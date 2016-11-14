@@ -22,5 +22,14 @@ namespace CprBroker.PartInterface.Tracking
                 && LastRead == null
                 ;
         }
+
+        public bool IsEmptyAfter(DateTime dprAllowance)
+        {
+            return
+                (Subscribers == null || Subscribers.Length == 0)
+                && (ReadOperations == null || ReadOperations.Where(op => op.ReadTime >= dprAllowance).Count() == 0)
+                && (LastRead == null || LastRead.Value < dprAllowance)
+                ;
+        }
     }
 }
