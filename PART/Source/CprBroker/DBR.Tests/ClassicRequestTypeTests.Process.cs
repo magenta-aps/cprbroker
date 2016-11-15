@@ -59,6 +59,12 @@ namespace CprBroker.Tests.DBR
         [TestFixture]
         public partial class Process
         {
+            [SetUp]
+            public void InitBrokerContext()
+            {
+                BrokerContext.Initialize(CprBroker.Utilities.Constants.BaseApplicationToken.ToString(), "");
+            }
+
             [Test]
             public void Process_NoDataProviders_Null()
             {
