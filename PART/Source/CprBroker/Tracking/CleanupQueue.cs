@@ -7,6 +7,7 @@ using CprBroker.Engine.Queues;
 using CprBroker.Data.Queues;
 using CprBroker.Schemas;
 using CprBroker.Engine;
+using CprBroker.Providers.Local.Search;
 
 namespace CprBroker.PartInterface.Tracking
 {
@@ -36,27 +37,42 @@ namespace CprBroker.PartInterface.Tracking
         public async Task<CleanupQueueItem> ProcessAsync(BrokerContext brokerContext, TrackingDataProvider prov, CleanupQueueItem queueItem, PersonTrack personTrack, DateTime dprAllowance)
         {
             BrokerContext.Current = brokerContext;
+            var personIdentifier = queueItem.ToPersonIdentifier();
+
             if (personTrack.IsEmpty())
             {
-                try
+                if (LivesIn(personIdentifier, CleanupDetectionEnqueuer.ExcludedMunicipalityCodes))
                 {
-                    // remove person
-                    var personRemoved = await prov.RemovePersonAsync(queueItem.ToPersonIdentifier());
-                    if (personRemoved)
-                        return queueItem;
-                    else
-                        return null;
+                    CprBroker.Engine.Local.Admin.LogFormattedSuccess(
+                        "Person <{0}> has no usage, but has been excluded from the cleanup due tomunicipality equal to one of <{1}>",
+                        personIdentifier.UUID,
+                        string.Join(",", CleanupDetectionEnqueuer.ExcludedMunicipalityCodes)
+                        );
+                    // This is considered a success
+                    return queueItem;
                 }
-                catch (Exception ex)
+                else
                 {
-                    CprBroker.Engine.Local.Admin.LogException(ex);
-                    return null;
+                    try
+                    {
+                        // remove person
+                        var personRemoved = await prov.RemovePersonAsync(personIdentifier);
+                        if (personRemoved)
+                            return queueItem;
+                        else
+                            return null;
+                    }
+                    catch (Exception ex)
+                    {
+                        CprBroker.Engine.Local.Admin.LogException(ex);
+                        return null;
+                    }
                 }
             }
             else if (personTrack.IsEmptyAfter(dprAllowance))
             {
                 // Only remove from DPR emulation
-                var dbrRemoved = await prov.DeletePersonFromAllDBR(brokerContext, queueItem.ToPersonIdentifier());
+                var dbrRemoved = await prov.DeletePersonFromAllDBR(brokerContext, personIdentifier);
                 if (dbrRemoved)
                     return queueItem;
                 else
@@ -68,5 +84,18 @@ namespace CprBroker.PartInterface.Tracking
                 return queueItem;
             }
         }
-    }    
+
+        public bool LivesIn(PersonIdentifier personIdentifier, string[] municipalityCodes)
+        {
+            Func<string, string> trimmer = s => string.Format("{0}", s).TrimStart(' ', '0');
+
+            return municipalityCodes
+                .Select(mc => trimmer(mc))
+                .Contains(PersonSearchCache.GetValue<string>(
+                    personIdentifier.UUID.Value,
+                    psc => trimmer(psc.MunicipalityCode)
+                ));
+
+        }
+    }
 }

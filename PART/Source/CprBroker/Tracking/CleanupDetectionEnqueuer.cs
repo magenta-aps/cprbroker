@@ -12,6 +12,7 @@ namespace CprBroker.PartInterface.Tracking
     {
         public static readonly TimeSpan MaxInactivePeriod = TimeSpan.FromDays(90);
         public static readonly TimeSpan DprEmulationRemovalAllowance = TimeSpan.FromDays(7);
+        public static readonly string[] ExcludedMunicipalityCodes = new string[] { };
 
         protected override void PerformTimerAction()
         {
