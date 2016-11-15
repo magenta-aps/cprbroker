@@ -68,37 +68,5 @@ namespace CprBroker.PartInterface.Tracking
                 return queueItem;
             }
         }
-    }
-
-    public class CleanupQueueItem : IQueueItem
-    {
-        public Guid PersonUuid { get; set; }
-        public string PNR { get; set; }
-
-        public DbQueueItem Impl { get; set; }
-
-        public void DeserializeFromKey(string key)
-        {
-            var arr = key.Split('|');
-            PersonUuid = new Guid(arr[0]);
-            PNR = arr[1];
-        }
-
-        public string SerializeToKey()
-        {
-            return string.Format("{0}|{1}",
-                PersonUuid,
-                string.Format("{0}", PNR).PadLeft(10, '0')
-                );
-        }
-
-        public PersonIdentifier ToPersonIdentifier()
-        {
-            return new PersonIdentifier()
-            {
-                UUID = PersonUuid,
-                CprNumber = PNR,
-            };
-        }
-    }
+    }    
 }

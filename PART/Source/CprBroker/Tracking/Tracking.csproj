@@ -67,6 +67,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="CleanupQueue.cs" />
+    <Compile Include="CleanupQueueItem.cs" />
     <Compile Include="ITrackingDataProvider.cs" />
     <Compile Include="PersonTrack.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
