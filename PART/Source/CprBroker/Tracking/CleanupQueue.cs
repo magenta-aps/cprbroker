@@ -8,6 +8,7 @@ using CprBroker.Data.Queues;
 using CprBroker.Schemas;
 using CprBroker.Engine;
 using CprBroker.Providers.Local.Search;
+using CprBroker.Engine.Local;
 
 namespace CprBroker.PartInterface.Tracking
 {
@@ -39,39 +40,69 @@ namespace CprBroker.PartInterface.Tracking
             BrokerContext.Current = brokerContext;
             var personIdentifier = queueItem.ToPersonIdentifier();
 
+            // First, make and log the decisions
+            var removePerson = false;
+            var removeDprEmulation = false;
+
             if (personTrack.IsEmpty())
             {
-                if (LivesIn(personIdentifier, CleanupDetectionEnqueuer.ExcludedMunicipalityCodes))
+                Func<string, int?> codeConverter = (string s) =>
                 {
-                    CprBroker.Engine.Local.Admin.LogFormattedSuccess(
-                        "Person <{0}> has no usage, but has been excluded from the cleanup due tomunicipality equal to one of <{1}>",
-                        personIdentifier.UUID,
-                        string.Join(",", CleanupDetectionEnqueuer.ExcludedMunicipalityCodes)
-                        );
-                    // This is considered a success
+                    int retVal;
+                    return int.TryParse(s, out retVal) ? retVal : (int?)null;
+                };
+
+                var municipalityCode = PersonSearchCache.GetValue<int?>(personIdentifier.UUID.Value, psc => codeConverter(psc.MunicipalityCode));
+                var excludedMunicipalities = CleanupDetectionEnqueuer.ExcludedMunicipalityCodes
+                    .Select(mc => codeConverter(mc))
+                    .Where(mc => mc.HasValue && mc.Value > 0);
+
+                Admin.LogFormattedSuccess(
+                    "<{0}>: Checking excluded municipalities: person <{1}>, municipality <{2}>, excluded municipalities <{3}>",
+                    this.GetType().Name,
+                    personIdentifier.UUID,
+                    municipalityCode,
+                    string.Join(",", excludedMunicipalities)
+                    );
+
+                if (municipalityCode.HasValue && excludedMunicipalities.Contains(municipalityCode))
+                {
+                    // Do not remove
+                    Admin.LogFormattedSuccess(
+                        "Person <{0}> excluded from cleanup due to excluded municipality of residence",
+                        personIdentifier.UUID);
                     return queueItem;
                 }
                 else
                 {
-                    try
-                    {
-                        // remove person
-                        var personRemoved = await prov.RemovePersonAsync(personIdentifier);
-                        if (personRemoved)
-                            return queueItem;
-                        else
-                            return null;
-                    }
-                    catch (Exception ex)
-                    {
-                        CprBroker.Engine.Local.Admin.LogException(ex);
-                        return null;
-                    }
+                    removePerson = true;
                 }
             }
             else if (personTrack.IsEmptyAfter(dprAllowance))
             {
+                removeDprEmulation = true;
+            }
+            else
+            {
+                // Person should not be removed - considered a success
+                return queueItem;
+            }
+
+            // Action time
+            // Remove the person if needed
+            if (removePerson)
+            {
+                Admin.LogFormattedSuccess("<{0}>:Removing unused person <{1}>", this.GetType().Name, personIdentifier.UUID);
+                var personRemoved = await prov.RemovePersonAsync(personIdentifier);
+                if (personRemoved)
+                    return queueItem;
+                else
+                    return null;
+            }
+            else if (removeDprEmulation)
+            {
                 // Only remove from DPR emulation
+                Admin.LogFormattedSuccess("<{0}>:Removing semi-unused person <{1}> from DPR emulation", this.GetType().Name, personIdentifier.UUID);
                 var dbrRemoved = await prov.DeletePersonFromAllDBR(brokerContext, personIdentifier);
                 if (dbrRemoved)
                     return queueItem;
@@ -80,22 +111,9 @@ namespace CprBroker.PartInterface.Tracking
             }
             else
             {
-                // Person should not be removed - also considered a success
+                // Removal not needed - success
                 return queueItem;
             }
-        }
-
-        public bool LivesIn(PersonIdentifier personIdentifier, string[] municipalityCodes)
-        {
-            Func<string, string> trimmer = s => string.Format("{0}", s).TrimStart(' ', '0');
-
-            return municipalityCodes
-                .Select(mc => trimmer(mc))
-                .Contains(PersonSearchCache.GetValue<string>(
-                    personIdentifier.UUID.Value,
-                    psc => trimmer(psc.MunicipalityCode)
-                ));
-
         }
     }
 }
