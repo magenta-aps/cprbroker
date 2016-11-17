@@ -10,9 +10,37 @@ namespace CprBroker.PartInterface.Tracking
 {
     public class CleanupDetectionEnqueuer : PeriodicTaskExecuter
     {
-        public static readonly TimeSpan MaxInactivePeriod = TimeSpan.FromDays(90);
-        public static readonly TimeSpan DprEmulationRemovalAllowance = TimeSpan.FromDays(7);
-        public static readonly string[] ExcludedMunicipalityCodes = new string[] { };
+        public static TimeSpan MaxInactivePeriod
+        {
+            get
+            {
+                return Properties.Settings.Default
+                    .MaxInactivePeriod
+                    .Duration();
+            }
+        }
+
+        public static TimeSpan DprEmulationRemovalAllowance
+        {
+            get
+            {
+                return Properties.Settings.Default
+                    .DprEmulationRemovalAllowance
+                    .Duration();
+            }
+        }
+
+        public static string[] ExcludedMunicipalityCodes
+        {
+            get
+            {
+                return Properties.Settings.Default.ExcludedMunicipalityCodes
+                    .Cast<string>()
+                    .Select(v => string.Format("{0}", v).TrimStart('0', ' '))
+                    .Where(v => !string.IsNullOrEmpty(v))
+                    .ToArray();
+            }
+        }
 
         protected override void PerformTimerAction()
         {
