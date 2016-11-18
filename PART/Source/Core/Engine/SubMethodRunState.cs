@@ -58,6 +58,7 @@ namespace CprBroker.Engine
         public ParameterizedThreadStart ThreadStart;
         public Thread Thread;
         public bool Succeeded = false;
+        public string LockKey = null;
     }
 
     public class SubMethodRunState : SubMethodRunState<SubMethodInfo>

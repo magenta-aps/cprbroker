@@ -164,43 +164,61 @@ namespace CprBroker.Engine
             // Now create the sub results
             for (int iSubMethod = 0; iSubMethod < subMethodRunStates.Length; iSubMethod++)
             {
-
                 subMethodRunStates[iSubMethod].ThreadStart = new ParameterizedThreadStart((o) =>
                 {
                     // Copy the broker context to this new thread
                     BrokerContext.Current = currentBrokerContext;
                     System.Web.HttpContext.Current = currentHttpContext;
                     var subMethodInfo = subMethodRunStates[(int)o];
-                    // Loop over clearData providers until one succeeds
-                    foreach (IDataProvider prov in subMethodInfo.DataProviders)
+
+                    Mutex mutex = null;
+                    if (!string.IsNullOrEmpty(subMethodInfo.LockKey))
                     {
-                        try
+                        mutex = new Mutex(false, subMethodInfo.LockKey);
+                        mutex.WaitOne();
+                    }
+
+                    try
+                    {
+                        // Loop over clearData providers until one succeeds
+                        foreach (IDataProvider prov in subMethodInfo.DataProviders)
                         {
-                            object subResult = subMethodInfo.SubMethodInfo.Invoke(prov);
-                            // See if result can be used to update local database
-                            if (prov is IExternalDataProvider && subMethodInfo.SubMethodInfo.IsUpdatableOutput(subResult))
+                            try
                             {
-                                try
+                                object subResult = subMethodInfo.SubMethodInfo.Invoke(prov);
+                                // See if result can be used to update local database
+                                if (prov is IExternalDataProvider && subMethodInfo.SubMethodInfo.IsUpdatableOutput(subResult))
                                 {
-                                    subMethodInfo.SubMethodInfo.InvokeUpdateMethod(subResult);
+                                    try
+                                    {
+                                        subMethodInfo.SubMethodInfo.InvokeUpdateMethod(subResult);
+                                    }
+                                    catch (Exception updateException)
+                                    {
+                                        string xml = Strings.SerializeObject(subResult);
+                                        Local.Admin.LogException(updateException);
+                                    }
                                 }
-                                catch (Exception updateException)
+                                // Exit loop if succeeded
+                                if (subMethodInfo.SubMethodInfo.IsSuccessfulOutput(subResult))
                                 {
-                                    string xml = Strings.SerializeObject(subResult);
-                                    Local.Admin.LogException(updateException);
+                                    subMethodInfo.Result = subResult;
+                                    subMethodInfo.Succeeded = true;
+                                    break;
                                 }
                             }
-                            // Exit loop if succeeded
-                            if (subMethodInfo.SubMethodInfo.IsSuccessfulOutput(subResult))
+                            catch (Exception dataProviderException)
                             {
-                                subMethodInfo.Result = subResult;
-                                subMethodInfo.Succeeded = true;
-                                break;
+                                Local.Admin.LogException(dataProviderException);
                             }
                         }
-                        catch (Exception dataProviderException)
+                    }
+                    finally
+                    {
+                        if (mutex != null)
                         {
-                            Local.Admin.LogException(dataProviderException);
+                            mutex.ReleaseMutex();
+                            mutex.Dispose();
                         }
                     }
 
@@ -211,7 +229,7 @@ namespace CprBroker.Engine
                     }
 
                     // Signal the end of processing
-                    System.Threading.Interlocked.Increment(ref finishedThreads);
+                    Interlocked.Increment(ref finishedThreads);
                 }
                 );
 
