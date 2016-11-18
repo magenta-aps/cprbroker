@@ -63,6 +63,7 @@ namespace CprBroker.Engine
         public bool FailOnDefaultOutput;
         public SourceUsageOrder LocalDataProviderOption;
         public bool FailIfNoDataProvider;
+        public string LockKey = null;
         public abstract object Invoke(IDataProvider prov);
         public abstract void InvokeUpdateMethod(object result);
         public abstract bool IsSuccessfulOutput(object o);

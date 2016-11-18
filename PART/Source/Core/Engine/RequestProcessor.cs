@@ -172,9 +172,9 @@ namespace CprBroker.Engine
                     var subMethodRunState = subMethodRunStates[(int)o];
 
                     Mutex mutex = null;
-                    if (!string.IsNullOrEmpty(subMethodRunState.LockKey))
+                    if (!string.IsNullOrEmpty(subMethodRunState.SubMethodInfo.LockKey))
                     {
-                        mutex = new Mutex(false, subMethodRunState.LockKey);
+                        mutex = new Mutex(false, subMethodRunState.SubMethodInfo.LockKey);
                         mutex.WaitOne();
                     }
 
