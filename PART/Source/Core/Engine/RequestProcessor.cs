@@ -169,29 +169,29 @@ namespace CprBroker.Engine
                     // Copy the broker context to this new thread
                     BrokerContext.Current = currentBrokerContext;
                     System.Web.HttpContext.Current = currentHttpContext;
-                    var subMethodInfo = subMethodRunStates[(int)o];
+                    var subMethodRunState = subMethodRunStates[(int)o];
 
                     Mutex mutex = null;
-                    if (!string.IsNullOrEmpty(subMethodInfo.LockKey))
+                    if (!string.IsNullOrEmpty(subMethodRunState.LockKey))
                     {
-                        mutex = new Mutex(false, subMethodInfo.LockKey);
+                        mutex = new Mutex(false, subMethodRunState.LockKey);
                         mutex.WaitOne();
                     }
 
                     try
                     {
                         // Loop over clearData providers until one succeeds
-                        foreach (IDataProvider prov in subMethodInfo.DataProviders)
+                        foreach (IDataProvider prov in subMethodRunState.DataProviders)
                         {
                             try
                             {
-                                object subResult = subMethodInfo.SubMethodInfo.Invoke(prov);
+                                object subResult = subMethodRunState.SubMethodInfo.Invoke(prov);
                                 // See if result can be used to update local database
-                                if (prov is IExternalDataProvider && subMethodInfo.SubMethodInfo.IsUpdatableOutput(subResult))
+                                if (prov is IExternalDataProvider && subMethodRunState.SubMethodInfo.IsUpdatableOutput(subResult))
                                 {
                                     try
                                     {
-                                        subMethodInfo.SubMethodInfo.InvokeUpdateMethod(subResult);
+                                        subMethodRunState.SubMethodInfo.InvokeUpdateMethod(subResult);
                                     }
                                     catch (Exception updateException)
                                     {
@@ -200,10 +200,10 @@ namespace CprBroker.Engine
                                     }
                                 }
                                 // Exit loop if succeeded
-                                if (subMethodInfo.SubMethodInfo.IsSuccessfulOutput(subResult))
+                                if (subMethodRunState.SubMethodInfo.IsSuccessfulOutput(subResult))
                                 {
-                                    subMethodInfo.Result = subResult;
-                                    subMethodInfo.Succeeded = true;
+                                    subMethodRunState.Result = subResult;
+                                    subMethodRunState.Succeeded = true;
                                     break;
                                 }
                             }
@@ -222,10 +222,10 @@ namespace CprBroker.Engine
                         }
                     }
 
-                    if (!subMethodInfo.Succeeded)
+                    if (!subMethodRunState.Succeeded)
                     {
                         // TODO: Add something here to identify the input for which all data providers have failed
-                        Local.Admin.AddNewLog(TraceEventType.Information, BrokerContext.Current.WebMethodMessageName, string.Format("{0}: {1}", TextMessages.AllDataProvidersFailed, subMethodInfo.SubMethodInfo.InputToString()), null, null);
+                        Local.Admin.AddNewLog(TraceEventType.Information, BrokerContext.Current.WebMethodMessageName, string.Format("{0}: {1}", TextMessages.AllDataProvidersFailed, subMethodRunState.SubMethodInfo.InputToString()), null, null);
                     }
 
                     // Signal the end of processing
