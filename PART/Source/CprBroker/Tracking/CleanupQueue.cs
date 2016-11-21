@@ -9,6 +9,7 @@ using CprBroker.Schemas;
 using CprBroker.Engine;
 using CprBroker.Providers.Local.Search;
 using CprBroker.Engine.Local;
+using System.Threading;
 
 namespace CprBroker.PartInterface.Tracking
 {
@@ -18,15 +19,12 @@ namespace CprBroker.PartInterface.Tracking
         {
             var prov = new TrackingDataProvider();
             var uuids = items.Select(i => i.PersonUuid).ToArray();
-            var maximumUsageDate = DateTime.Now;
-            var minimumUsageDate = maximumUsageDate - CleanupDetectionEnqueuer.MaxInactivePeriod;
-            var minimumUsageDatePlusDprAllowance = minimumUsageDate + CleanupDetectionEnqueuer.DprEmulationRemovalAllowance;
-            var states = prov.GetStatus(uuids, minimumUsageDate, maximumUsageDate);
+
             var brokerContext = BrokerContext.Current;
 
-            var tasks = items.Zip(
-                states,
-                (queueItem, personStatus) => ProcessAsync(brokerContext, prov, queueItem, personStatus, minimumUsageDatePlusDprAllowance)
+            var tasks = items
+                .Select(
+                (queueItem) => ProcessAsync(brokerContext, prov, queueItem)
                 );
 
             return Task.WhenAll(tasks)
@@ -35,11 +33,45 @@ namespace CprBroker.PartInterface.Tracking
                 .ToArray();
         }
 
+        public async Task<CleanupQueueItem> ProcessAsync(BrokerContext brokerContext, TrackingDataProvider prov, CleanupQueueItem queueItem)
+        {
+            BrokerContext.Current = brokerContext;
+            Mutex personMutex = null;
+
+            try
+            {
+                // Establish a person based critical section
+                Thread.BeginThreadAffinity();
+                personMutex = new Mutex(false, queueItem.PersonUuid.ToString().ToUpper());
+                personMutex.WaitOne();
+
+                // Now the person is locked, all possible usage has been recorded                
+                var toDate = DateTime.Now;
+                var fromDate = toDate - CleanupDetectionEnqueuer.MaxInactivePeriod;
+                var minimumUsageDatePlusDprAllowance = fromDate + CleanupDetectionEnqueuer.DprEmulationRemovalAllowance;
+
+                var personTrack = prov.GetStatus(new Guid[] { queueItem.PersonUuid }, fromDate, toDate).Single();
+                return await ProcessAsync(brokerContext, prov, queueItem, personTrack, minimumUsageDatePlusDprAllowance);
+            }
+            catch(Exception ex)
+            {
+                Admin.LogException(ex);
+                return null;
+            }
+            finally
+            {
+                // Release the lock
+                if (personMutex != null)
+                    personMutex.ReleaseMutex();
+                Thread.EndThreadAffinity();
+            }
+        }
+
         public async Task<CleanupQueueItem> ProcessAsync(BrokerContext brokerContext, TrackingDataProvider prov, CleanupQueueItem queueItem, PersonTrack personTrack, DateTime dprAllowance)
         {
             BrokerContext.Current = brokerContext;
             var personIdentifier = queueItem.ToPersonIdentifier();
-
+            
             // First, make and log the decisions
             var removePerson = false;
             var removeDprEmulation = false;

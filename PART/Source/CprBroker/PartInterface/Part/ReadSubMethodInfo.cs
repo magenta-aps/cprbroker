@@ -69,6 +69,7 @@ namespace CprBroker.Engine.Part
             : this()
         {
             this.Input = input;
+            LockKey = new Guid(input.UUID).ToString().ToUpper();
             LocalDataProviderOption = localAction;
             UpdateMethod = (personRegistration) => Local.UpdateDatabase.UpdatePersonRegistration(PersonIdentifier, personRegistration);
         }
