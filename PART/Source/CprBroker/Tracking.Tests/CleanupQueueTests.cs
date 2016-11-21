@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace CprBroker.Tests.Tracking
@@ -14,7 +15,7 @@ namespace CprBroker.Tests.Tracking
     namespace CleanupQueueTests
     {
         [TestFixture]
-        public class RemovePerson : PartInterface.TestBase
+        public class Process : PartInterface.TestBase
         {
             [SetUp]
             public void InitBrokerContext()
@@ -23,7 +24,7 @@ namespace CprBroker.Tests.Tracking
             }
 
             [Test]
-            public void RemovePerson_RegistrationExists_Removed(
+            public void Process_RegistrationExists_Removed(
                 [Values(1, 5, 13, 22, 39, 58)]int pnrIndex)
             {
                 var pnr = CPRDirect.Utilities.PNRs[pnrIndex];
@@ -46,6 +47,81 @@ namespace CprBroker.Tests.Tracking
                 Assert.AreEqual(1, succeeded.Length);
                 Assert.AreEqual(countItems(pnr), 0);
                 Assert.Greater(countItems(null), 0);
+            }
+
+            class CleaunupQueueStub : CleanupQueue
+            {
+                public Func<CleanupQueueItem, CleanupQueueItem> _ProcessAsync = null;
+                public override CleanupQueueItem ProcessAsync(BrokerContext brokerContext, TrackingDataProvider prov, CleanupQueueItem queueItem, PersonTrack personTrack, DateTime dprAllowance)
+                {
+                    if (_ProcessAsync == null)
+                        return base.ProcessAsync(brokerContext, prov, queueItem, personTrack, dprAllowance);
+                    else
+                        return _ProcessAsync(queueItem);
+                }
+
+                public Func<CleanupQueueItem, CleanupQueueItem> _Process = null;
+                public override CleanupQueueItem Process(BrokerContext brokerContext, TrackingDataProvider prov, CleanupQueueItem queueItem)
+                {
+                    if (_Process == null)
+                        return base.Process(brokerContext, prov, queueItem);
+                    else
+                        return _Process(queueItem);
+                }
+            }
+
+            [Test]
+            public void Process_SameKey_Waits(
+                [Values(2, 4, 10)]int c,
+                [Values(100, 500, 350)]int waitMilliseconds)
+            {
+                int calls = 0;
+                var queue = new CleaunupQueueStub()
+                {
+                    _ProcessAsync = (qi) =>
+                    {
+                        Thread.Sleep(waitMilliseconds);
+                        Interlocked.Increment(ref calls);
+                        return qi;
+                    }
+                };
+                var uuid = Guid.NewGuid();
+                var pnr = Tests.PartInterface.Utilities.RandomCprNumber();
+                var items = Enumerable.Range(0, c).Select(i => new CleanupQueueItem() { PersonUuid = uuid, PNR = pnr }).ToArray();
+                var start = DateTime.Now;
+                queue.Process(items);
+                var end = DateTime.Now;
+                var spent = end - start;
+                var expected = TimeSpan.FromMilliseconds(waitMilliseconds * c);
+                Assert.AreEqual(c, calls);
+                Assert.GreaterOrEqual(spent, expected);
+                Assert.LessOrEqual(spent, expected + TimeSpan.FromMilliseconds(1000));
+            }
+
+            [Test]
+            public void Process_NewKey_NoWaits(
+                [Values(2, 4, 10)]int c,
+                [Values(100, 500, 350)]int waitMilliseconds)
+            {
+                int calls = 0;
+                var queue = new CleaunupQueueStub()
+                {
+                    _ProcessAsync = (qi) =>
+                    {
+                        Thread.Sleep(waitMilliseconds);
+                        Interlocked.Increment(ref calls);
+                        return qi;
+                    }
+                };
+                var items = Enumerable.Range(0, c).Select(i => new CleanupQueueItem() { PersonUuid = Guid.NewGuid(), PNR = PartInterface.Utilities.RandomCprNumber() }).ToArray();
+                var start = DateTime.Now;
+                queue.Process(items);
+                var end = DateTime.Now;
+                var spent = end - start;
+                var expected = TimeSpan.FromMilliseconds(waitMilliseconds );
+                Assert.AreEqual(c, calls);
+                Assert.GreaterOrEqual(spent, expected);
+                Assert.LessOrEqual(spent, expected + TimeSpan.FromMilliseconds(1000));
             }
         }
     }
