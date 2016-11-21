@@ -51,22 +51,22 @@ namespace CprBroker.Tests.Tracking
 
             class CleaunupQueueStub : CleanupQueue
             {
-                public Func<CleanupQueueItem, CleanupQueueItem> _ProcessAsync = null;
-                public override CleanupQueueItem ProcessAsync(BrokerContext brokerContext, TrackingDataProvider prov, CleanupQueueItem queueItem, PersonTrack personTrack, DateTime dprAllowance)
+                public Func<CleanupQueueItem, CleanupQueueItem> _ProcessItem = null;
+                public override CleanupQueueItem ProcessItem(BrokerContext brokerContext, TrackingDataProvider prov, CleanupQueueItem queueItem, PersonTrack personTrack, DateTime dprAllowance)
                 {
-                    if (_ProcessAsync == null)
-                        return base.ProcessAsync(brokerContext, prov, queueItem, personTrack, dprAllowance);
+                    if (_ProcessItem == null)
+                        return base.ProcessItem(brokerContext, prov, queueItem, personTrack, dprAllowance);
                     else
-                        return _ProcessAsync(queueItem);
+                        return _ProcessItem(queueItem);
                 }
 
-                public Func<CleanupQueueItem, CleanupQueueItem> _Process = null;
-                public override CleanupQueueItem Process(BrokerContext brokerContext, TrackingDataProvider prov, CleanupQueueItem queueItem)
+                public Func<CleanupQueueItem, CleanupQueueItem> _ProcessItemWithMutex = null;
+                public override CleanupQueueItem ProcessItemWithMutex(BrokerContext brokerContext, TrackingDataProvider prov, CleanupQueueItem queueItem)
                 {
-                    if (_Process == null)
-                        return base.Process(brokerContext, prov, queueItem);
+                    if (_ProcessItemWithMutex == null)
+                        return base.ProcessItemWithMutex(brokerContext, prov, queueItem);
                     else
-                        return _Process(queueItem);
+                        return _ProcessItemWithMutex(queueItem);
                 }
             }
 
@@ -78,7 +78,7 @@ namespace CprBroker.Tests.Tracking
                 int calls = 0;
                 var queue = new CleaunupQueueStub()
                 {
-                    _ProcessAsync = (qi) =>
+                    _ProcessItem = (qi) =>
                     {
                         Thread.Sleep(waitMilliseconds);
                         Interlocked.Increment(ref calls);
@@ -106,7 +106,7 @@ namespace CprBroker.Tests.Tracking
                 int calls = 0;
                 var queue = new CleaunupQueueStub()
                 {
-                    _ProcessAsync = (qi) =>
+                    _ProcessItem = (qi) =>
                     {
                         Thread.Sleep(waitMilliseconds);
                         Interlocked.Increment(ref calls);

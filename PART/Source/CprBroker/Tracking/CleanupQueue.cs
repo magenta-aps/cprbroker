@@ -24,7 +24,7 @@ namespace CprBroker.PartInterface.Tracking
 
             var tasks = items
                 .Select(
-                (queueItem) => Task.Factory.StartNew(new Func<CleanupQueueItem>(() => Process(brokerContext, prov, queueItem)))
+                (queueItem) => Task.Factory.StartNew(new Func<CleanupQueueItem>(() => ProcessItemWithMutex(brokerContext, prov, queueItem)))
                 );
 
             return Task.WhenAll(tasks)
@@ -33,7 +33,7 @@ namespace CprBroker.PartInterface.Tracking
                 .ToArray();
         }
 
-        public virtual CleanupQueueItem Process(BrokerContext brokerContext, TrackingDataProvider prov, CleanupQueueItem queueItem)
+        public virtual CleanupQueueItem ProcessItemWithMutex(BrokerContext brokerContext, TrackingDataProvider prov, CleanupQueueItem queueItem)
         {
             BrokerContext.Current = brokerContext;
             Mutex personMutex = null;
@@ -51,7 +51,7 @@ namespace CprBroker.PartInterface.Tracking
                 var minimumUsageDatePlusDprAllowance = fromDate + CleanupDetectionEnqueuer.DprEmulationRemovalAllowance;
 
                 var personTrack = prov.GetStatus(new Guid[] { queueItem.PersonUuid }, fromDate, toDate).Single();
-                return ProcessAsync(brokerContext, prov, queueItem, personTrack, minimumUsageDatePlusDprAllowance);
+                return ProcessItem(brokerContext, prov, queueItem, personTrack, minimumUsageDatePlusDprAllowance);
             }
             catch (Exception ex)
             {
@@ -67,7 +67,7 @@ namespace CprBroker.PartInterface.Tracking
             }
         }
 
-        public virtual CleanupQueueItem ProcessAsync(BrokerContext brokerContext, TrackingDataProvider prov, CleanupQueueItem queueItem, PersonTrack personTrack, DateTime dprAllowance)
+        public virtual CleanupQueueItem ProcessItem(BrokerContext brokerContext, TrackingDataProvider prov, CleanupQueueItem queueItem, PersonTrack personTrack, DateTime dprAllowance)
         {
             BrokerContext.Current = brokerContext;
             var personIdentifier = queueItem.ToPersonIdentifier();
