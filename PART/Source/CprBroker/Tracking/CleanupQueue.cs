@@ -24,7 +24,7 @@ namespace CprBroker.PartInterface.Tracking
 
             var tasks = items
                 .Select(
-                (queueItem) => ProcessAsync(brokerContext, prov, queueItem)
+                (queueItem) => Task.Factory.StartNew(new Func<CleanupQueueItem>(() => Process(brokerContext, prov, queueItem)))
                 );
 
             return Task.WhenAll(tasks)
@@ -33,7 +33,7 @@ namespace CprBroker.PartInterface.Tracking
                 .ToArray();
         }
 
-        public async Task<CleanupQueueItem> ProcessAsync(BrokerContext brokerContext, TrackingDataProvider prov, CleanupQueueItem queueItem)
+        public virtual CleanupQueueItem Process(BrokerContext brokerContext, TrackingDataProvider prov, CleanupQueueItem queueItem)
         {
             BrokerContext.Current = brokerContext;
             Mutex personMutex = null;
@@ -51,9 +51,9 @@ namespace CprBroker.PartInterface.Tracking
                 var minimumUsageDatePlusDprAllowance = fromDate + CleanupDetectionEnqueuer.DprEmulationRemovalAllowance;
 
                 var personTrack = prov.GetStatus(new Guid[] { queueItem.PersonUuid }, fromDate, toDate).Single();
-                return await ProcessAsync(brokerContext, prov, queueItem, personTrack, minimumUsageDatePlusDprAllowance);
+                return ProcessAsync(brokerContext, prov, queueItem, personTrack, minimumUsageDatePlusDprAllowance);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Admin.LogException(ex);
                 return null;
@@ -67,11 +67,11 @@ namespace CprBroker.PartInterface.Tracking
             }
         }
 
-        public async Task<CleanupQueueItem> ProcessAsync(BrokerContext brokerContext, TrackingDataProvider prov, CleanupQueueItem queueItem, PersonTrack personTrack, DateTime dprAllowance)
+        public virtual CleanupQueueItem ProcessAsync(BrokerContext brokerContext, TrackingDataProvider prov, CleanupQueueItem queueItem, PersonTrack personTrack, DateTime dprAllowance)
         {
             BrokerContext.Current = brokerContext;
             var personIdentifier = queueItem.ToPersonIdentifier();
-            
+
             // First, make and log the decisions
             var removePerson = false;
             var removeDprEmulation = false;
@@ -125,7 +125,9 @@ namespace CprBroker.PartInterface.Tracking
             if (removePerson)
             {
                 Admin.LogFormattedSuccess("<{0}>:Removing unused person <{1}>", this.GetType().Name, personIdentifier.UUID);
-                var personRemoved = await prov.RemovePersonAsync(personIdentifier);
+                var task = prov.RemovePersonAsync(personIdentifier);
+                task.Wait();
+                var personRemoved = task.Result;
                 if (personRemoved)
                     return queueItem;
                 else
@@ -135,7 +137,9 @@ namespace CprBroker.PartInterface.Tracking
             {
                 // Only remove from DPR emulation
                 Admin.LogFormattedSuccess("<{0}>:Removing semi-unused person <{1}> from DPR emulation", this.GetType().Name, personIdentifier.UUID);
-                var dbrRemoved = await prov.DeletePersonFromAllDBR(brokerContext, personIdentifier);
+                var task = prov.DeletePersonFromAllDBR(brokerContext, personIdentifier);
+                task.Wait();                
+                var dbrRemoved = task.Result;
                 if (dbrRemoved)
                     return queueItem;
                 else
