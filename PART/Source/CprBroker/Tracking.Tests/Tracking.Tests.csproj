@@ -67,6 +67,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CleanupQueueTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TrackingDataProvicerTests.GetSubscribers.cs" />
     <Compile Include="TrackingDataProvicerTests.GetTrack.cs" />
