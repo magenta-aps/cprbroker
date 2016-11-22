@@ -9,7 +9,7 @@ namespace CprBroker.Data.Applications
 {
     partial class Operation
     {
-        public static Tuple<string, Operation[]>[] Get(string[] keys, OperationType.Types[] types, DateTime? fromDate, DateTime? toDate)
+        public static IQueryable<Operation> GetAsQueryable(ApplicationDataContext context, string[] keys, OperationType.Types[] types, DateTime? fromDate, DateTime? toDate)
         {
             // Input corrections
             if (fromDate == null)
@@ -22,19 +22,27 @@ namespace CprBroker.Data.Applications
 
             var typeIds = types.Select(t => (int)t).ToArray();
 
-            using (var context = new ApplicationDataContext())
+            if (context.LoadOptions == null)
             {
                 var loadOptions = new DataLoadOptions();
                 loadOptions.LoadWith((Operation o) => o.Activity);
                 context.LoadOptions = loadOptions;
+            }
 
-                var ops = context.Operations
-                    .Where(o =>
-                        keys.Contains(o.OperationKey)
-                        && typeIds.Contains(o.OperationTypeId)
-                        && o.Activity.StartTS >= fromDate
-                        && o.Activity.StartTS <= toDate
-                    )
+            return context.Operations
+                .Where(o =>
+                       keys.Contains(o.OperationKey)
+                    && typeIds.Contains(o.OperationTypeId)
+                    && o.Activity.StartTS >= fromDate
+                    && o.Activity.StartTS <= toDate
+                    );
+        }
+
+        public static Tuple<string, Operation[]>[] Get(string[] keys, OperationType.Types[] types, DateTime? fromDate, DateTime? toDate)
+        {
+            using (var context = new ApplicationDataContext())
+            {
+                var ops = GetAsQueryable(context, keys, types, fromDate, toDate)
                     .GroupBy(o => o.OperationKey)
                     .ToArray();
 
@@ -50,6 +58,15 @@ namespace CprBroker.Data.Applications
                         return new Tuple<string, Operation[]>(keys[i], keyObjects);
                     })
                     .ToArray();
+            }
+        }
+
+        public static bool HasUsage(string key, OperationType.Types[] types, DateTime? fromDate, DateTime? toDate)
+        {
+            using (var dataContext = new ApplicationDataContext())
+            {
+                return GetAsQueryable(dataContext, new string[] { key }, types, fromDate, toDate)
+                    .FirstOrDefault() != null;
             }
         }
     }

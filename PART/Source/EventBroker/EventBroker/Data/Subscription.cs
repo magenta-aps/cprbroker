@@ -224,34 +224,50 @@ namespace CprBroker.EventBroker.Data
             this.SubscriptionCriteriaMatches.AddRange(matches);
         }
 
-        public static Tuple<Guid, SubscriptionPerson[]>[] GetSubscriptions(Guid[] personUuids)
+        public static IQueryable<SubscriptionPerson> GetSubscriptionPersonsAsQueryable(EventBrokerDataContext dataContext, Guid[] personUuids)
         {
-            using (var dataContext = new EventBrokerDataContext())
+            if (dataContext.LoadOptions == null)
             {
                 var options = new DataLoadOptions();
                 options.LoadWith((SubscriptionPerson sp) => sp.Subscription);
                 dataContext.LoadOptions = options;
+            }
 
-                var all = dataContext.SubscriptionPersons.Where(
-                    sp => personUuids.Contains(sp.PersonUuid.Value)
-                    && sp.Removed == null // Only persons that are still within the subscription
-                    && sp.Subscription.Criteria == null // Only non criteria subscriptions
-                    && sp.Subscription.Deactivated == null // Only active subscriptions                    
-                    )
+            return dataContext.SubscriptionPersons.Where(
+                   sp => personUuids.Contains(sp.PersonUuid.Value)
+                && sp.Removed == null // Only persons that are still within the subscription
+                && sp.Subscription.Criteria == null // Only non criteria subscriptions
+                && sp.Subscription.Deactivated == null // Only active subscriptions
+                );
+        }
+
+        public static Tuple<Guid, SubscriptionPerson[]>[] GetSubscriptions(Guid[] personUuids)
+        {
+            using (var dataContext = new EventBrokerDataContext())
+            {
+                var all = GetSubscriptionPersonsAsQueryable(dataContext, personUuids)
                     .GroupBy(o => o.PersonUuid)
                     .ToDictionary(o => o.Key.Value, o => o.ToArray());
 
                 return personUuids.Select(uuid =>
+                {
+                    var subs = new SubscriptionPerson[0];
+                    if (all.ContainsKey(uuid))
                     {
-                        var subs = new SubscriptionPerson[0];
-                        if (all.ContainsKey(uuid))
-                        {
-                            subs = all[uuid];
-                        }
-                        return new Tuple<Guid, SubscriptionPerson[]>(uuid, subs);
+                        subs = all[uuid];
                     }
-                )
+                    return new Tuple<Guid, SubscriptionPerson[]>(uuid, subs);
+                })
                 .ToArray();
+            }
+        }
+
+        public static bool HasSubscriptions(Guid personUuid)
+        {
+            using (var dataContext = new EventBrokerDataContext())
+            {
+                return GetSubscriptionPersonsAsQueryable(dataContext, new Guid[] { personUuid })
+                    .FirstOrDefault() != null;
             }
         }
     }

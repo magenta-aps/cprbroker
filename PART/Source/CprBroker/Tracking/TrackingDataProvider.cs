@@ -37,11 +37,21 @@ namespace CprBroker.PartInterface.Tracking
             return Operation
                 .Get(
                     personUuids.Select(id => id.ToString()).ToArray(),
-                    new OperationType.Types[] { OperationType.Types.Read, OperationType.Types.ReadPeriod, OperationType.Types.DprDiversion },
+                    Constants.PersonUsageOperations,
                     fromDate,
                     toDate)
                 .Select(kvp => kvp.Item1.ToPersonTrack(kvp.Item2))
                 .ToArray();
+        }
+
+        public bool PersonHasUsage(Guid personUuid, DateTime? fromDate, DateTime? toDate)
+        {
+            return Operation.HasUsage(
+                personUuid.ToString(),
+                Constants.PersonUsageOperations,
+                fromDate,
+                toDate
+                );
         }
 
         public PersonTrack[] GetSubscribers(Guid[] personUuids)
@@ -65,6 +75,11 @@ namespace CprBroker.PartInterface.Tracking
             var subscriptions = Subscription.GetSubscriptions(personUuids);
             return subscriptions.Select(s => s.Item1.ToPersonSubscribers(s.Item2, converter))
                 .ToArray();
+        }
+
+        public bool PersonHasSubscribers(Guid personUuid)
+        {
+            return Subscription.HasSubscriptions(personUuid);
         }
 
         public PersonTrack[] GetPersonUsageAndSubscribers(Guid[] personUuids, DateTime? fromDate, DateTime? toDate)

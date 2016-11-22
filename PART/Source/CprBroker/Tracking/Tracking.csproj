@@ -69,6 +69,7 @@
     <Compile Include="CleanupQueue.cs" />
     <Compile Include="CleanupQueueItem.cs" />
     <Compile Include="CleanupSettings.cs" />
+    <Compile Include="Constants.cs" />
     <Compile Include="ITrackingDataProvider.cs" />
     <Compile Include="PersonTrack.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
