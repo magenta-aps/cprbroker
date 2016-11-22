@@ -32,7 +32,7 @@ namespace CprBroker.PartInterface.Tracking
         }
         #endregion
 
-        public PersonTrack[] GetTrack(Guid[] personUuids, DateTime? fromDate, DateTime? toDate)
+        public PersonTrack[] GetPersonUsage(Guid[] personUuids, DateTime? fromDate, DateTime? toDate)
         {
             return Operation
                 .Get(
@@ -67,9 +67,9 @@ namespace CprBroker.PartInterface.Tracking
                 .ToArray();
         }
 
-        public PersonTrack[] GetStatus(Guid[] personUuids, DateTime? fromDate, DateTime? toDate)
+        public PersonTrack[] GetPersonUsageAndSubscribers(Guid[] personUuids, DateTime? fromDate, DateTime? toDate)
         {
-            return GetTrack(personUuids, fromDate, toDate)
+            return GetPersonUsage(personUuids, fromDate, toDate)
                 .Zip(
                     GetSubscribers(personUuids),
                     (track, subscriptions) =>

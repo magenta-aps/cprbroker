@@ -22,7 +22,7 @@ namespace CprBroker.Tests.Tracking
             {
                 var prov = new TrackingDataProvider();
                 var uuids = Enumerable.Range(1, count).Select(i => Guid.NewGuid()).ToArray();
-                var ret = prov.GetTrack(uuids, null, null);
+                var ret = prov.GetPersonUsage(uuids, null, null);
                 Assert.AreEqual(uuids.Length, ret.Length);
                 foreach (var r in uuids.Zip(ret, (a, b) => new { a, b }))
                 {
@@ -49,7 +49,7 @@ namespace CprBroker.Tests.Tracking
                 var uuids = Enumerable.Range(1, count).Select(i => Guid.NewGuid()).ToArray();
 
                 var prov = new TrackingDataProvider();
-                var ret = prov.GetTrack(uuids, null, null);
+                var ret = prov.GetPersonUsage(uuids, null, null);
                 Assert.AreEqual(uuids.Length, ret.Length);
                 foreach (var r in uuids.Zip(ret, (a, b) => new { a, b }))
                 {
@@ -66,7 +66,7 @@ namespace CprBroker.Tests.Tracking
                 var uuids = Utilities.newUuids;
 
                 var prov = new TrackingDataProvider();
-                var ret = prov.GetTrack(uuids, null, null);
+                var ret = prov.GetPersonUsage(uuids, null, null);
                 Assert.AreEqual(uuids.Length, ret.Length);
                 foreach (var r in uuids.Zip(ret, (a, b) => new { a, b }))
                 {
@@ -84,7 +84,7 @@ namespace CprBroker.Tests.Tracking
                 Utilities.InitBrokerContext();
                 Utilities.AddUsage(CprDatabase.ConnectionString, uuids, OperationType.Types.Generic, OperationType.Types.Search);
                 var prov = new TrackingDataProvider();
-                var ret = prov.GetTrack(uuids, null, null);
+                var ret = prov.GetPersonUsage(uuids, null, null);
                 Assert.AreEqual(uuids.Length, ret.Length);
                 foreach (var r in uuids.Zip(ret, (a, b) => new { a, b }))
                 {
@@ -102,7 +102,7 @@ namespace CprBroker.Tests.Tracking
                 Utilities.InitBrokerContext();
                 Utilities.AddUsage(CprDatabase.ConnectionString, uuids, OperationType.Types.Read);
                 var prov = new TrackingDataProvider();
-                var ret = prov.GetTrack(uuids, null, null);
+                var ret = prov.GetPersonUsage(uuids, null, null);
                 Assert.AreEqual(uuids.Length, ret.Length);
                 foreach (var r in uuids.Zip(ret, (a, b) => new { a, b }))
                 {

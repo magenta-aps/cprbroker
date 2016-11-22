@@ -10,9 +10,9 @@ namespace CprBroker.PartInterface.Tracking
 {
     public interface ITrackingDataProvider : IDataProvider
     {
-        PersonTrack[] GetTrack(Guid[] personUuids, DateTime? fromDate, DateTime? toDate);
+        PersonTrack[] GetPersonUsage(Guid[] personUuids, DateTime? fromDate, DateTime? toDate);
         PersonTrack[] GetSubscribers(Guid[] personUuids);
-        PersonTrack[] GetStatus(Guid[] personUuids, DateTime? fromDate, DateTime? toDate);
+        PersonTrack[] GetPersonUsageAndSubscribers(Guid[] personUuids, DateTime? fromDate, DateTime? toDate);
         PersonIdentifier[] EnumeratePersons(int startIndex = 0, int maxCount = 200);
     }
 }

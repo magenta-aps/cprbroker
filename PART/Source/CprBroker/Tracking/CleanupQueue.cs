@@ -49,7 +49,7 @@ namespace CprBroker.PartInterface.Tracking
                 var fromDate = toDate - CleanupDetectionEnqueuer.MaxInactivePeriod;
                 var minimumUsageDatePlusDprAllowance = fromDate + CleanupDetectionEnqueuer.DprEmulationRemovalAllowance;
 
-                var personTrack = prov.GetStatus(new Guid[] { queueItem.PersonUuid }, fromDate, toDate).Single();
+                var personTrack = prov.GetPersonUsageAndSubscribers(new Guid[] { queueItem.PersonUuid }, fromDate, toDate).Single();
                 return ProcessItem(brokerContext, prov, queueItem, personTrack, minimumUsageDatePlusDprAllowance);
             }
             catch (Exception ex)
