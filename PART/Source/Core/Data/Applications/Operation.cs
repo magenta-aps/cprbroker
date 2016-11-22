@@ -16,8 +16,8 @@ namespace CprBroker.Data.Applications
                 fromDate = CprBroker.Utilities.Constants.MinSqlDate;
 
             if (toDate == null)
-                toDate = DateTime.Now;
-            if (toDate.Value.Equals(toDate.Value.Date))
+                toDate = CprBroker.Utilities.Constants.MaxSqlDate;
+            else if (toDate.Value.Equals(toDate.Value.Date))
                 toDate = toDate.Value.Date.AddDays(1).AddMilliseconds(-1);
 
             var typeIds = types.Select(t => (int)t).ToArray();
