@@ -41,7 +41,6 @@ namespace CprBroker.PartInterface.Tracking
             try
             {
                 // Establish a person based critical section
-                Thread.BeginThreadAffinity();
                 personMutex = new Mutex(false, queueItem.PersonUuid.ToString().ToUpper());
                 personMutex.WaitOne();
 
@@ -63,7 +62,6 @@ namespace CprBroker.PartInterface.Tracking
                 // Release the lock
                 if (personMutex != null)
                     personMutex.ReleaseMutex();
-                Thread.EndThreadAffinity();
             }
         }
 
