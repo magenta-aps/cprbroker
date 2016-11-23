@@ -236,6 +236,7 @@ namespace CprBroker.EventBroker.Data
             return dataContext.SubscriptionPersons.Where(
                    sp => personUuids.Contains(sp.PersonUuid.Value)
                 && sp.Removed == null // Only persons that are still within the subscription
+                && sp.Subscription.IsForAllPersons == false // Only subscriptions that are not for all persons
                 && sp.Subscription.Criteria == null // Only non criteria subscriptions
                 && sp.Subscription.Deactivated == null // Only active subscriptions
                 );
