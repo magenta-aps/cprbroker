@@ -63,9 +63,7 @@ namespace CprBroker.Utilities
 
         public static void BulkInsertAll(this SqlConnection conn, Type t, IEnumerable entities, SqlTransaction trans = null)
         {
-            SqlBulkCopy bulkCopy = trans == null ?
-                new SqlBulkCopy(conn)
-                : new SqlBulkCopy(conn, SqlBulkCopyOptions.Default, trans);
+            var bulkCopy = new SqlBulkCopy(conn, SqlBulkCopyOptions.Default | SqlBulkCopyOptions.CheckConstraints, trans);
 
             bulkCopy.DestinationTableName = Utilities.DataLinq.GetTableName(t);
             bulkCopy.BatchSize = 100;
