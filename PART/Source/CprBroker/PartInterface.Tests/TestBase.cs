@@ -279,18 +279,24 @@ namespace CprBroker.Tests.PartInterface
 
         public SubscriptionPerson[] AddPersons(Subscription sub, int count)
         {
-            var ret = new SubscriptionPerson[count];
-            for (int i = 0; i < count; i++)
-            {
-                ret[i] = new SubscriptionPerson()
+            return AddSubscriptionPersons(sub, Enumerable.Range(0, count).Select(i => Guid.NewGuid()).ToArray());
+        }
+
+        public SubscriptionPerson[] AddSubscriptionPersons(Subscription sub, params Guid[] uuids)
+        {
+            if (uuids == null)
+                uuids = new Guid[0];
+
+            var ret = uuids.Select(
+                uuid => new SubscriptionPerson()
                 {
                     Created = DateTime.Now,
-                    PersonUuid = Guid.NewGuid(),
+                    PersonUuid = uuid,
                     Removed = null,
                     SubscriptionPersonId = Guid.NewGuid(),
                     //SubscriptionId = ??, Subscription = ??
-                };
-            }
+                }).ToArray();
+
             sub.SubscriptionPersons.AddRange(ret);
             return ret;
         }
