@@ -15,10 +15,10 @@ namespace CprBroker.Tests.Tracking
     namespace TrackingDataProviderTests
     {
         [TestFixture]
-        public class GetTrackTests_EmptyDatabase : PartInterface.TestBase
+        public class GetPersonUsageTests_EmptyDatabase : PartInterface.TestBase
         {
             [Test]
-            public void GetTrackTests_EmptyDB_NonePerPerson([Values(1, 20, 15, 27, 100)]int count)
+            public void GetPersonUsageTests_EmptyDB_NonePerPerson([Values(1, 20, 15, 27, 100)]int count)
             {
                 var prov = new TrackingDataProvider();
                 var uuids = Enumerable.Range(1, count).Select(i => Guid.NewGuid()).ToArray();
@@ -35,7 +35,7 @@ namespace CprBroker.Tests.Tracking
         }
 
         [TestFixture]
-        public class GetTrackTests_PersonsAvailable : PartInterface.TestBase
+        public class GetPersonUsageTests_PersonsAvailable : PartInterface.TestBase
         {
             [SetUp]
             public void InsertPersons()
@@ -44,7 +44,7 @@ namespace CprBroker.Tests.Tracking
             }
 
             [Test]
-            public void GetTrackTests_RecordsNotMatching_NonePerPerson([Values(1, 20, 15, 27, 100)]int count)
+            public void GetPersonUsageTests_RecordsNotMatching_NonePerPerson([Values(1, 20, 15, 27, 100)]int count)
             {
                 var uuids = Enumerable.Range(1, count).Select(i => Guid.NewGuid()).ToArray();
 
@@ -61,7 +61,7 @@ namespace CprBroker.Tests.Tracking
             }
 
             [Test]
-            public void GetTrackTests_RecordsMatchingNoUse_NonePerPerson([Values(1, 20, 15, 27, 100)]int count)
+            public void GetPersonUsageTests_RecordsMatchingNoUse_NonePerPerson([Values(1, 20, 15, 27, 100)]int count)
             {
                 var uuids = Utilities.newUuids;
 
@@ -78,7 +78,7 @@ namespace CprBroker.Tests.Tracking
             }
 
             [Test]
-            public void GetTrackTests_RecordsMatchingIrrelevantUsage_NonePerPerson([Values(1, 20, 15, 27, 100)]int count)
+            public void GetPersonUsageTests_RecordsMatchingIrrelevantUsage_NonePerPerson([Values(1, 20, 15, 27, 100)]int count)
             {
                 var uuids = Utilities.newUuids;
                 Utilities.InitBrokerContext();
@@ -96,7 +96,7 @@ namespace CprBroker.Tests.Tracking
             }
 
             [Test]
-            public void GetTrackTests_RecordsMatchingWithUse_UsageFound([Values(1, 20, 15, 27, 100)]int count)
+            public void GetPersonUsageTests_RecordsMatchingWithUse_UsageFound([Values(1, 20, 15, 27, 100)]int count)
             {
                 var uuids = Utilities.newUuids;
                 Utilities.InitBrokerContext();
