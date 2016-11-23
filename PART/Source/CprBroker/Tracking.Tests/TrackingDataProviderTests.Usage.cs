@@ -17,7 +17,6 @@ namespace CprBroker.Tests.Tracking
         public class HasPersonUsage : TestBase
         {
             [SetUp]
-            [Test]
             public void InitBrokerContext()
             {
                 BrokerContext.Current = null;
