@@ -6,19 +6,21 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace CprBroker.Tests.Tracking
 {
-	namespace TrackingDataProviderTests
+    namespace TrackingDataProviderTests
     {
-		[TestFixture]
-		public class HasPersonUsage: TestBase
+        [TestFixture]
+        public class HasPersonUsage : TestBase
         {
-			[SetUp]
+            [SetUp]
             [Test]
             public void InitBrokerContext()
             {
+                BrokerContext.Current = null;
                 BrokerContext.Initialize(CprBroker.Utilities.Constants.BaseApplicationToken.ToString(), "");
             }
 
@@ -51,7 +53,7 @@ namespace CprBroker.Tests.Tracking
                 Assert.False(ret);
             }
 
-			[Test]
+            [Test]
             public void HasPersonUsage_OtherKeysUsage_False()
             {
                 var prov = new TrackingDataProvider();
@@ -63,11 +65,12 @@ namespace CprBroker.Tests.Tracking
             }
 
             [Test]
-            public void HasPersonUsage_RelevantUsage_True()
+            public void HasPersonUsage_RelevantUsage_True(
+                [Range(0, 10)]int dummy)
             {
                 var prov = new TrackingDataProvider();
                 var uuid = Guid.NewGuid();
-                
+
                 BrokerContext.Current.RegisterOperation(Data.Applications.OperationType.Types.Read, uuid.ToString());
                 var ret = prov.PersonHasUsage(uuid, null, null);
                 Assert.True(ret);
