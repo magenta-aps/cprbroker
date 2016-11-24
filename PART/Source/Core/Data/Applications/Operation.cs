@@ -74,13 +74,13 @@ namespace CprBroker.Data.Applications
         {
             using (var dataContext = new ApplicationDataContext())
             {
-                var retExp =
+                var oldestOperationExp =
                     from op in dataContext.Operations
                     join act in dataContext.Activities on op.ActivityId equals act.ActivityId
                     orderby act.StartTS
-                    select act.StartTS;
+                    select act;
 
-                return retExp.FirstOrDefault();
+                return oldestOperationExp.FirstOrDefault()?.StartTS;
             }
         }
     }
