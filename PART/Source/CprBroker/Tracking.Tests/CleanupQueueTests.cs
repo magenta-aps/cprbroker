@@ -51,11 +51,12 @@ namespace CprBroker.Tests.Tracking
 
             class CleaunupQueueStub : CleanupQueue
             {
+
                 public Func<CleanupQueueItem, CleanupQueueItem> _ProcessItem = null;
-                public override CleanupQueueItem ProcessItem(BrokerContext brokerContext, TrackingDataProvider prov, CleanupQueueItem queueItem, PersonTrack personTrack, DateTime dprAllowance)
+                public override CleanupQueueItem ProcessItem(BrokerContext brokerContext, TrackingDataProvider prov, CleanupQueueItem queueItem, DateTime fromDate, DateTime dbrFromDate)
                 {
                     if (_ProcessItem == null)
-                        return base.ProcessItem(brokerContext, prov, queueItem, personTrack, dprAllowance);
+                        return base.ProcessItem(brokerContext, prov, queueItem, fromDate, dbrFromDate);
                     else
                         return _ProcessItem(queueItem);
                 }
@@ -118,7 +119,7 @@ namespace CprBroker.Tests.Tracking
                 queue.Process(items);
                 var end = DateTime.Now;
                 var spent = end - start;
-                var expected = TimeSpan.FromMilliseconds(waitMilliseconds );
+                var expected = TimeSpan.FromMilliseconds(waitMilliseconds);
                 Assert.AreEqual(c, calls);
                 Assert.GreaterOrEqual(spent, expected);
                 Assert.LessOrEqual(spent, expected + TimeSpan.FromMilliseconds(1000));

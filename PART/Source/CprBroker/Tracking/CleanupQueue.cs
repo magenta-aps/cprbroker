@@ -45,12 +45,10 @@ namespace CprBroker.PartInterface.Tracking
                 personMutex.WaitOne();
 
                 // Now the person is locked, all possible usage has been recorded                
-                var toDate = DateTime.Now;
-                var fromDate = toDate - CleanupDetectionEnqueuer.MaxInactivePeriod;
-                var minimumUsageDatePlusDprAllowance = fromDate + CleanupDetectionEnqueuer.DprEmulationRemovalAllowance;
+                var fromDate = DateTime.Now - CleanupDetectionEnqueuer.MaxInactivePeriod;
+                var dbrFromDate = fromDate + CleanupDetectionEnqueuer.DprEmulationRemovalAllowance;
 
-                var personTrack = prov.GetPersonUsageAndSubscribers(new Guid[] { queueItem.PersonUuid }, fromDate, toDate).Single();
-                return ProcessItem(brokerContext, prov, queueItem, personTrack, minimumUsageDatePlusDprAllowance);
+                return ProcessItem(brokerContext, prov, queueItem, fromDate, dbrFromDate);
             }
             catch (Exception ex)
             {
@@ -65,7 +63,7 @@ namespace CprBroker.PartInterface.Tracking
             }
         }
 
-        public virtual CleanupQueueItem ProcessItem(BrokerContext brokerContext, TrackingDataProvider prov, CleanupQueueItem queueItem, PersonTrack personTrack, DateTime dprAllowance)
+        public virtual CleanupQueueItem ProcessItem(BrokerContext brokerContext, TrackingDataProvider prov, CleanupQueueItem queueItem, DateTime fromDate, DateTime dbrFromDate)
         {
             BrokerContext.Current = brokerContext;
             var personIdentifier = queueItem.ToPersonIdentifier();
@@ -74,7 +72,10 @@ namespace CprBroker.PartInterface.Tracking
             var removePerson = false;
             var removeDprEmulation = false;
 
-            if (personTrack.IsEmpty())
+            var personHasSubscribers = prov.PersonHasSubscribers(personIdentifier.UUID.Value);
+            var personHasUsage = prov.PersonHasUsage(personIdentifier.UUID.Value, fromDate, null);
+
+            if (personHasSubscribers == false && personHasUsage == false)
             {
                 Func<string, int?> codeConverter = (string s) =>
                 {
@@ -108,7 +109,7 @@ namespace CprBroker.PartInterface.Tracking
                     removePerson = true;
                 }
             }
-            else if (personTrack.IsEmptyAfter(dprAllowance))
+            else if (personHasSubscribers == false && prov.PersonHasUsage(personIdentifier.UUID.Value, dbrFromDate, null) == false)
             {
                 removeDprEmulation = true;
             }
@@ -136,7 +137,7 @@ namespace CprBroker.PartInterface.Tracking
                 // Only remove from DPR emulation
                 Admin.LogFormattedSuccess("<{0}>:Removing semi-unused person <{1}> from DPR emulation", this.GetType().Name, personIdentifier.UUID);
                 var task = prov.DeletePersonFromAllDBR(brokerContext, personIdentifier);
-                task.Wait();                
+                task.Wait();
                 var dbrRemoved = task.Result;
                 if (dbrRemoved)
                     return queueItem;
