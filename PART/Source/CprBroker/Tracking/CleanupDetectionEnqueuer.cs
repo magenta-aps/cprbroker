@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using CprBroker.Engine.Tasks;
 using CprBroker.Engine.Queues;
 using CprBroker.Schemas;
+using CprBroker.Engine;
+using CprBroker.Data.Applications;
 
 namespace CprBroker.PartInterface.Tracking
 {
@@ -44,6 +46,29 @@ namespace CprBroker.PartInterface.Tracking
 
         protected override void PerformTimerAction()
         {
+            // Register an operation
+            BrokerContext.Current.RegisterOperation(CprBroker.Data.Applications.OperationType.Types.Generic, this.GetType().Name);
+
+            // Cold-start protection 
+            // Only perform cleanup if the system has been running for a minimum of the data storage limit (a.k.a 3 months)
+            var oldestOperationTS = Operation.OldestOperationTS();
+            var warmingPeriodEndTS =
+                (oldestOperationTS.HasValue ? oldestOperationTS.Value : DateTime.Now)
+                + MaxInactivePeriod;
+
+            if (DateTime.Now > warmingPeriodEndTS)
+            {
+                Engine.Local.Admin.LogFormattedSuccess("Earliest existing operation was at <{0}>. Proceeding with cleanup", oldestOperationTS);
+            }
+            else
+            {
+                Engine.Local.Admin.LogFormattedSuccess("Cleanup cannot be performed because it is still in the warmup period. Earliest existing operation was at <{0}>. Warmup ends at <{1}>",
+                    oldestOperationTS,
+                    warmingPeriodEndTS
+                );
+                return;
+            }
+
             var startIndex = 0;
             var foundUuids = new PersonIdentifier[0];
             var maximumUsageDate = DateTime.Now;

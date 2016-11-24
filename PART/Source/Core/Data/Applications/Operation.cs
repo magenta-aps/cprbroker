@@ -69,5 +69,19 @@ namespace CprBroker.Data.Applications
                     .FirstOrDefault() != null;
             }
         }
+
+        public static DateTime? OldestOperationTS()
+        {
+            using (var dataContext = new ApplicationDataContext())
+            {
+                var retExp =
+                    from op in dataContext.Operations
+                    join act in dataContext.Activities on op.ActivityId equals act.ActivityId
+                    orderby act.StartTS
+                    select act.StartTS;
+
+                return retExp.FirstOrDefault();
+            }
+        }
     }
 }
