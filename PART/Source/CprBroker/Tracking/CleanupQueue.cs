@@ -69,37 +69,40 @@ namespace CprBroker.PartInterface.Tracking
             var personIdentifier = queueItem.ToPersonIdentifier();
 
             // First, make and log the decisions
-            
+            var decision = prov.GetRemovalDecision(personIdentifier, fromDate, dbrFromDate);
 
             // Action time
             // Remove the person if needed
-            if (removePerson)
+            switch (decision)
             {
-                Admin.LogFormattedSuccess("<{0}>:Removing unused person <{1}>", this.GetType().Name, personIdentifier.UUID);
-                var task = prov.RemovePersonAsync(personIdentifier);
-                task.Wait();
-                var personRemoved = task.Result;
-                if (personRemoved)
+                case PersonRemovalDecision.RemoveCompletely:
+                    Admin.LogFormattedSuccess("<{0}>:Removing unused person <{1}>", this.GetType().Name, personIdentifier.UUID);
+                    var task1 = prov.RemovePersonAsync(personIdentifier);
+                    task1.Wait();
+                    var personRemoved = task1.Result;
+                    if (personRemoved)
+                        return queueItem;
+                    else
+                        return null;
+
+                case PersonRemovalDecision.RemoveFromDprEmulation: // Only remove from DPR emulation                    
+                    Admin.LogFormattedSuccess("<{0}>:Removing semi-unused person <{1}> from DPR emulation", this.GetType().Name, personIdentifier.UUID);
+                    var task2 = prov.DeletePersonFromAllDBR(brokerContext, personIdentifier);
+                    task2.Wait();
+                    var dbrRemoved = task2.Result;
+                    if (dbrRemoved)
+                        return queueItem;
+                    else
+                        return null;
+
+                case PersonRemovalDecision.DoNotRemoveDueToExclusion:
                     return queueItem;
-                else
-                    return null;
-            }
-            else if (removeDprEmulation)
-            {
-                // Only remove from DPR emulation
-                Admin.LogFormattedSuccess("<{0}>:Removing semi-unused person <{1}> from DPR emulation", this.GetType().Name, personIdentifier.UUID);
-                var task = prov.DeletePersonFromAllDBR(brokerContext, personIdentifier);
-                task.Wait();
-                var dbrRemoved = task.Result;
-                if (dbrRemoved)
+
+                case PersonRemovalDecision.DoNotRemoveDueToUsage:
                     return queueItem;
-                else
-                    return null;
-            }
-            else
-            {
-                // Removal not needed - success
-                return queueItem;
+
+                default:
+                    throw new Exception(string.Format("Unknown value <{0}> for type <{1}>", decision, typeof(PersonRemovalDecision).Name));
             }
         }
     }

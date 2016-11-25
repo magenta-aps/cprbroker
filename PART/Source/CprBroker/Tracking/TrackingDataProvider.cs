@@ -2,9 +2,11 @@
 using CprBroker.Data.Part;
 using CprBroker.DBR;
 using CprBroker.Engine;
+using CprBroker.Engine.Local;
 using CprBroker.EventBroker.Data;
 using CprBroker.Providers.CPRDirect;
 using CprBroker.Providers.DPR;
+using CprBroker.Providers.Local.Search;
 using CprBroker.Schemas;
 using CprBroker.Utilities.Config;
 using System;
@@ -112,11 +114,8 @@ namespace CprBroker.PartInterface.Tracking
 
         public PersonRemovalDecision GetRemovalDecision(PersonIdentifier personIdentifier, DateTime fromDate, DateTime dbrFromDate)
         {
-            var removePerson = false;
-            var removeDprEmulation = false;
-
-            var personHasSubscribers = prov.PersonHasSubscribers(personIdentifier.UUID.Value);
-            var personHasUsage = prov.PersonHasUsage(personIdentifier.UUID.Value, fromDate, null);
+            var personHasSubscribers = this.PersonHasSubscribers(personIdentifier.UUID.Value);
+            var personHasUsage = this.PersonHasUsage(personIdentifier.UUID.Value, fromDate, null);
 
             if (personHasSubscribers == false && personHasUsage == false)
             {
@@ -145,21 +144,21 @@ namespace CprBroker.PartInterface.Tracking
                     Admin.LogFormattedSuccess(
                         "Person <{0}> excluded from cleanup due to excluded municipality of residence",
                         personIdentifier.UUID);
-                    return queueItem;
+                    return PersonRemovalDecision.DoNotRemoveDueToExclusion;
                 }
                 else
                 {
-                    removePerson = true;
+                    return PersonRemovalDecision.RemoveCompletely;
                 }
             }
-            else if (personHasSubscribers == false && prov.PersonHasUsage(personIdentifier.UUID.Value, dbrFromDate, null) == false)
+            else if (personHasSubscribers == false && this.PersonHasUsage(personIdentifier.UUID.Value, dbrFromDate, null) == false)
             {
-                removeDprEmulation = true;
+                return PersonRemovalDecision.RemoveFromDprEmulation;
             }
             else
             {
                 // Person should not be removed - considered a success
-                return queueItem;
+                return PersonRemovalDecision.DoNotRemoveDueToUsage;
             }
         }
 
