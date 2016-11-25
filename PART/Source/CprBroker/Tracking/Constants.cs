@@ -16,4 +16,12 @@ namespace CprBroker.PartInterface.Tracking
             OperationType.Types.DprDiversion
         };
     }
+
+    public enum PersonRemovalDecision
+    {
+        RemoveCompletely,
+        RemoveFromDprEmulation,
+        DoNotRemoveDueToUsage,
+        DoNotRemoveDueToExclusion
+    }
 }

@@ -69,55 +69,7 @@ namespace CprBroker.PartInterface.Tracking
             var personIdentifier = queueItem.ToPersonIdentifier();
 
             // First, make and log the decisions
-            var removePerson = false;
-            var removeDprEmulation = false;
-
-            var personHasSubscribers = prov.PersonHasSubscribers(personIdentifier.UUID.Value);
-            var personHasUsage = prov.PersonHasUsage(personIdentifier.UUID.Value, fromDate, null);
-
-            if (personHasSubscribers == false && personHasUsage == false)
-            {
-                Func<string, int?> codeConverter = (string s) =>
-                {
-                    int retVal;
-                    return int.TryParse(s, out retVal) ? retVal : (int?)null;
-                };
-
-                var municipalityCode = PersonSearchCache.GetValue<int?>(personIdentifier.UUID.Value, psc => codeConverter(psc.MunicipalityCode));
-                var excludedMunicipalities = CleanupDetectionEnqueuer.ExcludedMunicipalityCodes
-                    .Select(mc => codeConverter(mc))
-                    .Where(mc => mc.HasValue && mc.Value > 0);
-
-                Admin.LogFormattedSuccess(
-                    "<{0}>: Checking excluded municipalities: person <{1}>, municipality <{2}>, excluded municipalities <{3}>",
-                    this.GetType().Name,
-                    personIdentifier.UUID,
-                    municipalityCode,
-                    string.Join(",", excludedMunicipalities)
-                    );
-
-                if (municipalityCode.HasValue && excludedMunicipalities.Contains(municipalityCode))
-                {
-                    // Do not remove
-                    Admin.LogFormattedSuccess(
-                        "Person <{0}> excluded from cleanup due to excluded municipality of residence",
-                        personIdentifier.UUID);
-                    return queueItem;
-                }
-                else
-                {
-                    removePerson = true;
-                }
-            }
-            else if (personHasSubscribers == false && prov.PersonHasUsage(personIdentifier.UUID.Value, dbrFromDate, null) == false)
-            {
-                removeDprEmulation = true;
-            }
-            else
-            {
-                // Person should not be removed - considered a success
-                return queueItem;
-            }
+            
 
             // Action time
             // Remove the person if needed
