@@ -85,12 +85,14 @@ namespace CprBroker.Tests.PartInterface
 
         public static string[] RandomCprNumbers(int count)
         {
-            var ret = new string[count];
+            var ret = new List<string>();
             for (int i = 0; i < count; i++)
             {
-                ret[i] = RandomCprNumber();
+                ret.Add(RandomCprNumber());
             }
-            return ret;
+            while (ret.Distinct().Count() < count)
+                ret.Add(RandomCprNumber());
+            return ret.Distinct().ToArray();
         }
 
         public static RegistreringType1 CreateFakePerson()
