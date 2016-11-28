@@ -46,7 +46,7 @@ namespace CprBroker.PartInterface.Tracking
                 .ToArray();
         }
 
-        public bool PersonHasUsage(Guid personUuid, DateTime? fromDate, DateTime? toDate)
+        public virtual bool PersonHasUsage(Guid personUuid, DateTime? fromDate, DateTime? toDate)
         {
             return Operation.HasUsage(
                 personUuid.ToString(),
@@ -79,7 +79,7 @@ namespace CprBroker.PartInterface.Tracking
                 .ToArray();
         }
 
-        public bool PersonHasSubscribers(Guid personUuid)
+        public virtual bool PersonHasSubscribers(Guid personUuid)
         {
             return Subscription.HasSubscriptions(personUuid);
         }
@@ -112,25 +112,20 @@ namespace CprBroker.PartInterface.Tracking
             }
         }
 
-        public PersonRemovalDecision GetRemovalDecision(PersonIdentifier personIdentifier, DateTime fromDate, DateTime dbrFromDate)
+        public virtual bool PersonLivesInExcludedMunicipality(PersonIdentifier personIdentifier)
         {
-            var personHasSubscribers = this.PersonHasSubscribers(personIdentifier.UUID.Value);
-            var personHasUsage = this.PersonHasUsage(personIdentifier.UUID.Value, fromDate, null);
-
-            if (personHasSubscribers == false && personHasUsage == false)
+            Func<string, int?> codeConverter = (string s) =>
             {
-                Func<string, int?> codeConverter = (string s) =>
-                {
-                    int retVal;
-                    return int.TryParse(s, out retVal) ? retVal : (int?)null;
-                };
+                int retVal;
+                return int.TryParse(s, out retVal) ? retVal : (int?)null;
+            };
 
-                var municipalityCode = PersonSearchCache.GetValue<int?>(personIdentifier.UUID.Value, psc => codeConverter(psc.MunicipalityCode));
-                var excludedMunicipalities = CleanupDetectionEnqueuer.ExcludedMunicipalityCodes
-                    .Select(mc => codeConverter(mc))
-                    .Where(mc => mc.HasValue && mc.Value > 0);
+            var municipalityCode = PersonSearchCache.GetValue<int?>(personIdentifier.UUID.Value, psc => codeConverter(psc.MunicipalityCode));
+            var excludedMunicipalities = CleanupDetectionEnqueuer.ExcludedMunicipalityCodes
+                .Select(mc => codeConverter(mc))
+                .Where(mc => mc.HasValue && mc.Value > 0);
 
-                Admin.LogFormattedSuccess(
+            Admin.LogFormattedSuccess(
                     "<{0}>: Checking excluded municipalities: person <{1}>, municipality <{2}>, excluded municipalities <{3}>",
                     this.GetType().Name,
                     personIdentifier.UUID,
@@ -138,12 +133,29 @@ namespace CprBroker.PartInterface.Tracking
                     string.Join(",", excludedMunicipalities)
                     );
 
-                if (municipalityCode.HasValue && excludedMunicipalities.Contains(municipalityCode))
+            if (municipalityCode.HasValue && excludedMunicipalities.Contains(municipalityCode))
+            {
+                // Do not remove
+                Admin.LogFormattedSuccess(
+                    "Person <{0}> excluded from cleanup due to excluded municipality of residence",
+                    personIdentifier.UUID);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public PersonRemovalDecision GetRemovalDecision(PersonIdentifier personIdentifier, DateTime fromDate, DateTime dbrFromDate)
+        {
+            var personHasSubscribers = this.PersonHasSubscribers(personIdentifier.UUID.Value);
+            var personHasUsage = this.PersonHasUsage(personIdentifier.UUID.Value, fromDate, null);
+
+            if (personHasSubscribers == false && personHasUsage == false)
+            {
+                if (PersonLivesInExcludedMunicipality(personIdentifier))
                 {
-                    // Do not remove
-                    Admin.LogFormattedSuccess(
-                        "Person <{0}> excluded from cleanup due to excluded municipality of residence",
-                        personIdentifier.UUID);
                     return PersonRemovalDecision.DoNotRemoveDueToExclusion;
                 }
                 else
