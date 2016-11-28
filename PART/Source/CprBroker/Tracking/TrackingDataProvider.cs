@@ -149,19 +149,17 @@ namespace CprBroker.PartInterface.Tracking
 
         public PersonRemovalDecision GetRemovalDecision(PersonIdentifier personIdentifier, DateTime fromDate, DateTime dbrFromDate)
         {
+            if (PersonLivesInExcludedMunicipality(personIdentifier))
+            {
+                return PersonRemovalDecision.DoNotRemoveDueToExclusion;
+            }
+
             var personHasSubscribers = this.PersonHasSubscribers(personIdentifier.UUID.Value);
             var personHasUsage = this.PersonHasUsage(personIdentifier.UUID.Value, fromDate, null);
 
             if (personHasSubscribers == false && personHasUsage == false)
             {
-                if (PersonLivesInExcludedMunicipality(personIdentifier))
-                {
-                    return PersonRemovalDecision.DoNotRemoveDueToExclusion;
-                }
-                else
-                {
-                    return PersonRemovalDecision.RemoveCompletely;
-                }
+                return PersonRemovalDecision.RemoveCompletely;
             }
             else if (personHasSubscribers == false && this.PersonHasUsage(personIdentifier.UUID.Value, dbrFromDate, null) == false)
             {
