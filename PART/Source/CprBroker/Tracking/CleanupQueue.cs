@@ -45,10 +45,11 @@ namespace CprBroker.PartInterface.Tracking
                 personMutex.WaitOne();
 
                 // Now the person is locked, all possible usage has been recorded                
-                var fromDate = DateTime.Now - CleanupDetectionEnqueuer.MaxInactivePeriod;
-                var dbrFromDate = fromDate + CleanupDetectionEnqueuer.DprEmulationRemovalAllowance;
+                var fromDate = DateTime.Now - SettingsUtilities.MaxInactivePeriod;
+                var dbrFromDate = fromDate + SettingsUtilities.DprEmulationRemovalAllowance;
+                var excludedMunicipalityCodes = SettingsUtilities.ExcludedMunicipalityCodes;
 
-                return ProcessItem(brokerContext, prov, queueItem, fromDate, dbrFromDate);
+                return ProcessItem(brokerContext, prov, queueItem, fromDate, dbrFromDate, excludedMunicipalityCodes);
             }
             catch (Exception ex)
             {
@@ -63,13 +64,13 @@ namespace CprBroker.PartInterface.Tracking
             }
         }
 
-        public virtual CleanupQueueItem ProcessItem(BrokerContext brokerContext, TrackingDataProvider prov, CleanupQueueItem queueItem, DateTime fromDate, DateTime dbrFromDate)
+        public virtual CleanupQueueItem ProcessItem(BrokerContext brokerContext, TrackingDataProvider prov, CleanupQueueItem queueItem, DateTime fromDate, DateTime dbrFromDate, int[] excludedMunicipalityCodes)
         {
             BrokerContext.Current = brokerContext;
             var personIdentifier = queueItem.ToPersonIdentifier();
 
             // First, make and log the decisions
-            var decision = prov.GetRemovalDecision(personIdentifier, fromDate, dbrFromDate);
+            var decision = prov.GetRemovalDecision(personIdentifier, fromDate, dbrFromDate, excludedMunicipalityCodes);
 
             // Action time
             // Remove the person if needed

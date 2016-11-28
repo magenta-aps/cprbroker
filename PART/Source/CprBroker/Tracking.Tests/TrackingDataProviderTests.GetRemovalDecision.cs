@@ -42,23 +42,19 @@ namespace CprBroker.Tests.Tracking
                 }
             }
 
-            PersonIdentifier NewPersonIdentifier()
-            {
-                return Utilities.NewPersonIdentifier();
-            }
-
             [SetUp]
             public void InitBrokerContext()
             {
-                BrokerContext.Initialize(CprBroker.Utilities.Constants.BaseApplicationToken.ToString(), "", true);
+                Utilities.InitBrokerContext();
             }
 
             PersonRemovalDecision GetDecision(TrackingDataProvider prov, PersonIdentifier pId)
             {
                 return prov.GetRemovalDecision(
                     pId,
-                    DateTime.Now - CleanupDetectionEnqueuer.MaxInactivePeriod,
-                    DateTime.Now - CleanupDetectionEnqueuer.MaxInactivePeriod + CleanupDetectionEnqueuer.DprEmulationRemovalAllowance
+                    DateTime.Now - SettingsUtilities.MaxInactivePeriod,
+                    DateTime.Now - SettingsUtilities.MaxInactivePeriod + SettingsUtilities.DprEmulationRemovalAllowance,
+                    SettingsUtilities.ExcludedMunicipalityCodes
                     );
             }
 
@@ -66,14 +62,14 @@ namespace CprBroker.Tests.Tracking
             public void GetRemovalDecision_None_RemoveCompletely()
             {
                 var prov = new TrackingDataProviderStub();
-                var ret = GetDecision(prov, NewPersonIdentifier());
+                var ret = GetDecision(prov, Utilities.NewPersonIdentifier());
                 Assert.AreEqual(PersonRemovalDecision.RemoveCompletely, ret);
             }
 
             [Test]
             public void GetRemovalDecision_OldUsage_RemoveCompletely()
             {
-                var pId = NewPersonIdentifier();
+                var pId = Utilities.NewPersonIdentifier();
                 var prov = new TrackingDataProviderStub();
                 prov._PersonUsageDates.Add(DateTime.Now.AddYears(-1));
                 var ret = GetDecision(prov, pId);
@@ -85,7 +81,7 @@ namespace CprBroker.Tests.Tracking
                 [Values(true, false)]bool hasUsage,
                 [Values(true, false)]bool hasSubscriptions)
             {
-                var pId = NewPersonIdentifier();
+                var pId = Utilities.NewPersonIdentifier();
                 var prov = new TrackingDataProviderStub();
                 prov._PersonLivesInExcludedMunicipality = true;
                 if (hasSubscriptions)
@@ -101,12 +97,12 @@ namespace CprBroker.Tests.Tracking
             [Test]
             public void GetRemovalDecision_AlmostOldUsage_NoSubscription_RemoveDprEmulation()
             {
-                var pId = NewPersonIdentifier();
+                var pId = Utilities.NewPersonIdentifier();
                 var prov = new TrackingDataProviderStub();
                 prov._PersonUsageDates.Add(
                     DateTime.Now -
-                    CleanupDetectionEnqueuer.MaxInactivePeriod +
-                    TimeSpan.FromSeconds(CleanupDetectionEnqueuer.DprEmulationRemovalAllowance.TotalSeconds / 2));
+                    SettingsUtilities.MaxInactivePeriod +
+                    TimeSpan.FromSeconds(SettingsUtilities.DprEmulationRemovalAllowance.TotalSeconds / 2));
 
                 var ret = GetDecision(prov, pId);
                 Assert.AreEqual(PersonRemovalDecision.RemoveFromDprEmulation, ret);
@@ -115,13 +111,13 @@ namespace CprBroker.Tests.Tracking
             [Test]
             public void GetRemovalDecision_AlmostOldUsage_Subscription_DoNotRemove()
             {
-                var pId = NewPersonIdentifier();
+                var pId = Utilities.NewPersonIdentifier();
                 var prov = new TrackingDataProviderStub();
                 prov._PersonHasSubscribers = true;
                 prov._PersonUsageDates.Add(
                     DateTime.Now -
-                    CleanupDetectionEnqueuer.MaxInactivePeriod +
-                    TimeSpan.FromSeconds(CleanupDetectionEnqueuer.DprEmulationRemovalAllowance.TotalSeconds / 2));
+                    SettingsUtilities.MaxInactivePeriod +
+                    TimeSpan.FromSeconds(SettingsUtilities.DprEmulationRemovalAllowance.TotalSeconds / 2));
 
                 var ret = GetDecision(prov, pId);
                 Assert.AreEqual(PersonRemovalDecision.DoNotRemoveDueToUsage, ret);
@@ -131,7 +127,7 @@ namespace CprBroker.Tests.Tracking
             public void GetRemovalDecision_NewUsage_DoNotRemove(
                 [Values(true, false)]bool hasSubscriptions)
             {
-                var pId = NewPersonIdentifier();
+                var pId = Utilities.NewPersonIdentifier();
                 var prov = new TrackingDataProviderStub();
                 if (hasSubscriptions)
                     prov._PersonHasSubscribers = true;
@@ -144,7 +140,7 @@ namespace CprBroker.Tests.Tracking
             public void GetRemovalDecision_Subscriptions_DoNotRemove(
                 [Values(true, false)]bool hasUsage)
             {
-                var pId = NewPersonIdentifier();
+                var pId = Utilities.NewPersonIdentifier();
                 var prov = new TrackingDataProviderStub();
                 prov._PersonHasSubscribers = true;
                 if (hasUsage)

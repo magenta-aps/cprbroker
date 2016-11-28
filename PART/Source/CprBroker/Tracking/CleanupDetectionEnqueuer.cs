@@ -12,54 +12,12 @@ namespace CprBroker.PartInterface.Tracking
 {
     public class CleanupDetectionEnqueuer : PeriodicTaskExecuter
     {
-        public static TimeSpan MaxInactivePeriod
-        {
-            get
-            {
-                return Properties.Settings.Default
-                    .MaxInactivePeriod
-                    .Duration();
-            }
-        }
-
-        public static TimeSpan DprEmulationRemovalAllowance
-        {
-            get
-            {
-                return Properties.Settings.Default
-                    .DprEmulationRemovalAllowance
-                    .Duration();
-            }
-        }
-
-        public static int[] ExcludedMunicipalityCodes
-        {
-            get
-            {
-                return Properties.Settings.Default.ExcludedMunicipalityCodes
-                    .Cast<string>()
-                    .Select(v => string.Format("{0}", v).TrimStart('0', ' '))
-                    .Where(v => !string.IsNullOrEmpty(v))
-                    .Select(v =>
-                    {
-                        int code;
-                        if (int.TryParse(v, out code))
-                            return code;
-                        else
-                            return (int?)null;
-                    })
-                    .Where(v => v.HasValue && v.Value > 0)
-                    .Select(v => v.Value)
-                    .ToArray();
-            }
-        }
-
         public bool CanRunCleanup(bool log = false)
         {
             var oldestOperationTS = Operation.OldestOperationTS();
             var warmingPeriodEndTS =
                 (oldestOperationTS.HasValue ? oldestOperationTS.Value : DateTime.Now)
-                + MaxInactivePeriod;
+                + SettingsUtilities.MaxInactivePeriod;
 
             if (DateTime.Now > warmingPeriodEndTS)
             {
@@ -93,7 +51,7 @@ namespace CprBroker.PartInterface.Tracking
             var startIndex = 0;
             var foundUuids = new PersonIdentifier[0];
             var maximumUsageDate = DateTime.Now;
-            var minimumUsageDate = maximumUsageDate - MaxInactivePeriod;
+            var minimumUsageDate = maximumUsageDate - SettingsUtilities.MaxInactivePeriod;
             var cleanupQueue = Queue.GetQueues<CleanupQueue>().First();
 
             do
