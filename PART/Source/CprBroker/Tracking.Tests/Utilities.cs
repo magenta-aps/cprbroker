@@ -21,11 +21,12 @@ namespace CprBroker.Tests.Tracking
             using (var conn = new SqlConnection(connectionString))
             {
                 newUuids = Enumerable.Range(0, insertedPersons).Select(i => Guid.NewGuid()).ToArray();
-                var personsMappings = newUuids.Select(id => new PersonMapping()
-                {
-                    UUID = id,
-                    CprNumber = PartInterface.Utilities.RandomCprNumber(),
-                });
+                var newPnrs = PartInterface.Utilities.RandomCprNumbers(insertedPersons);
+
+                var personsMappings = newUuids.Zip(
+                    newPnrs,
+                    (id, pnr) => new PersonMapping() { UUID = id, CprNumber = pnr, }
+                );
                 var persons = personsMappings.Select(id => new Person()
                 {
                     UUID = id.UUID,
