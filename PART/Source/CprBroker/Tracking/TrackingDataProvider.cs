@@ -145,9 +145,9 @@ namespace CprBroker.PartInterface.Tracking
             }
         }
 
-        public PersonRemovalDecision GetRemovalDecision(PersonIdentifier personIdentifier, DateTime fromDate, DateTime dbrFromDate)
+        public PersonRemovalDecision GetRemovalDecision(PersonIdentifier personIdentifier, DateTime fromDate, DateTime dbrFromDate, int[] excludedMunicipalityCodes)
         {
-            if (PersonLivesInExcludedMunicipality(personIdentifier, CleanupDetectionEnqueuer.ExcludedMunicipalityCodes))
+            if (PersonLivesInExcludedMunicipality(personIdentifier, excludedMunicipalityCodes))
             {
                 return PersonRemovalDecision.DoNotRemoveDueToExclusion;
             }

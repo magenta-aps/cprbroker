@@ -53,10 +53,10 @@ namespace CprBroker.Tests.Tracking
             {
 
                 public Func<CleanupQueueItem, CleanupQueueItem> _ProcessItem = null;
-                public override CleanupQueueItem ProcessItem(BrokerContext brokerContext, TrackingDataProvider prov, CleanupQueueItem queueItem, DateTime fromDate, DateTime dbrFromDate)
+                public override CleanupQueueItem ProcessItem(BrokerContext brokerContext, TrackingDataProvider prov, CleanupQueueItem queueItem, DateTime fromDate, DateTime dbrFromDate, int[] excludedMunicipalityCodes)
                 {
                     if (_ProcessItem == null)
-                        return base.ProcessItem(brokerContext, prov, queueItem, fromDate, dbrFromDate);
+                        return base.ProcessItem(brokerContext, prov, queueItem, fromDate, dbrFromDate, excludedMunicipalityCodes);
                     else
                         return _ProcessItem(queueItem);
                 }
