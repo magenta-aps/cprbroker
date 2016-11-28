@@ -15,6 +15,8 @@ namespace CprBroker.PartInterface.Tracking
 {
     public class CleanupQueue : Engine.Queues.Queue<CleanupQueueItem>
     {
+        public const int QueueTypeId = 400;
+
         public override CleanupQueueItem[] Process(CleanupQueueItem[] items)
         {
             var prov = new TrackingDataProvider();
