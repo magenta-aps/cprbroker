@@ -30,10 +30,12 @@ namespace CprBroker.Tests.Tracking
         [TestFixture]
         public class EnumeratePersons_PersonsAvailable : PartInterface.TestBase
         {
+            Guid[] InsertedUuids;
+
             [SetUp]
             public void InsertPersons()
             {
-                Utilities.InsertPersons(CprDatabase.ConnectionString, 1000);
+                InsertedUuids = Utilities.InsertPersons(CprDatabase.ConnectionString, 1000);
                 // Database warm-up
                 var prov = new TrackingDataProvider();
                 var uuids = prov.EnumeratePersons(1, 1);
@@ -72,7 +74,7 @@ namespace CprBroker.Tests.Tracking
             {
                 var prov = new TrackingDataProvider();
                 var uuids = prov.EnumeratePersons(startIndex, maxCount);
-                var expectedUuids = Utilities.newUuids
+                var expectedUuids = InsertedUuids
                     .Select(id => id.ToString().Split('-'))
                     .OrderBy(id => id[4])
                     .ThenBy(id => id[3])

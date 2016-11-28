@@ -37,10 +37,12 @@ namespace CprBroker.Tests.Tracking
         [TestFixture]
         public class GetPersonUsageTests_PersonsAvailable : PartInterface.TestBase
         {
+            Guid[] InsertedUuids;
+
             [SetUp]
             public void InsertPersons()
             {
-                Utilities.InsertPersons(CprDatabase.ConnectionString, 200);
+                InsertedUuids = Utilities.InsertPersons(CprDatabase.ConnectionString, 200);
             }
 
             [Test]
@@ -63,7 +65,7 @@ namespace CprBroker.Tests.Tracking
             [Test]
             public void GetPersonUsageTests_RecordsMatchingNoUse_NonePerPerson([Values(1, 20, 15, 27, 100)]int count)
             {
-                var uuids = Utilities.newUuids;
+                var uuids = InsertedUuids;
 
                 var prov = new TrackingDataProvider();
                 var ret = prov.GetPersonUsage(uuids, null, null);
@@ -80,7 +82,7 @@ namespace CprBroker.Tests.Tracking
             [Test]
             public void GetPersonUsageTests_RecordsMatchingIrrelevantUsage_NonePerPerson([Values(1, 20, 15, 27, 100)]int count)
             {
-                var uuids = Utilities.newUuids;
+                var uuids = InsertedUuids;
                 Utilities.InitBrokerContext();
                 Utilities.AddUsage(CprDatabase.ConnectionString, uuids, OperationType.Types.Generic, OperationType.Types.Search);
                 var prov = new TrackingDataProvider();
@@ -98,7 +100,7 @@ namespace CprBroker.Tests.Tracking
             [Test]
             public void GetPersonUsageTests_RecordsMatchingWithUse_UsageFound([Values(1, 20, 15, 27, 100)]int count)
             {
-                var uuids = Utilities.newUuids;
+                var uuids = InsertedUuids;
                 Utilities.InitBrokerContext();
                 Utilities.AddUsage(CprDatabase.ConnectionString, uuids, OperationType.Types.Read);
                 var prov = new TrackingDataProvider();

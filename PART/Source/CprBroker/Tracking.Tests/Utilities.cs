@@ -14,13 +14,11 @@ namespace CprBroker.Tests.Tracking
 {
     class Utilities
     {
-        public static Guid[] newUuids;
-
-        public static void InsertPersons(string connectionString, int insertedPersons)
+        public static Guid[] InsertPersons(string connectionString, int insertedPersons)
         {
             using (var conn = new SqlConnection(connectionString))
             {
-                newUuids = Enumerable.Range(0, insertedPersons).Select(i => Guid.NewGuid()).ToArray();
+                var newUuids = Enumerable.Range(0, insertedPersons).Select(i => Guid.NewGuid()).ToArray();
                 var newPnrs = PartInterface.Utilities.RandomCprNumbers(insertedPersons);
 
                 var personsMappings = newUuids.Zip(
@@ -45,6 +43,7 @@ namespace CprBroker.Tests.Tracking
                 conn.BulkInsertAll(personsMappings);
                 conn.BulkInsertAll(persons);
                 conn.BulkInsertAll(personRegistrations);
+                return newUuids;
             }
         }
 
