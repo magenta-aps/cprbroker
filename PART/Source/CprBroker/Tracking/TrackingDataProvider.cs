@@ -157,19 +157,19 @@ namespace CprBroker.PartInterface.Tracking
             var personHasSubscribers = this.PersonHasSubscribers(personIdentifier.UUID.Value);
             var personHasUsage = this.PersonHasUsage(personIdentifier.UUID.Value, fromDate, null);
 
-            if (personHasSubscribers == false && personHasUsage == false)
+            if (personHasSubscribers == false)
             {
-                return PersonRemovalDecision.RemoveCompletely;
+                if (personHasUsage == false)
+                {
+                    return PersonRemovalDecision.RemoveCompletely;
+                }
+                else if (this.PersonHasUsage(personIdentifier.UUID.Value, dbrFromDate, null) == false)
+                {
+                    return PersonRemovalDecision.RemoveFromDprEmulation;
+                }
             }
-            else if (personHasSubscribers == false && this.PersonHasUsage(personIdentifier.UUID.Value, dbrFromDate, null) == false)
-            {
-                return PersonRemovalDecision.RemoveFromDprEmulation;
-            }
-            else
-            {
-                // Person should not be removed - considered a success
-                return PersonRemovalDecision.DoNotRemoveDueToUsage;
-            }
+            // Person should not be removed - considered a success
+            return PersonRemovalDecision.DoNotRemoveDueToUsage;
         }
 
         public bool RemovePerson(PersonIdentifier personIdentifier)
