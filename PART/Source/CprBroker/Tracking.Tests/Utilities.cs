@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using CprBroker.Utilities;
 using CprBroker.Data.Applications;
 using CprBroker.Engine;
+using CprBroker.Schemas;
 
 namespace CprBroker.Tests.Tracking
 {
@@ -58,6 +59,11 @@ namespace CprBroker.Tests.Tracking
         public static void InitBrokerContext()
         {
             BrokerContext.Initialize(CprBroker.Utilities.Constants.BaseApplicationToken.ToString(), "", true);
+        }
+
+        public static PersonIdentifier NewPersonIdentifier()
+        {
+            return new PersonIdentifier() { CprNumber = Tests.PartInterface.Utilities.RandomCprNumber(), UUID = Guid.NewGuid() };
         }
     }
 }

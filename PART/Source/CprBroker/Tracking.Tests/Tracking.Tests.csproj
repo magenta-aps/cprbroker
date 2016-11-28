@@ -75,6 +75,7 @@
     <Compile Include="TrackingDataProvicerTests.GetSubscribers.cs" />
     <Compile Include="TrackingDataProvicerTests.GetPersonUsage.cs" />
     <Compile Include="TrackingDataProvicerTests.EnumeratePersons.cs" />
+    <Compile Include="TrackingDataProviderTests.PersonLivesInExcludedMunicipality.cs" />
     <Compile Include="TrackingDataProviderTests.GetRemovalDecision.cs" />
     <Compile Include="TrackingDataProviderTests.HasSubscribers.cs" />
     <Compile Include="TrackingDataProviderTests.RemovePerson.cs" />
@@ -96,6 +97,10 @@
     <ProjectReference Include="..\DPR\DPR.csproj">
       <Project>{f98e5179-88e3-404e-83be-54f0a3e7dbc0}</Project>
       <Name>DPR</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Local.Search\Local.Search.csproj">
+      <Project>{700c3c48-4833-4136-b6b4-6b6d8890aa13}</Project>
+      <Name>Local.Search</Name>
     </ProjectReference>
     <ProjectReference Include="..\PartInterface.Tests\PartInterface.Tests.csproj">
       <Project>{06ccc703-83f2-44b9-b67a-f7f3a0071e2d}</Project>

@@ -112,18 +112,16 @@ namespace CprBroker.PartInterface.Tracking
             }
         }
 
-        public virtual bool PersonLivesInExcludedMunicipality(PersonIdentifier personIdentifier)
-        {
-            Func<string, int?> codeConverter = (string s) =>
-            {
-                int retVal;
-                return int.TryParse(s, out retVal) ? retVal : (int?)null;
-            };
 
-            var municipalityCode = PersonSearchCache.GetValue<int?>(personIdentifier.UUID.Value, psc => codeConverter(psc.MunicipalityCode));
-            var excludedMunicipalities = CleanupDetectionEnqueuer.ExcludedMunicipalityCodes
-                .Select(mc => codeConverter(mc))
-                .Where(mc => mc.HasValue && mc.Value > 0);
+        public virtual bool PersonLivesInExcludedMunicipality(PersonIdentifier personIdentifier, int[] excludedMunicipalities)
+        {
+            var municipalityCode = PersonSearchCache.GetValue<int?>(
+                personIdentifier.UUID.Value,
+                psc =>
+                {
+                    int retVal;
+                    return int.TryParse(string.Format("{0}", psc.MunicipalityCode), out retVal) ? retVal : (int?)null;
+                });
 
             Admin.LogFormattedSuccess(
                     "<{0}>: Checking excluded municipalities: person <{1}>, municipality <{2}>, excluded municipalities <{3}>",
@@ -133,7 +131,7 @@ namespace CprBroker.PartInterface.Tracking
                     string.Join(",", excludedMunicipalities)
                     );
 
-            if (municipalityCode.HasValue && excludedMunicipalities.Contains(municipalityCode))
+            if (municipalityCode.HasValue && municipalityCode.Value > 0 && excludedMunicipalities.Contains(municipalityCode.Value))
             {
                 // Do not remove
                 Admin.LogFormattedSuccess(
@@ -149,7 +147,7 @@ namespace CprBroker.PartInterface.Tracking
 
         public PersonRemovalDecision GetRemovalDecision(PersonIdentifier personIdentifier, DateTime fromDate, DateTime dbrFromDate)
         {
-            if (PersonLivesInExcludedMunicipality(personIdentifier))
+            if (PersonLivesInExcludedMunicipality(personIdentifier, CleanupDetectionEnqueuer.ExcludedMunicipalityCodes))
             {
                 return PersonRemovalDecision.DoNotRemoveDueToExclusion;
             }

@@ -36,7 +36,7 @@ namespace CprBroker.Tests.Tracking
                 }
 
                 public bool _PersonLivesInExcludedMunicipality = false;
-                public override bool PersonLivesInExcludedMunicipality(PersonIdentifier personIdentifier)
+                public override bool PersonLivesInExcludedMunicipality(PersonIdentifier personIdentifier, int[] excludedMunicipalities)
                 {
                     return _PersonLivesInExcludedMunicipality;
                 }
@@ -44,7 +44,7 @@ namespace CprBroker.Tests.Tracking
 
             PersonIdentifier NewPersonIdentifier()
             {
-                return new PersonIdentifier() { CprNumber = Tests.PartInterface.Utilities.RandomCprNumber(), UUID = Guid.NewGuid() };
+                return Utilities.NewPersonIdentifier();
             }
 
             [SetUp]
