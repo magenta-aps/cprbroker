@@ -20,6 +20,7 @@ namespace CprBroker.Tests.Engine
                 public TcpServerStub()
                 {
                     this.InputMessageSize = Guid.NewGuid().ToString().Length;
+                    this.TextEncoding = System.Text.Encoding.GetEncoding(1252);
                 }
                 public int Calls = 0;
 
@@ -29,7 +30,7 @@ namespace CprBroker.Tests.Engine
                     return _ProcessMessage(message);
                 }
 
-                Func<byte[], byte[]> _ProcessMessage = (msg) => msg;
+                public Func<byte[], byte[]> _ProcessMessage = (msg) => msg;
 
                 
             }
@@ -70,7 +71,8 @@ namespace CprBroker.Tests.Engine
             [Test]
             public void Run_OneConnection_OK()
             {
-                using (var server = new TcpServerStub() { Port = NewPort() })
+                BrokerContext.Initialize(CprBroker.Utilities.Constants.BaseApplicationToken.ToString(), "");
+                using (var server = new TcpServerStub() { Port = NewPort(), Address = "127.0.0.1" })
                 {
                     server.Start();
                     var client = new Client(server);
@@ -111,35 +113,75 @@ namespace CprBroker.Tests.Engine
             }
 
             [Test]
-            public void Run_ManyConnections_P1_OK([Range(1, 9, 1)] int count)
+            public void Run_ManyConnections_1_9_OK([Range(1, 9, 1)] int count)
             {
                 Run_ManyConnections_OK(count);
             }
 
             [Test]
-            public void Run_ManyConnections_P2_OK([Range(10, 90, 10)] int count)
+            public void Run_ManyConnections_10_90_OK([Range(10, 90, 10)] int count)
             {
                 Run_ManyConnections_OK(count);
             }
 
             [Test]
-            public void Run_ManyConnections_P3_OK([Range(100, 900, 100)] int count)
-            {
-                Run_ManyConnections_OK(count);
-            }
-
-            [Ignore]
-            [Test]
-            public void Run_ManyConnections_P4_OK([Range(1000, 9000, 1000)] int count)
+            public void Run_ManyConnections_100_900_OK([Range(100, 900, 100)] int count)
             {
                 Run_ManyConnections_OK(count);
             }
 
             [Ignore]
             [Test]
-            public void Run_ManyConnections_P5_OK([Range(10000, 90000, 10000)] int count)
+            public void Run_ManyConnections_1000_9000_OK([Range(1000, 9000, 1000)] int count)
             {
                 Run_ManyConnections_OK(count);
+            }
+
+            [Ignore]
+            [Test]
+            public void Run_ManyConnections_10000_90000_OK([Range(10000, 90000, 10000)] int count)
+            {
+                Run_ManyConnections_OK(count);
+            }
+
+            [Test]
+            [Ignore]
+            public void CallTwice_SecondReturnsEmpty()
+            {
+                BrokerContext.Initialize(CprBroker.Utilities.Constants.BaseApplicationToken.ToString(), "");
+                using (var server = new TcpServerStub() { Port = NewPort(), Address = "127.0.0.1",  })
+                {
+                    server.Start();
+
+                    using (var client = new TcpClient(server.Address, server.Port))
+                    {
+                        using (NetworkStream stream = client.GetStream())
+                        {
+                            var inputData = server.TextEncoding.GetBytes(Guid.NewGuid().ToString());
+
+                            var responses = new List<byte[]>();
+
+                            for (int i = 0; i < 2; i++)
+                            {
+                                Console.WriteLine("Sending request: round # {0}", i + 1);
+
+                                stream.Write(inputData, 0, inputData.Length);
+                                stream.ReadTimeout = 3000;
+
+                                var retData = new Byte[3500];
+                                var retBytes = stream.Read(retData, 0, retData.Length);
+                                retData = retData.Take(retBytes).ToArray();
+
+                                responses.Add(retData);
+
+                                var retText = Encoding.GetEncoding(1252).GetString(retData);
+                                Console.WriteLine(retText);
+                            }
+
+                            Assert.IsEmpty(responses[1]);
+                        }
+                    }
+                }
             }
         }
     }
