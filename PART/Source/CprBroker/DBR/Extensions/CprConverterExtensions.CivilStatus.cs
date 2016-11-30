@@ -60,7 +60,6 @@ namespace CprBroker.DBR.Extensions
             cs.PNR = Decimal.Parse(currentCivilStatus.PNR);
             cs.CprUpdateDate = CprBroker.Utilities.Dates.DateToDecimal(currentCivilStatus.Registration.RegistrationDate, 12);
             cs.MaritalStatus = currentCivilStatus.CivilStatusCode;
-            cs.MaritalStatusAuthorityCode = null; //TODO: Can be fetched in CPR Services, mynkod
 
             if (!string.IsNullOrEmpty(currentCivilStatus.SpousePNR))
                 cs.SpousePNR = Decimal.Parse(currentCivilStatus.SpousePNR);
@@ -74,8 +73,14 @@ namespace CprBroker.DBR.Extensions
 
             cs.MaritalEndDate = null; //This is the current status
             cs.CorrectionMarker = null; //This is the current status
+
+            if (cs.MaritalStatus.HasValue && cs.MaritalStatus.Value == 'U')
+                cs.MaritalStatusAuthorityCode = null; // Unmarried, null authority code
+            else
+                cs.MaritalStatusAuthorityCode = 0;//TODO: Can be fetched in CPR Services, mynkod
             cs.AuthorityTextUpdateDate = null; //TODO: Can be fetched in CPR Services,  myntxttimestamp
             cs.MaritalStatusAuthorityText = null; //TODO: Can be fetched in CPR Services,  myntxt
+
             if (!string.IsNullOrEmpty(currentCivilStatus.SpouseName))
                 cs.SpouseName = currentCivilStatus.SpouseName;
             else
@@ -98,8 +103,7 @@ namespace CprBroker.DBR.Extensions
             cs.PNR = Decimal.Parse(historicalCivilStatus.PNR);
             cs.CprUpdateDate = CprBroker.Utilities.Dates.DateToDecimal(historicalCivilStatus.Registration.RegistrationDate, 12);
             cs.MaritalStatus = historicalCivilStatus.CivilStatusCode;
-            cs.MaritalStatusAuthorityCode = null; //TODO: Can be fetched in CPR Services, mynkod
-
+            
             if (!string.IsNullOrEmpty(historicalCivilStatus.SpousePNR))
                 cs.SpousePNR = Decimal.Parse(historicalCivilStatus.SpousePNR);
 
@@ -112,6 +116,11 @@ namespace CprBroker.DBR.Extensions
             cs.MaritalEndDate = historicalCivilStatus.CivilStatusEndDateDecimal;
 
             cs.CorrectionMarker = historicalCivilStatus.CorrectionMarker;
+
+            if (cs.MaritalStatus.HasValue && cs.MaritalStatus.Value == 'U')
+                cs.MaritalStatusAuthorityCode = null; // Unmarried, null authority code
+            else
+                cs.MaritalStatusAuthorityCode = 0;//TODO: Can be fetched in CPR Services, mynkod
             cs.AuthorityTextUpdateDate = null; //TODO: Can be fetched in CPR Services, myntxttimestamp
             cs.MaritalStatusAuthorityText = null; //TODO: Can be fetched in CPR Services, myntxt
 
