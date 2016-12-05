@@ -49,6 +49,7 @@ using CprBroker.Schemas;
 using CprBroker.Schemas.Part;
 using CprBroker.Utilities;
 using CprBroker.Data.Part;
+using CprBroker.Data.Applications;
 
 namespace CprBroker.Engine.Period
 {
@@ -65,6 +66,25 @@ namespace CprBroker.Engine.Period
         public override void Initialize()
         {
             this.SubMethodInfos = this.Input.ToSubMethodInfos();
+        }
+
+        public override OperationType.Types? MainOperationType
+        {
+            get
+            {
+                return OperationType.Types.ReadPeriod;
+            }
+        }
+
+        public override string[] InputOperationKeys
+        {
+            get
+            {
+                return this.Input.UUIDs
+                    .Select(id => Strings.GuidToString(id))
+                    .Where(id => !string.IsNullOrEmpty(id))
+                    .ToArray();
+            }
         }
 
         public override LaesResultatType[] Aggregate(object[] results)
