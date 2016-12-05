@@ -13,7 +13,8 @@ namespace CprBroker.PartInterface.Tracking
         {
             OperationType.Types.Read,
             OperationType.Types.ReadPeriod,
-            OperationType.Types.DprDiversion
+            OperationType.Types.DprDiversion,
+            OperationType.Types.PutSubscription,
         };
     }
 
