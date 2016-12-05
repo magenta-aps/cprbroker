@@ -1,4 +1,5 @@
 ﻿using CprBroker.Engine;
+using CprBroker.EventBroker.Data;
 using CprBroker.PartInterface.Tracking;
 using CprBroker.Providers.CPRDirect;
 using CprBroker.Providers.DPR;
@@ -78,6 +79,41 @@ namespace CprBroker.Tests.Tracking
                 prov.RemovePerson(pId);
                 Assert.AreEqual(countItems(pnr), 0);
                 Assert.Greater(countItems(null), 0);
+            }
+
+            [Test]
+            public void RemovePerson_SubscriptionPersonExists_Removed(
+                [Values(EventBroker.Data.SubscriptionType.SubscriptionTypes.Birthdate, EventBroker.Data.SubscriptionType.SubscriptionTypes.DataChange)] EventBroker.Data.SubscriptionType.SubscriptionTypes type,
+                [Values(true, false)]bool forAll,
+                [Values(true, false)]bool isReady
+                )
+            {
+                var pnr = PartInterface.Utilities.RandomCprNumber();
+                var uuid = Guid.NewGuid();
+                Func<Guid?, int> countItems = (id) =>
+                {
+                    using (var dc = new EventBrokerDataContext())
+                    {
+                        if (id.HasValue)
+                            return dc.SubscriptionPersons.Where(ei => ei.PersonUuid == id).Count();
+                        else
+                            return dc.SubscriptionPersons.Count();
+                    }
+                };
+
+                using (var dataContext = new EventBrokerDataContext())
+                {
+                    var sub = AddSubscription(dataContext, new Schemas.Part.SoegObjektType(), forAll: forAll, ready: isReady, type: type);
+                    sub.SubscriptionPersons.Add(new SubscriptionPerson() { Created = DateTime.Now, PersonUuid = uuid, Removed = DateTime.Now, SubscriptionId = sub.SubscriptionId, SubscriptionPersonId = Guid.NewGuid() });
+                    dataContext.SubscriptionPersons.InsertAllOnSubmit(sub.SubscriptionPersons);
+                    dataContext.SubmitChanges();
+                }
+                Assert.Greater(countItems(null), 0);
+                Assert.Greater(countItems(uuid), 0);
+                var pId = new PersonIdentifier() { CprNumber = pnr, UUID = uuid };
+                var prov = new TrackingDataProvider();
+                prov.RemovePerson(pId);
+                Assert.AreEqual(0, countItems(uuid));
             }
 
             class IPutSubscriptionDataProviderStub : IPutSubscriptionDataProvider
