@@ -213,6 +213,11 @@ namespace CprBroker.PartInterface.Tracking
                 this.DeletePersonFromAllDBR(brokerContext, personIdentifier)
                 );
 
+            // Subscriptions
+            tasks.Add(
+                this.DeletePersonFromSubscriptions(brokerContext, personIdentifier)
+                );
+
             try
             {
                 // Wait for sub tasks to complete

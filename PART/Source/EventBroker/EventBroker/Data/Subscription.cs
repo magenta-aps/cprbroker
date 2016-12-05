@@ -271,5 +271,21 @@ namespace CprBroker.EventBroker.Data
                     .FirstOrDefault() != null;
             }
         }
+
+        public static void RemovePersonFromAllSubscriptions(Guid personUuid)
+        {
+            using (var dataContext = new EventBrokerDataContext())
+            {
+                var subscriptionPersonsToDelete = dataContext.SubscriptionPersons
+                    .Where(sp => sp.PersonUuid == personUuid);
+                dataContext.SubscriptionPersons.DeleteAllOnSubmit(subscriptionPersonsToDelete);
+
+                var dataChangeEventsToDelete = dataContext.DataChangeEvents
+                    .Where(dce => dce.PersonUuid == personUuid);
+                dataContext.DataChangeEvents.DeleteAllOnSubmit(dataChangeEventsToDelete);
+
+                dataContext.SubmitChanges();
+            }
+        }
     }
 }
