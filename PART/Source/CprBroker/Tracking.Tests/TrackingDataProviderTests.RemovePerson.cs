@@ -52,7 +52,7 @@ namespace CprBroker.Tests.Tracking
                 var pId = new PersonIdentifier() { CprNumber = pnr, UUID = Guid.NewGuid() };
                 var prov = new TrackingDataProvider();
                 prov.RemovePerson(pId);
-                Assert.AreEqual(countItems(pnr), 0);
+                Assert.AreEqual(0, countItems(pnr));
                 Assert.Greater(countItems(null), 0);
             }
 
@@ -77,7 +77,7 @@ namespace CprBroker.Tests.Tracking
                 var pId = new PersonIdentifier() { CprNumber = pnr, UUID = Guid.NewGuid() };
                 var prov = new TrackingDataProvider();
                 prov.RemovePerson(pId);
-                Assert.AreEqual(countItems(pnr), 0);
+                Assert.AreEqual(0, countItems(pnr));
                 Assert.Greater(countItems(null), 0);
             }
 
