@@ -255,6 +255,19 @@ namespace CprBroker.Utilities
             return new Uri(string.Format("urn:uuid:{0}", uuid.ToString("")));
         }
 
+        public static string GuidToString(string uuidString)
+        {
+            Guid uuid;
+            if (Guid.TryParse(uuidString, out uuid))
+                return GuidToString(uuid);
+            return null;
+        }
+
+        public static string GuidToString(Guid uuid)
+        {
+            return uuid.ToString();
+        }
+
 
         public static string SerializeObject(object obj)
         {

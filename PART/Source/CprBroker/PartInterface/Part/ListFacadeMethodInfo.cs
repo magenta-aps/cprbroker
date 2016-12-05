@@ -45,6 +45,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using CprBroker.Data.Applications;
 using CprBroker.Schemas;
 using CprBroker.Schemas.Part;
 using CprBroker.Utilities;
@@ -104,6 +105,25 @@ namespace CprBroker.Engine.Part
                     LaesInputType.Create(pUUID, input),
                     sourceUsageOrder)
            );
+        }
+
+        public override OperationType.Types? MainOperationType
+        {
+            get
+            {
+                return OperationType.Types.Read;
+            }
+        }
+
+        public override string[] InputOperationKeys
+        {
+            get
+            {
+                return input.UUID
+                    .Select(id => Strings.GuidToString(id))
+                    .Where(id => !string.IsNullOrEmpty(id))
+                    .ToArray();
+            }
         }
 
         public override LaesResultatType[] Aggregate(object[] results)

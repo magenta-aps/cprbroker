@@ -106,7 +106,7 @@ namespace CprBroker.Engine.Part
         {
             get
             {
-                return new string[] { Input.UUID };
+                return new string[] { Strings.GuidToString(Input.UUID) };
             }
         }
 
