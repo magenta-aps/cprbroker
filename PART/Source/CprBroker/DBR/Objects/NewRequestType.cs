@@ -66,7 +66,10 @@ namespace CprBroker.DBR
             {
                 // Register an operation, if this is not a 'remove subscription' call
                 if (this.Type != InquiryType.DeleteAutomaticDataUpdateFromCpr)
-                    BrokerContext.Current.RegisterOperation(Data.Applications.OperationType.Types.DprDiversion, this.PNR);
+                {
+                    var uuid = CprBroker.Engine.Part.ReadSubMethodInfo.CprToUuid(this.PNR);
+                    BrokerContext.Current.RegisterOperation(Data.Applications.OperationType.Types.DprDiversion, CprBroker.Utilities.Strings.GuidToString(uuid));
+                }
 
                 var dataProviders = new ICprDirectPersonDataProvider[0].AsEnumerable();
 
