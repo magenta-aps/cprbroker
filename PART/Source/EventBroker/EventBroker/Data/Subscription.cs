@@ -280,9 +280,13 @@ namespace CprBroker.EventBroker.Data
                     .Where(sp => sp.PersonUuid == personUuid);
                 dataContext.SubscriptionPersons.DeleteAllOnSubmit(subscriptionPersonsToDelete);
 
-                var dataChangeEventsToDelete = dataContext.DataChangeEvents
+                /*var dataChangeEventsToDelete = dataContext.DataChangeEvents
                     .Where(dce => dce.PersonUuid == personUuid);
-                dataContext.DataChangeEvents.DeleteAllOnSubmit(dataChangeEventsToDelete);
+                dataContext.DataChangeEvents.DeleteAllOnSubmit(dataChangeEventsToDelete);*/
+
+                var personBirthdatesToRemove = dataContext.PersonBirthdates
+                    .Where(pbd => pbd.PersonUuid == personUuid);
+                dataContext.PersonBirthdates.DeleteAllOnSubmit(personBirthdatesToRemove);
 
                 dataContext.SubmitChanges();
             }
