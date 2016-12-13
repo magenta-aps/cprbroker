@@ -1,4 +1,5 @@
-﻿using CprBroker.DBR;
+﻿using CprBroker.Data.Events;
+using CprBroker.DBR;
 using CprBroker.Engine;
 using CprBroker.Providers.CPRDirect;
 using CprBroker.Providers.DPR;
@@ -59,6 +60,13 @@ namespace CprBroker.PartInterface.Tracking
                 dbrDataContext.SubmitChanges();
                 return true;
             }
+        }
+
+        public async Task<bool> DeletePersonFromDataChangeEvents(BrokerContext brokerContext, PersonIdentifier personIdentifier)
+        {
+            BrokerContext.Current = brokerContext;
+            DataChangeEvent.DeletePerson(personIdentifier.UUID.Value);
+            return true;
         }
 
         public async Task<bool> DeletePersonFromSubscriptions(BrokerContext brokerContext, PersonIdentifier personIdentifier)

@@ -73,6 +73,7 @@
     <Compile Include="Data\DanishAddress.cs" />
     <Compile Include="Data\DenmarkAddress.cs" />
     <Compile Include="Data\Effect.cs" />
+    <Compile Include="Data\Events\DataChangeEvent.cs" />
     <Compile Include="Data\Events\DataChangeEventDataContext.cs">
       <DependentUpon>DataChangeEventDataContext.dbml</DependentUpon>
     </Compile>
