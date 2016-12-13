@@ -4,6 +4,8 @@ using NUnit.Framework;
 using System.Reflection;
 using CprBroker.Utilities;
 using System.Text.RegularExpressions;
+using CprBroker.Tests.DBR.ComparisonResults;
+using CprBroker.Providers.DPR;
 
 namespace CprBroker.Tests.DBR.Comparison
 {
@@ -12,29 +14,60 @@ namespace CprBroker.Tests.DBR.Comparison
         static ComparisonTestBase()
         {
             CprBroker.Tests.PartInterface.Utilities.UpdateConnectionString(Properties.Settings.Default.CprBrokerConnectionString);
-            if (CprBroker.Tests.PartInterface.Utilities.IsConsole)
-            {
-                // TODO: Uncomment for nunit-console.exe
-
-                //Console.Write("Real DPR connection string :");
-                //RealDprDatabaseConnectionString = Console.ReadLine();
-
-                //Console.Write("DBR (Generated) DPR connection string :");
-                //FakeDprDatabaseConnectionString = Console.ReadLine();
-            }
         }
     }
 
     [Category("Comnparison")]
-    public abstract class ComparisonTest<TObject, TDataContext> : ComparisonTestBase
+    public abstract class ComparisonTest<TObject, TDataContext> : ComparisonTestBase, IComparisonType
         where TDataContext : System.Data.Linq.DataContext
     {
 
-        public virtual string[] ExcludedProperties
+        public virtual PropertyComparisonResult[] ExcludedPropertiesInformation
         {
             get
             {
-                return new string[] { };
+                return new PropertyComparisonResult[] { };
+            }
+        }
+
+        public Type TargetType
+        {
+            get
+            {
+                return typeof(TObject);
+            }
+        }
+
+        public PropertyInfo[] DataProperties()
+        {
+            return DataLinq.GetColumnProperties(typeof(TObject));
+        }
+
+        public string SourceName
+        {
+            get
+            {
+                return Utilities.DataLinq.GetTableName(typeof(TObject));
+            }
+        }
+
+        public string[] ExcludedPropertyNames
+        {
+            get
+            {
+                return PropertyComparisonResult
+                    .ExcludedAlways(ExcludedPropertiesInformation)
+                    .Select(p => p.PropertyName).ToArray();
+            }
+        }
+
+        public string[] ExcludedPropertyNamesIfInactive
+        {
+            get
+            {
+                return PropertyComparisonResult
+                    .OfStatus(ExcludedPropertiesInformation, ExclusionStatus.Dead)
+                    .Select(p => p.PropertyName).ToArray();
             }
         }
 
@@ -42,7 +75,7 @@ namespace CprBroker.Tests.DBR.Comparison
         {
             get
             {
-                return new string[] { 
+                return new string[] {
                     "CprUpdateDate",
                     "PNR"
                 };
@@ -67,7 +100,7 @@ namespace CprBroker.Tests.DBR.Comparison
         {
             var t = typeof(TObject);
             return DataLinq.GetColumnProperties(t)
-                .Where(p => !this.ExcludedProperties.Contains(p.Name) && !this.CommonExcludedProperties.Contains(p.Name))
+                .Where(p => !this.ExcludedPropertyNames.Contains(p.Name) && !this.CommonExcludedProperties.Contains(p.Name))
                 .OrderBy(p => p.Name)
                 .ToArray();
         }
@@ -169,7 +202,7 @@ namespace CprBroker.Tests.DBR.Comparison
 
 
         [Test]
-        [TestCaseSource("LoadKeys")]
+        [TestCaseSource(nameof(LoadKeys))]
         public void T1_CompareCount(string pnr)
         {
             using (var realDprDataContext = CreateDataContext(Properties.Settings.Default.RealDprConnectionString))
@@ -191,19 +224,33 @@ namespace CprBroker.Tests.DBR.Comparison
             }
         }
 
-        public virtual void ConvertObject(string key)
-        { }
+        //public virtual void ConvertObject(string key)
+        //{ }
+        public virtual bool IsActiveRecord(string key, TDataContext fakeDprDataContext)
+        {
+            return true;
+        }
 
         [Test]
         public void T2_CompareContents(
-            [ValueSource("GetProperties")]PropertyInfo property,
-            [ValueSource("LoadKeys")]string key)
+            [ValueSource(nameof(GetProperties))]PropertyInfo property,
+            [ValueSource(nameof(LoadKeys))]string key)
         {
             using (var realDprDataContext = CreateDataContext(Properties.Settings.Default.RealDprConnectionString))
             {
                 using (var fakeDprDataContext = CreateDataContext(Properties.Settings.Default.ImitatedDprConnectionString))
                 {
-                    CompareContents(property, key, realDprDataContext, fakeDprDataContext);
+                    if (ExcludedPropertyNamesIfInactive.Contains(property.Name))
+                    {
+                        if (IsActiveRecord(key, fakeDprDataContext))
+                            CompareContents(property, key, realDprDataContext, fakeDprDataContext);
+                        else
+                            Console.WriteLine("Inactive object - Comparison skipped");
+                    }
+                    else
+                    {
+                        CompareContents(property, key, realDprDataContext, fakeDprDataContext);
+                    }   
                 }
             }
         }

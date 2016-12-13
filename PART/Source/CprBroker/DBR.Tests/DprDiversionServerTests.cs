@@ -7,13 +7,15 @@ using NUnit.Framework;
 using CprBroker.DBR;
 using CprBroker.Providers.CPRDirect;
 using CprBroker.Providers.DPR;
+using CprBroker.Engine;
+using CprBroker.Tests.PartInterface;
 
 namespace CprBroker.Tests.DBR
 {
     namespace DprDiversionServerTests
     {
         [TestFixture]
-        public class ProcessMessage
+        public class ProcessMessage: TestBase
         {
             class DprDiversionServerStub : DprDiversionServer
             {
@@ -25,6 +27,14 @@ namespace CprBroker.Tests.DBR
                     }
                 }
             }
+
+            [SetUp]
+            public void InitBrokerContext()
+            {
+                BrokerContext.Current = null;
+                BrokerContext.Initialize(CprBroker.Utilities.Constants.BaseApplicationToken.ToString(), "");
+            }
+
             [Test]
             public void ProcessMessage_Empty_99xxxx()
             {

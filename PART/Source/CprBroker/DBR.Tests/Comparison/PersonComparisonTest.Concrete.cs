@@ -4,43 +4,61 @@ using System.Linq;
 using System.Text;
 using CprBroker.Providers.DPR;
 using NUnit.Framework;
+using CprBroker.Tests.DBR.ComparisonResults;
+using dpr = CprBroker.Providers.DPR;
 
 namespace CprBroker.Tests.DBR.Comparison.Person
 {
     [TestFixture]
     public class PersonTotalComparisonTest : PersonComparisonTest<PersonTotal7>
     {
-        override public string[] ExcludedProperties
+        override public PropertyComparisonResult[] ExcludedPropertiesInformation
         {
             get
             {
-                string[] excluded = 
+                var excluded = new PropertyComparisonResult[]
                 {
                     // Review 2.0
-                    "PreviousMunicipalityName", // Usually it is name of municipality of previous address, but sometimes contains the value from the minucipality that is different from the current one!!
-                    "SpouseMarker", // Not available in CPR Extracts
-                    "PaternityAuthorityName", // CPR Services 'far_mynkod' // Not available in CPR Extracts
-                    "DprLoadDate", // Irrelevant for comparison
-                    "FatherMarker", // No correlation found yet
-                    "MotherMarker", // No correlation found yet
-                    "ApplicationCode", // DPR Specific
-                    "MaritalAuthorityName", // CPR Services 'mynkod' ? // Not available in CPR Extracts
+                    new PropertyComparisonResult(nameof(PersonTotal7.PreviousMunicipalityName), "Usually it is name of municipality of previous address, but sometimes contains the value from the minucipality that is different from the current one!!", ExclusionStatus.InsufficientHistory),
+                    new PropertyComparisonResult(nameof(PersonTotal7.SpouseMarker), "Not available in CPR Extracts", ExclusionStatus.UnavailableAtSource),
+                    new PropertyComparisonResult(nameof(PersonTotal7.PaternityAuthorityName), "CPR Services 'far_mynkod' // Not available in CPR Extracts", ExclusionStatus.UnavailableAtSource),
+                    new PropertyComparisonResult(nameof(PersonTotal7.DprLoadDate), "Irrelevant for comparison", ExclusionStatus.LocalUpdateRelated),
+
+                    //new PropertyComparisonResult(nameof(PersonTotal7.FatherMarker), "No correlation found yet"),
+                    //new PropertyComparisonResult(nameof(PersonTotal7.MotherMarker), "No correlation found yet"),
+
+                    new PropertyComparisonResult(nameof(PersonTotal7.ApplicationCode), "DPR Specific", ExclusionStatus.LocalUpdateRelated),
+                    new PropertyComparisonResult(nameof(PersonTotal7.MaritalAuthorityName), "CPR Services 'mynkod' ? // Not available in CPR Extracts", ExclusionStatus.UnavailableAtSource),
                     
                     // Review 2.1
-                    "PreviousAddress", // Some records are parts of municipalities without possible lookup
-                    "CurrentMunicipalityName", // Some dead (status 90) people have a value from latest address while others do not
+                    new PropertyComparisonResult(nameof(PersonTotal7.PreviousAddress), "Some records are parts of municipalities without possible lookup", ExclusionStatus.InsufficientHistory),
+                    new PropertyComparisonResult(nameof(PersonTotal7.CurrentMunicipalityName), "Some dead (status 90) people have a value from latest address while others do not", ExclusionStatus.Dead),
 
                     // Review 2.2
-                    "AddressDateMarker", // Like PersonAddress.AddressStartDateMarker, Some real DPR records have a value that has no origin in CPR Extracts
-                    "CareOfName", // Some real DPR records have a value that comes from an address that is marked as 'A' (Undo). 
-                    "DataRetrievalType", // Always 'D' (from CPR extract with subscription) in DBR emulation
+                    new PropertyComparisonResult(nameof(PersonTotal7.AddressDateMarker), "Like PersonAddress.AddressStartDateMarker, Some real DPR records have a value that has no origin in CPR Extracts", ExclusionStatus.UnavailableAtSource),
+                    new PropertyComparisonResult(nameof(PersonTotal7.CareOfName), "Some real DPR records have a value that comes from an address that is marked as 'A' (Undo).", ExclusionStatus.InconsistentObservations),
+                    new PropertyComparisonResult(nameof(PersonTotal7.DataRetrievalType), "Always 'D' (from CPR extract with subscription) in DBR emulation", ExclusionStatus.LocalUpdateRelated),
 
                     // Oct 2016
-                    "FormerPersonalMarker", // Fails sometimes because HistoricalPNR's can be older than the 20-year limit for extracts, so they do not appear in the emulated database
+                    new PropertyComparisonResult(nameof(PersonTotal7.FormerPersonalMarker), "Fails sometimes because HistoricalPNR's can be older than the 20-year limit for extracts, so they do not appear in the emulated database", ExclusionStatus.InsufficientHistory),
 
                     // Review 2.4
-                    "ExitEntryMarker", // Some people have Departure records in real DPR with no matching records in CPR Extracts
-                    "PnrMarkingDate", // CPR Services: pnrhaenstart // Not available in CPR Extracts
+                    new PropertyComparisonResult(nameof(PersonTotal7.ExitEntryMarker), "Some people have Departure records in real DPR with no matching records in CPR Extracts", ExclusionStatus.InsufficientHistory),
+                    new PropertyComparisonResult(nameof(PersonTotal7.PnrMarkingDate), "CPR Services: pnrhaenstart // Not available in CPR Extracts", ExclusionStatus.UnavailableAtSource),
+
+                    // Review Oct 2016
+                    new PropertyComparisonResult(nameof(PersonTotal7.MunicipalityCode),"", ExclusionStatus.Dead),
+                    new PropertyComparisonResult(nameof(PersonTotal7.StreetCode),"", ExclusionStatus.Dead),
+                    new PropertyComparisonResult(nameof(PersonTotal7.HouseNumber),"", ExclusionStatus.Dead),
+                    new PropertyComparisonResult(nameof(PersonTotal7.Floor),"", ExclusionStatus.Dead),
+                    new PropertyComparisonResult(nameof(PersonTotal7.Door),"", ExclusionStatus.Dead),
+                    new PropertyComparisonResult(nameof(PersonTotal7.PostCode),"", ExclusionStatus.Dead),
+                    new PropertyComparisonResult(nameof(PersonTotal7.PostDistrictName),"", ExclusionStatus.Dead),
+                    new PropertyComparisonResult(nameof(PersonTotal7.CityName),"", ExclusionStatus.Dead),
+
+                    new PropertyComparisonResult(nameof(PersonTotal7.StandardAddress),"", ExclusionStatus.Dead),
+                    new PropertyComparisonResult(nameof(PersonTotal7.AddressDate),"", ExclusionStatus.Dead),
+                    new PropertyComparisonResult(nameof(PersonTotal7.MunicipalityArrivalDate),"", ExclusionStatus.Dead),
                 };
                 return excluded;
             }
@@ -51,31 +69,31 @@ namespace CprBroker.Tests.DBR.Comparison.Person
     [TestFixture]
     public class PersonComparisonTest : PersonComparisonTest<CprBroker.Providers.DPR.Person>
     {
-        override public string[] ExcludedProperties
+        public override PropertyComparisonResult[] ExcludedPropertiesInformation
         {
             get
             {
-                string[] excluded = {
-                                        // Review 2.0
-                                        "BirthRegistrationDate", //Usually matches PersonInformation.PersonStartDate, but not always. 
-                                        "BirthRegistrationPlaceUpdateDate", // CPR Services 'foedmynhaenstart' ? 
-                                        "ChurchAuthorityCode", // Church district lookup? Not possible so far // CPR Services 'fkirkmynkod'
-                                        "ChurchRelationUpdateDate", // Not available in CPR Extracts.
-                                        "PnrDeletionDate", // Usually it is null, but is 0 a few times - excluding for now
-                                        "UnderGuardianshipRelationType", //Usually it is null, but is 0 a few times - excluding for now
-                                        "CustomerNumber", // This must differ from real DPR
-                                        "FatherDocumentation", // CPR Services 'far_dok' ? // We do the best to match it, but it not exactly matching a real DPR.
-                                        "MotherDocumentation", // CPR Services 'mor_dok' ? // We do the best to match it, but it not exactly matching a real DPR.                                        
-                                        "KinshipUpdateDate", // CPR Services 'timestamp' ? // Not available in CPR Extracts
-                                        "PaternityAuthorityCode", // CPR Services 'far_mynkod' ? // Not available in CPR Extracts
-                                        "PaternityDate", // CPR Services 'farhaenstart' ? // Not available in CPR Extracts
-                                        "UnderGuardianshipAuthorityCode", // CPR Services 'mynkod-ctumyndig' ? // Not available in CPR Extracts
-                                        "BirthplaceTextUpdateDate", // CPR Services 'foedtxttimestamp' ? // Not available in CPR Extracts
-                                        "JobDate", // CPR Services 'stillingsdato' ? // Not available in CPR Extracts
+                var excluded = new PropertyComparisonResult[]{
+                    // Review 2.0
+                    new PropertyComparisonResult(nameof(dpr.Person.BirthRegistrationDate), "Usually matches PersonInformation.PersonStartDate, but not always", ExclusionStatus.UnavailableAtSource),
+                    new PropertyComparisonResult(nameof(dpr.Person.BirthRegistrationPlaceUpdateDate), "CPR Services 'foedmynhaenstart' ?", ExclusionStatus.UnavailableAtSource),
+                    new PropertyComparisonResult(nameof(dpr.Person.ChurchAuthorityCode), "Church district lookup? Not possible so far // CPR Services 'fkirkmynkod'", ExclusionStatus.UnavailableAtSource),
+                    new PropertyComparisonResult(nameof(dpr.Person.ChurchRelationUpdateDate), "Not available in CPR Extracts.", ExclusionStatus.LocalUpdateRelated),
+                    new PropertyComparisonResult(nameof(dpr.Person.PnrDeletionDate), "Usually it is null, but is 0 a few times - excluding for now", ExclusionStatus.NullOrZero),
+                    new PropertyComparisonResult(nameof(dpr.Person.UnderGuardianshipRelationType), "Usually it is null, but is 0 a few times - excluding for now", ExclusionStatus.NullOrZero),
+                    new PropertyComparisonResult(nameof(dpr.Person.CustomerNumber), "This must differ from real DPR", ExclusionStatus.LocalUpdateRelated),
+                    new PropertyComparisonResult(nameof(dpr.Person.FatherDocumentation), "CPR Services 'far_dok' ? // We do the best to match it, but it not exactly matching a real DPR.", ExclusionStatus.UnavailableAtSource),
+                    new PropertyComparisonResult(nameof(dpr.Person.MotherDocumentation), "CPR Services 'mor_dok' ? // We do the best to match it, but it not exactly matching a real DPR.", ExclusionStatus.UnavailableAtSource),
+                    new PropertyComparisonResult(nameof(dpr.Person.KinshipUpdateDate), "CPR Services 'timestamp' ? // Not available in CPR Extracts", ExclusionStatus.LocalUpdateRelated),
+                    new PropertyComparisonResult(nameof(dpr.Person.PaternityAuthorityCode), "CPR Services 'far_mynkod' ? // Not available in CPR Extracts", ExclusionStatus.UnavailableAtSource),
+                    new PropertyComparisonResult(nameof(dpr.Person.PaternityDate), "CPR Services 'farhaenstart' ? // Not available in CPR Extracts", ExclusionStatus.UnavailableAtSource),
+                    new PropertyComparisonResult(nameof(dpr.Person.UnderGuardianshipAuthorityCode), "CPR Services 'mynkod-ctumyndig' ? // Not available in CPR Extracts", ExclusionStatus.UnavailableAtSource),
+                    new PropertyComparisonResult(nameof(dpr.Person.BirthplaceTextUpdateDate), "CPR Services 'foedtxttimestamp' ? // Not available in CPR Extracts", ExclusionStatus.LocalUpdateRelated),
+                    new PropertyComparisonResult(nameof(dpr.Person.JobDate), "CPR Services 'stillingsdato' ? // Not available in CPR Extracts", ExclusionStatus.UnavailableAtSource),
 
-                                        // Review 2.4
-                                        "PnrMarkingDate", // CPR Services: pnrhaenstart // Not available in CPR Extracts
-                                };
+                    // Review 2.4
+                    new PropertyComparisonResult(nameof(dpr.Person.PnrMarkingDate), "CPR Services: pnrhaenstart // Not available in CPR Extracts", ExclusionStatus.UnavailableAtSource),
+                };
                 return excluded;
             }
         }
@@ -84,13 +102,13 @@ namespace CprBroker.Tests.DBR.Comparison.Person
     [TestFixture]
     public class ChildComparisonTests : PersonComparisonTest<Child>
     {
-        public override string[] ExcludedProperties
+        public override PropertyComparisonResult[] ExcludedPropertiesInformation
         {
             get
             {
-                return new string[] { 
+                return new PropertyComparisonResult[] { 
                     // EXTRA - do not commit
-                    "MotherOrFatherDocumentation", // CPR Service ?
+                    new PropertyComparisonResult("MotherOrFatherDocumentation", "CPR Service ?", ExclusionStatus.UnavailableAtSource),
                 };
             }
         }
@@ -99,26 +117,26 @@ namespace CprBroker.Tests.DBR.Comparison.Person
     [TestFixture]
     public class PersonNameComparisonTests : PersonComparisonTest<PersonName>
     {
-        override public string[] ExcludedProperties
+        override public PropertyComparisonResult[] ExcludedPropertiesInformation
         {
             get
             {
-                string[] excluded = {
-                                        // Review 2.0
-                                        "AddressingNameDate", // CPR Services 'adrnvnhaenstart' ? // Not available in CPR Extracts
-                                        "AddressingNameReportingMarker", // CPR Services 'indrap' ? // Not available in CPR Extracts
-                                        "NameAuthorityCode", // CPR Services 'mynkod' // Not available in CPR Extracts
-                                        // Review 2.3
-                                        "NameAuthorityText", // CPR Services 'myntxt' // Not available in CPR Extracts
-                                        "AuthorityTextUpdateDate" // CPR Services 'myntxttimestamp' // Not available in CPR Extracts
-                                };
+                var excluded = new PropertyComparisonResult[] {
+                    // Review 2.0
+                    new PropertyComparisonResult(nameof(PersonName.AddressingNameDate), "CPR Services 'adrnvnhaenstart' ? // Not available in CPR Extracts", ExclusionStatus.UnavailableAtSource),
+                    new PropertyComparisonResult(nameof(PersonName.AddressingNameReportingMarker), "CPR Services 'indrap' ? // Not available in CPR Extracts", ExclusionStatus.UnavailableAtSource),
+                    new PropertyComparisonResult(nameof(PersonName.NameAuthorityCode), "CPR Services 'mynkod' // Not available in CPR Extracts", ExclusionStatus.UnavailableAtSource),
+                    // Review 2.3
+                    new PropertyComparisonResult(nameof(PersonName.NameAuthorityText), "CPR Services 'myntxt' // Not available in CPR Extracts", ExclusionStatus.UnavailableAtSource),
+                    new PropertyComparisonResult(nameof(PersonName.AuthorityTextUpdateDate), "CPR Services 'myntxttimestamp' // Not available in CPR Extracts", ExclusionStatus.LocalUpdateRelated),
+                };
                 return excluded;
             }
         }
 
         public override string[] GetOrderByColumnNames()
         {
-            return new string[] { 
+            return new string[] {
                 "NVHAENST"
             };
         }
@@ -127,17 +145,17 @@ namespace CprBroker.Tests.DBR.Comparison.Person
     [TestFixture]
     public class CivilStatusComparisonTests : PersonComparisonTest<CivilStatus>
     {
-        override public string[] ExcludedProperties
+        override public PropertyComparisonResult[] ExcludedPropertiesInformation
         {
             get
             {
-                string[] excluded = {
-                                        // Review 2.0
-                                    "MaritalStatusAuthorityCode", // CPR Services 'mynkod' ?
-                                    "SpouseDocumentation", // CPR Services 'aegtedok' ?
-                                    "AuthorityTextUpdateDate", // CPR Services, myntxttimestamp
-                                    "MaritalStatusAuthorityText"// CPR Services, myntxt
-                                };
+                var excluded = new PropertyComparisonResult[]{
+                    // Review 2.0
+                    new PropertyComparisonResult(nameof(CivilStatus.MaritalStatusAuthorityCode), "CPR Services 'mynkod' ?", ExclusionStatus.UnavailableAtSource),
+                    new PropertyComparisonResult(nameof(CivilStatus.SpouseDocumentation), "CPR Services 'aegtedok' ?", ExclusionStatus.UnavailableAtSource),
+                    new PropertyComparisonResult(nameof(CivilStatus.AuthorityTextUpdateDate), "CPR Services, myntxttimestamp", ExclusionStatus.LocalUpdateRelated),
+                    new PropertyComparisonResult(nameof(CivilStatus.MaritalStatusAuthorityText), "CPR Services, myntxt", ExclusionStatus.UnavailableAtSource),
+                };
                 return excluded;
             }
         }
@@ -169,20 +187,25 @@ namespace CprBroker.Tests.DBR.Comparison.Person
                 obj.SeparationReferralTimestamp = NormalizeSeparationTimeStamp(obj.SeparationReferralTimestamp);
             }
         }
+
+        public override string[] GetOrderByColumnNames()
+        {
+            return new string[] { "HAENST DESC" };
+        }
     }
 
     [TestFixture]
     public class SeparationComparisonTests : PersonComparisonTest<Separation>
     {
-        public override string[] ExcludedProperties
+        public override PropertyComparisonResult[] ExcludedPropertiesInformation
         {
             get
             {
-                return new string[] { 
+                return new PropertyComparisonResult[] { 
                     // Review 2.0
                     // Review 2.3
-                    "StartAuthorityCode", // CPR Services 'mynkod_start' // not available in CPR Extracts
-                    "EndAuthorityCode", // CPR Services 'mynkod_slut' // not available in CPR Extracts
+                    new PropertyComparisonResult(nameof(Separation.StartAuthorityCode), "CPR Services 'mynkod_start' // not available in CPR Extracts", ExclusionStatus.UnavailableAtSource),
+                    new PropertyComparisonResult(nameof(Separation.EndAuthorityCode), "CPR Services 'mynkod_slut' // not available in CPR Extracts", ExclusionStatus.UnavailableAtSource),
                 };
             }
         }
@@ -199,13 +222,13 @@ namespace CprBroker.Tests.DBR.Comparison.Person
     [TestFixture]
     public class NationalityComparisonTests : PersonComparisonTest<Nationality>
     {
-        override public string[] ExcludedProperties
+        override public PropertyComparisonResult[] ExcludedPropertiesInformation
         {
             get
             {
-                string[] excluded = {
-                                    // Review 2.0
-                                };
+                var excluded = new PropertyComparisonResult[]{
+                    // Review 2.0
+                };
                 return excluded;
             }
         }
@@ -221,16 +244,17 @@ namespace CprBroker.Tests.DBR.Comparison.Person
                 return true; // Some people have Departure records in real DPR with no matching records in CPR Extracts
             }
         }
-        override public string[] ExcludedProperties
+
+        override public PropertyComparisonResult[] ExcludedPropertiesInformation
         {
             get
             {
-                string[] excluded = {
-                                    // Review 2.0
-                                    "ExitUpdateDate", // CPR Services 'udrtimestamp' ?// The values in this columns are wrong, but not used.
-                                    "ForeignAddressDate", // CPR Services 'udlandadrdto' ?// The values in this columns are wrong, but not used.
-                                    "EntryUpdateDate", // CPR Services 'indrtimestamp' ?
-                                };
+                PropertyComparisonResult[] excluded = {
+                    // Review 2.0
+                    new PropertyComparisonResult(nameof(Departure.ExitUpdateDate), "CPR Services 'udrtimestamp' ?// The values in this columns are wrong, but not used.", ExclusionStatus.LocalUpdateRelated),
+                    new PropertyComparisonResult(nameof(Departure.ForeignAddressDate), "CPR Services 'udlandadrdto' ?// The values in this columns are wrong, but not used.", ExclusionStatus.LocalUpdateRelated),
+                    new PropertyComparisonResult(nameof(Departure.EntryUpdateDate), "CPR Services 'indrtimestamp' ?", ExclusionStatus.LocalUpdateRelated),
+                };
                 return excluded;
             }
         }
@@ -244,13 +268,13 @@ namespace CprBroker.Tests.DBR.Comparison.Person
     [TestFixture]
     public class ContactAddressComparisonTests : PersonComparisonTest<ContactAddress>
     {
-        public override string[] ExcludedProperties
+        public override PropertyComparisonResult[] ExcludedPropertiesInformation
         {
             get
             {
-                return new string[]{
+                return new PropertyComparisonResult[]{
                     // Review 2.0
-                    "MunicipalityCode", // FROM CPR services or maybe other records
+                    new PropertyComparisonResult(nameof(ContactAddress.MunicipalityCode), "FROM CPR services or maybe other records", ExclusionStatus.UnavailableAtSource),
                 };
             }
         }
@@ -259,27 +283,27 @@ namespace CprBroker.Tests.DBR.Comparison.Person
     [TestFixture]
     public class PersonAddressComparisonTests : PersonComparisonTest<PersonAddress>
     {
-        override public string[] ExcludedProperties
+        override public PropertyComparisonResult[] ExcludedPropertiesInformation
         {
             get
             {
-                string[] excluded = {
-                                        // Review 2.0
-                                        "MunicipalityArrivalDate", // Sometimes it matches start date of previous address, other times matches birthdate
+                PropertyComparisonResult[] excluded = {
+                    // Review 2.0
+                    new PropertyComparisonResult(nameof(PersonAddress.MunicipalityArrivalDate), "Sometimes it matches start date of previous address, other times matches birthdate", ExclusionStatus.InconsistentObservations),
 
-                                        // Review 2.1
-                                        "LeavingFromMunicipalityCode", // Some records gets this value from address records that have a correction marker - unreliable source
-                                        "LeavingFromMunicipalityDate", // Some records have no previous address but have a value equal to MunicipalityArrivalDate, which seems inconsistent
-                                        "Location", // Not available in CPR extracts for historical addresses 
+                    // Review 2.1
+                    new PropertyComparisonResult(nameof(PersonAddress.LeavingFromMunicipalityCode), "Some records gets this value from address records that have a correction marker - unreliable source", ExclusionStatus.InconsistentObservations),
+                    new PropertyComparisonResult(nameof(PersonAddress.LeavingFromMunicipalityDate), "Some records have no previous address but have a value equal to MunicipalityArrivalDate, which seems inconsistent", ExclusionStatus.InconsistentObservations),
+                    new PropertyComparisonResult(nameof(PersonAddress.Location), "Not available in CPR extracts for historical addresses", ExclusionStatus.MissingInHistoricalRecords),
 
-                                        //Review 2.2
-                                        "AddressStartDateMarker", // Some real DPR records have a value that has no origin in CPR Extracts
+                    //Review 2.2
+                    new PropertyComparisonResult(nameof(PersonAddress.AddressStartDateMarker), "Some real DPR records have a value that has no origin in CPR Extracts", ExclusionStatus.InconsistentObservations),
 
-                                        // Review 2.4
-                                        "MunicipalityName", // Many real DPR invalid addresses have either a null or a value here - no rule was concluded
-                                        "StreetAddressingName", // Many real DPR invalid addresses have either a null or a value here - no rule was concluded
+                    // Review 2.4
+                    new PropertyComparisonResult(nameof(PersonAddress.MunicipalityName), "Many real DPR invalid addresses have either a null or a value here - no rule was concluded", ExclusionStatus.InconsistentObservations),
+                    new PropertyComparisonResult(nameof(PersonAddress.StreetAddressingName), "Many real DPR invalid addresses have either a null or a value here - no rule was concluded", ExclusionStatus.InconsistentObservations),
 
-                                };
+                };
                 return excluded;
             }
         }
@@ -311,8 +335,8 @@ namespace CprBroker.Tests.DBR.Comparison.Person
 
         public override string[] GetOrderByColumnNames()
         {
-            return new string[] { 
-                "TILFDTO" // Address StartDate
+            return new string[] {
+                "TILFDTO DESC" // Address StartDate
             };
         }
 
@@ -321,13 +345,13 @@ namespace CprBroker.Tests.DBR.Comparison.Person
     [TestFixture]
     public class ProtectionComparisonTests : PersonComparisonTest<Protection>
     {
-        public override string[] ExcludedProperties
+        public override PropertyComparisonResult[] ExcludedPropertiesInformation
         {
             get
             {
                 return new[]{
                     // Review 2.0
-                    "ReportingMarker", // CPR Services 'indrap' ?
+                    new PropertyComparisonResult(nameof(Protection.ReportingMarker), "CPR Services 'indrap' ?", ExclusionStatus.UnavailableAtSource),
                 };
             }
         }
@@ -348,14 +372,22 @@ namespace CprBroker.Tests.DBR.Comparison.Person
     [TestFixture]
     public class NoteComparisonTests : PersonComparisonTest<Note>
     {
-        public override string[] ExcludedProperties
+        public override PropertyComparisonResult[] ExcludedPropertiesInformation
         {
             get
             {
-                return new string[]{
+                return new PropertyComparisonResult[]{
                     // Review 2.0
-                    "MunicipalityCode" // CPR Services 'komkod'
+                    new PropertyComparisonResult(nameof(Note.MunicipalityCode), "CPR Services 'komkod'", ExclusionStatus.UnavailableAtSource),
                 };
+            }
+        }
+
+        public override bool IgnoreCount
+        {
+            get
+            {
+                return true;
             }
         }
     }
@@ -378,13 +410,13 @@ namespace CprBroker.Tests.DBR.Comparison.Person
     [TestFixture]
     public class ParentalAuthorityComparisonTests : PersonComparisonTest<ParentalAuthority>
     {
-        public override string[] ExcludedProperties
+        public override PropertyComparisonResult[] ExcludedPropertiesInformation
         {
             get
             {
-                return new string[]{
+                return new PropertyComparisonResult[]{
                     // Review 2.0
-                    "CustodyStartAuthorityCode", // Only in CPR Services 'mynkod_start' ?
+                    new PropertyComparisonResult(nameof(ParentalAuthority.CustodyStartAuthorityCode), "Only in CPR Services 'mynkod_start' ?", ExclusionStatus.UnavailableAtSource),
                 };
             }
         }
@@ -393,7 +425,16 @@ namespace CprBroker.Tests.DBR.Comparison.Person
     [TestFixture]
     public class GuardianAndParentalAuthorityRelationComparisonTests : PersonComparisonTest<GuardianAndParentalAuthorityRelation>
     {
-        // Review 2.0
+        public override PropertyComparisonResult[] ExcludedPropertiesInformation
+        {
+            get
+            {
+                return new PropertyComparisonResult[] {
+                    // Review Oct 2016
+                    new PropertyComparisonResult(nameof(GuardianAndParentalAuthorityRelation.AuthorityCode),"", ExclusionStatus.UnavailableAtSource),
+                };
+            }
+        }
     }
 
     [TestFixture]

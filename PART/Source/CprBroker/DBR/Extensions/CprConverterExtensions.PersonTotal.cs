@@ -280,6 +280,10 @@ namespace CprBroker.DBR.Extensions
                 pt.Occupation = null;
             pt.NationalityRight = Authority.GetAuthorityNameByCode(resp.CurrentCitizenship.CountryCode.ToString());
 
+
+            pt.PreviousMunicipalityName = Authority.GetAuthorityNameByCode(
+                string.Format("{0}", resp.CurrentAddressInformation?.LeavingMunicipalityCode));
+
             var previousAddresses = resp.HistoricalAddress
                 .Where(e => (e as CprBroker.Schemas.Part.IHasCorrectionMarker).CorrectionMarker == CprBroker.Schemas.Part.CorrectionMarker.OK)
                 .OrderByDescending(e => e.RelocationDate);
@@ -296,16 +300,6 @@ namespace CprBroker.DBR.Extensions
                 {
                     pt.CurrentMunicipalityName = Authority.GetAuthorityNameByCode(prevAddress.MunicipalityCode.ToString());
                 }
-
-                pt.PreviousMunicipalityName = Authority.GetAuthorityNameByCode(prevAddress.MunicipalityCode.ToString());
-                /*
-                 * // Another algorithm
-                var previousMunicipalityAddress = previousAddresses.Where(e => e.MunicipalityCode != resp.ClearWrittenAddress.MunicipalityCode).FirstOrDefault();
-                if (previousMunicipalityAddress != null)
-                {
-                    pt.PreviousMunicipalityName = Authority.GetAuthorityNameByCode(previousMunicipalityAddress.MunicipalityCode.ToString());    
-                }
-                */
 
                 if (// If it is a valid address
                     prevAddress.HouseNumber.Trim() != ""

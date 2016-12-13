@@ -102,7 +102,11 @@
   <ItemGroup>
     <Compile Include="ClassicRequestTypeTestsBase.cs" />
     <Compile Include="ClassicRequestTypeTests.Process.cs" />
+    <Compile Include="ComparisonResults\IComparisonType.cs" />
+    <Compile Include="ComparisonResults\PropertyComparisonResult.cs" />
+    <Compile Include="ComparisonResults\TypeComparisonResult.cs" />
     <Compile Include="Comparison\ComparisonTest.cs" />
+    <Compile Include="Comparison\_PersonConversion.cs" />
     <Compile Include="DiversionComparison\ClassicRequestTypeStub.cs" />
     <Compile Include="DiversionComparison\DiversionComparisonTest.cs" />
     <Compile Include="Comparison\GeoLookupComparisonTest.Concrete.cs" />
@@ -117,7 +121,7 @@
     <Compile Include="DiversionComparison\NewRequestTypeStub.cs" />
     <Compile Include="DprDiversionManagerTests.cs" />
     <Compile Include="DprDiversionServerTests.cs" />
-    <Compile Include="DprDiversionTcpTests.cs" />
+    <Compile Include="DprDiversionServerTests.Tcp.cs" />
     <Compile Include="Objects\DiversionResquestTests.cs" />
     <Compile Include="PerPerson\CprConverterExtensionTests_GoesIntoDatabase.cs" />
     <Compile Include="PerPerson\CprConverterTests.cs" />
@@ -135,7 +139,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="ReportGenerator.cs" />
+    <Compile Include="ComparisonResults\ReportGenerator.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CPRDirect.Tests\CPRDirect.Tests.csproj">

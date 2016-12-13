@@ -8,6 +8,7 @@ using CprBroker.Providers.CPRDirect;
 using System.Reflection;
 using CprBroker.DBR;
 using CprBroker.Utilities;
+using System.IO;
 
 namespace CprBroker.Tests.DBR.Comparison.Person
 {
@@ -35,16 +36,21 @@ namespace CprBroker.Tests.DBR.Comparison.Person
                 }
                 else
                 {
-                    Random r = new Random();
+                    var r = new Random();
+                    if (!Directory.Exists("c:\\logs\\"))
+                        Directory.CreateDirectory("c:\\logs\\");
                     using (var w = new System.IO.StreamWriter(string.Format("c:\\logs\\Compare-{0}-{1}-{2}.log", GetType().Name, DateTime.Now.ToString("yyyyMMdd HHmmss"), r.Next())))
                     {
                         w.AutoFlush = true;
 
-                        var excludedPnrs0 = System.IO.File.ReadAllLines("ExcludedPNR.txt")
+                        var excludedPnrs0 = File.Exists("ExcludedPNR.txt") ?
+                            System.IO.File.ReadAllLines("ExcludedPNR.txt")
                             .Select(l => l.Trim())
                             .Where(l => l.Length > 0 && !l.StartsWith("#"))
                             .Select(l => decimal.Parse(l))
-                            .ToArray();
+                            .ToArray()
+                            :
+                            new decimal[] { };
 
                         var excludedPnrs1 = new decimal[] { };
                         var excludedPnrs2 = new decimal[] { };
@@ -88,26 +94,6 @@ namespace CprBroker.Tests.DBR.Comparison.Person
             return KeysHolder._Keys;
         }
 
-        public override void ConvertObject(string pnr)
-        {
-            using (var fakeDprDataContext = new DPRDataContext(Properties.Settings.Default.ImitatedDprConnectionString))
-            {
-                DatabaseLoadCache.Root.Reset(fakeDprDataContext);
-
-                CprConverter.DeletePersonRecords(pnr, fakeDprDataContext);
-                fakeDprDataContext.SubmitChanges();
-            }
-            using (var fakeDprDataContext = new DPRDataContext(Properties.Settings.Default.ImitatedDprConnectionString))
-            {
-                var person = ExtractManager.GetPerson(pnr);
-                CprConverter.AppendPerson(person, fakeDprDataContext);
-                fakeDprDataContext.SubmitChanges();
-            }
-            KeysHolder._ConvertedPersons[pnr] = true;
-
-
-        }
-
         public override IQueryable<TObject> Get(DPRDataContext dataContext, string key)
         {
             var tableName = Utilities.DataLinq.GetTableName<TObject>();
@@ -138,23 +124,21 @@ namespace CprBroker.Tests.DBR.Comparison.Person
             return new DPRDataContext(connectionString);
         }
 
+        public override bool IsActiveRecord(string key, DPRDataContext fakeDprDataContext)
+        {
+            var tableName = DataLinq.GetTableName<PersonTotal7>();
+            var cacheKey = string.Format("{0}.{1}", tableName, key);
+            var status = DatabaseLoadCache.Root.GetOrLoad<DPRDataContext, PersonTotal7>(
+                fakeDprDataContext,
+                cacheKey,
+                dc => fakeDprDataContext.Fill<PersonTotal7>(
+                        string.Format("select * from {0} WHERE PNR={1}", tableName, key))
+                        .AsQueryable()
+            ).Single().Status;
+
+            var ignoredStates = new decimal[] { 20, 70, 80, 90};
+            return !ignoredStates.Contains(status);
+        }
     }
 
-
-    [TestFixture]
-    public class _PersonConversion : PersonComparisonTest<object>
-    {
-        [Test]
-        [TestCaseSource("LoadKeys")]
-        public void T0_Convert(string key)
-        {
-            ConvertObject(key);
-        }
-
-        public override IQueryable<object> Get(DPRDataContext dataContext, string key)
-        {
-            return new object[] { }.AsQueryable();
-        }
-
-    }
 }

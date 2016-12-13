@@ -113,7 +113,7 @@ namespace CprBroker.DBR
         {
             dataContext.PersonTotal7s.InsertOnSubmit(person.ToPersonTotal(dataContext, dataRetrievalType, updatingProgram));
 
-            dataContext.Persons.InsertOnSubmit(person.ToPerson());
+            dataContext.Persons.InsertOnSubmit(person.ToPerson(dataContext));
 
             dataContext.Childs.InsertAllOnSubmit(person.Child.Select(c => c.ToDpr()));
 
@@ -177,12 +177,15 @@ namespace CprBroker.DBR
             dataContext.MunicipalConditions.InsertAllOnSubmit(person.MunicipalConditions.Select(c => c.ToDpr()));
 
             dataContext.ParentalAuthorities.InsertAllOnSubmit(person.ParentalAuthority.Select(p => p.ToDpr()));
-            dataContext.Relations.InsertAllOnSubmit(person.ParentalAuthority.Select(pa => pa.ToDprRelation()).Where(r => r != null));
+            dataContext.GuardianAndParentalAuthorityRelations.InsertAllOnSubmit(
+                person.ParentalAuthority
+                .Select(p => p.ToDpr_RelPnrPnr())
+                .Where(p => p != null));
 
             if (person.Disempowerment != null)
             {
                 // TODO: Shall we also create records from ParentalAuthorityType??            
-                var gpar = person.Disempowerment.ToDpr();
+                var gpar = person.Disempowerment.ToDpr_RelPnrPnr();
                 if (gpar != null)
                     dataContext.GuardianAndParentalAuthorityRelations.InsertOnSubmit(gpar);
 

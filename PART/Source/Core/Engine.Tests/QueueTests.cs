@@ -7,6 +7,7 @@ using CprBroker.Engine.Queues;
 using CprBroker.Data.Queues;
 
 using NUnit.Framework;
+using CprBroker.Engine;
 
 namespace CprBroker.Tests.Data
 {
@@ -53,6 +54,8 @@ namespace CprBroker.Tests.Data
             [SetUp]
             public void CreateQueue()
             {
+                BrokerContext.Current = null;
+                BrokerContext.Initialize(CprBroker.Utilities.Constants.BaseApplicationToken.ToString(), "");
                 using (var dataContext = new QueueDataContext())
                 {
                     var dbQueue = new DbQueue() { QueueId = Guid.NewGuid(), BatchSize = 10, MaxRetry = 1, TypeName = "shdklahsfdkh" };
