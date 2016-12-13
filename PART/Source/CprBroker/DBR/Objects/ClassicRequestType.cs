@@ -86,7 +86,7 @@ namespace CprBroker.DBR
                 ErrorNumber = response.ErrorNumber,
                 PNR = this.PNR,
                 Data = response.ErrorNumber.Equals("00") ?
-                    LargeData == DetailType.ExtendedData ? "Basen er opdateret" : new ClassicResponseBasicDataType(response.Data as NewResponseBasicDataType).Contents.Substring(10)
+                    LargeData == DetailType.ExtendedData ? " Basen er opdateret" : new ClassicResponseBasicDataType(response.Data as NewResponseBasicDataType).Contents.Substring(10)
                     : (response.Data as NewResponseNoDataType).OkOrError
             };
         }
