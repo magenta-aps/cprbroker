@@ -272,7 +272,7 @@ namespace CprBroker.EventBroker.Data
             }
         }
 
-        public static void RemovePersonFromAllSubscriptions(Guid personUuid)
+        public static void RemovePersonFromAllSubscriptionsAndEvents(Guid personUuid)
         {
             using (var dataContext = new EventBrokerDataContext())
             {

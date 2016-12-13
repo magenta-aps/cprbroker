@@ -64,7 +64,7 @@ namespace CprBroker.PartInterface.Tracking
         public async Task<bool> DeletePersonFromSubscriptions(BrokerContext brokerContext, PersonIdentifier personIdentifier)
         {
             BrokerContext.Current = brokerContext;
-            EventBroker.Data.Subscription.RemovePersonFromAllSubscriptions(personIdentifier.UUID.Value);
+            EventBroker.Data.Subscription.RemovePersonFromAllSubscriptionsAndEvents(personIdentifier.UUID.Value);
             return true;
         }
     }
