@@ -276,17 +276,38 @@ namespace CprBroker.EventBroker.Data
         {
             using (var dataContext = new EventBrokerDataContext())
             {
+                // Subscription persons
                 var subscriptionPersonsToDelete = dataContext.SubscriptionPersons
                     .Where(sp => sp.PersonUuid == personUuid);
                 dataContext.SubscriptionPersons.DeleteAllOnSubmit(subscriptionPersonsToDelete);
 
-                /*var dataChangeEventsToDelete = dataContext.DataChangeEvents
-                    .Where(dce => dce.PersonUuid == personUuid);
-                dataContext.DataChangeEvents.DeleteAllOnSubmit(dataChangeEventsToDelete);*/
-
+                // Person birthdates
                 var personBirthdatesToRemove = dataContext.PersonBirthdates
                     .Where(pbd => pbd.PersonUuid == personUuid);
                 dataContext.PersonBirthdates.DeleteAllOnSubmit(personBirthdatesToRemove);
+
+                /* 
+                    Remove events that have not been sent yet
+                    There is a small probability of missing some rows here, if the system 
+                    is currently processing changes or events for this particular person
+                */
+                // DataChangeEvent
+                var dataChangeEventsToDelete = dataContext.DataChangeEvents
+                    .Where(dce => dce.PersonUuid == personUuid);
+                dataContext.DataChangeEvents.DeleteAllOnSubmit(dataChangeEventsToDelete);
+
+                // EventNotifications that have not been sent yet
+                var eventNotificationsToDelete = dataContext.EventNotifications
+                    .Where(ev =>
+                        ev.PersonUuid == personUuid
+                        && ev.Succeeded == null // only those that were not attempted yet
+                    );
+                dataContext.EventNotifications.DeleteAllOnSubmit(eventNotificationsToDelete);
+
+                var eventNotificationIds = eventNotificationsToDelete.Select(en => en.EventNotificationId);
+                var birthdateEventNotificationsToDelete = dataContext.BirthdateEventNotifications
+                    .Where(ben => eventNotificationIds.Contains(ben.EventNotificationId));
+                dataContext.BirthdateEventNotifications.DeleteAllOnSubmit(birthdateEventNotificationsToDelete);
 
                 dataContext.SubmitChanges();
             }
