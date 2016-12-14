@@ -75,7 +75,7 @@ namespace CprBroker.PartInterface.Tracking
                 cleanupQueue.Enqueue(queueItems);
                 startIndex += BatchSize;
 
-            } while (foundUuids.Length < BatchSize);
+            } while (foundUuids.Length > 0 && foundUuids.Length < BatchSize);
         }
 
     }
