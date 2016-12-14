@@ -94,6 +94,13 @@
         <File Id="FILE_CPR_bin_Dbr_DLL" Source="$(var.SitePath)bin\CprBroker.Dbr.dll" KeyPath="yes"/>
       </Component>
 
+      <Component Id="CMP_PartInterface.Tracking.Dll" Directory="CPR_bin">
+        <File Id="FILE_PartInterface.Tracking.dll" Source="$(var.OutputPath)CprBroker.PartInterface.Tracking.dll" KeyPath="yes">
+          <CopyFile Id="copy_EVENT_bin_PartInterface.Tracking.dll" DestinationDirectory="EVENT_bin"/>
+          <CopyFile Id="copy_EVENT_bin_Backend_PartInterface.Tracking.dll" DestinationDirectory="EVENT_Backend"/>
+        </File>
+      </Component>
+
       <Component Id="CMP_CPR_EntLib_Common_Dll" Directory="CPR_bin">
         <File Id="FILE_CPR_bin_EntLib_Common_DLL" Source="$(var.SitePath)bin\Microsoft.Practices.EnterpriseLibrary.Common.dll" KeyPath="yes"/>
       </Component>

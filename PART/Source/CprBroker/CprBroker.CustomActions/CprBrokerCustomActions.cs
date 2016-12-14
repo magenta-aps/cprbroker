@@ -341,7 +341,7 @@ namespace CprBroker.CustomActions
                         PatchAction = null
                     },
                     new DatabasePatchInfo(){
-                        Version = new Version(2,2,8),
+                        Version = new Version(2,2,10),
                         SqlScript = string.Join(
                             lineSep,
                             new string[]{
