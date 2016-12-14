@@ -85,7 +85,10 @@
         <File Id="FILE_CPR_bin_Local_DLL" Source="$(var.SitePath)bin\CprBroker.Providers.Local.dll" KeyPath="yes"/>
       </Component>
       <Component Id="CMP_CPR_LocalSearch_Dll" Directory="CPR_bin">
-        <File Id="FILE_CPR_bin_LocalSearch_DLL" Source="$(var.SitePath)bin\CprBroker.Providers.Local.Search.dll" KeyPath="yes"/>
+        <File Id="FILE_CPR_bin_LocalSearch_DLL" Source="$(var.SitePath)bin\CprBroker.Providers.Local.Search.dll" KeyPath="yes">
+          <CopyFile Id="copy_EVENT_bin_LocalSearch.dll" DestinationDirectory="EVENT_bin"/>
+          <CopyFile Id="copy_EVENT_bin_Backend_LocalSearch.dll" DestinationDirectory="EVENT_Backend"/>
+        </File>
       </Component>
       <Component Id="CMP_CPR_PersonMaster_Dll" Directory="CPR_bin">
         <File Id="FILE_CPR_bin_PersonMaster_DLL" Source="$(var.SitePath)bin\CprBroker.Providers.PersonMaster.dll" KeyPath="yes"/>
