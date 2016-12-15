@@ -43,7 +43,7 @@ namespace CprBroker.PartInterface.Tracking
             try
             {
                 // Establish a person based critical section
-                personMutex = new Mutex(false, queueItem.PersonUuid.ToString().ToUpper());
+                personMutex = new Mutex(false, Utilities.Strings.GuidToString(queueItem.PersonUuid));
                 personMutex.WaitOne();
 
                 // Now the person is locked, all possible usage has been recorded                
