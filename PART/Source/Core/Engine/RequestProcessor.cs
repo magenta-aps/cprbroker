@@ -172,14 +172,14 @@ namespace CprBroker.Engine
                     var subMethodRunState = subMethodRunStates[(int)o];
 
                     Mutex mutex = null;
-                    if (!string.IsNullOrEmpty(subMethodRunState.SubMethodInfo.LockKey))
-                    {
-                        mutex = new Mutex(false, subMethodRunState.SubMethodInfo.LockKey);
-                        mutex.WaitOne();
-                    }
-
+                    
                     try
                     {
+                        if (!string.IsNullOrEmpty(subMethodRunState.SubMethodInfo.LockKey))
+                        {
+                            mutex = new Mutex(false, subMethodRunState.SubMethodInfo.LockKey);
+                            mutex.WaitOne();
+                        }
                         // Loop over clearData providers until one succeeds
                         foreach (IDataProvider prov in subMethodRunState.DataProviders)
                         {
