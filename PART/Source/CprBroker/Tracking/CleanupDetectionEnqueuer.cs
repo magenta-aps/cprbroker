@@ -54,6 +54,9 @@ namespace CprBroker.PartInterface.Tracking
             var minimumUsageDate = maximumUsageDate - SettingsUtilities.MaxInactivePeriod;
             var cleanupQueue = Queue.GetQueues<CleanupQueue>().First();
 
+            // Create a semaphore to block queue processing until all person UUID's have been enumerated
+            var thisSemaphore = Semaphore.Create();
+
             do
             {
                 var prov = new TrackingDataProvider();
@@ -72,10 +75,13 @@ namespace CprBroker.PartInterface.Tracking
                         string.Join(",", foundUuids.Select(id => id.UUID))
                         );
 
-                cleanupQueue.Enqueue(queueItems);
+                cleanupQueue.Enqueue(queueItems, thisSemaphore);
                 startIndex += BatchSize;
 
-            } while (foundUuids.Length > 0 && foundUuids.Length < BatchSize);
+            } while (foundUuids.Length == BatchSize);
+
+            // Now signal the semaphore
+            thisSemaphore.Signal();
         }
 
     }
