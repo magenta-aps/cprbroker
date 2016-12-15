@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using CprBroker.Data.Queues;
 using CprBroker.Engine.Local;
+using System.Threading;
 
 namespace CprBroker.Providers.CPRDirect
 {
@@ -33,9 +34,15 @@ namespace CprBroker.Providers.CPRDirect
 
                 foreach (var person in items)
                 {
+                    Mutex personMutex = null;
                     try
                     {
                         var uuid = cache.GetUuid(person.PNR);
+                        
+                        // Establish a person based critical section
+                        personMutex = new Mutex(false, CprBroker.Utilities.Strings.GuidToString(uuid));
+                        personMutex.WaitOne();
+
                         var response = Extract.ToIndividualResponseType(person.Extract, person.ExtractItems.AsQueryable(), Constants.DataObjectMap);
                         var oioPerson = response.ToRegistreringType1(cache.GetUuid);
                         var personIdentifier = new Schemas.PersonIdentifier() { CprNumber = person.PNR, UUID = uuid };
@@ -46,6 +53,12 @@ namespace CprBroker.Providers.CPRDirect
                     catch (Exception ex)
                     {
                         Admin.LogException(ex);
+                    }
+                    finally
+                    {
+                        // Release the lock
+                        if (personMutex != null)
+                            personMutex.ReleaseMutex();
                     }
                 }
             }

@@ -49,6 +49,7 @@ using CprBroker.Engine.Part;
 using CprBroker.Utilities;
 using CprBroker.Engine.Local;
 using CprBroker.Data.Part;
+using System.Threading;
 
 namespace CprBroker.Providers.DPR.Queues
 {
@@ -80,8 +81,15 @@ namespace CprBroker.Providers.DPR.Queues
                         {
                             foreach (var item in group.ToArray())
                             {
+                                Mutex personMutex = null;
                                 try // item level
                                 {
+                                    var uuid = cache.GetUuid(item.Pnr.ToPnrDecimalString());
+
+                                    // Establish a person based critical section
+                                    personMutex = new Mutex(false, CprBroker.Utilities.Strings.GuidToString(uuid));
+                                    personMutex.WaitOne();
+
                                     if (PersonExists(item.Pnr))
                                     {
                                         var info = PersonInfo.GetPersonInfo(dprDataContext, item.Pnr);
@@ -91,7 +99,7 @@ namespace CprBroker.Providers.DPR.Queues
                                             var pId = new CprBroker.Schemas.PersonIdentifier()
                                             {
                                                 CprNumber = item.Pnr.ToPnrDecimalString(),
-                                                UUID = cache.GetUuid(item.Pnr.ToPnrDecimalString())
+                                                UUID = uuid
                                             };
                                             CprBroker.Engine.Local.UpdateDatabase.UpdatePersonRegistration(pId, oioReg);
                                             ret.Add(item);
@@ -107,6 +115,12 @@ namespace CprBroker.Providers.DPR.Queues
                                 catch (Exception ex)
                                 {
                                     Admin.LogException(ex);
+                                }
+                                finally
+                                {
+                                    // Release the lock
+                                    if (personMutex != null)
+                                        personMutex.ReleaseMutex();
                                 }
                             }
                         }
