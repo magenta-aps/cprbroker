@@ -123,6 +123,7 @@
     <Compile Include="DprDiversionServerTests.cs" />
     <Compile Include="DprDiversionServerTests.Tcp.cs" />
     <Compile Include="Objects\DiversionResquestTests.cs" />
+    <Compile Include="PerPerson\CprConverterExtensionTests.InvividualResponse.cs" />
     <Compile Include="PerPerson\CprConverterExtensionTests_GoesIntoDatabase.cs" />
     <Compile Include="PerPerson\CprConverterTests.cs" />
     <Compile Include="PerPerson\PersonBaseTest.cs" />

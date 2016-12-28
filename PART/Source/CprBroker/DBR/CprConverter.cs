@@ -111,7 +111,9 @@ namespace CprBroker.DBR
 
         public static void AppendPerson(IndividualResponseType person, DPRDataContext dataContext, char dataRetrievalType = CprBroker.Providers.DPR.DataRetrievalTypes.Extract, char? updatingProgram = null)
         {
-            person = person.ToChangedPnrAdjustedIndividualResponse();
+            person = person
+                .ToChangedPnrAdjustedIndividualResponse()
+                .ToIntervalAdjustedIndividualResponse();
 
             dataContext.PersonTotal7s.InsertOnSubmit(person.ToPersonTotal(dataContext, dataRetrievalType, updatingProgram));
 

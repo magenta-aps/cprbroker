@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CprBroker.Schemas.Part;
 
 namespace CprBroker.DBR.Extensions
 {
@@ -35,6 +36,24 @@ namespace CprBroker.DBR.Extensions
                 // This one stays the same
                 //ret.HistoricalPNR.Clear();
             }
+            return ret;
+        }
+
+        public static IndividualResponseType ToIntervalAdjustedIndividualResponse(this IndividualResponseType person)
+        {
+            var wrappers = person.GetChildrenAsType<Wrapper>();
+            var ret = new IndividualResponseType();
+            ret.FillPropertiesFromWrappers(wrappers);
+
+            if (ret.ClearWrittenAddress.IsEmpty == false)
+            {
+                var currentAddressDate = ret.CurrentAddressInformation.RelocationDate.Value;
+                if (ret.HistoricalAddress.Exists(ha => ha.IsOk() && ha.RelocationDate.Value == currentAddressDate))
+                {
+                    ret.ClearWrittenAddress.MakeEmpty();
+                }
+            }
+
             return ret;
         }
     }
