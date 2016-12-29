@@ -38,23 +38,5 @@ namespace CprBroker.DBR.Extensions
             }
             return ret;
         }
-
-        public static IndividualResponseType ToIntervalAdjustedIndividualResponse(this IndividualResponseType person)
-        {
-            var wrappers = person.GetChildrenAsType<Wrapper>();
-            var ret = new IndividualResponseType();
-            ret.FillPropertiesFromWrappers(wrappers);
-
-            if (ret.ClearWrittenAddress.IsEmpty == false)
-            {
-                var currentAddressDate = ret.CurrentAddressInformation.RelocationDate.Value;
-                if (ret.HistoricalAddress.Exists(ha => ha.IsOk() && ha.RelocationDate.Value == currentAddressDate))
-                {
-                    ret.ClearWrittenAddress.MakeEmpty();
-                }
-            }
-
-            return ret;
-        }
     }
 }
