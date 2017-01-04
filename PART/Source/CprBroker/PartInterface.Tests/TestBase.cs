@@ -96,6 +96,8 @@ namespace CprBroker.Tests.PartInterface
                 CprBroker.Installers.EventBrokerInstallers.Properties.ResourcesExtensions.AllEventBrokerDatabaseObjectsSql,
                 CprBroker.Installers.EventBrokerInstallers.Properties.ResourcesExtensions.Lookups);
 
+
+            CprBroker.Config.Properties.Settings.Default.Reload();
             ConfigManager.Current.Settings["CprBrokerConnectionString"] = CprDatabase.ConnectionString;
             ConfigManager.Current.Settings["EventBrokerConnectionString"] = EventDatabase.ConnectionString;
             ConfigManager.Current.Commit();
