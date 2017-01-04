@@ -107,9 +107,15 @@ namespace CprBroker.Providers.DPR.Queues
                                     }
                                     else
                                     {
-                                        // We consider this as a failure, so that the update can be attempted at a later point in time
                                         // Log the decision
                                         CprBroker.Engine.Local.Admin.LogFormattedSuccess("{0}:{1} skipping irrelevant person <{2}>", this.GetType().Name, prov.ToString(), item.Pnr.ToPnrDecimalString());
+
+                                        // We consider this as a failure, so that the update can be attempted at a later point in time, up to Max retry
+                                        if (item.Impl.AttemptCount + 1 >= this.Impl.MaxRetry)
+                                        {
+                                            // We are now sure that the person has been attempted several times and still not in the database, remove from the queue
+                                            ret.Add(item);
+                                        }
                                     }
                                 }
                                 catch (Exception ex)
