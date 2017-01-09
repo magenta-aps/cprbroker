@@ -15,17 +15,34 @@ namespace CprBroker.Tests.DBR
     namespace DprDiversionServerTests
     {
         [TestFixture]
-        public class ProcessMessage: TestBase
+        public class ProcessMessage : TestBase
         {
             class DprDiversionServerStub : DprDiversionServer
             {
+                private DprDiversionServerStub()
+                { }
+
+                public DprDiversionServerStub(string connectionString)
+                {
+                    _ConnectionString = connectionString;
+                }
+
+                private string _ConnectionString;
+
                 public override string ConnectionString
                 {
                     get
                     {
-                        return Properties.Settings.Default.ImitatedDprConnectionString;
+                        return _ConnectionString;
                     }
                 }
+            }
+
+            public DatabaseInfo DbrDatabase;
+            public override void CreateDatabases()
+            {
+                base.CreateDatabases();
+                DbrDatabase = CreateDatabase("DBR_", Properties.Resources.CreateDbr, new KeyValuePair<string, string>[] { });
             }
 
             [SetUp]
@@ -38,7 +55,7 @@ namespace CprBroker.Tests.DBR
             [Test]
             public void ProcessMessage_Empty_99xxxx()
             {
-                var server = new DprDiversionServerStub();
+                var server = new DprDiversionServerStub(DbrDatabase.ConnectionString);
                 var msg = new byte[0];
                 var ret = server.ProcessMessage(msg);
                 var retString = CprBroker.Providers.DPR.Constants.DiversionEncoding.GetString(ret);
@@ -48,7 +65,7 @@ namespace CprBroker.Tests.DBR
             [Test]
             public void ProcessMessage_Invalid_Empty()
             {
-                var server = new DprDiversionServerStub();
+                var server = new DprDiversionServerStub(DbrDatabase.ConnectionString);
                 var msg = new byte[6823];
                 var ret = server.ProcessMessage(msg);
                 Assert.IsEmpty(ret);
@@ -58,7 +75,7 @@ namespace CprBroker.Tests.DBR
             [TestCaseSource(typeof(ClassicRequestTypeTests.ClassicRequestTypeTestsBase), "PNRs")]
             public void ProcessMessage_Valid_NotEmpty(string pnr)
             {
-                var server = new DprDiversionServerStub();
+                var server = new DprDiversionServerStub(DbrDatabase.ConnectionString);
                 var msg = Encoding.ASCII.GetBytes("11" + pnr);
                 var ret = server.ProcessMessage(msg);
                 Assert.IsNotEmpty(ret);
@@ -68,7 +85,7 @@ namespace CprBroker.Tests.DBR
             [TestCaseSource(typeof(ClassicRequestTypeTests.ClassicRequestTypeTestsBase), "PNRs")]
             public void ProcessMessage_Valid_OK(string pnr)
             {
-                var server = new DprDiversionServerStub();
+                var server = new DprDiversionServerStub(DbrDatabase.ConnectionString);
                 var msg = Encoding.ASCII.GetBytes("11" + pnr);
                 var ret = server.ProcessMessage(msg);
                 var strRet = Encoding.ASCII.GetString(ret);

@@ -6,7 +6,7 @@
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{FF2FFCD5-6091-4B10-8FD9-C737BD45C86B}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>CprBroker.Tests.DBR</RootNamespace>
     <AssemblyName>CprBroker.Tests.DBR</AssemblyName>
@@ -102,23 +102,7 @@
   <ItemGroup>
     <Compile Include="ClassicRequestTypeTestsBase.cs" />
     <Compile Include="ClassicRequestTypeTests.Process.cs" />
-    <Compile Include="ComparisonResults\IComparisonType.cs" />
-    <Compile Include="ComparisonResults\PropertyComparisonResult.cs" />
-    <Compile Include="ComparisonResults\TypeComparisonResult.cs" />
-    <Compile Include="Comparison\ComparisonTest.cs" />
-    <Compile Include="Comparison\_PersonConversion.cs" />
-    <Compile Include="DiversionComparison\ClassicRequestTypeStub.cs" />
-    <Compile Include="DiversionComparison\DiversionComparisonTest.cs" />
-    <Compile Include="Comparison\GeoLookupComparisonTest.Concrete.cs" />
-    <Compile Include="Comparison\GeoLookupComparisonTest.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Comparison\KeysHolder.cs" />
-    <Compile Include="Comparison\LoadCache.cs" />
-    <Compile Include="Comparison\PersonComparisonTest.Concrete.cs" />
-    <Compile Include="Comparison\PersonComparisonTest.cs" />
     <Compile Include="DbrTestBase.cs" />
-    <Compile Include="DiversionComparison\NewRequestTypeStub.cs" />
     <Compile Include="DprDiversionManagerTests.cs" />
     <Compile Include="DprDiversionServerTests.cs" />
     <Compile Include="DprDiversionServerTests.Tcp.cs" />
@@ -127,7 +111,6 @@
     <Compile Include="PerPerson\CprConverterTests.cs" />
     <Compile Include="PerPerson\PersonBaseTest.cs" />
     <Compile Include="DbrQueueTests.cs" />
-    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -139,7 +122,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="ComparisonResults\ReportGenerator.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CPRDirect.Tests\CPRDirect.Tests.csproj">
@@ -180,6 +162,7 @@
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </None>
     <None Include="Resources\CreateDbr.sql" />
   </ItemGroup>

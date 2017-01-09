@@ -53,6 +53,7 @@ using CprBroker.Providers.DPR;
 using CprBroker.Providers.CPRDirect;
 using CprBroker.Utilities;
 using CprBroker.DBR.Extensions;
+using CprBroker.Schemas.Part;
 
 namespace CprBroker.DBR
 {
@@ -111,6 +112,9 @@ namespace CprBroker.DBR
 
         public static void AppendPerson(IndividualResponseType person, DPRDataContext dataContext, char dataRetrievalType = CprBroker.Providers.DPR.DataRetrievalTypes.Extract, char? updatingProgram = null)
         {
+            person = person
+                .ToChangedPnrAdjustedIndividualResponse();
+
             dataContext.PersonTotal7s.InsertOnSubmit(person.ToPersonTotal(dataContext, dataRetrievalType, updatingProgram));
 
             dataContext.Persons.InsertOnSubmit(person.ToPerson(dataContext));
@@ -159,7 +163,14 @@ namespace CprBroker.DBR
 
             var currentAddress = person.GetFolkeregisterAdresseSource(false) as CurrentAddressWrapper;
             if (currentAddress != null)
-                personAddresses.Add(currentAddress.ToDpr(dataContext, person.PersonInformation));
+            {
+                // Fix for data from CPR Udtræk: Only add the current address if it does not collide with a historical address
+                var currentAddressDate = currentAddress.ToStartTS();
+                bool isRepeatedAddress = currentAddressDate.HasValue
+                    && person.HistoricalAddress.Exists(ha => ha.IsOk() && ha.RelocationDate.Value == currentAddressDate.Value);
+                if (isRepeatedAddress == false)
+                    personAddresses.Add(currentAddress.ToDpr(dataContext, person.PersonInformation));
+            }
 
             CprConverterExtensions.ClearPreviousAddressData(personAddresses.ToArray());
             dataContext.PersonAddresses.InsertAllOnSubmit(personAddresses);

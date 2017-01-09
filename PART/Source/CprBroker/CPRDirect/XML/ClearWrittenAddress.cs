@@ -75,6 +75,18 @@ namespace CprBroker.Providers.CPRDirect
             }
         }
 
+        public void MakeEmpty()
+        {
+            var recordType = this.RecordType;
+            var pnr = this.PNR;
+            var addressingName = this.AddressingName;
+
+            this.Contents = new string(' ', this.Length);
+            this.RecordType = this.RecordType;
+            this.PNR = pnr;
+            this.AddressingName = addressingName;
+        }
+
         public DanskAdresseType ToDanskAdresseType()
         {
             var ret = new DanskAdresseType()

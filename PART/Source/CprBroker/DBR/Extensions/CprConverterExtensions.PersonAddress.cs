@@ -107,8 +107,8 @@ namespace CprBroker.DBR.Extensions
             if (!char.IsWhiteSpace(currentAddress.CurrentAddressInformation.RelocationDateUncertainty))
                 pa.AddressStartDateMarker = currentAddress.CurrentAddressInformation.RelocationDateUncertainty;
 
-            //if (personInformation.Status == 90 && personInformation.StatusStartDate.HasValue)
-            //    pa.AddressEndDate = personInformation.StatusStartDateDecimal;
+            //if (personInformation.Status == 90 /* >= 20*/ && personInformation.StatusStartDate.HasValue)
+            //    pa.AddressEndDate = CprBroker.Utilities.Dates.DateToDecimal(personInformation.StatusStartDate.Value, 12);
             //else
                 pa.AddressEndDate = null; // This is the current date
 

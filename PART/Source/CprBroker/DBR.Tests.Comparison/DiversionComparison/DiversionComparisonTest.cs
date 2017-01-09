@@ -5,7 +5,7 @@ using CprBroker.Schemas.Wrappers;
 using CprBroker.Tests.DBR.ComparisonResults;
 using CprBroker.Tests.DBR.Properties;
 using CprBroker.Utilities;
-using Moq;
+
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;

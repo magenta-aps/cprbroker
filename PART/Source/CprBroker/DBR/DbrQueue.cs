@@ -129,6 +129,7 @@ namespace CprBroker.DBR
 
             using (var cprDataContext = new ExtractDataContext())
             {
+                // TODO: What if extract is from CPR Direkte ?
                 items.LoadExtractAndItems(cprDataContext);
 
                 var itemGroups = new List<Batch>();

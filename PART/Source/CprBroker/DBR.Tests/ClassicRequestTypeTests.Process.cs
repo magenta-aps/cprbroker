@@ -162,7 +162,7 @@ namespace CprBroker.Tests.DBR
             {
                 DatabaseUpdateCalls = 0;
                 var req = CreateRequest(pnr);
-                var resp = req.Process(Properties.Settings.Default.ImitatedDprConnectionString) as ClassicResponseType;
+                var resp = req.Process("") as ClassicResponseType;
                 Assert.AreEqual(1, DatabaseUpdateCalls);
             }
         }
