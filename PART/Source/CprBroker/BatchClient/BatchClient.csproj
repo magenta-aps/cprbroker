@@ -258,6 +258,10 @@
       <Project>{F9D6A4EA-9DB1-4BA7-A5BE-0C183FBABBF8}</Project>
       <Name>CprServices</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DBR.Tests.Comparison\DBR.Tests.Comparison.csproj">
+      <Project>{8155a4be-ac2d-4950-a930-e0062655b60c}</Project>
+      <Name>DBR.Tests.Comparison</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DBR.Tests\DBR.Tests.csproj">
       <Project>{FF2FFCD5-6091-4B10-8FD9-C737BD45C86B}</Project>
       <Name>DBR.Tests</Name>
