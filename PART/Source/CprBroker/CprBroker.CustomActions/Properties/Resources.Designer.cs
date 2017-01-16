@@ -223,6 +223,16 @@ namespace CprBroker.CustomActions.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to IF NOT EXISTS (SELECT * FROM OperationType WHERE OperationTypeId = 11)
+        ///	INSERT INTO OperationType(Name, OperationTypeId) VALUES (&apos;DprDiversion&apos;,11).
+        /// </summary>
+        public static string PatchDatabase_2_2_11 {
+            get {
+                return ResourceManager.GetString("PatchDatabase_2_2_11", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ALTER TABLE DataProviderCall ALTER COLUMN Success bit NULL
         ///
         ////****** Object:  Table [dbo].[BudgetInterval]    Script Date: 11/28/2013 16:33:20 ******/
@@ -306,8 +316,7 @@ namespace CprBroker.CustomActions.Properties {
         ///100;CprBroker.Providers.CPRDirect.ExtractStagingQueue, CprBroker.Providers.CPRDirect;1000;100
         ///101;CprBroker.Providers.CPRDirect.PartConversionQueue, CprBroker.Providers.CPRDirect;100;100
         ///200;CprBroker.Providers.CPRDirect.DbrBaseQueue, CprBroker.Providers.CPRDirect;100;100
-        ///300;CprBroker.Providers.DPR.Queues.DprUpdateQueue, CprBroker.Providers.DPR;100;100
-        ///400;CprBroker.PartInterface.Tracking.CleanupQueue, CprBroker.PartInterface.Tracking;10;1.
+        ///300;CprBroker.Providers.DPR.Queues.DprUpdateQueue, CprBroker.Providers.DPR;100;100.
         /// </summary>
         public static string Queue_Csv {
             get {

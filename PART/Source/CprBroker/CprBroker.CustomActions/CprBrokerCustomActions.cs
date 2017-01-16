@@ -352,6 +352,16 @@ namespace CprBroker.CustomActions
                             }
                         ),
                         PatchAction = conn=> DatabaseCustomAction.InsertLookup<CprBroker.Data.Applications.OperationType>(Data.Properties.Resources.OperationType_Csv, conn)
+                    },
+                    new DatabasePatchInfo(){
+                        Version = new Version(2,2,11),
+                        SqlScript = string.Join(
+                            lineSep,
+                            new string[]{
+                                Properties.Resources.PatchDatabase_2_2_11,
+                            }
+                        ),
+                        PatchAction = conn=> DatabaseCustomAction.InsertLookup<CprBroker.Data.Applications.OperationType>(Data.Properties.Resources.OperationType_Csv, conn)
                     }
                 };
 
