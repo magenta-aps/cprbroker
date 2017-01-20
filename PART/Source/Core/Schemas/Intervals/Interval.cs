@@ -121,7 +121,7 @@ namespace CprBroker.Schemas.Part
                             && dataObject.StartTS.Date == currentInterval.StartDate
                         )
                     );
-
+                
                 if (sameInterval)
                 {
                     currentInterval.Data.Add(dataObject.Object);
@@ -188,10 +188,16 @@ namespace CprBroker.Schemas.Part
                 {
                     var suggestedInterval = new TInterval()
                     {
-                        Data = suggestedData,
+                        Data = null, //suggestedData,
                         StartTS = lastInterval.EndTS,
                         EndTS = suggestedEndDate
                     };
+                    suggestedInterval.Data = dataObjects
+                        .Where(o => 
+                            VirkningType.DateRangeIncludes(o.ToStartTS(), o.ToEndTS(), suggestedInterval.StartTS)
+                            && (o.ToEndTS() == null ||o.ToEndTS().Value > suggestedInterval.StartTS.Value)
+                            )
+                        .ToList();
                     ret.Add(suggestedInterval);
                 }
 
@@ -200,12 +206,12 @@ namespace CprBroker.Schemas.Part
             return ret.ToArray();
         }
 
-        public T GetData<T>() where T : class,ITimedType
+        public T GetData<T>() where T : class, ITimedType
         {
             return Data.Where(d => d is T).FirstOrDefault() as T;
         }
 
-        public T GetData<T>(DataTypeTags tag) where T : class,ITimedType
+        public T GetData<T>(DataTypeTags tag) where T : class, ITimedType
         {
             return Data.Where(d => d is T && d.Tag == tag).FirstOrDefault() as T;
         }

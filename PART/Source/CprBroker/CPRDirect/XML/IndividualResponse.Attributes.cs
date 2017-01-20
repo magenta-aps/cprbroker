@@ -125,6 +125,8 @@ namespace CprBroker.Providers.CPRDirect
                 .Where(c => c.CorrectionMarker == CorrectionMarker.OK)
                 .ToArray());
 
+            dataObjects.AddRange(this.Protection);
+
             return dataObjects.Where(o => o != null).ToArray();
         }
 

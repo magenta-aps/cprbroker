@@ -242,6 +242,7 @@ namespace CprBroker.DBR.Extensions
             #endregion
 
             #region Post code & district
+            // TODO: this can be empty string in source data - handle this case
             pt.PostCode = resp.ClearWrittenAddress.PostCode;
 
             pt.PostDistrictName = resp.ClearWrittenAddress.PostDistrictText.NullIfEmpty();
