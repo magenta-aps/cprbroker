@@ -134,5 +134,14 @@ namespace CprBroker.Config.Properties {
                 return ((bool)(this["Log4NetEnabled"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool TrimFutureInReadOperation {
+            get {
+                return ((bool)(this["TrimFutureInReadOperation"]));
+            }
+        }
     }
 }

@@ -120,6 +120,9 @@ namespace CprBroker.Engine.Part
             CityNameMapping.ApplyIfNeeded(laesResultat);
             if (laesResultat.Item is RegistreringType1)
             {
+                if (CprBroker.Utilities.Config.ConfigManager.Current.Settings.TrimFutureInReadOperation)
+                    (laesResultat.Item as RegistreringType1).TrimFuture();
+
                 (laesResultat.Item as RegistreringType1).OrderByStartDate(
                     !CprBroker.Utilities.Config.ConfigManager.Current.Settings.CprDirectReturnsNewestFirst);
             }
