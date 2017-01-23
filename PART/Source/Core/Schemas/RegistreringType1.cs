@@ -203,37 +203,37 @@ namespace CprBroker.Schemas.Part
         public static FiltreretOejebliksbilledeType Merge(PersonIdentifier pId, VirkningType targetVirkning, RegistreringType1[] oioRegs)
         {
             return new FiltreretOejebliksbilledeType()
+            {
+                AttributListe = new AttributListeType()
                 {
-                    AttributListe = new AttributListeType()
-                    {
-                        Egenskab = RegistreringType1.MergeIntervals<EgenskabType>(oioRegs, targetVirkning, oio => oio.AttributListe.Egenskab),
-                        RegisterOplysning = RegistreringType1.MergeIntervals<RegisterOplysningType>(oioRegs, targetVirkning, oio => oio.AttributListe.RegisterOplysning),
-                        SundhedOplysning = RegistreringType1.MergeIntervals<SundhedOplysningType>(oioRegs, targetVirkning, oio => oio.AttributListe.SundhedOplysning),
-                        LokalUdvidelse = null
-                    },
+                    Egenskab = RegistreringType1.MergeIntervals<EgenskabType>(oioRegs, targetVirkning, oio => oio.AttributListe.Egenskab),
+                    RegisterOplysning = RegistreringType1.MergeIntervals<RegisterOplysningType>(oioRegs, targetVirkning, oio => oio.AttributListe.RegisterOplysning),
+                    SundhedOplysning = RegistreringType1.MergeIntervals<SundhedOplysningType>(oioRegs, targetVirkning, oio => oio.AttributListe.SundhedOplysning),
+                    LokalUdvidelse = null
+                },
 
-                    RelationListe = new RelationListeType()
-                    {
-                        Aegtefaelle = MergeIntervals<PersonRelationType>(oioRegs, targetVirkning, oio => oio.RelationListe.Aegtefaelle),
-                        Boern = MergeIntervals<PersonFlerRelationType>(oioRegs, targetVirkning, oio => oio.RelationListe.Boern),
-                        Bopaelssamling = MergeIntervals<PersonFlerRelationType>(oioRegs, targetVirkning, oio => oio.RelationListe.Bopaelssamling),
-                        ErstatningAf = MergeIntervals<PersonRelationType>(oioRegs, targetVirkning, oio => oio.RelationListe.ErstatningAf),
-                        ErstatningFor = MergeIntervals<PersonFlerRelationType>(oioRegs, targetVirkning, oio => oio.RelationListe.ErstatningFor),
-                        Fader = MergeIntervals<PersonRelationType>(oioRegs, targetVirkning, oio => oio.RelationListe.Fader),
-                        Foraeldremyndighedsboern = MergeIntervals<PersonFlerRelationType>(oioRegs, targetVirkning, oio => oio.RelationListe.Foraeldremyndighedsboern),
-                        Foraeldremyndighedsindehaver = MergeIntervals<PersonRelationType>(oioRegs, targetVirkning, oio => oio.RelationListe.Foraeldremyndighedsindehaver),
-                        LokalUdvidelse = null,
-                        Moder = MergeIntervals<PersonRelationType>(oioRegs, targetVirkning, oio => oio.RelationListe.Moder),
-                        RegistreretPartner = MergeIntervals<PersonRelationType>(oioRegs, targetVirkning, oio => oio.RelationListe.RegistreretPartner),
-                        RetligHandleevneVaergeForPersonen = MergeIntervals<PersonRelationType>(oioRegs, targetVirkning, oio => oio.RelationListe.RetligHandleevneVaergeForPersonen),
-                        RetligHandleevneVaergemaalsindehaver = MergeIntervals<PersonFlerRelationType>(oioRegs, targetVirkning, oio => oio.RelationListe.RetligHandleevneVaergemaalsindehaver),
-                    },
-                    TilstandListe = new TilstandListeType() { },
+                RelationListe = new RelationListeType()
+                {
+                    Aegtefaelle = MergeIntervals<PersonRelationType>(oioRegs, targetVirkning, oio => oio.RelationListe.Aegtefaelle),
+                    Boern = MergeIntervals<PersonFlerRelationType>(oioRegs, targetVirkning, oio => oio.RelationListe.Boern),
+                    Bopaelssamling = MergeIntervals<PersonFlerRelationType>(oioRegs, targetVirkning, oio => oio.RelationListe.Bopaelssamling),
+                    ErstatningAf = MergeIntervals<PersonRelationType>(oioRegs, targetVirkning, oio => oio.RelationListe.ErstatningAf),
+                    ErstatningFor = MergeIntervals<PersonFlerRelationType>(oioRegs, targetVirkning, oio => oio.RelationListe.ErstatningFor),
+                    Fader = MergeIntervals<PersonRelationType>(oioRegs, targetVirkning, oio => oio.RelationListe.Fader),
+                    Foraeldremyndighedsboern = MergeIntervals<PersonFlerRelationType>(oioRegs, targetVirkning, oio => oio.RelationListe.Foraeldremyndighedsboern),
+                    Foraeldremyndighedsindehaver = MergeIntervals<PersonRelationType>(oioRegs, targetVirkning, oio => oio.RelationListe.Foraeldremyndighedsindehaver),
+                    LokalUdvidelse = null,
+                    Moder = MergeIntervals<PersonRelationType>(oioRegs, targetVirkning, oio => oio.RelationListe.Moder),
+                    RegistreretPartner = MergeIntervals<PersonRelationType>(oioRegs, targetVirkning, oio => oio.RelationListe.RegistreretPartner),
+                    RetligHandleevneVaergeForPersonen = MergeIntervals<PersonRelationType>(oioRegs, targetVirkning, oio => oio.RelationListe.RetligHandleevneVaergeForPersonen),
+                    RetligHandleevneVaergemaalsindehaver = MergeIntervals<PersonFlerRelationType>(oioRegs, targetVirkning, oio => oio.RelationListe.RetligHandleevneVaergemaalsindehaver),
+                },
+                TilstandListe = new TilstandListeType() { },
 
-                    BrugervendtNoegleTekst = pId.CprNumber,
+                BrugervendtNoegleTekst = pId.CprNumber,
 
-                    UUID = pId.UUID.Value.ToString()
-                };
+                UUID = pId.UUID.Value.ToString()
+            };
         }
 
         public void OrderByStartDate(bool ascending)
@@ -285,6 +285,16 @@ namespace CprBroker.Schemas.Part
                 RelationListe.Moder = VirkningType.OrderByStartDate<PersonRelationType>(RelationListe.Moder, false);
                 RelationListe.RetligHandleevneVaergeForPersonen = VirkningType.OrderByStartDate<PersonRelationType>(RelationListe.RetligHandleevneVaergeForPersonen, false);
                 RelationListe.RetligHandleevneVaergemaalsindehaver = VirkningType.OrderByStartDate<PersonFlerRelationType>(RelationListe.RetligHandleevneVaergemaalsindehaver, false);
+            }
+        }
+
+        public void TrimFuture(DateTime? lastDate = null)
+        {
+            if (AttributListe != null)
+            {
+                AttributListe.Egenskab = VirkningType.TrimFuture(AttributListe.Egenskab, lastDate);
+                AttributListe.RegisterOplysning = VirkningType.TrimFuture(AttributListe.RegisterOplysning, lastDate);
+                AttributListe.SundhedOplysning = VirkningType.TrimFuture(AttributListe.SundhedOplysning, lastDate);
             }
         }
     }

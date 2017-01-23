@@ -87,6 +87,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ExtractPathsTests.cs" />
+    <Compile Include="Other\RegistreringType1.Tests.cs" />
     <Compile Include="Queues\DbrBaseQueueTests.cs" />
     <Compile Include="ExtractManager.Tests.cs" />
     <Compile Include="Queues\ExtractStagingQueueTests.cs" />

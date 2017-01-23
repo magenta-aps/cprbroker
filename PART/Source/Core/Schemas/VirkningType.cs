@@ -212,5 +212,24 @@ namespace CprBroker.Schemas.Part
                 return sorted.Take(1).ToArray();
             }
         }
+
+        public static T[] TrimFuture<T>(T[] objects, DateTime? lastDate = null)
+            where T : ITypeWithVirkning
+        {
+            if (objects == null)
+                return null;
+
+            if (lastDate == null)
+                lastDate = DateTime.Now;
+
+
+            return objects
+                .Where(o =>
+                {
+                    var fra = o.Virkning.FraTidspunkt.ToDateTime() ?? DateTime.MinValue;
+                    return fra < lastDate.Value;
+                }
+                ).ToArray();
+        }
     }
 }
