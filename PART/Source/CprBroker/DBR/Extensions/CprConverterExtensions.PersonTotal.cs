@@ -55,8 +55,14 @@ namespace CprBroker.DBR.Extensions
     public partial class CprConverterExtensions
     {
 
-        public static PersonTotal7 ToPersonTotal(this IndividualResponseType resp, DPRDataContext dataContext, char dataRetrievalType = CprBroker.Providers.DPR.DataRetrievalTypes.Extract, char? updatingProgram = null)
+        public static PersonTotal7 ToPersonTotal(this IndividualResponseType resp, DPRDataContext dataContext, char dataRetrievalType = CprBroker.Providers.DPR.DataRetrievalTypes.Extract, char? updatingProgram = null, bool putAddressIfDead = true)
         {
+            bool putAddress = true;
+            if(putAddressIfDead == false && resp.PersonInformation.Status == 90)
+            {
+                putAddress = false;
+            }
+
             /*
              * TODO: implement INDLAESDTO             * 
              */
@@ -90,6 +96,7 @@ namespace CprBroker.DBR.Extensions
             pt.MunicipalityArrivalDate = 0;
             pt.MunicipalityLeavingDate = null;
 
+            #region address
             var adr = resp.GetFolkeregisterAdresseSource(false);
             if (adr != null)
             {
@@ -100,51 +107,57 @@ namespace CprBroker.DBR.Extensions
                     {
                         if (IsValidAddress(dataContext, resp.ClearWrittenAddress.MunicipalityCode, resp.ClearWrittenAddress.StreetCode, resp.ClearWrittenAddress.HouseNumber))
                         {
-                            pt.MunicipalityCode = resp.CurrentAddressInformation.MunicipalityCode;
-                            pt.StreetCode = resp.CurrentAddressInformation.StreetCode;
-                            pt.HouseNumber = resp.CurrentAddressInformation.HouseNumber;
-
-                            if (!string.IsNullOrEmpty(resp.CurrentAddressInformation.Floor))
-                                pt.Floor = resp.CurrentAddressInformation.Floor;
-                            else
-                                pt.Floor = null;
-                            if (!string.IsNullOrEmpty(resp.CurrentAddressInformation.Door))
-                            {
-                                if (new string[] { "th", "tv", "mf" }.Contains(resp.CurrentAddressInformation.Door))
-                                    pt.Door = resp.CurrentAddressInformation.Door.PadLeft(4, ' ');
-                                else
-                                    pt.Door = resp.CurrentAddressInformation.Door;
-                            }
-                            else
-                                pt.Door = null;
-                            if (!string.IsNullOrEmpty(resp.CurrentAddressInformation.BuildingNumber))
-                                pt.ConstructionNumber = resp.CurrentAddressInformation.BuildingNumber;
-                            else
-                                pt.ConstructionNumber = null;
-                            if (resp.CurrentAddressInformation.RelocationDate.HasValue)
-                                pt.AddressDate = CprBroker.Utilities.Dates.DateToDecimal(resp.CurrentAddressInformation.RelocationDate.Value, 12);
-                            if (resp.CurrentAddressInformation.MunicipalityArrivalDate.HasValue)
-                                pt.MunicipalityArrivalDate = CprBroker.Utilities.Dates.DateToDecimal(resp.CurrentAddressInformation.MunicipalityArrivalDate.Value, 12);
-
-                            if (resp.CurrentAddressInformation.LeavingMunicipalityDepartureDate.HasValue)
-                            {
-                                pt.MunicipalityLeavingDate = CprBroker.Utilities.Dates.DateToDecimal(resp.CurrentAddressInformation.LeavingMunicipalityDepartureDate.Value, 12);
-                            }
-
-                            if (!string.IsNullOrEmpty(resp.CurrentAddressInformation.CareOfName))
-                                pt.CareOfName = resp.CurrentAddressInformation.CareOfName;
-                            else
-                                pt.CareOfName = null;
-                            if (!string.IsNullOrEmpty(resp.ClearWrittenAddress.CityName))
-                                pt.CityName = resp.ClearWrittenAddress.CityName;
-                            else
-                                pt.CityName = null;
-                            if (pt.MunicipalityCode > 0)
+                            // KEEP in dead people
+                            if (resp.CurrentAddressInformation.MunicipalityCode > 0)
                                 pt.CurrentMunicipalityName = CprBroker.Providers.CPRDirect.Authority.GetAuthorityNameByCode(pt.MunicipalityCode.ToString());
+
+                            if (putAddress)
+                            {
+                                pt.MunicipalityCode = resp.CurrentAddressInformation.MunicipalityCode;
+                                pt.StreetCode = resp.CurrentAddressInformation.StreetCode;
+                                pt.HouseNumber = resp.CurrentAddressInformation.HouseNumber;
+
+                                if (!string.IsNullOrEmpty(resp.CurrentAddressInformation.Floor))
+                                    pt.Floor = resp.CurrentAddressInformation.Floor;
+                                else
+                                    pt.Floor = null;
+                                if (!string.IsNullOrEmpty(resp.CurrentAddressInformation.Door))
+                                {
+                                    if (new string[] { "th", "tv", "mf" }.Contains(resp.CurrentAddressInformation.Door))
+                                        pt.Door = resp.CurrentAddressInformation.Door.PadLeft(4, ' ');
+                                    else
+                                        pt.Door = resp.CurrentAddressInformation.Door;
+                                }
+                                else
+                                    pt.Door = null;
+                                if (!string.IsNullOrEmpty(resp.CurrentAddressInformation.BuildingNumber))
+                                    pt.ConstructionNumber = resp.CurrentAddressInformation.BuildingNumber;
+                                else
+                                    pt.ConstructionNumber = null;
+                                if (resp.CurrentAddressInformation.RelocationDate.HasValue)
+                                    pt.AddressDate = CprBroker.Utilities.Dates.DateToDecimal(resp.CurrentAddressInformation.RelocationDate.Value, 12);
+                                if (resp.CurrentAddressInformation.MunicipalityArrivalDate.HasValue)
+                                    pt.MunicipalityArrivalDate = CprBroker.Utilities.Dates.DateToDecimal(resp.CurrentAddressInformation.MunicipalityArrivalDate.Value, 12);
+
+                                if (resp.CurrentAddressInformation.LeavingMunicipalityDepartureDate.HasValue)
+                                {
+                                    pt.MunicipalityLeavingDate = CprBroker.Utilities.Dates.DateToDecimal(resp.CurrentAddressInformation.LeavingMunicipalityDepartureDate.Value, 12);
+                                }
+
+                                if (!string.IsNullOrEmpty(resp.CurrentAddressInformation.CareOfName))
+                                    pt.CareOfName = resp.CurrentAddressInformation.CareOfName;
+                                else
+                                    pt.CareOfName = null;
+                                if (!string.IsNullOrEmpty(resp.ClearWrittenAddress.CityName))
+                                    pt.CityName = resp.ClearWrittenAddress.CityName;
+                                else
+                                    pt.CityName = null;
+                            }
                         }
                     }
                 }
             }
+            #endregion
 
 
             // TODO: Get from protection records
@@ -242,10 +255,13 @@ namespace CprBroker.DBR.Extensions
             #endregion
 
             #region Post code & district
-            // TODO: this can be empty string in source data - handle this case
-            pt.PostCode = resp.ClearWrittenAddress.PostCode;
-
-            pt.PostDistrictName = resp.ClearWrittenAddress.PostDistrictText.NullIfEmpty();
+            // Post code & text could be empty for dead people
+            if (putAddress)
+            {
+                // TODO: this can be empty string in source data - handle this case
+                pt.PostCode = resp.ClearWrittenAddress.PostCode;
+                pt.PostDistrictName = resp.ClearWrittenAddress.PostDistrictText.NullIfEmpty();
+            }
             #endregion
 
             var voting = resp.ElectionInformation.OrderByDescending(e => e.ElectionInfoStartDate).FirstOrDefault();
