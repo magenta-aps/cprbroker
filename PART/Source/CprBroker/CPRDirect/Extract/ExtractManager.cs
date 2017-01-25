@@ -92,6 +92,8 @@ namespace CprBroker.Providers.CPRDirect
                     {
                         var stagingQueue = CprBroker.Engine.Queues.Queue.GetQueues<ExtractStagingQueue>(ExtractStagingQueue.QueueId).First();
                         stagingQueue.Enqueue(queueItems, semaphore);
+
+                        DbrBaseQueue.EnqueueExtractTotals(extract);
                     }
 
                     extract.Ready = true;
@@ -176,6 +178,9 @@ namespace CprBroker.Providers.CPRDirect
                     {
                         extract.EndRecord = extractSession.EndLine.Contents;
                         extract.Ready = true;
+
+                        DbrBaseQueue.EnqueueExtractTotals(extract, semaphore);
+
                         semaphore.Signal();
                     }
 

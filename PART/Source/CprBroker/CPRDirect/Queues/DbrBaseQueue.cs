@@ -10,7 +10,7 @@ namespace CprBroker.Providers.CPRDirect
     {
         public const int BaseQueueTypeId = 200;
         public const int TargetQueueTypeId = 201;
-        
+
         public override ExtractQueueItem[] Process(ExtractQueueItem[] items)
         {
             var targetQueues = Queue.GetQueues<DbrBaseQueue>(TargetQueueTypeId);
@@ -20,6 +20,12 @@ namespace CprBroker.Providers.CPRDirect
                 q.Enqueue(items);
             }
             return items;
+        }
+
+        public static void EnqueueExtractTotals(Extract extract, Semaphore semaphore = null)
+        {
+            var dbr = Queue.GetQueues<DbrBaseQueue>(DbrBaseQueue.BaseQueueTypeId).First();
+            dbr.Enqueue(new ExtractQueueItem() { ExtractId = extract.ExtractId, PNR = "" }, semaphore);
         }
     }
 }

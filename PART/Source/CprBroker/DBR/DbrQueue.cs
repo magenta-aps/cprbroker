@@ -52,6 +52,7 @@ using CprBroker.Utilities;
 using CprBroker.Engine;
 using CprBroker.Providers.CPRDirect;
 using CprBroker.Providers.DPR;
+using CprBroker.Utilities;
 
 namespace CprBroker.DBR
 {
@@ -125,6 +126,15 @@ namespace CprBroker.DBR
 
         public override ExtractQueueItem[] Process(ExtractQueueItem[] items)
         {
+            var totalsItems = items.Where(i => string.IsNullOrEmpty(i.PNR)).ToArray();
+            var personItems = items.Except(totalsItems).ToArray();
+            return ProcessPersons(personItems)
+                .Union(totalsItems)
+                .ToArray();
+        }
+
+        public ExtractQueueItem[] ProcessPersons(ExtractQueueItem[] items)
+        {
             var ret = new List<ExtractQueueItem>();
 
             using (var cprDataContext = new ExtractDataContext())
@@ -195,6 +205,81 @@ namespace CprBroker.DBR
                 }
             }
             return ret.ToArray();
+        }
+
+        public ExtractQueueItem[] ProcessTotals(ExtractQueueItem[] items)
+        {
+            var ret = new List<ExtractQueueItem>();
+
+            foreach (var item in items)
+            {
+                try
+                {
+                    using (var extractDataContext = new ExtractDataContext())
+                    {
+                        var extract = extractDataContext.Extracts.SingleOrDefault(e => e.ExtractId == item.ExtractId);
+
+                        if (extract == null)
+                        {
+                            CprBroker.Engine.Local.Admin.LogFormattedError("Extract with ID <{0}> was not found when updating DTAJOUR at <{1}>", item.ExtractId, this.QueueId);
+                        }
+                        else
+                        {
+                            using (var dprDataContext = new AdminDataContext(this.ConnectionString))
+                            {
+                                // Get the update record - if it does not exist, raise an exception
+                                var update = dprDataContext.Updates.Single();
+                                if (update == null)
+                                {
+                                    CprBroker.Engine.Local.Admin.LogFormattedSuccess("DTAJOUR row was not found at <{0}>. Filling with default values");
+                                    update = this.ToUpdateRecord();
+                                }
+
+                                update.ANTAL = extract.ExtractItems.Select(ei => ei.PNR).Distinct().Count();
+                                update.DPRAJDTO = CprBroker.Utilities.Dates.DateToDecimal(extract.ExtractDate, 8);
+                                dprDataContext.SubmitChanges();
+                                ret.Add(item);
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    CprBroker.Engine.Local.Admin.LogException(ex);
+                }
+            }
+
+            return ret.ToArray();
+        }
+
+        public Update ToUpdateRecord()
+        {
+            int komKod;
+
+            using (var dprDataContext = new DPRDataContext(this.ConnectionString))
+            {
+                komKod = dprDataContext.PersonTotals
+                    .Where(pt => pt.MunicipalityCode > 0)
+                    .Select(pt => pt.MunicipalityCode)
+                    .GroupBy(kk => kk)
+                    .OrderByDescending(g => g.Count())
+                    .FirstOrDefault()?
+                    .Count() ?? 0;
+            }
+
+            return new Update()
+            {
+                DB_VERSION = "2013-02",
+                HISMDR = 60,
+                KOMKOD = komKod,
+                KOMNVN = Authority.GetAuthorityNameByCode(komKod.ToString()) ?? "",
+                // Non used columns
+                CICSID = null,
+                KUNDENR = null,
+                LU62MRK = null,
+                LUNAVN = null,
+                SOEGMRK = null,
+            };
         }
 
         public override Engine.DataProviderConfigPropertyInfo[] ConfigurationKeys

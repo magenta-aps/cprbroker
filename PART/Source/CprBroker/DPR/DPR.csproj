@@ -75,6 +75,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\AdminDataContext.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AdminDataContext.dbml</DependentUpon>
+    </Compile>
     <Compile Include="DprDatabaseDataProvider.Base.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="DprDatabaseDataProvider.Utils.cs" />
@@ -136,6 +141,11 @@
     <Compile Include="Utilities.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Data\AdminDataContext.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>AdminDataContext.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Data\DPR.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>DPR.designer.cs</LastGenOutput>
@@ -187,6 +197,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Data\AdminDataContext.dbml.layout">
+      <DependentUpon>AdminDataContext.dbml</DependentUpon>
+    </None>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
