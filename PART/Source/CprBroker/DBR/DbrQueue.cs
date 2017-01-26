@@ -139,8 +139,9 @@ namespace CprBroker.DBR
         {
             var totalsItems = items.Where(i => string.IsNullOrEmpty(i.PNR)).ToArray();
             var personItems = items.Except(totalsItems).ToArray();
+
             return ProcessPersons(personItems)
-                .Union(totalsItems)
+                .Union(ProcessTotals(totalsItems))
                 .ToArray();
         }
 
@@ -243,7 +244,7 @@ namespace CprBroker.DBR
                             using (var dprDataContext = new AdminDataContext(this.ConnectionString))
                             {
                                 // Get the update record - if it does not exist, raise an exception
-                                var update = dprDataContext.Updates.Single();
+                                var update = dprDataContext.Updates.SingleOrDefault();
                                 if (update == null)
                                 {
                                     CprBroker.Engine.Local.Admin.LogFormattedSuccess("DTAJOUR row was not found at <{0}>. Filling with default values");
