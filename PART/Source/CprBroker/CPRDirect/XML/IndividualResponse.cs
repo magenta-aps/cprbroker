@@ -134,13 +134,13 @@ namespace CprBroker.Providers.CPRDirect
             }
         }
 
-        public void SaveAsExtract(bool enqueueConversion = true)
+        public void SaveAsExtract(bool enqueueConversion = true, bool enqueueExtractTotals = false)
         {
             var all = GetChildrenAsType<Wrapper>();
             var parseResult = new ExtractParseSession();
             parseResult.AddLines(all);
             var fileName = string.Format("CPR Direkte {0}", StartRecord.ProductionDate);
-            ExtractManager.ImportParseResult(parseResult, fileName, enqueueConversion);
+            ExtractManager.ImportParseResult(parseResult, fileName, enqueueConversion, enqueueExtractTotals);
         }
     }
 }

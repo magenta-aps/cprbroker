@@ -67,7 +67,7 @@ namespace CprBroker.Providers.CPRDirect
             ImportParseResult(parseResult, sourceFileName);
         }
 
-        public static void ImportParseResult(ExtractParseSession parseResult, string sourceFileName, bool enqueueConversion = true)
+        public static void ImportParseResult(ExtractParseSession parseResult, string sourceFileName, bool enqueueConversion = true, bool enqueueExtractTotals = false)
         {
             var extractId = InitExtract(sourceFileName, parseResult, true);
 
@@ -91,11 +91,13 @@ namespace CprBroker.Providers.CPRDirect
                     if (enqueueConversion)
                     {
                         var stagingQueue = CprBroker.Engine.Queues.Queue.GetQueues<ExtractStagingQueue>(ExtractStagingQueue.QueueId).First();
-                        stagingQueue.Enqueue(queueItems, semaphore);
-
-                        DbrBaseQueue.EnqueueExtractTotals(extract);
+                        stagingQueue.Enqueue(queueItems, semaphore);                        
                     }
 
+                    if(enqueueExtractTotals)
+                    {
+                        DbrBaseQueue.EnqueueExtractTotals(extract);
+                    }
                     extract.Ready = true;
                     dataContext.SubmitChanges();
 

@@ -107,7 +107,7 @@ namespace CprBroker.DBR
 
         public virtual void SaveAsExtract(IndividualResponseType response)
         {
-            response.SaveAsExtract(true);
+            response.SaveAsExtract(enqueueConversion: true, enqueueExtractTotals: false);
         }
 
         public virtual IList<object> GetDatabaseInserts(string dprConnectionString, IndividualResponseType response)
