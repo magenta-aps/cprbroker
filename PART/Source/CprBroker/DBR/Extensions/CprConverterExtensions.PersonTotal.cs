@@ -63,14 +63,10 @@ namespace CprBroker.DBR.Extensions
                 putAddress = false;
             }
 
-            /*
-             * TODO: implement INDLAESDTO             * 
-             */
             var pt = new PersonTotal7();
-            /*
-             * PERSON DETAILS
-             */
-            pt.DprLoadDate = resp.RegistrationDate;
+            
+            #region Status & Gender
+
             pt.PNR = Decimal.Parse(resp.PersonInformation.PNR);
             if (resp.PersonInformation.StatusStartDate != null)
             {
@@ -86,6 +82,7 @@ namespace CprBroker.DBR.Extensions
                 pt.DateOfBirth = CprBroker.Utilities.Dates.DateToDecimal(resp.PersonInformation.Birthdate.Value, 8);
 
             pt.Sex = resp.PersonInformation.Gender;
+            #endregion
 
             /*
              * RESIDENTIAL DETAILS
@@ -264,12 +261,14 @@ namespace CprBroker.DBR.Extensions
             }
             #endregion
 
+            #region Voting
             var voting = resp.ElectionInformation.OrderByDescending(e => e.ElectionInfoStartDate).FirstOrDefault();
 
             if (voting != null && voting.VotingDate.HasValue)
                 pt.VotingDate = CprBroker.Utilities.Dates.DateToDecimal(voting.VotingDate.Value, 8);
             else
                 pt.VotingDate = null;
+            #endregion
 
             pt.ChildMarker = resp.Child.Count > 0 ?
                 '1' : null as char?;
