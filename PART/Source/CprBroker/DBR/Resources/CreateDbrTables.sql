@@ -31,6 +31,7 @@ CREATE TABLE [dbo].[DTAJOUR](
 	[KUNDENR] [decimal](5, 0) NULL,
 	[LU62MRK] [varchar](1) NULL,
 	[LUNAVN] [varchar](8) NULL,
+	[LEVAJDTO] [decimal](9,0) NULL,
 	[DB_VERSION] [varchar](30) NULL
 ) ON [PRIMARY]
 

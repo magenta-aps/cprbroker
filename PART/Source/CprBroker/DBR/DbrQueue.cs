@@ -247,12 +247,14 @@ namespace CprBroker.DBR
                                 var update = dprDataContext.Updates.SingleOrDefault();
                                 if (update == null)
                                 {
-                                    CprBroker.Engine.Local.Admin.LogFormattedSuccess("DTAJOUR row was not found at <{0}>. Filling with default values");
+                                    CprBroker.Engine.Local.Admin.LogFormattedSuccess("DTAJOUR row was not found at <{0}>. Filling with default values", this.QueueId);
                                     update = this.ToUpdateRecord();
+                                    dprDataContext.Updates.InsertOnSubmit(update);
                                 }
 
                                 update.ANTAL = extract.ExtractItems.Select(ei => ei.PNR).Distinct().Count();
                                 update.DPRAJDTO = CprBroker.Utilities.Dates.DateToDecimal(extract.ExtractDate, 8);
+                                update.LEVAJDTO = CprBroker.Utilities.Dates.DateToDecimal(extract.ExtractDate, 8);
                                 dprDataContext.SubmitChanges();
                                 ret.Add(item);
                             }
@@ -270,7 +272,7 @@ namespace CprBroker.DBR
 
         public Update ToUpdateRecord()
         {
-            int komKod;
+            decimal komKod;
 
             using (var dprDataContext = new DPRDataContext(this.ConnectionString))
             {
@@ -280,7 +282,7 @@ namespace CprBroker.DBR
                     .GroupBy(kk => kk)
                     .OrderByDescending(g => g.Count())
                     .FirstOrDefault()?
-                    .Count() ?? 0;
+                    .Key ?? 0;
             }
 
             return new Update()
