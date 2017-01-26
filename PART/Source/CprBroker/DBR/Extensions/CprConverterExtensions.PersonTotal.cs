@@ -57,14 +57,14 @@ namespace CprBroker.DBR.Extensions
 
         public static PersonTotal7 ToPersonTotal(this IndividualResponseType resp, DPRDataContext dataContext, char dataRetrievalType = CprBroker.Providers.DPR.DataRetrievalTypes.Extract, char? updatingProgram = null, bool putAddressIfDead = true)
         {
-            bool putAddress = true;
-            if(putAddressIfDead == false && resp.PersonInformation.Status == 90)
+            bool putCurrentAddress = true;
+            if (putAddressIfDead == false && resp.PersonInformation.Status == 90)
             {
-                putAddress = false;
+                putCurrentAddress = false;
             }
 
             var pt = new PersonTotal7();
-            
+
             #region Status & Gender
 
             pt.PNR = Decimal.Parse(resp.PersonInformation.PNR);
@@ -108,7 +108,7 @@ namespace CprBroker.DBR.Extensions
                             if (resp.CurrentAddressInformation.MunicipalityCode > 0)
                                 pt.CurrentMunicipalityName = CprBroker.Providers.CPRDirect.Authority.GetAuthorityNameByCode(pt.MunicipalityCode.ToString());
 
-                            if (putAddress)
+                            if (putCurrentAddress)
                             {
                                 pt.MunicipalityCode = resp.CurrentAddressInformation.MunicipalityCode;
                                 pt.StreetCode = resp.CurrentAddressInformation.StreetCode;
@@ -253,7 +253,7 @@ namespace CprBroker.DBR.Extensions
 
             #region Post code & district
             // Post code & text could be empty for dead people
-            if (putAddress)
+            if (putCurrentAddress)
             {
                 // TODO: this can be empty string in source data - handle this case
                 pt.PostCode = resp.ClearWrittenAddress.PostCode;
@@ -317,36 +317,12 @@ namespace CprBroker.DBR.Extensions
                     pt.CurrentMunicipalityName = Authority.GetAuthorityNameByCode(prevAddress.MunicipalityCode.ToString());
                 }
 
-                if (// If it is a valid address
-                    prevAddress.HouseNumber.Trim() != ""
-                // Alternatively, Street.GetAddressingName(dataContext.Connection.ConnectionString, historicalAddress.MunicipalityCode, historicalAddress.StreetCode) != null)
-                )
-                {
-                    var prevAdrStr = string.Format("{0} {1}",
-                            Street.GetAddressingName(dataContext.Connection.ConnectionString, prevAddress.MunicipalityCode, prevAddress.StreetCode),
-                            System.Text.RegularExpressions.Regex.Replace(
-                                prevAddress.HouseNumber.TrimStart('0', ' '),
-                                "(?<num>\\d+)(?<char>[a-zA-Z]+)",
-                                "${num} ${char}"));
-
-                    var floorDoor = string.Format("{0} {1}",
-                        prevAddress.Floor.TrimStart('0', ' '),
-                        prevAddress.Door.TrimStart('0', ' '))
-                     .Trim();
-
-                    if (!string.IsNullOrEmpty(floorDoor))
-                        prevAdrStr += "," + floorDoor;
-
-                    var kom = Authority.GetAuthorityAddressByCode(prevAddress.MunicipalityCode.ToString());
-                    if (!string.IsNullOrEmpty(kom))
-                        prevAdrStr += string.Format(" ({0})", kom);
-
-                    pt.PreviousAddress = prevAdrStr;
-
-                    if (string.IsNullOrEmpty(pt.CurrentMunicipalityName))
-                        pt.CurrentMunicipalityName = Authority.GetAuthorityNameByCode(prevAddress.MunicipalityCode.ToString());
-                }
+                if (string.IsNullOrEmpty(pt.CurrentMunicipalityName))
+                    pt.CurrentMunicipalityName = Authority.GetAuthorityNameByCode(prevAddress.MunicipalityCode.ToString());
             }
+
+            pt.PreviousAddress = resp.ToPreviousAddressString(dataContext, prevAddress, putCurrentAddress);
+
             if (resp.CurrentAddressInformation != null && resp.CurrentAddressInformation.RelocationDate.HasValue)
             {
                 var previousDeparture = resp.HistoricalDeparture
@@ -391,5 +367,36 @@ namespace CprBroker.DBR.Extensions
             return pt;
         }
 
+        private static string ToPreviousAddressString(this IndividualResponseType resp, DPRDataContext dataContext, HistoricalAddressType prevAddress, bool currentAddressPut)
+        {
+            if (prevAddress != null
+                &&
+                prevAddress.HouseNumber.Trim() != "" // If it is a valid address
+                                                     // Alternatively, Street.GetAddressingName(dataContext.Connection.ConnectionString, historicalAddress.MunicipalityCode, historicalAddress.StreetCode) != null)
+                )
+            {
+                var prevAdrStr = string.Format("{0} {1}",
+                        Street.GetAddressingName(dataContext.Connection.ConnectionString, prevAddress.MunicipalityCode, prevAddress.StreetCode),
+                        System.Text.RegularExpressions.Regex.Replace(
+                            prevAddress.HouseNumber.TrimStart('0', ' '),
+                            "(?<num>\\d+)(?<char>[a-zA-Z]+)",
+                            "${num} ${char}"));
+
+                var floorDoor = string.Format("{0} {1}",
+                    prevAddress.Floor.TrimStart('0', ' '),
+                    prevAddress.Door.TrimStart('0', ' '))
+                 .Trim();
+
+                if (!string.IsNullOrEmpty(floorDoor))
+                    prevAdrStr += "," + floorDoor;
+
+                var kom = Authority.GetAuthorityAddressByCode(prevAddress.MunicipalityCode.ToString());
+                if (!string.IsNullOrEmpty(kom))
+                    prevAdrStr += string.Format(" ({0})", kom);
+
+                return prevAdrStr;
+            }
+            return null;
+        }
     }
 }
