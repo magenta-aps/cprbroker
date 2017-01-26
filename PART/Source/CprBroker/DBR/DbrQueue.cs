@@ -95,6 +95,17 @@ namespace CprBroker.DBR
                 this.ConfigurationProperties["Port"] = value.HasValue ? "" : value.Value.ToString();
             }
         }
+        public bool IgnoreAddressOfDeadPeople
+        {
+            get
+            {
+                return this.GetBoolean("Ignore address of dead people", false);
+            }
+            set
+            {
+                this.ConfigurationProperties["Ignore address of dead people"] = value.ToString();
+            }
+        }
 
         public int? MaxWaitMilliseconds
         {
@@ -155,7 +166,11 @@ namespace CprBroker.DBR
                             using (var dprDataContext = new DPRDataContext(this.ConnectionString))
                             {
                                 var response = Extract.ToIndividualResponseType(item.Extract, item.ExtractItems, CprBroker.Providers.CPRDirect.Constants.DataObjectMap);
-                                CprConverter.AppendPerson(response, dprDataContext);
+                                CprConverter.AppendPerson(response,
+                                    dprDataContext,
+                                    dataRetrievalType: DataRetrievalTypes.Extract,
+                                    updatingProgram: UpdatingProgram.DprUpdate,
+                                    skipAddressIfDead: IgnoreAddressOfDeadPeople);
 
                                 var currentGroup = itemGroups.Last();
                                 if (currentGroup.Items.FirstOrDefault(gi => gi.PNR == item.PNR) != null)
@@ -290,6 +305,7 @@ namespace CprBroker.DBR
                 ret.Add(new DataProviderConfigPropertyInfo() { Confidential = false, Name = "Address", Type = DataProviderConfigPropertyInfoTypes.String, Required = false });
                 ret.Add(new DataProviderConfigPropertyInfo() { Confidential = false, Name = "Port", Type = DataProviderConfigPropertyInfoTypes.Integer, Required = false });
                 ret.Add(new DataProviderConfigPropertyInfo() { Confidential = false, Name = "MaxWaitMilliseconds", Type = DataProviderConfigPropertyInfoTypes.Integer, Required = false });
+                ret.Add(new DataProviderConfigPropertyInfo() { Confidential = false, Name = "Ignore address of dead people", Type = DataProviderConfigPropertyInfoTypes.Boolean, Required = false });
 
                 return ret.ToArray();
             }

@@ -55,10 +55,10 @@ namespace CprBroker.DBR.Extensions
     public partial class CprConverterExtensions
     {
 
-        public static PersonTotal7 ToPersonTotal(this IndividualResponseType resp, DPRDataContext dataContext, char dataRetrievalType = CprBroker.Providers.DPR.DataRetrievalTypes.Extract, char? updatingProgram = null, bool putAddressIfDead = true)
+        public static PersonTotal7 ToPersonTotal(this IndividualResponseType resp, DPRDataContext dataContext, char dataRetrievalType = CprBroker.Providers.DPR.DataRetrievalTypes.Extract, char? updatingProgram = null, bool skipAddressIfDead = false)
         {
             bool putCurrentAddress = true;
-            if (putAddressIfDead == false && resp.PersonInformation.Status == 90)
+            if (skipAddressIfDead == true && resp.PersonInformation.Status == 90)
             {
                 putCurrentAddress = false;
             }
@@ -321,7 +321,7 @@ namespace CprBroker.DBR.Extensions
                     pt.CurrentMunicipalityName = Authority.GetAuthorityNameByCode(prevAddress.MunicipalityCode.ToString());
             }
 
-            pt.PreviousAddress = resp.ToPreviousAddressString(dataContext, prevAddress, putCurrentAddress);
+            pt.PreviousAddress = resp.ToPreviousAddressString(dataContext, prevAddress);
 
             if (resp.CurrentAddressInformation != null && resp.CurrentAddressInformation.RelocationDate.HasValue)
             {
@@ -367,7 +367,7 @@ namespace CprBroker.DBR.Extensions
             return pt;
         }
 
-        private static string ToPreviousAddressString(this IndividualResponseType resp, DPRDataContext dataContext, HistoricalAddressType prevAddress, bool currentAddressPut)
+        private static string ToPreviousAddressString(this IndividualResponseType resp, DPRDataContext dataContext, HistoricalAddressType prevAddress)
         {
             if (prevAddress != null
                 &&

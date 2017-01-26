@@ -110,12 +110,16 @@ namespace CprBroker.DBR
             return ret;
         }
 
-        public static void AppendPerson(IndividualResponseType person, DPRDataContext dataContext, char dataRetrievalType = CprBroker.Providers.DPR.DataRetrievalTypes.Extract, char? updatingProgram = null)
+        public static void AppendPerson(IndividualResponseType person, 
+            DPRDataContext dataContext, 
+            char dataRetrievalType = CprBroker.Providers.DPR.DataRetrievalTypes.Extract, 
+            char? updatingProgram = null,
+            bool skipAddressIfDead = false)
         {
             person = person
                 .ToChangedPnrAdjustedIndividualResponse();
 
-            dataContext.PersonTotal7s.InsertOnSubmit(person.ToPersonTotal(dataContext, dataRetrievalType, updatingProgram));
+            dataContext.PersonTotal7s.InsertOnSubmit(person.ToPersonTotal(dataContext, dataRetrievalType, updatingProgram, skipAddressIfDead));
 
             dataContext.Persons.InsertOnSubmit(person.ToPerson(dataContext));
 
