@@ -84,7 +84,7 @@ namespace CprBroker.DBR.Extensions
             pt.Sex = resp.PersonInformation.Gender;
             #endregion
 
-            #region address
+            #region Address
             
             // Zero initialization
             pt.MunicipalityArrivalDate = 0;
@@ -212,11 +212,9 @@ namespace CprBroker.DBR.Extensions
             pt.FatherPersonalOrBirthdate = parentPnrOrBirthdateGetter(resp.ParentsInformation.FatherPNR, resp.ParentsInformation.FatherBirthDate);
             pt.FatherMarker = parentPnrMarkerGetter(resp.ParentsInformation.FatherPNR);
 
-            if (
-                resp.CurrentDepartureData != null
-                || resp.HistoricalDeparture.Count() > 0
-                )
-                pt.ExitEntryMarker = '1';
+            if (resp.ParentsInformation.FatherDate.HasValue)
+                pt.PaternityDate = CprBroker.Utilities.Dates.DateToDecimal(resp.ParentsInformation.FatherDate.Value, 12);
+
             #endregion
 
             if (resp.Disempowerment != null && resp.Disempowerment.DisempowermentStartDate.HasValue)
@@ -227,9 +225,7 @@ namespace CprBroker.DBR.Extensions
             {
                 pt.UnderGuardianshipDate = null;
             }
-            if (resp.ParentsInformation.FatherDate.HasValue)
-                pt.PaternityDate = CprBroker.Utilities.Dates.DateToDecimal(resp.ParentsInformation.FatherDate.Value, 12);
-
+            
             #region Marriage, spouse & children
 
             pt.MaritalStatus = resp.CurrentCivilStatus.CivilStatusCode;
@@ -267,6 +263,12 @@ namespace CprBroker.DBR.Extensions
             #endregion
 
             #region Markers
+            if (
+                resp.CurrentDepartureData != null
+                || resp.HistoricalDeparture.Count() > 0
+                )
+                pt.ExitEntryMarker = '1';
+
             pt.ChristianMark = resp.ChurchInformation.ChurchRelationship;
 
             if (resp.CurrentDisappearanceInformation != null
