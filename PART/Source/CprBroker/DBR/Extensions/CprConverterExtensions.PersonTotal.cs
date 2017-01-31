@@ -182,6 +182,7 @@ namespace CprBroker.DBR.Extensions
 
             pt.PnrMarkingDate = null; //TODO: Can be fetched in CPR Services: pnrhaenstart
 
+            #region Parents
             Func<string, DateTime?, string> parentPnrOrBirthdateGetter = (parentPnr, parentBirthdate) =>
             {
                 if (string.IsNullOrEmpty(parentPnr) || parentPnr.Equals("0000000000"))
@@ -220,6 +221,7 @@ namespace CprBroker.DBR.Extensions
                 || resp.HistoricalDeparture.Count() > 0
                 )
                 pt.ExitEntryMarker = '1';
+            #endregion
 
             if (resp.CurrentDisappearanceInformation != null
                 || resp.HistoricalDisappearance.Count() > 0
@@ -237,7 +239,7 @@ namespace CprBroker.DBR.Extensions
             if (resp.ParentsInformation.FatherDate.HasValue)
                 pt.PaternityDate = CprBroker.Utilities.Dates.DateToDecimal(resp.ParentsInformation.FatherDate.Value, 12);
 
-            #region Marriage & spouse
+            #region Marriage, spouse & children
 
             pt.MaritalStatus = resp.CurrentCivilStatus.CivilStatusCode;
 
@@ -273,6 +275,7 @@ namespace CprBroker.DBR.Extensions
                 pt.VotingDate = null;
             #endregion
 
+            #region Markers
             pt.ChildMarker = resp.Child.Count > 0 ?
                 '1' : null as char?;
 
@@ -293,12 +296,16 @@ namespace CprBroker.DBR.Extensions
             pt.FormerPersonalMarker = resp.HistoricalPNR.Count > 0 ? '1' : null as char?;
             pt.PaternityAuthorityName = null; //TODO: Retrieve this from the CPR Service field far_mynkod
             pt.MaritalAuthorityName = null; //TODO: Retrieve this from the CPR Service field mynkod
+            #endregion
+
             if (!string.IsNullOrEmpty(resp.PersonInformation.Job))
                 pt.Occupation = resp.PersonInformation.Job;
             else
                 pt.Occupation = null;
             pt.NationalityRight = Authority.GetAuthorityNameByCode(resp.CurrentCitizenship.CountryCode.ToString());
 
+
+            #region Previous address & municipality
 
             pt.PreviousMunicipalityName = Authority.GetAuthorityNameByCode(
                 string.Format("{0}", resp.CurrentAddressInformation?.LeavingMunicipalityCode));
@@ -347,6 +354,10 @@ namespace CprBroker.DBR.Extensions
                     }
                 }
             }
+            #endregion
+
+            #region Names
+
             // In DPR SearchName contains both the first name and the middlename.
             pt.SearchName = ToDprFirstName(resp.CurrentNameInformation.FirstName_s, resp.CurrentNameInformation.MiddleName, true);
             if (!string.IsNullOrEmpty(resp.CurrentNameInformation.LastName))
@@ -356,13 +367,16 @@ namespace CprBroker.DBR.Extensions
 
             // Special logic for addressing name
             pt.AddressingName = ToDprAddressingName(resp.ClearWrittenAddress.AddressingName, resp.CurrentNameInformation.LastName);
+            #endregion
 
             pt.ContactAddressMarker = resp.ContactAddress == null ?
                 null as char? : '1';
-
+            
+            #region Update markers
             pt.DprLoadDate = DateTime.Now;
             pt.ApplicationCode = updatingProgram;
             pt.DataRetrievalType = dataRetrievalType; // TODO: Use other types for deleted subscriptions and loaded from CPR direct)
+            #endregion
 
             return pt;
         }
