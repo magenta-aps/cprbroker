@@ -219,11 +219,6 @@ namespace CprBroker.DBR.Extensions
                 pt.ExitEntryMarker = '1';
             #endregion
 
-            if (resp.CurrentDisappearanceInformation != null
-                || resp.HistoricalDisappearance.Count() > 0
-                )
-                pt.DisappearedMarker = '1';
-
             if (resp.Disempowerment != null && resp.Disempowerment.DisempowermentStartDate.HasValue)
             {
                 pt.UnderGuardianshipDate = CprBroker.Utilities.Dates.DateToDecimal(resp.Disempowerment.DisempowermentStartDate.Value, 8);
@@ -273,6 +268,11 @@ namespace CprBroker.DBR.Extensions
 
             #region Markers
             pt.ChristianMark = resp.ChurchInformation.ChurchRelationship;
+
+            if (resp.CurrentDisappearanceInformation != null
+                || resp.HistoricalDisappearance.Count() > 0
+                )
+                pt.DisappearedMarker = '1';
 
             pt.ChildMarker = resp.Child.Count > 0 ?
                 '1' : null as char?;
