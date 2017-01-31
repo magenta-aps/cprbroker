@@ -84,16 +84,12 @@ namespace CprBroker.DBR.Extensions
             pt.Sex = resp.PersonInformation.Gender;
             #endregion
 
-            /*
-             * RESIDENTIAL DETAILS
-             */
-
-
+            #region address
+            
             // Zero initialization
             pt.MunicipalityArrivalDate = 0;
             pt.MunicipalityLeavingDate = null;
 
-            #region address
             var adr = resp.GetFolkeregisterAdresseSource(false);
             if (adr != null)
             {
@@ -159,8 +155,8 @@ namespace CprBroker.DBR.Extensions
             }
             #endregion
 
+            #region Protection
 
-            // TODO: Get from protection records
             Func<ProtectionType.ProtectionCategoryCodes, char?> protectionMarkerGetter = (cd) =>
                 resp.Protection
                 .Where(p => p.ProtectionCategoryCode == cd)
@@ -169,10 +165,10 @@ namespace CprBroker.DBR.Extensions
 
             pt.AddressProtectionMarker = protectionMarkerGetter(ProtectionType.ProtectionCategoryCodes.NameAndAddress);
             pt.DirectoryProtectionMarker = protectionMarkerGetter(ProtectionType.ProtectionCategoryCodes.LocalDirectory);
+            #endregion
 
             pt.AddressDateMarker = null; // TODO: Fill from address date marker //DPR SPECIFIC            
 
-            pt.ChristianMark = resp.ChurchInformation.ChurchRelationship;
             if (!string.IsNullOrEmpty(resp.BirthRegistrationInformation.BirthRegistrationAuthorityCode))
                 pt.BirthPlaceOfRegistration = Authority.GetAuthorityNameByCode(resp.BirthRegistrationInformation.BirthRegistrationAuthorityCode);
             else
@@ -276,6 +272,8 @@ namespace CprBroker.DBR.Extensions
             #endregion
 
             #region Markers
+            pt.ChristianMark = resp.ChurchInformation.ChurchRelationship;
+
             pt.ChildMarker = resp.Child.Count > 0 ?
                 '1' : null as char?;
 
@@ -298,12 +296,14 @@ namespace CprBroker.DBR.Extensions
             pt.MaritalAuthorityName = null; //TODO: Retrieve this from the CPR Service field mynkod
             #endregion
 
+            #region Job & Nationality
+
             if (!string.IsNullOrEmpty(resp.PersonInformation.Job))
                 pt.Occupation = resp.PersonInformation.Job;
             else
                 pt.Occupation = null;
             pt.NationalityRight = Authority.GetAuthorityNameByCode(resp.CurrentCitizenship.CountryCode.ToString());
-
+            #endregion
 
             #region Previous address & municipality
 
