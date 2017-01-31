@@ -110,6 +110,9 @@ namespace CprBroker.DBR.Extensions
 
                             if (putCurrentAddress)
                             {
+                                pt.StandardAddress = resp.ClearWrittenAddress.LabelledAddress.NullIfEmpty();
+                                pt.Location = resp.ClearWrittenAddress.Location.NullIfEmpty();
+
                                 pt.MunicipalityCode = resp.CurrentAddressInformation.MunicipalityCode;
                                 pt.StreetCode = resp.CurrentAddressInformation.StreetCode;
                                 pt.HouseNumber = resp.CurrentAddressInformation.HouseNumber;
@@ -353,9 +356,6 @@ namespace CprBroker.DBR.Extensions
 
             // Special logic for addressing name
             pt.AddressingName = ToDprAddressingName(resp.ClearWrittenAddress.AddressingName, resp.CurrentNameInformation.LastName);
-
-            pt.StandardAddress = resp.ClearWrittenAddress.LabelledAddress.NullIfEmpty();
-            pt.Location = resp.ClearWrittenAddress.Location.NullIfEmpty();
 
             pt.ContactAddressMarker = resp.ContactAddress == null ?
                 null as char? : '1';
