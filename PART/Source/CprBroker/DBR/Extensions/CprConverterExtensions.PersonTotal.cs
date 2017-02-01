@@ -241,6 +241,8 @@ namespace CprBroker.DBR.Extensions
                 pt.SpousePersonalOrBirthdate = resp.CurrentCivilStatus.SpousePNR.Substring(0, 6) + "-" + resp.CurrentCivilStatus.SpousePNR.Substring(6, 4);
             }
             pt.SpouseMarker = null; // Unavailable in CPR Extracts
+            pt.MaritalAuthorityName = null; //TODO: Retrieve this from the CPR Service field mynkod
+
             #endregion
 
             #region Post code & district
@@ -294,8 +296,10 @@ namespace CprBroker.DBR.Extensions
 
             pt.NationalMemoMarker = resp.Notes.Count() > 0 ? '1' : null as char?;
             pt.FormerPersonalMarker = resp.HistoricalPNR.Count > 0 ? '1' : null as char?;
+            pt.ContactAddressMarker = resp.ContactAddress == null ?
+                null as char? : '1';
+
             pt.PaternityAuthorityName = null; //TODO: Retrieve this from the CPR Service field far_mynkod
-            pt.MaritalAuthorityName = null; //TODO: Retrieve this from the CPR Service field mynkod
             #endregion
 
             #region Job & Nationality
@@ -371,8 +375,6 @@ namespace CprBroker.DBR.Extensions
             pt.AddressingName = ToDprAddressingName(resp.ClearWrittenAddress.AddressingName, resp.CurrentNameInformation.LastName);
             #endregion
 
-            pt.ContactAddressMarker = resp.ContactAddress == null ?
-                null as char? : '1';
             
             #region Update markers
             pt.DprLoadDate = DateTime.Now;
