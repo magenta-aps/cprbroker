@@ -133,7 +133,7 @@ namespace CprBroker.Providers.DPR
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DPRAJDTO", DbType="Decimal(9,0) NOT NULL", IsPrimaryKey=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DPRAJDTO", DbType="Decimal(9,0) NOT NULL")]
 		public decimal DPRAJDTO
 		{
 			get
@@ -353,7 +353,7 @@ namespace CprBroker.Providers.DPR
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DB_VERSION", DbType="VarChar(30)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DB_VERSION", DbType="VarChar(30)", IsPrimaryKey=true)]
 		public string DB_VERSION
 		{
 			get

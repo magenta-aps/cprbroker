@@ -123,6 +123,8 @@ namespace CprBroker.Tests.CPRDirect
 
         public static LineWrapper StartLine = null;
         public static LineWrapper EndLine = null;
+        
+        public static Dictionary<string, IndividualResponseType> PersonIndividualResponses = null;
 
         static Utilities()
         {
@@ -134,10 +136,13 @@ namespace CprBroker.Tests.CPRDirect
 
             StartLine = lines.First();
             EndLine = lines.Last();
-            lines.Remove(StartLine);
-            lines.Remove(EndLine);
 
-            var groups = lines.GroupBy(l => l.PNR).ToArray();
+            var personLines = lines.ToList();
+            personLines.Remove(StartLine);
+            personLines.Remove(EndLine);
+
+
+            var groups = personLines.GroupBy(l => l.PNR).ToArray();
 
             PersonLineWrappers = groups.ToDictionary(g => g.Key, g => g.ToArray());
 
@@ -156,6 +161,10 @@ namespace CprBroker.Tests.CPRDirect
                     }
             );
             AllExtractItems = allItems.ToArray();
+
+            PersonIndividualResponses = IndividualResponseType
+                .ParseBatch(lines.ToArray(), Constants.DataObjectMap)
+                .ToDictionary(o => o.PersonInformation.PNR);
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="DBR_3525425" EntityNamespace="CprBroker.Providers.DPR" ContextNamespace="CprBroker.Providers.DPR" Class="AdminDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
   <Table Name="dbo.DTAJOUR" Member="Updates">
     <Type Name="Update">
-      <Column Name="DPRAJDTO" Type="System.Decimal" DbType="Decimal(9,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="DPRAJDTO" Type="System.Decimal" DbType="Decimal(9,0) NOT NULL" CanBeNull="false" />
       <Column Name="ANTAL" Type="System.Decimal" DbType="Decimal(9,0) NOT NULL" CanBeNull="false" />
       <Column Name="KOMKOD" Type="System.Decimal" DbType="Decimal(5,0) NOT NULL" CanBeNull="false" />
       <Column Name="KOMNVN" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
@@ -11,8 +11,8 @@
       <Column Name="KUNDENR" Type="System.Decimal" DbType="Decimal(5,0)" CanBeNull="true" />
       <Column Name="LU62MRK" Type="System.String" DbType="VarChar(1)" CanBeNull="true" />
       <Column Name="LUNAVN" Type="System.String" DbType="VarChar(8)" CanBeNull="true" />
-      <Column Member="LEVAJDTO" Type="System.Decimal" DbType="DECIMAL(9,0)" CanBeNull="true" />
-      <Column Name="DB_VERSION" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="LEVAJDTO" Type="System.Decimal" DbType="DECIMAL(9,0)" CanBeNull="true" />
+      <Column Name="DB_VERSION" Type="System.String" DbType="VarChar(30)" IsPrimaryKey="true" CanBeNull="true" />
     </Type>
   </Table>
 </Database>

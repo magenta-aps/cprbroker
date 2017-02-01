@@ -4,13 +4,14 @@ using System.Linq;
 using System.Text;
 using NUnit.Framework;
 using CprBroker.DBR;
+using CprBroker.Providers.CPRDirect;
 
 namespace CprBroker.Tests.DBR
 {
     namespace DbrQueueTests
     {
         [TestFixture]
-        public class DbrQueueTests : DbrTestBase
+        public class RunOneBatch : DbrTestBase
         {
             [Test]
             public void RunOneBatch_OnePerson_GoesToDbrDatabase([ValueSource(typeof(PerPerson.PersonBaseTest), "CprNumbers")] string pnr)
@@ -44,7 +45,11 @@ namespace CprBroker.Tests.DBR
                     Assert.Greater(c2, 0);
                 }
             }
+        }
 
+        [TestFixture]
+        public class Process : DbrTestBase
+        {
             [Test]
             [Timeout(10 * 1000)]
             public void Process_SamplePersons_Fast()
@@ -99,6 +104,58 @@ namespace CprBroker.Tests.DBR
     .00 Commit completed         , at 15:09:03.8593
 
                 */
+            }
+        }
+
+        [TestFixture]
+        public class ProcessTotals : DbrTestBase
+        {
+            Extract Extract = null;
+
+            [SetUp]
+            public void ImportExtract()
+            {
+                ExtractManager.ImportText(CprBroker.Tests.CPRDirect.Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE_FixedLength);
+                using (var dataContext = new ExtractDataContext(CprDatabase.ConnectionString))
+                {
+                    Extract = dataContext.Extracts.Single();
+                }
+            }
+
+            [Test]
+            public void ProcessTotals_NotExisting_Inserted()
+            {
+                var queue = this.AddDbrQueue(false);
+                var queueItem = new ExtractQueueItem() { ExtractId = Extract.ExtractId, PNR = "" };
+                var ret = queue.ProcessTotals(new ExtractQueueItem[] { queueItem });
+                Assert.IsNotEmpty(ret);
+                using (var adminDataContext = new CprBroker.Providers.DPR.AdminDataContext(DbrDatabase.ConnectionString))
+                {
+                    var update = adminDataContext.Updates.SingleOrDefault();
+                    Assert.NotNull(update);
+                }
+            }
+
+            [Test]
+            public void ProcessTotals_Existing_Updated()
+            {
+                var queue = this.AddDbrQueue(false);
+                var queueItem = new ExtractQueueItem() { ExtractId = Extract.ExtractId, PNR = "" };
+                var ret = queue.ProcessTotals(new ExtractQueueItem[] { queueItem });
+
+                using (var adminDataContext = new CprBroker.Providers.DPR.AdminDataContext(DbrDatabase.ConnectionString))
+                {
+                    adminDataContext.ExecuteCommand("UPDATE DTAJOUR SET DPRAJDTO = DPRAJDTO - 1000");
+                }
+
+                // Process the item again
+                ret = queue.ProcessTotals(new ExtractQueueItem[] { queueItem });
+
+                using (var adminDataContext = new CprBroker.Providers.DPR.AdminDataContext(DbrDatabase.ConnectionString))
+                {
+                    var update = adminDataContext.Updates.SingleOrDefault();
+                    Assert.AreEqual( Tests.CPRDirect.Utilities.PersonIndividualResponses.First().Value.StartRecord.ProductionDateDecimal, update.DPRAJDTO);
+                }
             }
         }
     }

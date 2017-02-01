@@ -27,8 +27,9 @@ namespace CprBroker.Tests.DBR
                 dic["Port"] = Random.Next(1000, 10000).ToString();
                 dic["Address"] = "127.0.0.1";
                 dic["MaxWaitMilliseconds"] = "1000";
-                DataProviderConfigProperty.Templates.SetConnectionString(DbrDatabase.ConnectionString, dic);
             }
+
+            DataProviderConfigProperty.Templates.SetConnectionString(DbrDatabase.ConnectionString, dic);
             return CprBroker.Engine.Queues.Queue.AddQueue<DbrQueue>(1, dic, 1, 1);
         }
 
