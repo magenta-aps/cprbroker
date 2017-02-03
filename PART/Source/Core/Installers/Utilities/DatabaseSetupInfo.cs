@@ -175,7 +175,7 @@ namespace CprBroker.Installers
             bool ret = false;
             try
             {
-                string adminConnectionString = CreateConnectionString(true, false);
+                string adminConnectionString = CreateConnectionString(true, true);
                 using (SqlConnection adminConnection = new SqlConnection(adminConnectionString))
                 {
                     adminConnection.Open();
