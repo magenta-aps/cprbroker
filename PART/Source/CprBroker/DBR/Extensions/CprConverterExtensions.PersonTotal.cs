@@ -347,7 +347,7 @@ namespace CprBroker.DBR.Extensions
                     pt.CurrentMunicipalityName = Authority.GetAuthorityNameByCode(prevAddress.MunicipalityCode.ToString());
             }
 
-            pt.PreviousAddress = resp.ToPreviousAddressString(dataContext, prevAddress);
+            pt.PreviousAddress = resp.ToPreviousAddressString(dataContext);
 
             if (resp.CurrentAddressInformation != null && resp.CurrentAddressInformation.RelocationDate.HasValue)
             {
@@ -394,36 +394,116 @@ namespace CprBroker.DBR.Extensions
             return pt;
         }
 
-        private static string ToPreviousAddressString(this IndividualResponseType resp, DPRDataContext dataContext, HistoricalAddressType prevAddress)
+        public static string ToPreviousAddressString(this IndividualResponseType resp, DPRDataContext dataContext)
         {
-            if (prevAddress != null
-                &&
-                prevAddress.HouseNumber.Trim() != "" // If it is a valid address
-                                                     // Alternatively, Street.GetAddressingName(dataContext.Connection.ConnectionString, historicalAddress.MunicipalityCode, historicalAddress.StreetCode) != null)
-                )
+            IAddressSource prevAddress = null;
+
+            if (resp.PersonInformation.Status == 90)
+            {
+                prevAddress = resp.GetFolkeregisterAdresseSource(false);
+            }
+            if (prevAddress == null)
+            {
+                List<IAddressSource> addresses = new List<IAddressSource>();
+                addresses.AddRange(resp.HistoricalAddress);
+                addresses.AddRange(resp.HistoricalDeparture);
+                addresses.AddRange(resp.HistoricalDisappearance);
+                prevAddress = addresses
+                    .Where(a =>
+                        !(a is IHasCorrectionMarker)
+                            ||
+                        (a as IHasCorrectionMarker).IsOk()
+                        )
+                .OrderByDescending(a => a.ToEndTS())
+                .FirstOrDefault();
+            }
+
+            if (prevAddress is CurrentAddressWrapper)
+            { }
+            else if (prevAddress is HistoricalAddressType)
+            {
+                var histAdr = prevAddress as HistoricalAddressType;
+                return resp.ToPreviousAddressString(dataContext, histAdr.MunicipalityCode, histAdr.StreetCode, histAdr.HouseNumber, histAdr.Floor, histAdr.Door, histAdr.BuildingNumber);
+            }
+            else if (prevAddress is CurrentDepartureDataType)
+            {
+                return null; // Case is not possible
+                //var dep = prevAddress as CurrentDepartureDataType;
+                //return ToPreviousAddressString_Departure(dep.ExitDate, dep.EntryDate, dep.EntryCountryCode);
+            }
+            else if (prevAddress is HistoricalDepartureType)
+            {
+                var dep = prevAddress as HistoricalDepartureType;
+                return ToPreviousAddressString_Departure(dep.ExitDate, dep.EntryDate, dep.EntryCountryCode);
+            }
+            else if (prevAddress is CurrentDisappearanceInformationType)
+            {
+                return null; // Case is not possible
+                //var dis = prevAddress as CurrentDisappearanceInformationType;
+                //return ToPreviousAddressString_Disappearance(dis.DisappearanceDate, dis.RetrievalDate);
+            }
+            else if (prevAddress is HistoricalDisappearanceType)
+            {
+                var dis = prevAddress as HistoricalDisappearanceType;
+                return ToPreviousAddressString_Disappearance(dis.DisappearanceDate, dis.RetrievalDate);
+            }
+            // No previous address - return null
+            return null;
+        }
+
+
+        private static string ToPreviousAddressString(this IndividualResponseType resp, DPRDataContext dataContext, decimal municipalityCode, decimal streetCode, string houseNumber, string floor, string door, string bnrNotUsed = null)
+        {
+            // If it is a valid address
+            // Alternatively, Street.GetAddressingName(dataContext.Connection.ConnectionString, historicalAddress.MunicipalityCode, historicalAddress.StreetCode) != null)
+            if (houseNumber.Trim() != "")
             {
                 var prevAdrStr = string.Format("{0} {1}",
-                        Street.GetAddressingName(dataContext.Connection.ConnectionString, prevAddress.MunicipalityCode, prevAddress.StreetCode),
+                        Street.GetAddressingName(dataContext.Connection.ConnectionString, municipalityCode, streetCode),
                         System.Text.RegularExpressions.Regex.Replace(
-                            prevAddress.HouseNumber.TrimStart('0', ' '),
+                            houseNumber.TrimStart('0', ' '),
                             "(?<num>\\d+)(?<char>[a-zA-Z]+)",
                             "${num} ${char}"));
 
                 var floorDoor = string.Format("{0} {1}",
-                    prevAddress.Floor.TrimStart('0', ' '),
-                    prevAddress.Door.TrimStart('0', ' '))
+                    floor.TrimStart('0', ' '),
+                    door.TrimStart('0', ' '))
                  .Trim();
 
                 if (!string.IsNullOrEmpty(floorDoor))
                     prevAdrStr += "," + floorDoor;
 
-                var kom = Authority.GetAuthorityAddressByCode(prevAddress.MunicipalityCode.ToString());
+                var kom = Authority.GetAuthorityAddressByCode(municipalityCode.ToString());
                 if (!string.IsNullOrEmpty(kom))
                     prevAdrStr += string.Format(" ({0})", kom);
 
                 return prevAdrStr;
             }
             return null;
+        }
+
+        private static string ToPreviousAddressString_Departure(DateTime? exitDate, DateTime? entryDate, decimal entryCountryCode)
+        {
+            if (exitDate.HasValue)
+            {
+                return string.Format("Personen har været udrejst fra {0} TIL {1}",
+                    exitDate?.ToString("dd MM yyyy"),
+                    entryDate?.ToString("dd MM yyyy"));
+            }
+            else
+            {
+                return string.Format("Personen er indrejst {0} fra {1}",
+                    entryDate?.ToString("dd MM yyyy"),
+                    Authority.GetAuthorityNameByCode(entryCountryCode.ToString()));
+            }
+        }
+
+        private static string ToPreviousAddressString_Disappearance(DateTime? disappearanceDate, DateTime? retrievalDate)
+        {
+            return string.Format("Personen har været forsvundet fra {0} til {1}",
+                    disappearanceDate?.ToString("dd MM yyyy"),
+                    retrievalDate?.ToString("dd MM yyyy")
+                    );
         }
     }
 }

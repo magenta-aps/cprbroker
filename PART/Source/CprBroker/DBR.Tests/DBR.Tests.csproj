@@ -108,6 +108,7 @@
     <Compile Include="DprDiversionServerTests.Tcp.cs" />
     <Compile Include="Objects\DiversionResquestTests.cs" />
     <Compile Include="PerPerson\CprConverterExtensionTests_GoesIntoDatabase.cs" />
+    <Compile Include="PerPerson\CprConverterTests.PersonTotal.cs" />
     <Compile Include="PerPerson\CprConverterTests.cs" />
     <Compile Include="PerPerson\PersonBaseTest.cs" />
     <Compile Include="DbrQueueTests.cs" />
