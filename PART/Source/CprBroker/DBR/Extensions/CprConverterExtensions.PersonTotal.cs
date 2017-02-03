@@ -57,12 +57,6 @@ namespace CprBroker.DBR.Extensions
 
         public static PersonTotal7 ToPersonTotal(this IndividualResponseType resp, DPRDataContext dataContext, char dataRetrievalType = CprBroker.Providers.DPR.DataRetrievalTypes.Extract, char? updatingProgram = null, bool skipAddressIfDead = false)
         {
-            bool putCurrentAddress = true;
-            if (skipAddressIfDead == true && resp.PersonInformation.Status == 90)
-            {
-                putCurrentAddress = false;
-            }
-
             var pt = new PersonTotal7();
 
             #region Status & Gender
@@ -84,8 +78,20 @@ namespace CprBroker.DBR.Extensions
             pt.Sex = resp.PersonInformation.Gender;
             #endregion
 
+            #region Address decision
+
+            bool putCurrentAddress = true;
+            if (skipAddressIfDead == true && resp.PersonInformation.Status == 90)
+            {
+                putCurrentAddress = false;
+            }
+
+            #endregion
+
             #region Address
-            
+
+            pt.AddressDateMarker = null; // TODO: Fill from address date marker //DPR SPECIFIC            
+
             // Zero initialization
             pt.MunicipalityArrivalDate = 0;
             pt.MunicipalityLeavingDate = null;
@@ -155,6 +161,16 @@ namespace CprBroker.DBR.Extensions
             }
             #endregion
 
+            #region Post code & district
+            // Post code & text could be empty for dead people
+            if (putCurrentAddress)
+            {
+                // TODO: this can be empty string in source data - handle this case
+                pt.PostCode = resp.ClearWrittenAddress.PostCode;
+                pt.PostDistrictName = resp.ClearWrittenAddress.PostDistrictText.NullIfEmpty();
+            }
+            #endregion
+
             #region Protection
 
             Func<ProtectionType.ProtectionCategoryCodes, char?> protectionMarkerGetter = (cd) =>
@@ -167,7 +183,7 @@ namespace CprBroker.DBR.Extensions
             pt.DirectoryProtectionMarker = protectionMarkerGetter(ProtectionType.ProtectionCategoryCodes.LocalDirectory);
             #endregion
 
-            pt.AddressDateMarker = null; // TODO: Fill from address date marker //DPR SPECIFIC            
+            #region Birth registration
 
             if (!string.IsNullOrEmpty(resp.BirthRegistrationInformation.BirthRegistrationAuthorityCode))
                 pt.BirthPlaceOfRegistration = Authority.GetAuthorityNameByCode(resp.BirthRegistrationInformation.BirthRegistrationAuthorityCode);
@@ -175,6 +191,8 @@ namespace CprBroker.DBR.Extensions
                 pt.BirthPlaceOfRegistration = null;
 
             pt.BirthplaceText = resp.BirthRegistrationInformation.AdditionalBirthRegistrationText;
+
+            #endregion
 
             pt.PnrMarkingDate = null; //TODO: Can be fetched in CPR Services: pnrhaenstart
 
@@ -217,6 +235,7 @@ namespace CprBroker.DBR.Extensions
 
             #endregion
 
+            #region Guardian
             if (resp.Disempowerment != null && resp.Disempowerment.DisempowermentStartDate.HasValue)
             {
                 pt.UnderGuardianshipDate = CprBroker.Utilities.Dates.DateToDecimal(resp.Disempowerment.DisempowermentStartDate.Value, 8);
@@ -225,7 +244,8 @@ namespace CprBroker.DBR.Extensions
             {
                 pt.UnderGuardianshipDate = null;
             }
-            
+            #endregion
+
             #region Marriage, spouse & children
 
             pt.MaritalStatus = resp.CurrentCivilStatus.CivilStatusCode;
@@ -243,16 +263,6 @@ namespace CprBroker.DBR.Extensions
             pt.SpouseMarker = null; // Unavailable in CPR Extracts
             pt.MaritalAuthorityName = null; //TODO: Retrieve this from the CPR Service field mynkod
 
-            #endregion
-
-            #region Post code & district
-            // Post code & text could be empty for dead people
-            if (putCurrentAddress)
-            {
-                // TODO: this can be empty string in source data - handle this case
-                pt.PostCode = resp.ClearWrittenAddress.PostCode;
-                pt.PostDistrictName = resp.ClearWrittenAddress.PostDistrictText.NullIfEmpty();
-            }
             #endregion
 
             #region Voting
@@ -375,7 +385,6 @@ namespace CprBroker.DBR.Extensions
             pt.AddressingName = ToDprAddressingName(resp.ClearWrittenAddress.AddressingName, resp.CurrentNameInformation.LastName);
             #endregion
 
-            
             #region Update markers
             pt.DprLoadDate = DateTime.Now;
             pt.ApplicationCode = updatingProgram;
