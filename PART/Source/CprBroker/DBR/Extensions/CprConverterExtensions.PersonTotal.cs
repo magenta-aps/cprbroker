@@ -479,9 +479,9 @@ namespace CprBroker.DBR.Extensions
                 if (!string.IsNullOrEmpty(floorDoor))
                     prevAdrStr += "," + floorDoor;
 
-                var kom = Authority.GetAuthorityAddressByCode(municipalityCode.ToString());
+                var kom = Authority.GetAuthorityNameByCode(municipalityCode.ToString());
                 if (!string.IsNullOrEmpty(kom))
-                    prevAdrStr += string.Format("  ({0})", kom);
+                    prevAdrStr += string.Format("  ({0} kommune)", kom);
 
                 return prevAdrStr;
             }
