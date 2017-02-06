@@ -323,8 +323,11 @@ namespace CprBroker.DBR.Extensions
 
             #region Previous address & municipality
 
-            pt.PreviousMunicipalityName = Authority.GetAuthorityNameByCode(
-                string.Format("{0}", resp.CurrentAddressInformation?.LeavingMunicipalityCode));
+            if (resp.CurrentAddressInformation?.LeavingMunicipalityCode > 0)// Leave it null otherwise
+            {
+                pt.PreviousMunicipalityName = Authority.GetAuthorityNameByCode(
+                    string.Format("{0}", resp.CurrentAddressInformation?.LeavingMunicipalityCode));
+            }
 
             var previousAddresses = resp.HistoricalAddress
                 .Where(e => (e as CprBroker.Schemas.Part.IHasCorrectionMarker).CorrectionMarker == CprBroker.Schemas.Part.CorrectionMarker.OK)
@@ -475,7 +478,7 @@ namespace CprBroker.DBR.Extensions
 
                 var kom = Authority.GetAuthorityAddressByCode(municipalityCode.ToString());
                 if (!string.IsNullOrEmpty(kom))
-                    prevAdrStr += string.Format(" ({0})", kom);
+                    prevAdrStr += string.Format("  ({0})", kom);
 
                 return prevAdrStr;
             }
