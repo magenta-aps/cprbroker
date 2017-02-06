@@ -422,7 +422,10 @@ namespace CprBroker.DBR.Extensions
             }
 
             if (prevAddress is CurrentAddressWrapper)
-            { }
+            {
+                var currAdr = (prevAddress as CurrentAddressWrapper).ClearWrittenAddress;
+                return resp.ToPreviousAddressString(dataContext, currAdr.MunicipalityCode, currAdr.StreetCode, currAdr.HouseNumber, currAdr.Floor, currAdr.Door, currAdr.BuildingNumber);
+            }
             else if (prevAddress is HistoricalAddressType)
             {
                 var histAdr = prevAddress as HistoricalAddressType;
