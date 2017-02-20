@@ -18,14 +18,11 @@ namespace CprBroker.Web.Controllers
         public DateTime EffectiveTo { get { return To ?? CprBroker.Utilities.Constants.MaxSqlDate; } }
     }
 
+    [RoutePrefix("Pages/LogDisplay")]
     public class LogDisplayController : Controller
     {
-        // GET: LogDisplay
-        public ActionResult Index()
-        {
-            return View();
-        }
-
+        
+        [Route("")]
         public ActionResult Activities(LogDisplayParameters pars)
         {
             using (var dc = new ApplicationDataContext())
@@ -79,6 +76,7 @@ namespace CprBroker.Web.Controllers
 
         public ActionResult Logs(LogDisplayParameters pars, object type)
         {
+            return View();
         }
 
 

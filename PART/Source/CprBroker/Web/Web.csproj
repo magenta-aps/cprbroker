@@ -433,7 +433,7 @@
     <None Include="Config\log4net.xsd">
       <SubType>Designer</SubType>
     </None>
-    <Content Include="Views\LogDisplay\ActivitiesView.cshtml" />
+    <Content Include="Views\LogDisplay\Activities.cshtml" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
