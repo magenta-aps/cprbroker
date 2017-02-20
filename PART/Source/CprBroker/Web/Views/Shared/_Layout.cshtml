@@ -8,6 +8,15 @@
     <script type="text/javascript" src="~/Content/libs/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="~/Content/libs/bootstrap-3.3.5-dist/css/bootstrap.min.css" />
     <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+    <!-- From default MVC layout template -->
+    @*@Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/modernizr")
+            <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>@ViewBag.Title - My ASP.NET Application</title>*@
+
+
     @RenderSection("Head")
 
 </head>
@@ -59,11 +68,11 @@
                                 <td align="left" style="padding-left: 20px">
                                     <!-- TODO: Site map -->
                                     @*<asp:SiteMapDataSource ID="SiteMapDataSource1" runat="server" ShowStartingNode="False" />
-                                    <asp:Menu ID="Menu1" runat="server" DataSourceID="SiteMapDataSource1" Orientation="Horizontal"
-                                              Width="100%">
-                                        <StaticMenuItemStyle CssClass="TopMenuItem" />
-                                        <StaticSelectedStyle CssClass="TopMenuSelectedItem" BackColor="Transparent" />
-                                    </asp:Menu>*@
+                                        <asp:Menu ID="Menu1" runat="server" DataSourceID="SiteMapDataSource1" Orientation="Horizontal"
+                                                  Width="100%">
+                                            <StaticMenuItemStyle CssClass="TopMenuItem" />
+                                            <StaticSelectedStyle CssClass="TopMenuSelectedItem" BackColor="Transparent" />
+                                        </asp:Menu>*@
                                 </td>
                             </tr>
                         </tbody>
@@ -102,7 +111,7 @@
                                     <!-- TODO : error label -->
                                     @*<asp:Label runat="server" ID="errorLabel" CssClass="error" EnableViewState="False"></asp:Label>*@
                                     @RenderBody()
-                                    
+
                                     <!--   ////////// Main Area Ends here ////////// -->
                                 </td>
                                 <td width="14">
@@ -154,48 +163,13 @@
         </tbody>
     </table>
     <!--  ////////// L Bottom Ends here //////////  -->
-    @RenderSection("Footer")
-</body>
-</html>
-
-
-
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
-</head>
-<body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav"></ul>
-            </div>
-        </div>
-    </div>
-
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
-    </div>
+    <footer>
+        @RenderSection("Footer")
+    </footer>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>
 </html>
+
