@@ -159,6 +159,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\libs\bootstrap-3.3.5-dist\css\bootstrap-theme.css" />
     <Content Include="Content\libs\bootstrap-3.3.5-dist\css\bootstrap-theme.min.css" />
     <Content Include="Content\libs\bootstrap-3.3.5-dist\css\bootstrap.css" />
@@ -170,6 +172,8 @@
     <Content Include="Content\libs\jquery-1.11.1\jquery-1.11.1.js" />
     <Content Include="Content\libs\jquery-1.11.1\jquery-1.11.1.min.js" />
     <Content Include="Content\PagedList.css" />
+    <Content Include="Content\Site.css" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Pages\Controls\ConfigPropertyEditor.ascx" />
     <Content Include="Pages\Controls\ConfigPropertyGridEditor.ascx" />
     <Content Include="Pages\Controls\ConfigPropertyViewer.ascx" />
@@ -185,15 +189,24 @@
     <Content Include="Content\libs\bootstrap-3.3.5-dist\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\libs\bootstrap-3.3.5-dist\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Content\libs\bootstrap-3.3.5-dist\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="web.config">
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Views\SubscriptionDataProvider\DataProviderFieldView.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\LogDisplayController.cs" />
     <Compile Include="Controllers\SubscriptionDataProviderController.cs" />
     <Compile Include="Pages\Controls\ConfigPropertyEditor.ascx.cs">
       <DependentUpon>ConfigPropertyEditor.ascx</DependentUpon>
@@ -420,7 +433,13 @@
     <None Include="Config\log4net.xsd">
       <SubType>Designer</SubType>
     </None>
+    <Content Include="Views\LogDisplay\ActivitiesView.cshtml" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
