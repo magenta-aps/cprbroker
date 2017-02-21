@@ -201,6 +201,7 @@
     <Content Include="Views\SubscriptionDataProvider\DataProviderFieldView.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\LogDisplay\Activity.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />

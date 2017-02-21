@@ -1,6 +1,7 @@
 ﻿using CprBroker.Data.Applications;
 using System;
 using System.Collections.Generic;
+using System.Data.Linq;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -27,22 +28,26 @@ namespace CprBroker.Web.Controllers
         {
             using (var dc = new ApplicationDataContext())
             {
+                var loadOptions = new DataLoadOptions();
+                loadOptions.LoadWith<Activity>(ac => ac.Application);
+                dc.LoadOptions = loadOptions;
                 var acts = dc.Activities.Where(a => a.StartTS >= pars.EffectiveFrom && a.StartTS <= pars.EffectiveTo)
                     .OrderByDescending(a => a.StartTS)
                     .Skip(pars.PageSize * pars.PageNumber)
-                    .Take(pars.PageNumber)
+                    .Take(pars.PageSize)
                     .ToArray();
 
                 return View(acts);
             }
         }
 
+        [Route("Details/{activityId}")]
         public ActionResult Activity(Guid activityId)
         {
             using (var dc = new ApplicationDataContext())
             {
                 var act = dc.Activities.SingleOrDefault(a => a.ActivityId == activityId);
-                return View(act);
+                return View("Activity", act);
             }
         }
 
