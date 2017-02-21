@@ -2,9 +2,14 @@
 @{
     Layout = "";
 }
-
-<div class="container">
-    <ul class="nav nav-tabs">
+<style>
+    .act > li > a {
+        padding-bottom: 5px;
+        padding-top: 5px;
+    }
+</style>
+<div class="container" style="border-radius:10px; border-width:2px; border-color:black">
+    <ul class="nav nav-tabs act">
         <li class="active"><a data-toggle="tab" href="#le_@Model.ActivityId">Logs</a></li>
         <li><a data-toggle="tab" href="#op_@Model.ActivityId">Operations</a></li>
         <li><a data-toggle="tab" href="#dpc_@Model.ActivityId">External calls</a></li>
@@ -15,17 +20,32 @@
         <!-- Logs -->
         <div id="le_@Model.ActivityId" class="tab-pane fade in active">
             <div class="row">
-                <div class="col-md-1"></div>
-                <div class="col-md-11">
-
+                <div class="col-md-offset-1 col-md-10">
                     @if (Model.LogEntries.Count > 0)
                     {
-                        foreach (CprBroker.Data.Applications.LogEntry op in Model.LogEntries)
-                        {
-                            <div class="row">
-                                <b>@op.LogDate</b>
-                            </div>
-                        }
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th>TS</th>
+                                    <th>Type</th>
+                                    <th>Text</th>
+                                    @*<th>Object Type</th>*@
+                                    <th>XML</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (CprBroker.Data.Applications.LogEntry le in Model.LogEntries)
+                                {
+                                    <tr>
+                                        <td>@le.LogDate</td>
+                                        <td>@le.LogType.Name</td>
+                                        <td>@le.Text</td>
+                                        @*<td>@le.DataObjectType</td>*@
+                                        <td>@le.DataObjectXml</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
                     }
                     else
                     {
@@ -38,16 +58,26 @@
         <!-- Operations -->
         <div id="op_@Model.ActivityId" class="tab-pane fade">
             <div class="row">
-                <div class="col-md-1"></div>
-                <div class="col-md-11">
+                <div class="col-md-offset-1 col-md-10">
                     @if (Model.Operations.Count > 0)
                     {
-                        foreach (CprBroker.Data.Applications.Operation op in Model.Operations)
-                        {
-                            <div class="row">
-                                <b>@op.OperationId</b>
-                            </div>
-                        }
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th>Operation</th>
+                                    <th>Key</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (CprBroker.Data.Applications.Operation op in Model.Operations)
+                                {
+                                <tr>
+                                    <td>@op.OperationType.Name</td>
+                                    <td>@op.OperationKey</td>
+                                </tr>
+                                }
+                            </tbody>
+                        </table>
                     }
                     else
                     {
@@ -60,21 +90,34 @@
         <!-- External calls -->
         <div id="dpc_@Model.ActivityId" class="tab-pane fade">
             <div class="row">
-                <div class="col-md-1"></div>
-                <div class="col-md-11">
+                <div class="col-md-offset-1 col-md-10">
                     @if (Model.DataProviderCalls.Count > 0)
                     {
-                        foreach (CprBroker.Data.Applications.DataProviderCall op in Model.DataProviderCalls)
-                        {
-                            <div class="row">
-                                <b>@op.Operation</b>
-                                @op.Input
-                                @op.Success
-                                @op.CallTime
-                                @op.Cost
-                                @op.DataProviderType
-                            </div>
-                        }
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th>TS</th>
+                                    <th>Source type</th>
+                                    <th>Op</th>
+                                    <th>Input</th>
+                                    <th>Cost</th>
+                                    <th>Success</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (CprBroker.Data.Applications.DataProviderCall op in Model.DataProviderCalls)
+                                {
+                                    <tr>
+                                        <td>@op.CallTime</td>
+                                        <td>@op.DataProviderType</td>
+                                        <td>@op.Operation</td>
+                                        <td>@op.Input</td>
+                                        <td>@op.Cost</td>
+                                        <td>@op.Success</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
                     }
                     else
                     {
