@@ -518,6 +518,8 @@ namespace CprBroker.Data.Applications
 		
 		private EntityRef<LogType> _LogType;
 		
+		private EntityRef<Activity> _Activity;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -550,6 +552,7 @@ namespace CprBroker.Data.Applications
 		{
 			this._Application = default(EntityRef<Application>);
 			this._LogType = default(EntityRef<LogType>);
+			this._Activity = default(EntityRef<Activity>);
 			OnCreated();
 		}
 		
@@ -772,6 +775,10 @@ namespace CprBroker.Data.Applications
 			{
 				if ((this._ActivityID != value))
 				{
+					if (this._Activity.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
 					this.OnActivityIDChanging(value);
 					this.SendPropertyChanging();
 					this._ActivityID = value;
@@ -849,6 +856,40 @@ namespace CprBroker.Data.Applications
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Activity_LogEntry", Storage="_Activity", ThisKey="ActivityID", OtherKey="ActivityId", IsForeignKey=true)]
+		public Activity Activity
+		{
+			get
+			{
+				return this._Activity.Entity;
+			}
+			set
+			{
+				Activity previousValue = this._Activity.Entity;
+				if (((previousValue != value) 
+							|| (this._Activity.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Activity.Entity = null;
+						previousValue.LogEntries.Remove(this);
+					}
+					this._Activity.Entity = value;
+					if ((value != null))
+					{
+						value.LogEntries.Add(this);
+						this._ActivityID = value.ActivityId;
+					}
+					else
+					{
+						this._ActivityID = default(Nullable<System.Guid>);
+					}
+					this.SendPropertyChanged("Activity");
+				}
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -892,6 +933,8 @@ namespace CprBroker.Data.Applications
 		
 		private System.Nullable<bool> _Success;
 		
+		private EntityRef<Activity> _Activity;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -916,6 +959,7 @@ namespace CprBroker.Data.Applications
 		
 		public DataProviderCall()
 		{
+			this._Activity = default(EntityRef<Activity>);
 			OnCreated();
 		}
 		
@@ -950,6 +994,10 @@ namespace CprBroker.Data.Applications
 			{
 				if ((this._ActivityId != value))
 				{
+					if (this._Activity.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
 					this.OnActivityIdChanging(value);
 					this.SendPropertyChanging();
 					this._ActivityId = value;
@@ -1075,6 +1123,40 @@ namespace CprBroker.Data.Applications
 					this._Success = value;
 					this.SendPropertyChanged("Success");
 					this.OnSuccessChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Activity_DataProviderCall", Storage="_Activity", ThisKey="ActivityId", OtherKey="ActivityId", IsForeignKey=true)]
+		public Activity Activity
+		{
+			get
+			{
+				return this._Activity.Entity;
+			}
+			set
+			{
+				Activity previousValue = this._Activity.Entity;
+				if (((previousValue != value) 
+							|| (this._Activity.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Activity.Entity = null;
+						previousValue.DataProviderCalls.Remove(this);
+					}
+					this._Activity.Entity = value;
+					if ((value != null))
+					{
+						value.DataProviderCalls.Add(this);
+						this._ActivityId = value.ActivityId;
+					}
+					else
+					{
+						this._ActivityId = default(System.Guid);
+					}
+					this.SendPropertyChanged("Activity");
 				}
 			}
 		}
@@ -1450,6 +1532,10 @@ namespace CprBroker.Data.Applications
 		
 		private EntitySet<Operation> _Operations;
 		
+		private EntitySet<DataProviderCall> _DataProviderCalls;
+		
+		private EntitySet<LogEntry> _LogEntries;
+		
 		private EntityRef<Application> _Application;
 		
     #region Extensibility Method Definitions
@@ -1473,6 +1559,8 @@ namespace CprBroker.Data.Applications
 		public Activity()
 		{
 			this._Operations = new EntitySet<Operation>(new Action<Operation>(this.attach_Operations), new Action<Operation>(this.detach_Operations));
+			this._DataProviderCalls = new EntitySet<DataProviderCall>(new Action<DataProviderCall>(this.attach_DataProviderCalls), new Action<DataProviderCall>(this.detach_DataProviderCalls));
+			this._LogEntries = new EntitySet<LogEntry>(new Action<LogEntry>(this.attach_LogEntries), new Action<LogEntry>(this.detach_LogEntries));
 			this._Application = default(EntityRef<Application>);
 			OnCreated();
 		}
@@ -1614,6 +1702,32 @@ namespace CprBroker.Data.Applications
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Activity_DataProviderCall", Storage="_DataProviderCalls", ThisKey="ActivityId", OtherKey="ActivityId")]
+		public EntitySet<DataProviderCall> DataProviderCalls
+		{
+			get
+			{
+				return this._DataProviderCalls;
+			}
+			set
+			{
+				this._DataProviderCalls.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Activity_LogEntry", Storage="_LogEntries", ThisKey="ActivityId", OtherKey="ActivityID")]
+		public EntitySet<LogEntry> LogEntries
+		{
+			get
+			{
+				return this._LogEntries;
+			}
+			set
+			{
+				this._LogEntries.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Application_Activity", Storage="_Application", ThisKey="ApplicationId", OtherKey="ApplicationId", IsForeignKey=true)]
 		public Application Application
 		{
@@ -1675,6 +1789,30 @@ namespace CprBroker.Data.Applications
 		}
 		
 		private void detach_Operations(Operation entity)
+		{
+			this.SendPropertyChanging();
+			entity.Activity = null;
+		}
+		
+		private void attach_DataProviderCalls(DataProviderCall entity)
+		{
+			this.SendPropertyChanging();
+			entity.Activity = this;
+		}
+		
+		private void detach_DataProviderCalls(DataProviderCall entity)
+		{
+			this.SendPropertyChanging();
+			entity.Activity = null;
+		}
+		
+		private void attach_LogEntries(LogEntry entity)
+		{
+			this.SendPropertyChanging();
+			entity.Activity = this;
+		}
+		
+		private void detach_LogEntries(LogEntry entity)
 		{
 			this.SendPropertyChanging();
 			entity.Activity = null;

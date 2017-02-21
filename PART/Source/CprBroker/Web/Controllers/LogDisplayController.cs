@@ -22,7 +22,7 @@ namespace CprBroker.Web.Controllers
     [RoutePrefix("Pages/LogDisplay")]
     public class LogDisplayController : Controller
     {
-        
+
         [Route("")]
         public ActionResult Activities(LogDisplayParameters pars)
         {
@@ -46,8 +46,16 @@ namespace CprBroker.Web.Controllers
         {
             using (var dc = new ApplicationDataContext())
             {
+                var loadOptions = new DataLoadOptions();
+                loadOptions.LoadWith<Activity>(a => a.LogEntries);
+                loadOptions.LoadWith<Activity>(a => a.Operations);
+                loadOptions.LoadWith<Activity>(a => a.DataProviderCalls);
+
+                loadOptions.LoadWith<LogEntry>(a => a.LogType);
+                loadOptions.LoadWith<Operation>(a => a.OperationType);
+                dc.LoadOptions = loadOptions;
                 var act = dc.Activities.SingleOrDefault(a => a.ActivityId == activityId);
-                return View("Activity", act);
+                return PartialView("Activity", act);
             }
         }
 

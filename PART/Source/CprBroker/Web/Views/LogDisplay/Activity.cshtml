@@ -1,5 +1,87 @@
 ﻿@model CprBroker.Data.Applications.Activity
-@{ 
+@{
     Layout = "";
 }
-@Model.ActivityId
+
+<div class="container">
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#le_@Model.ActivityId">Logs</a></li>
+        <li><a data-toggle="tab" href="#op_@Model.ActivityId">Operations</a></li>
+        <li><a data-toggle="tab" href="#dpc_@Model.ActivityId">External calls</a></li>
+    </ul>
+
+    <div class="tab-content">
+
+        <!-- Logs -->
+        <div id="le_@Model.ActivityId" class="tab-pane fade in active">
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-11">
+
+                    @if (Model.LogEntries.Count > 0)
+                    {
+                        foreach (CprBroker.Data.Applications.LogEntry op in Model.LogEntries)
+                        {
+                            <div class="row">
+                                <b>@op.LogDate</b>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <span>N/A</span>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- Operations -->
+        <div id="op_@Model.ActivityId" class="tab-pane fade">
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-11">
+                    @if (Model.Operations.Count > 0)
+                    {
+                        foreach (CprBroker.Data.Applications.Operation op in Model.Operations)
+                        {
+                            <div class="row">
+                                <b>@op.OperationId</b>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <span>N/A</span>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- External calls -->
+        <div id="dpc_@Model.ActivityId" class="tab-pane fade">
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-11">
+                    @if (Model.DataProviderCalls.Count > 0)
+                    {
+                        foreach (CprBroker.Data.Applications.DataProviderCall op in Model.DataProviderCalls)
+                        {
+                            <div class="row">
+                                <b>@op.Operation</b>
+                                @op.Input
+                                @op.Success
+                                @op.CallTime
+                                @op.Cost
+                                @op.DataProviderType
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <span>N/A</span>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

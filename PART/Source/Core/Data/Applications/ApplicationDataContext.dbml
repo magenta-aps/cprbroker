@@ -33,6 +33,7 @@
       <Column Name="ActivityID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
       <Association Name="Application_LogEntry" Member="Application" ThisKey="ApplicationId" OtherKey="ApplicationId" Type="Application" IsForeignKey="true" />
       <Association Name="LogType_LogEntry" Member="LogType" ThisKey="LogTypeId" OtherKey="LogTypeId" Type="LogType" IsForeignKey="true" />
+      <Association Name="Activity_LogEntry" Member="Activity" ThisKey="ActivityID" OtherKey="ActivityId" Type="Activity" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.DataProviderCall" Member="DataProviderCalls">
@@ -45,6 +46,7 @@
       <Column Name="Operation" Type="System.String" DbType="VarChar(250) NOT NULL" CanBeNull="false" />
       <Column Name="Input" Type="System.String" DbType="VarChar(250) NOT NULL" CanBeNull="false" />
       <Column Name="Success" Type="System.Boolean" DbType="Bit NULL" CanBeNull="true" />
+      <Association Name="Activity_DataProviderCall" Member="Activity" ThisKey="ActivityId" OtherKey="ActivityId" Type="Activity" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.OperationType" Member="OperationTypes">
@@ -73,6 +75,8 @@
       <Column Name="UserId" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
       <Column Name="MethodName" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
       <Association Name="Activity_Operation" Member="Operations" ThisKey="ActivityId" OtherKey="ActivityId" Type="Operation" />
+      <Association Name="Activity_DataProviderCall" Member="DataProviderCalls" ThisKey="ActivityId" OtherKey="ActivityId" Type="DataProviderCall" />
+      <Association Name="Activity_LogEntry" Member="LogEntries" ThisKey="ActivityId" OtherKey="ActivityID" Type="LogEntry" />
       <Association Name="Application_Activity" Member="Application" ThisKey="ApplicationId" OtherKey="ApplicationId" Type="Application" IsForeignKey="true" />
     </Type>
   </Table>

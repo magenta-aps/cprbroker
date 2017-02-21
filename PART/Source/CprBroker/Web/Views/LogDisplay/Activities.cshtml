@@ -1,12 +1,8 @@
 ﻿@model IEnumerable<CprBroker.Data.Applications.Activity>
 
 <div class="container">
-  
-      <button data-toggle="collapse" data-target="#demo">Collapsible</button>
 
-    <div id="demo" class="collapse">
-        Lorem ipsum dolor text....
-    </div><table class="table table-hover">
+    <table class="table table-hover">
         <thead>
             <tr>
                 <th>Timestamp</th>
@@ -20,40 +16,36 @@
         <tbody>
             @foreach (var act in Model)
             {
-                <tr>
+                <tr data-toggle="collapse" data-target="#act_@act.ActivityId">
                     <td>@act.StartTS</td>
                     <td>@act.Application.Name</td>
                     <td>@act.MethodName</td>
                     <td>@act.UserId</td>
                     <td>@act.UserToken</td>
                     <td>
-                        <a data-toggle="collapse" data-target="#act_@act.ActivityId">
-                            Details
-                        </a>
+                        <span class="glyphicon glyphicon-chevron-down"></span>
                 </tr>
                 <tr style="padding-top:0; padding-bottom:0; ">
                     <td colspan="6" style="padding:0;">
-                        <div class="collapse" id="act_@act.ActivityId" name="act" class2="ssd">I am here</div>
+                        <div class="collapse" id="act_@act.ActivityId" name="act" class2="ssd">...</div>
                     </td>
                 </tr>
             }
         </tbody>
     </table>
-
-
 </div>
 
 <script type="text/javascript">
 
     $('[name="act"]').on('show.bs.collapse', function (e) {
         var div = $('#' + e.currentTarget.id);
-        
+
         if (!$(div).attr('loaded')) {
             var actId = $(div).prop('id').replace('act_', '');
             var url = '/Pages/LogDisplay/Details/' + actId;
             $(div).load(url);
             $(div).attr('loaded', true);
         }
-        
+
     })
 </script>
