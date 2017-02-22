@@ -75,12 +75,12 @@
                                             nsMgr.AddNamespace("n", "http://schemas.microsoft.com/AspNet/SiteMap-File-1.0");
                                             var nodes = doc.SelectNodes("//n:siteMapNode/n:siteMapNode", nsMgr);
 
-                                            <ul class="nav nav-">
-                                                @foreach (System.Xml.XmlElement node in nodes)
+                                        <ul class="nav nav-pills navbar">
+                                            @foreach (System.Xml.XmlElement node in nodes)
                                                 {
-                                                    <li> <a href="@Href(node.Attributes["url"].Value)">@node.Attributes["title"].Value</a> </li>
+                                                <li> <a href="@Href(node.Attributes["url"].Value)">@node.Attributes["title"].Value</a> </li>
                                                 }
-                                            </ul>
+                                        </ul>
                                         }
                                     </div>
                                 </td>
@@ -108,7 +108,9 @@
     <table border="0" cellpadding="0" cellspacing="0" width="100%">
         <tbody>
             <tr>
-                <td class="LeftBg1" background="~/Pages/Images/left_menu_bg.gif" valign="top" width="164"></td>
+                <td class="LeftBg1" background="~/Pages/Images/left_menu_bg.gif" valign="top" width="164">
+                    @RenderSection("Left", false)
+                </td>
                 <td>
                     <table border="0" cellpadding="0" cellspacing="0" width="100%">
                         <tbody>
