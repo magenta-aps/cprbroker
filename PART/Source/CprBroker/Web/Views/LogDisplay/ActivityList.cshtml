@@ -1,0 +1,53 @@
+﻿@model IEnumerable<CprBroker.Data.Applications.Activity>
+
+<div class="container">
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Timestamp</th>
+                <th>Application</th>
+                <th>Method</th>
+                <th>User ID</th>
+                <th>User token</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var act in Model)
+            {
+                <tr data-toggle="collapse" data-target="#act_@act.ActivityId">
+                    <td>@act.StartTS</td>
+                    <td>@act.Application.Name</td>
+                    <td>@act.MethodName</td>
+                    <td>@act.UserId</td>
+                    <td>@act.UserToken</td>
+                    <td>
+                        <span class="glyphicon glyphicon-chevron-down"></span>
+                </tr>
+                <tr style="padding-top:0; padding-bottom:0; ">
+                    <td colspan="6" style="padding:0;">
+                        <div class="collapse" id="act_@act.ActivityId" name="act" class2="ssd">...</div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+
+        $('[name="act"]').on('show.bs.collapse', function (e) {
+            var div = $('#' + e.currentTarget.id);
+
+            if (!$(div).attr('loaded')) {
+                var actId = $(div).prop('id').replace('act_', '');
+                var url = '/Pages/LogDisplay/Details/' + actId;
+                $(div).load(url);
+                $(div).attr('loaded', true);
+            }
+        });
+    });
+</script>
+

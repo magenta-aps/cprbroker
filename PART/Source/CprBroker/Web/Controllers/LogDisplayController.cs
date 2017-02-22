@@ -10,10 +10,10 @@ namespace CprBroker.Web.Controllers
 {
     public class LogDisplayParameters
     {
-        public DateTime? From;
-        public DateTime? To;
-        public int PageSize = 20;
-        public int PageNumber = 0;
+        public DateTime? From { get; set; }
+        public DateTime? To { get; set; }
+        public int PageSize { get; set; } = 20;
+        public int PageNumber { get; set; } = 0;
 
         public DateTime EffectiveFrom { get { return From ?? CprBroker.Utilities.Constants.MinSqlDate; } }
         public DateTime EffectiveTo { get { return To ?? CprBroker.Utilities.Constants.MaxSqlDate; } }
@@ -22,9 +22,14 @@ namespace CprBroker.Web.Controllers
     [RoutePrefix("Pages/LogDisplay")]
     public class LogDisplayController : Controller
     {
-
         [Route("")]
-        public ActionResult Activities(LogDisplayParameters pars)
+        public ActionResult Index()
+        {
+            return View();
+        }
+
+        [Route("ActivityList")]
+        public ActionResult ActivityList(LogDisplayParameters pars)
         {
             using (var dc = new ApplicationDataContext())
             {
@@ -37,7 +42,7 @@ namespace CprBroker.Web.Controllers
                     .Take(pars.PageSize)
                     .ToArray();
 
-                return View(acts);
+                return PartialView(acts);
             }
         }
 

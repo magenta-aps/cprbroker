@@ -278,6 +278,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\LogDisplay\Activity.cshtml" />
+    <Content Include="Views\LogDisplay\ActivityList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -510,7 +511,7 @@
     <None Include="Config\log4net.xsd">
       <SubType>Designer</SubType>
     </None>
-    <Content Include="Views\LogDisplay\Activities.cshtml" />
+    <Content Include="Views\LogDisplay\Index.cshtml" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
