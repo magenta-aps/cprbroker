@@ -42,7 +42,7 @@
                         <tbody>
                             <tr>
                                 <td height="11" width="100%">
-                                    <img src="~/Pages/Images/unn_bottom.gif" height="11" width="100%">
+                                    <img src="@Href("~/Pages/Images/unn_bottom.gif")" height="11" width="100%" />
                                 </td>
                             </tr>
                         </tbody>
@@ -66,13 +66,23 @@
                         <tbody>
                             <tr>
                                 <td align="left" style="padding-left: 20px">
-                                    <!-- TODO: Site map -->
-                                    @*<asp:SiteMapDataSource ID="SiteMapDataSource1" runat="server" ShowStartingNode="False" />
-                                        <asp:Menu ID="Menu1" runat="server" DataSourceID="SiteMapDataSource1" Orientation="Horizontal"
-                                                  Width="100%">
-                                            <StaticMenuItemStyle CssClass="TopMenuItem" />
-                                            <StaticSelectedStyle CssClass="TopMenuSelectedItem" BackColor="Transparent" />
-                                        </asp:Menu>*@
+                                    <div class="">
+                                        @{
+                                            System.Xml.XmlDocument doc = new System.Xml.XmlDocument();
+                                            var path = Server.MapPath("~/web.sitemap");
+                                            doc.Load(path);
+                                            var nsMgr = new System.Xml.XmlNamespaceManager(doc.NameTable);
+                                            nsMgr.AddNamespace("n", "http://schemas.microsoft.com/AspNet/SiteMap-File-1.0");
+                                            var nodes = doc.SelectNodes("//n:siteMapNode/n:siteMapNode", nsMgr);
+
+                                            <ul class="nav nav-">
+                                                @foreach (System.Xml.XmlElement node in nodes)
+                                                {
+                                                    <li> <a href="@Href(node.Attributes["url"].Value)">@node.Attributes["title"].Value</a> </li>
+                                                }
+                                            </ul>
+                                        }
+                                    </div>
                                 </td>
                             </tr>
                         </tbody>
@@ -85,10 +95,10 @@
         <tbody>
             <tr>
                 <td height="15" width="164">
-                    <img src="~/Pages/Images/left_menu_top.gif" class="LeftBg1" height="15" width="164">
+                    <img src="~/Pages/Images/left_menu_top.gif" class="LeftBg1" height="15" width="164" />
                 </td>
                 <td width="100%">
-                    <img src="~/Pages/Images/mid_top.gif" height="15" width="100%">
+                    <img src="~/Pages/Images/mid_top.gif" height="15" width="100%" />
                 </td>
             </tr>
         </tbody>
@@ -104,7 +114,7 @@
                         <tbody>
                             <tr>
                                 <td width="28">
-                                    <img src="~/Pages/Images/transparency.gif" height="10" width="28">
+                                    <img src="~/Pages/Images/transparency.gif" height="10" width="28" />
                                 </td>
                                 <td>
                                     <!-- ////////// Main Area Starts here, td height = 25 ////////// -->
@@ -115,7 +125,7 @@
                                     <!--   ////////// Main Area Ends here ////////// -->
                                 </td>
                                 <td width="14">
-                                    <img src="~/Pages/Images/transparency.gif" height="10" width="14">
+                                    <img src="~/Pages/Images/transparency.gif" height="10" width="14" />
                                 </td>
                             </tr>
                         </tbody>
@@ -134,12 +144,12 @@
                         <tbody>
                             <tr>
                                 <td height="31" width="164">
-                                    <img src="~/Pages/Images/transparency.gif" height="31" width="164">
+                                    <img src="~/Pages/Images/transparency.gif" height="31" width="164" />
                                 </td>
                             </tr>
                             <tr>
                                 <td bgcolor="#000000" height="33" width="164">
-                                    <img src="~/Pages/Images/transparency.gif" height="33" width="164">
+                                    <img src="~/Pages/Images/transparency.gif" height="33" width="164" />
                                 </td>
                             </tr>
                         </tbody>
@@ -150,7 +160,7 @@
                         <tbody>
                             <tr>
                                 <td height="31" width="100%">
-                                    <img src="~/Pages/Images/transparency.gif" height="31" width="100%">
+                                    <img src="~/Pages/Images/transparency.gif" height="31" width="100%" />
                                 </td>
                             </tr>
                             <tr>
