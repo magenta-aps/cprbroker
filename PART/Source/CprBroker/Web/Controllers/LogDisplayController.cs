@@ -36,7 +36,7 @@ namespace CprBroker.Web.Controllers
                 var loadOptions = new DataLoadOptions();
                 loadOptions.LoadWith<Activity>(ac => ac.Application);
                 dc.LoadOptions = loadOptions;
-                var acts = dc.Activities.Where(a => a.StartTS >= pars.EffectiveFrom && a.StartTS <= pars.EffectiveTo)
+                var acts = dc.Activities.Where(a => a.StartTS >= pars.EffectiveFrom.Date && a.StartTS < pars.EffectiveTo.Date.AddDays(1))
                     .OrderByDescending(a => a.StartTS)
                     .Skip(pars.PageSize * pars.PageNumber)
                     .Take(pars.PageSize)

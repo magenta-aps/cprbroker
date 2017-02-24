@@ -21,11 +21,38 @@
     </div>
     <script type="text/javascript">
         $(function () {
+
+            function loadActivities() {
+                console.info($('#daterange').data('daterangepicker').startDate);
+                var url = '@Url.Action("ActivityList", "LogDisplay")';
+
+                var s = $('#daterange').data('daterangepicker').startDate.format('YYYY-MM-DD');
+                var e = $('#daterange').data('daterangepicker').endDate.format('YYYY-MM-DD');
+                url = url
+                    + '?'
+                    + 'From=' + s
+                    + '&To=' + e
+                    + '&PageSize=' + '20'
+                    + '&PageNumber=' + '0'
+                    + '';
+
+                console.info(url);
+                console.info(s);
+                console.info(e);
+                $('#ActivityList').load(url);
+            };
+
             var start = moment();
             var end = moment();
 
-            function cb(start, end) {
-                $('#daterange span').html(start.format('@dateFormat') + ' <br> ' + end.format('@dateFormat'));
+            function cb(start, end, selectionText, doNotReload) {
+                txt = start.format('@dateFormat') + ' <br> ' + end.format('@dateFormat');
+                if(selectionText)
+                    txt = selectionText + '<br>' + txt
+                $('#daterange span').html(txt);
+                console.info(doNotReload);
+                if (!doNotReload)
+                    loadActivities();
             }
 
             $('#daterange').daterangepicker(
@@ -42,12 +69,18 @@
                     'Last 30 Days': [moment().subtract(29, 'days'), moment()],
                     'This Month': [moment().startOf('month'), moment().endOf('month')],
                     'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-                }
+                },
+                dateLimit: {
+                    months: 3
+                },
             },
             cb
             );
             // Fill initial values
-            cb(start, end);
+            cb(start, end, null, true);
+
+            // Finally, make the first data load
+            loadActivities();
         });
     </script>
 
@@ -75,25 +108,3 @@
 }
 
 <span id="ActivityList"></span>
-
-<script type="text/javascript">
-
-    $(function () {
-        var loadActivities = function () {
-            console.info($('#daterange').data('daterangepicker').startDate);
-            var url = '@Url.Action("ActivityList", "LogDisplay")';
-            url = url
-                + '?'
-                + 'From=' + $('#daterange').data('daterangepicker').startDate
-                + '&To=' + $('#daterange').data('daterangepicker').startDate
-                + '&PageSize=' + '5'
-                + '&PageNumber=' + '0'
-                + '';
-
-            console.info(url);
-            $('#ActivityList').load(url);
-        };
-
-        loadActivities();
-    });
-</script>
