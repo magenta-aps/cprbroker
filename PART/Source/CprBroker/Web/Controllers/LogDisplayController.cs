@@ -1,7 +1,9 @@
 ﻿using CprBroker.Data.Applications;
+using CprBroker.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Data.Linq;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -12,11 +14,37 @@ namespace CprBroker.Web.Controllers
     {
         public DateTime? From { get; set; }
         public DateTime? To { get; set; }
+        public string Contains { get; set; }
+        public Guid? ApplicationId { get; set; }
+
         public int PageSize { get; set; } = 20;
         public int PageNumber { get; set; } = 0;
 
         public DateTime EffectiveFrom { get { return From ?? CprBroker.Utilities.Constants.MinSqlDate; } }
         public DateTime EffectiveTo { get { return To ?? CprBroker.Utilities.Constants.MaxSqlDate; } }
+        public ActivityContentTypes? EffectiveContains
+        {
+            get
+            {
+                ActivityContentTypes ret;
+                if (Enum.TryParse<ActivityContentTypes>(Contains, out ret))
+                    return ret;
+                else
+                    return null;
+            }
+        }
+
+    }
+
+    [Flags]
+    public enum ActivityContentTypes
+    {
+        None = 0,
+        Errors = 1,
+        Information = 2,
+        Warnings = 4,
+        ExternalCalls = 8,
+        Operations = 16,
     }
 
     [RoutePrefix("Pages/LogDisplay")]
@@ -33,10 +61,38 @@ namespace CprBroker.Web.Controllers
         {
             using (var dc = new ApplicationDataContext())
             {
+                var pred = PredicateBuilder.True<Activity>();
+                pred = pred.And(a => a.StartTS >= pars.EffectiveFrom.Date && a.StartTS < pars.EffectiveTo.Date.AddDays(1));
+                if (pars.ApplicationId.HasValue)
+                    pred = pred.And(a => a.ApplicationId == pars.ApplicationId);
+                if (pars.EffectiveContains.HasValue)
+                {
+                    if ((pars.EffectiveContains.Value & ActivityContentTypes.Errors) != 0)
+                    {
+                        pred = pred.And(a => a.LogEntries.FirstOrDefault(le => le.LogTypeId == (int)TraceEventType.Error) != null);
+                    }
+                    if ((pars.EffectiveContains.Value & ActivityContentTypes.Information) != 0)
+                    {
+                        pred = pred.And(a => a.LogEntries.FirstOrDefault(le => le.LogTypeId == (int)TraceEventType.Information) != null);
+                    }
+                    if ((pars.EffectiveContains.Value & ActivityContentTypes.Warnings) != 0)
+                    {
+                        pred = pred.And(a => a.LogEntries.FirstOrDefault(le => le.LogTypeId == (int)TraceEventType.Warning) != null);
+                    }
+                    if ((pars.EffectiveContains.Value & ActivityContentTypes.ExternalCalls) != 0)
+                    {
+                        pred = pred.And(a => a.DataProviderCalls.FirstOrDefault() != null);
+                    }
+                    if ((pars.EffectiveContains.Value & ActivityContentTypes.Operations) != 0)
+                    {
+                        pred = pred.And(a => a.Operations.FirstOrDefault() != null);
+                    }
+                }
+
                 var loadOptions = new DataLoadOptions();
                 loadOptions.LoadWith<Activity>(ac => ac.Application);
                 dc.LoadOptions = loadOptions;
-                var acts = dc.Activities.Where(a => a.StartTS >= pars.EffectiveFrom.Date && a.StartTS < pars.EffectiveTo.Date.AddDays(1))
+                var acts = dc.Activities.Where(pred)
                     .OrderByDescending(a => a.StartTS)
                     .Skip(pars.PageSize * pars.PageNumber)
                     .Take(pars.PageSize)
