@@ -92,13 +92,16 @@ namespace CprBroker.Web.Controllers
                 var loadOptions = new DataLoadOptions();
                 loadOptions.LoadWith<Activity>(ac => ac.Application);
                 dc.LoadOptions = loadOptions;
+
                 var acts = dc.Activities.Where(pred)
                     .OrderByDescending(a => a.StartTS)
                     .Skip(pars.PageSize * pars.PageNumber)
                     .Take(pars.PageSize)
                     .ToArray();
 
-                return PartialView(acts);
+                var totalItemCount = dc.Activities.Where(pred).Count();
+
+                return PartialView(new PagedList.StaticPagedList<Activity>(acts, pars.PageNumber + 1, pars.PageSize, totalItemCount));
             }
         }
 

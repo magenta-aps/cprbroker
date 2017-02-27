@@ -24,7 +24,10 @@
     <script type="text/javascript">
         $(function () {
 
-            function loadActivities() {
+            $.loadActivities = function (pageNumber) {
+                if (!pageNumber)
+                    pageNumber = 0;
+
                 console.info($('#daterange').data('daterangepicker').startDate);
                 var url = '@Url.Action("ActivityList", "LogDisplay")';
 
@@ -50,8 +53,8 @@
                     + '&To=' + e
                     + '&Contains=' + c
                     + '&ApplicationId=' + a
-                    + '&PageSize=' + '20'
-                    + '&PageNumber=' + '0'
+                    + '&PageSize=' + '5'
+                    + '&PageNumber=' + pageNumber
                     + '';
 
                 console.info(url);
@@ -70,7 +73,7 @@
                 $('#daterange span').html(txt);
                 console.info(doNotReload);
                 if (!doNotReload)
-                    loadActivities();
+                    $.loadActivities();
             }
 
             $('#daterange').daterangepicker(
@@ -97,18 +100,18 @@
 
 
             $('#contains').on('change', function () {
-                loadActivities();
+                $.loadActivities();
             })
 
             $('#application').on('change', function () {
-                loadActivities();
+                $.loadActivities();
             })
 
             // Fill initial values
             cb(start, end, null, true);
 
             // Finally, make the first data load
-            loadActivities();
+            $.loadActivities();
         });
     </script>
 

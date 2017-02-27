@@ -1,6 +1,13 @@
-﻿@model IEnumerable<CprBroker.Data.Applications.Activity>
+﻿@using PagedList;
+@using PagedList.Mvc;
+
+@model StaticPagedList<CprBroker.Data.Applications.Activity>
 
 <div class="container">
+    @Html.PagedListPager(Model,
+        page => "javascript:$.loadActivities(" + (page - 1) + ")",
+        PagedListRenderOptions.ClassicPlusFirstAndLast
+        )
 
     <table class="table table-hover">
         <thead>
