@@ -130,7 +130,6 @@
   <data name="Operation_Sql" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Applications\Init\Operation.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="Application_Csv" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Applications\Init\Application.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
   </data>
@@ -166,5 +165,17 @@
   </data>
   <data name="Semaphore_Sql" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Queues\Init\Semaphore.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="Activity_AddStatColumns_Sql" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Applications\Init\Activity_AddStatColumns.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="DataProviderCall_UpdateActivity_Sql" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Applications\Init\DataProviderCall_UpdateActivity.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="LogEntry_UpdateActivity_Sql" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Applications\Init\LogEntry_UpdateActivity.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="Operation_UpdateActivity_Sql" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Applications\Init\Operation_UpdateActivity.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
 </root>

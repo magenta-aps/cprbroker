@@ -159,7 +159,9 @@
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Applications\Init\OperationType.csv" />
     <None Include="Applications\Init\Application.csv" />
     <None Include="Applications\Init\LogType.csv" />
@@ -211,12 +213,16 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Applications\Init\Activity.sql" />
+    <None Include="Applications\Init\Activity_AddStatColumns.sql" />
     <Content Include="Applications\Init\Application.sql" />
     <Content Include="Applications\Init\DataProviderCall.sql" />
+    <Content Include="Applications\Init\DataProviderCall_UpdateActivity.sql" />
     <Content Include="Applications\Init\LogEntry.sql" />
+    <Content Include="Applications\Init\LogEntry_UpdateActivity.sql" />
     <Content Include="Applications\Init\LogType.sql" />
     <Content Include="Applications\Init\Operation.sql" />
     <Content Include="Applications\Init\OperationType.sql" />
+    <Content Include="Applications\Init\Operation_UpdateActivity.sql" />
     <Content Include="Applications\Readme.txt" />
     <None Include="DataProviders\Init\DataProvider.sql" />
     <Content Include="DataProviders\Init\BudgetInterval.sql" />

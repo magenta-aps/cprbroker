@@ -61,9 +61,25 @@ namespace CprBroker.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ALTER TABLE Activity ADD
+        ///HasCriticalErrors BIT CONSTRAINT DF_Activity_HasCriticalErrors DEFAULT 0,
+        ///HasErrors BIT CONSTRAINT DF_Activity_HasErrors DEFAULT 0,
+        ///HasWarnings BIT CONSTRAINT DF_Activity_HasWarnings DEFAULT 0,
+        ///HasInformation BIT CONSTRAINT DF_Activity_HasInformation DEFAULT 0,
+        ///HasDataProviderCalls BIT CONSTRAINT DF_Activity_HasDataProviderCalls DEFAULT 0,
+        ///HasOperations BIT CONSTRAINT DF_Activity_HasOperations DEFAULT 0.
+        /// </summary>
+        public static string Activity_AddStatColumns_Sql {
+            get {
+                return ResourceManager.GetString("Activity_AddStatColumns_Sql", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to IF NOT EXISTS (SELECT * FROM sys.tables WHERE name=N&apos;Activity&apos;)
         ///BEGIN
         ///	CREATE TABLE Activity(
+        ///		-- Logical columns
         ///		ActivityId	UNIQUEIDENTIFIER			CONSTRAINT DF_Activity_ActivityId DEFAULT NEWID(),
         ///		ApplicationId UNIQUEIDENTIFIER NOT NULL CONSTRAINT FK_Activity_Application REFERENCES [Application](ApplicationId),
         ///		StartTS		DATETIME NOT NULL			CONSTRAINT DF_Activity_StartTS	  DEFAULT GETDATE(),
@@ -71,7 +87,7 @@ namespace CprBroker.Data.Properties {
         ///		UserId		VARCHAR(250) NULL,
         ///		MethodName	VARCHAR(250) NULL,
         ///
-        ///		CONSTRAINT PK_Activity PRIMAR [rest of string was truncated]&quot;;.
+        ///		-- Stat [rest of string was truncated]&quot;;.
         /// </summary>
         public static string Activity_Sql {
             get {
@@ -188,6 +204,29 @@ namespace CprBroker.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to IF EXISTS (SELECT * FROM sys.triggers WHERE name = N&apos;DataProviderCall_UpdateActivity&apos;)
+        ///	DROP TRIGGER DataProviderCall_UpdateActivity
+        ///GO
+        ///
+        ///CREATE TRIGGER DataProviderCall_UpdateActivity
+        ///ON DataProviderCall
+        ///FOR INSERT, UPDATE
+        ///AS
+        ///	SET NOCOUNT ON
+        ///
+        ///	UPDATE a
+        ///	SET HasDataProviderCalls = 1
+        ///	FROM Activity a INNER JOIN INSERTED ins ON a.ActivityId = ins.ActivityId
+        ///
+        ///	SET NOCOUNT OFF.
+        /// </summary>
+        public static string DataProviderCall_UpdateActivity_Sql {
+            get {
+                return ResourceManager.GetString("DataProviderCall_UpdateActivity_Sql", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to /****** Object:  Table [dbo].[LogEntry]    Script Date: 11/21/2013 10:16:51 ******/
         ///SET ANSI_NULLS ON
         ///GO
@@ -207,6 +246,36 @@ namespace CprBroker.Data.Properties {
         public static string LogEntry_Sql {
             get {
                 return ResourceManager.GetString("LogEntry_Sql", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IF EXISTS (SELECT * FROM sys.triggers WHERE name = N&apos;LogEntry_UpdateActivity&apos;)
+        ///	DROP TRIGGER LogEntry_UpdateActivity
+        ///GO
+        ///
+        ///CREATE TRIGGER LogEntry_UpdateActivity
+        ///ON LogEntry
+        ///FOR INSERT, UPDATE
+        ///AS
+        ///	SET NOCOUNT ON
+        ///
+        ///	UPDATE a
+        ///	SET HasCriticalErrors = 1
+        ///	FROM Activity a INNER JOIN INSERTED ins ON a.ActivityId = ins.ActivityId
+        ///	WHERE ins.LogTypeId = 1
+        ///
+        ///	UPDATE a
+        ///	SET HasWarnings = 1
+        ///	FROM Activity a INNER JOIN INSERTED ins ON a.ActivityId = ins.ActivityId
+        ///	WHERE ins.LogTypeId = 2
+        ///
+        ///	UPDATE a
+        ///	S [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string LogEntry_UpdateActivity_Sql {
+            get {
+                return ResourceManager.GetString("LogEntry_UpdateActivity_Sql", resourceCulture);
             }
         }
         
@@ -271,6 +340,29 @@ namespace CprBroker.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to IF EXISTS (SELECT * FROM sys.triggers WHERE name = N&apos;Operation_UpdateActivity&apos;)
+        ///	DROP TRIGGER Operation_UpdateActivity
+        ///GO
+        ///
+        ///CREATE TRIGGER Operation_UpdateActivity
+        ///ON Operation
+        ///FOR INSERT, UPDATE
+        ///AS
+        ///	SET NOCOUNT ON
+        ///
+        ///	UPDATE a
+        ///	SET HasOperations = 1
+        ///	FROM Activity a INNER JOIN INSERTED ins ON a.ActivityId = ins.ActivityId
+        ///
+        ///	SET NOCOUNT OFF.
+        /// </summary>
+        public static string Operation_UpdateActivity_Sql {
+            get {
+                return ResourceManager.GetString("Operation_UpdateActivity_Sql", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Name;OperationTypeId
         ///Generic;1
         ///Read;2
@@ -280,7 +372,8 @@ namespace CprBroker.Data.Properties {
         ///PutSubscription;6
         ///Subscribe;8
         ///Unsubscribe;9
-        ///ListSubscriptions;10.
+        ///ListSubscriptions;10
+        ///DprDiversion;11.
         /// </summary>
         public static string OperationType_Csv {
             get {

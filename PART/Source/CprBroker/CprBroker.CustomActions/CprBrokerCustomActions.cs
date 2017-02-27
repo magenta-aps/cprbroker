@@ -362,6 +362,19 @@ namespace CprBroker.CustomActions
                             }
                         ),
                         PatchAction = null
+                    },
+                    new DatabasePatchInfo(){
+                        Version = new Version(2,2,12),
+                        SqlScript = string.Join(
+                            lineSep,
+                            new string[]{
+                                Data.Properties.Resources.Activity_AddStatColumns_Sql,
+                                Data.Properties.Resources.Operation_UpdateActivity_Sql,
+                                Data.Properties.Resources.LogEntry_UpdateActivity_Sql,
+                                Data.Properties.Resources.DataProviderCall_UpdateActivity_Sql,
+                            }
+                        ),
+                        PatchAction = null
                     }
                 };
 

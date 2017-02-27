@@ -1530,11 +1530,23 @@ namespace CprBroker.Data.Applications
 		
 		private string _MethodName;
 		
-		private EntitySet<Operation> _Operations;
+		private System.Nullable<bool> _HasCriticalErrors;
+		
+		private System.Nullable<bool> _HasErrors;
+		
+		private System.Nullable<bool> _HasWarnings;
+		
+		private System.Nullable<bool> _HasInformation;
+		
+		private System.Nullable<bool> _HasDataProviderCalls;
+		
+		private System.Nullable<bool> _HasOperations;
+		
+		private EntitySet<LogEntry> _LogEntries;
 		
 		private EntitySet<DataProviderCall> _DataProviderCalls;
 		
-		private EntitySet<LogEntry> _LogEntries;
+		private EntitySet<Operation> _Operations;
 		
 		private EntityRef<Application> _Application;
 		
@@ -1554,13 +1566,25 @@ namespace CprBroker.Data.Applications
     partial void OnUserIdChanged();
     partial void OnMethodNameChanging(string value);
     partial void OnMethodNameChanged();
+    partial void OnHasCriticalErrorsChanging(System.Nullable<bool> value);
+    partial void OnHasCriticalErrorsChanged();
+    partial void OnHasErrorsChanging(System.Nullable<bool> value);
+    partial void OnHasErrorsChanged();
+    partial void OnHasWarningsChanging(System.Nullable<bool> value);
+    partial void OnHasWarningsChanged();
+    partial void OnHasInformationChanging(System.Nullable<bool> value);
+    partial void OnHasInformationChanged();
+    partial void OnHasDataProviderCallsChanging(System.Nullable<bool> value);
+    partial void OnHasDataProviderCallsChanged();
+    partial void OnHasOperationsChanging(System.Nullable<bool> value);
+    partial void OnHasOperationsChanged();
     #endregion
 		
 		public Activity()
 		{
-			this._Operations = new EntitySet<Operation>(new Action<Operation>(this.attach_Operations), new Action<Operation>(this.detach_Operations));
-			this._DataProviderCalls = new EntitySet<DataProviderCall>(new Action<DataProviderCall>(this.attach_DataProviderCalls), new Action<DataProviderCall>(this.detach_DataProviderCalls));
 			this._LogEntries = new EntitySet<LogEntry>(new Action<LogEntry>(this.attach_LogEntries), new Action<LogEntry>(this.detach_LogEntries));
+			this._DataProviderCalls = new EntitySet<DataProviderCall>(new Action<DataProviderCall>(this.attach_DataProviderCalls), new Action<DataProviderCall>(this.detach_DataProviderCalls));
+			this._Operations = new EntitySet<Operation>(new Action<Operation>(this.attach_Operations), new Action<Operation>(this.detach_Operations));
 			this._Application = default(EntityRef<Application>);
 			OnCreated();
 		}
@@ -1585,7 +1609,7 @@ namespace CprBroker.Data.Applications
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ApplicationId", DbType="UniqueIdentifier")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ApplicationId", DbType="UniqueIdentifier NOT NULL")]
 		public System.Guid ApplicationId
 		{
 			get
@@ -1609,7 +1633,7 @@ namespace CprBroker.Data.Applications
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StartTS", DbType="DateTime")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StartTS", DbType="DateTime NOT NULL")]
 		public System.DateTime StartTS
 		{
 			get
@@ -1689,16 +1713,136 @@ namespace CprBroker.Data.Applications
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Activity_Operation", Storage="_Operations", ThisKey="ActivityId", OtherKey="ActivityId")]
-		public EntitySet<Operation> Operations
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HasCriticalErrors", DbType="Bit")]
+		public System.Nullable<bool> HasCriticalErrors
 		{
 			get
 			{
-				return this._Operations;
+				return this._HasCriticalErrors;
 			}
 			set
 			{
-				this._Operations.Assign(value);
+				if ((this._HasCriticalErrors != value))
+				{
+					this.OnHasCriticalErrorsChanging(value);
+					this.SendPropertyChanging();
+					this._HasCriticalErrors = value;
+					this.SendPropertyChanged("HasCriticalErrors");
+					this.OnHasCriticalErrorsChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HasErrors", DbType="Bit")]
+		public System.Nullable<bool> HasErrors
+		{
+			get
+			{
+				return this._HasErrors;
+			}
+			set
+			{
+				if ((this._HasErrors != value))
+				{
+					this.OnHasErrorsChanging(value);
+					this.SendPropertyChanging();
+					this._HasErrors = value;
+					this.SendPropertyChanged("HasErrors");
+					this.OnHasErrorsChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HasWarnings", DbType="Bit")]
+		public System.Nullable<bool> HasWarnings
+		{
+			get
+			{
+				return this._HasWarnings;
+			}
+			set
+			{
+				if ((this._HasWarnings != value))
+				{
+					this.OnHasWarningsChanging(value);
+					this.SendPropertyChanging();
+					this._HasWarnings = value;
+					this.SendPropertyChanged("HasWarnings");
+					this.OnHasWarningsChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HasInformation", DbType="Bit")]
+		public System.Nullable<bool> HasInformation
+		{
+			get
+			{
+				return this._HasInformation;
+			}
+			set
+			{
+				if ((this._HasInformation != value))
+				{
+					this.OnHasInformationChanging(value);
+					this.SendPropertyChanging();
+					this._HasInformation = value;
+					this.SendPropertyChanged("HasInformation");
+					this.OnHasInformationChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HasDataProviderCalls", DbType="Bit")]
+		public System.Nullable<bool> HasDataProviderCalls
+		{
+			get
+			{
+				return this._HasDataProviderCalls;
+			}
+			set
+			{
+				if ((this._HasDataProviderCalls != value))
+				{
+					this.OnHasDataProviderCallsChanging(value);
+					this.SendPropertyChanging();
+					this._HasDataProviderCalls = value;
+					this.SendPropertyChanged("HasDataProviderCalls");
+					this.OnHasDataProviderCallsChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HasOperations", DbType="Bit")]
+		public System.Nullable<bool> HasOperations
+		{
+			get
+			{
+				return this._HasOperations;
+			}
+			set
+			{
+				if ((this._HasOperations != value))
+				{
+					this.OnHasOperationsChanging(value);
+					this.SendPropertyChanging();
+					this._HasOperations = value;
+					this.SendPropertyChanged("HasOperations");
+					this.OnHasOperationsChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Activity_LogEntry", Storage="_LogEntries", ThisKey="ActivityId", OtherKey="ActivityID")]
+		public EntitySet<LogEntry> LogEntries
+		{
+			get
+			{
+				return this._LogEntries;
+			}
+			set
+			{
+				this._LogEntries.Assign(value);
 			}
 		}
 		
@@ -1715,16 +1859,16 @@ namespace CprBroker.Data.Applications
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Activity_LogEntry", Storage="_LogEntries", ThisKey="ActivityId", OtherKey="ActivityID")]
-		public EntitySet<LogEntry> LogEntries
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Activity_Operation", Storage="_Operations", ThisKey="ActivityId", OtherKey="ActivityId")]
+		public EntitySet<Operation> Operations
 		{
 			get
 			{
-				return this._LogEntries;
+				return this._Operations;
 			}
 			set
 			{
-				this._LogEntries.Assign(value);
+				this._Operations.Assign(value);
 			}
 		}
 		
@@ -1782,13 +1926,13 @@ namespace CprBroker.Data.Applications
 			}
 		}
 		
-		private void attach_Operations(Operation entity)
+		private void attach_LogEntries(LogEntry entity)
 		{
 			this.SendPropertyChanging();
 			entity.Activity = this;
 		}
 		
-		private void detach_Operations(Operation entity)
+		private void detach_LogEntries(LogEntry entity)
 		{
 			this.SendPropertyChanging();
 			entity.Activity = null;
@@ -1806,13 +1950,13 @@ namespace CprBroker.Data.Applications
 			entity.Activity = null;
 		}
 		
-		private void attach_LogEntries(LogEntry entity)
+		private void attach_Operations(Operation entity)
 		{
 			this.SendPropertyChanging();
 			entity.Activity = this;
 		}
 		
-		private void detach_LogEntries(LogEntry entity)
+		private void detach_Operations(Operation entity)
 		{
 			this.SendPropertyChanging();
 			entity.Activity = null;

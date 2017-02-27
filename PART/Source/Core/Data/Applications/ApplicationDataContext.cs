@@ -64,11 +64,14 @@ namespace CprBroker.Data.Applications
                 return new string[] {
                     Properties.Resources.Application_Sql,
                     Properties.Resources.LogType_Sql,
-                    Properties.Resources.LogEntry_Sql,
-                    Properties.Resources.DataProviderCall_Sql,
                     Properties.Resources.Activity_Sql,
+                    Properties.Resources.LogEntry_Sql,
+                    Properties.Resources.LogEntry_UpdateActivity_Sql,
+                    Properties.Resources.DataProviderCall_Sql,
+                    Properties.Resources.DataProviderCall_UpdateActivity_Sql,
                     Properties.Resources.OperationType_Sql,
-                    Properties.Resources.Operation_Sql,                    
+                    Properties.Resources.Operation_Sql,
+                    Properties.Resources.Operation_UpdateActivity_Sql
                 };
 
             }
