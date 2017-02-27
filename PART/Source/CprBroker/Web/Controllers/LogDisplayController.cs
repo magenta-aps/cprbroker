@@ -69,23 +69,23 @@ namespace CprBroker.Web.Controllers
                 {
                     if ((pars.EffectiveContains.Value & ActivityContentTypes.Errors) != 0)
                     {
-                        pred = pred.And(a => a.LogEntries.FirstOrDefault(le => le.LogTypeId == (int)TraceEventType.Error) != null);
+                        pred = pred.And(a => a.HasErrors.Value == true);
                     }
                     if ((pars.EffectiveContains.Value & ActivityContentTypes.Information) != 0)
                     {
-                        pred = pred.And(a => a.LogEntries.FirstOrDefault(le => le.LogTypeId == (int)TraceEventType.Information) != null);
+                        pred = pred.And(a => a.HasInformation.Value == true);
                     }
                     if ((pars.EffectiveContains.Value & ActivityContentTypes.Warnings) != 0)
                     {
-                        pred = pred.And(a => a.LogEntries.FirstOrDefault(le => le.LogTypeId == (int)TraceEventType.Warning) != null);
+                        pred = pred.And(a => a.HasWarnings.Value == true);
                     }
                     if ((pars.EffectiveContains.Value & ActivityContentTypes.ExternalCalls) != 0)
                     {
-                        pred = pred.And(a => a.DataProviderCalls.FirstOrDefault() != null);
+                        pred = pred.And(a => a.HasDataProviderCalls.Value == true);
                     }
                     if ((pars.EffectiveContains.Value & ActivityContentTypes.Operations) != 0)
                     {
-                        pred = pred.And(a => a.Operations.FirstOrDefault() != null);
+                        pred = pred.And(a => a.HasOperations.Value == true);
                     }
                 }
 
