@@ -188,6 +188,29 @@ namespace CprBroker.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to DECLARE @MaxDate DATETIME, @TempMaxDate DATETIME, @TempMinDate DATETIME, @IntervalHours INT
+        ///DECLARE @msg VARCHAR(max)
+        ///
+        ///SET @IntervalHours = 48
+        ///SET @MaxDate = DATEADD(YEAR, 0, GETDATE())
+        ///SELECT  @TempMinDate = MIN(CallTime) FROM DataProviderCall
+        ///SET @TempMaxDate = DATEADD(HOUR, @IntervalHours, @TempMinDate)		
+        ///	
+        ///
+        ///WHILE @TempMinDate &lt; @MaxDate
+        ///BEGIN
+        ///	WITH l AS 
+        ///	(
+        ///		SELECT dpc.ActivityId, NULL as ApplicationId, dpc.CallTime, NULL as UserToken, NULL as UserId, NULL as MethodName, 
+        ///		ROW_NUMBER() O [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string DataProviderCall_MigrateToActivity_Sql {
+            get {
+                return ResourceManager.GetString("DataProviderCall_MigrateToActivity_Sql", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N&apos;[dbo].[DataProviderCall]&apos;) AND type in (N&apos;U&apos;))
         ///BEGIN
         ///    CREATE TABLE [dbo].[DataProviderCall](
@@ -239,10 +262,10 @@ namespace CprBroker.Data.Properties {
         ///
         ///WHILE @TempMinDate &lt; @MaxDate
         ///BEGIN
+        ///	-- Insert rows into Activity, if not already there
         ///	WITH l AS 
         ///	(
-        ///		SELECT le.ActivityId, le.ApplicationId, le.LogDate, le.UserToken, le.UserId, le.MethodName, 
-        ///		ROW_NUMBER() OVER (PARTITION BY le.ActivityId  [rest of string was truncated]&quot;;.
+        ///		SELECT le.ActivityId, le.ApplicationId, le.LogDate, le.UserToken, le.UserId, le.MethodNam [rest of string was truncated]&quot;;.
         /// </summary>
         public static string LogEntry_MigrateToActivity_Sql {
             get {
