@@ -1,7 +1,43 @@
-﻿@model CprBroker.Data.Applications.Activity
+﻿@using System.Diagnostics;
+@using CprBroker.Data.Applications;
+
+@model CprBroker.Data.Applications.Activity
 @{
     Layout = "";
+    Func<LogEntry, string> logRowClass = (le => {
+        switch((TraceEventType)le.LogTypeId)
+        {
+            case TraceEventType.Critical:
+                return "danger";
+            case TraceEventType.Error:
+                return "error";
+            case TraceEventType.Warning:
+                return "warning";
+            case TraceEventType.Information:
+                return "success";
+            default:
+                return "";
+        }
+    });
+
+    Func<LogEntry, string> logGlyphiconClass = (le =>
+    {
+        switch ((TraceEventType)le.LogTypeId)
+        {
+            case TraceEventType.Critical:
+                return "glyphicon-warning-sign";
+            case TraceEventType.Error:
+                return "glyphicon-remove-sign";
+            case TraceEventType.Warning:
+                return "glyphicon-warning-sign";
+            case TraceEventType.Information:
+                return "glyphicon-info-sign";
+            default:
+                return "";
+        }
+    });
 }
+
 <style>
     .act > li > a {
         padding-bottom: 5px;
@@ -9,7 +45,8 @@
     }
 </style>
 
-<div class="panel panel-info" >
+<div class="panel-body pre-scrollable" >
+    
     <ul class="nav nav-tabs act">
         <li class="active"><a data-toggle="tab" href="#le_@Model.ActivityId">Logs</a></li>
         <li><a data-toggle="tab" href="#op_@Model.ActivityId">Operations</a></li>
@@ -21,7 +58,7 @@
         <!-- Logs -->
         <div id="le_@Model.ActivityId" class="tab-pane fade in active">
             <div class="row">
-                <div class="col-md-offset-1 col-md-10">
+                <div class="col-md-offset-0 col-md-12">
                     @if (Model.LogEntries.Count > 0)
                     {
                         <table class="table table-condensed">
@@ -37,9 +74,9 @@
                             <tbody>
                                 @foreach (CprBroker.Data.Applications.LogEntry le in Model.LogEntries)
                                 {
-                                    <tr>
+                                    <tr class="@logRowClass(le)">
                                         <td>@le.LogDate</td>
-                                        <td>@le.LogType.Name</td>
+                                        <td><span class="glyphicon @logGlyphiconClass(le)"></span></td>
                                         <td>@le.Text</td>
                                         @*<td>@le.DataObjectType</td>*@
                                         <td>@le.DataObjectXml</td>
