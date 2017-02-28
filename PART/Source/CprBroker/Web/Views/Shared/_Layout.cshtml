@@ -66,23 +66,48 @@
                         <tbody>
                             <tr>
                                 <td align="left" style="padding-left: 20px">
-                                    <div class="">
-                                        @{
-                                            System.Xml.XmlDocument doc = new System.Xml.XmlDocument();
-                                            var path = Server.MapPath("~/web.sitemap");
-                                            doc.Load(path);
-                                            var nsMgr = new System.Xml.XmlNamespaceManager(doc.NameTable);
-                                            nsMgr.AddNamespace("n", "http://schemas.microsoft.com/AspNet/SiteMap-File-1.0");
-                                            var nodes = doc.SelectNodes("//n:siteMapNode/n:siteMapNode", nsMgr);
+                                    <table>
+                                        <tbody>
+                                            <tr>
 
-                                        <ul class="nav nav-pills navbar">
-                                            @foreach (System.Xml.XmlElement node in nodes)
-                                                {
-                                                <li> <a href="@Href(node.Attributes["url"].Value)">@node.Attributes["title"].Value</a> </li>
+                                                @{
+                                                    System.Xml.XmlDocument doc = new System.Xml.XmlDocument();
+                                                    var path = Server.MapPath("~/web.sitemap");
+                                                    doc.Load(path);
+                                                    var nsMgr = new System.Xml.XmlNamespaceManager(doc.NameTable);
+                                                    nsMgr.AddNamespace("n", "http://schemas.microsoft.com/AspNet/SiteMap-File-1.0");
+                                                    var nodes = doc.SelectNodes("//n:siteMapNode/n:siteMapNode", nsMgr);
+
+                                                    foreach (System.Xml.XmlElement node in nodes)
+                                                    {
+                                                        <td onmouseover='Menu_HoverStatic(this)' onmouseout='Menu_Unhover(this)' onkeyup='Menu_Key(event)'>
+                                                            <table class="TopMenuItem" cellpadding="0" cellspacing="0" border="0" width="100%">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td style="white-space:nowrap">
+                                                                            @{
+                                                                                var currentPath = this.Request.Url.AbsolutePath.ToLower();
+                                                                                var linkPath = Href(node.Attributes["url"].Value).ToLower();
+                                                                                var linkClass = "TopMenuItem"
+                                                                                    + (currentPath.Contains(linkPath) ? " TopMenuSelectedItem" : "");
+                                                                            }
+
+                                                                            <a class='@linkClass' href="@Href(node.Attributes["url"].Value)" style="border-style:none;font-size:1em;">
+                                                                                @node.Attributes["title"].Value
+                                                                            </a>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </td>
+                                                    }
                                                 }
-                                        </ul>
-                                        }
-                                    </div>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+
+
                                 </td>
                             </tr>
                         </tbody>
@@ -184,4 +209,3 @@
     @RenderSection("scripts", required: false)
 </body>
 </html>
-
