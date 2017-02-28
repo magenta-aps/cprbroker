@@ -372,6 +372,8 @@ namespace CprBroker.CustomActions
                                 Data.Properties.Resources.Operation_UpdateActivity_Sql,
                                 Data.Properties.Resources.LogEntry_UpdateActivity_Sql,
                                 Data.Properties.Resources.DataProviderCall_UpdateActivity_Sql,
+                                // Migration of data - commented because it may take long
+                                //Data.Properties.Resources.LogEntry_MigrateToActivity_Sql,
                             }
                         ),
                         PatchAction = null

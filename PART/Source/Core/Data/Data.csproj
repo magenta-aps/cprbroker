@@ -218,6 +218,7 @@
     <Content Include="Applications\Init\DataProviderCall.sql" />
     <Content Include="Applications\Init\DataProviderCall_UpdateActivity.sql" />
     <Content Include="Applications\Init\LogEntry.sql" />
+    <None Include="Applications\Init\LogEntry_MigrateToActivity.sql" />
     <Content Include="Applications\Init\LogEntry_UpdateActivity.sql" />
     <Content Include="Applications\Init\LogType.sql" />
     <Content Include="Applications\Init\Operation.sql" />

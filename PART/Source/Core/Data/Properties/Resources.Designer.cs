@@ -61,13 +61,14 @@ namespace CprBroker.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ALTER TABLE Activity ADD
-        ///HasCriticalErrors BIT CONSTRAINT DF_Activity_HasCriticalErrors DEFAULT 0,
-        ///HasErrors BIT CONSTRAINT DF_Activity_HasErrors DEFAULT 0,
-        ///HasWarnings BIT CONSTRAINT DF_Activity_HasWarnings DEFAULT 0,
-        ///HasInformation BIT CONSTRAINT DF_Activity_HasInformation DEFAULT 0,
-        ///HasDataProviderCalls BIT CONSTRAINT DF_Activity_HasDataProviderCalls DEFAULT 0,
-        ///HasOperations BIT CONSTRAINT DF_Activity_HasOperations DEFAULT 0.
+        ///   Looks up a localized string similar to IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N&apos;Activity&apos;) AND name = N&apos;HasCriticalErrors&apos;)
+        ///	ALTER TABLE Activity ADD
+        ///		HasCriticalErrors BIT CONSTRAINT DF_Activity_HasCriticalErrors DEFAULT 0,
+        ///		HasErrors BIT CONSTRAINT DF_Activity_HasErrors DEFAULT 0,
+        ///		HasWarnings BIT CONSTRAINT DF_Activity_HasWarnings DEFAULT 0,
+        ///		HasInformation BIT CONSTRAINT DF_Activity_HasInformation DEFAULT 0,
+        ///		HasDataProviderCalls BIT CONSTRAINT DF_Activity_HasDataProviderCalls DEFAULT 0,
+        ///		HasOperati [rest of string was truncated]&quot;;.
         /// </summary>
         public static string Activity_AddStatColumns_Sql {
             get {
@@ -79,7 +80,7 @@ namespace CprBroker.Data.Properties {
         ///   Looks up a localized string similar to IF NOT EXISTS (SELECT * FROM sys.tables WHERE name=N&apos;Activity&apos;)
         ///BEGIN
         ///	CREATE TABLE Activity(
-        ///		-- Logical columns
+        ///		-- Data columns
         ///		ActivityId	UNIQUEIDENTIFIER			CONSTRAINT DF_Activity_ActivityId DEFAULT NEWID(),
         ///		ApplicationId UNIQUEIDENTIFIER NOT NULL CONSTRAINT FK_Activity_Application REFERENCES [Application](ApplicationId),
         ///		StartTS		DATETIME NOT NULL			CONSTRAINT DF_Activity_StartTS	  DEFAULT GETDATE(),
@@ -87,7 +88,7 @@ namespace CprBroker.Data.Properties {
         ///		UserId		VARCHAR(250) NULL,
         ///		MethodName	VARCHAR(250) NULL,
         ///
-        ///		-- Stat [rest of string was truncated]&quot;;.
+        ///		-- Statist [rest of string was truncated]&quot;;.
         /// </summary>
         public static string Activity_Sql {
             get {
@@ -223,6 +224,29 @@ namespace CprBroker.Data.Properties {
         public static string DataProviderCall_UpdateActivity_Sql {
             get {
                 return ResourceManager.GetString("DataProviderCall_UpdateActivity_Sql", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DECLARE @MaxDate DATETIME, @TempMaxDate DATETIME, @TempMinDate DATETIME, @IntervalHours INT
+        ///DECLARE @msg VARCHAR(max)
+        ///
+        ///SET @IntervalHours = 48
+        ///SET @MaxDate = DATEADD(YEAR, 0, GETDATE())
+        ///SELECT  @TempMinDate = MIN(LogDate) FROM LogEntry
+        ///SET @TempMaxDate = DATEADD(HOUR, @IntervalHours, @TempMinDate)		
+        ///	
+        ///
+        ///WHILE @TempMinDate &lt; @MaxDate
+        ///BEGIN
+        ///	WITH l AS 
+        ///	(
+        ///		SELECT le.ActivityId, le.ApplicationId, le.LogDate, le.UserToken, le.UserId, le.MethodName, 
+        ///		ROW_NUMBER() OVER (PARTITION BY le.ActivityId  [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string LogEntry_MigrateToActivity_Sql {
+            get {
+                return ResourceManager.GetString("LogEntry_MigrateToActivity_Sql", resourceCulture);
             }
         }
         
