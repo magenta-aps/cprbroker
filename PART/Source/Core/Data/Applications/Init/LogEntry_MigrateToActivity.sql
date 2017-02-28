@@ -9,6 +9,7 @@ SET @TempMaxDate = DATEADD(HOUR, @IntervalHours, @TempMinDate)
 
 WHILE @TempMinDate < @MaxDate
 BEGIN
+	-- Insert rows into Activity, if not already there
 	WITH l AS 
 	(
 		SELECT le.ActivityId, le.ApplicationId, le.LogDate, le.UserToken, le.UserId, le.MethodName, 
@@ -26,6 +27,9 @@ BEGIN
 	set @msg = N'Selected records between ' + CONVERT(varchar, @TempMinDate, 121) + ' AND ' + CONVERT(varchar, @TempMaxDate, 121) + ' rows : ' + convert(varchar, @@ROWCOUNT);
 	RAISERROR (@msg, 0, 1) WITH NOWAIT
 	
+	-- Trigger update of relevant statistics in Activity
+	UPDATE LogEntry SET MethodName = MethodName WHERE LogDate BETWEEN @TempMinDate AND @TempMaxDate
+
 	SET @TempMinDate = @TempMaxDate
 	SET @TempMaxDate = DATEADD(HOUR, @IntervalHours, @TempMinDate)		
 	
