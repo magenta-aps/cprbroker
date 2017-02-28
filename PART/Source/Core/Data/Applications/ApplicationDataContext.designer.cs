@@ -1520,7 +1520,7 @@ namespace CprBroker.Data.Applications
 		
 		private System.Guid _ActivityId;
 		
-		private System.Guid _ApplicationId;
+		private System.Nullable<System.Guid> _ApplicationId;
 		
 		private System.DateTime _StartTS;
 		
@@ -1556,7 +1556,7 @@ namespace CprBroker.Data.Applications
     partial void OnCreated();
     partial void OnActivityIdChanging(System.Guid value);
     partial void OnActivityIdChanged();
-    partial void OnApplicationIdChanging(System.Guid value);
+    partial void OnApplicationIdChanging(System.Nullable<System.Guid> value);
     partial void OnApplicationIdChanged();
     partial void OnStartTSChanging(System.DateTime value);
     partial void OnStartTSChanged();
@@ -1609,8 +1609,8 @@ namespace CprBroker.Data.Applications
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ApplicationId", DbType="UniqueIdentifier NOT NULL")]
-		public System.Guid ApplicationId
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ApplicationId", DbType="UniqueIdentifier NULL")]
+		public System.Nullable<System.Guid> ApplicationId
 		{
 			get
 			{
@@ -1899,7 +1899,7 @@ namespace CprBroker.Data.Applications
 					}
 					else
 					{
-						this._ApplicationId = default(System.Guid);
+						this._ApplicationId = default(Nullable<System.Guid>);
 					}
 					this.SendPropertyChanged("Application");
 				}

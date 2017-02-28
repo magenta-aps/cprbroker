@@ -2,9 +2,9 @@
 BEGIN
 	CREATE TABLE Activity(
 		-- Data columns
-		ActivityId	UNIQUEIDENTIFIER			CONSTRAINT DF_Activity_ActivityId DEFAULT NEWID(),
-		ApplicationId UNIQUEIDENTIFIER NOT NULL CONSTRAINT FK_Activity_Application REFERENCES [Application](ApplicationId),
-		StartTS		DATETIME NOT NULL			CONSTRAINT DF_Activity_StartTS	  DEFAULT GETDATE(),
+		ActivityId	UNIQUEIDENTIFIER	    CONSTRAINT DF_Activity_ActivityId DEFAULT NEWID(),
+		ApplicationId UNIQUEIDENTIFIER NULL CONSTRAINT FK_Activity_Application REFERENCES [Application](ApplicationId),
+		StartTS		DATETIME NOT NULL		CONSTRAINT DF_Activity_StartTS	  DEFAULT GETDATE(),
 		UserToken	VARCHAR(250) NULL,
 		UserId		VARCHAR(250) NULL,
 		MethodName	VARCHAR(250) NULL,

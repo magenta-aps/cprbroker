@@ -69,7 +69,7 @@
   <Table Name="dbo.Activity" Member="Activities">
     <Type Name="Activity">
       <Column Name="ActivityId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="ApplicationId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="ApplicationId" Type="System.Guid" DbType="UniqueIdentifier NULL" CanBeNull="true" />
       <Column Name="StartTS" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Column Name="UserToken" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
       <Column Name="UserId" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
@@ -80,9 +80,9 @@
       <Column Name="HasInformation" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
       <Column Name="HasDataProviderCalls" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
       <Column Name="HasOperations" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Association Name="Activity_Operation" Member="Operations" ThisKey="ActivityId" OtherKey="ActivityId" Type="Operation" />
-      <Association Name="Activity_DataProviderCall" Member="DataProviderCalls" ThisKey="ActivityId" OtherKey="ActivityId" Type="DataProviderCall" />
       <Association Name="Activity_LogEntry" Member="LogEntries" ThisKey="ActivityId" OtherKey="ActivityID" Type="LogEntry" />
+      <Association Name="Activity_DataProviderCall" Member="DataProviderCalls" ThisKey="ActivityId" OtherKey="ActivityId" Type="DataProviderCall" />
+      <Association Name="Activity_Operation" Member="Operations" ThisKey="ActivityId" OtherKey="ActivityId" Type="Operation" />
       <Association Name="Application_Activity" Member="Application" ThisKey="ApplicationId" OtherKey="ApplicationId" Type="Application" IsForeignKey="true" />
     </Type>
   </Table>

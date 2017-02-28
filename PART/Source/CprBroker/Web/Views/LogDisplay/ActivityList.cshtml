@@ -25,13 +25,17 @@
             {
                 <tr data-toggle="collapse" data-target="#act_@act.ActivityId">
                     <td>@act.StartTS</td>
-                    <td>@act.Application.Name</td>
-                    <td>@act.MethodName</td>
-                    <td>@act.UserId</td>
-                    <td>@act.UserToken</td>
                     <td>
-                        <span class="glyphicon glyphicon-chevron-down"></span>
-                </tr>
+                        @if (act.Application != null){
+                            @act.Application.Name
+                        }
+                </td>
+                <td>@act.MethodName</td>
+                <td>@act.UserId</td>
+                <td>@act.UserToken</td>
+                <td>
+                    <span class="glyphicon glyphicon-chevron-down"></span>
+            </tr>
                 <tr style="padding-top:0; padding-bottom:0; ">
                     <td colspan="6" style="padding:0;">
                         <div class="collapse" id="act_@act.ActivityId" name="act" class2="ssd">...</div>

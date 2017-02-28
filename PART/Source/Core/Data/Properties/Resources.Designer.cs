@@ -81,14 +81,14 @@ namespace CprBroker.Data.Properties {
         ///BEGIN
         ///	CREATE TABLE Activity(
         ///		-- Data columns
-        ///		ActivityId	UNIQUEIDENTIFIER			CONSTRAINT DF_Activity_ActivityId DEFAULT NEWID(),
-        ///		ApplicationId UNIQUEIDENTIFIER NOT NULL CONSTRAINT FK_Activity_Application REFERENCES [Application](ApplicationId),
-        ///		StartTS		DATETIME NOT NULL			CONSTRAINT DF_Activity_StartTS	  DEFAULT GETDATE(),
+        ///		ActivityId	UNIQUEIDENTIFIER	    CONSTRAINT DF_Activity_ActivityId DEFAULT NEWID(),
+        ///		ApplicationId UNIQUEIDENTIFIER NULL CONSTRAINT FK_Activity_Application REFERENCES [Application](ApplicationId),
+        ///		StartTS		DATETIME NOT NULL		CONSTRAINT DF_Activity_StartTS	  DEFAULT GETDATE(),
         ///		UserToken	VARCHAR(250) NULL,
         ///		UserId		VARCHAR(250) NULL,
         ///		MethodName	VARCHAR(250) NULL,
         ///
-        ///		-- Statist [rest of string was truncated]&quot;;.
+        ///		-- Statistics [rest of string was truncated]&quot;;.
         /// </summary>
         public static string Activity_Sql {
             get {
@@ -191,7 +191,7 @@ namespace CprBroker.Data.Properties {
         ///   Looks up a localized string similar to DECLARE @MaxDate DATETIME, @TempMaxDate DATETIME, @TempMinDate DATETIME, @IntervalHours INT
         ///DECLARE @msg VARCHAR(max)
         ///
-        ///SET @IntervalHours = 48
+        ///SET @IntervalHours = 24 * 30
         ///SET @MaxDate = DATEADD(YEAR, 0, GETDATE())
         ///SELECT  @TempMinDate = MIN(CallTime) FROM DataProviderCall
         ///SET @TempMaxDate = DATEADD(HOUR, @IntervalHours, @TempMinDate)		
@@ -199,10 +199,10 @@ namespace CprBroker.Data.Properties {
         ///
         ///WHILE @TempMinDate &lt; @MaxDate
         ///BEGIN
+        ///	-- Insert rows into Activity, if not already there
         ///	WITH l AS 
         ///	(
-        ///		SELECT dpc.ActivityId, NULL as ApplicationId, dpc.CallTime, NULL as UserToken, NULL as UserId, NULL as MethodName, 
-        ///		ROW_NUMBER() O [rest of string was truncated]&quot;;.
+        ///		SELECT dpc.ActivityId, NULL as ApplicationId, dpc.CallTime, NULL as UserTok [rest of string was truncated]&quot;;.
         /// </summary>
         public static string DataProviderCall_MigrateToActivity_Sql {
             get {
@@ -365,6 +365,16 @@ namespace CprBroker.Data.Properties {
         public static string LogType_Sql {
             get {
                 return ResourceManager.GetString("LogType_Sql", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -- Trigger update of relevant statistics in Activity
+        ///UPDATE  Operation SET ActivityId = ActivityId.
+        /// </summary>
+        public static string Operation_MigrateToActivity_Sql {
+            get {
+                return ResourceManager.GetString("Operation_MigrateToActivity_Sql", resourceCulture);
             }
         }
         
