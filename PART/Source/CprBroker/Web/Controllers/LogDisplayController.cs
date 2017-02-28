@@ -27,7 +27,7 @@ namespace CprBroker.Web.Controllers
             get
             {
                 ActivityContentTypes ret;
-                if (Enum.TryParse<ActivityContentTypes>(Contains, out ret))
+                if (Enum.TryParse<ActivityContentTypes>(Contains, out ret) && ret != ActivityContentTypes.None)
                     return ret;
                 else
                     return null;
@@ -65,28 +65,32 @@ namespace CprBroker.Web.Controllers
                 pred = pred.And(a => a.StartTS >= pars.EffectiveFrom.Date && a.StartTS < pars.EffectiveTo.Date.AddDays(1));
                 if (pars.ApplicationId.HasValue)
                     pred = pred.And(a => a.ApplicationId == pars.ApplicationId);
-                if (pars.EffectiveContains.HasValue)
+                if (pars.EffectiveContains.HasValue && pars.EffectiveContains != ActivityContentTypes.None)
                 {
+                    var containsPred = PredicateBuilder.False<Activity>();
+
                     if ((pars.EffectiveContains.Value & ActivityContentTypes.Errors) != 0)
                     {
-                        pred = pred.And(a => a.HasErrors.Value == true);
+                        containsPred = containsPred.Or(a => a.HasErrors.Value == true);
                     }
                     if ((pars.EffectiveContains.Value & ActivityContentTypes.Information) != 0)
                     {
-                        pred = pred.And(a => a.HasInformation.Value == true);
+                        containsPred = containsPred.Or(a => a.HasInformation.Value == true);
                     }
                     if ((pars.EffectiveContains.Value & ActivityContentTypes.Warnings) != 0)
                     {
-                        pred = pred.And(a => a.HasWarnings.Value == true);
+                        containsPred = containsPred.Or(a => a.HasWarnings.Value == true);
                     }
                     if ((pars.EffectiveContains.Value & ActivityContentTypes.ExternalCalls) != 0)
                     {
-                        pred = pred.And(a => a.HasDataProviderCalls.Value == true);
+                        containsPred = containsPred.Or(a => a.HasDataProviderCalls.Value == true);
                     }
                     if ((pars.EffectiveContains.Value & ActivityContentTypes.Operations) != 0)
                     {
-                        pred = pred.And(a => a.HasOperations.Value == true);
+                        containsPred = containsPred.Or(a => a.HasOperations.Value == true);
                     }
+
+                    pred = pred.And(containsPred);
                 }
 
                 var loadOptions = new DataLoadOptions();
