@@ -24,6 +24,10 @@ namespace CprBroker.Tests.Tracking
                     Enumerate(args.Skip(1).ToArray());
                     break;
 
+                case "enumeratebyuuid":
+                    EnumerateByUuid(args.Skip(1).ToArray());
+                    break;
+
                 case "decisions":
                     Decisions(args.Skip(1).ToArray());
                     break;
@@ -64,6 +68,34 @@ namespace CprBroker.Tests.Tracking
             } while (foundUuids.Length == BatchSize);
         }
 
+        public static void EnumerateByUuid(string[] args)
+        {
+            var BatchSize = 1000;
+            if (args.Length > 0)
+                BatchSize = int.Parse(args[0]);
+
+            var foundUuids = new PersonIdentifier[0];
+            var maximumUsageDate = DateTime.Now;
+            var minimumUsageDate = maximumUsageDate - SettingsUtilities.MaxInactivePeriod;
+            Guid? startUuid = null;
+
+            do
+            {
+                var prov = new TrackingDataProvider();
+                Console.WriteLine("{0} : start uuid <{1}>, batch size <{2}>", DateTime.Now, startUuid, BatchSize);
+                foundUuids = prov.EnumeratePersons(startUuid, BatchSize);
+
+                var queueItems = foundUuids
+                    .Select(uuid => new CleanupQueueItem() { PersonUuid = uuid.UUID.Value, PNR = uuid.CprNumber })
+                    .ToArray();
+                Console.WriteLine("{0} : Found <{1}> persons", DateTime.Now, queueItems.Count());
+                Console.WriteLine("First <{0}>, last <{1}>", foundUuids.First().CprNumber, foundUuids.Last().CprNumber);
+
+                startUuid = foundUuids.LastOrDefault()?.UUID;
+
+            } while (foundUuids.Length == BatchSize);
+        }
+
         public static void Decisions(string[] args)
         {
             var startIndex = 0;
@@ -88,7 +120,7 @@ namespace CprBroker.Tests.Tracking
             Console.WriteLine("ProcessItems(): called <{0}>, finished <{1}>", queue.ProcessItemCalls, queue.ProcessItemCalls2);
 
             foreach (var kvp in queue.RemovalDecisions)
-                Console.WriteLine("{0} : {1}", kvp.Key, kvp.Value);            
+                Console.WriteLine("{0} : {1}", kvp.Key, kvp.Value);
         }
 
         class CleanupQueueStub_Decisions : CleanupQueue

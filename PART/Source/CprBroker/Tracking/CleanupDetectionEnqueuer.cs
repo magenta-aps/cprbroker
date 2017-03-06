@@ -48,7 +48,7 @@ namespace CprBroker.PartInterface.Tracking
                 return;
             }
 
-            var startIndex = 0;
+            var startuuidAfter = null as Guid?;
             var foundUuids = new PersonIdentifier[0];
             var maximumUsageDate = DateTime.Now;
             var minimumUsageDate = maximumUsageDate - SettingsUtilities.MaxInactivePeriod;
@@ -61,8 +61,8 @@ namespace CprBroker.PartInterface.Tracking
             {
                 var prov = new TrackingDataProvider();
                 if (LogTimerEvents)
-                    CprBroker.Engine.Local.Admin.LogFormattedSuccess("{0}: checking persons {1} to {2}", GetType().Name, startIndex, startIndex + BatchSize);
-                foundUuids = prov.EnumeratePersons(startIndex, BatchSize);
+                    CprBroker.Engine.Local.Admin.LogFormattedSuccess("{0}: enqueuing first <{1}> persons with UUID greater than <{2}>", GetType().Name, BatchSize, startuuidAfter, BatchSize);
+                foundUuids = prov.EnumeratePersons(startuuidAfter, BatchSize);
 
                 var queueItems = foundUuids
                     .Select(uuid => new CleanupQueueItem() { PersonUuid = uuid.UUID.Value, PNR = uuid.CprNumber })
@@ -76,8 +76,7 @@ namespace CprBroker.PartInterface.Tracking
                         );
 
                 cleanupQueue.Enqueue(queueItems, thisSemaphore);
-                startIndex += BatchSize;
-
+                startuuidAfter = foundUuids.LastOrDefault()?.UUID;
             } while (foundUuids.Length == BatchSize);
 
             // Now signal the semaphore
