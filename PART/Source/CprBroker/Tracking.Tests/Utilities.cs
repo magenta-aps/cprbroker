@@ -65,5 +65,14 @@ namespace CprBroker.Tests.Tracking
         {
             return new PersonIdentifier() { CprNumber = Tests.PartInterface.Utilities.RandomCprNumber(), UUID = Guid.NewGuid() };
         }
+
+        public static PersonIdentifier[] NewPersonIdentifiers(int count)
+        {
+            return Tests.PartInterface.Utilities.RandomCprNumbers(count)
+                .Zip(
+                    Enumerable.Range(0, count).Select(i => Guid.NewGuid()),
+                    (a, b) => new PersonIdentifier() { CprNumber = a, UUID = b })
+                    .ToArray();
+        }
     }
 }
