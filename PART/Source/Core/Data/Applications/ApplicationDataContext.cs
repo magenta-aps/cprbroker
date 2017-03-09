@@ -53,7 +53,7 @@ namespace CprBroker.Data.Applications
     partial class ApplicationDataContext : IDataContextCreationInfo
     {
         public ApplicationDataContext()
-            : this(Utilities.Config.ConfigManager.Current.Settings.CprBrokerConnectionString)
+            : this(Utilities.Config.ConfigManager.Current.Settings._CprBrokerConnectionString)
         { }
 
         #region IDataContextCreationInfo members

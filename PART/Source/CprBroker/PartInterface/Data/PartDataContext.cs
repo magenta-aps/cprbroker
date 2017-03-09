@@ -58,7 +58,7 @@ namespace CprBroker.Data.Part
     public partial class PartDataContext : IDataContextCreationInfo
     {
         public PartDataContext()
-            : base(ConfigManager.Current.Settings.CprBrokerConnectionString)
+            : base(ConfigManager.Current.Settings._CprBrokerConnectionString)
         {
             OnCreated();
         }

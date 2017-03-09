@@ -54,7 +54,7 @@ namespace CprBroker.Providers.Local.Search
     partial class PartSearchDataContext : IDataContextCreationInfo
     {
         public PartSearchDataContext()
-            : this(ConfigManager.Current.Settings.CprBrokerConnectionString)
+            : this(ConfigManager.Current.Settings._CprBrokerConnectionString)
         { }
 
         #region IDataContextCreationInfo members

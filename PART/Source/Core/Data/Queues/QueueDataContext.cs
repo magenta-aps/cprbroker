@@ -9,7 +9,7 @@ namespace CprBroker.Data.Queues
     public partial class QueueDataContext : IDataContextCreationInfo
     {
         public QueueDataContext()
-            : this(CprBroker.Config.Properties.Settings.Default.CprBrokerConnectionString)
+            : this(CprBroker.Config.Properties.Settings.Default._CprBrokerConnectionString)
         { }
 
         #region IDataContextCreationInfo members

@@ -55,7 +55,7 @@ namespace CprBroker.Providers.CPRDirect
     public partial class LookupDataContext : IDataContextCreationInfo
     {
         public LookupDataContext()
-            : this(ConfigManager.Current.Settings.CprBrokerConnectionString)
+            : this(ConfigManager.Current.Settings._CprBrokerConnectionString)
         { }
 
         #region IDataContextCreationInfo members

@@ -71,7 +71,7 @@ namespace CprBroker.Providers.CPRDirect
         {
             var extractId = InitExtract(sourceFileName, parseResult, true);
 
-            using (var conn = new SqlConnection(ConfigManager.Current.Settings.CprBrokerConnectionString))
+            using (var conn = new SqlConnection(ConfigManager.Current.Settings._CprBrokerConnectionString))
             {
                 conn.Open();
 
@@ -236,7 +236,7 @@ namespace CprBroker.Providers.CPRDirect
 
         private static void SkipLines(TextReader file, Guid extractId, ExtractParseSession extractSession, Dictionary<string, Type> typeMap, int batchSize)
         {
-            using (var dataContext = new ExtractDataContext(CprBroker.Utilities.Config.ConfigManager.Current.Settings.CprBrokerConnectionString))
+            using (var dataContext = new ExtractDataContext(CprBroker.Utilities.Config.ConfigManager.Current.Settings._CprBrokerConnectionString))
             {
                 var extract = dataContext.Extracts.Single(ex => ex.ExtractId == extractId);
                 if (extract.ProcessedLines.HasValue)

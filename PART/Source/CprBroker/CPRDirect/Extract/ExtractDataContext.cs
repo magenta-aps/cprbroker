@@ -11,7 +11,7 @@ namespace CprBroker.Providers.CPRDirect
     partial class ExtractDataContext : IDataContextCreationInfo
     {
         public ExtractDataContext()
-            : this(ConfigManager.Current.Settings.CprBrokerConnectionString)
+            : this(ConfigManager.Current.Settings._CprBrokerConnectionString)
         { }
 
         #region IDataContextCreationInfo

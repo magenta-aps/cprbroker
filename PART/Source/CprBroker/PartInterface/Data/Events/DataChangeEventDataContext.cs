@@ -57,7 +57,7 @@ namespace CprBroker.Data.Events
     public partial class DataChangeEventDataContext: IDataContextCreationInfo
     {
         public DataChangeEventDataContext()
-            : base(ConfigManager.Current.Settings.CprBrokerConnectionString)
+            : base(ConfigManager.Current.Settings._CprBrokerConnectionString)
         {
             OnCreated();
         }

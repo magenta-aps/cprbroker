@@ -69,7 +69,12 @@ namespace CprBroker.Utilities.Config
         {
             get
             {
-                return CprBroker.Config.Properties.Settings.Default;
+                //var sec = _CurrentConfiguration.GetSectionGroup("applicationSettings").Sections["CprBroker.Config.Properties.Settings"] as ClientSettingsSection;
+
+                var ret = new CprBroker.Config.Properties.Settings();
+                ret.Reload();
+                return ret;
+                //return CprBroker.Config.Properties.Settings.Default;
             }
         }
 

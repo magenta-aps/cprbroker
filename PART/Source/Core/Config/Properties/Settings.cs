@@ -62,5 +62,21 @@ namespace CprBroker.Config.Properties
             }
         }
 
+        public string _CprBrokerConnectionString
+        {
+            get
+            {
+                return ConfigurationManager.ConnectionStrings["CprBroker.Config.Properties.Settings.CprBrokerConnectionString"].ConnectionString;
+            }
+        }
+
+        public string _EventBrokerConnectionString
+        {
+            get
+            {
+                return ConfigurationManager.ConnectionStrings["CprBroker.Config.Properties.Settings.EventBrokerConnectionString"].ConnectionString;
+            }
+        }
+
     }
 }
