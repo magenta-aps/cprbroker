@@ -161,6 +161,9 @@
       <Component Id="CMP_CPR_WebPages_Deployment_Dll" Directory="CPR_bin">
         <File Id="FILE_CPR_bin_WebPages_Deployment_DLL" Source="$(var.SitePath)bin\System.Web.WebPages.Deployment.dll" KeyPath="yes"/>
       </Component>
+      <Component Id="CMP_CPR_PagedList_Dll" Directory="CPR_bin">
+        <File Id="FILE_CPR_bin_PagedList_DLL" Source="$(var.SitePath)bin\PagedList.dll" KeyPath="yes"/>
+      </Component>
       <Component Id="CMP_CPR_PagedList_Mvc_Dll" Directory="CPR_bin">
         <File Id="FILE_CPR_bin_PagedList_Mvc_DLL" Source="$(var.SitePath)bin\PagedList.Mvc.dll" KeyPath="yes"/>
       </Component>
@@ -255,6 +258,13 @@
       </Component>
 
       <!--MVC Views-->
+      <Component Id="CMP_CPR_Views_ViewStart" Directory="CPR_Views">
+        <File Id="FILE_CPR_Views_ViewStart" Source="$(var.SitePath)Views\_ViewStart.cshtml" KeyPath="yes"/>
+      </Component>
+      <Component Id="CMP_CPR_Views_Shared_Layout" Directory="CPR_Views_Shared">
+        <File Id="FILE_CPR_Views_Shared_Layout" Source="$(var.SitePath)Views\Shared\_Layout.cshtml" KeyPath="yes"/>
+      </Component>
+
       <Component Id="CMP_CPR_Views_SubscriptionDataProvider_DataProviderFieldView" Directory="CPR_Views_SubscriptionDataProvider">
         <File Id="FILE_CPR_Views_SubscriptionDataProvider_DataProviderFieldView" Source="$(var.SitePath)Views\SubscriptionDataProvider\DataProviderFieldView.cshtml" KeyPath="yes"/>
       </Component>
@@ -262,6 +272,15 @@
         <File Id="FILE_CPR_Views_SubscriptionDataProvider_DataProviderView" Source="$(var.SitePath)Views\SubscriptionDataProvider\DataProviderView.cshtml" KeyPath="yes"/>
       </Component>
 
+      <Component Id="CMP_CPR_Views_LogDisplay_Activity" Directory="CPR_Views_LogDisplay">
+        <File Id="FILE_CPR_Views_LogDisplay_Activity" Source="$(var.SitePath)Views\LogDisplay\Activity.cshtml" KeyPath="yes"/>
+      </Component>
+      <Component Id="CMP_CPR_Views_LogDisplay_ActivityList" Directory="CPR_Views_LogDisplay">
+        <File Id="FILE_CPR_Views_LogDisplay_ActivityList" Source="$(var.SitePath)Views\LogDisplay\ActivityList.cshtml" KeyPath="yes"/>
+      </Component>
+      <Component Id="CMP_CPR_Views_LogDisplay_Index" Directory="CPR_Views_LogDisplay">
+        <File Id="FILE_CPR_Views_LogDisplay_Index" Source="$(var.SitePath)Views\LogDisplay\Index.cshtml" KeyPath="yes"/>
+      </Component>
     </ComponentGroup>
 
     <ComponentGroup Id="CMPGRP_CPR_Bootstrap">
@@ -296,7 +315,52 @@
       </Component>
     </ComponentGroup>
 
-    <ComponentGroup Id="CMPGRP_Services">
+    <ComponentGroup Id="CMPGRP_CPR_Content" Directory="CPR_Content">
+      <Component Id="CMP_CPR_Content" Guid="{A996E583-888F-4531-9151-AD467EF79F59}">
+        <File Id="FILE_CPR_Content_bootstrap_select.css" Source="$(var.SitePath)Content\bootstrap-select.css" />
+        <File Id="FILE_CPR_Content_bootstrap_select.css.map" Source="$(var.SitePath)Content\bootstrap-select.css.map" />
+        <File Id="FILE_CPR_Content_bootstrap_select.min.css" Source="$(var.SitePath)Content\bootstrap-select.min.css" />
+        <File Id="FILE_CPR_Content_bootstrap.css" Source="$(var.SitePath)Content\bootstrap.css" />
+        <File Id="FILE_CPR_Content_bootstrap.min.css" Source="$(var.SitePath)Content\bootstrap.min.css" />
+        <File Id="FILE_CPR_Content_daterangepicker.css" Source="$(var.SitePath)Content\daterangepicker.css" />
+        <File Id="FILE_CPR_Content_PagedList.css" Source="$(var.SitePath)Content\PagedList.css" />
+        <File Id="FILE_CPR_Content_Site.css" Source="$(var.SitePath)Content\Site.css" />
+        <!--<File Id="FILE_CPR_Content_" Source="$(var.SitePath)Content\" />-->
+      </Component>
+    </ComponentGroup>
+
+    <ComponentGroup Id="CMPGRP_CPR_Scripts" Directory="CPR_Scripts">
+      <Component Id="CMP_CPR_Scripts" Guid="{D1297D61-786D-4C0F-BCAF-3EE58275C38F}">
+        <File Id="FILE_CPR_Scripts_bootstrap_select.js" Source="$(var.SitePath)Scripts\bootstrap-select.js" />
+        <File Id="FILE_CPR_Scripts_bootstrap_select.js.map" Source="$(var.SitePath)Scripts\bootstrap-select.js.map" />
+        <File Id="FILE_CPR_Scripts_bootstrap_select.min.js" Source="$(var.SitePath)Scripts\bootstrap-select.min.js" />
+        <File Id="FILE_CPR_Scripts_bootstrap.js" Source="$(var.SitePath)Scripts\bootstrap.js" />
+        <File Id="FILE_CPR_Scripts_bootstrap.min.js" Source="$(var.SitePath)Scripts\bootstrap.min.js" />
+        <File Id="FILE_CPR_Scripts_daterangepicker.js" Source="$(var.SitePath)Scripts\daterangepicker.js" />
+        <File Id="FILE_CPR_Scripts_jquery_1.10.2.intellisense.js" Source="$(var.SitePath)Scripts\jquery-1.10.2.intellisense.js" />
+        <File Id="FILE_CPR_Scripts_jquery_1.10.2.js" Source="$(var.SitePath)Scripts\jquery-1.10.2.js" />
+        <File Id="FILE_CPR_Scripts_jquery_1.10.2.min.js" Source="$(var.SitePath)Scripts\jquery-1.10.2.min.js" />
+        <File Id="FILE_CPR_Scripts_jquery_1.10.2.min.map" Source="$(var.SitePath)Scripts\jquery-1.10.2.min.map" />
+        <File Id="FILE_CPR_Scripts_modernizr_2.6.2.js" Source="$(var.SitePath)Scripts\modernizr-2.6.2.js" />
+        <File Id="FILE_CPR_Scripts_moment_with_locales.js" Source="$(var.SitePath)Scripts\moment-with-locales.js" />
+        <File Id="FILE_CPR_Scripts_moment_with_locales.min.js" Source="$(var.SitePath)Scripts\moment-with-locales.min.js" />
+        <File Id="FILE_CPR_Scripts_moment.js" Source="$(var.SitePath)Scripts\moment.js" />
+        <File Id="FILE_CPR_Scripts_moment.min.js" Source="$(var.SitePath)Scripts\moment.min.js" />
+        <!--<File Id="FILE_CPR_Scripts_" Source="$(var.SitePath)Scripts\" />-->
+      </Component>
+    </ComponentGroup>
+
+    <ComponentGroup Id="CMPGRP_CPR_Scripts_i18n" Directory="CPR_Scripts_i18n">
+      <Component Id="CMP_CPR_Scripts_i18n" Guid="{6273D640-AA5D-4DC9-8F8D-14A8A614EBD8}">
+        <File Id="CMP_CPR_Scripts_i18n_defaults_da_DK.js" Source="$(var.SitePath)Scripts\i18n\defaults-da_DK.js" />
+        <File Id="CMP_CPR_Scripts_i18n_defaults_da_DK.min.js" Source="$(var.SitePath)Scripts\i18n\defaults-da_DK.min.js" />
+        <File Id="CMP_CPR_Scripts_i18n_defaults_en_US.js" Source="$(var.SitePath)Scripts\i18n\defaults-en_US.js" />
+        <File Id="CMP_CPR_Scripts_i18n_defaults_en_US.min.js" Source="$(var.SitePath)Scripts\i18n\defaults-en_US.min.js" />
+        <!-- Other languages are no needed -->
+      </Component>
+    </ComponentGroup>
+
+        <ComponentGroup Id="CMPGRP_Services">
       <Component Id="CMP_CPR_Admin_ASMX" Directory="CPR_Services">
         <File Id="FILE_CPR_Services_Admin_ASPX" Source="$(var.SitePath)Services\Admin.asmx" KeyPath="yes"/>
       </Component>
