@@ -28,7 +28,7 @@ namespace CprBroker.PartInterface.Tracking
         {
             return new ReadInstance()
             {
-                ApplicationId = op.Activity.ApplicationId,
+                ApplicationId = op.Activity?.ApplicationId,
                 ReadTime = op.Activity.StartTS
             };
         }

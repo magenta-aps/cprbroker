@@ -8,7 +8,7 @@ namespace CprBroker.PartInterface.Tracking
 {
     public class ReadInstance
     {
-        public Guid ApplicationId { get; set; }
+        public Guid? ApplicationId { get; set; }
         public DateTime ReadTime { get; set; }
     }
 }
