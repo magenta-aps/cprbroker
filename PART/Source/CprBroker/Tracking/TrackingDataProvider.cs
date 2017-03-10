@@ -112,6 +112,23 @@ namespace CprBroker.PartInterface.Tracking
             }
         }
 
+        public PersonIdentifier[] EnumeratePersons(Guid? startUuidAfter = null, int maxCount = 200)
+        {
+            if (startUuidAfter.HasValue == false)
+                startUuidAfter = Guid.Empty;
+
+            using (var partContext = new PartDataContext())
+            {
+                return partContext.PersonRegistrations
+                    .Join(partContext.PersonMappings,
+                        pr => pr.UUID, pm => pm.UUID, (pr, pm) => new PersonIdentifier() { UUID = pr.UUID, CprNumber = pm.CprNumber })
+                        .Where(pr => pr.UUID.Value.CompareTo(startUuidAfter) > 0)
+                    .OrderBy(pr => pr.UUID)
+                    .Distinct()
+                    .Take(maxCount)
+                    .ToArray();
+            }
+        }
 
         public virtual bool PersonLivesInExcludedMunicipality(PersonIdentifier personIdentifier, int[] excludedMunicipalities)
         {

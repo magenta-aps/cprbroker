@@ -47,6 +47,8 @@ using System.Linq;
 using System.Text;
 using System.Data.Linq;
 using CprBroker.Schemas;
+using System.Data.SqlClient;
+using CprBroker.Utilities;
 
 namespace CprBroker.Data.Queues
 {
@@ -119,8 +121,11 @@ namespace CprBroker.Data.Queues
             var items = itemKeys.Select(ik => new DbQueueItem(ik, this, semaphore));
             using (var dataContext = new QueueDataContext())
             {
-                dataContext.QueueItems.InsertAllOnSubmit(items);
-                dataContext.SubmitChanges();
+                using (var conn = dataContext.Connection as SqlConnection)
+                {
+                    conn.Open();
+                    conn.BulkInsertAll(items);
+                }
             }
         }
 
