@@ -77,6 +77,15 @@ namespace CprBroker.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ALTER TABLE Activity ALTER COLUMN ApplicationId UNIQUEIDENTIFIER NULL.
+        /// </summary>
+        public static string Activity_ApplicationId_Null_Sql {
+            get {
+                return ResourceManager.GetString("Activity_ApplicationId_Null_Sql", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to IF NOT EXISTS (SELECT * FROM sys.tables WHERE name=N&apos;Activity&apos;)
         ///BEGIN
         ///	CREATE TABLE Activity(
