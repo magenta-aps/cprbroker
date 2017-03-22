@@ -69,6 +69,11 @@ namespace CprBroker.Engine
             return DataProviderConfigProperty.GetValue<T>(configuration, key, defaultValue, (s) => Utilities.Reflection.ParseEnum<T>(s));
         }
 
+        public static DateTime? GetDateTime(Dictionary<string, string> configuration, string key, DateTime? defaultValue = null)
+        {
+            return DataProviderConfigProperty.GetValue<DateTime?>(configuration, key, defaultValue, (s) => DateTime.Parse(s));
+        }
+
         public static class Templates
         {
             public static DataProviderConfigPropertyInfo[] ConnectionStringKeys
@@ -81,7 +86,7 @@ namespace CprBroker.Engine
                         new DataProviderConfigPropertyInfo(){Name="User ID", Required=false, Confidential=false},
                         new DataProviderConfigPropertyInfo(){Name="Password", Required=false, Confidential=true},
                         new DataProviderConfigPropertyInfo(){Name="Integrated Security", Required=false, Confidential=false},
-                        new DataProviderConfigPropertyInfo(){Name="Other Connection String", Required=false, Confidential=false},
+                        new DataProviderConfigPropertyInfo(){Name="Other Connection String", Required=false, Confidential=false}
                     };
                 }
             }

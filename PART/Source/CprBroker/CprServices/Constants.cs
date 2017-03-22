@@ -68,6 +68,8 @@ namespace CprBroker.Providers.CprServices
             public const string Address = "Address";
             public const string UserId = "User Id";
             public const string Password = "Password";
+            public const string AutomaticUpdate = "Automatically update password";
+            public const string DateUpdated = "Date updated password";
         }
 
         public const string XmlNamespace = "http://www.cpr.dk"; 
@@ -79,6 +81,6 @@ namespace CprBroker.Providers.CprServices
         public static readonly Guid ActorId = new Guid("{C1B08A8E-3CE4-4C66-90AD-686F841A47FE}");
 
         public static readonly short DenmarkCountryCode = 5100;
-        
+        public static readonly short DaysPerMonth = 30;
     }
 }

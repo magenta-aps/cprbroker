@@ -61,6 +61,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PasswordGenerator.cs" />
     <Compile Include="Extract\ExtractPaths.cs" />
     <Compile Include="ICprDirectPersonDataProvider.cs" />
     <Compile Include="Lookup\LookupDataContext.cs">

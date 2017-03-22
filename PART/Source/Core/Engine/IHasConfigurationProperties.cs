@@ -79,5 +79,10 @@ namespace CprBroker.Engine
         {
             return DataProviderConfigProperty.GetString(prov.ConfigurationProperties, key, defaultValue);
         }
+
+        public static DateTime? GetDateTime(this IHasConfigurationProperties prov, string key, DateTime? defaultValue = null)
+        {
+            return DataProviderConfigProperty.GetDateTime(prov.ConfigurationProperties, key, defaultValue);
+        }
     }
 }
