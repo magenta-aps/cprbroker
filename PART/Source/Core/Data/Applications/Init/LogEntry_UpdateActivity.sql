@@ -14,12 +14,12 @@ AS
 	WHERE ins.LogTypeId = 1
 
 	UPDATE a
-	SET HasWarnings = 1
+	SET HasErrors = 1
 	FROM Activity a INNER JOIN INSERTED ins ON a.ActivityId = ins.ActivityId
 	WHERE ins.LogTypeId = 2
 
 	UPDATE a
-	SET HasErrors = 1
+	SET HasWarnings = 1
 	FROM Activity a INNER JOIN INSERTED ins ON a.ActivityId = ins.ActivityId
 	WHERE ins.LogTypeId = 4
 
