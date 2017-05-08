@@ -68,8 +68,8 @@ namespace CprBroker.Providers.CprServices
             public const string Address = "Address";
             public const string UserId = "User Id";
             public const string Password = "Password";
-            public const string AutomaticUpdate = "Automatically update password";
-            public const string DateUpdated = "Date updated password";
+            public const string AutomaticPasswordUpdate = "Automatic password update";
+            public const string DaysBetweenAutomaticPasswordUpdates = "Days between automatic password updates";
         }
 
         public const string XmlNamespace = "http://www.cpr.dk"; 
@@ -81,6 +81,26 @@ namespace CprBroker.Providers.CprServices
         public static readonly Guid ActorId = new Guid("{C1B08A8E-3CE4-4C66-90AD-686F841A47FE}");
 
         public static readonly short DenmarkCountryCode = 5100;
-        public static readonly short DaysPerMonth = 30;
+
+        public static readonly bool DefaultAutomaticPasswordUpdate = false;
+        public static readonly short DefaultDaysBetweenAutomaticPasswordUpdates = 90;
+
+        public static class PasswordRules
+        {
+            // Rules for passwords according to CPR Services as of 21.03.2017 15:39:
+            // Minimum 1 non-Uppercase letter (a-z)
+            // Minimum 1 Uppercase letter (A-Z)
+            // Minimum 1 numeric digit (0-9)
+            // Minimum 1 special character ~ ` ! @ # $ % ^ * ( ) _ - + = , . / \ { } [ ] ; :
+            // Prohibited characters: " ' < > & ? æ ø å
+
+            public static readonly int MinimumLength = 8;
+            public static readonly int MaximumLength = 12;
+            public static readonly int MinimumNumberOfLowercaseChars = 1;
+            public static readonly int MinimumNumberOfUppercaseChars = 1;
+            public static readonly int MinimumNumberOfNumericDigits = 1;
+            public static readonly int MinimumNumberOfSymbols = 1;
+            public static readonly string ExcludedCharacters = "\"'<>&?æøåÆØÅ";
+        }
     }
 }

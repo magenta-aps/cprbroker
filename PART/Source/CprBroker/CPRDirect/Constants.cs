@@ -265,20 +265,13 @@ namespace CprBroker.Providers.CPRDirect
 
         public static class PasswordRules
         {
-            // Rules for passwords according to CPR Services as of 21.03.2017 15:39:
-            // Minimum 1 non-capitalized letter (a-z)
-            // Minimum 1 capitalized letter (A-Z)
-            // Minimum 1 numeric digit (0-9)
-            // Minimum 1 special character ~ ` ! @ # $ % ^ * ( ) _ - + = , . / \ { } [ ] ; :
-            // Prohibited characters: " ' < > & ? æ ø å
-
             public static readonly int MinimumLength = 8;
-            public static readonly int MaximumLength = 12;
-            public static readonly int MinimumNumberOfNonCapitalizedChars = 1;
-            public static readonly int MinimumNumberOfCapitalizedChars = 1;
+            public static readonly int MaximumLength = 8;
+            public static readonly int MinimumNumberOfLowercaseChars = 1;
+            public static readonly int MinimumNumberOfUppercaseChars = 1;
             public static readonly int MinimumNumberOfNumericDigits = 1;
-            public static readonly int MinimumNumberOfSpecialChars = 1;
-            public static readonly string AllowedCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789~`!@#$%^*()_-+=,./\\{}[];:";
+            public static readonly int MinimumNumberOfSymbols = 1;
+            public static readonly string ExcludedCharacters = "\"'<>&?æøåÆØÅ";
         }
     }
 }

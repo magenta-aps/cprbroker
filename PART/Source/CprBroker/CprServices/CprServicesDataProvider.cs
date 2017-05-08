@@ -82,7 +82,8 @@ namespace CprBroker.Providers.CprServices
                     new DataProviderConfigPropertyInfo(){ Name=Constants.ConfigKeys.Address, Type = DataProviderConfigPropertyInfoTypes.String, Confidential = false, Required=true},
                     new DataProviderConfigPropertyInfo(){ Name=Constants.ConfigKeys.UserId, Type = DataProviderConfigPropertyInfoTypes.String, Confidential = false, Required=true},
                     new DataProviderConfigPropertyInfo(){ Name=Constants.ConfigKeys.Password, Type = DataProviderConfigPropertyInfoTypes.String, Confidential = true, Required=true},
-                    new DataProviderConfigPropertyInfo(){ Name=Constants.ConfigKeys.AutomaticUpdate, Type = DataProviderConfigPropertyInfoTypes.Boolean, Confidential = false, Required=true}
+                    new DataProviderConfigPropertyInfo(){ Name=Constants.ConfigKeys.AutomaticPasswordUpdate, Type = DataProviderConfigPropertyInfoTypes.Boolean, Confidential = false, Required=true},
+                    new DataProviderConfigPropertyInfo(){ Name=Constants.ConfigKeys.DaysBetweenAutomaticPasswordUpdates, Type = DataProviderConfigPropertyInfoTypes.Integer, Confidential = false, Required = false}
                 };
             }
         }
@@ -101,53 +102,27 @@ namespace CprBroker.Providers.CprServices
 
         public string Password
         {
-            get
-            {
-                Kvit kvit = null;
-                bool canReturn = true;
-                
-                // Handle no last date updated
-
-                // Let admin change update rate instead of DaysPerMonth
-
-                // Generate new password according to the rules of cpr services
-                // And save the new password if the operations succeeds
-
-                // Handle not succeeding in generating new password
-
-                // Move this logic somewhere else to avoid infinite loop
-
-                if (UpdateAutomatically && DateTime.Today.Subtract(DateUpdatedPassword.Value).Days > Constants.DaysPerMonth)
-                {
-                    kvit = ChangePassword("newpassword123");
-                    canReturn = kvit.OK;
-                }
-                if (canReturn)
-                {
-                    return this.ConfigurationProperties[Constants.ConfigKeys.Password];
-                }
-                else
-                {
-                    return null;
-                }
-            }
-            set
-            {
-                this.ConfigurationProperties[Constants.ConfigKeys.Password] = value;
-            }
+            get { return this.ConfigurationProperties[Constants.ConfigKeys.Password]; }
+            set { this.ConfigurationProperties[Constants.ConfigKeys.Password] = value; }
         }
 
-        public bool UpdateAutomatically
+        public bool AutomaticPasswordUpdate
         {
-            get { return this.GetBoolean(this.ConfigurationProperties[Constants.ConfigKeys.AutomaticUpdate], false); }
-            set { this.ConfigurationProperties[Constants.ConfigKeys.AutomaticUpdate] = Convert.ToString(value); }
+            get { return this.GetBoolean(this.ConfigurationProperties[Constants.ConfigKeys.AutomaticPasswordUpdate], Constants.DefaultAutomaticPasswordUpdate); }
+            set { this.ConfigurationProperties[Constants.ConfigKeys.AutomaticPasswordUpdate] = Convert.ToString(value); }
         }
 
-        public DateTime? DateUpdatedPassword
+        public int DaysBetweenAutomaticPasswordUpdates
         {
-            get { return this.GetDateTime(Constants.ConfigKeys.DateUpdated); }
-            set { this.ConfigurationProperties[Constants.ConfigKeys.DateUpdated] = Convert.ToString(value); }
+            get { return this.GetInteger(this.ConfigurationProperties[Constants.ConfigKeys.DaysBetweenAutomaticPasswordUpdates], Constants.DefaultDaysBetweenAutomaticPasswordUpdates);  }
+            set { this.ConfigurationProperties[Constants.ConfigKeys.DaysBetweenAutomaticPasswordUpdates] = Convert.ToString(value); }
         }
+
+        //public DateTime? DateUpdatedPassword
+        //{
+        //    get { return this.GetDateTime(Constants.ConfigKeys.DatePasswordUpdated); }
+        //    set { this.ConfigurationProperties[Constants.ConfigKeys.DatePasswordUpdated] = Convert.ToString(value); }
+        //}
 
         public Version Version
         {
@@ -184,7 +159,7 @@ namespace CprBroker.Providers.CprServices
                 if (plan.IsSatisfactory)
                 {
                     bool searchOk = true;
-                    // TODO: See if tokens could be saved an reused
+                    // TODO: See if tokens could be saved and reused
                     string token = this.SignonAndGetToken();
 
                     foreach (var call in plan.PlannedCalls)
