@@ -56,6 +56,8 @@ namespace CprBroker.Providers.CprServices
 {
     public partial class CprServicesDataProvider : IPartSearchListDataProvider, IExternalDataProvider, IPerCallDataProvider
     {
+        private DateTime DatePasswordUpdated = DateTime.Today;
+
         public CprServicesDataProvider()
         {
             this.ConfigurationProperties = new Dictionary<string, string>();
@@ -118,11 +120,11 @@ namespace CprBroker.Providers.CprServices
             set { this.ConfigurationProperties[Constants.ConfigKeys.DaysBetweenAutomaticPasswordUpdates] = Convert.ToString(value); }
         }
 
-        //public DateTime? DateUpdatedPassword
-        //{
-        //    get { return this.GetDateTime(Constants.ConfigKeys.DatePasswordUpdated); }
-        //    set { this.ConfigurationProperties[Constants.ConfigKeys.DatePasswordUpdated] = Convert.ToString(value); }
-        //}
+        public DateTime DateUpdatedPassword
+        {
+            get { return this.DatePasswordUpdated; }
+            set { this.DatePasswordUpdated = value; }
+        }
 
         public Version Version
         {

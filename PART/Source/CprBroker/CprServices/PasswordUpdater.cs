@@ -47,21 +47,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CprBroker.Engine;
+using CprBroker.Engine.Local;
 using CprBroker.Engine.Tasks;
 using CprBroker.Utilities;
+using CprBroker.Data.DataProviders;
 
 namespace CprBroker.Providers.CprServices
 {
     public class PasswordUpdater : PeriodicTaskExecuter
     {
-        private CprServicesDataProvider cprServicesInstance;
-
-        public PasswordUpdater (CprServicesDataProvider instance)
-        {
-            this.cprServicesInstance = instance;
-        }
-
-        protected override void PerformTimerAction()
+        private void UpdatePassword(CprServicesDataProvider provider)
         {
             PasswordGenerator passwordGen = new PasswordGenerator();
 
@@ -76,28 +72,40 @@ namespace CprBroker.Providers.CprServices
             String newPassword = passwordGen.Generate();
 
             // Store old password in case something goes wrong
-            String oldPassword = this.CprServicesInstance.Password;
+            String oldPassword = provider.Password;
 
-            Kvit kvit = this.CprServicesInstance.ChangePassword(newPassword);
+            Kvit kvit = provider.ChangePassword(newPassword);
 
             if (kvit.OK)
             {
                 // Only change stored password if it was changed successfully
-                this.CprServicesInstance.Password = newPassword;
-                this.CprServicesInstance.DateUpdatedPassword = DateTime.Now;
-                
-                // Log success
+                provider.Password = newPassword;
+
+                Admin.LogFormattedSuccess("Password automatically updated. Last update was at {0}.", provider.DateUpdatedPassword);
+                provider.DateUpdatedPassword = DateTime.Now;
             }
             else
             {
-                // Log error
+                Admin.LogFormattedError("Failed to update password. Last update was at {0}.", provider.DateUpdatedPassword);
             }
         }
-
-        private CprServicesDataProvider CprServicesInstance
+        protected override void PerformTimerAction()
         {
-            get
-            {return this.cprServicesInstance; }
+            var factory = new DataProviderFactory();
+            using (var provDataContext = new DataProvidersDataContext()) {
+                foreach (var dbProvider in provDataContext.DataProviders)
+                {
+                    if (dbProvider.IsEnabled)
+                    {
+                        var provider = factory.CreateDataProvider(dbProvider) as CprServicesDataProvider;
+                        if (provider != null && provider.AutomaticPasswordUpdate)
+                        {
+                            UpdatePassword(provider);
+                        }
+                    }
+                }
+                
+            }
         }
     }
 
