@@ -116,7 +116,7 @@ namespace CprBroker.Providers.CprServices.Responses
             // Get name components
             var adressingName = this.ToAddressingName();
 
-            var names = new string[] { this["CNVN_FORNVN"], this["CNVN_EFTERNVN"] }
+            var names = new string[] { this["CNVN_FORNVN"], this["CNVN_MELNVN"], this["CNVN_EFTERNVN"] }
                 .Where(s => !string.IsNullOrEmpty(s))
                 .ToArray();
             if (names.Length == 0)
