@@ -145,3 +145,6 @@ PART/Source/GK.WebServices/Personmaster/PersonmasterServiceLibrary/DocAndDeploy/
 **/*.wixmsp
 **/TestResult.xml
 **/Thumbs.db
+PART/Source/Core/\.vs/
+
+PART/Source/CprBroker/\.vs/
