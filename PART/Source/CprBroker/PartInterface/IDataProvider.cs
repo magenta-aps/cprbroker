@@ -97,4 +97,9 @@ namespace CprBroker.Engine
     {
         bool DisableSubscriptions { get; }
     }
+
+    public interface IRemovePersonDataProvider : IDataProvider
+    {
+        bool RemovePerson(PersonIdentifier personIdentifier);
+    }
 }

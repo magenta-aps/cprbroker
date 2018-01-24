@@ -148,3 +148,11 @@ PART/Source/GK.WebServices/Personmaster/PersonmasterServiceLibrary/DocAndDeploy/
 PART/Source/Core/\.vs/
 
 PART/Source/CprBroker/\.vs/
+# NuGet Packages
+*.nupkg
+# The packages folder can be ignored because of Package Restore
+**/PART/Source/CprBroker/[Pp]ackages/*
+**/PART/Source/Core/[Pp]ackages/*
+# except build/, which is used as an MSBuild target.
+!**/PART/Source/CprBroker/[Pp]ackages/build/
+!**/PART/Source/Core/[Pp]ackages/build/

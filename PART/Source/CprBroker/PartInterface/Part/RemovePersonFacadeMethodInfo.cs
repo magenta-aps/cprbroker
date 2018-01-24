@@ -22,8 +22,7 @@
  * Danish National IT and Telecom Agency
  *
  * Contributor(s):
- * Beemen Beshara
- * Dennis Isaksen
+ * Mathias Dam Hedelund
  *
  * The code is currently governed by IT- og Telestyrelsen / Danish National
  * IT and Telecom Agency
@@ -41,11 +40,11 @@
  * the terms of any one of the MPL, the GPL or the LGPL.
  *
  * ***** END LICENSE BLOCK ***** */
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using CprBroker.Schemas;
 using CprBroker.Schemas.Part;
 using CprBroker.Data.Part;
@@ -53,50 +52,28 @@ using CprBroker.Data.Applications;
 
 namespace CprBroker.Engine.Part
 {
-    public class PutSubscriptionFacadeMethodInfo : GenericFacadeMethodInfo<bool>
+    public class RemovePersonFacadeMethodInfo : GenericFacadeMethodInfo<bool>
     {
-        public Guid[] PersonUuids;
-        public PersonIdentifier[] PersonIdentifiers;
+        private Guid uuid;
+        public PersonIdentifier personIdentifier;
 
-        public PutSubscriptionFacadeMethodInfo(Guid[] uuids, string appToken, string userToken)
+        public RemovePersonFacadeMethodInfo(string userToken, string appToken, Guid uuid)
             : base(appToken, userToken)
         {
-            PersonUuids = uuids;
+            this.uuid = uuid;
         }
 
         public override StandardReturType ValidateInput()
         {
-            if (PersonUuids == null)
+            if (uuid == null)
+            {
                 return StandardReturType.NullInput();
-            else
-            {
-                /*
-                 * I'm not entirely sure if any single element is allowed to be empty, but not the entire set or if no element may be empty.
-                 * Therefore the two different attempts.
-                 */
-                // Not any empty elements are allowed
-                foreach (Guid person in PersonUuids)
-                {
-                    if (person == Guid.Empty || person == null)
-                        return StandardReturType.NullInput();
-                }
-                // Random empty elements are allowed, but not the entire set
-                int count = 0;
-                foreach (Guid person in PersonUuids)
-                {
-                    if (person != null && person != Guid.Empty)
-                        count++;
-                }
-                PersonIdentifiers = PersonMapping.GetPersonIdentifiers(PersonUuids);
-                if (PersonIdentifiers.Length != count)
-                    return StandardReturType.NullInput();
             }
-            
 
-            foreach (PersonIdentifier pi in PersonIdentifiers)
+            personIdentifier = PersonMapping.GetPersonIdentifier(this.uuid);
+            if (personIdentifier == null)
             {
-                if (pi == null)
-                    return StandardReturType.NullInput();
+                return StandardReturType.NullInput();
             }
 
             return StandardReturType.OK();
@@ -104,38 +81,22 @@ namespace CprBroker.Engine.Part
 
         public override void Initialize()
         {
-            this.SubMethodInfos = PersonIdentifiers
-                .Select(
-                pi => new SubMethodInfo<IPutSubscriptionDataProvider, bool>()
-                {
-                    FailIfNoDataProvider = true,
-                    FailOnDefaultOutput = true,
-                    LocalDataProviderOption = SourceUsageOrder.ExternalOnly,
-                    Method = prov => prov.PutSubscription(pi),
-                    UpdateMethod = null,
-                })
-                .ToArray();
+            // this.SubMethodInfos = new SubMethodInfo<IRemovePersonDataProvider, bool>()
+            //{
+            //    FailIfNoDataProvider = false,
+            //    FailOnDefaultOutput = true,
+            //    LocalDataProviderOption = SourceUsageOrder.ExternalOnly,
+            //    Method = prov => prov.RemovePerson(personIdentifier),
+            //    UpdateMethod = null,
+            //}
         }
 
         public override OperationType.Types? MainOperationType
         {
             get
             {
-                return OperationType.Types.PutSubscription;
+                return OperationType.Types.Delete;
             }
         }
-
-
-        public override string[] InputOperationKeys
-        {
-            get
-            {
-                return PersonUuids.Select(id => id.ToString()).ToArray();
-            }
-        }
-
     }
-
-
-
 }
