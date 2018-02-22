@@ -168,13 +168,6 @@ namespace CprBroker.Web.Services
             var sourceUsageOrder = SourceUsageOrderHeader.GetLocalDataProviderUsageOption(this.sourceUsageOrderHeader);
             return new PartManager().ListPeriod(input, applicationHeader.ApplicationToken, applicationHeader.UserToken, sourceUsageOrder);
         }
-
-        [WebMethod(Description = "Removes a person completely from the CPR Broker database")]
-        [SoapHeader(ApplicationHeaderName)]
-        public BasicOutputType<bool> RemovePerson(Guid personUuid)
-        {
-            return new PartManager().RemovePerson(applicationHeader.UserToken, applicationHeader.ApplicationToken, personUuid);
-        }
     }
 
 }

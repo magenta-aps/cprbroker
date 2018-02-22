@@ -7,6 +7,7 @@ using CprBroker.Engine.Queues;
 using CprBroker.Schemas;
 using CprBroker.Engine;
 using CprBroker.Data.Applications;
+using CprBroker.Slet;
 
 namespace CprBroker.PartInterface.Tracking
 {
@@ -65,7 +66,7 @@ namespace CprBroker.PartInterface.Tracking
                 foundUuids = prov.EnumeratePersons(startuuidAfter, BatchSize);
 
                 var queueItems = foundUuids
-                    .Select(uuid => new CleanupQueueItem() { PersonUuid = uuid.UUID.Value, PNR = uuid.CprNumber })
+                    .Select(uuid => new CleanupQueueItem() { removePersonItem = new RemovePersonItem(uuid) })
                     .ToArray();
 
                 if (LogTimerEvents || foundUuids.Length > 0)

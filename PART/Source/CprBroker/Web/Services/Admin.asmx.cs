@@ -53,6 +53,7 @@ using System.Xml.Linq;
 using CprBroker.Schemas;
 using CprBroker.Schemas.Part;
 using CprBroker.Engine;
+using CprBroker.Slet;
 
 namespace CprBroker.Web.Services
 {
@@ -114,7 +115,7 @@ namespace CprBroker.Web.Services
         }
         #endregion
 
-        #region Provier list
+        #region Provider list
         [SoapHeader(ApplicationHeaderName)]
         [WebMethod(MessageName = ServiceNames.Admin.MethodNames.GetDataProviderList, Description = CprBroker.Schemas.ServiceDescription.Admin.GetDataProviderList)]
         public BasicOutputType<DataProviderType[]> GetDataProviderList()
@@ -142,5 +143,12 @@ namespace CprBroker.Web.Services
         {
             return new Engine.Ping.PingManager().Ping(Utilities.Constants.UserToken, Utilities.Constants.BaseApplicationToken.ToString());
         }
+
+        //[WebMethod(Description = "Removes a person completely from the CPR Broker database")]
+        //[SoapHeader(ApplicationHeaderName)]
+        //public BasicOutputType<bool> RemovePerson(Guid personUuid)
+        //{
+        //return new PersonRemovalManager().RemovePerson(applicationHeader.UserToken, applicationHeader.ApplicationToken, personUuid);
+        //}
     }
 }

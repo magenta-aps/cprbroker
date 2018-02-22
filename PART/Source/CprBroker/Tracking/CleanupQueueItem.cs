@@ -1,6 +1,7 @@
 ﻿using CprBroker.Data.Queues;
 using CprBroker.Engine.Queues;
 using CprBroker.Schemas;
+using CprBroker.Slet;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,33 +12,23 @@ namespace CprBroker.PartInterface.Tracking
 {
     public class CleanupQueueItem : IQueueItem
     {
-        public Guid PersonUuid { get; set; }
-        public string PNR { get; set; }
-
-        public DbQueueItem Impl { get; set; }
+        public RemovePersonItem removePersonItem;
 
         public void DeserializeFromKey(string key)
         {
             var arr = key.Split('|');
-            PersonUuid = new Guid(arr[0]);
-            PNR = arr[1];
+            removePersonItem.PersonUuid = new Guid(arr[0]);
+            removePersonItem.PNR = arr[1];
         }
 
         public string SerializeToKey()
         {
             return string.Format("{0}|{1}",
-                PersonUuid,
-                string.Format("{0}", PNR).PadLeft(10, '0')
+                removePersonItem.PersonUuid,
+                string.Format("{0}", removePersonItem.PNR).PadLeft(10, '0')
                 );
         }
 
-        public PersonIdentifier ToPersonIdentifier()
-        {
-            return new PersonIdentifier()
-            {
-                UUID = PersonUuid,
-                CprNumber = PNR,
-            };
-        }
+        public DbQueueItem Impl { get; set; }
     }
 }
