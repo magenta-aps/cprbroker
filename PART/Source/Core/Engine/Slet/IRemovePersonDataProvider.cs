@@ -5,7 +5,7 @@ using System.Text;
 using CprBroker.Schemas;
 using CprBroker.Engine;
 
-namespace CprBroker.Providers.Slet
+namespace CprBroker.Slet
 {
     public interface IRemovePersonDataProvider : IDataProvider
     {

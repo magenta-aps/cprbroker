@@ -20,13 +20,14 @@ namespace CprBroker.PartInterface.Tracking
 
         public override CleanupQueueItem[] Process(CleanupQueueItem[] items)
         {
+            var prov = new TrackingDataProvider();
             var uuids = items.Select(i => i.removePersonItem.PersonUuid).ToArray();
 
             var brokerContext = BrokerContext.Current;
 
             var tasks = items
                 .Select(
-                (queueItem) => Task.Factory.StartNew(new Func<CleanupQueueItem>(() => ProcessItemWithMutex(brokerContext, queueItem)))
+                (queueItem) => Task.Factory.StartNew(new Func<CleanupQueueItem>(() => ProcessItemWithMutex(brokerContext, prov, queueItem)))
                 );
 
             return Task.WhenAll(tasks)
@@ -35,10 +36,9 @@ namespace CprBroker.PartInterface.Tracking
                 .ToArray();
         }
 
-        public virtual CleanupQueueItem ProcessItemWithMutex(BrokerContext brokerContext, CleanupQueueItem queueItem)
+        public virtual CleanupQueueItem ProcessItemWithMutex(BrokerContext brokerContext, TrackingDataProvider prov, CleanupQueueItem queueItem)
         {
             BrokerContext.Current = brokerContext;
-            PersonRemover personRemover = new PersonRemover();
             Mutex personMutex = null;
 
             try
@@ -52,7 +52,7 @@ namespace CprBroker.PartInterface.Tracking
                 var dbrFromDate = fromDate + SettingsUtilities.DprEmulationRemovalAllowance;
                 var excludedMunicipalityCodes = SettingsUtilities.ExcludedMunicipalityCodes;
 
-                return personRemover.RemovePerson(brokerContext, queueItem, fromDate, dbrFromDate, excludedMunicipalityCodes);
+                return ProcessItem(brokerContext, prov, queueItem, fromDate, dbrFromDate, excludedMunicipalityCodes);
             }
             catch (Exception ex)
             {
@@ -64,6 +64,49 @@ namespace CprBroker.PartInterface.Tracking
                 // Release the lock
                 if (personMutex != null)
                     personMutex.ReleaseMutex();
+            }
+        }
+
+        public virtual CleanupQueueItem ProcessItem(BrokerContext brokerContext, TrackingDataProvider prov, CleanupQueueItem queueItem, DateTime fromDate, DateTime dbrFromDate, int[] excludedMunicipalityCodes)
+        {
+            BrokerContext.Current = brokerContext;
+            var personIdentifier = queueItem.removePersonItem.ToPersonIdentifier();
+
+            // First, make and log the decisions
+            var decision = prov.GetRemovalDecision(personIdentifier, fromDate, dbrFromDate, excludedMunicipalityCodes);
+
+            // Action time
+            // Remove the person if needed
+            switch (decision)
+            {
+                case PersonRemovalDecision.RemoveCompletely:
+                    Admin.LogFormattedSuccess("<{0}>:Removing unused person <{1}>", this.GetType().Name, personIdentifier.UUID);
+                    var task1 = new RemovePersonDataProvider().RemovePersonAsync(personIdentifier);
+                    task1.Wait();
+                    var personRemoved = task1.Result;
+                    if (personRemoved)
+                        return queueItem;
+                    else
+                        return null;
+
+                case PersonRemovalDecision.RemoveFromDprEmulation: // Only remove from DPR emulation                    
+                    Admin.LogFormattedSuccess("<{0}>:Removing semi-unused person <{1}> from DPR emulation", this.GetType().Name, personIdentifier.UUID);
+                    var task2 = new RemovePersonDataProvider().DeletePersonFromAllDBR(brokerContext, personIdentifier);
+                    task2.Wait();
+                    var dbrRemoved = task2.Result;
+                    if (dbrRemoved)
+                        return queueItem;
+                    else
+                        return null;
+
+                case PersonRemovalDecision.DoNotRemoveDueToExclusion:
+                    return queueItem;
+
+                case PersonRemovalDecision.DoNotRemoveDueToUsage:
+                    return queueItem;
+
+                default:
+                    throw new Exception(string.Format("Unknown value <{0}> for type <{1}>", decision, typeof(PersonRemovalDecision).Name));
             }
         }
     }

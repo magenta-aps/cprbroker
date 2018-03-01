@@ -1,18 +1,18 @@
-﻿using CprBroker.Data.Events;
-using CprBroker.DBR;
-using CprBroker.Engine;
-using CprBroker.Providers.CPRDirect;
-using CprBroker.Providers.DPR;
-using CprBroker.Schemas;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CprBroker.Engine;
+using CprBroker.Schemas;
+using CprBroker.DBR;
+using CprBroker.Providers.CPRDirect;
+using CprBroker.Providers.DPR;
+using CprBroker.Data.Events;
 
-namespace CprBroker.PartInterface.Tracking
+namespace CprBroker.Slet
 {
-    partial class TrackingDataProvider
+    partial class RemovePersonDataProvider
     {
         public async Task<bool> RemoveSubscription(BrokerContext brokerContext, IPutSubscriptionDataProvider prov, PersonIdentifier personIdentifier)
         {

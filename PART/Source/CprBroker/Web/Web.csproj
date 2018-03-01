@@ -419,10 +419,6 @@
       <Project>{233be1ab-28da-4b2f-8cc0-4bb3d88adc95}</Project>
       <Name>ServicePlatform</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Slet\Slet.csproj">
-      <Project>{900bf373-c92d-4e5b-b72c-63e0815b67e4}</Project>
-      <Name>Slet</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Tracking\Tracking.csproj">
       <Project>{0a0ed81d-1f70-444b-a61f-837955728598}</Project>
       <Name>Tracking</Name>

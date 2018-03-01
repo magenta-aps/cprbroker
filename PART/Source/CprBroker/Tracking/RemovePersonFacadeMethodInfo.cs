@@ -52,7 +52,6 @@ using CprBroker.Utilities;
 using CprBroker.Engine;
 using CprBroker.PartInterface.Tracking;
 using CprBroker.Data.Part;
-using CprBroker.Providers.Slet;
 
 namespace CprBroker.Slet
 {
