@@ -11,7 +11,7 @@ using CprBroker.Engine.Local;
 
 namespace CprBroker.Slet
 {
-    class RemovePersonManager : RequestProcessor
+    public class RemovePersonManager : RequestProcessor
     {
         public BasicOutputType<bool> RemovePerson(string userToken, string appToken, Guid uuid)
         {

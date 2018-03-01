@@ -50,7 +50,9 @@ using CprBroker.Schemas.Part;
 using CprBroker.Data.Applications;
 using CprBroker.Utilities;
 using CprBroker.Engine;
+using CprBroker.PartInterface.Tracking;
 using CprBroker.Data.Part;
+using CprBroker.Providers.Slet;
 
 namespace CprBroker.Slet
 {
@@ -85,7 +87,7 @@ namespace CprBroker.Slet
         {
             this.SubMethodInfos = new SubMethodInfo[]
             {
-                new SubMethodInfo<IPartRemovePersonDataProvider, bool>()
+                new SubMethodInfo<IRemovePersonDataProvider, bool>()
                 {
                     FailIfNoDataProvider = true,
                     FailOnDefaultOutput = true,
@@ -100,7 +102,7 @@ namespace CprBroker.Slet
         {
             get
             {
-                return OperationType.Types.Delete;
+                return OperationType.Types.RemovePerson;
             }
         }
 

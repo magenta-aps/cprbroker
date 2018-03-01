@@ -5,12 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using CprBroker.Schemas;
 using CprBroker.PartInterface.Tracking;
-using CprBroker.Engine;
 using System.Threading;
+using CprBroker.Slet;
+using CprBroker.Engine;
 
-namespace CprBroker.Slet
+namespace CprBroker.Providers.Slet
 {
-    public class RemovePersonDataProvider : IPartRemovePersonDataProvider
+    public class RemovePersonDataProvider : IRemovePersonDataProvider
     {
         #region IDataProvider members
         public Version Version
@@ -29,10 +30,10 @@ namespace CprBroker.Slet
 
         public bool RemovePerson(PersonIdentifier personIdentifier)
         {
-            PersonRemover personRemovalManager = new PersonRemover();
+            PersonRemover personRemover = new PersonRemover();
             var brokerContext = BrokerContext.Current;
             RemovePersonItem removePersonItem = new RemovePersonItem(personIdentifier);
-            //personRemovalManager.RemovePerson(brokerContext, removePersonItem, )
+            //personRemover.RemovePerson(brokerContext, removePersonItem, )
             return true;
         }
     }

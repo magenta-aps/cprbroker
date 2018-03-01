@@ -2,14 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using CprBroker.Engine;
-using CprBroker.PartInterface.Tracking;
 using CprBroker.Schemas;
+using CprBroker.Engine;
 
-namespace CprBroker.Slet
+namespace CprBroker.Providers.Slet
 {
-    public interface IPartRemovePersonDataProvider : IDataProvider
+    public interface IRemovePersonDataProvider : IDataProvider
     {
         bool RemovePerson(PersonIdentifier personIdentifier);
     }

@@ -8,7 +8,7 @@ using CprBroker.PartInterface.Tracking;
 
 namespace CprBroker.Slet
 {
-    class RemovePersonItem
+    public class RemovePersonItem
     {
         public Guid PersonUuid { get; set; }
         public string PNR { get; set; }

@@ -38,7 +38,7 @@ namespace CprBroker.PartInterface.Tracking
         public virtual CleanupQueueItem ProcessItemWithMutex(BrokerContext brokerContext, CleanupQueueItem queueItem)
         {
             BrokerContext.Current = brokerContext;
-            //PersonRemover personRemovalManager = new PersonRemover();
+            PersonRemover personRemover = new PersonRemover();
             Mutex personMutex = null;
 
             try
@@ -52,7 +52,7 @@ namespace CprBroker.PartInterface.Tracking
                 var dbrFromDate = fromDate + SettingsUtilities.DprEmulationRemovalAllowance;
                 var excludedMunicipalityCodes = SettingsUtilities.ExcludedMunicipalityCodes;
 
-                return personRemovalManager.RemovePerson(brokerContext, queueItem, fromDate, dbrFromDate, excludedMunicipalityCodes);
+                return personRemover.RemovePerson(brokerContext, queueItem, fromDate, dbrFromDate, excludedMunicipalityCodes);
             }
             catch (Exception ex)
             {

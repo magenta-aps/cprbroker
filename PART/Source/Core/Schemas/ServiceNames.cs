@@ -71,6 +71,7 @@ namespace CprBroker.Schemas.Part
                 public const string GetDataProviderList = "GetDataProviderList";
                 public const string SetDataProviderList = "SetDataProviderList";
                 public const string Log = "Log";
+                public const string RemovePerson = "RemovePerson";
             }
         }
 

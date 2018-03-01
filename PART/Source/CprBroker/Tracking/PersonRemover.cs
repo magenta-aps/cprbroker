@@ -10,7 +10,7 @@ using CprBroker.Engine.Local;
 
 namespace CprBroker.Slet
 {
-    class PersonRemover
+    public class PersonRemover
     {
         public CleanupQueueItem RemovePerson(BrokerContext brokerContext, CleanupQueueItem queueItem, DateTime fromDate, DateTime dbrFromDate, int[] excludedMunicipalityCodes)
         {

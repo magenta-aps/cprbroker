@@ -144,11 +144,11 @@ namespace CprBroker.Web.Services
             return new Engine.Ping.PingManager().Ping(Utilities.Constants.UserToken, Utilities.Constants.BaseApplicationToken.ToString());
         }
 
-        //[WebMethod(Description = "Removes a person completely from the CPR Broker database")]
-        //[SoapHeader(ApplicationHeaderName)]
-        //public BasicOutputType<bool> RemovePerson(Guid personUuid)
-        //{
-        //return new PersonRemovalManager().RemovePerson(applicationHeader.UserToken, applicationHeader.ApplicationToken, personUuid);
-        //}
+        [SoapHeader(ApplicationHeaderName)]
+        [WebMethod(MessageName = ServiceNames.Admin.MethodNames.RemovePerson, Description = CprBroker.Schemas.ServiceDescription.Admin.RemovePerson)]
+        public BasicOutputType<bool> RemovePerson(Guid personUuid)
+        {
+            return new RemovePersonManager().RemovePerson(applicationHeader.UserToken, applicationHeader.ApplicationToken, personUuid);
+        }
     }
 }

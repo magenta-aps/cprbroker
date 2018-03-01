@@ -125,6 +125,7 @@
     <Compile Include="Queues\Queue.cs" />
     <Compile Include="Queues\QueueItemBase.cs" />
     <Compile Include="Queues\Semaphore.cs" />
+    <Compile Include="Slet\IRemovePersonDataProvider.cs" />
     <Compile Include="SubMethodRunState.cs" />
     <Compile Include="Sync\ISyncTargetQueue.cs" />
     <Compile Include="Sync\SyncManager.cs" />

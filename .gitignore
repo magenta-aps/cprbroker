@@ -156,3 +156,5 @@ PART/Source/CprBroker/\.vs/
 # except build/, which is used as an MSBuild target.
 !**/PART/Source/CprBroker/[Pp]ackages/build/
 !**/PART/Source/Core/[Pp]ackages/build/
+
+\.vs/
