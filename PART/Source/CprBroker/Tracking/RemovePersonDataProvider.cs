@@ -8,6 +8,7 @@ using CprBroker.PartInterface.Tracking;
 using System.Threading;
 using CprBroker.Slet;
 using CprBroker.Engine;
+using CprBroker.Engine.Local;
 using CprBroker.Utilities.Config;
 
 namespace CprBroker.Slet
@@ -31,6 +32,7 @@ namespace CprBroker.Slet
 
         public bool RemovePerson(PersonIdentifier personIdentifier)
         {
+            Admin.LogFormattedSuccess("<{0}>: Removing person <{1}>", this.GetType().Name, personIdentifier.UUID);
             var t = RemovePersonAsync(personIdentifier);
             t.Wait();
             return t.Result;
