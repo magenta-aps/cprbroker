@@ -9,6 +9,7 @@ using CprBroker.DBR;
 using CprBroker.Providers.CPRDirect;
 using CprBroker.Providers.DPR;
 using CprBroker.Data.Events;
+using CprBroker.Providers.Local.Search;
 
 namespace CprBroker.Slet
 {
@@ -34,6 +35,13 @@ namespace CprBroker.Slet
         {
             BrokerContext.Current = brokerContext;
             CprBroker.Data.Part.Person.Delete(personIdentifier);
+            return true;
+        }
+
+        public async Task<bool> DeletePersonFromSearchCache(BrokerContext brokerContext, PersonIdentifier personIdentifier)
+        {
+            BrokerContext.Current = brokerContext;
+            LocalSearchDataProvider.DeleteFromSearchCache(personIdentifier);
             return true;
         }
 

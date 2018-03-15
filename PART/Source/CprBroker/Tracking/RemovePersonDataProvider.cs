@@ -67,7 +67,10 @@ namespace CprBroker.Slet
             );
 
             // Search Cache
-            // Deleted using a trigger on PersonRegistration table
+            tasks.Add
+            (
+                DeletePersonFromSearchCache(brokerContext, personIdentifier)
+            );
 
             // DBR
             tasks.Add(
