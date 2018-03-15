@@ -4,6 +4,7 @@ using CprBroker.PartInterface.Tracking;
 using CprBroker.Providers.CPRDirect;
 using CprBroker.Providers.DPR;
 using CprBroker.Schemas;
+using CprBroker.Slet;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -27,7 +28,7 @@ namespace CprBroker.Tests.Tracking
             [Test]
             public void RemovePerson_EmptyDB_Passes()
             {
-                var prov = new TrackingDataProvider();
+                var prov = new RemovePersonDataProvider();
                 prov.RemovePerson(new Schemas.PersonIdentifier() { CprNumber = CprBroker.Tests.PartInterface.Utilities.RandomCprNumber(), UUID = Guid.NewGuid() });
             }
 
@@ -50,7 +51,7 @@ namespace CprBroker.Tests.Tracking
                 ExtractManager.ImportText(CprBroker.Tests.CPRDirect.Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE_FixedLength);
                 Assert.Greater(countItems(pnr), 0);
                 var pId = new PersonIdentifier() { CprNumber = pnr, UUID = Guid.NewGuid() };
-                var prov = new TrackingDataProvider();
+                var prov = new RemovePersonDataProvider();
                 prov.RemovePerson(pId);
                 Assert.AreEqual(0, countItems(pnr));
                 Assert.Greater(countItems(null), 0);
@@ -75,7 +76,7 @@ namespace CprBroker.Tests.Tracking
                 ExtractManager.ImportText(CprBroker.Tests.CPRDirect.Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE_FixedLength);
                 Assert.Greater(countItems(pnr), 0);
                 var pId = new PersonIdentifier() { CprNumber = pnr, UUID = Guid.NewGuid() };
-                var prov = new TrackingDataProvider();
+                var prov = new RemovePersonDataProvider();
                 prov.RemovePerson(pId);
                 Assert.AreEqual(0, countItems(pnr));
                 Assert.Greater(countItems(null), 0);
@@ -111,7 +112,7 @@ namespace CprBroker.Tests.Tracking
                 Assert.Greater(countItems(null), 0);
                 Assert.Greater(countItems(uuid), 0);
                 var pId = new PersonIdentifier() { CprNumber = pnr, UUID = uuid };
-                var prov = new TrackingDataProvider();
+                var prov = new RemovePersonDataProvider();
                 prov.RemovePerson(pId);
                 Assert.AreEqual(0, countItems(uuid));
             }
@@ -140,7 +141,7 @@ namespace CprBroker.Tests.Tracking
                 IPutSubscriptionDataProviderStub._IsSharingSubscriptions = true;
                 RegisterDataProviderType<IPutSubscriptionDataProviderStub>();
                 var pId = new PersonIdentifier() { CprNumber = pnr, UUID = Guid.NewGuid() };
-                var prov = new TrackingDataProvider();
+                var prov = new RemovePersonDataProvider();
                 prov.RemovePerson(pId);
                 Assert.False(IPutSubscriptionDataProviderStub.RemoveSubscriptionCalled);
             }
@@ -154,7 +155,7 @@ namespace CprBroker.Tests.Tracking
                 IPutSubscriptionDataProviderStub._IsSharingSubscriptions = false;
                 RegisterDataProviderType<IPutSubscriptionDataProviderStub>();
                 var pId = new PersonIdentifier() { CprNumber = pnr, UUID = Guid.NewGuid() };
-                var prov = new TrackingDataProvider();
+                var prov = new RemovePersonDataProvider();
                 prov.RemovePerson(pId);
                 Assert.True(IPutSubscriptionDataProviderStub.RemoveSubscriptionCalled);
             }
@@ -197,7 +198,7 @@ namespace CprBroker.Tests.Tracking
                 };
                 Assert.AreEqual(1, countItems());
                 var pId = new PersonIdentifier() { CprNumber = pnr, UUID = Guid.NewGuid() };
-                var prov = new TrackingDataProvider();
+                var prov = new RemovePersonDataProvider();
 
                 var queue = new DBR.DbrQueue()
                 {

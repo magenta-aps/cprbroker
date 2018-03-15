@@ -59,7 +59,7 @@ namespace CprBroker.Tests.Tracking
                 foundUuids = prov.EnumeratePersons(startIndex, BatchSize);
 
                 var queueItems = foundUuids
-                    .Select(uuid => new CleanupQueueItem() { PersonUuid = uuid.UUID.Value, PNR = uuid.CprNumber })
+                    .Select(uuid => new CleanupQueueItem() { removePersonItem = new Slet.RemovePersonItem(uuid.UUID.Value, uuid.CprNumber) })
                     .ToArray();
                 Console.WriteLine("{0} : Found <{1}> persons", DateTime.Now, queueItems.Count());
                 Console.WriteLine("First <{0}>, last <{1}>", foundUuids.First().CprNumber, foundUuids.Last().CprNumber);
@@ -87,7 +87,7 @@ namespace CprBroker.Tests.Tracking
                 foundUuids = prov.EnumeratePersons(startUuid, BatchSize);
 
                 var queueItems = foundUuids
-                    .Select(uuid => new CleanupQueueItem() { removePersonItem = new RemovePersonItem(new PersonIdentifier() { CprNumber = uuid.CprNumber, UUID = uuid.UUID.Value })})
+                    .Select(uuid => new CleanupQueueItem() { removePersonItem = new RemovePersonItem(uuid.UUID.Value, uuid.CprNumber)})
                     .ToArray();
                 Console.WriteLine("{0} : Found <{1}> persons", DateTime.Now, queueItems.Count());
                 Console.WriteLine("First <{0}>, last <{1}>", foundUuids.First().CprNumber, foundUuids.Last().CprNumber);
@@ -111,7 +111,7 @@ namespace CprBroker.Tests.Tracking
             var prov = new TrackingDataProvider();
             var foundUuids = prov.EnumeratePersons(startIndex, BatchSize);
             var queueItems = foundUuids
-                    .Select(uuid => new CleanupQueueItem() { PersonUuid = uuid.UUID.Value, PNR = uuid.CprNumber })
+                    .Select(uuid => new CleanupQueueItem() { removePersonItem = new RemovePersonItem(uuid.UUID.Value, uuid.CprNumber )})
                     .ToArray();
             Console.WriteLine("{0} : Found <{1}> persons", DateTime.Now, queueItems.Count());
 
@@ -172,7 +172,7 @@ namespace CprBroker.Tests.Tracking
                 try
                 {
                     Interlocked.Increment(ref ProcessItemCalls);
-                    var decision = prov.GetRemovalDecision(queueItem.ToPersonIdentifier(), fromDate, dbrFromDate, excludedMunicipalityCodes);
+                    var decision = prov.GetRemovalDecision(queueItem.removePersonItem.ToPersonIdentifier(), fromDate, dbrFromDate, excludedMunicipalityCodes);
                     Interlocked.Increment(ref ProcessItemCalls2);
                     lock (String.Intern(decision.ToString()))
                     {
