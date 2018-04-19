@@ -77,7 +77,6 @@ namespace CprBroker.Providers.ServicePlatform
                 
                 if (exists) 
                 {
-                    // Skal personens uuid eller cpr nummer logges?
                     Admin.LogSuccess("Subscription of person<"+personIdentifier.UUID+"> blocked, because person was Black-Listed ");
                     return false;
                 }
