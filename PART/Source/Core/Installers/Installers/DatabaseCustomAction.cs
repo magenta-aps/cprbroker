@@ -177,6 +177,7 @@ namespace CprBroker.Installers
 
         static void RunDatabaseAction(SessionAdapter session, Action<string> func)
         {
+            // This basically gets "EVENT" and "CPR"
             foreach (var featureName in DatabaseSetupInfo.GetDatabaseFeatureNames(session))
             {
                 func(featureName);
@@ -215,7 +216,7 @@ namespace CprBroker.Installers
         {
             RunDatabaseAction(
                 session,
-                (featureName) =>
+                (featureName) => // The feature names here are "EVENT" and "CPR", basically each of the differen databases
                 {
                     DatabaseSetupInfo setupInfo = DatabaseSetupInfo.CreateFromFeature(session, featureName);
                     if (!setupInfo.UseExistingDatabase)

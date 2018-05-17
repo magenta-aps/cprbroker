@@ -269,7 +269,8 @@ namespace CprBroker.CustomActions
             {
                 var lineSep = Environment.NewLine + "GO" + Environment.NewLine;
                 var patchInfos = new Dictionary<string, DatabasePatchInfo[]>();
-                patchInfos["CPR"] = new DatabasePatchInfo[]{
+                patchInfos["CPR"] = new DatabasePatchInfo[]
+                {
                     new DatabasePatchInfo(){
                         Version = new Version(1,3),
                         SqlScript = Properties.Resources.PatchDatabase_1_3,
@@ -349,9 +350,10 @@ namespace CprBroker.CustomActions
                                 Data.Properties.Resources.OperationType_Sql,
                                 Data.Properties.Resources.Operation_Sql,
                                 Providers.Local.Search.Properties.Resources.PersonRegistration_DeleteSearchCache,
+                                DatabaseCustomAction.MakeLookup<CprBroker.Data.Applications.OperationType>(Data.Properties.Resources.OperationType_Csv),
                             }
                         ),
-                        PatchAction = conn=> DatabaseCustomAction.InsertLookup<CprBroker.Data.Applications.OperationType>(Data.Properties.Resources.OperationType_Csv, conn)
+                        PatchAction = null
                     },
                     new DatabasePatchInfo(){
                         Version = new Version(2,2,11),
@@ -383,7 +385,17 @@ namespace CprBroker.CustomActions
                             }
                         ),
                         PatchAction = null
-                    }
+                    },
+                    new DatabasePatchInfo(){
+                        Version = new Version(2,2,13),
+                        SqlScript = string.Join(
+                            lineSep,
+                            new string[]{
+                                Properties.Resources.PatchDatabase_2_3_0,
+                            }
+                        ),
+                        PatchAction = null
+                    },
                 };
 
                 patchInfos["EVENT"] = new DatabasePatchInfo[] {
