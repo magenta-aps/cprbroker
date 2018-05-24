@@ -72,11 +72,11 @@ namespace CprBroker.Installers
                 var actions = relevant.Where(inf => inf.PatchAction != null)
                     .Select(inf => inf.PatchAction)
                     .ToArray();
-
+                var lineSep = Environment.NewLine + "GO" + Environment.NewLine;
                 return new DatabasePatchInfo()
                 {
                     Version = oldVersion,
-                    SqlScript = string.Join(Environment.NewLine, relevant.Select(inf => inf.SqlScript).ToArray()),
+                    SqlScript = string.Join(lineSep, relevant.Select(inf => inf.SqlScript).ToArray()),
                     PatchAction = actions == null ?
                         null as Action<SqlConnection>
                         :
