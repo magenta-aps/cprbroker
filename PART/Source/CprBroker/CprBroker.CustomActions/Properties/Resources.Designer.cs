@@ -296,6 +296,16 @@ namespace CprBroker.CustomActions.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to IF NOT EXISTS (SELECT * FROM OperationType WHERE OperationTypeId = 12)
+        ///	INSERT INTO OperationType(Name, OperationTypeId) VALUES (&apos;RemovePerson&apos;,12).
+        /// </summary>
+        public static string PatchDatabase_2_3_0 {
+            get {
+                return ResourceManager.GetString("PatchDatabase_2_3_0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to IF NOT EXISTS (SELECT * FROM sys.indexes si WHERE si.name = N&apos;IX_QueueItem_QueueId&apos;)
         ///	CREATE NONCLUSTERED INDEX [IX_QueueItem_QueueId] ON [dbo].[QueueItem] 
         ///	(
