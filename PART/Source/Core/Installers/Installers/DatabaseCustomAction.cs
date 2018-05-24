@@ -248,7 +248,6 @@ namespace CprBroker.Installers
                     if (featurePatchInfos.ContainsKey(featureName))
                     {
                         var featurePatchInfo = DatabasePatchInfo.Merge(featurePatchInfos[featureName], version);
-
                         if (featurePatchInfo != null)
                         {
                             DatabaseSetupInfo setupInfo = DatabaseSetupInfo.CreateFromFeature(session, featureName);
