@@ -91,7 +91,7 @@ namespace CprBroker.Slet
                     FailIfNoDataProvider = true,
                     FailOnDefaultOutput = true,
                     LocalDataProviderOption = SourceUsageOrder.LocalThenExternal,
-                    Method = prov => prov.RemovePerson(personIdentifier),
+                    Method = prov => prov.EnqueuePersonForRemoval(personIdentifier),
                     UpdateMethod = null,
                 }
             };

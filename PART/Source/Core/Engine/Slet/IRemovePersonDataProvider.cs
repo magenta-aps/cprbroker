@@ -9,6 +9,6 @@ namespace CprBroker.Slet
 {
     public interface IRemovePersonDataProvider : IDataProvider
     {
-        bool RemovePerson(PersonIdentifier personIdentifier);
+        bool EnqueuePersonForRemoval(PersonIdentifier personIdentifier);
     }
 }

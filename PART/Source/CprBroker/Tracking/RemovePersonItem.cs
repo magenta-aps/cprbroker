@@ -13,17 +13,20 @@ namespace CprBroker.Slet
         public Guid PersonUuid { get; set; }
         public string PNR { get; set; }
         public PersonRemovalDecision removalDecision { get; set; }
+        public bool forceRemoval { get; set; }
 
-        public RemovePersonItem(PersonIdentifier personIdentifier)
+        public RemovePersonItem(PersonIdentifier personIdentifier, bool forceRemoval = false)
         {
             PersonUuid = personIdentifier.UUID.Value;
             PNR = personIdentifier.CprNumber;
+            this.forceRemoval = forceRemoval;
         }
 
-        public RemovePersonItem(Guid guid, string pnr)
+        public RemovePersonItem(Guid guid, string pnr, bool forceRemoval = false)
         {
             PersonUuid = guid;
             PNR = pnr;
+            this.forceRemoval = forceRemoval;
         }
 
         public PersonIdentifier ToPersonIdentifier()

@@ -17,15 +17,16 @@ namespace CprBroker.PartInterface.Tracking
         public void DeserializeFromKey(string key)
         {
             var arr = key.Split('|');
-            removePersonItem.PersonUuid = new Guid(arr[0]);
-            removePersonItem.PNR = arr[1];
+
+            removePersonItem = new RemovePersonItem(new Guid(arr[0]), arr[1], arr[2].Equals("1"));
         }
 
         public string SerializeToKey()
         {
-            return string.Format("{0}|{1}",
+            return string.Format("{0}|{1}|{2}",
                 removePersonItem.PersonUuid,
-                string.Format("{0}", removePersonItem.PNR).PadLeft(10, '0')
+                string.Format("{0}", removePersonItem.PNR).PadLeft(10, '0'),
+                removePersonItem.forceRemoval ? 1 : 0
                 );
         }
 

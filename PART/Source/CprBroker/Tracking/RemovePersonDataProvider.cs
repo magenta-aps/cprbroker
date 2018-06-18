@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using CprBroker.Schemas;
 using CprBroker.PartInterface.Tracking;
-using System.Threading;
 using CprBroker.Engine;
 using CprBroker.Engine.Local;
+using CprBroker.Engine.Queues;
 using CprBroker.Utilities.Config;
 
 namespace CprBroker.Slet
@@ -29,6 +29,37 @@ namespace CprBroker.Slet
         }
         #endregion
 
+        public bool EnqueuePersonForRemoval(PersonIdentifier personIdentifier)
+        {
+            BrokerContext.Current.RegisterOperation(CprBroker.Data.Applications.OperationType.Types.Generic, this.GetType().Name);
+
+            var cleanupQueue = Queue.GetQueues<CleanupQueue>().First();
+
+            try
+            {
+                // Create a semaphore to block queue processing while enqueuing person
+                var queueSemaphore = Semaphore.Create();
+
+                var removePersonItem = new CleanupQueueItem() { removePersonItem = new RemovePersonItem(personIdentifier, true) };
+                cleanupQueue.Enqueue(removePersonItem, queueSemaphore);
+                
+                queueSemaphore.Signal();
+
+                Admin.LogFormattedSuccess("<{0}>: Successfully enqueued person <{1}> for removal.", this.GetType().Name, personIdentifier.UUID);
+                return true;
+            }
+            catch (Exception e)
+            {
+                Admin.LogFormattedError("<{0}>: Error enqueuing person <{1}> for removal.", this.GetType().Name, personIdentifier.UUID);
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Should only be called from Event Broker, since the broker context should hold Event Broker credentials to access the subscription database
+        /// </summary>
+        /// <param name="personIdentifier"></param>
+        /// <returns></returns>
         public bool RemovePerson(PersonIdentifier personIdentifier)
         {
             Admin.LogFormattedSuccess("<{0}>: Removing person <{1}>", this.GetType().Name, personIdentifier.UUID);

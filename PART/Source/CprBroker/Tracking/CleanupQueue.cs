@@ -72,8 +72,17 @@ namespace CprBroker.PartInterface.Tracking
             BrokerContext.Current = brokerContext;
             var personIdentifier = queueItem.removePersonItem.ToPersonIdentifier();
 
-            // First, make and log the decisions
-            var decision = prov.GetRemovalDecision(personIdentifier, fromDate, dbrFromDate, excludedMunicipalityCodes);
+            // First, make and log the decision to remove the person
+            PersonRemovalDecision decision;
+            if (queueItem.removePersonItem.forceRemoval)
+            {
+                decision = PersonRemovalDecision.RemoveCompletely;
+                Admin.LogFormattedSuccess("<{0}>: Manually flagging person <{1}> for complete removal,", this.GetType().Name, personIdentifier.UUID);
+            }
+            else
+            {
+                decision = prov.GetRemovalDecision(personIdentifier, fromDate, dbrFromDate, excludedMunicipalityCodes);
+            }
 
             // Action time
             // Remove the person if needed
