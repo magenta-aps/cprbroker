@@ -72,6 +72,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="RemovePersonDataProviderTests.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="CleanupDetectionEnqueuerTests.cs" />
     <Compile Include="CleanupQueueTests.cs" />

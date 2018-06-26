@@ -31,8 +31,6 @@ namespace CprBroker.Slet
 
         public bool EnqueuePersonForRemoval(PersonIdentifier personIdentifier)
         {
-            BrokerContext.Current.RegisterOperation(CprBroker.Data.Applications.OperationType.Types.Generic, this.GetType().Name);
-
             var cleanupQueue = Queue.GetQueues<CleanupQueue>().First();
 
             try
