@@ -107,8 +107,10 @@ namespace CprBroker.Installers.EventBrokerInstallers
         {
             try
             {
+                
                 Installation.SetConnectionStringInConfigFile(GetServiceExeConfigFullFileName(session), "CprBroker.Config.Properties.Settings.CprBrokerConnectionString", DatabaseSetupInfo.CreateFromFeature(session, "CPR").CreateConnectionString(false, true));
                 Installation.SetConnectionStringInConfigFile(GetServiceExeConfigFullFileName(session), "CprBroker.Config.Properties.Settings.EventBrokerConnectionString", DatabaseSetupInfo.CreateFromFeature(session, "EVENT").CreateConnectionString(false, true));
+
                 InstallService(GetServiceExeFullFileName(session), GetServiceExeFrameworkVersion());
 
                 StartService(ServiceName);
@@ -221,7 +223,7 @@ namespace CprBroker.Installers.EventBrokerInstallers
                 var targetPath = GetServiceExeConfigFullFileName(session);
 
                 // TODO: Shall we also clone connection strings?
-                Installation.CopyConfigNode("//configuration", "configSections", sourcePath, targetPath, Installation.MergeOption.Overwrite);
+                Installation.CopyConfigNode("//configuration", "configSections", sourcePath, targetPath, Installation.MergeOption.Ignore);
                 Installation.CopyConfigNode("//configuration", "dataProvidersGroup", sourcePath, targetPath, Installation.MergeOption.Overwrite);
 
                 try { StartService(ServiceName); }
@@ -314,8 +316,8 @@ namespace CprBroker.Installers.EventBrokerInstallers
             var sourceConfig = ConfigurationManager.OpenMappedExeConfiguration(
                 new ExeConfigurationFileMap() { ExeConfigFilename = sourceFileName },
                 ConfigurationUserLevel.None);
-            var sourceSection = sourceConfig.Sections[TasksConfigurationSection.SectionName] as TasksConfigurationSection;
 
+            var sourceSection = sourceConfig.Sections[TasksConfigurationSection.SectionName] as TasksConfigurationSection;
             // Add section definition
             Installation.AddConfigSectionDefinition(GetServiceExeConfigFullFileName(session), null, TasksConfigurationSection.SectionName, typeof(TasksConfigurationSection));
 
@@ -324,6 +326,7 @@ namespace CprBroker.Installers.EventBrokerInstallers
             var targetSection = targetConfig.GetSection(TasksConfigurationSection.SectionName) as TasksConfigurationSection;
 
             targetSection.AutoLoaded.ImportDiffFrom(sourceSection);
+
             targetConfig.Save();
 
             // Cleanup
