@@ -99,7 +99,7 @@
     </WixLibrary>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CprBrokerWixInstallers\CprBroker.CustomActions.csproj">
+    <ProjectReference Include="..\CprBroker.CustomActions\CprBroker.CustomActions.csproj">
       <Name>CprBroker.CustomActions</Name>
       <Project>{ebe4da5e-1e87-4071-b8a3-ec6096b35b31}</Project>
       <Private>True</Private>
