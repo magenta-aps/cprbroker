@@ -299,5 +299,18 @@ namespace CprBroker.CustomActions
                     value: kvp.Value);
             }
         }
+
+        public static void PatchWebsite_2_3_0(SessionAdapter session)
+        {
+            var types = new Type[]
+            {
+                typeof(CprBroker.Slet.RemovePersonDataProvider)
+            };
+            var webInstallationInfo = WebInstallationInfo.CreateFromFeature(session, "CPR");
+            var configFilePath = webInstallationInfo.GetWebConfigFilePath(EventBrokerCustomActions.PathConstants.CprBrokerWebsiteDirectoryRelativePath);
+
+            // Add new node(s) for data providers
+            CprBroker.Installers.Installation.AddKnownDataProviderTypes(types, configFilePath);
+        }
     }
 }

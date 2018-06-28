@@ -128,6 +128,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="CustomAction.config" />
+    <Content Include="Resources\PatchDatabase_2_3_0.sql" />
     <Content Include="Resources\PatchDatabase_2_2_11.sql" />
     <Content Include="Resources\PatchDatabase_2_2_6.sql" />
     <None Include="Resources\Queue.csv" />
@@ -171,6 +172,10 @@
     <ProjectReference Include="..\ServicePlatform\ServicePlatform.csproj">
       <Project>{233be1ab-28da-4b2f-8cc0-4bb3d88adc95}</Project>
       <Name>ServicePlatform</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tracking\Tracking.csproj">
+      <Project>{0a0ed81d-1f70-444b-a61f-837955728598}</Project>
+      <Name>Tracking</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

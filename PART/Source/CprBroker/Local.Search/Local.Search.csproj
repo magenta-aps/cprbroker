@@ -128,11 +128,10 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PartInterface\PartInterface.csproj">
-      <Project>{DA42D8BB-24D3-4416-A0BD-B98857F249AD}</Project>
+      <Project>{da42d8bb-24d3-4416-a0bd-b98857f249ad}</Project>
       <Name>PartInterface</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <None Include="Init\InitializePersonSearchCache.sql" />
     <None Include="Init\PersonRegistration_PopulateSearchCache.sql" />

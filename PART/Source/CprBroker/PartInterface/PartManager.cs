@@ -116,12 +116,5 @@ namespace CprBroker.PartInterface
             var facadeMethod = new PutSubscriptionFacadeMethodInfo(personUuids, appToken, userToken);
             return GetMethodOutput<bool>(facadeMethod);
         }
-
-        public BasicOutputType<bool> RemovePerson(string userToken, string appToken, Guid uuid)
-        {
-            var facadeMethod = new RemovePersonFacadeMethodInfo(userToken, appToken, uuid);
-            return GetMethodOutput<bool>(facadeMethod);
-        }
-
     }
 }

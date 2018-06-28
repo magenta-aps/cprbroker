@@ -80,6 +80,11 @@
     </Compile>
     <Compile Include="ReadInstance.cs" />
     <Compile Include="Properties\SettingsUtilities.cs" />
+    <Compile Include="RemovePersonDataProvider.cs" />
+    <Compile Include="RemovePersonDataProvider.Helpers.cs" />
+    <Compile Include="RemovePersonFacadeMethodInfo.cs" />
+    <Compile Include="RemovePersonItem.cs" />
+    <Compile Include="RemovePersonManager.cs" />
     <Compile Include="TrackingDataProvider.cs" />
     <Compile Include="TrackingExtensions.cs" />
     <Compile Include="TrackingRequestProcessor.cs" />
@@ -105,9 +110,6 @@
       <Project>{da42d8bb-24d3-4416-a0bd-b98857f249ad}</Project>
       <Name>PartInterface</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="TrackingDataProvider.Helpers.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

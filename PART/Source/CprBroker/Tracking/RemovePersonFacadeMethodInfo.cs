@@ -47,10 +47,13 @@ using System.Text;
 using System.Threading.Tasks;
 using CprBroker.Schemas;
 using CprBroker.Schemas.Part;
-using CprBroker.Data.Part;
 using CprBroker.Data.Applications;
+using CprBroker.Utilities;
+using CprBroker.Engine;
+using CprBroker.PartInterface.Tracking;
+using CprBroker.Data.Part;
 
-namespace CprBroker.Engine.Part
+namespace CprBroker.Slet
 {
     public class RemovePersonFacadeMethodInfo : GenericFacadeMethodInfo<bool>
     {
@@ -81,21 +84,32 @@ namespace CprBroker.Engine.Part
 
         public override void Initialize()
         {
-            // this.SubMethodInfos = new SubMethodInfo<IRemovePersonDataProvider, bool>()
-            //{
-            //    FailIfNoDataProvider = false,
-            //    FailOnDefaultOutput = true,
-            //    LocalDataProviderOption = SourceUsageOrder.ExternalOnly,
-            //    Method = prov => prov.RemovePerson(personIdentifier),
-            //    UpdateMethod = null,
-            //}
+            this.SubMethodInfos = new SubMethodInfo[]
+            {
+                new SubMethodInfo<IRemovePersonDataProvider, bool>()
+                {
+                    FailIfNoDataProvider = true,
+                    FailOnDefaultOutput = true,
+                    LocalDataProviderOption = SourceUsageOrder.LocalThenExternal,
+                    Method = prov => prov.EnqueuePersonForRemoval(personIdentifier),
+                    UpdateMethod = null,
+                }
+            };
         }
 
         public override OperationType.Types? MainOperationType
         {
             get
             {
-                return OperationType.Types.Delete;
+                return OperationType.Types.RemovePerson;
+            }
+        }
+
+        public override string[] InputOperationKeys
+        {
+            get
+            {
+                return new string[] { Strings.GuidToString(uuid) };
             }
         }
     }

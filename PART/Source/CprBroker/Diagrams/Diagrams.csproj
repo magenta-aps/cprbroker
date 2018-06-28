@@ -115,6 +115,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="BacthClient.cd" />
     <None Include="CPRDataProviders.cd" />
     <None Include="CPRDirectWrappers.cd" />

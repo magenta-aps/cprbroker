@@ -43,7 +43,7 @@ namespace CprBroker.Tests.Tracking
                 Assert.Greater(countItems(pnr), 0);
                 var pId = new PersonIdentifier() { CprNumber = pnr, UUID = Guid.NewGuid() };
                 var queue = new CleanupQueue();
-                var succeeded = queue.Process(new CleanupQueueItem[] { new CleanupQueueItem() { PersonUuid = pId.UUID.Value, PNR = pId.CprNumber } });
+                var succeeded = queue.Process(new CleanupQueueItem[] { new CleanupQueueItem() { removePersonItem = new Slet.RemovePersonItem(pId.UUID.Value, pId.CprNumber) } });
                 Assert.AreEqual(1, succeeded.Length);
                 Assert.AreEqual(countItems(pnr), 0);
                 Assert.Greater(countItems(null), 0);
@@ -88,7 +88,7 @@ namespace CprBroker.Tests.Tracking
                 };
                 var uuid = Guid.NewGuid();
                 var pnr = Tests.PartInterface.Utilities.RandomCprNumber();
-                var items = Enumerable.Range(0, c).Select(i => new CleanupQueueItem() { PersonUuid = uuid, PNR = pnr }).ToArray();
+                var items = Enumerable.Range(0, c).Select(i => new CleanupQueueItem() { removePersonItem = new Slet.RemovePersonItem(uuid, pnr) }).ToArray();
                 var start = DateTime.Now;
                 queue.Process(items);
                 var end = DateTime.Now;
@@ -114,7 +114,7 @@ namespace CprBroker.Tests.Tracking
                         return qi;
                     }
                 };
-                var items = Enumerable.Range(0, c).Select(i => new CleanupQueueItem() { PersonUuid = Guid.NewGuid(), PNR = PartInterface.Utilities.RandomCprNumber() }).ToArray();
+                var items = Enumerable.Range(0, c).Select(i => new CleanupQueueItem() { removePersonItem = new Slet.RemovePersonItem(Guid.NewGuid(), PartInterface.Utilities.RandomCprNumber()) }).ToArray();
                 var start = DateTime.Now;
                 queue.Process(items);
                 var end = DateTime.Now;

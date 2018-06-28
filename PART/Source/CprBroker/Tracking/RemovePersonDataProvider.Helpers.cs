@@ -1,18 +1,19 @@
-﻿using CprBroker.Data.Events;
-using CprBroker.DBR;
-using CprBroker.Engine;
-using CprBroker.Providers.CPRDirect;
-using CprBroker.Providers.DPR;
-using CprBroker.Schemas;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CprBroker.Engine;
+using CprBroker.Schemas;
+using CprBroker.DBR;
+using CprBroker.Providers.CPRDirect;
+using CprBroker.Providers.DPR;
+using CprBroker.Data.Events;
+using CprBroker.Providers.Local.Search;
 
-namespace CprBroker.PartInterface.Tracking
+namespace CprBroker.Slet
 {
-    partial class TrackingDataProvider
+    partial class RemovePersonDataProvider
     {
         public async Task<bool> RemoveSubscription(BrokerContext brokerContext, IPutSubscriptionDataProvider prov, PersonIdentifier personIdentifier)
         {
@@ -34,6 +35,13 @@ namespace CprBroker.PartInterface.Tracking
         {
             BrokerContext.Current = brokerContext;
             CprBroker.Data.Part.Person.Delete(personIdentifier);
+            return true;
+        }
+
+        public async Task<bool> DeletePersonFromSearchCache(BrokerContext brokerContext, PersonIdentifier personIdentifier)
+        {
+            BrokerContext.Current = brokerContext;
+            LocalSearchDataProvider.DeleteFromSearchCache(personIdentifier);
             return true;
         }
 

@@ -9,6 +9,7 @@ using CprBroker.Schemas;
 using CprBroker.Engine;
 using CprBroker.Providers.Local.Search;
 using CprBroker.Engine.Local;
+using CprBroker.Slet;
 using System.Threading;
 
 namespace CprBroker.PartInterface.Tracking
@@ -20,7 +21,7 @@ namespace CprBroker.PartInterface.Tracking
         public override CleanupQueueItem[] Process(CleanupQueueItem[] items)
         {
             var prov = new TrackingDataProvider();
-            var uuids = items.Select(i => i.PersonUuid).ToArray();
+            var uuids = items.Select(i => i.removePersonItem.PersonUuid).ToArray();
 
             var brokerContext = BrokerContext.Current;
 
@@ -43,7 +44,7 @@ namespace CprBroker.PartInterface.Tracking
             try
             {
                 // Establish a person based critical section
-                personMutex = new Mutex(false, Utilities.Strings.GuidToString(queueItem.PersonUuid));
+                personMutex = new Mutex(false, Utilities.Strings.GuidToString(queueItem.removePersonItem.PersonUuid));
                 personMutex.WaitOne();
 
                 // Now the person is locked, all possible usage has been recorded                
@@ -69,10 +70,19 @@ namespace CprBroker.PartInterface.Tracking
         public virtual CleanupQueueItem ProcessItem(BrokerContext brokerContext, TrackingDataProvider prov, CleanupQueueItem queueItem, DateTime fromDate, DateTime dbrFromDate, int[] excludedMunicipalityCodes)
         {
             BrokerContext.Current = brokerContext;
-            var personIdentifier = queueItem.ToPersonIdentifier();
+            var personIdentifier = queueItem.removePersonItem.ToPersonIdentifier();
 
-            // First, make and log the decisions
-            var decision = prov.GetRemovalDecision(personIdentifier, fromDate, dbrFromDate, excludedMunicipalityCodes);
+            // First, make and log the decision to remove the person
+            PersonRemovalDecision decision;
+            if (queueItem.removePersonItem.forceRemoval)
+            {
+                decision = PersonRemovalDecision.RemoveCompletely;
+                Admin.LogFormattedSuccess("<{0}>: Manually flagging person <{1}> for complete removal,", this.GetType().Name, personIdentifier.UUID);
+            }
+            else
+            {
+                decision = prov.GetRemovalDecision(personIdentifier, fromDate, dbrFromDate, excludedMunicipalityCodes);
+            }
 
             // Action time
             // Remove the person if needed
@@ -80,7 +90,7 @@ namespace CprBroker.PartInterface.Tracking
             {
                 case PersonRemovalDecision.RemoveCompletely:
                     Admin.LogFormattedSuccess("<{0}>:Removing unused person <{1}>", this.GetType().Name, personIdentifier.UUID);
-                    var task1 = prov.RemovePersonAsync(personIdentifier);
+                    var task1 = new RemovePersonDataProvider().RemovePersonAsync(personIdentifier);
                     task1.Wait();
                     var personRemoved = task1.Result;
                     if (personRemoved)
@@ -90,7 +100,7 @@ namespace CprBroker.PartInterface.Tracking
 
                 case PersonRemovalDecision.RemoveFromDprEmulation: // Only remove from DPR emulation                    
                     Admin.LogFormattedSuccess("<{0}>:Removing semi-unused person <{1}> from DPR emulation", this.GetType().Name, personIdentifier.UUID);
-                    var task2 = prov.DeletePersonFromAllDBR(brokerContext, personIdentifier);
+                    var task2 = new RemovePersonDataProvider().DeletePersonFromAllDBR(brokerContext, personIdentifier);
                     task2.Wait();
                     var dbrRemoved = task2.Result;
                     if (dbrRemoved)

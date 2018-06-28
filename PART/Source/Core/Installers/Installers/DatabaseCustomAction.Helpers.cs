@@ -229,7 +229,13 @@ namespace CprBroker.Installers
             InsertLookup(tableName, csv, conn);
         }
 
-        public static void InsertLookup(string tableName, string csv, SqlConnection conn)
+        public static string MakeLookup<T>(string csv)
+        {
+            var tableName = Utilities.DataLinq.GetTableName<T>();
+            return MakeLookup(tableName, csv);
+        }
+
+        public static string MakeLookup(string tableName, string csv)
         {
             string[] lines = csv.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
             string[] columnNames = lines[0].Split(';');
@@ -244,18 +250,24 @@ namespace CprBroker.Installers
 
                 string[] values = lines[i].Split(';');
                 values = values.Select(v =>
-                    {
-                        long l;
-                        if (string.IsNullOrEmpty(v))
-                            return "NULL";
-                        else if (long.TryParse(v, out l))
-                            return v;
-                        else
-                            return string.Format("'{0}'", v);
-                    }).ToArray();
+                {
+                    long l;
+                    if (string.IsNullOrEmpty(v))
+                        return "NULL";
+                    else if (long.TryParse(v, out l))
+                        return v;
+                    else
+                        return string.Format("'{0}'", v);
+                }).ToArray();
                 sql += string.Join(",", values);
                 sql += ")" + Environment.NewLine;
             }
+            return sql;
+        }
+
+        public static void InsertLookup(string tableName, string csv, SqlConnection conn)
+        {
+            string sql = MakeLookup(tableName, csv);
 
             using (SqlCommand command = new SqlCommand(sql, conn))
             {

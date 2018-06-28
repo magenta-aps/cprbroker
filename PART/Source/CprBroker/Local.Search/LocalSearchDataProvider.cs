@@ -49,6 +49,7 @@ using System.Linq.Expressions;
 
 using CprBroker.Engine;
 using CprBroker.Utilities;
+using CprBroker.Schemas;
 using CprBroker.Schemas.Part;
 
 namespace CprBroker.Providers.Local.Search
@@ -185,6 +186,15 @@ namespace CprBroker.Providers.Local.Search
             get { return new Version(CprBroker.Utilities.Constants.Versioning.Major, CprBroker.Utilities.Constants.Versioning.Minor); }
         }
 
+        public static void DeleteFromSearchCache(PersonIdentifier personIdentifier)
+        {
+            using (var searchDataContext = new PartSearchDataContext())
+            {
+                var personsToDelete = searchDataContext.PersonSearchCaches.Where(p => p.UUID == personIdentifier.UUID);
+                searchDataContext.PersonSearchCaches.DeleteAllOnSubmit(personsToDelete);
 
+                searchDataContext.SubmitChanges();
+            }
+        }
     }
 }

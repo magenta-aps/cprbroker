@@ -60,6 +60,7 @@ using CprBroker.Engine;
 using CprBroker.Data.DataProviders;
 using CprBroker.Schemas;
 using CprBroker.Data;
+using CprBroker.PartInterface.Tracking;
 
 namespace CprBroker.Tests.PartInterface
 {
@@ -87,7 +88,7 @@ namespace CprBroker.Tests.PartInterface
 
         public virtual void CreateDatabases()
         {
-            CprDatabase = CreateDatabase("CprBrrokerTest_",
+            CprDatabase = CreateDatabase("CprBrokerTest_",
                 CprBroker.CustomActions.Properties.ResourcesExtensions.AllCprBrokerDatabaseObjectsSql,
                 CprBroker.CustomActions.Properties.ResourcesExtensions.Lookups
                 );
@@ -168,6 +169,7 @@ namespace CprBroker.Tests.PartInterface
             section.AutoLoaded.Add(new TasksConfigurationSection.TaskElement() { Type = typeof(CprBroker.Engine.Tasks.QueueExecutionManager) });
             section.AutoLoaded.Add(new TasksConfigurationSection.TaskElement() { Type = typeof(CprBroker.DBR.DprDiversionManager) });
             section.AutoLoaded.Add(new TasksConfigurationSection.TaskElement() { Type = typeof(CprBroker.Providers.DPR.Queues.DprEnqueuer), RunEvery = TimeSpan.FromSeconds(30).ToString() });
+            section.AutoLoaded.Add(new TasksConfigurationSection.TaskElement() { Type = typeof(CprBroker.PartInterface.Tracking.CleanupQueue), RunEvery = TimeSpan.FromSeconds(10).ToString() });
 
             if (forceRunEvery.HasValue)
             {

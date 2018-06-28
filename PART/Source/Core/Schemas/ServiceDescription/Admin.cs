@@ -245,5 +245,27 @@ Writes a text string to the system's log. The text will be logged as type 'Infor
 </table>
 <br>==============================
 ";
+
+        public const string RemovePerson = @"
+Removes a person completely from the CPR Broker database, regardless of usage.
+
+<br><br><b><u>Signature:</u></b>
+<br>BasicOutputTypeOfBoolean RemovePerson(Guid personUuid)
+
+<br><br><b><u>Parameter Description:</u></b>
+<br><table>
+<tr><td>personUuid (input):</td><td>The UUID of the person to be removed.</td></tr>
+</table>
+
+<br><b><u>Return value copmponents:</u></b>
+<br>StandardRetur: Detailed status code and text.
+<br>Item : Boolean specifying whether the operation has succeeded.
+
+<br><br><b><u>Review:</u></b>
+<table>
+<tr><td width='30%'>2018-02-22, CPR Broker </td><td width='10%'></td><td width='60%'>Version 2.3.0.</td></tr>
+</table>
+<br>==============================
+";
     }
 }

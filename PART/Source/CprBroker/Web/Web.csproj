@@ -72,9 +72,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Core\Output\CprBroker.Utilities.dll</HintPath>
     </Reference>
-    <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
-      <HintPath>..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.EnterpriseLibrary.Logging, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -418,6 +417,10 @@
     <ProjectReference Include="..\ServicePlatform\ServicePlatform.csproj">
       <Project>{233be1ab-28da-4b2f-8cc0-4bb3d88adc95}</Project>
       <Name>ServicePlatform</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tracking\Tracking.csproj">
+      <Project>{0a0ed81d-1f70-444b-a61f-837955728598}</Project>
+      <Name>Tracking</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

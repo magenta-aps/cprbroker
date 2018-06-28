@@ -20,7 +20,7 @@ namespace CprBroker.Data.Applications
             Unsubscribe = 9,
             ListSubscriptions = 10,
             DprDiversion = 11,
-            Remove = 12
+            RemovePerson = 12
         }
     }
 }
