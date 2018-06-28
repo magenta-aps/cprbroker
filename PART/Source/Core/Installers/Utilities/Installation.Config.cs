@@ -119,7 +119,7 @@ namespace CprBroker.Installers
             attributes["name"] = sectionName;
             attributes["type"] = sectionType.AssemblyQualifiedName;
 
-            AddSectionNode("section", attributes, configFilePath, parentNodeXPath);
+            AddSectionNode("section", attributes,"section[@name = '" + sectionName + "']", configFilePath, parentNodeXPath);
         }
 
         public static bool AddSectionNode(string nodeName, Dictionary<string, string> attributes, string configFileName, string parentNodeXPath)
