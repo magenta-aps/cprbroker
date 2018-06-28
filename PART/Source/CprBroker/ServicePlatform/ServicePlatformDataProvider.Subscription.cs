@@ -49,6 +49,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Data.SqlClient;
+using CprBroker.Utilities.Config;
 
 namespace CprBroker.Providers.ServicePlatform
 {
@@ -59,6 +61,27 @@ namespace CprBroker.Providers.ServicePlatform
 
         public bool PutSubscription(PersonIdentifier personIdentifier)
         {
+
+            // This is a Blacklist feature, where we check if the person is "blacklisted" and should not be subscriped to, when called through CPR Broker
+            using (var conn = new SqlConnection(ConfigManager.Current.Settings.CprBrokerConnectionString))
+            {
+                // Count the number of Cpr numbers that match the cpr number being processed 
+                // - we just need to know if it is in the db, but this is the easiest way
+                var cmd = new SqlCommand("SELECT COUNT(1) FROM [Blacklist] WHERE CprNr = @cpr", conn);
+
+                // Should be safer and more effecient than inserting it in the string above
+                cmd.Parameters.AddWithValue("@cpr", personIdentifier.CprNumber);
+                conn.Open();
+
+                bool exists = 0 < (int)cmd.ExecuteScalar();
+                
+                if (exists) 
+                {
+                    Admin.LogSuccess("Subscription of person<"+personIdentifier.UUID+"> blocked, because person was Black-Listed ");
+                    return false;
+                }
+            }
+
             var service = CreateService<CprSubscriptionService.CprSubscriptionWebServicePortType, CprSubscriptionService.CprSubscriptionWebServicePortTypeClient>(ServiceInfo.CPRSubscription);
 
             using (var callContext = this.BeginCall("AddPNRSubscription", personIdentifier.CprNumber))
