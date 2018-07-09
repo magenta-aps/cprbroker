@@ -1,4 +1,7 @@
 ﻿# cprbroker
+ 
+ # MOVED TO https://github.com/OS2CPRbroker/cprbroker
+ 
 The CPRBroker was programmed by Magenta ApS (http://magenta.dk)
 for OS2 - Offentligt digitaliseringsfællesskab, http://os2web.dk.
 
@@ -13,5 +16,4 @@ http://mozilla.org/MPL/2.0/.
 All source code in this and the underlying directories is subject to
 the terms of the Mozilla Public License, v. 2.0. 
 
-Release repository: https://github.com/OS2CPRbroker/cprbroker
-Development repository: https://github.com/magenta-aps/cprbroker
+Repository: https://github.com/OS2CPRbroker/cprbroker
